@@ -1,0 +1,45 @@
+@charset "utf-8";
+@font-face {
+			font-family: font_ttf; /* Гарнитура шрифта */
+			src: url(../fonts/okolaksBold.ttf); /* Для IE5-8 */
+			src: local(font_ttf), url(../fonts/okolaksBold.ttf); /* Для остальных браузеров */
+			}						
+	a {
+	font-family: font_ttf, Geneva, sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+		}
+	p {
+		font-family: font_ttf, Geneva, sans-serif;
+		}
+	h1 {
+		font-family: font_ttf, Geneva, sans-serif;
+		text-align: center;
+		}
+	h2 {
+		font-family: font_ttf, Geneva, sans-serif;
+		text-align: center;
+		}
+			
+	body {
+		background: #990099;
+		margin-top: 0px;
+				margin-right: 0px;
+				margin-bottom: 0px;
+				margin-left: 0px;
+				padding-top: 0px;
+				padding-right: 0px;
+				padding-bottom: 0px;
+				padding-left: 0px;
+				border-top-width: 0px;
+				border-right-width: 0px;
+				border-bottom-width: 0px;
+				border-left-width: 0px;
+				border-top-style: none;
+				border-right-style: none;
+				border-bottom-style: none;
+				border-left-style: none;
+				background: #000066;
+				overflow-y:hidden;
+				overflow-x:hidden;
+}

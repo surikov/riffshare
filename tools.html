@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>RiffTools</title>
+		<meta charset="utf-8">
+		<script src="js/tools.js"></script>
+		<script src="js/MidiCompiler.js"></script>
+		<script src="js/MidiParser.js"></script>
+		<script>
+			console.log('tools v1.01');
+			
+			//console.log('encoded',encoded);
+			//decodeState(encoded);
+			//console.log('encoded',location.href);
+			
+			
+			//console.log('decoded',decoded);
+			//var tempo=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
+			//console.log(tempo);
+			function init(){
+				var encoded=encodeState();
+				document.getElementById("urlshare").href='parse.html?riff='+encoded;
+				
+				document.getElementById("tempo").value=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
+				document.getElementById("track0").value=sureNumeric(readTextFromlocalStorage('track0'),0,60,100);
+				document.getElementById("track1").value=sureNumeric(readTextFromlocalStorage('track1'),0,60,100);
+				document.getElementById("track2").value=sureNumeric(readTextFromlocalStorage('track2'),0,60,100);
+				document.getElementById("track3").value=sureNumeric(readTextFromlocalStorage('track3'),0,60,100);
+				document.getElementById("track4").value=sureNumeric(readTextFromlocalStorage('track4'),0,60,100);
+				document.getElementById("track5").value=sureNumeric(readTextFromlocalStorage('track5'),0,80,100);
+				document.getElementById("track6").value=sureNumeric(readTextFromlocalStorage('track6'),0,40,100);
+				document.getElementById("track7").value=sureNumeric(readTextFromlocalStorage('track7'),0,60,100);
+				
+				document.getElementById("drum0").value=sureNumeric(readTextFromlocalStorage('drum0'),0,80,100);
+				document.getElementById("drum1").value=sureNumeric(readTextFromlocalStorage('drum1'),0,80,100);
+				document.getElementById("drum2").value=sureNumeric(readTextFromlocalStorage('drum2'),0,80,100);
+				document.getElementById("drum3").value=sureNumeric(readTextFromlocalStorage('drum3'),0,80,100);
+				document.getElementById("drum4").value=sureNumeric(readTextFromlocalStorage('drum4'),0,80,100);
+				document.getElementById("drum5").value=sureNumeric(readTextFromlocalStorage('drum5'),0,80,100);
+				document.getElementById("drum6").value=sureNumeric(readTextFromlocalStorage('drum6'),0,80,100);
+				document.getElementById("drum7").value=sureNumeric(readTextFromlocalStorage('drum7'),0,80,100);
+				
+				document.getElementById("equalizer0").value=sureNumeric(readTextFromlocalStorage('equalizer0'),-10,8,10);
+				document.getElementById("equalizer1").value=sureNumeric(readTextFromlocalStorage('equalizer1'),-10,5,10);
+				document.getElementById("equalizer2").value=sureNumeric(readTextFromlocalStorage('equalizer2'),-10,0,10);
+				document.getElementById("equalizer3").value=sureNumeric(readTextFromlocalStorage('equalizer3'),-10,-2,10);
+				document.getElementById("equalizer4").value=sureNumeric(readTextFromlocalStorage('equalizer4'),-10,-5,10);
+				document.getElementById("equalizer5").value=sureNumeric(readTextFromlocalStorage('equalizer5'),-10,-3,10);
+				document.getElementById("equalizer6").value=sureNumeric(readTextFromlocalStorage('equalizer6'),-10,-1,10);
+				document.getElementById("equalizer7").value=sureNumeric(readTextFromlocalStorage('equalizer7'),-10,1,10);
+				document.getElementById("equalizer8").value=sureNumeric(readTextFromlocalStorage('equalizer8'),-10,3,10);
+				document.getElementById("equalizer9").value=sureNumeric(readTextFromlocalStorage('equalizer9'),-10,5,10);
+				
+				document.getElementById('filesOpen').addEventListener('change', openSong, false);
+				window.onunload = function(){
+					console.log('save state');
+					saveText2localStorage('tempo',''+document.getElementById("tempo").value);
+					saveText2localStorage('track0',''+document.getElementById("track0").value);
+					saveText2localStorage('track1',''+document.getElementById("track1").value);
+					saveText2localStorage('track2',''+document.getElementById("track2").value);
+					saveText2localStorage('track3',''+document.getElementById("track3").value);
+					saveText2localStorage('track4',''+document.getElementById("track4").value);
+					saveText2localStorage('track5',''+document.getElementById("track5").value);
+					saveText2localStorage('track6',''+document.getElementById("track6").value);
+					saveText2localStorage('track7',''+document.getElementById("track7").value);
+					
+					saveText2localStorage('drum0',''+document.getElementById("drum0").value);
+					saveText2localStorage('drum1',''+document.getElementById("drum1").value);
+					saveText2localStorage('drum2',''+document.getElementById("drum2").value);
+					saveText2localStorage('drum3',''+document.getElementById("drum3").value);
+					saveText2localStorage('drum4',''+document.getElementById("drum4").value);
+					saveText2localStorage('drum5',''+document.getElementById("drum5").value);
+					saveText2localStorage('drum6',''+document.getElementById("drum6").value);
+					saveText2localStorage('drum7',''+document.getElementById("drum7").value);
+					
+					saveText2localStorage('equalizer0',''+document.getElementById("equalizer0").value);
+					saveText2localStorage('equalizer1',''+document.getElementById("equalizer1").value);
+					saveText2localStorage('equalizer2',''+document.getElementById("equalizer2").value);
+					saveText2localStorage('equalizer3',''+document.getElementById("equalizer3").value);
+					saveText2localStorage('equalizer4',''+document.getElementById("equalizer4").value);
+					saveText2localStorage('equalizer5',''+document.getElementById("equalizer5").value);
+					saveText2localStorage('equalizer6',''+document.getElementById("equalizer6").value);
+					saveText2localStorage('equalizer7',''+document.getElementById("equalizer7").value);
+					saveText2localStorage('equalizer8',''+document.getElementById("equalizer8").value);
+					saveText2localStorage('equalizer9',''+document.getElementById("equalizer9").value);
+					
+					
+					
+					window.onunload = null;
+					};
+			}
+			function adjustPitch(pitch){
+				var p=1*pitch-12*3;
+				if(p<0){
+					while(p<0){
+						p=p+12;
+					}
+				}
+				if(p>=5*12){
+					while(p>=5*12){
+						p=p-12;
+					}
+				}
+				return p;
+			}
+			function openSong(evt) {
+				console.log("openSong",evt);
+				console.log(encodeState());
+				var fileList = evt.target.files;
+				if (fileList.length > 0) {
+					var file = fileList.item(0);
+					var fileReader = new FileReader();
+					fileReader.onload = function (progressEvent) {
+						console.log(progressEvent);
+						if (progressEvent.target.readyState == FileReader.DONE) {
+							var arrayBuffer = progressEvent.target.result;
+							var midiParser = new MidiParser(arrayBuffer);
+							midiParser.parse(0, 256);
+							//console.log(midiParser.songBeatSteps,midiParser.songTuneSteps);
+							storeDrums=[];
+							for(var b=0;b<midiParser.songBeatSteps.length;b++){
+								if(b>255)break;
+								var beat=midiParser.songBeatSteps[b];
+								for(var c=0;c<beat.length;c++){
+									var n=6;
+									if(beat[c]>=35 && beat[c]<=36){n=0;}
+									if(beat[c]==41 || beat[c]==43){n=1;}
+									if(beat[c]==38 || beat[c]==40){n=2;}
+									if(beat[c]==45 || beat[c]==47 || beat[c]==48 || beat[c]==50){n=3;}
+									if(beat[c]==42 || beat[c]==44){n=4;}
+									if(beat[c]==46){n=5;}
+									//
+									if(beat[c]==49){n=7;}
+									storeDrums.push({drum:n,beat:b});
+									//console.log(b,beat[c],'>',n);
+								}
+							}
+							saveObject2localStorage('storeDrums',storeDrums);
+							storeTracks=[];
+							for(var b=0;b<midiParser.songTuneSteps.length;b++){
+								if(b>255)break;
+								var beat=midiParser.songTuneSteps[b];
+								for(var c=0;c<beat.length;c++){
+									var note=beat[c];
+									var n=4;
+									if(beat[c].instrument+1==31){n=0;}
+									if(beat[c].instrument+1>=25 && beat[c].instrument+1<=28){n=1;}
+									if(beat[c].instrument+1>=17 && beat[c].instrument+1<=24){n=2;}
+									if(beat[c].instrument+1==30){n=3;}
+									//
+									if(beat[c].instrument+1>=33 && beat[c].instrument+1<=38){n=5;}
+									if(beat[c].instrument+1>=41 && beat[c].instrument+1<=88){n=6;}
+									if(beat[c].instrument+1>=39 && beat[c].instrument+1<=40){n=7;}
+									var u=1*note.length;//-1;
+									if(u<1)u=1;
+									storeTracks.push({track:n,beat:b,pitch:adjustPitch(note.pitch),length:u,shift:note.glissando});
+									//console.log(b,beat[c].instrument,'>',n);
+									//var note=storeTracks[i];
+									//addDrumDisk(d3mJS, note.beat, note.drum);
+									//addNoteLine(d3mJS, note.track,   note.beat,  note.pitch,  note.length,  note.shift) ;
+									/*
+									MIDINote
+										glissando
+										:
+										-0
+										instrument
+										:
+										39
+										length
+										:
+										2
+										pitch
+										:
+										46
+									*/
+								}
+							}
+							saveObject2localStorage('storeTracks',storeTracks);
+							window.location='edit.html';
+						} else {
+							console.log(progressEvent.target.readyState);
+						}
+					};
+					fileReader.readAsArrayBuffer(file);
+				}
+			}
+			function clear(){
+				saveObject2localStorage('storeDrums',[]);
+				saveObject2localStorage('storeTracks',[]);
+				window.location='edit.html';
+				return false;
+			}
+			function pad0(value,size){
+				for(var i=value.length;i<size;i++){
+					value='0'+value;
+				}
+				return value;
+			}
+			function encodeState(){
+				var txt='';
+				try{
+					var tempo=1*sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
+					//console.log('tempo',tempo);
+					txt=tempo.toString(16);
+					var tracks='';
+					for(var i=0;i<8;i++){
+						var n=Math.round(sureNumeric(readTextFromlocalStorage('track'+i),0,60,100)/10).toString(16);
+						tracks=tracks+n;
+					}
+					//console.log('tracks',tracks);
+					txt=txt+'-'+tracks;
+					var drums='';
+					for(var i=0;i<8;i++){
+						var n=Math.round(sureNumeric(readTextFromlocalStorage('drum'+i),0,60,100)/10).toString(16);
+						drums=drums+n;
+					}
+					//console.log('drums',drums);
+					txt=txt+'-'+drums;
+					var equalizer='';
+					for(var i=0;i<10;i++){
+						var n=pad0(Math.round(sureNumeric(readTextFromlocalStorage('equalizer'+i),-10,60,10)+10).toString(16),2);
+						equalizer=equalizer+n;
+					}
+					//console.log('equalizer',equalizer);
+					//console.log('0',Math.pow(2,0));
+					//console.log('1',Math.pow(2,1));
+					//console.log('2',Math.pow(2,2));
+					txt=txt+'-'+equalizer;
+					var storeDrums=readObjectFromlocalStorage('storeDrums');
+					//console.log('storeDrums',storeDrums);
+					var drumData="";
+					for(var di=0;di<8;di++){
+						//console.log('di',di);
+						for(var bi=0;bi<32;bi++){
+							//console.log('bi',bi*8);
+							var part=[];
+							for(var i=0;i<storeDrums.length;i++){
+								var drum=storeDrums[i].drum;
+								var beat=storeDrums[i].beat;
+								if(drum==di && beat>=bi*8 && beat<(bi+1)*8){
+									//console.log(drum,beat);
+									part.push(beat-bi*8);
+								}
+							}
+							if(part.length>0){
+								var key=di<<5 | bi;
+								var data=0;
+								for(var t=0;t<part.length;t++){
+									//data=data | Math.pow(2,part[t]);
+									data=data |  (1<<part[t]);
+								}
+								//data=data>>1;
+								//console.log(pad0(di.toString(16),3),pad0(bi.toString(16),5),part);
+								//console.log(pad0(key.toString(2),8),pad0(key.toString(16),2),pad0(data.toString(2),8),pad0(data.toString(16),2));
+								//console.log(key.toString(16),data.toString(16));
+								drumData=drumData+pad0(key.toString(16),2)+pad0(data.toString(16),2);
+							}
+						}
+					}
+					//console.log('drumData',drumData);
+					txt=txt+'-'+drumData;
+					var storeTracks=readObjectFromlocalStorage('storeTracks');
+					var pitchData='';
+					for(var bi=0;bi<256;bi++){
+						//var found=false;
+						var data='';
+						for(var i=0;i<storeTracks.length;i++){
+							var beat=storeTracks[i].beat;
+							var length=storeTracks[i].length;
+							var pitch=storeTracks[i].pitch;
+							var shift=64+storeTracks[i].shift;
+							var track=storeTracks[i].track;
+							if(beat==bi){
+								//found=true;
+								//data=data+'/'+pad0(track.toString(2),3)+','+pad0(pitch.toString(2),5)+','+pad0(length.toString(2),5)+','+pad0(shift.toString(2),3);
+								//var trix=track<<21;
+								//trix=trix |(pitch<<15);
+								//trix=trix |(length<<9);
+								//trix=trix |(shift<<3);
+								//console.log(bi,track,pitch,pad0(trix.toString(2),24));
+								//data=data+'/'+pad0(trix.toString(16),6);
+								//console.log(bi,track,pad0(beat.toString(16),2),track.toString(16),pad0(length.toString(16),2),pad0(pitch.toString(16),2),pad0(shift.toString(16),2));
+								pitchData=pitchData+pad0(beat.toString(16),2)+track.toString(16)+pad0(length.toString(16),2)+pad0(pitch.toString(16),2)+pad0(shift.toString(16),2);
+							}
+						}
+						/*if(found){
+							console.log(bi,data);
+						}*/
+					}
+					//console.log('pitchData',pitchData);
+					txt=txt+'-'+pitchData;
+					//console.log('storeTracks',storeTracks);
+					/*for(var i=0;i<storeDrums.length;i++){
+						var note=storeDrums[i];
+						console.log(i,note);
+					};
+					var storeTracks=readObjectFromlocalStorage('storeTracks');
+					for(var i=0;i<storeTracks.length;i++){
+						var note=storeTracks[i];
+						console.log(i,note);
+					};*/
+					/*for(var n=0;n<8;n++){
+						var pack=0;
+						for(var i=0;i<storeDrums.length;i++){
+							var note=storeDrums[i];
+							if(note.drum==n){
+								//console.log(n,i,note.beat.toString(16));
+								
+							}
+						}
+					}*/
+				}catch(ex){
+					console.log(ex);
+				}
+				return txt;
+			}
+			
+		</script>
+    <style type="text/css">
+    body {
+	background-color: #111;
+}
+    p {
+	color: #FFF;
+}
+    ul {
+	color: #FFF;
+}
+    a {
+	color: #6CF;
+}
+    h1 {
+	color: #999;
+}
+    h2 {
+	color: #999;
+}
+    </style>
+	</head>
+	<body onload='init();'>
+		<h1>Riff Share</h1>
+		<p>Drag backround to rotate, drag notesheet to move, roll wheel to zoom.</p>
+		<p>Click notesheet to start note.</p>
+		<h2>Song</h2>
+		<p>back to <a href='edit.html'>editor</a> | <a href='javascript:clear();'>clear</a> song | copy song <a id='urlshare' href='1111'>URL</a> | <a href='222'>share</a> via Twitter</p>
+		<h2>Options</h2>
+		<p>Tempo <input type="range" id="tempo" min='80' max='220' step='20'></p>
+		<h2>Volume</h2>
+		<p>
+			<ul>
+				
+				<li><input type="range" id="track7" min='0' max='100' step='10'> <span style="color:#cccccc;">Synth Bass</span></li>
+				<li><input type="range" id="track6" min='0' max='100' step='10'> <span style="color:#cc9900;">String Ensemble</span></li>
+				<li><input type="range" id="track5" min='0' max='100' step='10'> <span style="color:#CC00CC;">Bass guitar</span></li>
+				<li><input type="range" id="track4" min='0' max='100' step='10'> <span style="color:#0099FF;">Acoustic Piano</span></li>
+				<li><input type="range" id="track3" min='0' max='100' step='10'> <span style="color:#996666;">Palm mute guitar</span></li>
+				<li><input type="range" id="track2" min='0' max='100' step='10'> <span style="color:#3333ff;">Percussive Organ</span></li>
+				<li><input type="range" id="track1" min='0' max='100' step='10'> <span style="color:#00CC00;">Acoustic guitar</span></li>
+				<li><input type="range" id="track0" min='0' max='100' step='10'> <span style="color:#FF3300;">Distortion guitar</span></li>
+				
+				
+				
+				
+				
+				
+				
+				
+				<li><input type="range" id="drum0" min='0' max='100' step='10'> Bass drum</li>
+				<li><input type="range" id="drum1" min='0' max='100' step='10'> Low Tom</li>
+				<li><input type="range" id="drum2" min='0' max='100' step='10'> Snare drum</li>
+				<li><input type="range" id="drum3" min='0' max='100' step='10'> Mid Tom</li>
+				<li><input type="range" id="drum4" min='0' max='100' step='10'> Closed Hi-hat</li>
+				<li><input type="range" id="drum5" min='0' max='100' step='10'> Open Hi-hat</li>
+				<li><input type="range" id="drum6" min='0' max='100' step='10'> Ride Cymbal</li>
+				<li><input type="range" id="drum7" min='0' max='100' step='10'> Splash Cymbal</li>
+				
+			</ul>
+		</p>
+		<h2>Equalizer</h2>
+		<p>
+			<ul>
+				<li><input type="range" id="equalizer0" min='-10' max='10' step='1'> 65</li>
+				<li><input type="range" id="equalizer1" min='-10' max='10' step='1'> 125</li>
+				<li><input type="range" id="equalizer2" min='-10' max='10' step='1'> 250</li>
+				<li><input type="range" id="equalizer3" min='-10' max='10' step='1'> 500</li>
+				<li><input type="range" id="equalizer4" min='-10' max='10' step='1'> 1000</li>
+				<li><input type="range" id="equalizer5" min='-10' max='10' step='1'> 2000</li>
+				<li><input type="range" id="equalizer6" min='-10' max='10' step='1'> 4000</li>
+				<li><input type="range" id="equalizer7" min='-10' max='10' step='1'> 6000</li>
+				<li><input type="range" id="equalizer8" min='-10' max='10' step='1'> 8000</li>
+				<li><input type="range" id="equalizer9" min='-10' max='10' step='1'> 12000</li>
+			</ul>
+		</p>
+		<h2>Import from *.mid</h2>
+		<p>
+			<input type="file" id="filesOpen" name="files[]" multiple  />
+		</p>
+		<h2>Source</h2>
+		<p><a href='edit.html'>editor</a></p>
+		
+	</body>
+</html>
