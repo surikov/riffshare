@@ -20,6 +20,8 @@
 			function init(){
 				var encoded=encodeState();
 				document.getElementById("urlshare").href='parse.html?riff='+encoded;
+				document.getElementById("urltiny").href='http://tinyurl.com/create.php?url=https%3A%2F%2Fsurikov.github.io%2Friffshare%2Fparse.html%3Friff%3D'+encoded;
+				
 				//console.log(document.getElementById("twitButton").getAttribute('data-url'));
 				//document.getElementById("twitButton").setAttribute('data-url', 'parse.html?riff='+encoded);
 				//document.getElementById("twitButton").setAttribute('data-url', 'test.html');
@@ -369,16 +371,16 @@ window.twttr=(function(d,s,id){
 		<p>Drag backround to rotate, drag notesheet to move, roll wheel to zoom.</p>
 		<p>Click notesheet to start note.</p>
 		<h2>Song</h2>
-		<p>back to <a href='edit.html'>editor</a> | <a href='javascript:clear();'>clear</a> song | copy song <a id='urlshare' href='1111'>URL</a> | 
-		share via 
-		
-		
-<a id="twitButton" 
-		class="twitter-share-button" 
-		href2="https://twitter.com/share" 
-		href="https://twitter.com/intent/tweet?text=#riffshare"
-		data-url2="https://surikov.github.io/riffshare/edit.html" 
-		data-text2="#riffshare"
+		<p>back to <a href='edit.html'>editor</a>
+		| <a href='javascript:clear();'>clear</a> song
+		| copy song full <a id='urlshare' href='1111'>URL</a>
+		| create song tiny <a id='urltiny' href='1111'>URL</a>
+		| share via <a id="twitButton" 
+			class="twitter-share-button" 
+			href2="https://twitter.com/share" 
+			href="https://twitter.com/intent/tweet?text=#riffshare"
+			data-url2="https://surikov.github.io/riffshare/edit.html" 
+			data-text2="#riffshare"
 		>Tweet</a>
 
 
