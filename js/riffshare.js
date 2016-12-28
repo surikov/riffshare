@@ -675,7 +675,7 @@ function riffShareStart() {
 		d3mJS.mainGroup.position.setY(startY + dy * new THREE.Vector3(d3mJS.camera.position.x, d3mJS.camera.position.y, d3mJS.camera.position.z).length() / 1000);
 	};
 	knobDrums.tap = function (intersectPointInWorld) {
-		var x = Math.floor(intersectPointInWorld.x - d3mJS.mainGroup.position.x - knobDrums.cube.position.x + maxLen / 2) - 7;
+		var x = Math.floor(intersectPointInWorld.x - d3mJS.mainGroup.position.x - knobDrums.cube.position.x + maxLen / 2) - 7-14;
 		var z = Math.floor(intersectPointInWorld.z - d3mJS.mainGroup.position.z - knobDrums.cube.position.z + (drums.length + tracks.length + 3 + 7) / 2 - tracks.length) - 7;
 		//console.log(x,z);
 		if (x > -1 && x < maxLen && z > -1 && z < drums.length) {
