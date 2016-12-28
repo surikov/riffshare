@@ -20,6 +20,28 @@
 			function init(){
 				var encoded=encodeState();
 				document.getElementById("urlshare").href='parse.html?riff='+encoded;
+				//console.log(document.getElementById("twitButton").getAttribute('data-url'));
+				//document.getElementById("twitButton").setAttribute('data-url', 'parse.html?riff='+encoded);
+				//document.getElementById("twitButton").setAttribute('data-url', 'test.html');
+				document.getElementById("twitButton").href="https://twitter.com/intent/tweet?text=#riffshare&url=https://surikov.github.io/riffshare/parse.html%3Friff%3D"+encoded;
+window.twttr=(function(d,s,id){
+	var js
+		,fjs=d.getElementsByTagName(s)[0]
+		,t=window.twttr||{};
+	if(d.getElementById(id))return;
+	js=d.createElement(s);
+	js.id=id;
+	js.src="https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js,fjs);
+	t._e=[];
+	t.ready=function(f){
+		t._e.push(f);
+		};
+	return t;
+	}
+	(document,"script","twitter-wjs")
+);
+				
 				
 				document.getElementById("tempo").value=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
 				document.getElementById("track0").value=sureNumeric(readTextFromlocalStorage('track0'),0,60,100);
@@ -347,7 +369,20 @@
 		<p>Drag backround to rotate, drag notesheet to move, roll wheel to zoom.</p>
 		<p>Click notesheet to start note.</p>
 		<h2>Song</h2>
-		<p>back to <a href='edit.html'>editor</a> | <a href='javascript:clear();'>clear</a> song | copy song <a id='urlshare' href='1111'>URL</a> | <a href='222'>share</a> via Twitter</p>
+		<p>back to <a href='edit.html'>editor</a> | <a href='javascript:clear();'>clear</a> song | copy song <a id='urlshare' href='1111'>URL</a> | 
+		share via 
+		
+		
+<a id="twitButton" 
+		class="twitter-share-button" 
+		href2="https://twitter.com/share" 
+		href="https://twitter.com/intent/tweet?text=#riffshare"
+		data-url2="https://surikov.github.io/riffshare/edit.html" 
+		data-text2="#riffshare"
+		>Tweet</a>
+
+
+		</p>
 		<h2>Options</h2>
 		<p>Tempo <input type="range" id="tempo" min='80' max='220' step='20'></p>
 		<h2>Volume</h2>
@@ -406,6 +441,7 @@
 		</p>
 		<h2>Source</h2>
 		<p><a href='edit.html'>editor</a></p>
-		
+
+
 	</body>
 </html>
