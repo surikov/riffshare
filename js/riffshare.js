@@ -1,4 +1,4 @@
-console.log('riffShare v1.03');
+console.log('riffShare v1.04');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -322,7 +322,7 @@ function nextPiece() {
 	for (var n = 0; n < currentLen; n++) {
 		for(var i=0;i<drums.length;i++){
 			var drum=drums[i];
-			var v=2;//drum.volume;
+			var v=1.3;//drum.volume;
 			//if(v>0){}else{v=0.000001}
 			for(var d=0;d<drum.notes.length;d++){
 				if(drum.notes[d].beat==n){
