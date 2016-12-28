@@ -314,7 +314,12 @@
 				}
 				return txt;
 			}
-			
+			function promptExport(){
+				var compiler = new MidiCompiler();
+				var storeDrums=readObjectFromlocalStorage('storeDrums');
+				var storeTracks=readObjectFromlocalStorage('storeTracks');
+				compiler.exportMidi(storeDrums,storeTracks);
+			}
 		</script>
     <style type="text/css">
     body {
@@ -394,6 +399,10 @@
 		<h2>Import from *.mid</h2>
 		<p>
 			<input type="file" id="filesOpen" name="files[]" multiple  />
+		</p>
+		<h2>Export to *.mid</h2>
+		<p>
+			<a href='javascript:promptExport();'>export</a>
 		</p>
 		<h2>Source</h2>
 		<p><a href='edit.html'>editor</a></p>

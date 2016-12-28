@@ -1,3 +1,4 @@
+console.log('midi compiler v1.01');
 function MidiCompiler() {
 	var me = this;
 	me.S16 = 10;
@@ -213,6 +214,70 @@ function MidiCompiler() {
 	me.writeTrackLength = function (midi, count) {
 		me.write4BigEndian(midi, count);
 	}
+	me.beatChord = function (arr, n) {
+		var r=[];
+		for(var i=0;i<arr.length;i++){
+			if(arr[i].beat==n){
+				r.push(arr[i]);
+			}
+		}
+		return r;
+	};
+	me.midiChannelN=function(trackN){
+		if(trackN==0)return 30;
+		if(trackN==1)return 24;
+		if(trackN==2)return 16;
+		if(trackN==3)return 29;
+		if(trackN==4)return 1;
+		if(trackN==5)return 32;
+		if(trackN==6)return 40;
+		return 38;
+	};
+	me.midiDrumN=function(drumN){
+		if(drumN==0)return 35;
+		if(drumN==1)return 41;
+		if(drumN==2)return 38;
+		if(drumN==3)return 45;
+		if(drumN==4)return 42;
+		if(drumN==5)return 46;
+		if(drumN==6)return 51;
+		return 49;
+	};
+	me.writeStateDrumTrack = function (storeDrums, midi) {
+		me.writeTrackHeader(midi);
+		var trackData = new Array();
+		me.writeTempoEvent(trackData, 0, 120);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 0);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 1);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 2);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 3);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 4);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 5);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 6);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 7);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 8);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 10);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 11);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 12);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 13);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 14);
+		me.writeSetPitchWheelStepEvent(trackData, 0, 15);
+		var timeShift = 0;
+		for (var step = 0; step < 256; step++) {
+			//var one = beat[step];
+			var one = me.beatChord(storeDrums,step);
+			for (var i = 0; i < one.length; i++) {
+				var midiNum = me.midiDrumN(one[i].drum);
+				me.writeNoteOffEvent(trackData, timeShift, 9, midiNum);
+				me.writeNoteOnEvent4(trackData, 0, 9, midiNum);
+				timeShift = 0;
+			}
+			timeShift = timeShift + me.S16;
+		}
+		me.writeTrackFooter(trackData);
+		me.writeTrackLength(midi, trackData.length);
+		me.append(midi, trackData);
+	};
 	me.writeDrumTrack = function (song, beat, midi) {
 		me.writeTrackHeader(midi);
 		//ByteArrayOutputStream trackData = new ByteArrayOutputStream();
@@ -366,7 +431,127 @@ function MidiCompiler() {
 		//console.log(midi,trackByteArrayOutputStream);
 		return 0;
 	}
-
+	me.noteChord = function (arr, beat, track) {
+		var r=[];
+		for(var i=0;i<arr.length;i++){
+			if(arr[i].beat==beat && arr[i].track==track){
+				r.push(arr[i]);
+			}
+		}
+		return r;
+	};
+	me.writeStateInstrumentsTrack=function(storeTracks, channel, midi){
+	//me.writeInstrumentsTrack = function (instrument, channel, flated, midi) {
+	//var one = me.beatChord(storeDrums,step);
+		me.writeTrackHeader(midi);
+		var trackByteArrayOutputStream = new Array();
+		me.writeProgramEvent(trackByteArrayOutputStream, 0, channel, me.midiChannelN(channel));
+		var oneTuneCache = new Array();
+		var timeDeltaWithPrevious = 0;
+		for (var step = 0; step < 256; step++) {
+			for (var i = 0; i < oneTuneCache.length; i++) { //delete
+				var oneTuneOff = oneTuneCache[i];
+				if (oneTuneOff.length == 0) {
+					me.writeNoteOffEvent(trackByteArrayOutputStream, timeDeltaWithPrevious, channel, oneTuneOff.pitch);
+					if (oneTuneOff.glissando != 0) { //stop bend
+						me.writeWheelEvent(trackByteArrayOutputStream, 0, channel, 0x0000);
+					}
+					timeDeltaWithPrevious = 0;
+				}
+				oneTuneOff.length = oneTuneOff.length - 1;
+			}
+			var t = new Array();
+			for (var i = 0; i < oneTuneCache.length; i++) { //cleanup
+				var oneTuneOff = oneTuneCache[i];
+				if (oneTuneOff.length > -1) {
+					t.push(oneTuneOff);
+				}
+			}
+			oneTuneCache = t;
+			var one = me.noteChord(storeTracks,step,channel);
+			var tuneCountAtCurrentStep = one.length;
+			//var tuneCountAtCurrentStep = flated.tune[step].length; //songData.getTuneCount(step);
+			
+			for (var i = 0; i < tuneCountAtCurrentStep; i++) { //add
+				//var iOneTune = flated.tune[step][i]; //songData.tune(step, i);
+				var iOneTune = one[i]; //songData.tune(step, i);
+				//console.log(flated.tune[step]);
+				//if (iOneTune.midi == instrument) {
+					//console.log(iOneTune);
+					me.writeNoteOnEvent5(trackByteArrayOutputStream, timeDeltaWithPrevious, channel, iOneTune.pitch+36, 127);
+					timeDeltaWithPrevious = 0;
+					var forCache = {};
+					forCache.pitch = iOneTune.pitch;
+					forCache.length = iOneTune.length;
+					forCache.glissando = iOneTune.shift;
+					if (forCache.glissando != 0) { //add bend
+						forCache.tStep = (0.0 - (forCache.glissando * me.bendStep) / (forCache.length + 1.0));
+					}
+					oneTuneCache.push(forCache);
+				//}
+			}
+			var noBend = true;
+			for (var i = 0; i < oneTuneCache.length; i++) { //bend
+				var oneTuneOff = oneTuneCache[i];
+				if (oneTuneOff.glissando != 0) {
+					noBend = false;
+					oneTuneOff.tCurrent = oneTuneOff.tCurrent + oneTuneOff.tStep / 2;
+					if (oneTuneOff.tCurrent > 0x1fff) {
+						oneTuneOff.tCurrent = 0x1fff;
+					}
+					if (oneTuneOff.tCurrent < -0x1fff) {
+						oneTuneOff.tCurrent = -0x1fff;
+					}
+					me.writeWheelEvent(trackByteArrayOutputStream, timeDeltaWithPrevious, channel, oneTuneOff.tCurrent);
+					timeDeltaWithPrevious = 0;
+				}
+			}
+			if (noBend) {
+				//
+			} else {
+				timeDeltaWithPrevious = timeDeltaWithPrevious + me.S32;
+				for (var i = 0; i < oneTuneCache.length; i++) { //bend
+					var oneTuneOff = oneTuneCache[i];
+					if (oneTuneOff.glissando != 0) {
+						noBend = false;
+						oneTuneOff.tCurrent = oneTuneOff.tCurrent + oneTuneOff.tStep / 2;
+						if (oneTuneOff.tCurrent > 0x1fff) {
+							oneTuneOff.tCurrent = 0x1fff;
+						}
+						if (oneTuneOff.tCurrent < -0x1fff) {
+							oneTuneOff.tCurrent = -0x1fff;
+						}
+						me.writeWheelEvent(trackByteArrayOutputStream, timeDeltaWithPrevious, channel, oneTuneOff.tCurrent);
+						timeDeltaWithPrevious = 0;
+					}
+				}
+			}
+			if (noBend) {
+				timeDeltaWithPrevious = timeDeltaWithPrevious + me.S16;
+			} else {
+				timeDeltaWithPrevious = timeDeltaWithPrevious + me.S32;
+			}
+		}
+		for (var i = 0; i < oneTuneCache.length; i++) { //delete last
+			var oneTuneOff = oneTuneCache[i];
+			if (oneTuneOff.length == 0) {
+				me.writeNoteOffEvent(trackByteArrayOutputStream, timeDeltaWithPrevious, channel, oneTuneOff.pitch);
+				if (oneTuneOff.tStep != 0) { //stop bend
+					me.writeWheelEvent(trackByteArrayOutputStream, 0, channel, 0x0000);
+				}
+				timeDeltaWithPrevious = 0;
+			} else {
+				oneTuneOff.length = oneTuneOff.length - 1;
+			}
+		}
+		me.writeTrackFooter(trackByteArrayOutputStream);
+		//byte[] trackBytes = trackByteArrayOutputStream.toByteArray();
+		me.writeTrackLength(midi, trackByteArrayOutputStream.length);
+		//midi.write(trackBytes, 0, trackBytes.length);
+		me.append(midi, trackByteArrayOutputStream);
+		//console.log(midi,trackByteArrayOutputStream);
+		//return 0;
+	};
 	me.append = function (to, from) {
 		for (var ax = 0; ax < from.length; ax++) {
 			to.push(from[ax]);
@@ -478,8 +663,20 @@ function MidiCompiler() {
 		//console.log("after writeTempoEvent",midi);
 		return midi;
 	};
-	me.exportMidi = function (song) {
-		var midi = me.compile(song);
+	
+	me.compileSong=function(storeDrums,storeTracks){
+		var midi = new Array();
+		me.writeSongHeader(midi);
+		me.writeTrackCount(midi, 9);
+		me.writeTicksPerQuarter(midi, me.S_4);
+		me.writeStateDrumTrack(storeDrums, midi);
+		for (var i = 0; i < 8; i++) {
+			me.writeStateInstrumentsTrack(storeTracks, i, midi);
+		}
+		return midi;
+	}
+	me.exportMidi = function (storeDrums,storeTracks){//song) {
+		var midi = me.compileSong(storeDrums,storeTracks);//me.compile(song);
 		var arrayBuffer = new ArrayBuffer(midi.length);
 		var dataView = new DataView(arrayBuffer);
 		for (var i = 0; i < midi.length; i++) {

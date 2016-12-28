@@ -322,7 +322,7 @@ function nextPiece() {
 	for (var n = 0; n < currentLen; n++) {
 		for(var i=0;i<drums.length;i++){
 			var drum=drums[i];
-			var v=1.3;//drum.volume;
+			var v=1.0;//drum.volume;
 			//if(v>0){}else{v=0.000001}
 			for(var d=0;d<drum.notes.length;d++){
 				if(drum.notes[d].beat==n){
@@ -336,7 +336,7 @@ function nextPiece() {
 		}
 		for(var i=0;i<tracks.length;i++){
 			var track=tracks[i];
-			var v=1;//track.volume;
+			var v=0.75;//track.volume;
 			//if(v>0){}else{v=0.000001}
 			//var chordCounter=0;
 			var chord=[];
