@@ -84,7 +84,7 @@ outGain.connect(noiseFilter);
 noiseFilter.connect(audioContext.destination);
 //outGain.connect(audioContext.destination);
 dryGain.gain.value = 0.99;
-wetGain.gain.value = 0.25;
+wetGain.gain.value = 0.15;
 //outGain.gain.value = 0.0000001;
 outGain.gain.value = 0.99;
 var datalen = irr.length / 2;
@@ -237,9 +237,8 @@ var tracks = [{
 		,gain:audioContext.createGain()
 	}, {
 		//sound:_tone_Picked_32Bs_46000070_461_460_45127,
-		  sound:_tone_Fingered_32Bs_46fingeredbs_461_460_45127,
-		//sound:_tone_Fingered_32Bs_46fingeredbs_461_460_45127,
-		title : 'Bass guitar',volume:sureNumeric(readTextFromlocalStorage('track5'),0,80,100)/100,octave:3,id:5,
+		sound:_tone_Fingered_32Bs_46fingeredbs_461_460_45127,
+		title : 'Bass guitar',volume:sureNumeric(readTextFromlocalStorage('track5'),0,80,100)/100,octave:2,id:5,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x660066,color : 0x666666,metalness : 0.25}),
 		light:0xCC00CC,
 		notes : []
