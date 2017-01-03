@@ -1,4 +1,4 @@
-console.log('riffShare v1.04');
+console.log('riffShare v1.05');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -213,7 +213,7 @@ var tracks = [{
 		,gain:audioContext.createGain()
 	}, {
 		sound:_tone_Organ_322000037_461_460_45127,
-		title : 'Percussive Organ',volume:sureNumeric(readTextFromlocalStorage('track2'),0,60,100)/100,octave:3,id:2,
+		title : 'Percussive Organ',volume:sureNumeric(readTextFromlocalStorage('track2'),0,60,100)/100,octave:4,id:2,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x3333ff,color : 0x666666,metalness : 0.25}),
 		light:0x3333ff,
 		notes : []
