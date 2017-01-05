@@ -1,4 +1,4 @@
-console.log('riffShare v1.06');
+console.log('riffShare v1.07');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -166,7 +166,8 @@ var drums = [{
 	notes:[]
 	,gain:audioContext.createGain()
 	},{
-	sound:_drum_Standard_32_32_460_46,
+	//sound:_drum_Standard_32_32_460_46,
+	sound:_drum_CM_4564_4732_32Set_46127_46,
 	pitch:46,//
 	title:'Open Hi-hat',volume:sureNumeric(readTextFromlocalStorage('drum5'),0,60,100)/100,id:5,
 	notes:[]
@@ -575,7 +576,7 @@ function loadState(){
 	}
 }
 function showEqualizer(){
-	for (var i = 0; i < equalizers.length; i++) {
+	/*for (var i = 0; i < equalizers.length; i++) {
 		var gain=equalizers[i].gain.value;
 		//console.log(i,gain);
 		for(var v=-10;v<=10;v++){
@@ -585,11 +586,21 @@ function showEqualizer(){
 					equalizers[i].knobs[v+10].uncheck();
 				}
 		}
+	}*/
+	for (var i = 0; i < equalizers.length; i++) {
+		var gain=equalizers[i].gain.value;
+		if(gain<0){
+			bandBoxes[i].cube.scale.y=1-gain;
+			bandBoxes[i].cube.position.y=21/2+2.5-(0-gain)/2;
+		}else{
+			bandBoxes[i].cube.scale.y=1+gain;
+			bandBoxes[i].cube.position.y=21/2+2.5+(0+gain)/2;
+		}
 	}
 }
 function showVolumes(){
 		//console.log('showVolumes',tracks);
-		for (var i = 0; i < tracks.length; i++) {
+		/*for (var i = 0; i < tracks.length; i++) {
 			//var nn=Math.round(tracks[i].volume);
 			tracks[i].gain.gain.value=tracks[i].volume;
 			
@@ -601,8 +612,13 @@ function showVolumes(){
 					tracks[i].knobs[v].uncheck();
 				}
 			}
+		}*/
+		for (var i = 0; i < tracks.length; i++) {
+			tracks[i].gain.gain.value=tracks[i].volume;
+			trackBoxes[tracks[i].id].cube.scale.y=2*(1+10*tracks[i].volume);
+			trackBoxes[tracks[i].id].cube.position.y=0.49+trackBoxes[tracks[i].id].cube.scale.y/2;
 		}
-		for (var i = 0; i < drums.length; i++) {
+		/*for (var i = 0; i < drums.length; i++) {
 			drums[i].gain.gain.value=drums[i].volume;
 			for(var v=1;v<drums[i].knobs.length;v++){
 				if(v<1+Math.round(10*drums[i].volume)){
@@ -611,8 +627,122 @@ function showVolumes(){
 					drums[i].knobs[v].uncheck();
 				}
 			}
+		}*/
+		for (var i = 0; i < drums.length; i++) {
+			drums[i].gain.gain.value=drums[i].volume;
+			drumBoxes[i].cube.scale.x=2*(1+10*drums[i].volume);
+			drumBoxes[i].cube.position.x=12-titlesLen-drumBoxes[i].cube.scale.x/2;
+			//console.log(i,drums[i].volume);
 		}
 	}
+var bandBoxes=[];
+function createEqualizerBands(){
+	console.log('createEqualizerBands',equalizers.length);
+	for (var x = 0; x < 10; x++) {
+		var box=new ItemBox2(1.9,1,0.1,materialLabel).addTo(d3mJS).move(x*2-38,21/2+2.5,0)
+		bandBoxes.push(box);
+	}
+	var box=new ItemBox2(equalizers.length*2, 21, 0.01,materialChess).addTo(d3mJS).move(equalizers.length-titlesLen-26,21/2+2.5,0);
+	var knobBands = new ItemKnob(equalizers.length*2, 21, 0.1, 0xff0000, true).addTo(d3mJS).move(equalizers.length-titlesLen-26,21/2+2.5,0);
+	knobBands.tap=function (intersectPointInWorld) {
+		var x = Math.ceil((intersectPointInWorld.x - d3mJS.mainGroup.position.x - knobBands.cube.position.x +equalizers.length)/2)-1;
+		var y = Math.ceil(intersectPointInWorld.y - d3mJS.mainGroup.position.y - knobBands.cube.position.y -0.5);
+		//if(y<0){y=Math.ceil(y);}
+		//console.log(x,y);
+		equalizers[x].gain.value=y;
+		saveText2localStorage('equalizer'+x,''+y);
+		showEqualizer();
+	};
+	/*for (var x = 0; x < 10; x++) {
+		var equalizer=equalizers[x];
+		equalizer.knobs=[];
+		for (var y = 0; y < 21; y++) {
+			var n=0;
+			if(y<10)n=-0.2;
+			if(y>10)n=+0.2;
+			var k=new ItemKnob(1.9, 0.9, 0.1, 0x99ccff, false).addTo(d3mJS).move( n-titlesLen+2*x-26, y+1, 0);
+			k.band=x;
+			k.gain=y-10;
+			k.tap=function (intersectPointInWorld) {
+				//console.log(this.band,this.ratio);
+				equalizers[this.band].gain.value=this.gain;
+				saveText2localStorage('equalizer'+this.band,''+this.gain);
+				showEqualizer();
+			}
+			equalizer.knobs.push(k);
+		}
+	}*/
+}
+var drumBoxes=[];
+function createDrumVolumes(){
+	/*for (var i = 0; i < drums.length; i++) {
+		var drum=drums[i];
+		drum.knobs=[];
+		for(var v=0;v<11;v++){
+			var k=new ItemKnob(0.015, 1.9, 0.9, 0x99ccff, false).addTo(d3mJS).move(  -titlesLen-2, 2*v+1.3, i-0.3+4);
+			k.drum = drum;
+			k.volume=v/10;
+			k.tap=function (intersectPointInWorld) {
+				this.drum.volume=this.volume;
+				saveText2localStorage('drum'+this.drum.id,''+Math.round(100*this.volume));
+				showVolumes();
+			};
+			//if(v>5)k.uncheck(); else k.check();
+			drums[i].knobs.push(k);
+		}
+	}*/
+	var knobBars = new ItemKnob(22,0.3, drums.length, 0xff0000, true).addTo(d3mJS).move(-titlesLen+1, 0.1, drums.length/2+3);
+	for (var i = 0; i < drums.length; i++) {
+		var box=new ItemBox2(22,0.01, 0.9,materialChess).addTo(d3mJS).move(-titlesLen+1, 0.1, i-0.3+4);
+		var bar=new ItemBox2(1,0.1, 0.9,materialLabel).addTo(d3mJS).move(-titlesLen+1, 0.1, i-0.3+4);
+		drumBoxes.push(bar);
+	}
+	knobBars.tap=function (intersectPointInWorld) {
+		var x = 11-Math.ceil((intersectPointInWorld.x - d3mJS.mainGroup.position.x - knobBars.cube.position.x +11)/2);
+		var z = Math.ceil(intersectPointInWorld.z - d3mJS.mainGroup.position.z - knobBars.cube.position.z +drums.length/2 -1-0.2);
+		//if(y<0){y=Math.ceil(y);}
+		//console.log(x,z);
+		drums[z].volume=x/10;
+		saveText2localStorage('drum'+z,''+Math.round(100*x/10));
+		showVolumes();
+	};
+}
+
+var trackBoxes=[];
+function createTrackVolumes(){
+	var knobBars = new ItemKnob(0.1,22, tracks.length, 0xff0000, true).addTo(d3mJS).move(-titlesLen, 22/2+0.45, -tracks.length/2+0.1);
+	for (var i = 0; i < tracks.length; i++) {
+		var box=new ItemBox2(0.01,22, 0.9,materialChess).addTo(d3mJS, tracks[i].group.group).move(-titlesLen, 22/2+0.45, -0.3);
+		//var box=new ItemBox2(0.01,22, 0.9,materialChess).addTo(d3mJS).move(-titlesLen+1, 0.1, i-0.3+4);
+		var bar=new ItemBox(0.1,1, 0.9,tracks[i].light).addTo(d3mJS, tracks[i].group.group).move(-titlesLen, 22/2+0.45, -0.3);
+		trackBoxes.push(bar);
+	}
+	knobBars.tap=function (intersectPointInWorld) {
+		var y = Math.floor((intersectPointInWorld.y - d3mJS.mainGroup.position.y -0.45)/2);
+		var z = tracks.length-Math.ceil(intersectPointInWorld.z - d3mJS.mainGroup.position.z - knobBars.cube.position.z)-4;
+		console.log(y,z,tracks);
+		tracks[z].volume=y/10;
+		saveText2localStorage('track'+tracks[z].id,''+Math.round(100*y/10));
+		showVolumes();
+	};
+/*tracks[i].knobs=[];
+		for(var v=0;v<11;v++){
+			var k=new ItemKnob(0.015, 1.9, 0.9, tracks[i].light, false).addTo(d3mJS, tracks[i].group.group).move(  -titlesLen, 2*v+1.45, -0.3);
+			k.track = tracks[i];
+			k.volume=v/10;
+			k.tap=function (intersectPointInWorld) {
+				this.track.volume=this.volume;
+				saveText2localStorage('track'+this.track.id,''+Math.round(100*this.volume));
+				//onAir = false;
+				//pausePlay();
+				showVolumes();
+			};
+			//if(v>5)k.uncheck(); else k.check();
+			tracks[i].knobs.push(k);*/
+}
+		
+		
+		
 function riffShareStart() {
 	console.log('riffShare start');
 	//console.log('------------------hook');
@@ -710,23 +840,23 @@ function riffShareStart() {
 		//}
 	};
 	//labelPlay = new Item3dText('Play/Pause', 0.1, 3, selectedFont,materialLabel).addTo(d3mJS).move(-titlesLen, 0, drums.length + 3 + 4 + 1, -Math.PI / 2, 0, 0);//.color(0x99ccff);
-	var knobStart = new ItemKnob(6, 0.5, 6, 0x99ccff, true).addTo(d3mJS).move(20 / 2 - titlesLen, 0.5, drums.length + 6);
-	var iconPlayGeometry = new THREE.CylinderGeometry( 2, 2, 1, 3 );
+	var knobStart = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(20 / 2 - titlesLen-1, 0.5, drums.length + 7);
+	var iconPlayGeometry = new THREE.CylinderGeometry( 1, 1, 1, 3 );
 	iconPlayMesh = new THREE.Mesh( iconPlayGeometry, materialWhite );
 	iconPlayMesh.rotation.y=0.5*Math.PI;
-	iconPlayMesh.position.x=10 - titlesLen;
+	iconPlayMesh.position.x=10 - titlesLen-1;
 	iconPlayMesh.position.y=0.2;
-	iconPlayMesh.position.z=drums.length + 6;
+	iconPlayMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconPlayMesh );
-	var iconCiGeometry = new THREE.CylinderGeometry( 3, 3, 1, 20 );
+	var iconCiGeometry = new THREE.CylinderGeometry( 2, 2, 1, 20 );
 	var iconCiMesh = new THREE.Mesh( iconCiGeometry, materialLabel );
 	iconCiMesh.rotation.y=0.5*Math.PI;
-	iconCiMesh.position.x=10 - titlesLen;
+	iconCiMesh.position.x=10 - titlesLen-1;
 	iconCiMesh.position.y=0.1;
-	iconCiMesh.position.z=drums.length + 6;
+	iconCiMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconCiMesh );
-	pause1=new ItemBox(1,1,4,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen-1, 0.3, drums.length + 6);
-	pause2=new ItemBox(1,1,4,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen+1, 0.3, drums.length + 6);
+	pause1=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen-0.5-1, 0.3, drums.length + 7);
+	pause2=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen+0.5-1, 0.3, drums.length + 7);
 	//pause1.material.visible
 	pause1.hide();
 	pause2.hide();
@@ -756,12 +886,12 @@ function riffShareStart() {
 	};*/
 	
 	//labelTools = new Item3dText('Tools', 0.1, 2, selectedFont,materialLabel).addTo(d3mJS).move(- titlesLen, 0, drums.length + 3 + 4 + 1-5, -Math.PI / 2, 0, 0);//.color(0x99ccff);
-	var knobTools = new ItemKnob(6, 0.5, 6, 0x99ccff, true).addTo(d3mJS).move(3 - titlesLen , 0.5, drums.length + 6);
-	var iconToolsGeometry = new THREE.CylinderGeometry( 3, 3, 1, 6 );
+	var knobTools = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(3 - titlesLen , 0.5, drums.length + 7);
+	var iconToolsGeometry = new THREE.CylinderGeometry( 2, 2, 1, 6 );
 	var iconToolsMesh = new THREE.Mesh( iconToolsGeometry, materialLabel );
 	iconToolsMesh.position.x=10 - titlesLen-7;
 	iconToolsMesh.position.y=0.1;
-	iconToolsMesh.position.z=drums.length + 6;
+	iconToolsMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconToolsMesh );
 	knobTools.tap = function (intersectPointInWorld) {
 		console.log('tools');
@@ -782,6 +912,7 @@ function riffShareStart() {
 			//console.log('select',this.track.group.move(2,2,2));
 			reorderTracks(this.track.id);
 		};
+		/*
 		tracks[i].knobs=[];
 		for(var v=0;v<11;v++){
 			var k=new ItemKnob(0.015, 1.9, 0.9, tracks[i].light, false).addTo(d3mJS, tracks[i].group.group).move(  -titlesLen, 2*v+1.45, -0.3);
@@ -797,10 +928,14 @@ function riffShareStart() {
 			//if(v>5)k.uncheck(); else k.check();
 			tracks[i].knobs.push(k);
 		}
-		
+		*/
 		//new Item3dText(tracks[i].title, 0.01, 0.5, selectedFont,tracks[i].color).addTo(d3mJS, tracks[i].group.group).move(-titlesLen, 0.5, 0, -Math.PI / 2, 0, 0);//.color(tracks[i].color);
 		//console.log('set',tracks[i]);
 	}
+	
+	createTrackVolumes();
+	
+	/*
 	for (var i = 0; i < drums.length; i++) {
 		var drum=drums[i];
 		drum.knobs=[];
@@ -817,6 +952,10 @@ function riffShareStart() {
 			drums[i].knobs.push(k);
 		}
 	}
+	*/
+	createDrumVolumes();
+	createEqualizerBands();
+	/*
 	for (var x = 0; x < 10; x++) {
 		var equalizer=equalizers[x];
 		equalizer.knobs=[];
@@ -836,6 +975,9 @@ function riffShareStart() {
 			equalizer.knobs.push(k);
 		}
 	}
+	*/
+	
+	
 	/*
 	new ItemLaserRay(1,0x99ccff).addTo(d3mJS).align(new THREE.Vector3(8.5, -0.2, 0.2),new THREE.Vector3(8.5, 4+maxPitch, 0.2));
 	new ItemSparkle(9, 0.5, 0xFF6600).addTo(d3mJS).move(8.5,28.5, 0.5);

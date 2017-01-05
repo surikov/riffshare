@@ -1,4 +1,4 @@
-console.log("d3mJS v2.0.2");
+console.log("d3mJS v2.0.3");
 
 function place(what, from, to) {
 	var distance = from.distanceTo(to);
@@ -841,13 +841,52 @@ function ItemMirror(w, h, px, py, pz, rx, ry, rz) {
 function ItemBox(w, h, d, c) {
 	var me = this;
 	me.geometry = new THREE.BoxGeometry(w, h, d);
+	me.material=c;
 	me.material = new THREE.MeshPhongMaterial({
 			color : c
 		});
 	me.cube = new THREE.Mesh(me.geometry, me.material);
-	me.addTo = function (d3mJS) {
+	me.addTo = function (d3mJS,group) {
+		var g = d3mJS.mainGroup;
+		if (group) {
+			g = group;
+		}
 		me.d3mJS = d3mJS;
-		me.d3mJS.mainGroup.add(me.cube);
+		g.add(me.cube);
+		return me;
+	};
+	me.free = function () {
+		//
+	};
+	me.show = function () {
+		me.cube.visible = true;
+	};
+	me.hide = function () {
+		me.cube.visible = false;
+	};
+	me.move = function (x, y, z) {
+		me.cube.position.setX(x);
+		me.cube.position.setY(y);
+		me.cube.position.setZ(z);
+		return me;
+	};
+	return me;
+}
+function ItemBox2(w, h, d, c) {
+	var me = this;
+	me.geometry = new THREE.BoxGeometry(w, h, d);
+	me.material=c;
+	/*me.material = new THREE.MeshPhongMaterial({
+			color : c
+		});*/
+	me.cube = new THREE.Mesh(me.geometry, me.material);
+	me.addTo = function (d3mJS,group) {
+		var g = d3mJS.mainGroup;
+		if (group) {
+			g = group;
+		}
+		me.d3mJS = d3mJS;
+		g.add(me.cube);
 		return me;
 	};
 	me.free = function () {
