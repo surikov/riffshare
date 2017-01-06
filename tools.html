@@ -46,6 +46,8 @@ window.twttr=(function(d,s,id){
 				
 				
 				document.getElementById("tempo").value=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
+				document.getElementById("flat").value=sureInList(readTextFromlocalStorage('flat'),0,[0,1]);
+				
 				document.getElementById("track0").value=sureNumeric(readTextFromlocalStorage('track0'),0,60,100);
 				document.getElementById("track1").value=sureNumeric(readTextFromlocalStorage('track1'),0,60,100);
 				document.getElementById("track2").value=sureNumeric(readTextFromlocalStorage('track2'),0,60,100);
@@ -79,6 +81,8 @@ window.twttr=(function(d,s,id){
 				window.onunload = function(){
 					console.log('save state');
 					saveText2localStorage('tempo',''+document.getElementById("tempo").value);
+					saveText2localStorage('flat',''+document.getElementById("flat").value);
+					
 					saveText2localStorage('track0',''+document.getElementById("track0").value);
 					saveText2localStorage('track1',''+document.getElementById("track1").value);
 					saveText2localStorage('track2',''+document.getElementById("track2").value);
@@ -387,7 +391,8 @@ window.twttr=(function(d,s,id){
 
 		</p>
 		<h2>Options</h2>
-		<p>Tempo <input type="range" id="tempo" min='80' max='220' step='20'></p>
+			<p>Tempo <input type="range" id="tempo" min='80' max='220' step='20'></p>
+			<p>Flat sound <input type="range" id="flat" min='0' max='1' step='1'></p>
 		<h2>Volume</h2>
 		<p>
 			<ul>

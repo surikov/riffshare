@@ -1,4 +1,4 @@
-console.log('riffShare v1.07');
+console.log('riffShare v1.08');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -27,6 +27,7 @@ var light3 = null;
 //var labelPlay = null;
 var onAir = false;
 var startID=-1;
+var flat=sureInList(readTextFromlocalStorage('flat'),0,[0,1]);
 var bpm=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);//120;
 			var N = 4 * 60 / bpm;
 			//var pieceLen = 4 * N;
@@ -49,6 +50,12 @@ function bandEqualizer(audioContext,frequency, gain) {
 	return filter;
 };
 var convolver=null;
+//var analyser = audioContext.createAnalyser();
+//analyser.fftSize = 4096;//2048;
+//var analyserBufferLength = analyser.frequencyBinCount;
+//var analyserUint8Array = new Uint8Array(analyser.frequencyBinCount);
+//analyser.getByteTimeDomainData(analyserUint8Array);
+
 var inGain = audioContext.createGain();
 var outGain = audioContext.createGain();
 var dryGain = audioContext.createGain();
@@ -81,10 +88,12 @@ equalizers[7].connect(wetGain);
 //inGain.connect(wetGain);
 dryGain.connect(outGain);
 outGain.connect(noiseFilter);
+//noiseFilter.connect(analyser);
+//analyser.connect(audioContext.destination);
 noiseFilter.connect(audioContext.destination);
 //outGain.connect(audioContext.destination);
 dryGain.gain.value = 0.99;
-wetGain.gain.value = 0.15;
+wetGain.gain.value = 0.2;
 //outGain.gain.value = 0.0000001;
 outGain.gain.value = 0.99;
 var datalen = irr.length / 2;
@@ -98,6 +107,7 @@ var datalen = irr.length / 2;
 						n = parseInt(s, 16);
 						view[i] = n;
 					}
+if(flat<1){
 					console.log('start decode irr');
 					audioContext.decodeAudioData(arraybuffer, function (audioBuffer) {
 						
@@ -108,7 +118,7 @@ var datalen = irr.length / 2;
 						convolver.connect(outGain);
 						console.log('done decode irr',audioBuffer);
 					});
-
+}
 var materialWhite = new THREE.MeshLambertMaterial({
 			color : 0xffffff,
 			side : THREE.DoubleSide,
@@ -308,8 +318,19 @@ function adjustLen(){
 		console.log('currentLen/pieceLen',currentLen,pieceLen);
 	}
 }
+function spectrum(){
+	//analyser.getByteTimeDomainData(analyserUint8Array);
+	/*analyser.getByteFrequencyData(analyserUint8Array);
+	var bandSize=audioContext.sampleRate/analyser.fftSize;
+	console.log(audioContext.sampleRate,analyserUint8Array);
+	var bufferLength = analyser.frequencyBinCount;
+	for (var i = 0; i < bufferLength; i++) {
+		console.log(i,'.',analyserUint8Array[i],'	',bandSize*(i+1),'Hz');
+	}*/
+}
 function nextPiece() {
 	//console.log('nextPiece',startTime);
+	spectrum();
 	adjustLen();
 	for(var m=0;m<currentLen;m++){
 		markers.push({time:startTime + m * beatLen-0.27,beat:m});
