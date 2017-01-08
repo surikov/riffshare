@@ -1,4 +1,4 @@
-console.log('riffShare v1.09');
+console.log('riffShare v1.10');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -345,11 +345,11 @@ function nextPiece() {
 		//markers.push({time:startTime + m * beatLen+3*0.25*beatLen-0.27,beat:m+3*0.25});
 		//console.log(m+0*0.25,startTime + m * beatLen+0*0.25*beatLen-0.27);
 		markers.push({
-			time : startTime + m16 * beatLen,
+			time : startTime + m16 * beatLen - 0.27,
 			beat : m
 		});
 		markers.push({
-			time : startTime + (0.5 + m16) * beatLen,
+			time : startTime + m16 * beatLen - 0.27 + 0.5 * beatLen,
 			beat : m + 0.5
 		});
 		//console.log(m,startTime+m16 * beatLen);
