@@ -1,4 +1,4 @@
-console.log('riffShare v1.08');
+console.log('riffShare v1.09');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -6,6 +6,7 @@ var maxPitch = 12 * 5;
 //var drumCount = 8;
 var titlesLen = 13;
 var startTime=0;
+var start16=0;
 var markers=[];
 var sparkleCache=[];
 //var markTime=0;
@@ -32,6 +33,7 @@ var bpm=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180
 			var N = 4 * 60 / bpm;
 			//var pieceLen = 4 * N;
 			var pieceLen = (currentLen/16) * N;
+			//var piece16Len =  N/2;
 			var beatLen=1/16 * N;
 console.log('currentLen/pieceLen',currentLen,pieceLen);
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
@@ -315,7 +317,9 @@ function adjustLen(){
 		currentLen=mx;
 		var N = 4 * 60 / bpm;
 		pieceLen = (currentLen/16) * N;
-		console.log('currentLen/pieceLen',currentLen,pieceLen);
+		//piece16Len =  N/2;
+		beatLen=1/16 * N;
+		//console.log('currentLen/pieceLen',currentLen,pieceLen);
 	}
 }
 function spectrum(){
@@ -329,29 +333,45 @@ function spectrum(){
 	}*/
 }
 function nextPiece() {
-	//console.log('nextPiece',startTime);
+	//console.log('nextPiece',startTime,'start16',start16,'now',audioContext.currentTime,'beatLen',beatLen);
 	spectrum();
 	adjustLen();
-	for(var m=0;m<currentLen;m++){
-		markers.push({time:startTime + m * beatLen-0.27,beat:m});
-		markers.push({time:startTime + m * beatLen+0.25*beatLen-0.27,beat:m+0.25});
-		markers.push({time:startTime + m * beatLen+0.5*beatLen-0.27,beat:m+0.5});
-		markers.push({time:startTime + m * beatLen+0.75*beatLen-0.27,beat:m+0.75});
+	//for(var m=0;m<currentLen;m++){
+	for (var m16 = 0; m16 < 16; m16++) {
+		var m = start16 + m16;
+		//markers.push({time:startTime + m * beatLen+0*0.25*beatLen-0.27,beat:m+0*0.25});
+		//markers.push({time:startTime + m * beatLen+1*0.25*beatLen-0.27,beat:m+1*0.25});
+		//markers.push({time:startTime + m * beatLen+2*0.25*beatLen-0.27,beat:m+2*0.25});
+		//markers.push({time:startTime + m * beatLen+3*0.25*beatLen-0.27,beat:m+3*0.25});
+		//console.log(m+0*0.25,startTime + m * beatLen+0*0.25*beatLen-0.27);
+		markers.push({
+			time : startTime + m16 * beatLen,
+			beat : m
+		});
+		markers.push({
+			time : startTime + (0.5 + m16) * beatLen,
+			beat : m + 0.5
+		});
+		//console.log(m,startTime+m16 * beatLen);
 	}
 	//console.log('markers',currentLen,markers);
 	var inChordDelay=0.01;
-	for (var n = 0; n < currentLen; n++) {
+	//for (var n = 0; n < currentLen; n++) {
+	for (var n16 = 0; n16 < 16; n16++) {
+		var n=start16+n16;
+		//if(n>23)break;
 		for(var i=0;i<drums.length;i++){
 			var drum=drums[i];
 			var v=1.0;//drum.volume;
 			//if(v>0){}else{v=0.000001}
 			for(var d=0;d<drum.notes.length;d++){
 				if(drum.notes[d].beat==n){
+					//console.log(n,startTime + n * beatLen,drum.pitch);
 					player.queueWaveTable(audioContext
 					//, audioContext.destination
 					//,inGain
 					,drum.gain
-					, drum.sound, startTime + n * beatLen , drum.pitch, 2.0,v);
+					, drum.sound, startTime + n16 * beatLen , drum.pitch, 1.0,v);
 				}
 			}
 		}
@@ -377,11 +397,11 @@ function nextPiece() {
 			for(var s=0;s<chord.length;s++){
 				var note=chord[s];
 				var shift=[{when:note.length * beatLen,pitch:note.shift+track.octave*12+note.pitch}];
-					player.queueWaveTable(audioContext
+				player.queueWaveTable(audioContext
 					//, audioContext.destination
 					//,inGain
 					,track.gain
-					, track.sound, startTime + n * beatLen +s*inChordDelay, track.octave*12+note.pitch, note.length * beatLen,v,shift);
+					, track.sound, startTime + n16 * beatLen +s*inChordDelay, track.octave*12+note.pitch, note.length * beatLen,v,shift);
 			}
 		}
 	}
@@ -519,9 +539,15 @@ function startPlay(){
 	console.log('startPlay');
 	//outGain.gain.value = 0.75;
 	startTime = audioContext.currentTime + 0.1;
+	start16=0;
 	markers=[];
 	nextPiece();
-	startTime = startTime + pieceLen;
+	//startTime = startTime + pieceLen;
+	startTime = startTime + beatLen*16;
+	start16=start16+16;
+	if(start16>=currentLen){
+		start16=0;
+	}
 	//markTime=startTime - pieceLen;
 	//markBeat=0;
 	//checkSparkles();
@@ -541,9 +567,14 @@ function startPlay(){
 			}*/
 			if (audioContext.currentTime > startTime - 1 / 4 * N) {
 				nextPiece();
-				startTime = startTime + pieceLen;
+				//startTime = startTime + pieceLen;
+				startTime = startTime + beatLen*16;
 				//markTime=startTime - pieceLen;
 				//markBeat=0;
+				start16=start16+16;
+				if(start16>=currentLen){
+					start16=0;
+				}
 			}
 		}else{
 			console.log('onAir',onAir);
