@@ -2,6 +2,8 @@
 
 Launch [https://surikov.github.io/riffshare/tools.html](https://surikov.github.io/riffshare/tools.html)
 
+![Screenshot](https://surikov.github.io/riffshare/img/treeex.jpg)
+
 Music creation and collaboration platform. Create tune in 3D environment and share your work via Twitter, blogs, chats, e-mail etc.
 
 RiffShare is the sketchpad for writing down a musical ideas. You can share your work with others, you can work in collaboration to create new masterpiece.
@@ -67,10 +69,10 @@ All values are HEX.
 - 30030600 - 8 track volumes
 - a686a234 - 8 drum volumes
 - 101211100a07060c0d10 - 10 equalizer volumes+10 
-- 0031012940444144c054__c155__e001 - drum data
+- 0031012940444144c054 __c155__ e001 - drum data
  * c1 = 11000001 - 3 bits is order of 8/16 segment and 5 bits is drum order
  * 55 = 01010101 - bitmask of drums
-- 0050409400450404400850209400a50204400c5020640__0e5020840__ - track data
+- 0050409400450404400850209400a50204400c5020640 __0e5020840__ - track data
  * 0e - beat order
  * 5 - track order
  * 02 - length in 16th
