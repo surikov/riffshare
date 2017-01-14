@@ -160,7 +160,8 @@ var drums = [{
 	notes:[]
 	,gain:audioContext.createGain()
 	},{
-	sound:_drum_Standard_32_32_460_38,
+	//sound:_drum_Standard_32_32_460_38,
+	sound:_drum_CM_4564_4732_32Set_46127_38,
 	pitch:38,//40
 	title:'Snare drum',volume:sureNumeric(readTextFromlocalStorage('drum2'),0,60,100)/100,id:2,
 	notes:[]
@@ -772,7 +773,7 @@ function createTrackVolumes(){
 	knobBars.tap=function (intersectPointInWorld) {
 		var y = Math.floor((intersectPointInWorld.y - d3mJS.mainGroup.position.y -0.45)/2);
 		var z = tracks.length-Math.ceil(intersectPointInWorld.z - d3mJS.mainGroup.position.z - knobBars.cube.position.z)-4;
-		console.log(y,z,tracks);
+		//console.log(y,z,tracks);
 		tracks[z].volume=y/10;
 		saveText2localStorage('track'+tracks[z].id,''+Math.round(100*y/10));
 		showVolumes();
