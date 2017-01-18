@@ -1855,15 +1855,18 @@ function D3mJS() {
 			me.cameraStartZ = me.camera.position.z;
 			touchEvent.preventDefault();
 			me.dab();
-			//if (touchEvent.touches.length < 2) {
+			if (touchEvent.touches.length < 2) {
 				me.lockOrbitForTarget();
-			//}
+			}
 		};
 		me.canvas.ontouchmove = function (touchEvent) {
 			if (me.currentState == me.STATE.WATCH) {
 				me.checkTap(touchEvent.touches[0].pageX, touchEvent.touches[0].pageY);
 				me.drag(touchEvent.touches[0].pageX, touchEvent.touches[0].pageY);
 			}
+			/*if (touchEvent.touches.length >1) {
+				me.unLockOrbitForTarget();
+			}*/
 			touchEvent.preventDefault();
 		};
 		me.canvas.ontouchend = function (touchEvent) {
