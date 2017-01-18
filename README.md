@@ -219,4 +219,4 @@ Ride Cymbal
 
 ## Base
 
-Powered by [Web Audio Font](https://github.com/surikov/webaudiofont)
+Powered by [Web Audio Font](https://surikov.github.io/webaudiofont/)
