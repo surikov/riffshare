@@ -1,4 +1,4 @@
-console.log('riffShare v1.10');
+console.log('riffShare v1.11');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -1422,10 +1422,14 @@ function createNotesPanes(d3mJS) {
 
 }
 function createDrumPanes(d3mJS) {
-	new ItemMirror(28+maxLen + titlesLen + 1, drums.length + 2 * tracks.length + 3 + 7 //
-	, (maxLen - titlesLen - 1+28) / 2-28, 0, (drums.length + 2 * tracks.length + 3 + 7) / 2 - 2 * tracks.length //
-	, -0.5 * Math.PI, 0, 0 //
-	).addTo(d3mJS);
+	try{
+		new ItemMirror(28+maxLen + titlesLen + 1, drums.length + 2 * tracks.length + 3 + 7 //
+		, (maxLen - titlesLen - 1+28) / 2-28, 0, (drums.length + 2 * tracks.length + 3 + 7) / 2 - 2 * tracks.length //
+		, -0.5 * Math.PI, 0, 0 //
+		).addTo(d3mJS);
+	}catch(ex){
+		console.log(ex);
+	}
 	new ItemBox(maxLen + titlesLen + 1+28, 1, 2 * tracks.length + drums.length + 3 + 7, 0x113355)
 	.addTo(d3mJS)
 	.move((maxLen - titlesLen - 1+28) / 2-28, -0.51, (drums.length + 2 * tracks.length + 3 + 7) / 2 - 2 * tracks.length);
