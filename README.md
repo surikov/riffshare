@@ -8,6 +8,10 @@ Music creation and collaboration platform. Create tune in 3D environment and sha
 
 RiffShare is the sketchpad for writing down a musical ideas. You can share your work with others, you can work in collaboration to create new masterpiece.
 
+## Workflow
+
+![flow](https://surikov.github.io/riffshare/img/flow.gif)
+
 ## Tutorial
 
 YouTube [video](https://www.youtube.com/watch?v=4AjrsqnMTX4)
