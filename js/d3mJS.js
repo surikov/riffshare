@@ -1846,30 +1846,41 @@ function D3mJS() {
 			me.unLockOrbitForTarget();
 		};
 		me.canvas.ontouchstart = function (touchEvent) {
-			me.isClick = true;
-			me.currentState = me.STATE.WATCH;
-			me.pointStartX = touchEvent.touches[0].pageX;
-			me.pointStartY = touchEvent.touches[0].pageY;
-			me.cameraStartX = me.camera.position.x;
-			me.cameraStartY = me.camera.position.y;
-			me.cameraStartZ = me.camera.position.z;
-			touchEvent.preventDefault();
-			me.dab();
-			//if (touchEvent.touches.length < 2) {
+			//console.log('touches len',touchEvent.touches.length);
+			if (touchEvent.touches.length < 2) {
+				me.isClick = true;
+				me.currentState = me.STATE.WATCH;
+				me.pointStartX = touchEvent.touches[0].pageX;
+				me.pointStartY = touchEvent.touches[0].pageY;
+				me.cameraStartX = me.camera.position.x;
+				me.cameraStartY = me.camera.position.y;
+				me.cameraStartZ = me.camera.position.z;
+				touchEvent.preventDefault();
+				me.dab();
 				me.lockOrbitForTarget();
-			//}
+				}
+			else{
+				me.currentState = me.STATE.COLD;
+				me.isClick = false;
+				me.unLockOrbitForTarget();
+			}
 		};
 		me.canvas.ontouchmove = function (touchEvent) {
 			if (me.currentState == me.STATE.WATCH) {
 				me.checkTap(touchEvent.touches[0].pageX, touchEvent.touches[0].pageY);
 				me.drag(touchEvent.touches[0].pageX, touchEvent.touches[0].pageY);
 			}
+			/*if (touchEvent.touches.length >1) {
+				me.unLockOrbitForTarget();
+			}*/
 			touchEvent.preventDefault();
 		};
 		me.canvas.ontouchend = function (touchEvent) {
 			me.currentState = me.STATE.COLD;
-			if (me.isClick) {
-				me.tap();
+			if (touchEvent.touches.length < 2) {
+				if (me.isClick) {
+					me.tap();
+				}
 			}
 			touchEvent.preventDefault();
 			me.unLockOrbitForTarget();
@@ -2143,6 +2154,7 @@ function D3mJS() {
 		me.mainGroup = new THREE.Group();
 		me.scene.add(me.mainGroup);
 		me.uiControls = new THREE.XOrbitControls(me.camera, me.renderer.domElement);
+		
 		//me.threeTtrackballControls = new THREE.TrackballControls(me.camera, me.renderer.domElement);
 		//var cameraControl=new CameraControl();
 		//cameraControl.addTo(this);

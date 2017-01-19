@@ -2,7 +2,7 @@
 
 Launch [https://surikov.github.io/riffshare/tools.html](https://surikov.github.io/riffshare/tools.html)
 
-![Screenshot](https://surikov.github.io/riffshare/img/treeex.jpg)
+![Screenshot](https://surikov.github.io/riffshare/img/sp320opt.gif)
 
 Music creation and collaboration platform. Create tune in 3D environment and share your work via Twitter, blogs, chats, e-mail etc.
 
@@ -219,4 +219,4 @@ Ride Cymbal
 
 ## Base
 
-Powered by [Web Audio Font](https://github.com/surikov/webaudiofont)
+Powered by [Web Audio Font](https://surikov.github.io/webaudiofont/)

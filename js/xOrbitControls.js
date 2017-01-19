@@ -13,8 +13,8 @@
 //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
 //    Pan - right mouse, or arrow keys / touch: three finter swipe
 
-THREE.XOrbitControls = function ( object, domElement ) {
-
+THREE.XOrbitControls = function (  object, domElement ) {
+//this.d3mJS=d3mJS;
 	this.object = object;
 
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
@@ -758,9 +758,10 @@ THREE.XOrbitControls = function ( object, domElement ) {
 
 	}
 
-	function onTouchStart( event ) {
+	function onTouchStart( event ) {//console.log('onTouchStart',scope.enableZoom,scope.enabled,d3mJS);
 
-		if ( scope.enabled === false ) return;
+		//if ( scope.enabled === false ) return;
+		if ( scope.enabled === false && event.touches.length < 2) return;
 
 		switch ( event.touches.length ) {
 
@@ -777,7 +778,7 @@ THREE.XOrbitControls = function ( object, domElement ) {
 			case 2:	// two-fingered touch: dolly
 
 				if ( scope.enableZoom === false ) return;
-
+//console.log('onTouchStart zoom');
 				handleTouchStartDolly( event );
 
 				state = STATE.TOUCH_DOLLY;

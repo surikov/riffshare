@@ -1,4 +1,4 @@
-console.log('riffShare v1.10');
+console.log('riffShare v1.13');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -1333,18 +1333,18 @@ function createNotesPanes(d3mJS) {
 		new ItemGlass(maxLen, 0.9, 0.1, 0x99ccff, 0.1).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 10, -0.1);
 		new ItemGlass(maxLen, 0.9, 0.1, 0x99ccff, 0.2).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 11, -0.1);
 		*/
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 0, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 0, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 1, -0.1);
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 2, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 2, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 3, -0.1);
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 4, -0.71);
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 5, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 4, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 5, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 6, -0.1);
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 7, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 7, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 8, -0.1);
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 9, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 9, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 10, -0.1);
-		new ItemGlass(maxLen, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 11, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 11, -0.71);
 	}
 	/*var materialBlack = new THREE.MeshLambertMaterial({
 			color : 0x000000 //0x113355
@@ -1422,10 +1422,14 @@ function createNotesPanes(d3mJS) {
 
 }
 function createDrumPanes(d3mJS) {
-	new ItemMirror(28+maxLen + titlesLen + 1, drums.length + 2 * tracks.length + 3 + 7 //
-	, (maxLen - titlesLen - 1+28) / 2-28, 0, (drums.length + 2 * tracks.length + 3 + 7) / 2 - 2 * tracks.length //
-	, -0.5 * Math.PI, 0, 0 //
-	).addTo(d3mJS);
+	try{
+		new ItemMirror(28+maxLen + titlesLen + 1, drums.length + 2 * tracks.length + 3 + 7 //
+		, (maxLen - titlesLen - 1+28) / 2-28, 0, (drums.length + 2 * tracks.length + 3 + 7) / 2 - 2 * tracks.length //
+		, -0.5 * Math.PI, 0, 0 //
+		).addTo(d3mJS);
+	}catch(ex){
+		console.log(ex);
+	}
 	new ItemBox(maxLen + titlesLen + 1+28, 1, 2 * tracks.length + drums.length + 3 + 7, 0x113355)
 	.addTo(d3mJS)
 	.move((maxLen - titlesLen - 1+28) / 2-28, -0.51, (drums.length + 2 * tracks.length + 3 + 7) / 2 - 2 * tracks.length);
