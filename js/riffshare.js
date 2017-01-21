@@ -1,4 +1,4 @@
-console.log('riffShare v1.13');
+console.log('riffShare v1.14');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -59,10 +59,21 @@ var convolver=null;
 //var analyserUint8Array = new Uint8Array(analyser.frequencyBinCount);
 //analyser.getByteTimeDomainData(analyserUint8Array);
 
+
+
+
+
+
 var inGain = audioContext.createGain();
 var outGain = audioContext.createGain();
 var dryGain = audioContext.createGain();
 var wetGain = audioContext.createGain();
+var compressor = audioContext.createDynamicsCompressor();
+compressor.threshold.value = -3;
+compressor.knee.value = 30;
+compressor.ratio.value = 12;
+compressor.attack.value = 0.05;
+compressor.release.value = 0.08;
 var equalizers=[]
 equalizers.push( this.bandEqualizer(audioContext,65, sureNumeric(readTextFromlocalStorage('equalizer0'),-10		,8,+10)));
 equalizers.push( this.bandEqualizer(audioContext,125, sureNumeric(readTextFromlocalStorage('equalizer1'),-10		,5,+10)));
@@ -77,7 +88,9 @@ equalizers.push( this.bandEqualizer(audioContext,12000, sureNumeric(readTextFrom
 var noiseFilter = audioContext.createBiquadFilter();
 noiseFilter.type = "lowpass";
 noiseFilter.frequency.value = 24000;
-inGain.connect(equalizers[0]);
+inGain.connect(compressor);
+compressor.connect(equalizers[0]);
+//inGain.connect(equalizers[0]);
 equalizers[0].connect(equalizers[1]);
 equalizers[1].connect(equalizers[2]);
 equalizers[2].connect(equalizers[3]);
