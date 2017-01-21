@@ -40,8 +40,9 @@ var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player = new WebAudioFontPlayer();
 player.adjustPreset(audioContext,_tone_Les_32TrippleOpenTones_461_4690_45127_file);
+//player.adjustPreset(audioContext,_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file);
 //player.adjustPreset(audioContext,_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file);
-player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
+//player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
 function bandEqualizer(audioContext,frequency, gain) {
 	var q=1.0;
 	var filter = audioContext.createBiquadFilter();
@@ -151,51 +152,51 @@ var drums = [{
 	sound:_drum_Standard_32_32_460_35,
 	pitch:35,//36
 	title:'Bass drum',volume:sureNumeric(readTextFromlocalStorage('drum0'),0,60,100)/100,id:0,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	sound:_drum_Standard_32_32_460_41,
 	pitch:41,//43
 	title:'Low Tom',volume:sureNumeric(readTextFromlocalStorage('drum1'),0,60,100)/100,id:1,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	//sound:_drum_Standard_32_32_460_38,
 	sound:_drum_CM_4564_4732_32Set_46127_38,
 	pitch:38,//40
 	title:'Snare drum',volume:sureNumeric(readTextFromlocalStorage('drum2'),0,60,100)/100,id:2,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	sound:_drum_Standard_32_32_460_45,
 	pitch:45,//47,48,50
 	title:'Mid Tom',volume:sureNumeric(readTextFromlocalStorage('drum3'),0,60,100)/100,id:3,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	sound:_drum_Jazz_4632_42,
 	pitch:42,//44
 	title:'Closed Hi-hat',volume:sureNumeric(readTextFromlocalStorage('drum4'),0,60,100)/100,id:4,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	//sound:_drum_Standard_32_32_460_46,
 	sound:_drum_CM_4564_4732_32Set_46127_46,
 	pitch:46,//
 	title:'Open Hi-hat',volume:sureNumeric(readTextFromlocalStorage('drum5'),0,60,100)/100,id:5,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	sound:_drum_Standard_32_32_460_51,
 	pitch:51,//rest
 	title:'Ride Cymbal',volume:sureNumeric(readTextFromlocalStorage('drum6'),0,60,100)/100,id:6,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	},{
 	sound:_drum_Standard_32_32_460_49,
 	pitch:49,//
 	title:'Splash Cymbal',volume:sureNumeric(readTextFromlocalStorage('drum7'),0,60,100)/100,id:7,
-	notes:[]
+	notes:[],volumeRatio:1.0
 	,gain:audioContext.createGain()
 	}
 	/*drums[z].notes.push({
@@ -213,16 +214,21 @@ var tracks = [{
 		title : 'Distortion guitar',volume:sureNumeric(readTextFromlocalStorage('track0'),0,60,100)/100,octave:3,id:0,
 		color : new THREE.MeshStandardMaterial({emissive : 0x991100,color : 0x666666,metalness : 0.25}),
 		light:0xFF3300,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//31
 		,gain:audioContext.createGain()
 	}, {
 		//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
 		sound:_tone_Steel_45str_46Gt000053_461_460_45127,
+		//sound:_tone_12_45str_46Gt000054_461_460_45127,
+		//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
+		//sound:_tone_Mandolin000055_461_460_45127,
+		//sound:_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file,
+		//sound:_tone_Clean_32GuitarClean_32Guitar_461_460_45127,
 		title : 'Acoustic guitar',volume:sureNumeric(readTextFromlocalStorage('track1'),0,60,100)/100,octave:3,id:1,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x006600,color : 0x666666,metalness : 0.25}),
 		light:0x00CC00,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//25-28
 		,gain:audioContext.createGain()
 	}, {
@@ -230,7 +236,7 @@ var tracks = [{
 		title : 'Percussive Organ',volume:sureNumeric(readTextFromlocalStorage('track2'),0,60,100)/100,octave:4,id:2,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x3333ff,color : 0x666666,metalness : 0.25}),
 		light:0x3333ff,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//17-24
 		,gain:audioContext.createGain()
 	}, {
@@ -238,7 +244,7 @@ var tracks = [{
 		title : 'Palm mute guitar',volume:sureNumeric(readTextFromlocalStorage('track3'),0,60,100)/100,octave:3,id:3,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x330000,color : 0x666666,metalness : 0.25}),
 		light:0x663333,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//30
 		,gain:audioContext.createGain()
 	}, {
@@ -246,7 +252,7 @@ var tracks = [{
 		title : 'Acoustic Piano',volume:sureNumeric(readTextFromlocalStorage('track4'),0,60,100)/100,octave:3,id:4,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x0099FF,color : 0x666666,metalness : 0.25}),
 		light:0x0099FF,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//rest
 		,gain:audioContext.createGain()
 	}, {
@@ -255,7 +261,7 @@ var tracks = [{
 		title : 'Bass guitar',volume:sureNumeric(readTextFromlocalStorage('track5'),0,80,100)/100,octave:2,id:5,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x660066,color : 0x666666,metalness : 0.25}),
 		light:0xCC00CC,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//33-38
 		,gain:audioContext.createGain()
 	}, {
@@ -263,7 +269,7 @@ var tracks = [{
 		title : 'String Ensemble',volume:sureNumeric(readTextFromlocalStorage('track6'),0,40,100)/100,octave:3,id:6,
 		color :  new THREE.MeshStandardMaterial({emissive : 0xcc9900,color : 0x666666,metalness : 0.25}),
 		light:0xcc9900,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//41-88
 		,gain:audioContext.createGain()
 	}, {
@@ -271,7 +277,7 @@ var tracks = [{
 		title : 'Synth Bass',volume:sureNumeric(readTextFromlocalStorage('track7'),0,80,100)/100,octave:3,id:7,
 		color :  new THREE.MeshStandardMaterial({emissive : 0x666666,color : 0x666666,metalness : 0.25}),
 		light:0x999999,
-		notes : []
+		notes : [],volumeRatio:1.0
 		//39,40
 		,gain:audioContext.createGain()
 	}
@@ -364,6 +370,7 @@ function nextPiece() {
 		for(var i=0;i<drums.length;i++){
 			var drum=drums[i];
 			var v=1.0;//drum.volume;
+			v=v*drum.volumeRatio;
 			//if(v>0){}else{v=0.000001}
 			for(var d=0;d<drum.notes.length;d++){
 				if(drum.notes[d].beat==n){
@@ -379,6 +386,7 @@ function nextPiece() {
 		for(var i=0;i<tracks.length;i++){
 			var track=tracks[i];
 			var v=0.75;//track.volume;
+			v=v*track.volumeRatio;
 			//if(v>0){}else{v=0.000001}
 			//var chordCounter=0;
 			var chord=[];
