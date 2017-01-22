@@ -1,4 +1,4 @@
-console.log('riffShare v1.14');
+console.log('riffShare v1.15');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -816,6 +816,92 @@ function createTrackVolumes(){
 }
 		
 		
+/*
+//console.log(note);
+					lightSparkle(20
+					,markBeat+0.5
+					,1.5+note.pitch
+					//,-1*t+1.0
+					,1
+					,track.light,note.length);
+*/
+
+		
+var midiNotes = [];
+function midiFindNote(midiNote) {
+	for (var i = 0; i < midiNotes.length; i++) {
+		if (midiNotes[i].midiNote == midiNote) {
+			return midiNotes[i];
+		}
+	}
+	var note = {
+		midiNote : midiNote
+	};
+	midiNotes.push(note);
+	return note;
+}
+function midNoteOn(midiNote) {
+	//midiFindNote(midiNote).envelope = player.queueWaveTable(audioContext, audioContext.destination, voice, 0, midiNote, 999, true);
+	var track=tracks[0];
+	midiFindNote(midiNote).envelope = player.queueWaveTable(audioContext
+					,track.gain
+					, track.sound, 0, track.octave*12+midiNote-2*12, 99999,0.75*track.volumeRatio,0);
+	//console.log(midiNote);
+}
+function midiNoteOff(midiNote) {
+	var note = midiFindNote(midiNote);
+	if (note.envelope) {
+		note.envelope.cancel();
+	} else {
+		console.log('empty envelope', note);
+	}
+}
+function midiOnStateChange(event){
+	console.log('midiOnStateChange', event);
+}
+function midiOnMIDImessage(){
+	var data = event.data;
+	var cmd = data[0] >> 4;
+	var channel = data[0] & 0xf;
+	var type = data[0] & 0xf0; // channel agnostic message type. Thanks, Phil Burk.
+	var pitch = data[1];
+	var velocity = data[2];
+	// with pressure and tilt off
+	// note off: 128, cmd: 8
+	// note on: 144, cmd: 9
+	// pressure / tilt on
+	// pressure: 176, cmd 11:
+	// bend: 224, cmd: 14
+	switch (type) {
+	case 144: // noteOn message
+		midNoteOn(pitch);
+		break;
+	case 128: // noteOff message
+		midiNoteOff(pitch);
+		break;
+	}
+}
+function requestMIDIAccessSuccess(midi){
+	console.log('requestMIDIAccessSuccess', midi);
+	//midi = midiAccess;
+	var inputs = midi.inputs.values();
+	for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+		console.log('midi input',input);
+		input.value.onmidimessage = midiOnMIDImessage;
+	}
+	midi.onstatechange = midiOnStateChange;
+}
+function requestMIDIAccessFailure(e){
+	console.log('requestMIDIAccessFailure', e);
+}
+function startListenMIDI(e){
+	if (navigator.requestMIDIAccess) {
+		console.log('navigator.requestMIDIAccess ok');
+		navigator.requestMIDIAccess().then(requestMIDIAccessSuccess, requestMIDIAccessFailure);
+	} else {
+		console.log('navigator.requestMIDIAccess failed',e);
+	}
+}
 		
 function riffShareStart() {
 	console.log('riffShare start');
@@ -1090,6 +1176,7 @@ function riffShareStart() {
 	loadState();
 	showVolumes();
 	showEqualizer();
+	startListenMIDI();
 }
 function createMark(d3mJS){
 	/*
