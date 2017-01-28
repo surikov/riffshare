@@ -1,4 +1,4 @@
-console.log('riffShare v1.16');
+console.log('riffShare v1.17');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -1004,23 +1004,23 @@ function riffShareStart() {
 		//}
 	};
 	//labelPlay = new Item3dText('Play/Pause', 0.1, 3, selectedFont,materialLabel).addTo(d3mJS).move(-titlesLen, 0, drums.length + 3 + 4 + 1, -Math.PI / 2, 0, 0);//.color(0x99ccff);
-	knobStart = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(20 / 2 - titlesLen-1-29, 0.5, drums.length + 7);
+	knobStart = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(20 / 2 - titlesLen-1-28, 0.5, drums.length + 7);
 	var iconPlayGeometry = new THREE.CylinderGeometry( 1, 1, 1, 3 );
 	iconPlayMesh = new THREE.Mesh( iconPlayGeometry, materialWhite );
 	iconPlayMesh.rotation.y=0.5*Math.PI;
-	iconPlayMesh.position.x=10 - titlesLen-1-29;
+	iconPlayMesh.position.x=10 - titlesLen-1-28;
 	iconPlayMesh.position.y=0.2;
 	iconPlayMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconPlayMesh );
 	var iconCiGeometry = new THREE.CylinderGeometry( 2, 2, 1, 20 );
 	var iconCiMesh = new THREE.Mesh( iconCiGeometry, materialLabel );
 	iconCiMesh.rotation.y=0.5*Math.PI;
-	iconCiMesh.position.x=10 - titlesLen-1-29;
+	iconCiMesh.position.x=10 - titlesLen-1-28;
 	iconCiMesh.position.y=0.1;
 	iconCiMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconCiMesh );
-	pause1=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen-0.5-1-29, 0.3, drums.length + 7);
-	pause2=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen+0.5-1-29, 0.3, drums.length + 7);
+	pause1=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen-0.5-1-28, 0.3, drums.length + 7);
+	pause2=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen+0.5-1-28, 0.3, drums.length + 7);
 	//pause1.material.visible
 	pause1.hide();
 	pause2.hide();
@@ -1052,10 +1052,10 @@ function riffShareStart() {
 	};*/
 	
 	//labelTools = new Item3dText('Tools', 0.1, 2, selectedFont,materialLabel).addTo(d3mJS).move(- titlesLen, 0, drums.length + 3 + 4 + 1-5, -Math.PI / 2, 0, 0);//.color(0x99ccff);
-	knobTools = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(3 - titlesLen -29, 0.5, drums.length + 7);
+	knobTools = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(3 - titlesLen -28, 0.5, drums.length + 7);
 	var iconToolsGeometry = new THREE.CylinderGeometry( 2, 2, 1, 6 );
 	var iconToolsMesh = new THREE.Mesh( iconToolsGeometry, materialLabel );
-	iconToolsMesh.position.x=10 - titlesLen-7-29;
+	iconToolsMesh.position.x=10 - titlesLen-7-28;
 	iconToolsMesh.position.y=0.1;
 	iconToolsMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconToolsMesh );
