@@ -1,5 +1,5 @@
 @charset "utf-8";
-@font-face {
+@font-face2222 {
 			font-family: font_ttf; /* Гарнитура шрифта */
 			src: url(../fonts/okolaksBold.ttf); /* Для IE5-8 */
 			src: local(font_ttf), url(../fonts/okolaksBold.ttf); /* Для остальных браузеров */
@@ -42,4 +42,22 @@
 				background: #000066;
 				overflow-y:hidden;
 				overflow-x:hidden;
+}
+#divHUD {
+	height: 32px;
+	width: 100%;
+	background-color: rgba(255,255,255,0.2);
+	position: absolute;
+	z-index: 222;
+	bottom: 0px;
+	padding: 4px;
+}
+#divCanvas {
+	background-color: #003300;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	z-index: 111;
+	left: 0px;
+	top: 0px;
 }

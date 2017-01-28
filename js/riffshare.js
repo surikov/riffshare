@@ -1,4 +1,4 @@
-console.log('riffShare v1.15');
+console.log('riffShare v1.16');
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
@@ -28,6 +28,8 @@ var light3 = null;
 //var labelPlay = null;
 var onAir = false;
 var startID=-1;
+var knobStart=null;
+var knobTools=null;
 var flat=sureInList(readTextFromlocalStorage('flat'),0,[0,1]);
 var bpm=sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);//120;
 			var N = 4 * 60 / bpm;
@@ -1002,23 +1004,23 @@ function riffShareStart() {
 		//}
 	};
 	//labelPlay = new Item3dText('Play/Pause', 0.1, 3, selectedFont,materialLabel).addTo(d3mJS).move(-titlesLen, 0, drums.length + 3 + 4 + 1, -Math.PI / 2, 0, 0);//.color(0x99ccff);
-	var knobStart = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(20 / 2 - titlesLen-1, 0.5, drums.length + 7);
+	knobStart = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(20 / 2 - titlesLen-1-29, 0.5, drums.length + 7);
 	var iconPlayGeometry = new THREE.CylinderGeometry( 1, 1, 1, 3 );
 	iconPlayMesh = new THREE.Mesh( iconPlayGeometry, materialWhite );
 	iconPlayMesh.rotation.y=0.5*Math.PI;
-	iconPlayMesh.position.x=10 - titlesLen-1;
+	iconPlayMesh.position.x=10 - titlesLen-1-29;
 	iconPlayMesh.position.y=0.2;
 	iconPlayMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconPlayMesh );
 	var iconCiGeometry = new THREE.CylinderGeometry( 2, 2, 1, 20 );
 	var iconCiMesh = new THREE.Mesh( iconCiGeometry, materialLabel );
 	iconCiMesh.rotation.y=0.5*Math.PI;
-	iconCiMesh.position.x=10 - titlesLen-1;
+	iconCiMesh.position.x=10 - titlesLen-1-29;
 	iconCiMesh.position.y=0.1;
 	iconCiMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconCiMesh );
-	pause1=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen-0.5-1, 0.3, drums.length + 7);
-	pause2=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen+0.5-1, 0.3, drums.length + 7);
+	pause1=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen-0.5-1-29, 0.3, drums.length + 7);
+	pause2=new ItemBox(0.5,1,2,0x99ccff).addTo(d3mJS).move(20 / 2 - titlesLen+0.5-1-29, 0.3, drums.length + 7);
 	//pause1.material.visible
 	pause1.hide();
 	pause2.hide();
@@ -1028,11 +1030,13 @@ function riffShareStart() {
 		if (!onAir) {
 			//labelPlay.color(0xff9900);
 			pausePlay();
-			
+			document.getElementById("playPause").style.display = "none";
+			document.getElementById("playStart").style.display = "inline";
 		} else {
 			//labelPlay.color(0x99ccff);
 			startPlay();
-			
+			document.getElementById("playPause").style.display = "inline";
+			document.getElementById("playStart").style.display = "none";
 		}
 	};
 	
@@ -1048,10 +1052,10 @@ function riffShareStart() {
 	};*/
 	
 	//labelTools = new Item3dText('Tools', 0.1, 2, selectedFont,materialLabel).addTo(d3mJS).move(- titlesLen, 0, drums.length + 3 + 4 + 1-5, -Math.PI / 2, 0, 0);//.color(0x99ccff);
-	var knobTools = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(3 - titlesLen , 0.5, drums.length + 7);
+	knobTools = new ItemKnob(6, 0.05, 6, 0x99ccff, true).addTo(d3mJS).move(3 - titlesLen -29, 0.5, drums.length + 7);
 	var iconToolsGeometry = new THREE.CylinderGeometry( 2, 2, 1, 6 );
 	var iconToolsMesh = new THREE.Mesh( iconToolsGeometry, materialLabel );
-	iconToolsMesh.position.x=10 - titlesLen-7;
+	iconToolsMesh.position.x=10 - titlesLen-7-29;
 	iconToolsMesh.position.y=0.1;
 	iconToolsMesh.position.z=drums.length + 7;
 	d3mJS.mainGroup.add( iconToolsMesh );
@@ -1479,12 +1483,12 @@ function createNotesPanes(d3mJS) {
 		});*/
 	var mi = null;
 	var group = new THREE.Group();
-	var vline = new THREE.PlaneGeometry(0.03, maxPitch);
-	var vlimit = new THREE.PlaneGeometry(0.5, maxPitch);
+	var vline = new THREE.PlaneGeometry(0.05, maxPitch);
+	var vlimit = new THREE.PlaneGeometry(0.95, maxPitch);
 	for (var x = 1; x < maxLen; x++) {
 		if (Math.floor(x / 16) == x / 16) {
 			mi = new THREE.Mesh(vlimit, materialWhite);
-			mi.position.setZ(0.25);
+			mi.position.setZ(-0.5);
 		} else {
 			mi = new THREE.Mesh(vline, materialWhite);
 		}
@@ -1493,13 +1497,14 @@ function createNotesPanes(d3mJS) {
 		mi.position.setY(maxPitch / 2);
 		group.add(mi);
 	}
-	var vlineB=new THREE.PlaneGeometry(0.5, maxLen);
+	var vlineB=new THREE.PlaneGeometry(1.75, maxLen);
 	for(var y=12;y<maxPitch;y=y+12){
 		var mi=new THREE.Mesh(vlineB, materialWhite);
 		mi.rotation.x=Math.PI * 0.5;
 		mi.rotation.z=Math.PI * 0.5;
 		mi.position.setX(maxLen/2);
 		mi.position.setY(y);
+		mi.position.setZ(-1);
 		group.add( mi );
 	}
 	/*var vlineB=new THREE.PlaneGeometry(1, 36);
@@ -1589,13 +1594,13 @@ function createDrumPanes(d3mJS) {
 	var mi = null;
 	//var group = new THREE.Group();
 	var g = new THREE.Geometry();
-	var vlimit = new THREE.PlaneGeometry(0.5, drums.length);
+	var vlimit = new THREE.PlaneGeometry(0.95, drums.length);
 	for (var x = 16; x < maxLen; x=x+16) {
 		mi = new THREE.Mesh(vlimit, materialWhite);
 		mi.rotation.x = Math.PI * 0.5;
 		mi.rotation.y = Math.PI * 0.5;
 		mi.position.setX(x);
-		mi.position.setY(0.2);
+		mi.position.setY(0.75);
 		mi.position.setZ(3 + drums.length / 2);
 		mi.updateMatrix();
 		g.merge(mi.geometry, mi.matrix);

@@ -64,6 +64,13 @@
 		<script src="js/Mirror.js"></script>
 	</head>
 	<body onload='riffShareStart();'>
-		<canvas id="d3mJS" width="100%" height="100%" style="width: 100%; height: 100%; background: #990000;" ></canvas>
-	</body>
+	<div id="divCanvas">
+			<canvas id="d3mJS" width="100%" height="100%" style="width: 100%; height: 100%; background: #990000;" ></canvas>
+	</div>
+		<div id="divHUD">
+			<a href='javascript:knobTools.tap();'><img src="img/Settings-02-128.png" width="32" height="32"></a>
+			<span id='playPause' style="display: none;" ><a href='javascript:knobStart.tap();'><img src="img/Media-Pause-128.png" width="32" height="32"></a></span>
+			<span id='playStart'><a href='javascript:knobStart.tap();'><img src="img/Arrowhead-Right-128.png" width="32" height="32"></a></span>
+		</div>
+</body>
 </html>
