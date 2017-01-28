@@ -1,4 +1,5 @@
 console.log('riffShare v1.22');
+
 var maxLen = 16 * 16;
 var currentLen = 4*16;
 var maxPitch = 12 * 5;
