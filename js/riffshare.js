@@ -1,4 +1,4 @@
-console.log('riffShare v1.23');
+console.log('riffShare v1.24');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
@@ -42,10 +42,10 @@ console.log('currentLen/pieceLen',currentLen,pieceLen);
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			var player = new WebAudioFontPlayer();
-player.adjustPreset(audioContext,_tone_Les_32TrippleOpenTones_461_4690_45127_file);
+//player.adjustPreset(audioContext,_tone_Les_32TrippleOpenTones_461_4690_45127_file);
 //player.adjustPreset(audioContext,_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file);
 //player.adjustPreset(audioContext,_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file);
-player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
+//player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
 function bandEqualizer(audioContext,frequency, gain) {
 	var q=1.0;
 	var filter = audioContext.createBiquadFilter();
@@ -1184,6 +1184,9 @@ function riffShareStart() {
 	showVolumes();
 	showEqualizer();
 	startListenMIDI();
+	
+	player.adjustPreset(audioContext,_tone_Les_32TrippleOpenTones_461_4690_45127_file);
+	player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
 }
 function createMark(d3mJS){
 	/*
