@@ -39,13 +39,17 @@
 				overflow-y:hidden;
 				overflow-x:hidden;
 }
-#divHUD {
-	height: 32px;
+#divMenu {
 	width: 100%;
-	background-color: rgba(255,255,255,0.2);
+	height: 1%;
 	position: absolute;
 	z-index: 222;
-	bottom: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+#divHUD {
+	height: 32px;
+	background-color: rgba(255,255,255,0.2);
 	padding: 4px;
 }
 #divCanvas {
