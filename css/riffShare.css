@@ -39,6 +39,14 @@
 				overflow-y:hidden;
 				overflow-x:hidden;
 }
+#subtitle {
+	font-family: "Times New Roman", Times, serif;
+	color: #fff;
+	font-style: italic;
+	font-weight: bold;
+	font-size: medium;
+	vertical-align: 50%;
+}
 #divMenu {
 	width: 100%;
 	height: 1%;
