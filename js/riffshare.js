@@ -1,4 +1,4 @@
-console.log('riffShare v1.24');
+console.log('riffShare v1.25');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
@@ -795,6 +795,7 @@ function createTrackVolumes(){
 		//var box=new ItemBox2(0.01,22, 0.9,materialChess).addTo(d3mJS).move(-titlesLen+1, 0.1, i-0.3+4);
 		var bar=new ItemBox(0.1,1, 0.9,tracks[i].light).addTo(d3mJS, tracks[i].group.group).move(-titlesLen, 22/2+0.45, -0.3);
 		trackBoxes.push(bar);
+		
 	}
 	knobBars.tap=function (intersectPointInWorld) {
 		var y = Math.floor((intersectPointInWorld.y - d3mJS.mainGroup.position.y -0.45)/2);
@@ -803,6 +804,7 @@ function createTrackVolumes(){
 		tracks[z].volume=y/10;
 		saveText2localStorage('track'+tracks[z].id,''+Math.round(100*y/10));
 		showVolumes();
+		reorderTracks(tracks[z].id);
 	};
 /*tracks[i].knobs=[];
 		for(var v=0;v<11;v++){
