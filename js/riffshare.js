@@ -1,8 +1,9 @@
-console.log('riffShare v1.25');
+console.log('riffShare v1.26');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
-var maxPitch = 12 * 5;
+var maxPitch = 12 * 7;
+var notesPanelY=7;
 //var tracks.length=6;
 //var drumCount = 8;
 var titlesLen = 13;
@@ -501,7 +502,7 @@ function checkSparkles(markBeat){
 					//console.log(note);
 					lightSparkle(20
 					,markBeat+0.5
-					,1.5+note.pitch
+					,notesPanelY+note.pitch
 					//,-1*t+1.0
 					,1
 					,track.light,note.length);
@@ -956,7 +957,7 @@ function riffShareStart() {
 	markSphere = new ItemSphere(0.5, 0x999999).addTo(d3mJS).move(0.5, -0.5, 0);
 
 	var knobDrums = new ItemKnob(maxLen + titlesLen + 1+28, 1.2, tracks.length + drums.length*2 + 3 + 7, 0xff0000, true).addTo(d3mJS).move((maxLen - titlesLen - 1) / 2-14, -0.51, (drums.length*2 + tracks.length + 3 + 7) / 2 - tracks.length*2);
-	var knobNotes = new ItemKnob(maxLen + 16, maxPitch, 0.1, 0x000ff0, true).addTo(d3mJS).move((maxLen + 16) / 2, maxPitch / 2 + 1, 0);
+	var knobNotes = new ItemKnob(maxLen + 16, maxPitch, 0.1, 0x000ff0, true).addTo(d3mJS).move((maxLen + 16) / 2, maxPitch / 2 + notesPanelY-0.5, 0);
 	var startX = knobDrums.cube.position.x;
 	var startY = knobDrums.cube.position.y;
 	var fLock = function () {
@@ -1202,7 +1203,7 @@ function createMark(d3mJS){
 	var b=0;
 	//8.5;
 	laserGroup = new THREE.Group();
-	vLaser=new ItemLaserRay(1,0x99ccff).addTo(d3mJS,laserGroup).align(new THREE.Vector3(b, -0.2, 0.2),new THREE.Vector3(b, 1+maxPitch, 0.2));
+	vLaser=new ItemLaserRay(1,0x99ccff).addTo(d3mJS,laserGroup).align(new THREE.Vector3(b, -0.2, 0.2),new THREE.Vector3(b, 1+maxPitch+notesPanelY, 0.2));
 	//hLaser=new ItemLaserRay(1,0x99ccff).addTo(d3mJS,laserGroup).align(new THREE.Vector3(b, 0.2, - 2 * tracks.length),new THREE.Vector3(b, 0.2, 3+drums.length+7));
 	laserGroup.position.setX(9);
 	vLaser.object3d.visible = false;
@@ -1239,7 +1240,7 @@ function addNoteLine(d3mJS, order,  beat, pitch, length, shift) {
 //console.log(order,  beat, pitch, length, shift);
 	var noteLine = new ItemNoteLine(tracks[order].color,beat + 0.5, pitch + 1.5, 0, beat + length, pitch + shift + 1.5, 0)//
 	.addTo(d3mJS,tracks[order].group.group)//
-	.move(beat + 0.5, pitch + 1.5, 0, beat + length, pitch + shift + 1.5, 0//
+	.move(beat + 0.5, pitch + notesPanelY, 0, beat + length, pitch + shift + notesPanelY, 0//
 	);
 	//console.log('addNoteLine',noteLine);
 	tracks[order].notes.push({
@@ -1256,7 +1257,7 @@ function markNoteLine(order, beat, pitch) {
 		beat : beat,
 		pitch : pitch
 	};
-	markSphere.move(beat + 0.5, pitch + 1.5, 0);
+	markSphere.move(beat + 0.5, pitch + notesPanelY, 0);
 }
 function unMarkNotes() {
 	markNote = null;
@@ -1453,18 +1454,18 @@ function createNotesPanes(d3mJS) {
 		new ItemGlass(maxLen, 0.9, 0.1, 0x99ccff, 0.1).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 10, -0.1);
 		new ItemGlass(maxLen, 0.9, 0.1, 0x99ccff, 0.2).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 11, -0.1);
 		*/
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 0, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 0, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 1, -0.1);
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 2, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 2, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 3, -0.1);
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 4, -0.71);
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 5, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 4, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 5, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 6, -0.1);
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 7, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 7, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 8, -0.1);
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 9, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 9, -0.71);
 		//new ItemGlass(maxLen, 0.9, 0.1, darkGlass).addTo(d3mJS).move(maxLen / 2, i + 1.5 + 10, -0.1);
-		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + 1.5 + 11, -0.71);
+		new ItemGlass(maxLen+16, 0.9, 0.1, lightGlass).addTo(d3mJS).move(maxLen / 2+8, i + notesPanelY + 11, -0.71);
 	}
 	/*var materialBlack = new THREE.MeshLambertMaterial({
 			color : 0x000000 //0x113355
@@ -1536,7 +1537,7 @@ function createNotesPanes(d3mJS) {
 	}*/
 
 	//group.position.setX(100);
-	group.position.setY(1);
+	group.position.setY(notesPanelY-0.5);
 	//group.position.setZ(-1);
 
 	d3mJS.mainGroup.add(group);
