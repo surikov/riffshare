@@ -7,7 +7,7 @@
 		<script src="js/MidiCompiler.js"></script>
 		<script src="js/MidiParser.js"></script>
 		<script>
-			console.log('tools v1.06');
+			console.log('tools v1.07');
 			
 			//console.log('encoded',encoded);
 			//decodeState(encoded);
@@ -124,8 +124,8 @@ window.twttr=(function(d,s,id){
 						p=p+12;
 					}
 				}
-				if(p>=7*12){
-					while(p>=7*12){
+				if(p>=5*12){
+					while(p>=5*12){
 						p=p-12;
 					}
 				}
@@ -379,7 +379,7 @@ window.twttr=(function(d,s,id){
 					var note=storeTracks[i];
 					if(note.track==track){
 						//if(note.pitch>59-12){
-						if(note.pitch>(12*7-1)-12){
+						if(note.pitch>(12*5-1)-12){
 							console.log('track too high');
 							return;
 						}

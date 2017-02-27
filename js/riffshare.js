@@ -1,8 +1,8 @@
-console.log('riffShare v1.26');
+console.log('riffShare v1.27');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
-var maxPitch = 12 * 7;
+var maxPitch = 12 * 5;
 var notesPanelY=7;
 //var tracks.length=6;
 //var drumCount = 8;
