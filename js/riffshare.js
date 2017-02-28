@@ -1,4 +1,4 @@
-console.log('riffShare v1.29');
+console.log('riffShare v1.30');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
@@ -390,6 +390,7 @@ function nextPiece() {
 			var v=1.0;//drum.volume;
 			v=v*drum.volumeRatio;
 			v=v*0.75;
+			v=v+0.1*(0.5-Math.random());
 			//if(v>0){}else{v=0.000001}
 			for(var d=0;d<drum.notes.length;d++){
 				if(drum.notes[d].beat==n){
@@ -407,6 +408,7 @@ function nextPiece() {
 			var v=0.75;//track.volume;
 			v=v*track.volumeRatio;
 			v=v*0.75;
+			v=v+0.1*(0.5-Math.random());
 			//if(v>0){}else{v=0.000001}
 			//var chordCounter=0;
 			var chord=[];
