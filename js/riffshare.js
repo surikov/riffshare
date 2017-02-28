@@ -1,4 +1,4 @@
-console.log('riffShare v1.28');
+console.log('riffShare v1.29');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
@@ -166,10 +166,11 @@ var materialLabel = new THREE.MeshStandardMaterial({
 		});
 		
 var drums = [{
-	sound:_drum_Standard_32_32_460_35,
+	//sound:_drum_Standard_32_32_460_35,
+	sound:_drum_Brush_4640_36,
 	pitch:35,//36
 	title:'Bass drum',volume:sureNumeric(readTextFromlocalStorage('drum0'),0,60,100)/100,id:0,
-	notes:[],volumeRatio:1.0
+	notes:[],volumeRatio:0.7
 	,gain:audioContext.createGain()
 	},{
 	sound:_drum_Standard_32_32_460_41,
