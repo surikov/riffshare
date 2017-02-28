@@ -1,4 +1,4 @@
-console.log('riffShare v1.27');
+console.log('riffShare v1.28');
 
 var maxLen = 16 * 16;
 var currentLen = 4*16;
@@ -1190,6 +1190,34 @@ function riffShareStart() {
 	
 	player.adjustPreset(audioContext,_tone_Les_32TrippleOpenTones_461_4690_45127_file);
 	player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
+	
+	delayedPlay();
+}
+function delayedPlay(){
+	setTimeout(function(){ 
+		if(allPresetsReady()){
+			knobStart.tap();
+		} else{
+			delayedPlay();
+		}
+	}, 333); 
+}
+function allPresetsReady(){
+	if(onePresetReady(_tone_Les_32TrippleOpenTones_461_4690_45127_file) && onePresetReady(_tone_Les_32MuteMuted_32Tones_461_460_45127_file)){
+		return true;
+	}else{
+		return false;
+	}
+}
+function onePresetReady(preset){
+	for (var i = 0; i < preset.zones.length; i++) {
+		if (preset.zones[i].buffer) {
+			//
+		}else{
+			return false;
+		}
+	}
+	return true;
 }
 function createMark(d3mJS){
 	/*
