@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>RiffTools</title>
+		<meta charset="utf-8">
+		<script src="js/tools.js"></script>
+		<script>
+			console.log('parse v1.01');
+			function init(){
+				var riff = getUrlVars()['riff'];
+				//console.log(riff);
+				decodeState(riff);
+				window.location = "edit.html";
+			}
+		</script>
+<style type="text/css">
+    body {
+	background-color: #111;
+}
+    p {
+	color: #FFF;
+}
+    ul {
+	color: #FFF;
+}
+    a {
+	color: #6CF;
+}
+    h1 {
+	color: #999;
+}
+    h2 {
+	color: #999;
+}
+    </style>
+	</head>
+	<body onload='init();'>
+		<p><a href='edit.html'>wait...</a></p>
+	</body>
+</html>

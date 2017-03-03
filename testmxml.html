@@ -2,109 +2,23 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<script src="testmxml.js"></script>
+		<script src="ValueTree.js"></script>
 	</head>
 	<body>
 		<input type="file" id="fileOpen" name="files[]"/>
 		<script>
 			console.log('start');
 			document.getElementById('fileOpen').addEventListener('change', fileOpen, false);
-			function ValueTree(name) {
-				this.children = [];
-				this.value = "";
-				this.name = name;
-				return this;
-			}
-			ValueTree.prototype.of = function (name) {
-				for (var i = 0; i < this.children.length; i++) {
-					if (this.children[i].name == name) {
-						return this.children[i];
-					}
-				}
-				var v = new ValueTree(name);
-				this.children.push(v);
-				return v;
-			};
-			ValueTree.prototype.numeric = function (minValue, defaultValue, maxValue) {
-				var r = defaultValue;
-				try {
-					r = Number.parseFloat(this.value);
-				} catch (ex) {
-					console.log(ex);
-				}
-				if (isNaN(r)) {
-					r = defaultValue;
-				}
-				if (r < minValue) {
-					r = minValue;
-				}
-				if (r > maxValue) {
-					r = maxValue;
-				}
-				return r;
-			};
-			ValueTree.prototype.all = function (name) {
-				var r = [];
-				for (var i = 0; i < this.children.length; i++) {
-					if (this.children[i].name == name) {
-						r.push(this.children[i]);
-					}
-				}
-				return r;
-			};
-			ValueTree.prototype.fromXMLstring = function (xml) {
-				var windowDOMParser = new window.DOMParser();
-				var dom = windowDOMParser.parseFromString(xml, "text/xml");
-				this.fromNodes(dom.childNodes);
-			};
-			ValueTree.prototype.fromNodes = function (nodes) {
-				for (var i = 0; i < nodes.length; i++) {
-					if (nodes[i].nodeType == 1) {
-						var v = new ValueTree(nodes[i].nodeName);
-						this.children.push(v);
-						v.fromNodes(nodes[i].childNodes);
-						for (var n = 0; n < nodes[i].attributes.length; n++) {
-							var a = new ValueTree(nodes[i].attributes[n].name);
-							a.value = nodes[i].attributes[n].value;
-							v.children.push(a);
-						}
-					} else {
-						if (nodes[i].nodeType == 3) {
-							this.value = this.value + nodes[i].nodeValue.trim();
-						}
-					}
-				}
-			};
 			function fileOpen(event){
 				console.log('open',event.target.files[0]);
 				var fileReader = new FileReader();
 				fileReader.onload = function (progressEvent) {
-					console.log('progressEvent',progressEvent);
+					//console.log('progressEvent',progressEvent);
 					//console.log('result',progressEvent.target.result);
 					var valueTree = new ValueTree();
 					valueTree.fromXMLstring(progressEvent.target.result);
-					console.log('valueTree',valueTree);
-					var parts=valueTree.of('score-partwise').all('part');
-					for(var p=0;p<parts.length;p++){
-						var part=parts[p];
-						console.log(p,part.of('id').value);
-						var measures=part.all('measure');
-						measures.sort(function (a, b) {
-								return a.of('number').numeric(-9999,0,9999) - b.of('number').numeric(-9999,0,9999);
-							}
-						);
-						for(var m=0;m<measures.length;m++){
-							var measure=measures[m];
-							var timeBeats=measure.of('attributes').of('time').of('beats').numeric(1,4,12);
-							var timeBeatType=measure.of('attributes').of('time').of('beat-type').numeric(2,4,16);
-							console.log('	time',timeBeats,timeBeatType);
-							var notes=measure.all('note');
-							for(var n=0;n<notes.length;n++){
-								var note=notes[n];
-								console.log('		',note.of('pitch').of('octave').numeric(0,1,999),note.of('pitch').of('step').value
-									,':',note.of('duration').numeric(0,0,999),'=',note.of('duration').numeric(0,0,999)/3);
-							}
-						}
-					}
+					probe(valueTree);
 				};
 				fileReader.readAsText(event.target.files[0]);
 			}
