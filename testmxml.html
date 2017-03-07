@@ -18,7 +18,7 @@
 					//console.log('result',progressEvent.target.result);
 					var valueTree = new ValueTree();
 					valueTree.fromXMLstring(progressEvent.target.result);
-					probe(valueTree);
+					dumpMXMLwhole(valueTree);
 				};
 				fileReader.readAsText(event.target.files[0]);
 			}

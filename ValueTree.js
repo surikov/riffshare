@@ -33,6 +33,14 @@ ValueTree.prototype.numeric = function (minValue, defaultValue, maxValue) {
 	}
 	return r;
 };
+ValueTree.prototype.inlist = function (values) {
+	for(var i=0;i<values.length;i++){
+		if(this.value==values[i]){
+			return this.value;
+		}
+	}
+	return values[0];
+};
 ValueTree.prototype.all = function (name) {
 	var r = [];
 	for (var i = 0; i < this.children.length; i++) {
