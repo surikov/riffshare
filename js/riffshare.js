@@ -172,7 +172,7 @@ var materialLabel = new THREE.MeshStandardMaterial({
 
 var drums = [{
 		//sound:_drum_Standard_32_32_460_35,
-		sound : _drum_Brush_4640_36,
+		sound : _drum_35_0_JCLive_sf2_file,
 		pitch : 35, //36
 		title : 'Bass drum',
 		volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
@@ -181,7 +181,7 @@ var drums = [{
 		volumeRatio : 0.7,
 		gain : audioContext.createGain()
 	}, {
-		sound : _drum_Standard_32_32_460_41,
+		sound : _drum_41_0_JCLive_sf2_file,
 		pitch : 41, //43
 		title : 'Low Tom',
 		volume : sureNumeric(readTextFromlocalStorage('drum1'), 0, 60, 100) / 100,
@@ -191,7 +191,7 @@ var drums = [{
 		gain : audioContext.createGain()
 	}, {
 		//sound:_drum_Standard_32_32_460_38,
-		sound : _drum_CM_4564_4732_32Set_46127_38,
+		sound : _drum_38_12_JCLive_sf2_file,
 		pitch : 38, //40
 		title : 'Snare drum',
 		volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
@@ -200,7 +200,7 @@ var drums = [{
 		volumeRatio : 1.0,
 		gain : audioContext.createGain()
 	}, {
-		sound : _drum_Standard_32_32_460_45,
+		sound : _drum_45_0_JCLive_sf2_file,
 		pitch : 45, //47,48,50
 		title : 'Mid Tom',
 		volume : sureNumeric(readTextFromlocalStorage('drum3'), 0, 60, 100) / 100,
@@ -209,7 +209,7 @@ var drums = [{
 		volumeRatio : 1.0,
 		gain : audioContext.createGain()
 	}, {
-		sound : _drum_Jazz_4632_42,
+		sound : _drum_42_0_JCLive_sf2_file,
 		pitch : 42, //44
 		title : 'Closed Hi-hat',
 		volume : sureNumeric(readTextFromlocalStorage('drum4'), 0, 60, 100) / 100,
@@ -219,7 +219,7 @@ var drums = [{
 		gain : audioContext.createGain()
 	}, {
 		//sound:_drum_Standard_32_32_460_46,
-		sound : _drum_CM_4564_4732_32Set_46127_46,
+		sound : _drum_46_0_JCLive_sf2_file,
 		pitch : 46, //
 		title : 'Open Hi-hat',
 		volume : sureNumeric(readTextFromlocalStorage('drum5'), 0, 60, 100) / 100,
@@ -228,7 +228,7 @@ var drums = [{
 		volumeRatio : 1.0,
 		gain : audioContext.createGain()
 	}, {
-		sound : _drum_Standard_32_32_460_51,
+		sound : _drum_51_0_JCLive_sf2_file,
 		pitch : 51, //rest
 		title : 'Ride Cymbal',
 		volume : sureNumeric(readTextFromlocalStorage('drum6'), 0, 60, 100) / 100,
@@ -237,7 +237,7 @@ var drums = [{
 		volumeRatio : 1.0,
 		gain : audioContext.createGain()
 	}, {
-		sound : _drum_Standard_32_32_460_49,
+		sound : _drum_49_0_JCLive_sf2_file,
 		pitch : 49, //
 		title : 'Splash Cymbal',
 		volume : sureNumeric(readTextFromlocalStorage('drum7'), 0, 60, 100) / 100,
@@ -256,7 +256,7 @@ for (var i = 0; i < drums.length; i++) {
 }
 
 var tracks = [{
-		sound : _tone_Les_32TrippleOpenTones_461_4690_45127_file,
+		sound : _tone_0291_LesPaul_sf2_file,
 		title : 'Distortion guitar',
 		volume : sureNumeric(readTextFromlocalStorage('track0'), 0, 60, 100) / 100,
 		octave : 3,
@@ -274,7 +274,7 @@ var tracks = [{
 		gain : audioContext.createGain()
 	}, {
 		//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
-		sound : _tone_Steel_45str_46Gt000053_461_460_45127,
+		sound : _tone_0270_JCLive_sf2_file,
 		//sound:_tone_12_45str_46Gt000054_461_460_45127,
 		//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
 		//sound:_tone_Mandolin000055_461_460_45127,
@@ -296,7 +296,7 @@ var tracks = [{
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_Organ_322000037_461_460_45127,
+		sound : _tone_0170_Chaos_sf2_file,
 		title : 'Percussive Organ',
 		volume : sureNumeric(readTextFromlocalStorage('track2'), 0, 60, 100) / 100,
 		octave : 4,
@@ -313,7 +313,7 @@ var tracks = [{
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_Les_32MuteMuted_32Tones_461_460_45127_file,
+		sound : _tone_0280_LesPaul_sf2_file,
 		title : 'Palm mute guitar',
 		volume : sureNumeric(readTextFromlocalStorage('track3'), 0, 60, 100) / 100,
 		octave : 3,
@@ -330,7 +330,7 @@ var tracks = [{
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_Piano_321000000_461_460_45127,
+		sound : _tone_0000_Chaos_sf2_file,
 		title : 'Acoustic Piano',
 		volume : sureNumeric(readTextFromlocalStorage('track4'), 0, 60, 100) / 100,
 		octave : 3,
@@ -348,7 +348,7 @@ var tracks = [{
 		gain : audioContext.createGain()
 	}, {
 		//sound:_tone_Picked_32Bs_46000070_461_460_45127,
-		sound : _tone_Fingered_32Bs_46fingeredbs_461_460_45127,
+		sound : _tone_0340_Chaos_sf2_file,
 		title : 'Bass guitar',
 		volume : sureNumeric(readTextFromlocalStorage('track5'), 0, 80, 100) / 100,
 		octave : 2,
@@ -365,7 +365,7 @@ var tracks = [{
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_Slow_32Stringsslowstrings_461_460_45127,
+		sound : _tone_0490_Chaos_sf2_file,
 		title : 'String Ensemble',
 		volume : sureNumeric(readTextFromlocalStorage('track6'), 0, 40, 100) / 100,
 		octave : 3,
@@ -382,7 +382,7 @@ var tracks = [{
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_Synth_32Bass_323000076_461_460_45127,
+		sound : _tone_0390_JCLive_sf2_file,
 		title : 'Synth Bass',
 		volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
 		octave : 3,
@@ -1278,10 +1278,16 @@ function riffShareStart() {
 	showVolumes();
 	showEqualizer();
 	startListenMIDI();
-
+/*
 	player.adjustPreset(audioContext, _tone_Les_32TrippleOpenTones_461_4690_45127_file);
 	player.adjustPreset(audioContext, _tone_Les_32MuteMuted_32Tones_461_460_45127_file);
-
+*/
+		for(var i=0;i<drums.length;i++){
+			player.adjustPreset(audioContext, drums[i].sound);
+		}
+		for(var i=0;i<tracks.length;i++){
+			player.adjustPreset(audioContext, tracks[i].sound);
+		}
 	delayedPlay();
 }
 function delayedPlay() {
@@ -1293,12 +1299,25 @@ function delayedPlay() {
 		}
 	}, 333);
 }
+
 function allPresetsReady() {
-	if (onePresetReady(_tone_Les_32TrippleOpenTones_461_4690_45127_file) && onePresetReady(_tone_Les_32MuteMuted_32Tones_461_460_45127_file)) {
+	for(var i=0;i<drums.length;i++){
+		if(!onePresetReady(drums[i].sound)){
+			return false;
+		}
+	}
+	for(var i=0;i<tracks.length;i++){
+		if(!onePresetReady(tracks[i].sound)){
+			return false;
+		}
+	}
+	//if (onePresetReady(_tone_Les_32TrippleOpenTones_461_4690_45127_file) && onePresetReady(_tone_Les_32MuteMuted_32Tones_461_460_45127_file)) {
+	/*if(1==1){
 		return true;
 	} else {
 		return false;
-	}
+	}*/
+	return true;
 }
 function onePresetReady(preset) {
 	for (var i = 0; i < preset.zones.length; i++) {
