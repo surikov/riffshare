@@ -172,7 +172,7 @@ var materialLabel = new THREE.MeshStandardMaterial({
 
 var drums = [{
 		//sound:_drum_Standard_32_32_460_35,
-		sound : _drum_35_0_JCLive_sf2_file,
+		sound : _drum_35_11_JCLive_sf2_file,
 		pitch : 35, //36
 		title : 'Bass drum',
 		volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
@@ -187,7 +187,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum1'), 0, 60, 100) / 100,
 		id : 1,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.99,
 		gain : audioContext.createGain()
 	}, {
 		//sound:_drum_Standard_32_32_460_38,
@@ -197,7 +197,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
 		id : 2,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.33,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_45_0_JCLive_sf2_file,
@@ -206,7 +206,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum3'), 0, 60, 100) / 100,
 		id : 3,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.99,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_42_0_JCLive_sf2_file,
@@ -215,7 +215,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum4'), 0, 60, 100) / 100,
 		id : 4,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.5,
 		gain : audioContext.createGain()
 	}, {
 		//sound:_drum_Standard_32_32_460_46,
@@ -225,7 +225,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum5'), 0, 60, 100) / 100,
 		id : 5,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.5,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_51_0_JCLive_sf2_file,
@@ -234,16 +234,16 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum6'), 0, 60, 100) / 100,
 		id : 6,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.5,
 		gain : audioContext.createGain()
 	}, {
-		sound : _drum_49_0_JCLive_sf2_file,
+		sound : _drum_49_15_JCLive_sf2_file,
 		pitch : 49, //
 		title : 'Splash Cymbal',
 		volume : sureNumeric(readTextFromlocalStorage('drum7'), 0, 60, 100) / 100,
 		id : 7,
 		notes : [],
-		volumeRatio : 1.0,
+		volumeRatio : 0.5,
 		gain : audioContext.createGain()
 	}
 	/*drums[z].notes.push({
@@ -268,7 +268,7 @@ var tracks = [{
 		}),
 		light : 0xFF3300,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.99
 		//31
 	,
 		gain : audioContext.createGain()
@@ -308,7 +308,7 @@ var tracks = [{
 		}),
 		light : 0x3333ff,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.7
 		//17-24
 	,
 		gain : audioContext.createGain()
@@ -325,12 +325,12 @@ var tracks = [{
 		}),
 		light : 0x663333,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.99
 		//30
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_0000_Chaos_sf2_file,
+		sound : _tone_0000_JCLive_sf2_file,
 		title : 'Acoustic Piano',
 		volume : sureNumeric(readTextFromlocalStorage('track4'), 0, 60, 100) / 100,
 		octave : 3,
@@ -360,7 +360,7 @@ var tracks = [{
 		}),
 		light : 0xCC00CC,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.7
 		//33-38
 	,
 		gain : audioContext.createGain()
@@ -377,12 +377,12 @@ var tracks = [{
 		}),
 		light : 0xcc9900,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.5
 		//41-88
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_0390_JCLive_sf2_file,
+		sound : _tone_0390_GeneralUserGS_sf2_file,
 		title : 'Synth Bass',
 		volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
 		octave : 3,
@@ -394,7 +394,7 @@ var tracks = [{
 		}),
 		light : 0x999999,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.7
 		//39,40
 	,
 		gain : audioContext.createGain()
