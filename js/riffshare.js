@@ -1,4 +1,4 @@
-console.log('riffShare v1.31');
+console.log('riffShare v1.72');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -178,7 +178,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
 		id : 0,
 		notes : [],
-		volumeRatio : 0.7,
+		volumeRatio : 0.5,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_41_0_JCLive_sf2_file,
@@ -191,13 +191,13 @@ var drums = [{
 		gain : audioContext.createGain()
 	}, {
 		//sound:_drum_Standard_32_32_460_38,
-		sound : _drum_38_12_JCLive_sf2_file,
+		sound : _drum_40_16_JCLive_sf2_file,
 		pitch : 38, //40
 		title : 'Snare drum',
 		volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
 		id : 2,
 		notes : [],
-		volumeRatio : 0.33,
+		volumeRatio : 0.75,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_45_0_JCLive_sf2_file,
@@ -215,7 +215,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum4'), 0, 60, 100) / 100,
 		id : 4,
 		notes : [],
-		volumeRatio : 0.5,
+		volumeRatio : 0.2,
 		gain : audioContext.createGain()
 	}, {
 		//sound:_drum_Standard_32_32_460_46,
@@ -225,7 +225,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum5'), 0, 60, 100) / 100,
 		id : 5,
 		notes : [],
-		volumeRatio : 0.5,
+		volumeRatio : 0.2,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_51_0_JCLive_sf2_file,
@@ -234,7 +234,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum6'), 0, 60, 100) / 100,
 		id : 6,
 		notes : [],
-		volumeRatio : 0.5,
+		volumeRatio : 0.3,
 		gain : audioContext.createGain()
 	}, {
 		sound : _drum_49_15_JCLive_sf2_file,
@@ -243,7 +243,7 @@ var drums = [{
 		volume : sureNumeric(readTextFromlocalStorage('drum7'), 0, 60, 100) / 100,
 		id : 7,
 		notes : [],
-		volumeRatio : 0.5,
+		volumeRatio : 0.2,
 		gain : audioContext.createGain()
 	}
 	/*drums[z].notes.push({
@@ -268,13 +268,13 @@ var tracks = [{
 		}),
 		light : 0xFF3300,
 		notes : [],
-		volumeRatio : 0.99
+		volumeRatio : 0.7
 		//31
 	,
 		gain : audioContext.createGain()
 	}, {
 		//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
-		sound : _tone_0270_JCLive_sf2_file,
+		sound : _tone_0250_Chaos_sf2_file,
 		//sound:_tone_12_45str_46Gt000054_461_460_45127,
 		//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
 		//sound:_tone_Mandolin000055_461_460_45127,
@@ -291,7 +291,7 @@ var tracks = [{
 		}),
 		light : 0x00CC00,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.5
 		//25-28
 	,
 		gain : audioContext.createGain()
@@ -308,7 +308,7 @@ var tracks = [{
 		}),
 		light : 0x3333ff,
 		notes : [],
-		volumeRatio : 0.7
+		volumeRatio : 0.5
 		//17-24
 	,
 		gain : audioContext.createGain()
@@ -325,12 +325,12 @@ var tracks = [{
 		}),
 		light : 0x663333,
 		notes : [],
-		volumeRatio : 0.99
+		volumeRatio : 0.7
 		//30
 	,
 		gain : audioContext.createGain()
 	}, {
-		sound : _tone_0000_JCLive_sf2_file,
+		sound : _tone_0010_JCLive_sf2_file,
 		title : 'Acoustic Piano',
 		volume : sureNumeric(readTextFromlocalStorage('track4'), 0, 60, 100) / 100,
 		octave : 3,
@@ -342,13 +342,13 @@ var tracks = [{
 		}),
 		light : 0x0099FF,
 		notes : [],
-		volumeRatio : 1.0
+		volumeRatio : 0.5
 		//rest
 	,
 		gain : audioContext.createGain()
 	}, {
 		//sound:_tone_Picked_32Bs_46000070_461_460_45127,
-		sound : _tone_0340_Chaos_sf2_file,
+		sound : _tone_0340_JCLive_sf2_file,
 		title : 'Bass guitar',
 		volume : sureNumeric(readTextFromlocalStorage('track5'), 0, 80, 100) / 100,
 		octave : 2,
@@ -360,7 +360,7 @@ var tracks = [{
 		}),
 		light : 0xCC00CC,
 		notes : [],
-		volumeRatio : 0.7
+		volumeRatio : 1.0
 		//33-38
 	,
 		gain : audioContext.createGain()
@@ -394,7 +394,7 @@ var tracks = [{
 		}),
 		light : 0x999999,
 		notes : [],
-		volumeRatio : 0.7
+		volumeRatio : 0.5
 		//39,40
 	,
 		gain : audioContext.createGain()
@@ -491,6 +491,7 @@ function nextPiece() {
 			v = v * drum.volumeRatio;
 			v = v * 0.75;
 			v = v + 0.1 * (0.5 - Math.random());
+			
 			//if(v>0){}else{v=0.000001}
 			for (var d = 0; d < drum.notes.length; d++) {
 				if (drum.notes[d].beat == n) {
@@ -510,6 +511,7 @@ function nextPiece() {
 			v = v + 0.1 * (0.5 - Math.random());
 			//if(v>0){}else{v=0.000001}
 			//var chordCounter=0;
+			
 			var chord = [];
 			for (var d = 0; d < track.notes.length; d++) {
 				var note = track.notes[d];
