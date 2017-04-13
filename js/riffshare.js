@@ -342,7 +342,7 @@ var tracks = [{
 		}),
 		light : 0x0099FF,
 		notes : [],
-		volumeRatio : 0.5
+		volumeRatio : 0.7
 		//rest
 	,
 		gain : audioContext.createGain()
