@@ -7,7 +7,7 @@
 		<script src="js/MidiCompiler.js"></script>
 		<script src="js/MidiParser.js"></script>
 		<script>
-			console.log('tools v1.09');
+			console.log('tools v1.10');
 			
 			//console.log('encoded',encoded);
 			//decodeState(encoded);
@@ -117,10 +117,17 @@ window.twttr=(function(d,s,id){
 					window.onunload = null;
 					};
 					
-			console.log(window.applicationCache);
-			console.log(window.applicationCache.status);
+			//console.log(window.applicationCache);
+			//console.log(window.applicationCache.status);
 			//applicationCache.update();
 			//console.log(window.applicationCache.status);
+			window.applicationCache.addEventListener('updateready', onUpdateReady);
+			}
+			function onUpdateReady() {
+				if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+					window.applicationCache.swapCache();
+					location.reload();
+				}
 			}
 			function adjustPitch(pitch){
 				var p=1*pitch-12*3;
