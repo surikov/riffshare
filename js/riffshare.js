@@ -1,4 +1,4 @@
-console.log('riffShare v1.72');
+console.log('riffShare v1.73');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -268,7 +268,7 @@ var tracks = [{
 		}),
 		light : 0xFF3300,
 		notes : [],
-		volumeRatio : 0.7
+		volumeRatio : 0.9
 		//31
 	,
 		gain : audioContext.createGain()
@@ -291,7 +291,7 @@ var tracks = [{
 		}),
 		light : 0x00CC00,
 		notes : [],
-		volumeRatio : 0.5
+		volumeRatio : 0.33
 		//25-28
 	,
 		gain : audioContext.createGain()
@@ -325,7 +325,7 @@ var tracks = [{
 		}),
 		light : 0x663333,
 		notes : [],
-		volumeRatio : 0.7
+		volumeRatio : 0.9
 		//30
 	,
 		gain : audioContext.createGain()
@@ -394,7 +394,7 @@ var tracks = [{
 		}),
 		light : 0x999999,
 		notes : [],
-		volumeRatio : 0.5
+		volumeRatio : 0.33
 		//39,40
 	,
 		gain : audioContext.createGain()
