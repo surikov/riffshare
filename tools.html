@@ -8,7 +8,7 @@
 		<script src="js/MidiParser.js"></script>
 		<script>
 			console.log('tools v1.07');
-			console.log(window.applicationCache);
+			
 			//console.log('encoded',encoded);
 			//decodeState(encoded);
 			//console.log('encoded',location.href);
@@ -116,6 +116,11 @@ window.twttr=(function(d,s,id){
 					
 					window.onunload = null;
 					};
+					
+			console.log(window.applicationCache);
+			console.log(window.applicationCache.status);
+			applicationCache.update();
+			console.log(window.applicationCache.status);
 			}
 			function adjustPitch(pitch){
 				var p=1*pitch-12*3;
