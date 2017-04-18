@@ -1,4 +1,4 @@
-console.log('riffShare v1.73');
+console.log('riffShare v1.74');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -1284,10 +1284,13 @@ function riffShareStart() {
 	player.adjustPreset(audioContext, _tone_Les_32TrippleOpenTones_461_4690_45127_file);
 	player.adjustPreset(audioContext, _tone_Les_32MuteMuted_32Tones_461_460_45127_file);
 */
+console.log('audioContext',audioContext);
 		for(var i=0;i<drums.length;i++){
+			console.log(i,drums[i].sound);
 			player.adjustPreset(audioContext, drums[i].sound);
 		}
 		for(var i=0;i<tracks.length;i++){
+			console.log(i,tracks[i].sound);
 			player.adjustPreset(audioContext, tracks[i].sound);
 		}
 	delayedPlay();
@@ -1305,11 +1308,13 @@ function delayedPlay() {
 function allPresetsReady() {
 	for(var i=0;i<drums.length;i++){
 		if(!onePresetReady(drums[i].sound)){
+			console.log(i,'drum wait');
 			return false;
 		}
 	}
 	for(var i=0;i<tracks.length;i++){
 		if(!onePresetReady(tracks[i].sound)){
+			console.log(i,'pitch wait');
 			return false;
 		}
 	}
