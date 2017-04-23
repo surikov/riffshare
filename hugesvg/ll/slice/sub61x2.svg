@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg width="256.0px" height="256.0px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny">
+<polyline points="0.0,13.846000000000004 255.0,13.846000000000004" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,18.846000000000004 255.0,18.846000000000004" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,23.846000000000004 255.0,23.846000000000004" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,28.846000000000004 255.0,28.846000000000004" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,33.846000000000004 255.0,33.846000000000004" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,66.346 255.0,66.346" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,71.346 255.0,71.346" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,76.346 255.0,76.346" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,81.346 255.0,81.346" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="0.0,86.346 255.0,86.346" fill="none" stroke="#000000" stroke-width="0.40" />
+<polyline points="237.79999999999927,74.78599999999994 237.79999999999927,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="217.79999999999927,72.28599999999994 217.79999999999927,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="197.79999999999927,74.78599999999994 197.79999999999927,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="177.79999999999927,74.78599999999994 177.79999999999927,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="177.79999999999927,29.785999999999945 177.79999999999927,43.846000000000004" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="157.79999999999927,74.78599999999994 157.79999999999927,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="145.39999999999964,22.285999999999945 145.39999999999964,42.596000000000004" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="132.89999999999964,74.78599999999994 132.89999999999964,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="112.89999999999964,74.78599999999994 112.89999999999964,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="112.89999999999964,27.285999999999945 112.89999999999964,42.596000000000004" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="92.89999999999964,74.78599999999994 92.89999999999964,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="72.89999999999964,74.78599999999994 72.89999999999964,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="52.899999999999636,72.28599999999994 52.899999999999636,90.096" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="52.899999999999636,27.285999999999945 52.899999999999636,42.596000000000004" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="32.899999999999636,74.78599999999994 32.899999999999636,91.346" fill="none" stroke="#000000" stroke-width="0.65" />
+<polyline points="19.700000000000728,98.30600000000004 39.20000000000073,97.92100000000005 39.20000000000073,92.92100000000005" fill="none" stroke="#000000" stroke-width="0.50" />
+</svg>
