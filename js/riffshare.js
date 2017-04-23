@@ -1,4 +1,4 @@
-console.log('riffShare v1.73');
+console.log('riffShare v1.76');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -40,13 +40,16 @@ var pieceLen = (currentLen / 16) * N;
 //var piece16Len =  N/2;
 var beatLen = 1 / 16 * N;
 console.log('currentLen/pieceLen', currentLen, pieceLen);
-var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-var audioContext = new AudioContextFunc();
-var player = new WebAudioFontPlayer();
+//var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+var audioContext = null; //new AudioContextFunc();
+var player = null; //new WebAudioFontPlayer();
 //player.adjustPreset(audioContext,_tone_Les_32TrippleOpenTones_461_4690_45127_file);
 //player.adjustPreset(audioContext,_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file);
 //player.adjustPreset(audioContext,_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file);
 //player.adjustPreset(audioContext,_tone_Les_32MuteMuted_32Tones_461_460_45127_file);
+var tracks = null;
+var drums = null;
+var equalizers = null;
 function bandEqualizer(audioContext, frequency, gain) {
 	//console.log('bandEqualizer',frequency, gain);
 	/*equalizers.push(
@@ -63,86 +66,331 @@ function bandEqualizer(audioContext, frequency, gain) {
 	filter.Q.value = q;
 	return filter;
 };
-var convolver = null;
-//var analyser = audioContext.createAnalyser();
-//analyser.fftSize = 4096;//2048;
-//var analyserBufferLength = analyser.frequencyBinCount;
-//var analyserUint8Array = new Uint8Array(analyser.frequencyBinCount);
-//analyser.getByteTimeDomainData(analyserUint8Array);
+function initAudioFx() {
+	var convolver = null;
+	//var analyser = audioContext.createAnalyser();
+	//analyser.fftSize = 4096;//2048;
+	//var analyserBufferLength = analyser.frequencyBinCount;
+	//var analyserUint8Array = new Uint8Array(analyser.frequencyBinCount);
+	//analyser.getByteTimeDomainData(analyserUint8Array);
 
 
-var inGain = audioContext.createGain();
-var outGain = audioContext.createGain();
-var dryGain = audioContext.createGain();
-var wetGain = audioContext.createGain();
-var compressor = audioContext.createDynamicsCompressor();
-compressor.threshold.value = -3;
-compressor.knee.value = 30;
-compressor.ratio.value = 12;
-compressor.attack.value = 0.05;
-compressor.release.value = 0.08;
-var equalizers = []
-equalizers.push(this.bandEqualizer(audioContext, 65, sureNumeric(readTextFromlocalStorage('equalizer0'), -10, 8, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 125, sureNumeric(readTextFromlocalStorage('equalizer1'), -10, 5, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 250, sureNumeric(readTextFromlocalStorage('equalizer2'), -10, 0, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 500, sureNumeric(readTextFromlocalStorage('equalizer3'), -10, -2, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 1000, sureNumeric(readTextFromlocalStorage('equalizer4'), -10, -5, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 2000, sureNumeric(readTextFromlocalStorage('equalizer5'), -10, -3, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 4000, sureNumeric(readTextFromlocalStorage('equalizer6'), -10, -1, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 6000, sureNumeric(readTextFromlocalStorage('equalizer7'), -10, 1, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 8000, sureNumeric(readTextFromlocalStorage('equalizer8'), -10, 3, +10)));
-equalizers.push(this.bandEqualizer(audioContext, 12000, sureNumeric(readTextFromlocalStorage('equalizer9'), -10, 5, +10)));
-var noiseFilter = audioContext.createBiquadFilter();
-noiseFilter.type = "lowpass";
-noiseFilter.frequency.value = 18000;
-inGain.connect(compressor);
-compressor.connect(equalizers[0]);
-//inGain.connect(equalizers[0]);
-equalizers[0].connect(equalizers[1]);
-equalizers[1].connect(equalizers[2]);
-equalizers[2].connect(equalizers[3]);
-equalizers[3].connect(equalizers[4]);
-equalizers[4].connect(equalizers[5]);
-equalizers[5].connect(equalizers[6]);
-equalizers[6].connect(equalizers[7]);
-equalizers[7].connect(equalizers[8]);
-equalizers[8].connect(equalizers[9]);
-equalizers[9].connect(dryGain);
-equalizers[9].connect(wetGain);
-//inGain.connect(dryGain);
-//inGain.connect(wetGain);
-dryGain.connect(outGain);
-outGain.connect(noiseFilter);
-//noiseFilter.connect(analyser);
-//analyser.connect(audioContext.destination);
-noiseFilter.connect(audioContext.destination);
-//outGain.connect(audioContext.destination);
-dryGain.gain.value = 0.99;
-wetGain.gain.value = 0.2;
-//outGain.gain.value = 0.0000001;
-outGain.gain.value = 0.99;
-var datalen = irr.length / 2;
-var arraybuffer = new ArrayBuffer(datalen);
-var view = new Uint8Array(arraybuffer);
-var s = irr.substr(0, 2);
-var n = parseInt(s, 16);
-view[0] = n;
-for (var i = 1; i < datalen; i++) {
-	s = irr.substr(i * 2, 2);
-	n = parseInt(s, 16);
-	view[i] = n;
-}
-if (flat < 1) {
-	console.log('start decode irr');
-	audioContext.decodeAudioData(arraybuffer, function (audioBuffer) {
+	var inGain = audioContext.createGain();
+	var outGain = audioContext.createGain();
+	var dryGain = audioContext.createGain();
+	var wetGain = audioContext.createGain();
+	var compressor = audioContext.createDynamicsCompressor();
+	compressor.threshold.value = -3;
+	compressor.knee.value = 30;
+	compressor.ratio.value = 12;
+	compressor.attack.value = 0.05;
+	compressor.release.value = 0.08;
+	equalizers = [];
+	equalizers.push(this.bandEqualizer(audioContext, 65, sureNumeric(readTextFromlocalStorage('equalizer0'), -10, 8, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 125, sureNumeric(readTextFromlocalStorage('equalizer1'), -10, 5, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 250, sureNumeric(readTextFromlocalStorage('equalizer2'), -10, 0, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 500, sureNumeric(readTextFromlocalStorage('equalizer3'), -10, -2, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 1000, sureNumeric(readTextFromlocalStorage('equalizer4'), -10, -5, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 2000, sureNumeric(readTextFromlocalStorage('equalizer5'), -10, -3, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 4000, sureNumeric(readTextFromlocalStorage('equalizer6'), -10, -1, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 6000, sureNumeric(readTextFromlocalStorage('equalizer7'), -10, 1, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 8000, sureNumeric(readTextFromlocalStorage('equalizer8'), -10, 3, +10)));
+	equalizers.push(this.bandEqualizer(audioContext, 12000, sureNumeric(readTextFromlocalStorage('equalizer9'), -10, 5, +10)));
+	var noiseFilter = audioContext.createBiquadFilter();
+	noiseFilter.type = "lowpass";
+	noiseFilter.frequency.value = 18000;
+	inGain.connect(compressor);
+	compressor.connect(equalizers[0]);
+	//inGain.connect(equalizers[0]);
+	equalizers[0].connect(equalizers[1]);
+	equalizers[1].connect(equalizers[2]);
+	equalizers[2].connect(equalizers[3]);
+	equalizers[3].connect(equalizers[4]);
+	equalizers[4].connect(equalizers[5]);
+	equalizers[5].connect(equalizers[6]);
+	equalizers[6].connect(equalizers[7]);
+	equalizers[7].connect(equalizers[8]);
+	equalizers[8].connect(equalizers[9]);
+	equalizers[9].connect(dryGain);
+	equalizers[9].connect(wetGain);
+	//inGain.connect(dryGain);
+	//inGain.connect(wetGain);
+	dryGain.connect(outGain);
+	outGain.connect(noiseFilter);
+	//noiseFilter.connect(analyser);
+	//analyser.connect(audioContext.destination);
+	noiseFilter.connect(audioContext.destination);
+	//outGain.connect(audioContext.destination);
+	dryGain.gain.value = 0.99;
+	wetGain.gain.value = 0.2;
+	//outGain.gain.value = 0.0000001;
+	outGain.gain.value = 0.99;
+	var datalen = irr.length / 2;
+	var arraybuffer = new ArrayBuffer(datalen);
+	var view = new Uint8Array(arraybuffer);
+	var s = irr.substr(0, 2);
+	var n = parseInt(s, 16);
+	view[0] = n;
+	for (var i = 1; i < datalen; i++) {
+		s = irr.substr(i * 2, 2);
+		n = parseInt(s, 16);
+		view[i] = n;
+	}
+	if (flat < 1) {
+		console.log('start decode irr');
+		audioContext.decodeAudioData(arraybuffer, function (audioBuffer) {
 
-		convolver = audioContext.createConvolver();
-		convolver.buffer = audioBuffer;
-		//convolver.connect(audioContext.destination);
-		wetGain.connect(convolver);
-		convolver.connect(outGain);
-		console.log('done decode irr', audioBuffer);
-	});
+			convolver = audioContext.createConvolver();
+			convolver.buffer = audioBuffer;
+			//convolver.connect(audioContext.destination);
+			wetGain.connect(convolver);
+			convolver.connect(outGain);
+			console.log('done decode irr', audioBuffer);
+		});
+	}
+
+	drums = [{
+			//sound:_drum_Standard_32_32_460_35,
+			sound : _drum_35_11_JCLive_sf2_file,
+			pitch : 35, //36
+			title : 'Bass drum',
+			volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
+			id : 0,
+			notes : [],
+			volumeRatio : 0.5,
+			gain : audioContext.createGain()
+		}, {
+			sound : _drum_41_0_JCLive_sf2_file,
+			pitch : 41, //43
+			title : 'Low Tom',
+			volume : sureNumeric(readTextFromlocalStorage('drum1'), 0, 60, 100) / 100,
+			id : 1,
+			notes : [],
+			volumeRatio : 0.99,
+			gain : audioContext.createGain()
+		}, {
+			//sound:_drum_Standard_32_32_460_38,
+			sound : _drum_40_16_JCLive_sf2_file,
+			pitch : 38, //40
+			title : 'Snare drum',
+			volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
+			id : 2,
+			notes : [],
+			volumeRatio : 0.75,
+			gain : audioContext.createGain()
+		}, {
+			sound : _drum_45_0_JCLive_sf2_file,
+			pitch : 45, //47,48,50
+			title : 'Mid Tom',
+			volume : sureNumeric(readTextFromlocalStorage('drum3'), 0, 60, 100) / 100,
+			id : 3,
+			notes : [],
+			volumeRatio : 0.99,
+			gain : audioContext.createGain()
+		}, {
+			sound : _drum_42_0_JCLive_sf2_file,
+			pitch : 42, //44
+			title : 'Closed Hi-hat',
+			volume : sureNumeric(readTextFromlocalStorage('drum4'), 0, 60, 100) / 100,
+			id : 4,
+			notes : [],
+			volumeRatio : 0.2,
+			gain : audioContext.createGain()
+		}, {
+			//sound:_drum_Standard_32_32_460_46,
+			sound : _drum_46_0_JCLive_sf2_file,
+			pitch : 46, //
+			title : 'Open Hi-hat',
+			volume : sureNumeric(readTextFromlocalStorage('drum5'), 0, 60, 100) / 100,
+			id : 5,
+			notes : [],
+			volumeRatio : 0.2,
+			gain : audioContext.createGain()
+		}, {
+			sound : _drum_51_0_JCLive_sf2_file,
+			pitch : 51, //rest
+			title : 'Ride Cymbal',
+			volume : sureNumeric(readTextFromlocalStorage('drum6'), 0, 60, 100) / 100,
+			id : 6,
+			notes : [],
+			volumeRatio : 0.3,
+			gain : audioContext.createGain()
+		}, {
+			sound : _drum_49_15_JCLive_sf2_file,
+			pitch : 49, //
+			title : 'Splash Cymbal',
+			volume : sureNumeric(readTextFromlocalStorage('drum7'), 0, 60, 100) / 100,
+			id : 7,
+			notes : [],
+			volumeRatio : 0.2,
+			gain : audioContext.createGain()
+		}
+		/*drums[z].notes.push({
+		beat : x,
+		disk : disk
+		});*/
+	];
+	for (var i = 0; i < drums.length; i++) {
+		drums[i].gain.connect(inGain);
+	}
+
+	tracks = [{
+			sound : _tone_0291_LesPaul_sf2_file,
+			title : 'Distortion guitar',
+			volume : sureNumeric(readTextFromlocalStorage('track0'), 0, 60, 100) / 100,
+			octave : 3,
+			id : 0,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x991100,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0xFF3300,
+			notes : [],
+			volumeRatio : 0.9
+			//31
+		,
+			gain : audioContext.createGain()
+		}, {
+			//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
+			sound : _tone_0250_Chaos_sf2_file,
+			//sound:_tone_12_45str_46Gt000054_461_460_45127,
+			//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
+			//sound:_tone_Mandolin000055_461_460_45127,
+			//sound:_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file,
+			//sound:_tone_Clean_32GuitarClean_32Guitar_461_460_45127,
+			title : 'Acoustic guitar',
+			volume : sureNumeric(readTextFromlocalStorage('track1'), 0, 60, 100) / 100,
+			octave : 3,
+			id : 1,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x006600,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0x00CC00,
+			notes : [],
+			volumeRatio : 0.33
+			//25-28
+		,
+			gain : audioContext.createGain()
+		}, {
+			sound : _tone_0170_Chaos_sf2_file,
+			title : 'Percussive Organ',
+			volume : sureNumeric(readTextFromlocalStorage('track2'), 0, 60, 100) / 100,
+			octave : 4,
+			id : 2,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x3333ff,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0x3333ff,
+			notes : [],
+			volumeRatio : 0.5
+			//17-24
+		,
+			gain : audioContext.createGain()
+		}, {
+			sound : _tone_0280_LesPaul_sf2_file,
+			title : 'Palm mute guitar',
+			volume : sureNumeric(readTextFromlocalStorage('track3'), 0, 60, 100) / 100,
+			octave : 3,
+			id : 3,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x330000,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0x663333,
+			notes : [],
+			volumeRatio : 0.9
+			//30
+		,
+			gain : audioContext.createGain()
+		}, {
+			sound : _tone_0010_JCLive_sf2_file,
+			title : 'Acoustic Piano',
+			volume : sureNumeric(readTextFromlocalStorage('track4'), 0, 60, 100) / 100,
+			octave : 3,
+			id : 4,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x0099FF,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0x0099FF,
+			notes : [],
+			volumeRatio : 0.7
+			//rest
+		,
+			gain : audioContext.createGain()
+		}, {
+			//sound:_tone_Picked_32Bs_46000070_461_460_45127,
+			sound : _tone_0340_JCLive_sf2_file,
+			title : 'Bass guitar',
+			volume : sureNumeric(readTextFromlocalStorage('track5'), 0, 80, 100) / 100,
+			octave : 2,
+			id : 5,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x660066,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0xCC00CC,
+			notes : [],
+			volumeRatio : 1.0
+			//33-38
+		,
+			gain : audioContext.createGain()
+		}, {
+			sound : _tone_0490_Chaos_sf2_file,
+			title : 'String Ensemble',
+			volume : sureNumeric(readTextFromlocalStorage('track6'), 0, 40, 100) / 100,
+			octave : 3,
+			id : 6,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0xcc9900,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0xcc9900,
+			notes : [],
+			volumeRatio : 0.5
+			//41-88
+		,
+			gain : audioContext.createGain()
+		}, {
+			sound : _tone_0390_GeneralUserGS_sf2_file,
+			title : 'Synth Bass',
+			volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
+			octave : 3,
+			id : 7,
+			color : new THREE.MeshStandardMaterial({
+				emissive : 0x666666,
+				color : 0x666666,
+				metalness : 0.25
+			}),
+			light : 0x999999,
+			notes : [],
+			volumeRatio : 0.33
+			//39,40
+		,
+			gain : audioContext.createGain()
+		}
+		/*
+		tracks[order].notes.push({
+		pitch : pitch,
+		beat : beat,
+		length,
+		shift,
+		line : noteLine
+		});
+		 */
+	];
+	for (var i = 0; i < tracks.length; i++) {
+		tracks[i].gain.connect(inGain);
+	}
 }
 var materialWhite = new THREE.MeshLambertMaterial({
 		color : 0xffffff,
@@ -170,248 +418,6 @@ var materialLabel = new THREE.MeshStandardMaterial({
 		metalness : 0.5
 	});
 
-var drums = [{
-		//sound:_drum_Standard_32_32_460_35,
-		sound : _drum_35_11_JCLive_sf2_file,
-		pitch : 35, //36
-		title : 'Bass drum',
-		volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
-		id : 0,
-		notes : [],
-		volumeRatio : 0.5,
-		gain : audioContext.createGain()
-	}, {
-		sound : _drum_41_0_JCLive_sf2_file,
-		pitch : 41, //43
-		title : 'Low Tom',
-		volume : sureNumeric(readTextFromlocalStorage('drum1'), 0, 60, 100) / 100,
-		id : 1,
-		notes : [],
-		volumeRatio : 0.99,
-		gain : audioContext.createGain()
-	}, {
-		//sound:_drum_Standard_32_32_460_38,
-		sound : _drum_40_16_JCLive_sf2_file,
-		pitch : 38, //40
-		title : 'Snare drum',
-		volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
-		id : 2,
-		notes : [],
-		volumeRatio : 0.75,
-		gain : audioContext.createGain()
-	}, {
-		sound : _drum_45_0_JCLive_sf2_file,
-		pitch : 45, //47,48,50
-		title : 'Mid Tom',
-		volume : sureNumeric(readTextFromlocalStorage('drum3'), 0, 60, 100) / 100,
-		id : 3,
-		notes : [],
-		volumeRatio : 0.99,
-		gain : audioContext.createGain()
-	}, {
-		sound : _drum_42_0_JCLive_sf2_file,
-		pitch : 42, //44
-		title : 'Closed Hi-hat',
-		volume : sureNumeric(readTextFromlocalStorage('drum4'), 0, 60, 100) / 100,
-		id : 4,
-		notes : [],
-		volumeRatio : 0.2,
-		gain : audioContext.createGain()
-	}, {
-		//sound:_drum_Standard_32_32_460_46,
-		sound : _drum_46_0_JCLive_sf2_file,
-		pitch : 46, //
-		title : 'Open Hi-hat',
-		volume : sureNumeric(readTextFromlocalStorage('drum5'), 0, 60, 100) / 100,
-		id : 5,
-		notes : [],
-		volumeRatio : 0.2,
-		gain : audioContext.createGain()
-	}, {
-		sound : _drum_51_0_JCLive_sf2_file,
-		pitch : 51, //rest
-		title : 'Ride Cymbal',
-		volume : sureNumeric(readTextFromlocalStorage('drum6'), 0, 60, 100) / 100,
-		id : 6,
-		notes : [],
-		volumeRatio : 0.3,
-		gain : audioContext.createGain()
-	}, {
-		sound : _drum_49_15_JCLive_sf2_file,
-		pitch : 49, //
-		title : 'Splash Cymbal',
-		volume : sureNumeric(readTextFromlocalStorage('drum7'), 0, 60, 100) / 100,
-		id : 7,
-		notes : [],
-		volumeRatio : 0.2,
-		gain : audioContext.createGain()
-	}
-	/*drums[z].notes.push({
-	beat : x,
-	disk : disk
-	});*/
-];
-for (var i = 0; i < drums.length; i++) {
-	drums[i].gain.connect(inGain);
-}
-
-var tracks = [{
-		sound : _tone_0291_LesPaul_sf2_file,
-		title : 'Distortion guitar',
-		volume : sureNumeric(readTextFromlocalStorage('track0'), 0, 60, 100) / 100,
-		octave : 3,
-		id : 0,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x991100,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0xFF3300,
-		notes : [],
-		volumeRatio : 0.9
-		//31
-	,
-		gain : audioContext.createGain()
-	}, {
-		//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
-		sound : _tone_0250_Chaos_sf2_file,
-		//sound:_tone_12_45str_46Gt000054_461_460_45127,
-		//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
-		//sound:_tone_Mandolin000055_461_460_45127,
-		//sound:_tone_Acoustic_32GuitarAcoustic_32Guitar_32_32_32_32_461_460_45127_file,
-		//sound:_tone_Clean_32GuitarClean_32Guitar_461_460_45127,
-		title : 'Acoustic guitar',
-		volume : sureNumeric(readTextFromlocalStorage('track1'), 0, 60, 100) / 100,
-		octave : 3,
-		id : 1,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x006600,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0x00CC00,
-		notes : [],
-		volumeRatio : 0.33
-		//25-28
-	,
-		gain : audioContext.createGain()
-	}, {
-		sound : _tone_0170_Chaos_sf2_file,
-		title : 'Percussive Organ',
-		volume : sureNumeric(readTextFromlocalStorage('track2'), 0, 60, 100) / 100,
-		octave : 4,
-		id : 2,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x3333ff,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0x3333ff,
-		notes : [],
-		volumeRatio : 0.5
-		//17-24
-	,
-		gain : audioContext.createGain()
-	}, {
-		sound : _tone_0280_LesPaul_sf2_file,
-		title : 'Palm mute guitar',
-		volume : sureNumeric(readTextFromlocalStorage('track3'), 0, 60, 100) / 100,
-		octave : 3,
-		id : 3,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x330000,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0x663333,
-		notes : [],
-		volumeRatio : 0.9
-		//30
-	,
-		gain : audioContext.createGain()
-	}, {
-		sound : _tone_0010_JCLive_sf2_file,
-		title : 'Acoustic Piano',
-		volume : sureNumeric(readTextFromlocalStorage('track4'), 0, 60, 100) / 100,
-		octave : 3,
-		id : 4,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x0099FF,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0x0099FF,
-		notes : [],
-		volumeRatio : 0.7
-		//rest
-	,
-		gain : audioContext.createGain()
-	}, {
-		//sound:_tone_Picked_32Bs_46000070_461_460_45127,
-		sound : _tone_0340_JCLive_sf2_file,
-		title : 'Bass guitar',
-		volume : sureNumeric(readTextFromlocalStorage('track5'), 0, 80, 100) / 100,
-		octave : 2,
-		id : 5,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x660066,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0xCC00CC,
-		notes : [],
-		volumeRatio : 1.0
-		//33-38
-	,
-		gain : audioContext.createGain()
-	}, {
-		sound : _tone_0490_Chaos_sf2_file,
-		title : 'String Ensemble',
-		volume : sureNumeric(readTextFromlocalStorage('track6'), 0, 40, 100) / 100,
-		octave : 3,
-		id : 6,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0xcc9900,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0xcc9900,
-		notes : [],
-		volumeRatio : 0.5
-		//41-88
-	,
-		gain : audioContext.createGain()
-	}, {
-		sound : _tone_0390_GeneralUserGS_sf2_file,
-		title : 'Synth Bass',
-		volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
-		octave : 3,
-		id : 7,
-		color : new THREE.MeshStandardMaterial({
-			emissive : 0x666666,
-			color : 0x666666,
-			metalness : 0.25
-		}),
-		light : 0x999999,
-		notes : [],
-		volumeRatio : 0.33
-		//39,40
-	,
-		gain : audioContext.createGain()
-	}
-	/*
-	tracks[order].notes.push({
-	pitch : pitch,
-	beat : beat,
-	length,
-	shift,
-	line : noteLine
-	});
-	 */
-];
-for (var i = 0; i < tracks.length; i++) {
-	tracks[i].gain.connect(inGain);
-}
 function adjustLen() {
 	var mx = 0;
 	for (var i = 0; i < drums.length; i++) {
@@ -491,7 +497,7 @@ function nextPiece() {
 			v = v * drum.volumeRatio;
 			v = v * 0.75;
 			v = v + 0.1 * (0.5 - Math.random());
-			
+
 			//if(v>0){}else{v=0.000001}
 			for (var d = 0; d < drum.notes.length; d++) {
 				if (drum.notes[d].beat == n) {
@@ -511,7 +517,7 @@ function nextPiece() {
 			v = v + 0.1 * (0.5 - Math.random());
 			//if(v>0){}else{v=0.000001}
 			//var chordCounter=0;
-			
+
 			var chord = [];
 			for (var d = 0; d < track.notes.length; d++) {
 				var note = track.notes[d];
@@ -1008,6 +1014,11 @@ function startListenMIDI(e) {
 function riffShareStart() {
 	console.log('riffShare start');
 	//console.log('------------------hook');
+	var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+	audioContext = new AudioContextFunc();
+	player = new WebAudioFontPlayer();
+	initAudioFx();
+
 	window.onunload = function () {
 		//console.log('------------------------------------');
 		var storeDrums = [];
@@ -1280,16 +1291,19 @@ function riffShareStart() {
 	showVolumes();
 	showEqualizer();
 	startListenMIDI();
-/*
+	/*
 	player.adjustPreset(audioContext, _tone_Les_32TrippleOpenTones_461_4690_45127_file);
 	player.adjustPreset(audioContext, _tone_Les_32MuteMuted_32Tones_461_460_45127_file);
-*/
-		for(var i=0;i<drums.length;i++){
-			player.adjustPreset(audioContext, drums[i].sound);
-		}
-		for(var i=0;i<tracks.length;i++){
-			player.adjustPreset(audioContext, tracks[i].sound);
-		}
+	 */
+	console.log('audioContext', audioContext);
+	for (var i = 0; i < drums.length; i++) {
+		console.log(i, drums[i].sound);
+		player.adjustPreset(audioContext, drums[i].sound);
+	}
+	for (var i = 0; i < tracks.length; i++) {
+		console.log(i, tracks[i].sound);
+		player.adjustPreset(audioContext, tracks[i].sound);
+	}
 	delayedPlay();
 }
 function delayedPlay() {
@@ -1303,21 +1317,23 @@ function delayedPlay() {
 }
 
 function allPresetsReady() {
-	for(var i=0;i<drums.length;i++){
-		if(!onePresetReady(drums[i].sound)){
+	for (var i = 0; i < drums.length; i++) {
+		if (!onePresetReady(drums[i].sound)) {
+			console.log(i, 'drum wait');
 			return false;
 		}
 	}
-	for(var i=0;i<tracks.length;i++){
-		if(!onePresetReady(tracks[i].sound)){
+	for (var i = 0; i < tracks.length; i++) {
+		if (!onePresetReady(tracks[i].sound)) {
+			console.log(i, 'pitch wait');
 			return false;
 		}
 	}
 	//if (onePresetReady(_tone_Les_32TrippleOpenTones_461_4690_45127_file) && onePresetReady(_tone_Les_32MuteMuted_32Tones_461_460_45127_file)) {
 	/*if(1==1){
-		return true;
+	return true;
 	} else {
-		return false;
+	return false;
 	}*/
 	return true;
 }
