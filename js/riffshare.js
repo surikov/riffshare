@@ -1,4 +1,4 @@
-console.log('riffShare v1.76');
+console.log('riffShare v1.77');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -913,7 +913,7 @@ function createTrackVolumes() {
 		tracks[z].volume = y / 10;
 		saveText2localStorage('track' + tracks[z].id, '' + Math.round(100 * y / 10));
 		showVolumes();
-		reorderTracks(tracks[z].id);
+		//reorderTracks(tracks[z].id);
 	};
 	/*tracks[i].knobs=[];
 	for(var v=0;v<11;v++){
