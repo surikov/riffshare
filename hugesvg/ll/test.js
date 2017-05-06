@@ -11,13 +11,23 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		return false;
 	};
 
-	me.rake2content = function (x, y) {
-		var xy = {};
-		var maxX = me.innerWidth * (me.translateZ - 1) / 2;
-		xy.x = (x - me.translateX + maxX) / me.translateZ;
-		var maxY = me.innerHeight * (me.translateZ - 1) / 2;
-		xy.y = (y - me.translateY + maxY) / me.translateZ;
-		return xy;
+	me.rake2content = function (rakeLeft, rakeTop, zoom) {
+		var contentPoint = {};
+		var maxX = me.innerWidth * (zoom - 1) / 2;
+		contentPoint.x = (rakeLeft - me.translateX + maxX) / zoom;
+		var maxY = me.innerHeight * (zoom - 1) / 2;
+		contentPoint.y = (rakeTop - me.translateY + maxY) / zoom;
+		
+		return contentPoint;
+	};
+	me.content2rake = function (rakeLeft, rakeTop, contentLeft, contentTop, zoom) {
+		var t = {};
+		var maxX = me.innerWidth * (zoom - 1) / 2;
+		t.x = -(contentLeft * zoom - rakeLeft - maxX);
+		var maxY = me.innerHeight * (zoom - 1) / 2;
+		t.y = -(contentTop * zoom - rakeTop - maxY);
+		//console.log('max', maxX, maxY,rakeLeft, rakeTop, contentLeft, contentTop, zoom,t);
+		return t;
 	};
 	me.rakeMouseDown = function (mouseEvent) {
 		me.rakeDiv.addEventListener('mousemove', me.rakeMouseMove, true);
@@ -25,7 +35,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.startMouseScreenX = mouseEvent.screenX;
 		me.startMouseScreenY = mouseEvent.screenY;
 		//
-		var xy = me.rake2content(mouseEvent.layerX, mouseEvent.layerY);
+		var xy = me.rake2content(mouseEvent.layerX, mouseEvent.layerY, me.translateZ);
 		/*console.log(mouseEvent);
 		var maxX = me.innerWidth * (me.translateZ - 1) / 2;
 		var cx=(mouseEvent.layerX-me.translateX+maxX)/me.translateZ;
@@ -195,8 +205,8 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		return env;
 	};
 	me.setMark = function (x, y) {
-		me.mark.setAttributeNS(null, "cx", x);
-		me.mark.setAttributeNS(null, "cy", y);
+		me.mark1.setAttributeNS(null, "cx", x);
+		me.mark1.setAttributeNS(null, "cy", y);
 	};
 	me.setMark2 = function (x, y) {
 		me.mark2.setAttributeNS(null, "cx", x);
@@ -206,32 +216,44 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//console.log(e);//wheelEvent
 		var e = window.event || e;
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-		var zoom = me.translateZ + delta * 0.001;
+		var zoom = me.translateZ + delta * 0.01;
 		//if (zoom > 0) {
-			if (zoom > 0.001) {
-				var xy = me.rake2content(e.layerX, e.layerY);
-				me.setMark2(xy.x,xy.y);
-				//var before=me.rake2content(e.layerX,e.layerY);
-				//var bz=me.translateZ;
-				var ratio = 1.0001;//zoom / me.translateZ;
-				if(delta>0){
-					ratio=2-ratio;
-				}
-				
-				console.log(me.translateZ, '>', zoom, '=', ratio);
-				console.log('x', me.translateX);
-				me.translateX = me.translateX * ratio ;//- e.layerX * ratio + e.layerX;
-				me.translateY = me.translateY * ratio ;//- e.layerY * ratio + e.layerY;
-				me.translateZ = zoom;
-				me.adjustCountentPosition();
-				//var after=me.rake2content(e.layerX,e.layerY);
-				//console.log(bz,before,me.translateZ,after);
-				console.log('>', me.translateX);
-			}
+		if (zoom > 0.01) {
+			var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
+			me.setMark2(xy.x, xy.y);
+			var t = me.content2rake(e.layerX, e.layerY,  xy.x, xy.y, zoom);
+			//console.log(t);
+			//var before=me.rake2content(e.layerX,e.layerY);
+			//var bz=me.translateZ;
+			//var ratio = zoom / me.translateZ;
+			/*if(delta>0){
+			ratio=2-ratio;
+			}*/
+
+			//console.log(me.translateZ, '>', zoom, '=', ratio);
+			//console.log('x', me.translateX);
+			//me.translateX = me.translateX * ratio; //- e.layerX * ratio + e.layerX;
+			//me.translateY = me.translateY * ratio; //- e.layerY * ratio + e.layerY;
+			me.translateX = t.x;
+			me.translateY = t.y;
+			me.translateZ = zoom;
+			me.adjustCountentPosition();
+			//var after=me.rake2content(e.layerX,e.layerY);
+			//console.log(bz,before,me.translateZ,after);
+			//console.log('>', me.translateX);
+		}
 		//}
 		e.preventDefault();
 		return false;
 	};
+	/*me.moveToCenter = function (x, y) {
+	//me.translateX = -150;
+	//me.translateY = -100;
+	//me.adjustCountentPosition();
+	//var xy = me.rake2content(500/2, 400/2, me.translateZ);
+	var t=me.content2rake(7000/2, 5000/2,500/2, 400/2, me.translateZ)
+	console.log(t);
+	};*/
 	me.svgns = "http://www.w3.org/2000/svg";
 	me.info = me.checkEnvironment();
 	me.contentDiv = document.getElementById(contentName);
@@ -257,15 +279,21 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 function startInit() {
 	console.log('start init');
 	var sz = 50;
-	var w = 2000;
-	var h = 1300;
+	var w = 7000;
+	var h = 5000;
 	var rv = new RakeView('rakeDiv', 'contentDiv', 'contentSVG', w, h);
 
 	//var n=
-	rv.addSVGCircle(sz, sz, sz);
-	for (var i = 3; i < 120; i++) {
-		rv.addSVGCircle(sz * i, sz * i, sz * i);
+	//rv.addSVGCircle(sz, sz, sz);
+	/*for (var i = 3; i < 120; i++) {
+	rv.addSVGCircle(sz * i, sz * i, sz * i);
+	}*/
+	for (var x = 0; x < w / 105; x++) {
+		for (var y = 0; y < h / 105; y++) {
+			rv.addSVGCircle(x * 105, y * 105, 5 + x * y * 0.1);
+		}
 	}
+	rv.addSVGFillCircle(w / 2, h / 2, 10);
 	/*rv.addSVGCircle(sz * 2, sz * 2, sz * 2);
 	rv.addSVGCircle(sz * 3, sz * 3, sz * 3);
 	rv.addSVGCircle(sz * 4, sz * 4, sz * 4);
@@ -277,12 +305,25 @@ function startInit() {
 	rv.addSVGCircle(sz * 5, sz * 5, sz * 5);*/
 	//rv.setTransform(n,30,0,2);
 	//console.log(n);
-	rv.addSVGCircle(w - sz, sz, sz);
+	/*rv.addSVGCircle(w - sz, sz, sz);
 	rv.addSVGCircle(w - sz, h - sz, sz);
 	rv.addSVGCircle(sz, h - sz, sz);
-	rv.addSVGCircle(w / 2, h / 2, sz);
-	rv.mark = rv.addSVGCircle(0, 0, 25);
-	rv.mark2 = rv.addSVGCircle(0, 0, 15);
+	rv.addSVGCircle(w / 2, h / 2, sz);*/
+	rv.mark1 = rv.addSVGCircle(400, 300, 25);
+	rv.mark2 = rv.addSVGCircle(400, 300, 15);
+
+	//rv.moveToCenter(400, 300);
+	var z = 0.13;
+	var t = rv.content2rake(rv.rakeDiv.clientWidth / 2, rv.rakeDiv.clientHeight / 2, w / 2, h / 2, z);
+	//console.log(t);
+	rv.translateX = t.x;
+	rv.translateY = t.y;
+	rv.translateZ = z;
+	rv.adjustCountentPosition();
+	//console.log(rv.translateX, rv.translateY, rv.translateZ);
+	//console.log(rv.rake2content(0,0,z));
+	//var c=rv.rake2content(rv.innerHeight/2, rv.translateZ) ;
+	//console.log(rv.rakeDiv.clientWidth,rv.rakeDiv.clientHeight);
 	//rv.addSvgPolyline(0,0,10000,10000);
 	console.log('done init');
 }
