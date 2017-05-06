@@ -61,6 +61,36 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.rakeMouseUp = function (mouseEvent) {
 		me.rakeDiv.removeEventListener('mousemove', me.rakeMouseMove, true);
 		me.adjustCountentPosition();
+		me.reDraw();
+	};
+	me.reDraw=function(){
+		var lt= me.rake2content(0, 0, me.translateZ);
+		var rb= me.rake2content( me.rakeDiv.clientWidth,  me.rakeDiv.clientHeight, me.translateZ);
+		me.removeContent(lt.x,rb.x,lt.y,rb.y,me.translateZ);
+		me.addContent(lt.x,lt.y,rb.x-lt.x,rb.y-lt.y,me.translateZ);
+	};
+	me.addContent=function(x,y,w,h,z){
+		console.log(x,y,w,h,z);
+	};
+	me.removeContent=function(x,y,w,h,z){
+		//me.contentSVG.appendChild(shape);
+		console.log(me.contentSVG.children.length);
+		for(var i=0;i<me.contentSVG.children.length;i++){
+			var t=me.contentSVG.children[i];
+			//console.log(me.contentSVG.children.length,me.contentSVG.children[i].r);
+			//if(i>20){
+				//break;
+			//}
+			if(me.contentSVG.children[i].r){
+				//console.log('skip',t);
+			}else{
+				//console.log('remove',t,me.contentSVG.children.length);
+				me.contentSVG.removeChild(t);
+				//console.log(me.contentSVG.children.length);
+				i--;
+			}
+		}
+		
 	};
 	me.adjustCountentPosition = function () {
 		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
@@ -116,6 +146,14 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		rect.setAttributeNS(null, 'fill', '#' + Math.round(0xffffff * Math.random()).toString(16));
 		me.contentSVG.appendChild(rect);
 		return rect;
+	};
+	me.addSVGText = function (x, y, t) {
+		var txt = document.createElementNS(me.svgns, 'text');
+		txt.setAttributeNS(null, 'x', x);
+		txt.setAttributeNS(null, 'y', y);
+		txt.setAttributeNS(null,'font-size','22');
+		txt.innerHTML = t;
+		me.contentSVG.appendChild(txt);
 	};
 	me.addSVGCircle = function (cx, cy, r) {
 		var shape = document.createElementNS(me.svgns, "circle");
@@ -215,10 +253,15 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.rakeMouseWheel = function (e) {
 		//console.log(e);//wheelEvent
 		var e = window.event || e;
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-		var zoom = me.translateZ + delta * 0.01;
+		var wheelVal=e.wheelDelta || -e.detail;
+		var min=Math.min(1, wheelVal);
+		var delta = Math.max(-1,min );
+		
+		var zoom = me.translateZ + delta * (me.translateZ)*0.1;
+		//console.log(zoom);
 		//if (zoom > 0) {
-		if (zoom > 0.01) {
+		if (zoom > 0.01 && zoom <9) {
+			//console.log(zoom);
 			var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
 			me.setMark2(xy.x, xy.y);
 			var t = me.content2rake(e.layerX, e.layerY,  xy.x, xy.y, zoom);
@@ -288,9 +331,16 @@ function startInit() {
 	/*for (var i = 3; i < 120; i++) {
 	rv.addSVGCircle(sz * i, sz * i, sz * i);
 	}*/
-	for (var x = 0; x < w / 105; x++) {
-		for (var y = 0; y < h / 105; y++) {
-			rv.addSVGCircle(x * 105, y * 105, 5 + x * y * 0.1);
+	for (var x = 0; x < w / 1050; x++) {
+		for (var y = 0; y < h / 1050; y++) {
+			//rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
+			rv.addSVGText(x * 1050, y * 1050, x+'x'+y);
+		}
+	}
+	for (var x = 0; x < w / 1050; x++) {
+		for (var y = 0; y < h / 1050; y++) {
+			rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
+			//rv.addSVGText(x * 1050, y * 1050, x+'x'+y);
 		}
 	}
 	rv.addSVGFillCircle(w / 2, h / 2, 10);
