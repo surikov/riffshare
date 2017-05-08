@@ -69,8 +69,53 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.removeContent(lt.x,rb.x,lt.y,rb.y,me.translateZ);
 		me.addContent(lt.x,lt.y,rb.x-lt.x,rb.y-lt.y,me.translateZ);
 	};
-	me.addContent=function(x,y,w,h,z){
-		console.log(x,y,w,h,z);
+	me.addContent=function(xx,yy,ww,hh,zz){
+		console.log('addContent',xx,yy,ww,hh,zz);
+		//var lvl=1000;
+		/*me.addNumbers(xx,yy,ww,hh,zz,5000);
+		if(zz>0.5){
+			//lvl=100;
+			me.addNumbers(xx,yy,ww,hh,zz,200);
+		}
+		if(zz>3){
+			//lvl=10;
+			me.addNumbers(xx,yy,ww,hh,zz,50);
+		}*/
+		me.addNumbers(xx,yy,ww,hh,zz,10000);
+		if(zz>0.03){
+			me.addNumbers(xx,yy,ww,hh,zz,3000);
+		}
+		if(zz>0.07){
+			me.addNumbers(xx,yy,ww,hh,zz,2000);
+		}
+		if(zz>0.1){
+			me.addNumbers(xx,yy,ww,hh,zz,500);
+		}
+		if(zz>0.5){
+			me.addNumbers(xx,yy,ww,hh,zz,100);
+		}
+		/*var w=me.innreWidth;
+		var h=me.innerHeight;
+		for (var x = Math.round(xx/lvl)*lvl; x < xx+ww; x=x+lvl) {
+			for (var y = Math.round(yy/lvl)*lvl; y < yy+hh; y=y+lvl) {
+				me.addSVGText(x , y , lvl/10,Math.round(x)+'x'+Math.round(y));
+			}
+		}*/
+	};
+	me.addNumbers=function(xx,yy,ww,hh,zz,lvl){
+		var w=me.innreWidth;
+		var h=me.innerHeight;
+		var cntr=0;
+		for (var x = Math.round(xx/lvl)*lvl; x < xx+ww; x=x+lvl) {
+			for (var y = Math.round(yy/lvl)*lvl; y < yy+hh; y=y+lvl) {
+				var msg=Math.round(x)+'x'+Math.round(y)+':'+(Math.round(me.translateZ*1000)/1000);
+				me.addSVGText(x , y , lvl/10,msg);
+				cntr++;
+				//console.log(msg);
+				if(cntr>99)break;
+			}
+			if(cntr>199)break;
+		}
 	};
 	me.removeContent=function(x,y,w,h,z){
 		//me.contentSVG.appendChild(shape);
@@ -81,7 +126,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			//if(i>20){
 				//break;
 			//}
-			if(me.contentSVG.children[i].r){
+			if(me.contentSVG.children[i].noremove){
 				//console.log('skip',t);
 			}else{
 				//console.log('remove',t,me.contentSVG.children.length);
@@ -147,11 +192,12 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.contentSVG.appendChild(rect);
 		return rect;
 	};
-	me.addSVGText = function (x, y, t) {
+	me.addSVGText = function (x, y, s,t) {
 		var txt = document.createElementNS(me.svgns, 'text');
 		txt.setAttributeNS(null, 'x', x);
 		txt.setAttributeNS(null, 'y', y);
-		txt.setAttributeNS(null,'font-size','22');
+		txt.setAttributeNS(null,'font-size',s);
+		txt.setAttributeNS(null,'alignment-baseline','central');
 		txt.innerHTML = t;
 		me.contentSVG.appendChild(txt);
 	};
@@ -243,13 +289,13 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		return env;
 	};
 	me.setMark = function (x, y) {
-		me.mark1.setAttributeNS(null, "cx", x);
-		me.mark1.setAttributeNS(null, "cy", y);
+		me.clickMark.setAttributeNS(null, "cx", x);
+		me.clickMark.setAttributeNS(null, "cy", y);
 	};
-	me.setMark2 = function (x, y) {
+	/*me.setMark2 = function (x, y) {
 		me.mark2.setAttributeNS(null, "cx", x);
 		me.mark2.setAttributeNS(null, "cy", y);
-	};
+	};*/
 	me.rakeMouseWheel = function (e) {
 		//console.log(e);//wheelEvent
 		var e = window.event || e;
@@ -260,10 +306,11 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		var zoom = me.translateZ + delta * (me.translateZ)*0.1;
 		//console.log(zoom);
 		//if (zoom > 0) {
-		if (zoom > 0.01 && zoom <9) {
+		if (zoom <0.02) {zoom=0.02;}
+			if ( zoom >1) {zoom=1;}
 			//console.log(zoom);
 			var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
-			me.setMark2(xy.x, xy.y);
+			//me.setMark2(xy.x, xy.y);
 			var t = me.content2rake(e.layerX, e.layerY,  xy.x, xy.y, zoom);
 			//console.log(t);
 			//var before=me.rake2content(e.layerX,e.layerY);
@@ -284,7 +331,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			//var after=me.rake2content(e.layerX,e.layerY);
 			//console.log(bz,before,me.translateZ,after);
 			//console.log('>', me.translateX);
-		}
+		me.reDraw();
 		//}
 		e.preventDefault();
 		return false;
@@ -321,8 +368,9 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 }
 function startInit() {
 	console.log('start init');
-	var sz = 50;
-	var w = 7000;
+	//var sz = 50;
+	var tapSize=10;
+	var w = 357000;
 	var h = 5000;
 	var rv = new RakeView('rakeDiv', 'contentDiv', 'contentSVG', w, h);
 
@@ -331,18 +379,33 @@ function startInit() {
 	/*for (var i = 3; i < 120; i++) {
 	rv.addSVGCircle(sz * i, sz * i, sz * i);
 	}*/
-	for (var x = 0; x < w / 1050; x++) {
+	/*var lvl=2000;
+	for (var x = 0; x < w / lvl; x++) {
+		for (var y = 0; y < h / lvl; y++) {
+			//rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
+			rv.addSVGText(x * lvl, y * lvl, lvl/10,x+'x'+y);
+		}
+	}
+	lvl=lvl/10;
+	for (var x = 0; x < w / lvl; x++) {
+		for (var y = 0; y < h / lvl; y++) {
+			//rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
+			rv.addSVGText(x * lvl, y * lvl, lvl/10,x+'x'+y);
+		}
+	}*/
+	/*lvl=lvl/10;
+	for (var x = 0; x < w / lvl; x++) {
+		for (var y = 0; y < h / lvl; y++) {
+			//rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
+			rv.addSVGText(x * lvl, y * lvl, lvl/10,x+'x'+y);
+		}
+	}*/
+	/*for (var x = 0; x < w / 1050; x++) {
 		for (var y = 0; y < h / 1050; y++) {
 			//rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
-			rv.addSVGText(x * 1050, y * 1050, x+'x'+y);
-		}
-	}
-	for (var x = 0; x < w / 1050; x++) {
-		for (var y = 0; y < h / 1050; y++) {
-			rv.addSVGCircle(x * 1050, y * 1050, 5 + x * y * 0.1);
 			//rv.addSVGText(x * 1050, y * 1050, x+'x'+y);
 		}
-	}
+	}*/
 	rv.addSVGFillCircle(w / 2, h / 2, 10);
 	/*rv.addSVGCircle(sz * 2, sz * 2, sz * 2);
 	rv.addSVGCircle(sz * 3, sz * 3, sz * 3);
@@ -359,11 +422,12 @@ function startInit() {
 	rv.addSVGCircle(w - sz, h - sz, sz);
 	rv.addSVGCircle(sz, h - sz, sz);
 	rv.addSVGCircle(w / 2, h / 2, sz);*/
-	rv.mark1 = rv.addSVGCircle(400, 300, 25);
-	rv.mark2 = rv.addSVGCircle(400, 300, 15);
+	//rv.mark1 = rv.addSVGCircle(400, 300, 25);
+	rv.clickMark = rv.addSVGCircle(400, 300, tapSize);
+	rv.clickMark.noremove=true;
 
 	//rv.moveToCenter(400, 300);
-	var z = 0.13;
+	var z = 1;
 	var t = rv.content2rake(rv.rakeDiv.clientWidth / 2, rv.rakeDiv.clientHeight / 2, w / 2, h / 2, z);
 	//console.log(t);
 	rv.translateX = t.x;
