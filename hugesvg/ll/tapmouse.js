@@ -1,5 +1,7 @@
+var mme;
 function attachTapMouse(me){
 	console.log('attachTapMouse',me);
+	mme=me;
 	var startMouseScreenX = 0.0;
 	var startMouseScreenY = 0.0;
 	var clickX=0;
@@ -45,13 +47,16 @@ function attachTapMouse(me){
 	var rakeMouseUp = function (mouseEvent) {
 		me.rakeDiv.removeEventListener('mousemove', rakeMouseMove, true);
 		if(Math.abs(clickX-mouseEvent.screenX)<me.tapSize/4 && Math.abs(clickY-mouseEvent.screenY)<me.tapSize/4){
-			click();
+			click(me);
 		}
 		me.adjustCountentPosition();
 		me.reDraw();
 	};
-	var click=function(){
+	var click=function(me){
 		console.log('click');
+		//console.log('point',xx,yy);
+		//console.log('size',ww,hh);
+		//console.log('translate',me.translateX,me.translateY,me.translateZ);
 	};
 	me.rakeDiv.addEventListener('mousedown', rakeMouseDown, false);
 	me.rakeDiv.addEventListener("mousewheel", rakeMouseWheel, false);

@@ -11,64 +11,17 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		return false;
 	};
 
-	me.rake2content = function (rakeLeft, rakeTop, zoom) {
-		var contentPoint = {};
-		var maxX = me.innerWidth * (zoom - 1) / 2;
-		contentPoint.x = (rakeLeft - me.translateX + maxX) / zoom;
-		var maxY = me.innerHeight * (zoom - 1) / 2;
-		contentPoint.y = (rakeTop - me.translateY + maxY) / zoom;
-		
-		return contentPoint;
-	};
-	me.content2rake = function (rakeLeft, rakeTop, contentLeft, contentTop, zoom) {
-		var t = {};
-		var maxX = me.innerWidth * (zoom - 1) / 2;
-		t.x = -(contentLeft * zoom - rakeLeft - maxX);
-		var maxY = me.innerHeight * (zoom - 1) / 2;
-		t.y = -(contentTop * zoom - rakeTop - maxY);
-		return t;
-	};
-	/*me.rakeMouseDown = function (mouseEvent) {
-		console.log('down',mouseEvent);
-		me.rakeDiv.addEventListener('mousemove', me.rakeMouseMove, true);
-		window.addEventListener('mouseup', me.rakeMouseUp, false);
-		me.startMouseScreenX = mouseEvent.screenX;
-		me.startMouseScreenY = mouseEvent.screenY;
-		var xy = me.rake2content(mouseEvent.layerX, mouseEvent.layerY, me.translateZ);
-		me.setMark(xy.x, xy.y);
-		me.clickX = mouseEvent.screenX;
-		me.clickY = mouseEvent.screenY;
-	};
-	me.rakeMouseMove = function (mouseEvent) {
-		var dX = mouseEvent.screenX - me.startMouseScreenX;
-		var dY = mouseEvent.screenY - me.startMouseScreenY;
-		me.translateX = me.translateX + dX;
-		me.translateY = me.translateY + dY;
-		me.startMouseScreenX = mouseEvent.screenX;
-		me.startMouseScreenY = mouseEvent.screenY;
-		me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
-	};
-	me.rakeMouseUp = function (mouseEvent) {
-		me.rakeDiv.removeEventListener('mousemove', me.rakeMouseMove, true);
-		if(Math.abs(me.clickX-mouseEvent.screenX)<me.tapSize/4 && Math.abs(me.clickY-mouseEvent.screenY)<me.tapSize/4){
-			me.click();
-		}
-		me.adjustCountentPosition();
-		me.reDraw();
-	};
-	me.click=function(){
-		console.log('click');
-	};*/
 	me.reDraw=function(){
 		var lt= me.rake2content(0, 0, me.translateZ);
+		//console.log('left top',lt);
 		var rb= me.rake2content( me.rakeDiv.clientWidth,  me.rakeDiv.clientHeight, me.translateZ);
 		me.removeContent(lt.x,rb.x,lt.y,rb.y,me.translateZ);
 		me.addContent(lt.x,lt.y,rb.x-lt.x,rb.y-lt.y,me.translateZ);
 	};
 	me.addContent=function(xx,yy,ww,hh,zz){
-		console.log('point',xx,yy);
+		/*console.log('-------------point',xx,yy);
 		console.log('size',ww,hh);
-		console.log('translate',me.translateX,me.translateY,me.translateZ);
+		console.log('translate',me.translateX,me.translateY,me.translateZ);*/
 		me.addNumbers(xx,yy,ww,hh,zz,56*me.tapSize,'a');//base
 		if(zz>0.05){//preview
 			me.addNumbers(xx,yy,ww,hh,zz,14*me.tapSize,'b');
@@ -79,6 +32,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		if(zz>0.7){//note
 			me.addNumbers(xx,yy,ww,hh,zz,me.tapSize,'d');
 		}
+		//addSVGFillCircle(me,xx,yy,1000);
 	};
 	me.addNumbers=function(xx,yy,ww,hh,zz,lvl,key){
 		var w=me.innreWidth;
@@ -109,6 +63,39 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 				i--;
 			}
 		}
+	};
+	
+	me.rake2content = function (rakeLeft, rakeTop, zoom) {
+		if (me.innerWidth * zoom < me.rakeDiv.clientWidth) {
+			var half=( me.rakeDiv.clientWidth-me.innerWidth * zoom )/2;
+			rakeLeft=rakeLeft+half;
+		}
+		if (me.innerHeight * zoom < me.rakeDiv.clientHeight) {
+			var half=( me.rakeDiv.clientHeight-me.innerHeight * zoom )/2;
+			//console.log('margin',rakeTop,half);
+			rakeTop=rakeTop+half;
+			
+		}
+		var contentPoint = {};
+		var maxX = me.innerWidth * (zoom - 1) / 2;
+		contentPoint.x = (rakeLeft - me.translateX + maxX) / zoom;
+		var maxY = me.innerHeight * (zoom - 1) / 2;
+		contentPoint.y = (rakeTop - me.translateY + maxY) / zoom;
+		/*if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
+			contentPoint.x=contentPoint.x+(me.rakeDiv.clientWidth*me.translateZ-me.innerWidth)/2;
+		}
+		if (me.innerHeight * me.translateZ < me.rakeDiv.clientHeight) {
+			contentPoint.y=contentPoint.y+(me.rakeDiv.clientHeight*me.translateZ-me.innerHeight)/2;
+		}*/
+		return contentPoint;
+	};
+	me.content2rake = function (rakeLeft, rakeTop, contentLeft, contentTop, zoom) {
+		var t = {};
+		var maxX = me.innerWidth * (zoom - 1) / 2;
+		t.x = -(contentLeft * zoom - rakeLeft - maxX);
+		var maxY = me.innerHeight * (zoom - 1) / 2;
+		t.y = -(contentTop * zoom - rakeTop - maxY);
+		return t;
 	};
 	me.adjustCountentPosition = function () {
 		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
@@ -225,7 +212,8 @@ function startInit() {
 	//rv.addSVGFillCircle(w / 2, h / 2, 10);
 	//rv.clickMark = rv.addSVGCircle(400, 300, 16);
 	//rv.clickMark.noremove=true;
-	var z = 1;
+	var z = 0.01;
+	rv.translateZ=z;
 	var t = rv.content2rake(rv.rakeDiv.clientWidth / 2, rv.rakeDiv.clientHeight / 2, w / 2, h / 2, z);
 	//rv.translateX = t.x;
 	//rv.translateY = t.y;
