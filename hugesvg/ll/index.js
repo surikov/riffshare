@@ -13,7 +13,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 
 	me.reDraw=function(){
 		var lt= me.rake2content(0, 0, me.translateZ);
-		//console.log('left top',lt);
+		console.log('left top',lt);
 		var rb= me.rake2content( me.rakeDiv.clientWidth,  me.rakeDiv.clientHeight, me.translateZ);
 		me.removeContent(lt.x,rb.x,lt.y,rb.y,me.translateZ);
 		me.addContent(lt.x,lt.y,rb.x-lt.x,rb.y-lt.y,me.translateZ);
@@ -78,15 +78,16 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 		var contentPoint = {};
 		var maxX = me.innerWidth * (zoom - 1) / 2;
-		contentPoint.x = (rakeLeft - me.translateX + maxX) / zoom;
+		contentPoint.x = Math.round((rakeLeft - me.translateX + maxX) / zoom);
 		var maxY = me.innerHeight * (zoom - 1) / 2;
-		contentPoint.y = (rakeTop - me.translateY + maxY) / zoom;
+		contentPoint.y = Math.round((rakeTop - me.translateY + maxY) / zoom);
 		/*if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
 			contentPoint.x=contentPoint.x+(me.rakeDiv.clientWidth*me.translateZ-me.innerWidth)/2;
 		}
 		if (me.innerHeight * me.translateZ < me.rakeDiv.clientHeight) {
 			contentPoint.y=contentPoint.y+(me.rakeDiv.clientHeight*me.translateZ-me.innerHeight)/2;
 		}*/
+
 		return contentPoint;
 	};
 	me.content2rake = function (rakeLeft, rakeTop, contentLeft, contentTop, zoom) {

@@ -19,6 +19,7 @@ function attachTapMouse(me){
 		me.translateX = t.x;
 		me.translateY = t.y;
 		me.translateZ = zoom;
+		console.log('wheel zoom to',zoom);
 		me.adjustCountentPosition();
 		me.reDraw();
 		e.preventDefault();
@@ -52,6 +53,9 @@ function attachTapMouse(me){
 		me.adjustCountentPosition();
 		me.reDraw();
 	};
+	var rakeGestureEnd = function (e) {
+		console.log('rakeGestureEnd',e);
+	};
 	var click=function(me){
 		console.log('click');
 		//console.log('point',xx,yy);
@@ -61,4 +65,5 @@ function attachTapMouse(me){
 	me.rakeDiv.addEventListener('mousedown', rakeMouseDown, false);
 	me.rakeDiv.addEventListener("mousewheel", rakeMouseWheel, false);
 	me.rakeDiv.addEventListener("DOMMouseScroll", rakeMouseWheel, false);
+	me.rakeDiv.addEventListener("gestureend", rakeGestureEnd, false);
 }
