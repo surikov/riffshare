@@ -1,5 +1,5 @@
 var mme;
-console.log('clicktap v1.02');
+console.log('clicktap v1.04');
 var Vector = function (x, y) {
 	this.x = x;
 	this.y = y;
@@ -86,11 +86,13 @@ function attachTapMouse(me) {
 		window.addEventListener('mouseup', rakeMouseUp, false);
 		startMouseScreenX = mouseEvent.screenX;
 		startMouseScreenY = mouseEvent.screenY;
+		clickX = startMouseScreenX;
+		clickY = startMouseScreenY;
 		//var xy = me.rake2content(mouseEvent.layerX, mouseEvent.layerY, me.translateZ);
 		//var xy = me.rake2content(startMouseScreenX, startMouseScreenY, me.translateZ);
 		//me.setMark(xy.x, xy.y);
-		clickX = mouseEvent.screenX;
-		clickY = mouseEvent.screenY;
+		//clickX = mouseEvent.screenX;
+		//clickY = mouseEvent.screenY;
 	};
 	var rakeMouseMove = function (mouseEvent) {
 		console.log('rakeMouseMove', mouseEvent);
@@ -119,7 +121,10 @@ function attachTapMouse(me) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchStart', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
-			rakeMouseDown(touchEvent.targetTouches[0]);
+			startMouseScreenX = touchEvent.targetTouches[0].screenX;
+			startMouseScreenY = touchEvent.targetTouches[0].screenY;
+			clickX = startMouseScreenX;
+			clickY = startMouseScreenY;
 			return;
 		}
 		var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
@@ -132,7 +137,13 @@ function attachTapMouse(me) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchMove', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
-			rakeMouseMove(touchEvent.targetTouches[0]);
+			var dX = touchEvent.targetTouches[0].screenX - startMouseScreenX;
+			var dY = touchEvent.targetTouches[0].screenY - startMouseScreenY;
+			me.translateX = me.translateX + dX;
+			me.translateY = me.translateY + dY;
+			startMouseScreenX = touchEvent.targetTouches[0].screenX;
+			startMouseScreenY = touchEvent.targetTouches[0].screenY;
+			me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 			return;
 		}
 	};
@@ -140,7 +151,11 @@ function attachTapMouse(me) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchEnd', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
-			rakeMouseUp(touchEvent.targetTouches[0]);
+			if (Math.abs(clickX - touchEvent.targetTouches[0].screenX) < me.tapSize / 4 && Math.abs(clickY - touchEvent.targetTouches[0].screenY) < me.tapSize / 4) {
+				click(me);
+			}
+			me.adjustCountentPosition();
+			me.reDraw();
 			return;
 		}
 	};
