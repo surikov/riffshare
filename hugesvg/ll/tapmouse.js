@@ -1,5 +1,5 @@
 var mme;
-console.log('clicktap v1.01');
+console.log('clicktap v1.02');
 var Vector = function (x, y) {
 	this.x = x;
 	this.y = y;
