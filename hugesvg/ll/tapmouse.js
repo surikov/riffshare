@@ -1,5 +1,5 @@
 var mme;
-console.log('clicktap v1.04');
+console.log('clicktap v1.05');
 var Vector = function (x, y) {
 	this.x = x;
 	this.y = y;
@@ -72,14 +72,14 @@ function attachTapMouse(me) {
 		me.translateX = t.x;
 		me.translateY = t.y;
 		me.translateZ = zoom;
-		console.log('wheel zoom to', zoom);
+		//console.log('wheel zoom to', zoom);
 		me.adjustCountentPosition();
 		me.reDraw();
 
 		return false;
 	};
 	var rakeMouseDown = function (mouseEvent) {
-		console.log('rakeMouseDown', mouseEvent);
+		//console.log('rakeMouseDown', mouseEvent);
 		mouseEvent.preventDefault();
 		//console.log('down',mouseEvent);
 		me.rakeDiv.addEventListener('mousemove', rakeMouseMove, true);
@@ -95,7 +95,7 @@ function attachTapMouse(me) {
 		//clickY = mouseEvent.screenY;
 	};
 	var rakeMouseMove = function (mouseEvent) {
-		console.log('rakeMouseMove', mouseEvent);
+		//console.log('rakeMouseMove', mouseEvent);
 		mouseEvent.preventDefault();
 
 		var dX = mouseEvent.screenX - startMouseScreenX;
@@ -151,7 +151,7 @@ function attachTapMouse(me) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchEnd', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
-			if (Math.abs(clickX - touchEvent.targetTouches[0].screenX) < me.tapSize / 4 && Math.abs(clickY - touchEvent.targetTouches[0].screenY) < me.tapSize / 4) {
+			if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
 				click(me);
 			}
 			me.adjustCountentPosition();

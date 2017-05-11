@@ -13,7 +13,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 
 	me.reDraw=function(){
 		var lt= me.rake2content(0, 0, me.translateZ);
-		console.log('left top',lt);
+		//console.log('left top',lt);
 		var rb= me.rake2content( me.rakeDiv.clientWidth,  me.rakeDiv.clientHeight, me.translateZ);
 		me.removeContent(lt.x,rb.x,lt.y,rb.y,me.translateZ);
 		me.addContent(lt.x,lt.y,rb.x-lt.x,rb.y-lt.y,me.translateZ);
