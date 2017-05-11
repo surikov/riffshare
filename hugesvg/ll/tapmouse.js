@@ -1,10 +1,12 @@
 var mme;
-console.log('clicktap v1.05');
+console.log('clicktap v1.06');
+var twodistance = 1;
+
 var Vector = function (x, y) {
 	this.x = x;
 	this.y = y;
 };
-
+var twocenter = new Vector(0, 0);
 Vector.prototype.add = function (p) {
 	return new Vector(this.x + p.x, this.y + p.y);
 };
@@ -67,8 +69,10 @@ function attachTapMouse(me) {
 		if (zoom > 1) {
 			zoom = 1;
 		}
-		var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
-		var t = me.content2rake(e.layerX, e.layerY, xy.x, xy.y, zoom);
+		//var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
+		//var t = me.content2rake(e.layerX, e.layerY, xy.x, xy.y, zoom);
+		var xy = me.rake2content(e.screenX, e.screenY, me.translateZ);
+		var t = me.content2rake(e.screenX, e.screenY, xy.x, xy.y, zoom);
 		me.translateX = t.x;
 		me.translateY = t.y;
 		me.translateZ = zoom;
@@ -107,7 +111,7 @@ function attachTapMouse(me) {
 		me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 	};
 	var rakeMouseUp = function (mouseEvent) {
-		console.log('rakeMouseUp', mouseEvent);
+		//console.log('rakeMouseUp', mouseEvent);
 		mouseEvent.preventDefault();
 
 		me.rakeDiv.removeEventListener('mousemove', rakeMouseMove, true);
@@ -125,13 +129,17 @@ function attachTapMouse(me) {
 			startMouseScreenY = touchEvent.targetTouches[0].screenY;
 			clickX = startMouseScreenX;
 			clickY = startMouseScreenY;
+			twodistance = 0;
 			return;
+		} else {
+			var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
+			var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
+			twocenter = Vector.findCenter(p1, p2);
+			//direction = p1.subtract(p2);
+			var d = Vector.distance(p1, p2);
+			if(d<=0)d=1;
+			twodistance = d;
 		}
-		var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
-		var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
-		center = Vector.findCenter(p1, p2);
-		direction = p1.subtract(p2);
-		distance = Vector.distance(p1, p2);
 	};
 	var rakeTouchMove = function (touchEvent) {
 		touchEvent.preventDefault();
@@ -145,6 +153,33 @@ function attachTapMouse(me) {
 			startMouseScreenY = touchEvent.targetTouches[0].screenY;
 			me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 			return;
+		} else {
+			var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
+			var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
+			var d = Vector.distance(p1, p2);
+			if(d<=0)d=1;
+			var ratio=d/twodistance;
+			twodistance = d;
+			
+			
+			
+			var zoom = me.translateZ *ratio;
+		if (zoom < 0.01) {
+			zoom = 0.01;
+		}
+		if (zoom > 1) {
+			zoom = 1;
+		}
+		var xy = me.rake2content(twocenter.x, twocenter.y, me.translateZ);
+		var t = me.content2rake(twocenter.x, twocenter.y, xy.x, xy.y, zoom);
+		me.translateX = t.x;
+		me.translateY = t.y;
+		me.translateZ = zoom;
+		//console.log('wheel zoom to', zoom);
+		me.adjustCountentPosition();
+		me.reDraw();
+
+		
 		}
 	};
 	var rakeTouchEnd = function (touchEvent) {

@@ -19,8 +19,8 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.addContent(lt.x,lt.y,rb.x-lt.x,rb.y-lt.y,me.translateZ);
 	};
 	me.addContent=function(xx,yy,ww,hh,zz){
-		/*console.log('-------------point',xx,yy);
-		console.log('size',ww,hh);
+		//console.log('-------------addContent from',xx,yy);
+		/*console.log('size',ww,hh);
 		console.log('translate',me.translateX,me.translateY,me.translateZ);*/
 		me.addNumbers(xx,yy,ww,hh,zz,56*me.tapSize,'a');//base
 		if(zz>0.05){//preview
@@ -44,7 +44,9 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		var sy=Math.floor(yy/stpy)*stpy;
 		for (var x = sx; x < xx+ww; x=x+stpx) {
 			for (var y = sy; y < yy+hh; y=y+stpy) {
-				var msg=key+Math.round((x-sx)/stpx)+'x'+Math.round((y-sy)/stpy)+':'+Math.round(me.translateZ*100);
+				var nx=x/stpx;
+				var ny=y/stpy;
+				var msg=key+Math.round(nx)+'x'+Math.round(ny)+':'+Math.round(me.translateZ*100);
 				addSVGText(me,x , y , lvl,msg);
 				addSVGCircle(me,x,y,lvl/2);
 				cntr++;
