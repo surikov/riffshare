@@ -116,7 +116,7 @@ function attachTapMouse(me) {
 		me.reDraw();
 	};
 	var rakeTouchStart = function (touchEvent) {
-		touchEvente.preventDefault();
+		touchEvent.preventDefault();
 		console.log('rakeTouchStart', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
 			rakeMouseDown(touchEvent.targetTouches[0]);
