@@ -23,6 +23,132 @@ Listen to this pattern:
 Now listen to this one and notice the difference:
 
 -- -- What are these sounds?
+
+Listen to this pattern:
+
+
+Reset
+Clear
+Export to Live
+Tempo: 85 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+Now listen to this one and notice the difference:
+
+
+Reset
+Clear
+Export to Live
+Tempo: 85 bpm
+
+Open Hat
+Closed Hat
+Snare
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+The notes are the same; we've just changed the sounds. But this gives each version its own unique character.
+
+The four types of sounds in these grids are among the most commonly used drum sounds in many styles of both acoustic and electronic music. Here's a bit more about them:
+
+Kick
+
+Kick drum
+
+Also called a bass drum, an acoustic kick is struck by a pedal with a beater attached, and is played by the drummer's foot. Electronic versions of this sound are sometimes made to sustain much longer than the relatively short sound produced by a physical drum.
+
+Compare an electronic and an acoustic kick:
+
+Keyboard
+Electronic Kick
+Acoustic Kick
+Click on the pads to play a sound.
+Close
+Clap
+
+Clap
+
+This is the sound of one or more people clapping their hands. Today, electronic, stylized versions of this sound (like the one used here) are much more common than actual recordings of handclaps.
+
+Snare
+
+Snare
+
+A snare drum is struck with a drum stick, and produces a short, bright sound. A set of wires (called snares) is stretched across a drum head at the bottom of the drum. The vibration of the bottom drum head against the snares produces the drum's characteristic "cracking" tone.
+
+Claps, snares, and other "sharp" or "bright" sounds are often used in similar ways in drum patterns.
+
+Compare an electronic clap and an acoustic snare sound:
+
+Keyboard
+Electronic Clap
+Acoustic Snare
+Closed Hat and Open Hat
+
+Hi-hat
+
+These are two different sounds created by an instrument called the hihat. Hihats are a pair of small cymbals mounted on a stand. The top cymbal is attached to a rod that is raised and lowered with a foot pedal. Hihats are "closed" when the drummer's foot is down, which presses the cymbals together. They are "open" when the drummer's foot is raised and the cymbals are not touching. On an acoustic drumset, there is a huge range of states in between the open and closed position, and each state creates a different type of sound.
+
+Keyboard
+Electronic Closed Hat
+Electronic Open Hat
+Acoustic Closed Hat
+Acoustic Open Hat
+Try all of the electronic sounds together:
+
+Keyboard
+Click here to play these sounds using your keyboard keys.
+Close
+Kick
+Clap
+Closed Hat
+Open Hat
+Try all of the acoustic sounds together:
+
+Keyboard
+Kick
+Snare
+Closed Hat
+Open Hat
+‹ Previous
+Next
+: Beat and tempo
+ ›
+
+
 -- -- Beat and tempo
 -- -- Tempo and genre
 -- -- Backbeats
