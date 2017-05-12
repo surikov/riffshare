@@ -135,9 +135,9 @@ function attachTapMouse(me) {
 		}
 		twodistance = d;
 	};
-	var rakeTouchStart = function (touchEvent.targetTouches.length) {
+	var rakeTouchStart = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('rakeTouchStart', touchEvent);
+		console.log('rakeTouchStart', touchEvent.targetTouches.length);
 		if (touchEvent.targetTouches.length < 2) {
 			twoZoom = false;
 			startMouseScreenX = touchEvent.targetTouches[0].clientX;
