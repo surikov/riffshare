@@ -213,7 +213,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.tapSize = 32;
 	try {
 		var pixelRatio = window.devicePixelRatio;
-		me.tapSize = 30 * pixelRatio;
+		me.tapSize = 50 * pixelRatio;
 		if (isNaN(me.tapSize)) {
 			me.tapSize = 51;
 		}
