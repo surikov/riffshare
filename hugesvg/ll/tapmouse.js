@@ -137,7 +137,7 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchStart = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('rakeTouchStart', touchEvent.targetTouches.length);
+		console.log('-rakeTouchStart', touchEvent.targetTouches.length);
 		if (touchEvent.targetTouches.length < 2) {
 			twoZoom = false;
 			startMouseScreenX = touchEvent.targetTouches[0].clientX;
@@ -152,7 +152,7 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchMove = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('rakeTouchMove', touchEvent.targetTouches.length);
+		console.log('-----rakeTouchMove', touchEvent.targetTouches.length, touchEvent.touches.length);
 
 		if (touchEvent.targetTouches.length < 2) {
 			if (twoZoom) {
@@ -200,7 +200,7 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchEnd = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('rakeTouchEnd', touchEvent.targetTouches.length);
+		console.log('---rakeTouchEnd', touchEvent.targetTouches.length);
 		if (!twoZoom) {
 			if (touchEvent.targetTouches.length < 2) {
 				if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
