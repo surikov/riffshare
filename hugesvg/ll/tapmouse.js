@@ -152,7 +152,7 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchMove = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('rakeTouchMove', touchEvent);
+		console.log('rakeTouchMove', touchEvent.targetTouches.length);
 
 		if (touchEvent.targetTouches.length < 2) {
 			if (twoZoom) {
@@ -211,6 +211,7 @@ function attachTapMouse(me) {
 				return;
 			}
 		}
+		twoZoom = false;
 	};
 	var click = function (me) {
 

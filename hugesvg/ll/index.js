@@ -222,7 +222,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		console.log(ex);
 	}
 	console.log('tapSize',me.tapSize,window.devicePixelRatio);
-	document.title='5:'+me.tapSize;
+	//document.title='5:'+me.tapSize;
 
 	me.svgns = "http://www.w3.org/2000/svg";
 	me.info = me.checkEnvironment();
