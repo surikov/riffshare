@@ -24,7 +24,18 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.realDraw = function () {
 		var lt = me.rake2content(0, 0, me.translateZ);
 		//console.log('left top',lt);
-		var rb = me.rake2content(me.rakeDiv.clientWidth, me.rakeDiv.clientHeight, me.translateZ);
+		var rightBottomX=me.rakeDiv.clientWidth;
+		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
+			var half = (me.rakeDiv.clientWidth - me.innerWidth * me.translateZ) / 2;
+			rightBottomX = rightBottomX - half;
+		}
+		var rightBottomY=me.rakeDiv.clientHeight;
+		if (me.innerHeight * me.translateZ < me.rakeDiv.clientHeight) {
+			var half = (me.rakeDiv.clientHeight - me.innerHeight * me.translateZ) / 2;
+			rightBottomY = rightBottomY - half;
+		}
+		var rb = me.rake2content(rightBottomX, rightBottomY, me.translateZ);
+		//console.log('right bottom',rb);
 		me.removeContent(lt.x, rb.x, lt.y, rb.y, me.translateZ);
 		me.addContent(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y, me.translateZ);
 	};
@@ -43,22 +54,27 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			me.addNumbers(xx, yy, ww, hh, zz, me.tapSize, 'd');
 		}
 		//addSVGFillCircle(me,xx,yy,1000);
+		
+		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize/2)/me.translateZ);
 	};
-	me.addNumbers = function (xx, yy, ww, hh, zz, lvl, key) {
-		var w = me.innreWidth;
+	me.addNumbers = function (left, top, width, height, zoom, detailSize, key) {
+		
+		var w = me.innerWidth;
 		var h = me.innerHeight;
 		var cntr = 0;
-		var stpx = 8 * lvl;
-		var stpy = 3 * lvl;
-		var sx = Math.floor(xx / stpx) * stpx;
-		var sy = Math.floor(yy / stpy) * stpy;
-		for (var x = sx; x < xx + ww; x = x + stpx) {
-			for (var y = sy; y < yy + hh; y = y + stpy) {
+		var stpx = 8 * detailSize;
+		var stpy = 3 * detailSize;
+		var sx = Math.floor(left / stpx) * stpx;
+		var sy = Math.floor(top / stpy) * stpy;
+		//console.log('addNumbers',left, top, width, height, zoom, detailSize, key,stpx,stpy);
+		for (var x = sx; x < left + width; x = x + stpx) {
+			for (var y = sy; y < top + height; y = y + stpy) {
 				var nx = x / stpx;
 				var ny = y / stpy;
 				var msg = key + Math.round(nx) + 'x' + Math.round(ny) + ':' + Math.round(me.translateZ * 100);
-				addSVGText(me, x, y, lvl, msg);
-				addSVGCircle(me, x, y, lvl / 2);
+				addSVGText(me, x, y, detailSize, msg);
+				addSVGCircle(me, x, y, detailSize / 2);
+				//console.log(x,y,msg);
 				cntr++;
 				if (cntr > 199)
 					break;

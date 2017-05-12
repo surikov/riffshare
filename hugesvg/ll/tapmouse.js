@@ -1,7 +1,9 @@
 var mme;
 console.log('clicktap v1.06');
 var twodistance = 1;
-
+var clickContentX = 0;
+var clickContentY = 0;
+var twoZoom = false;
 var Vector = function (x, y) {
 	this.x = x;
 	this.y = y;
@@ -28,7 +30,7 @@ Vector.prototype.norm = function () {
 };
 
 Vector.fromTouch = function (touch) {
-	return new Vector(touch.screenX, touch.screenY);
+	return new Vector(touch.clientX, touch.clientY);
 };
 
 Vector.findCenter = function (p1, p2) {
@@ -71,8 +73,8 @@ function attachTapMouse(me) {
 		}
 		//var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
 		//var t = me.content2rake(e.layerX, e.layerY, xy.x, xy.y, zoom);
-		var xy = me.rake2content(e.screenX, e.screenY, me.translateZ);
-		var t = me.content2rake(e.screenX, e.screenY, xy.x, xy.y, zoom);
+		var xy = me.rake2content(e.clientX, e.clientY, me.translateZ);
+		var t = me.content2rake(e.clientX, e.clientY, xy.x, xy.y, zoom);
 		me.translateX = t.x;
 		me.translateY = t.y;
 		me.translateZ = zoom;
@@ -88,26 +90,26 @@ function attachTapMouse(me) {
 		//console.log('down',mouseEvent);
 		me.rakeDiv.addEventListener('mousemove', rakeMouseMove, true);
 		window.addEventListener('mouseup', rakeMouseUp, false);
-		startMouseScreenX = mouseEvent.screenX;
-		startMouseScreenY = mouseEvent.screenY;
+		startMouseScreenX = mouseEvent.clientX;
+		startMouseScreenY = mouseEvent.clientY;
 		clickX = startMouseScreenX;
 		clickY = startMouseScreenY;
 		//var xy = me.rake2content(mouseEvent.layerX, mouseEvent.layerY, me.translateZ);
 		//var xy = me.rake2content(startMouseScreenX, startMouseScreenY, me.translateZ);
 		//me.setMark(xy.x, xy.y);
-		//clickX = mouseEvent.screenX;
-		//clickY = mouseEvent.screenY;
+		//clickX = mouseEvent.clientX;
+		//clickY = mouseEvent.clientY;
 	};
 	var rakeMouseMove = function (mouseEvent) {
 		//console.log('rakeMouseMove', mouseEvent);
 		mouseEvent.preventDefault();
 
-		var dX = mouseEvent.screenX - startMouseScreenX;
-		var dY = mouseEvent.screenY - startMouseScreenY;
+		var dX = mouseEvent.clientX - startMouseScreenX;
+		var dY = mouseEvent.clientY - startMouseScreenY;
 		me.translateX = me.translateX + dX;
 		me.translateY = me.translateY + dY;
-		startMouseScreenX = mouseEvent.screenX;
-		startMouseScreenY = mouseEvent.screenY;
+		startMouseScreenX = mouseEvent.clientX;
+		startMouseScreenY = mouseEvent.clientY;
 		me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 	};
 	var rakeMouseUp = function (mouseEvent) {
@@ -115,87 +117,117 @@ function attachTapMouse(me) {
 		mouseEvent.preventDefault();
 
 		me.rakeDiv.removeEventListener('mousemove', rakeMouseMove, true);
-		if (Math.abs(clickX - mouseEvent.screenX) < me.tapSize / 4 && Math.abs(clickY - mouseEvent.screenY) < me.tapSize / 4) {
+		if (Math.abs(clickX - mouseEvent.clientX) < me.tapSize / 4 && Math.abs(clickY - mouseEvent.clientY) < me.tapSize / 4) {
 			click(me);
 		}
 		me.adjustCountentPosition();
 		me.reDraw();
 	};
+	var startTouchZoom=function(touchEvent) {
+		twoZoom = true;
+		var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
+		var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
+		twocenter = Vector.findCenter(p1, p2);
+		//direction = p1.subtract(p2);
+		var d = Vector.distance(p1, p2);
+		if (d <= 0) {
+			d = 1;
+		}
+		twodistance = d;
+	};
 	var rakeTouchStart = function (touchEvent) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchStart', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
-			startMouseScreenX = touchEvent.targetTouches[0].screenX;
-			startMouseScreenY = touchEvent.targetTouches[0].screenY;
+			twoZoom = false;
+			startMouseScreenX = touchEvent.targetTouches[0].clientX;
+			startMouseScreenY = touchEvent.targetTouches[0].clientY;
 			clickX = startMouseScreenX;
 			clickY = startMouseScreenY;
 			twodistance = 0;
 			return;
 		} else {
-			var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
-			var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
-			twocenter = Vector.findCenter(p1, p2);
-			//direction = p1.subtract(p2);
-			var d = Vector.distance(p1, p2);
-			if(d<=0)d=1;
-			twodistance = d;
+			startTouchZoom(touchEvent);
 		}
 	};
 	var rakeTouchMove = function (touchEvent) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchMove', touchEvent);
-		if (touchEvent.targetTouches.length < 2) {
-			var dX = touchEvent.targetTouches[0].screenX - startMouseScreenX;
-			var dY = touchEvent.targetTouches[0].screenY - startMouseScreenY;
-			me.translateX = me.translateX + dX;
-			me.translateY = me.translateY + dY;
-			startMouseScreenX = touchEvent.targetTouches[0].screenX;
-			startMouseScreenY = touchEvent.targetTouches[0].screenY;
-			me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
-			return;
-		} else {
-			var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
-			var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
-			var d = Vector.distance(p1, p2);
-			if(d<=0)d=1;
-			var ratio=d/twodistance;
-			twodistance = d;
-			
-			
-			
-			var zoom = me.translateZ *ratio;
-		if (zoom < 0.01) {
-			zoom = 0.01;
-		}
-		if (zoom > 1) {
-			zoom = 1;
-		}
-		var xy = me.rake2content(twocenter.x, twocenter.y, me.translateZ);
-		var t = me.content2rake(twocenter.x, twocenter.y, xy.x, xy.y, zoom);
-		me.translateX = t.x;
-		me.translateY = t.y;
-		me.translateZ = zoom;
-		//console.log('wheel zoom to', zoom);
-		me.adjustCountentPosition();
-		me.reDraw();
 
-		
+		if (touchEvent.targetTouches.length < 2) {
+			if (twoZoom) {
+				//
+			} else {
+				var dX = touchEvent.targetTouches[0].clientX - startMouseScreenX;
+				var dY = touchEvent.targetTouches[0].clientY - startMouseScreenY;
+				me.translateX = me.translateX + dX;
+				me.translateY = me.translateY + dY;
+				startMouseScreenX = touchEvent.targetTouches[0].clientX;
+				startMouseScreenY = touchEvent.targetTouches[0].clientY;
+				me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
+				return;
+			}
+		} else {
+			if (!twoZoom) {
+				startTouchZoom(touchEvent);
+			} else {
+				var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
+				var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
+				var d = Vector.distance(p1, p2);
+				if (d <= 0) {
+					d = 1;
+				}
+				var ratio = d / twodistance;
+				twodistance = d;
+
+				var zoom = me.translateZ * ratio;
+				if (zoom < 0.01) {
+					zoom = 0.01;
+				}
+				if (zoom > 1) {
+					zoom = 1;
+				}
+				var xy = me.rake2content(twocenter.x, twocenter.y, me.translateZ);
+				var t = me.content2rake(twocenter.x, twocenter.y, xy.x, xy.y, zoom);
+				me.translateX = t.x;
+				me.translateY = t.y;
+				me.translateZ = zoom;
+				//console.log('wheel zoom to', zoom);
+				me.adjustCountentPosition();
+				me.reDraw();
+			}
 		}
 	};
 	var rakeTouchEnd = function (touchEvent) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchEnd', touchEvent);
-		if (touchEvent.targetTouches.length < 2) {
-			if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
-				click(me);
+		if (!twoZoom) {
+			if (touchEvent.targetTouches.length < 2) {
+				if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
+					click(me);
+				}
+				me.adjustCountentPosition();
+				me.reDraw();
+				return;
 			}
-			me.adjustCountentPosition();
-			me.reDraw();
-			return;
 		}
 	};
 	var click = function (me) {
-		console.log('click');
+
+		var halfW = 0;
+		var halfH = 0;
+
+		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
+			halfW = (me.rakeDiv.clientWidth - me.innerWidth * me.translateZ) / 2;
+		}
+		if (me.innerHeight * me.translateZ < me.rakeDiv.clientHeight) {
+			halfH = (me.rakeDiv.clientHeight - me.innerHeight * me.translateZ) / 2;
+		}
+
+		var xy = me.rake2content(clickX - halfW, clickY - halfH, me.translateZ);
+		clickContentX = xy.x;
+		clickContentY = xy.y;
+		console.log('click', clickX, clickY, clickContentX, clickContentY, me);
 		//console.log('point',xx,yy);
 		//console.log('size',ww,hh);
 		//console.log('translate',me.translateX,me.translateY,me.translateZ);
