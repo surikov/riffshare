@@ -12,7 +12,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 	var timeOutID = 0;
 	me.reDraw = function () {
-		if (timeOutID>0) {
+		if (timeOutID > 0) {
 			console.log('still wait redraw');
 			return;
 		}
@@ -24,12 +24,12 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.realDraw = function () {
 		var lt = me.rake2content(0, 0, me.translateZ);
 		//console.log('left top',lt);
-		var rightBottomX=me.rakeDiv.clientWidth;
+		var rightBottomX = me.rakeDiv.clientWidth;
 		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
 			var half = (me.rakeDiv.clientWidth - me.innerWidth * me.translateZ) / 2;
 			rightBottomX = rightBottomX - half;
 		}
-		var rightBottomY=me.rakeDiv.clientHeight;
+		var rightBottomY = me.rakeDiv.clientHeight;
 		if (me.innerHeight * me.translateZ < me.rakeDiv.clientHeight) {
 			var half = (me.rakeDiv.clientHeight - me.innerHeight * me.translateZ) / 2;
 			rightBottomY = rightBottomY - half;
@@ -54,11 +54,11 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			me.addNumbers(xx, yy, ww, hh, zz, me.tapSize, 'd');
 		}
 		//addSVGFillCircle(me,xx,yy,1000);
-		
-		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize/2)/me.translateZ);
+
+		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ);
 	};
 	me.addNumbers = function (left, top, width, height, zoom, detailSize, key) {
-		
+
 		var w = me.innerWidth;
 		var h = me.innerHeight;
 		var cntr = 0;
@@ -211,6 +211,18 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	return false;
 	};*/
 	me.tapSize = 32;
+	try {
+		var pixelRatio = window.devicePixelRatio;
+		me.tapSize = 30 * pixelRatio;
+		if (isNaN(me.tapSize)) {
+			me.tapSize = 51;
+		}
+
+	} catch (ex) {
+		console.log(ex);
+	}
+	console.log('tapSize',me.tapSize,window.devicePixelRatio);
+
 	me.svgns = "http://www.w3.org/2000/svg";
 	me.info = me.checkEnvironment();
 	me.contentDiv = document.getElementById(contentName);
