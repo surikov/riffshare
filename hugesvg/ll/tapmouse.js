@@ -135,7 +135,7 @@ function attachTapMouse(me) {
 		}
 		twodistance = d;
 	};
-	var rakeTouchStart = function (touchEvent) {
+	var rakeTouchStart = function (touchEvent.targetTouches.length) {
 		touchEvent.preventDefault();
 		console.log('rakeTouchStart', touchEvent);
 		if (touchEvent.targetTouches.length < 2) {
@@ -200,7 +200,7 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchEnd = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('rakeTouchEnd', touchEvent);
+		console.log('rakeTouchEnd', touchEvent.targetTouches.length);
 		if (!twoZoom) {
 			if (touchEvent.targetTouches.length < 2) {
 				if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
