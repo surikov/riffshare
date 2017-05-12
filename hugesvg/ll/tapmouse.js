@@ -125,8 +125,8 @@ function attachTapMouse(me) {
 	};
 	var startTouchZoom=function(touchEvent) {
 		twoZoom = true;
-		var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
-		var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
+		var p1 = Vector.fromTouch(touchEvent.touches[0]);
+		var p2 = Vector.fromTouch(touchEvent.touches[1]);
 		twocenter = Vector.findCenter(p1, p2);
 		//direction = p1.subtract(p2);
 		var d = Vector.distance(p1, p2);
@@ -137,11 +137,11 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchStart = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('-rakeTouchStart', touchEvent.targetTouches.length);
-		if (touchEvent.targetTouches.length < 2) {
+		//console.log('-rakeTouchStart', touchEvent.targetTouches.length);
+		if (touchEvent.touches.length < 2) {
 			twoZoom = false;
-			startMouseScreenX = touchEvent.targetTouches[0].clientX;
-			startMouseScreenY = touchEvent.targetTouches[0].clientY;
+			startMouseScreenX = touchEvent.touches[0].clientX;
+			startMouseScreenY = touchEvent.touches[0].clientY;
 			clickX = startMouseScreenX;
 			clickY = startMouseScreenY;
 			twodistance = 0;
@@ -152,18 +152,18 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchMove = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('-----rakeTouchMove', touchEvent.targetTouches.length, touchEvent.touches.length);
+		//console.log('-----rakeTouchMove', touchEvent.targetTouches.length, touchEvent.touches.length);
 
-		if (touchEvent.targetTouches.length < 2) {
+		if (touchEvent.touches.length < 2) {
 			if (twoZoom) {
 				//
 			} else {
-				var dX = touchEvent.targetTouches[0].clientX - startMouseScreenX;
-				var dY = touchEvent.targetTouches[0].clientY - startMouseScreenY;
+				var dX = touchEvent.touches[0].clientX - startMouseScreenX;
+				var dY = touchEvent.touches[0].clientY - startMouseScreenY;
 				me.translateX = me.translateX + dX;
 				me.translateY = me.translateY + dY;
-				startMouseScreenX = touchEvent.targetTouches[0].clientX;
-				startMouseScreenY = touchEvent.targetTouches[0].clientY;
+				startMouseScreenX = touchEvent.touches[0].clientX;
+				startMouseScreenY = touchEvent.touches[0].clientY;
 				me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 				return;
 			}
@@ -171,8 +171,8 @@ function attachTapMouse(me) {
 			if (!twoZoom) {
 				startTouchZoom(touchEvent);
 			} else {
-				var p1 = Vector.fromTouch(touchEvent.targetTouches[0]);
-				var p2 = Vector.fromTouch(touchEvent.targetTouches[1]);
+				var p1 = Vector.fromTouch(touchEvent.touches[0]);
+				var p2 = Vector.fromTouch(touchEvent.touches[1]);
 				var d = Vector.distance(p1, p2);
 				if (d <= 0) {
 					d = 1;
@@ -200,9 +200,9 @@ function attachTapMouse(me) {
 	};
 	var rakeTouchEnd = function (touchEvent) {
 		touchEvent.preventDefault();
-		console.log('---rakeTouchEnd', touchEvent.targetTouches.length);
+		//console.log('---rakeTouchEnd', touchEvent.targetTouches.length);
 		if (!twoZoom) {
-			if (touchEvent.targetTouches.length < 2) {
+			if (touchEvent.touches.length < 2) {
 				if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
 					click(me);
 				}
