@@ -11,6 +11,16 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		return false;
 	};
 	var timeOutID = 0;
+	me.setSize = function (width,height) {
+		me.innerWidth = width;
+		me.innerHeight = height;
+		me.contentDiv.style.width = width;
+		me.contentDiv.style.height = height;
+		me.contentSVG.style.width = width;
+		me.contentSVG.style.height = height;
+		me.adjustCountentPosition();
+		me.reDraw();
+	};
 	me.reDraw = function () {
 		if (timeOutID > 0) {
 			console.log('still wait redraw');
