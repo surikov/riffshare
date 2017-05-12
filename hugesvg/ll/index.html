@@ -5,12 +5,18 @@
 		<script type="text/javascript" src="index.js"></script>
 		<script type="text/javascript" src="tapmouse.js"></script>
 		<script type="text/javascript" src="draw.js"></script>
+		<script type="text/javascript">
+			function startInit2(){
+				console.log('start init');
+				var rv = new RakeView('rakeDiv', 'contentDiv', 'contentSVG', 200000, 300);
+			}
+		</script>
 		<title>10</title>
 	</head>
-	<body onload="startInit();" style='background-color:#ccffff;padding:0px;margin:0px;'>
-		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#bbddff; overflow:hidden;" >
-			<div id="contentDiv" style="width:10000px; height:10000px; background-color:#00ddff;padding:0px margin:0px;" >
-				<svg id="contentSVG" width="10000" height="10000" />
+	<body onload="startInit();" style='background-color:#ссс;padding:0px;margin:0px;'>
+		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#123; overflow:hidden;" >
+			<div id="contentDiv" style="width:10000px; height:10000px; background-color:#ffffff;padding:0px margin:0px;" >
+				<svg id="contentSVG" />
 			</div>
 		</div>
 	</body>

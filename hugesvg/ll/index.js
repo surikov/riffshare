@@ -43,27 +43,56 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//console.log('-------------addContent from',xx,yy);
 		/*console.log('size',ww,hh);
 		console.log('translate',me.translateX,me.translateY,me.translateZ);*/
+		/*
 		me.addNumbers(xx, yy, ww, hh, zz, 56 * me.tapSize, 'a'); //base
 		if (zz > 0.05) { //preview
-			me.addNumbers(xx, yy, ww, hh, zz, 14 * me.tapSize, 'b');
+		me.addNumbers(xx, yy, ww, hh, zz, 14 * me.tapSize, 'b');
 		}
 		if (zz > 0.1) { //measure
-			me.addNumbers(xx, yy, ww, hh, zz, 7 * me.tapSize, 'c');
+		me.addNumbers(xx, yy, ww, hh, zz, 7 * me.tapSize, 'c');
 		}
 		if (zz > 0.7) { //note
-			me.addNumbers(xx, yy, ww, hh, zz, me.tapSize, 'd');
+		me.addNumbers(xx, yy, ww, hh, zz, me.tapSize, 'd');
+		}
+		 */
+		if (zz > 0.7) { //note
+			me.addSmallDetails(xx, yy, ww, hh);
+		} else {
+			if (zz > 0.1) { //note
+				me.addMediumDetails(xx, yy, ww, hh);
+			} else {
+				if (zz > 0.05) { //note
+					me.addLargeDetails(xx, yy, ww, hh);
+				} else {
+					me.addHugeDetails(xx, yy, ww, hh);
+				}
+			}
 		}
 		//addSVGFillCircle(me,xx,yy,1000);
 
 		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ);
+		
 	};
-	me.addNumbers = function (left, top, width, height, zoom, detailSize, key) {
-
+	me.addSmallDetails = function (left, top, width, height) {
+		me.addNumbers(left, top, width, height,  me.tapSize, 'small');
+	};
+	me.addMediumDetails = function (left, top, width, height) {
+		me.addNumbers(left, top, width, height,  7 *me.tapSize, 'medium');
+	};
+	me.addLargeDetails = function (left, top, width, height) {
+		me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
+	};
+	me.addHugeDetails = function (left, top, width, height) {
+		me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
+	};
+	me.addNumbers = function (left, top, width, height, detailSize, key) {
+		var g=addSVGGroup(me);
+		me.setTransform(g,left,top);
 		var w = me.innerWidth;
 		var h = me.innerHeight;
 		var cntr = 0;
 		var stpx = 8 * detailSize;
-		var stpy = 3 * detailSize;
+		var stpy = 2 * detailSize;
 		var sx = Math.floor(left / stpx) * stpx;
 		var sy = Math.floor(top / stpy) * stpy;
 		//console.log('addNumbers',left, top, width, height, zoom, detailSize, key,stpx,stpy);
@@ -72,8 +101,8 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 				var nx = x / stpx;
 				var ny = y / stpy;
 				var msg = key + Math.round(nx) + 'x' + Math.round(ny) + ':' + Math.round(me.translateZ * 100);
-				addSVGText(me, x, y, detailSize, msg);
-				addSVGCircle(me, x, y, detailSize / 2);
+				addSVGText(me, x-left, y-top, detailSize, msg,g);
+				addSVGCircle(me, x-left, y-top, detailSize / 2,g);
 				//console.log(x,y,msg);
 				cntr++;
 				if (cntr > 199)
@@ -221,7 +250,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	} catch (ex) {
 		console.log(ex);
 	}
-	console.log('tapSize',me.tapSize,window.devicePixelRatio);
+	console.log('tapSize', me.tapSize, window.devicePixelRatio);
 	//document.title='5:'+me.tapSize;
 
 	me.svgns = "http://www.w3.org/2000/svg";
