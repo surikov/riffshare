@@ -36,19 +36,23 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//console.log('left top',lt);
 		var rightBottomX = me.rakeDiv.clientWidth;
 		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
-			var half = (me.rakeDiv.clientWidth - me.innerWidth * me.translateZ) / 2;
-			rightBottomX = rightBottomX - half;
+			//var half = (me.rakeDiv.clientWidth - me.innerWidth * me.translateZ) / 2;
+			//rightBottomX = rightBottomX - half;
+			rightBottomX = me.innerWidth * me.translateZ;
 		}
 		var rightBottomY = me.rakeDiv.clientHeight;
 		if (me.innerHeight * me.translateZ < me.rakeDiv.clientHeight) {
-			var half = (me.rakeDiv.clientHeight - me.innerHeight * me.translateZ) / 2;
-			rightBottomY = rightBottomY - half;
+			//var half = (me.rakeDiv.clientHeight - me.innerHeight * me.translateZ) / 2;
+			//rightBottomY = rightBottomY - half;
+			rightBottomY = me.innerHeight * me.translateZ;
 		}
 		var rb = me.rake2content(rightBottomX, rightBottomY, me.translateZ);
 		//console.log('right bottom',rb);
-		me.removeContent(lt.x, rb.x, lt.y, rb.y, me.translateZ);
+		//me.removeContent(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y);
+		me.cleanUpLayers(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y);
 		me.addContent(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y, me.translateZ);
 	};
+	//var probe=[];
 	me.addContent = function (xx, yy, ww, hh, zz) {
 		//console.log('-------------addContent from',xx,yy);
 		/*console.log('size',ww,hh);
@@ -65,6 +69,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.addNumbers(xx, yy, ww, hh, zz, me.tapSize, 'd');
 		}
 		 */
+		//probe=[{r:}];
 		if (zz > 0.7) { //note
 			me.addSmallDetails(xx, yy, ww, hh);
 		} else {
@@ -80,59 +85,36 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 		//addSVGFillCircle(me,xx,yy,1000);
 
-		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ,null,'#330066');
-		
+		//addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ,null,'#330066');
+		console.log(''+me.layer1.children.length+'/'+me.layer2.children.length+'/'+me.layer3.children.length+'/'+me.layer4.children.length);
 	};
+	
 	me.addSmallDetails = function (left, top, width, height) {
-		
-		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
-		me.addCircles(61*me.tapSize,'#ccff99',left, top, width, height);
-		me.addCircles(21*me.tapSize,'#cc6633',left, top, width, height);
-		me.addCircles(1*me.tapSize,'#33ccff',left, top, width, height);
-		/*
-		me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
-		me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
-		me.addNumbers(left, top, width, height,  7 *me.tapSize, 'medium');
-		me.addNumbers(left, top, width, height,  me.tapSize, 'small');
-		*/
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
+		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layer2);
+		me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layer3);
+		me.addCircles(10*me.tapSize,'#33ccff',left, top, width, height,'s',me.layer4);
 	};
 	me.addMediumDetails = function (left, top, width, height) {
-		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
-		me.addCircles(61*me.tapSize,'#ccff99',left, top, width, height);
-		me.addCircles(21*me.tapSize,'#cc6633',left, top, width, height);
-		
-		//me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
-		//me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
-		//me.addNumbers(left, top, width, height,  7 *me.tapSize, 'medium');
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
+		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layer2);
+		me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layer3);
+		me.clearLayer(me.layer4);
 	};
 	me.addLargeDetails = function (left, top, width, height) {
-		
-		//me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
-		//me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
-		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
-		me.addCircles(61*me.tapSize,'#ccff99',left, top, width, height);
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
+		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layer2);
+		me.clearLayer(me.layer3);
+		me.clearLayer(me.layer4);
 	};
 	me.addHugeDetails = function (left, top, width, height) {
-		//console.log('addHugeDetails',left, top, width, height);
-		//me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
-		/*var tileSize=121*me.tapSize;
-		var color='#ffcc99';
-		var minX=Math.floor(left/tileSize)*tileSize;
-		var maxX=Math.ceil((left+width)/tileSize)*tileSize;
-		var minY=Math.floor(top/tileSize)*tileSize;
-		var maxY=Math.ceil((top+height)/tileSize)*tileSize;
-		console.log(minX,maxX,minY,maxY);
-		for(var x=minX;x<maxX;x=x+tileSize){
-			for(var y=minY;y<maxY;y=y+tileSize){
-				addSVGFillCircle(me, x+tileSize/2, y+tileSize/2, tileSize / 2,null,color);
-				addSVGText(me, x+tileSize/7, y+tileSize/2, tileSize/3, Math.round(x/tileSize)+':'+Math.round(y/tileSize));
-			}
-		}*/
-		//var g=addSVGGroup(me);
-		//g.detailLevel=10;
-		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
+		me.clearLayer(me.layer2);
+		me.clearLayer(me.layer3);
+		me.clearLayer(me.layer4);
 	};
-	me.addCircles=function(tileSize,color,left, top, width, height){
+	me.addCircles=function(tileSize,color,left, top, width, height,levelName,layer){
+		//console.log('addCircles',color);
 		//var tileSize=121*me.tapSize;
 		//var color='#ffcc99';
 		var minX=Math.floor(left/tileSize)*tileSize;
@@ -142,8 +124,23 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//console.log(minX,maxX,minY,maxY);
 		for(var x=minX;x<maxX;x=x+tileSize){
 			for(var y=minY;y<maxY;y=y+tileSize){
-				addSVGFillCircle(me, x+tileSize/2, y+tileSize/2, tileSize / 2,null,color);
-				addSVGText(me, x+tileSize/7, y+tileSize/2, tileSize/3, Math.round(x/tileSize)+':'+Math.round(y/tileSize));
+				var tileLevel=levelName;
+				var tileID=''+Math.round(x/tileSize)+':'+Math.round(y/tileSize);
+				if(me.childExists(tileID,layer)){
+					//console.log('skip add',tileID);
+				}else{
+					var g=addSVGGroup(me,layer);
+					me.setTransform(g,x,y);
+					g.tileLevel=tileLevel;
+					g.tileID=tileID;
+					g.tileLeft=x;
+					g.tileTop=y;
+					g.tileWidth=tileSize;
+					g.tileHeight=tileSize;
+					var c=addSVGFillCircle(me, tileSize/2, tileSize/2, tileSize /2,g,color);
+					var t=addSVGText(me, 0, tileSize/2, tileSize/4, tileID+levelName,g);
+				}
+				//console.log(tileID);
 			}
 		}
 	};
@@ -180,19 +177,72 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 				break;
 		}
 	};
-	me.removeContent = function (x, y, w, h, z) {
+	me.childExists=function(id,layer){
+		for (var i = 0; i < layer.children.length; i++) {
+			var t = layer.children[i];
+			if(t.tileID==id){
+				return true;
+			}
+		}
+		return false;
+	};
+	me._removeLevel = function (levelName) {
+		console.log('start removeLevel',levelName);
 		for (var i = 0; i < me.contentSVG.children.length; i++) {
 			var t = me.contentSVG.children[i];
-			if (me.contentSVG.children[i].noremove) {
-				//console.log('skip',t);
-			} else {
-				//console.log('remove',t.detailLevel,t);
+			if(t.tileLevel==levelName){
+				//console.log('removeLevel',t.tileID,t.tileLevel);
 				me.contentSVG.removeChild(t);
 				i--;
+			}else{
+				//console.log('skip removeLevel',t.tileID,t.tileLevel);
 			}
 		}
 	};
-
+	me.clearLayer = function (layer) {
+		
+		//var cnt=layer.children.length;
+		//console.log('clearLayer',cnt,layer);
+		while(layer.children.length>0){
+			//var g=layer.children[0];
+			//console.log('drop',cnt,g);
+			layer.removeChild(layer.children[0]);
+			//console.log('removed',r);
+			//cnt=layer.children.length;
+			//break;
+		}
+	};
+	me.cleanUpLayers=function(x, y, w, h){
+		me.clearOutContent(x, y, w, h,me.layer1);
+		me.clearOutContent(x, y, w, h,me.layer2);
+		me.clearOutContent(x, y, w, h,me.layer3);
+		me.clearOutContent(x, y, w, h,me.layer4);
+	};
+	me.clearOutContent = function (x, y, w, h,layer) {
+		//console.log('clearOutContent',layer);
+		for (var i = 0; i < layer.children.length; i++) {
+			var t = layer.children[i];
+			if(me.outOfView(t,x, y, w, h)){
+				layer.removeChild(t);
+				i--;
+			}else{
+				//
+			}
+		}
+	};
+	me.outOfView=function(child,x, y, w, h){
+		if(child.tileID){
+			if(child.tileLeft+child.tileWidth<x //
+				|| child.tileLeft>x+w //
+				|| child.tileTop+child.tileHeight<y //
+				|| child.tileTop>y+h //
+			){return true;}
+			else{return false;}
+		}else{
+			
+			return true;
+		}
+	};
 	me.rake2content = function (rakeLeft, rakeTop, zoom) {
 		if (me.innerWidth * zoom < me.rakeDiv.clientWidth) {
 			var half = (me.rakeDiv.clientWidth - me.innerWidth * zoom) / 2;
@@ -327,6 +377,15 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.contentDiv = document.getElementById(contentName);
 	me.contentSVG = document.getElementById(svgName);
 	me.rakeDiv = document.getElementById(rakeName);
+	
+	me.layerBackground=document.getElementById('background');
+	me.layer1=document.getElementById('layer1');
+	me.layer2=document.getElementById('layer2');
+	me.layer3=document.getElementById('layer3');
+	me.layer4=document.getElementById('layer4');
+	me.layerHUD=document.getElementById('HUD');
+	//console.log(document.getElementById('HUD'));
+	
 	//me.startMouseScreenX = 0.0;
 	//me.startMouseScreenY = 0.0;
 	me.translateX = 0.0;

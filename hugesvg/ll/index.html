@@ -12,15 +12,22 @@
 				//rv.adjustCountentPosition();
 				//rv.reDraw();
 				
-				rv.setSize(rv.tapSize*16*300,rv.tapSize*(128+(10+6)*2));
+				rv.setSize(rv.tapSize*16*300,rv.tapSize*(100+128+(10+6)*2));
 			}
 		</script>
-		<title>11</title>
+		<title>12</title>
 	</head>
 	<body onload="startInit2();" style='background-color:#ff0;padding:0px;margin:0px;'>
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#ccc; overflow:hidden;" >
 			<div id="contentDiv" style="width:10000px; height:10000px; background-color:#fff;padding:0px margin:0px;" >
-				<svg id="contentSVG" />
+				<svg id="contentSVG">
+					<g id='background'/>
+					<g id='layer1'/>
+					<g id='layer2'/>
+					<g id='layer3'/>
+					<g id='layer4'/>
+					<g id='HUD'/>
+				</svg>
 			</div>
 		</div>
 	</body>

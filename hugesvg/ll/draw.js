@@ -20,6 +20,7 @@
 		txt.innerHTML = t;
 		//me.contentSVG.appendChild(txt);
 		target.appendChild(txt);
+		return txt;
 	};
 	function addSVGCircle (me,cx, cy, r,to) {
 		var target=to||me.contentSVG;
