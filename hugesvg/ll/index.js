@@ -80,20 +80,72 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 		//addSVGFillCircle(me,xx,yy,1000);
 
-		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ);
+		addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ,null,'#330066');
 		
 	};
 	me.addSmallDetails = function (left, top, width, height) {
+		
+		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
+		me.addCircles(61*me.tapSize,'#ccff99',left, top, width, height);
+		me.addCircles(21*me.tapSize,'#cc6633',left, top, width, height);
+		me.addCircles(1*me.tapSize,'#33ccff',left, top, width, height);
+		/*
+		me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
+		me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
+		me.addNumbers(left, top, width, height,  7 *me.tapSize, 'medium');
 		me.addNumbers(left, top, width, height,  me.tapSize, 'small');
+		*/
 	};
 	me.addMediumDetails = function (left, top, width, height) {
-		me.addNumbers(left, top, width, height,  7 *me.tapSize, 'medium');
+		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
+		me.addCircles(61*me.tapSize,'#ccff99',left, top, width, height);
+		me.addCircles(21*me.tapSize,'#cc6633',left, top, width, height);
+		
+		//me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
+		//me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
+		//me.addNumbers(left, top, width, height,  7 *me.tapSize, 'medium');
 	};
 	me.addLargeDetails = function (left, top, width, height) {
-		me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
+		
+		//me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
+		//me.addNumbers(left, top, width, height,  14 *me.tapSize, 'large');
+		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
+		me.addCircles(61*me.tapSize,'#ccff99',left, top, width, height);
 	};
 	me.addHugeDetails = function (left, top, width, height) {
-		me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
+		//console.log('addHugeDetails',left, top, width, height);
+		//me.addNumbers(left, top, width, height,  56 * me.tapSize, 'huge');
+		/*var tileSize=121*me.tapSize;
+		var color='#ffcc99';
+		var minX=Math.floor(left/tileSize)*tileSize;
+		var maxX=Math.ceil((left+width)/tileSize)*tileSize;
+		var minY=Math.floor(top/tileSize)*tileSize;
+		var maxY=Math.ceil((top+height)/tileSize)*tileSize;
+		console.log(minX,maxX,minY,maxY);
+		for(var x=minX;x<maxX;x=x+tileSize){
+			for(var y=minY;y<maxY;y=y+tileSize){
+				addSVGFillCircle(me, x+tileSize/2, y+tileSize/2, tileSize / 2,null,color);
+				addSVGText(me, x+tileSize/7, y+tileSize/2, tileSize/3, Math.round(x/tileSize)+':'+Math.round(y/tileSize));
+			}
+		}*/
+		//var g=addSVGGroup(me);
+		//g.detailLevel=10;
+		me.addCircles(121*me.tapSize,'#ff6699',left, top, width, height);
+	};
+	me.addCircles=function(tileSize,color,left, top, width, height){
+		//var tileSize=121*me.tapSize;
+		//var color='#ffcc99';
+		var minX=Math.floor(left/tileSize)*tileSize;
+		var maxX=Math.ceil((left+width)/tileSize)*tileSize;
+		var minY=Math.floor(top/tileSize)*tileSize;
+		var maxY=Math.ceil((top+height)/tileSize)*tileSize;
+		//console.log(minX,maxX,minY,maxY);
+		for(var x=minX;x<maxX;x=x+tileSize){
+			for(var y=minY;y<maxY;y=y+tileSize){
+				addSVGFillCircle(me, x+tileSize/2, y+tileSize/2, tileSize / 2,null,color);
+				addSVGText(me, x+tileSize/7, y+tileSize/2, tileSize/3, Math.round(x/tileSize)+':'+Math.round(y/tileSize));
+			}
+		}
 	};
 	me.addNumbers = function (left, top, width, height, detailSize, key) {
 		var g=addSVGGroup(me);
@@ -106,13 +158,19 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		var sx = Math.floor(left / stpx) * stpx;
 		var sy = Math.floor(top / stpy) * stpy;
 		//console.log('addNumbers',left, top, width, height, zoom, detailSize, key,stpx,stpy);
+		var color='#ff9999';
+		if(key=='medium')color='#99ff99';
+		if(key=='large')color='#9999ff';
+		if(key=='huge')color='#ffff99';
 		for (var x = sx; x < left + width; x = x + stpx) {
 			for (var y = sy; y < top + height; y = y + stpy) {
 				var nx = x / stpx;
 				var ny = y / stpy;
 				var msg = key + Math.round(nx) + 'x' + Math.round(ny) + ':' + Math.round(me.translateZ * 100);
+				
+				//addSVGCircle(me, x-left, y-top, detailSize / 2,g);
+				addSVGFillCircle(me, x-left+detailSize/2, y-top+detailSize/2, detailSize / 2,g,color);
 				addSVGText(me, x-left, y-top, detailSize, msg,g);
-				addSVGCircle(me, x-left, y-top, detailSize / 2,g);
 				//console.log(x,y,msg);
 				cntr++;
 				if (cntr > 199)
@@ -128,6 +186,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			if (me.contentSVG.children[i].noremove) {
 				//console.log('skip',t);
 			} else {
+				//console.log('remove',t.detailLevel,t);
 				me.contentSVG.removeChild(t);
 				i--;
 			}
@@ -252,7 +311,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.tapSize = 32;
 	try {
 		var pixelRatio = window.devicePixelRatio;
-		me.tapSize = 50 * pixelRatio;
+		me.tapSize = 30 * pixelRatio;
 		if (isNaN(me.tapSize)) {
 			me.tapSize = 51;
 		}
@@ -260,7 +319,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	} catch (ex) {
 		console.log(ex);
 	}
-	console.log('tapSize', me.tapSize, window.devicePixelRatio);
+	console.log('tapSize and ratio', me.tapSize, window.devicePixelRatio);
 	//document.title='5:'+me.tapSize;
 
 	me.svgns = "http://www.w3.org/2000/svg";
