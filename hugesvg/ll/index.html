@@ -5,6 +5,7 @@
 		<script type="text/javascript" src="index.js"></script>
 		<script type="text/javascript" src="tapmouse.js"></script>
 		<script type="text/javascript" src="draw.js"></script>
+		<script type="text/javascript" src="songinfo.js"></script>
 		<script type="text/javascript">
 			function startInit2(){
 				console.log('start init');
@@ -15,17 +16,17 @@
 				rv.setSize(rv.tapSize*16*300,rv.tapSize*(100+128+(10+6)*2));
 			}
 		</script>
-		<title>12</title>
+		<title>13</title>
 	</head>
 	<body onload="startInit2();" style='background-color:#ff0;padding:0px;margin:0px;'>
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#ccc; overflow:hidden;" >
 			<div id="contentDiv" style="width:10000px; height:10000px; background-color:#fff;padding:0px margin:0px;" >
 				<svg id="contentSVG">
 					<g id='background'/>
-					<g id='layer1'/>
-					<g id='layer2'/>
-					<g id='layer3'/>
-					<g id='layer4'/>
+					<g id='layerHuge'/>
+					<g id='layerLarge'/>
+					<g id='layerMedium'/>
+					<g id='layerSmall'/>
 					<g id='HUD'/>
 				</svg>
 			</div>

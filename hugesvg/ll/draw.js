@@ -16,7 +16,8 @@
 		txt.setAttributeNS(null, 'x', x);
 		txt.setAttributeNS(null, 'y', y);
 		txt.setAttributeNS(null,'font-size',s);
-		txt.setAttributeNS(null,'alignment-baseline','central');
+		//txt.setAttributeNS(null,'alignment-baseline','central');
+		txt.setAttributeNS(null,'alignment-baseline','text-before-edge');
 		txt.innerHTML = t;
 		//me.contentSVG.appendChild(txt);
 		target.appendChild(txt);
@@ -42,9 +43,10 @@
 		shape.setAttributeNS(null, 'cy', cy);
 		shape.setAttributeNS(null, 'r', r);
 		color=color||'#000000';
-		shape.setAttributeNS(null, 'fill', color);
-		shape.setAttributeNS(null, 'stroke', 'none');
-		shape.setAttributeNS(null, 'stroke-width', '0');
+		//shape.setAttributeNS(null, 'fill', color);
+		shape.setAttributeNS(null, 'fill', 'none');
+		shape.setAttributeNS(null, 'stroke', color);
+		shape.setAttributeNS(null, 'stroke-width', r/19);
 		//me.contentSVG.appendChild(shape);
 		target.appendChild(shape);
 		return shape;

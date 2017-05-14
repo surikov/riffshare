@@ -12,6 +12,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 	var timeOutID = 0;
 	me.setSize = function (width,height) {
+		console.log('set size',width,height);
 		me.innerWidth = width;
 		me.innerHeight = height;
 		me.contentDiv.style.width = width;
@@ -23,13 +24,13 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 	me.reDraw = function () {
 		if (timeOutID > 0) {
-			console.log('still wait redraw');
+			//console.log('still wait redraw');
 			return;
 		}
 		timeOutID = setTimeout(function () {
 				timeOutID = 0;
 				me.realDraw();
-			}, 50);
+			}, 100);
 	};
 	me.realDraw = function () {
 		var lt = me.rake2content(0, 0, me.translateZ);
@@ -47,7 +48,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			rightBottomY = me.innerHeight * me.translateZ;
 		}
 		var rb = me.rake2content(rightBottomX, rightBottomY, me.translateZ);
-		//console.log('right bottom',rb);
+		//console.log(lt,rb);
 		//me.removeContent(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y);
 		me.cleanUpLayers(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y);
 		me.addContent(lt.x, lt.y, rb.x - lt.x, rb.y - lt.y, me.translateZ);
@@ -86,32 +87,36 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//addSVGFillCircle(me,xx,yy,1000);
 
 		//addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ,null,'#330066');
-		console.log(''+me.layer1.children.length+'/'+me.layer2.children.length+'/'+me.layer3.children.length+'/'+me.layer4.children.length);
+		//console.log(''+me.layer1.children.length+'/'+me.layer2.children.length+'/'+me.layer3.children.length+'/'+me.layer4.children.length);
 	};
 	
 	me.addSmallDetails = function (left, top, width, height) {
-		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
-		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layer2);
-		me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layer3);
-		me.addCircles(10*me.tapSize,'#33ccff',left, top, width, height,'s',me.layer4);
+		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.songInfo.tileTitle(me,me.layerHuge);
+		//me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
+		//me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layerMedium);
+		//me.addCircles(10*me.tapSize,'#33ccff',left, top, width, height,'s',me.layerSmall);
 	};
 	me.addMediumDetails = function (left, top, width, height) {
-		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
-		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layer2);
-		me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layer3);
-		me.clearLayer(me.layer4);
+		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.songInfo.tileTitle(me,me.layerHuge);
+		//me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
+		//me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layerMedium);
+		me.clearLayer(me.layerSmall);
 	};
 	me.addLargeDetails = function (left, top, width, height) {
-		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
-		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layer2);
-		me.clearLayer(me.layer3);
-		me.clearLayer(me.layer4);
+		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.songInfo.tileTitle(me,me.layerHuge);
+		//me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
+		me.clearLayer(me.layerMedium);
+		me.clearLayer(me.layerSmall);
 	};
 	me.addHugeDetails = function (left, top, width, height) {
-		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layer1);
-		me.clearLayer(me.layer2);
-		me.clearLayer(me.layer3);
-		me.clearLayer(me.layer4);
+		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.songInfo.tileTitle(me,me.layerHuge);
+		me.clearLayer(me.layerLarge);
+		me.clearLayer(me.layerMedium);
+		me.clearLayer(me.layerSmall);
 	};
 	me.addCircles=function(tileSize,color,left, top, width, height,levelName,layer){
 		//console.log('addCircles',color);
@@ -124,21 +129,22 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//console.log(minX,maxX,minY,maxY);
 		for(var x=minX;x<maxX;x=x+tileSize){
 			for(var y=minY;y<maxY;y=y+tileSize){
-				var tileLevel=levelName;
+				//var tileLevel=levelName;
 				var tileID=''+Math.round(x/tileSize)+':'+Math.round(y/tileSize);
 				if(me.childExists(tileID,layer)){
 					//console.log('skip add',tileID);
 				}else{
 					var g=addSVGGroup(me,layer);
 					me.setTransform(g,x,y);
-					g.tileLevel=tileLevel;
+					//g.tileLevel=tileLevel;
 					g.tileID=tileID;
 					g.tileLeft=x;
 					g.tileTop=y;
 					g.tileWidth=tileSize;
 					g.tileHeight=tileSize;
+					
 					var c=addSVGFillCircle(me, tileSize/2, tileSize/2, tileSize /2,g,color);
-					var t=addSVGText(me, 0, tileSize/2, tileSize/4, tileID+levelName,g);
+					//var t=addSVGText(me, 0, tileSize/2, tileSize/4, tileID+levelName,g);
 				}
 				//console.log(tileID);
 			}
@@ -213,16 +219,18 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 	};
 	me.cleanUpLayers=function(x, y, w, h){
-		me.clearOutContent(x, y, w, h,me.layer1);
-		me.clearOutContent(x, y, w, h,me.layer2);
-		me.clearOutContent(x, y, w, h,me.layer3);
-		me.clearOutContent(x, y, w, h,me.layer4);
+		//console.log('cleanUpLayers',x, y, w, h);
+		me.clearOutContent(x, y, w, h,me.layerHuge);
+		me.clearOutContent(x, y, w, h,me.layerLarge);
+		me.clearOutContent(x, y, w, h,me.layerMedium);
+		me.clearOutContent(x, y, w, h,me.layerSmall);
 	};
 	me.clearOutContent = function (x, y, w, h,layer) {
 		//console.log('clearOutContent',layer);
 		for (var i = 0; i < layer.children.length; i++) {
 			var t = layer.children[i];
 			if(me.outOfView(t,x, y, w, h)){
+				//console.log('remove',x, y, w, h,t);
 				layer.removeChild(t);
 				i--;
 			}else{
@@ -231,13 +239,20 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 	};
 	me.outOfView=function(child,x, y, w, h){
+		//console.log('check',child.tileID,child.tileWidth,child.tileHeight);
 		if(child.tileID){
 			if(child.tileLeft+child.tileWidth<x //
 				|| child.tileLeft>x+w //
 				|| child.tileTop+child.tileHeight<y //
 				|| child.tileTop>y+h //
-			){return true;}
-			else{return false;}
+			){
+				return true;
+				
+			}
+			else{
+				return false;
+				
+			}
 		}else{
 			
 			return true;
@@ -379,13 +394,13 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.rakeDiv = document.getElementById(rakeName);
 	
 	me.layerBackground=document.getElementById('background');
-	me.layer1=document.getElementById('layer1');
-	me.layer2=document.getElementById('layer2');
-	me.layer3=document.getElementById('layer3');
-	me.layer4=document.getElementById('layer4');
+	me.layerHuge=document.getElementById('layerHuge');
+	me.layerLarge=document.getElementById('layerLarge');
+	me.layerMedium=document.getElementById('layerMedium');
+	me.layerSmall=document.getElementById('layerSmall');
 	me.layerHUD=document.getElementById('HUD');
 	//console.log(document.getElementById('HUD'));
-	
+	me.songInfo=new SongInfo();
 	//me.startMouseScreenX = 0.0;
 	//me.startMouseScreenY = 0.0;
 	me.translateX = 0.0;
