@@ -21,9 +21,10 @@ function SongInfo(){
 			//g.tileLevel=tileLevel;
 			//g.tileID=tileID;
 			g.id=tileID;
+			
+			g.tileLeft=1999;
+			g.tileTop=200;
 			me.setTransform(g,1999,200);
-			g.tileLeft=0;
-			g.tileTop=0;
 			//g.tileWidth=me.tapSize*100;
 			//g.tileHeight=me.tapSize*50;
 			//var c=addSVGFillCircle(me, tileSize/2, tileSize/2, tileSize /2,g,color);

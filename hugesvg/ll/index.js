@@ -136,7 +136,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 					//console.log('skip add',tileID);
 				}else{
 					var g=addSVGGroup(me,layer);
-					me.setTransform(g,1999,1);
+					me.setTransform(g,x,y);
 					//g.tileLevel=tileLevel;
 					g.tileID=tileID;
 					g.tileLeft=x;
