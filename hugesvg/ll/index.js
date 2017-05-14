@@ -91,34 +91,35 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 	
 	me.addSmallDetails = function (left, top, width, height) {
-		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
 		me.songInfo.tileTitle(me,me.layerHuge);
-		//me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
-		//me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layerMedium);
-		//me.addCircles(10*me.tapSize,'#33ccff',left, top, width, height,'s',me.layerSmall);
+		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
+		me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layerMedium);
+		me.addCircles(10*me.tapSize,'#33ccff',left, top, width, height,'s',me.layerSmall);
 	};
 	me.addMediumDetails = function (left, top, width, height) {
-		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
 		me.songInfo.tileTitle(me,me.layerHuge);
-		//me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
-		//me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layerMedium);
+		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
+		me.addCircles(31*me.tapSize,'#cc6633',left, top, width, height,'m',me.layerMedium);
 		me.clearLayer(me.layerSmall);
 	};
 	me.addLargeDetails = function (left, top, width, height) {
-		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
 		me.songInfo.tileTitle(me,me.layerHuge);
-		//me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
+		me.addCircles(101*me.tapSize,'#ccff99',left, top, width, height,'L',me.layerLarge);
 		me.clearLayer(me.layerMedium);
 		me.clearLayer(me.layerSmall);
 	};
 	me.addHugeDetails = function (left, top, width, height) {
-		//me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
+		me.addCircles(161*me.tapSize,'#ff6699',left, top, width, height,'h',me.layerHuge);
 		me.songInfo.tileTitle(me,me.layerHuge);
 		me.clearLayer(me.layerLarge);
 		me.clearLayer(me.layerMedium);
 		me.clearLayer(me.layerSmall);
 	};
 	me.addCircles=function(tileSize,color,left, top, width, height,levelName,layer){
+		return null;
 		//console.log('addCircles',color);
 		//var tileSize=121*me.tapSize;
 		//var color='#ffcc99';
@@ -135,7 +136,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 					//console.log('skip add',tileID);
 				}else{
 					var g=addSVGGroup(me,layer);
-					me.setTransform(g,x,y);
+					me.setTransform(g,1999,1);
 					//g.tileLevel=tileLevel;
 					g.tileID=tileID;
 					g.tileLeft=x;
@@ -186,7 +187,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.childExists=function(id,layer){
 		for (var i = 0; i < layer.children.length; i++) {
 			var t = layer.children[i];
-			if(t.tileID==id){
+			if(t.id==id){
 				return true;
 			}
 		}
@@ -239,12 +240,23 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 	};
 	me.outOfView=function(child,x, y, w, h){
-		//console.log('check',child.tileID,child.tileWidth,child.tileHeight);
-		if(child.tileID){
+		//console.log('check',child,x, y, w, h);
+		/*if(child.tileID){
 			if(child.tileLeft+child.tileWidth<x //
 				|| child.tileLeft>x+w //
 				|| child.tileTop+child.tileHeight<y //
 				|| child.tileTop>y+h //
+			){*/
+		if(child.id){
+			var tbb=child.getBBox();
+			/*console.log(tbb,tbb.x+tbb.width<x //
+				, tbb.x>x+w //
+				, tbb.y+tbb.height<y //
+				, tbb.y>y+h);*/
+			if(tbb.x+tbb.width<x //
+				|| tbb.x>x+w //
+				|| tbb.y+tbb.height<y //
+				|| tbb.y>y+h //
 			){
 				return true;
 				
