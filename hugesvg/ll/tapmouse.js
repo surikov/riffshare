@@ -73,10 +73,12 @@ function attachTapMouse(me) {
 		}
 		//var xy = me.rake2content(e.layerX, e.layerY, me.translateZ);
 		//var t = me.content2rake(e.layerX, e.layerY, xy.x, xy.y, zoom);
-		var xy = me.rake2content(e.clientX, e.clientY, me.translateZ);
-		var t = me.content2rake(e.clientX, e.clientY, xy.x, xy.y, zoom);
-		me.translateX = t.x;
-		me.translateY = t.y;
+		//var xy = me.rake2content(e.clientX, e.clientY, me.translateZ);
+		//var t = me.content2rake(e.clientX, e.clientY, xy.x, xy.y, zoom);
+		//me.translateX = t.x;
+		//me.translateY = t.y;
+		me.translateX=me.translateX-(me.translateZ - zoom)*e.layerX;
+		me.translateY=me.translateY-(me.translateZ - zoom)*e.layerY;
 		me.translateZ = zoom;
 		//console.log('wheel zoom to', zoom);
 		me.adjustCountentPosition();
@@ -106,11 +108,12 @@ function attachTapMouse(me) {
 
 		var dX = mouseEvent.clientX - startMouseScreenX;
 		var dY = mouseEvent.clientY - startMouseScreenY;
-		me.translateX = me.translateX + dX;
-		me.translateY = me.translateY + dY;
+		me.translateX = me.translateX + dX*mme.translateZ;
+		me.translateY = me.translateY + dY*mme.translateZ;
 		startMouseScreenX = mouseEvent.clientX;
 		startMouseScreenY = mouseEvent.clientY;
-		me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
+		//me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
+		me.moveZoom();
 	};
 	var rakeMouseUp = function (mouseEvent) {
 		//console.log('rakeMouseUp', mouseEvent);

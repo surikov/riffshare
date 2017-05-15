@@ -12,15 +12,34 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 	var timeOutID = 0;
 	me.setSize = function (width,height) {
-		console.log('set size',width,height);
+		console.log('set size',width,height,me.contentDiv.clientWidth);
 		me.innerWidth = width;
 		me.innerHeight = height;
-		me.contentDiv.style.width = width;
-		me.contentDiv.style.height = height;
-		me.contentSVG.style.width = width;
-		me.contentSVG.style.height = height;
+		//me.contentDiv.style.width = width;
+		//me.contentDiv.style.height = height;
+		me.contentSVG.style.width = me.contentDiv.clientWidth;
+		me.contentSVG.style.height = me.contentDiv.clientHeight;
+		//me.contentSVG.setAttribute("viewBox", "0 0 "+width+" "+height+""); 
+		//me.contentSVG.viewBox.width=width;
+		//me.contentSVG.viewBox.height=height;
+		//console.log('viewBox',me.contentSVG.viewBox);
+		//me.translateZ=0.999;
 		me.adjustCountentPosition();
 		me.reDraw();
+		
+	};
+	me.moveZoom=function(){
+		var x=-me.translateX;
+		var y=-me.translateY;
+		var w=me.contentDiv.clientWidth*me.translateZ;
+		var h=me.contentDiv.clientHeight*me.translateZ;
+		me.contentSVG.setAttribute("viewBox", ""+x+" "+y+" "+w+" "+h+"");
+		//me.contentSVG.style.width = me.innerWidth/me.translateZ;
+		//me.contentSVG.style.height = me.innerHeight/me.translateZ;
+		/*me.contentDiv.style.x = me.translateX*me.translateZ;
+		me.contentDiv.style.y = me.translateY*me.translateZ;
+		me.contentDiv.style.width = me.innerWidth/me.translateZ;
+		me.contentDiv.style.height = me.innerHeight/me.translateZ;*/
 	};
 	me.reDraw = function () {
 		if (timeOutID > 0) {
@@ -304,7 +323,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		return t;
 	};
 	me.adjustCountentPosition = function () {
-		if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
+		/*if (me.innerWidth * me.translateZ < me.rakeDiv.clientWidth) {
 			me.translateX = (me.rakeDiv.clientWidth - me.innerWidth) / 2;
 		} else {
 			var maxX = me.innerWidth * (me.translateZ - 1) / 2;
@@ -327,10 +346,19 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			if (me.translateY < minY) {
 				me.translateY = minY;
 			}
-		}
-		me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
+		}*/
+		//me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
+		//me.contentSVG.style.width = width;
+		//me.contentSVG.style.height = height;
+		me.moveZoom();
 	};
-	me.setTransform = function (el, x, y, scale) {
+	/*me.zoom=function(){
+		
+	};
+	me.move=function(){
+		
+	};*/
+	me._setTransform = function (el, x, y, scale) {
 		var transformString = 'translate3d(' + x + 'px,' + y + 'px,0)';
 		if (me.ie3d) {
 			transformString = 'translate(' + x + 'px,' + y + 'px)';
@@ -420,8 +448,8 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.translateZ = 1.0;
 	me.innerWidth = width;
 	me.innerHeight = height;
-	me.contentDiv.style.width = width;
-	me.contentDiv.style.height = height;
+	//me.contentDiv.style.width = width;
+	//me.contentDiv.style.height = height;
 	me.contentSVG.style.width = width;
 	me.contentSVG.style.height = height;
 	//me.rakeDiv.addEventListener('mousedown', me.rakeMouseDown, false);

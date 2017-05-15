@@ -6,7 +6,7 @@ function SongInfo(){
 	sng.handlerColor='#000099';
 	sng.commentColor='#009900';
 	sng.warningColor='#990000';
-	sng.tracks=[{name:'Synth'},{name:'Synth'},{name:'Distortion guitar'},{name:'Overdrive guitar'},{name:'Solo'},{name:'Rhythm'},{name:'Bass guitar'},{name:'Drums'}];
+	sng.tracks=[{name:'First'},{name:'Synth'},{name:'Distortion second'},{name:'Overdrive third'},{name:'Solo'},{name:'Rhythm'},{name:'Bass fourth'},{name:'Drums'}];
 	sng.trackCount=function(){
 		return 7;
 	};
@@ -17,29 +17,29 @@ function SongInfo(){
 		var tileID='songTitle';
 		if(!me.childExists(tileID,layer)){
 			var g=addSVGGroup(me,layer);
-			me.setTransform(g,0,0);
+			//me.setTransform(g,0,0);
 			//g.tileLevel=tileLevel;
 			//g.tileID=tileID;
 			g.id=tileID;
 			
-			g.tileLeft=1999;
-			g.tileTop=200;
-			me.setTransform(g,1999,200);
+			g.tileLeft=0;//1999;
+			g.tileTop=0;//200;
+			//me.setTransform(g,1999,200);
 			//g.tileWidth=me.tapSize*100;
 			//g.tileHeight=me.tapSize*50;
 			//var c=addSVGFillCircle(me, tileSize/2, tileSize/2, tileSize /2,g,color);
-			var r=addSVGRectangle(me, 0, 0, me.tapSize*50, me.tapSize*50,g);
-			var t=addSVGText(me, 0, 0, me.tapSize*50, 'String for testing',g);
+			var r=addSVGRectangle(me, 0, 0, me.tapSize*5, me.tapSize*5,g);
+			var t=addSVGText(me, 0, 0, me.tapSize, 'String for testing',g);
 			//console.log('bb',g.getBBox());
 			//return 'Song for testing';
 			//var len=t.getComputedTextLength();
 			
 			for(var i=0;i<sng.tracks.length;i++){
-				var t=addSVGText(me, 0,  me.tapSize*(50+i*10),me.tapSize*10, sng.tracks[i].name,g);
+				var t=addSVGText(me, 0,  me.tapSize*(1+i*1),me.tapSize, sng.tracks[i].name,g);
 			}
 			
 			var tbb=g.getBBox();
-			console.log('tbb',tbb);
+			//console.log('tbb',tbb);
 			r.setAttributeNS(null, 'width', tbb.width);
 			r.setAttributeNS(null, 'height', tbb.height);
 			r.setAttributeNS(null, 'x', tbb.x);
