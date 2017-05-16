@@ -1,3 +1,4 @@
+console.log('draw v1.07');
 	function addSVGRectangle(me,x, y, w, h,to) {
 		var target=to||me.contentSVG;
 		var rect = document.createElementNS(me.svgns, 'rect');

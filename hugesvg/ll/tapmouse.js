@@ -1,5 +1,5 @@
 var mme;
-console.log('clicktap v1.06');
+console.log('tapmouse v1.08');
 var twodistance = 1;
 var clickContentX = 0;
 var clickContentY = 0;

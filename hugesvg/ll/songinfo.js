@@ -1,4 +1,4 @@
-﻿console.log('songinfo 1');
+﻿console.log('songinfo 1.01');
 function SongInfo(){
 	var sng=this;
 	sng.normalColor='#000000';
