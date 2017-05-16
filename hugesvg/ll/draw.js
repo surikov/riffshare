@@ -3,8 +3,8 @@
 		var rect = document.createElementNS(me.svgns, 'rect');
 		rect.setAttributeNS(null, 'x', x);
 		rect.setAttributeNS(null, 'y', y);
-		rect.setAttributeNS(null, 'height', w);
-		rect.setAttributeNS(null, 'width', h);
+		rect.setAttributeNS(null, 'height', h);
+		rect.setAttributeNS(null, 'width', w);
 		rect.setAttributeNS(null, 'fill', '#' + Math.round(0xffffff * Math.random()).toString(16));
 		//me.contentSVG.appendChild(rect);
 		target.appendChild(rect);
@@ -45,7 +45,7 @@
 		color=color||'#000000';
 		//shape.setAttributeNS(null, 'fill', color);
 		shape.setAttributeNS(null, 'fill', 'none');
-		shape.setAttributeNS(null, 'stroke', color);
+		shape.setAttributeNS(null, 'stroke', color);//'#' + Math.round(0xffffff * Math.random()).toString(16));//color);
 		shape.setAttributeNS(null, 'stroke-width', r/19);
 		//me.contentSVG.appendChild(shape);
 		target.appendChild(shape);
