@@ -182,8 +182,8 @@ function attachTapMouse(me) {
 			} else {
 				var dX = touchEvent.touches[0].clientX - startMouseScreenX;
 				var dY = touchEvent.touches[0].clientY - startMouseScreenY;
-				me.translateX = me.translateX + dX;
-				me.translateY = me.translateY + dY;
+				me.translateX = me.translateX + dX*me.translateZ;
+				me.translateY = me.translateY + dY*me.translateZ;
 				startMouseScreenX = touchEvent.touches[0].clientX;
 				startMouseScreenY = touchEvent.touches[0].clientY;
 				//me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
@@ -205,7 +205,7 @@ function attachTapMouse(me) {
 				var ratio = d / twodistance;
 				twodistance = d;
 
-				var zoom = me.translateZ * ratio;
+				var zoom = me.translateZ / ratio;
 				if (zoom < 1) {
 					zoom = 1;
 				}
