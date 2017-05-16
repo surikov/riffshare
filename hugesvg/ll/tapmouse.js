@@ -221,10 +221,11 @@ function attachTapMouse(me) {
 				me.translateX = me.translateX + (xy1.x - xy2.x)/2;
 				me.translateY = me.translateY + (xy1.y - xy2.y)/2;
 				*/
+				console.log('zoom to', zoom, ratio,me.translateX , me.translateX - (me.translateZ - zoom) * twocenter.x,twocenter.x);
 				me.translateX = me.translateX - (me.translateZ - zoom) * twocenter.x;
 				me.translateY = me.translateY - (me.translateZ - zoom) * twocenter.y;
 				me.translateZ = zoom;
-				console.log('wheel zoom to', zoom, ratio);
+				
 				me.adjustCountentPosition();
 				me.reDraw();
 			}
