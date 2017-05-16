@@ -51,8 +51,8 @@ Vector.crossProduct = function (p1, p2) {
 };
 var unzoom = function (x, y, z) {
 	var xy = {
-		x : x * z-mme.translateX,
-		y : y * z-mme.translateY
+		x : x * z - mme.translateX,
+		y : y * z - mme.translateY
 	};
 	if (mme.contentDiv.clientWidth * z > mme.innerWidth) {
 		//console.log('half',me.contentDiv.clientWidth  , me.innerWidth);
@@ -182,11 +182,11 @@ function attachTapMouse(me) {
 			} else {
 				var dX = touchEvent.touches[0].clientX - startMouseScreenX;
 				var dY = touchEvent.touches[0].clientY - startMouseScreenY;
-				me.translateX = me.translateX + dX*me.translateZ;
-				me.translateY = me.translateY + dY*me.translateZ;
+				me.translateX = me.translateX + dX * me.translateZ;
+				me.translateY = me.translateY + dY * me.translateZ;
 				startMouseScreenX = touchEvent.touches[0].clientX;
 				startMouseScreenY = touchEvent.touches[0].clientY;
-				console.log('move',me.translateZ,dX,dY);
+				console.log('move', me.translateZ, dX, dY);
 				//me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 				/*me.adjustCountentPosition();
 				me.reDraw();*/
@@ -215,10 +215,16 @@ function attachTapMouse(me) {
 				}
 				//var xy = me.rake2content(twocenter.x, twocenter.y, me.translateZ);
 				//var t = me.content2rake(twocenter.x, twocenter.y, xy.x, xy.y, zoom);
-				//me.translateX = t.x;
-				//me.translateY = t.y;
+				/*
+				var xy1 = unzoom(twocenter.x, twocenter.y, me.translateZ);
+				var xy2 = unzoom(twocenter.x, twocenter.y, zoom);
+				me.translateX = me.translateX + (xy1.x - xy2.x)/2;
+				me.translateY = me.translateY + (xy1.y - xy2.y)/2;
+				*/
+				me.translateX = me.translateX - (me.translateZ - zoom) * twocenter.x;
+				me.translateY = me.translateY - (me.translateZ - zoom) * twocenter.y;
 				me.translateZ = zoom;
-				console.log('wheel zoom to', zoom,ratio);
+				console.log('wheel zoom to', zoom, ratio);
 				me.adjustCountentPosition();
 				me.reDraw();
 			}
@@ -262,7 +268,7 @@ function attachTapMouse(me) {
 		var xy = unzoom(clickX, clickY, me.translateZ);
 		clickContentX = xy.x;
 		clickContentY = xy.y;
-		console.log('click', clickX, clickY, 'content',clickContentX, clickContentY,'zoom',me.translateZ);
+		console.log('click', clickX, clickY, 'content', clickContentX, clickContentY, 'zoom', me.translateZ);
 	};
 	me.rakeDiv.addEventListener('mousedown', rakeMouseDown, false);
 	me.rakeDiv.addEventListener("mousewheel", rakeMouseWheel, false);
