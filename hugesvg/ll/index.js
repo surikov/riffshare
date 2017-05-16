@@ -139,7 +139,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.songInfo.tileTitle(me, me.layerHuge);
 		me.addCircles(101 * me.tapSize, '#ccff99', left, top, width, height, 'L', me.layerLarge);
 		me.addCircles(31 * me.tapSize, '#cc6633', left, top, width, height, 'm', me.layerMedium);
-		me.addCircles(5 * me.tapSize, '#33ccff', left, top, width, height, 's', me.layerSmall);
+		me.addCircles(9 * me.tapSize, '#33ccff', left, top, width, height, 's', me.layerSmall);
 	};
 	me.addMediumDetails = function (left, top, width, height) {
 		me.addCircles(161 * me.tapSize, '#ff6699', left, top, width, height, 'h', me.layerHuge);
