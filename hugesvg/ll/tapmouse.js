@@ -186,6 +186,7 @@ function attachTapMouse(me) {
 				me.translateY = me.translateY + dY*me.translateZ;
 				startMouseScreenX = touchEvent.touches[0].clientX;
 				startMouseScreenY = touchEvent.touches[0].clientY;
+				console.log('move',me.translateZ,dX,dY);
 				//me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 				/*me.adjustCountentPosition();
 				me.reDraw();*/
@@ -217,7 +218,7 @@ function attachTapMouse(me) {
 				//me.translateX = t.x;
 				//me.translateY = t.y;
 				me.translateZ = zoom;
-				//console.log('wheel zoom to', zoom);
+				console.log('wheel zoom to', zoom,ratio);
 				me.adjustCountentPosition();
 				me.reDraw();
 			}
