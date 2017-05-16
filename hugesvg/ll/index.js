@@ -1,4 +1,4 @@
-﻿console.log('index 1.02');
+﻿console.log('index 1.03');
 function RakeView(rakeName, contentName, svgName, width, height) {
 	var me = this;
 	me.testProperty = function (props) {
