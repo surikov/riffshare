@@ -62,7 +62,8 @@ var unzoom = function (x, y, z) {
 		//console.log('half',me.contentDiv.clientWidth  , me.innerWidth);
 		xy.y = y * z - ((mme.contentDiv.clientHeight * z - mme.innerHeight) / 2);
 	}
-
+	xy.x=Math.round(xy.x);
+	xy.y=Math.round(xy.y);
 	return xy;
 };
 function attachTapMouse(me) {
@@ -101,7 +102,7 @@ function attachTapMouse(me) {
 		me.translateZ = zoom;
 		//console.log('wheel zoom to', zoom);
 		me.adjustCountentPosition();
-		me.reDraw();
+		me.queueTiles();
 
 		return false;
 	};
@@ -143,7 +144,7 @@ function attachTapMouse(me) {
 			click(me);
 		}
 		me.adjustCountentPosition();
-		me.reDraw();
+		me.queueTiles();
 	};
 	var startTouchZoom = function (touchEvent) {
 		twoZoom = true;
@@ -227,7 +228,7 @@ function attachTapMouse(me) {
 				me.translateZ = zoom;
 				
 				me.adjustCountentPosition();
-				me.reDraw();
+				//me.reDraw();
 			}
 		}
 	};
@@ -241,7 +242,7 @@ function attachTapMouse(me) {
 					click(me);
 				}
 				me.adjustCountentPosition();
-				me.reDraw();
+				me.queueTiles();
 				return;
 			}
 		}

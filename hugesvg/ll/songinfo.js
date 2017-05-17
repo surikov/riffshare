@@ -7,12 +7,22 @@ function SongInfo(){
 	sng.commentColor='#009900';
 	sng.warningColor='#990000';
 	sng.tracks=[{name:'First'},{name:'Synth'},{name:'Distortion second'},{name:'Overdrive third'},{name:'Solo'},{name:'Rhythm'},{name:'Bass fourth'},{name:'Drums'}];
-	sng.trackCount=function(){
+	/*sng.trackCount=function(){
 		return 7;
-	};
-	sng.songDuration16=function(){
+	};*/
+	sng.duration16=function(){
 		return 16*300;
 	};
+	sng.tileTrackLayers=function(me){
+		for(var i=0;i<sng.tracks.length;i++){
+			var id='track'+i+'label';
+			if (!me.childExists(id, me.layerHugeBack)) {
+				//tileTextLabel(me.tapSize*1,me.tapSize*(1+i*30),me.tapSize*22,sng.tracks[i].name,me.layerHugeBack,id);
+				tileSpot(me,me.tapSize*1,me.tapSize*(1+i*30),me.tapSize*100,me.tapSize*29,me.layerHugeFront,id);
+			}
+		}
+	};
+	
 	sng.tileTitle=function(me,layer){
 		var tileID='songTitle';
 		if(!me.childExists(tileID,layer)){
