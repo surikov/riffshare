@@ -536,7 +536,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	//me.rakeDiv.addEventListener("mousewheel", me.rakeMouseWheel, false);
 	//me.rakeDiv.addEventListener("DOMMouseScroll", me.rakeMouseWheel, false);
 	
-	me.setSize(me.tapSize*me.songInfo.duration16()*2,me.tapSize*me.songInfo.tracks.length*(30+128));
+	me.setSize(me.tapSize*me.songInfo.duration16(),me.tapSize*(me.songInfo.tracks.length*30+128));
 	attachTapMouse(me);
 	me.adjustCountentPosition();
 	return me;

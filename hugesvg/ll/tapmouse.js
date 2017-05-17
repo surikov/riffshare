@@ -82,8 +82,8 @@ function attachTapMouse(me) {
 		var min = Math.min(1, wheelVal);
 		var delta = Math.max(-1, min);
 		var zoom = me.translateZ + delta * (me.translateZ) * 0.077;
-		if (zoom < 1) {
-			zoom = 1;
+		if (zoom < 0.5) {
+			zoom = 0.5;
 		}
 		if (zoom > 100) {
 			zoom = 100;
@@ -208,8 +208,8 @@ function attachTapMouse(me) {
 				twodistance = d;
 
 				var zoom = me.translateZ / ratio;
-				if (zoom < 1) {
-					zoom = 1;
+				if (zoom < 0.5) {
+					zoom = 0.5;
 				}
 				if (zoom > 100) {
 					zoom = 100;
