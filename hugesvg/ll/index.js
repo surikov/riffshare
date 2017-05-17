@@ -118,13 +118,13 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 		 */
 		//probe=[{r:}];
-		if (zz <5) { //note
+		if (zz <0.75) { //note
 			me.addSmallDetails(xx, yy, ww, hh);
 		} else {
-			if (zz <20) { //note
+			if (zz <3) { //note
 				me.addMediumDetails(xx, yy, ww, hh);
 			} else {
-				if (zz < 50) { //note
+				if (zz < 30) { //note
 					me.addLargeDetails(xx, yy, ww, hh);
 				} else {
 					me.addHugeDetails(xx, yy, ww, hh);
@@ -138,52 +138,91 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 
 	me.addSmallDetails = function (left, top, width, height) {
-		//me.clearLayer(me.layerHugeBack);
-		//me.clearLayer(me.layerHugeFront);
-		//me.clearLayer(me.layerLargeBack);
-		//me.clearLayer(me.layerLargeFront);
+		me.clearLayer(me.layerHugeBack);
+		me.clearLayer(me.layerHugeFront);
+		me.clearLayer(me.layerLargeBack);
+		me.clearLayer(me.layerLargeFront);
+		me.clearLayer(me.layerMediumBack);
+		me.clearLayer(me.layerMediumFront);
+		
+		//me.songInfo.addMediumTiles(me,left, top, width, height);
+		//me.songInfo.addSmallTiles(me,left, top, width, height);
+		
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
+		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
 		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height,  me.layerMediumBack);
 		me.addCircles(9 * me.tapSize, '#ddf', left, top, width, height,  me.layerSmallBack);
-		me.songInfo.tileTrackLayers(me);
+		
+		//me.songInfo.tileTrackLayers(me);
+		
+		//me.songInfo.addLargeTiles(me,left, top, width, height);
+		//me.songInfo.addMediumTiles(me,left, top, width, height);
+		me.songInfo.addSmallTiles(me,left, top, width, height);
 	};
-	me.addMediumDetails = function (left, top, width, height) {
-		//me.clearLayer(me.layerHugeBack);
-		//me.clearLayer(me.layerHugeFront);
-		//me.clearLayer(me.layerLargeBack);
-		//me.clearLayer(me.layerLargeFront);
-		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height,  me.layerMediumBack);
+	me.addMediumDetails = function (left, top, width, height) {//full notes
+		
+		me.clearLayer(me.layerHugeBack);
+		me.clearLayer(me.layerHugeFront);
+		me.clearLayer(me.layerLargeBack);
+		me.clearLayer(me.layerLargeFront);
+		//
 		me.clearLayer(me.layerSmallBack);
 		me.clearLayer(me.layerSmallFront);
-		me.songInfo.tileTrackLayers(me);
-	};
-	me.addLargeDetails = function (left, top, width, height) {
-		//me.clearLayer(me.layerHugeBack);
-		//me.clearLayer(me.layerHugeFront);
+		
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
 		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
+		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height,  me.layerMediumBack);
+		
+		//me.songInfo.tileTrackLayers(me);
+		
+		//me.songInfo.addLargeTiles(me,left, top, width, height);
+		me.songInfo.addMediumTiles(me,left, top, width, height);
+	};
+	me.addLargeDetails = function (left, top, width, height) {//instrument controls, notecircles, measure rectangles
+		
+		me.clearLayer(me.layerHugeBack);
+		me.clearLayer(me.layerHugeFront);
 		me.clearLayer(me.layerMediumBack);
 		me.clearLayer(me.layerMediumFront);
 		me.clearLayer(me.layerSmallBack);
 		me.clearLayer(me.layerSmallFront);
-		me.songInfo.tileTrackLayers(me);
-	};
-	me.addHugeDetails = function (left, top, width, height) {
+		
 		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
+		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
+		
+		//me.songInfo.tileTrackLayers(me);
+		
+		me.songInfo.addLargeTiles(me,left, top, width, height);
+		
+	};
+	me.addHugeDetails = function (left, top, width, height) {//rectangles, play/stop control
+		
 		me.clearLayer(me.layerLargeBack);
 		me.clearLayer(me.layerLargeFront);
 		me.clearLayer(me.layerMediumBack);
 		me.clearLayer(me.layerMediumFront);
 		me.clearLayer(me.layerSmallBack);
 		me.clearLayer(me.layerSmallFront);
-		me.songInfo.tileTrackLayers(me);
+		
 		/*for(var i=0;i<me.songInfo.tracks.length;i++){
 			var id='track'+i+'label';
 			if (!me.childExists(id, me.layerHugeBack)) {
 				tileTextLabel(me.tapSize*1,me.tapSize*(1+i*30),me.tapSize*22,me.songInfo.tracks[i].name,me.layerHugeBack,id);
 			}
 		}*/
+		
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
+		
+		//me.songInfo.tileTrackLayers(me);
+		me.songInfo.addHugeTiles(me,left, top, width, height);
+		
 	};
+	/*me.addTestCircles = function (tileSize, color, left, top, width, height,  layer) {
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
+		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
+	};*/
 	me.addCircles = function (tileSize, color, left, top, width, height,  layer) {
-		//return null;
+		return null;
 		//console.log('addCircles', tileSize, color, left, top, width, height, levelName);
 		//var tileSize=121*me.tapSize;
 		//var color='#ffcc99';
