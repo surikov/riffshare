@@ -236,13 +236,14 @@ function attachTapMouse(me) {
 	var rakeTouchEnd = function (touchEvent) {
 		touchEvent.preventDefault();
 		//console.log('---rakeTouchEnd', touchEvent.targetTouches.length);
+		me.queueTiles();
 		if (!twoZoom) {
 			if (touchEvent.touches.length < 2) {
 				if (Math.abs(clickX - startMouseScreenX) < me.tapSize / 4 && Math.abs(clickY - startMouseScreenY) < me.tapSize / 4) {
 					click(me);
 				}
 				me.adjustCountentPosition();
-				me.queueTiles();
+				
 				return;
 			}
 		}

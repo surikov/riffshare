@@ -12,7 +12,17 @@ function addSVGRectangle(me, x, y, w, h, to) {
 	target.appendChild(rect);
 	return rect;
 };
-
+function tileRectangle( me,color,x, y, w, h, layer, id) {
+	var rect = document.createElementNS(svgns, 'rect');
+	rect.setAttributeNS(null, 'x', x);
+	rect.setAttributeNS(null, 'y', y);
+	rect.setAttributeNS(null, 'height', h);
+	rect.setAttributeNS(null, 'width', w);
+	rect.setAttributeNS(null, 'fill', color);//'#' + Math.round(0xffffff * Math.random()).toString(16));
+	//me.contentSVG.appendChild(rect);
+	layer.appendChild(rect);
+	return rect;
+};
 function tileSpot( me,x, y, w, h, layer, id) {
 	if (!me.childExists(id, layer)) {
 		var g = document.createElementNS(svgns, 'g');
@@ -23,7 +33,7 @@ function tileSpot( me,x, y, w, h, layer, id) {
 		rect.setAttributeNS(null, 'y', y);
 		rect.setAttributeNS(null, 'height', h);
 		rect.setAttributeNS(null, 'width', w);
-		rect.setAttributeNS(null, 'fill', 'rgba(255,0,0,0.25)');
+		rect.setAttributeNS(null, 'fill', '#ccf');//'rgba(255,0,0,0.25)');
 		//me.contentSVG.appendChild(rect);
 		var s=w;
 		if(h<w)s=h;
@@ -31,7 +41,7 @@ function tileSpot( me,x, y, w, h, layer, id) {
 		var txt = document.createElementNS(svgns, 'text');
 		txt.setAttributeNS(null, 'x', x);
 		txt.setAttributeNS(null, 'y', y);
-		txt.setAttributeNS(null, 'font-size', s/5);
+		txt.setAttributeNS(null, 'font-size', s/3);
 		txt.setAttributeNS(null, 'alignment-baseline', 'text-before-edge');
 		txt.innerHTML = ''+id;
 		g.appendChild(txt);

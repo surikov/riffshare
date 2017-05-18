@@ -162,9 +162,9 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 				me.translateY = minY;
 			}
 		}
-		me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
+		//me.setTransform(me.contentDiv, me.translateX, me.translateY, me.translateZ);
 	};
-	me.setTransform = function (el, x, y, scale) {
+	me._setTransform = function (el, x, y, scale) {
 		var transformString = 'translate3d(' + x + 'px,' + y + 'px,0)';
 		if (me.ie3d) {
 			transformString = 'translate(' + x + 'px,' + y + 'px)';

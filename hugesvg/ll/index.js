@@ -1,5 +1,5 @@
 ﻿console.log('index 1.03');
-var rakeView=null;
+var rakeView = null;
 function RakeView(rakeName, contentName, svgName, width, height) {
 	var me = this;
 	me.testProperty = function (props) {
@@ -82,12 +82,12 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		var rightBottomY = me.contentDiv.clientHeight;
 		if (me.contentDiv.clientWidth * me.translateZ > me.innerWidth) {
 			//rightBottomX = me.contentDiv.clientWidth - me.contentDiv.clientWidth * me.translateZ + me.innerWidth;
-			leftTopX=(me.contentDiv.clientWidth  - me.innerWidth/ me.translateZ)/2;
-			rightBottomX= me.contentDiv.clientWidth-leftTopX;
+			leftTopX = (me.contentDiv.clientWidth - me.innerWidth / me.translateZ) / 2;
+			rightBottomX = me.contentDiv.clientWidth - leftTopX;
 			//console.log('leftTopX',Math.round(leftTopX),me.contentDiv.clientWidth,me.innerWidth, me.translateZ);
 		}
 		if (me.contentDiv.clientHeight * me.translateZ > me.innerHeight) {
-			leftTopY=(me.contentDiv.clientHeight  - me.innerHeight/ me.translateZ)/2;
+			leftTopY = (me.contentDiv.clientHeight - me.innerHeight / me.translateZ) / 2;
 			rightBottomY = me.contentDiv.clientHeight - leftTopY;
 		}
 		var lt = unzoom(leftTopX, leftTopY, me.translateZ);
@@ -102,7 +102,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	};
 	//var probe=[];
 	me.addContent = function (xx, yy, ww, hh, zz) {
-		//console.log('addContent from', Math.round(xx),'x', Math.round(yy),':' ,Math.round(ww),'x', Math.round(hh),'zoom', Math.round(zz));
+		//console.log('addContent from', Math.round(xx),'x', Math.round(yy),':' ,Math.round(ww),'x', Math.round(hh),'zoom', Math.round(10*zz));
 		/*console.log('size',ww,hh);
 		console.log('translate',me.translateX,me.translateY,me.translateZ);*/
 		/*
@@ -118,16 +118,33 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		}
 		 */
 		//probe=[{r:}];
-		if (zz <0.75) { //note
-			me.addSmallDetails(xx, yy, ww, hh);
+		if (zz < 0.75) { //note
+			//me.addSmallDetails(xx, yy, ww, hh);
+			me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
+			me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
+			me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
+			me.songInfo.addSmallTiles(me, xx, yy, ww, hh);
+
 		} else {
-			if (zz <3) { //note
-				me.addMediumDetails(xx, yy, ww, hh);
+			if (zz < 3) { //note
+				//me.addMediumDetails(xx, yy, ww, hh);
+				me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
+				me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
+				me.songInfo.addMediumTiles(me, xx, yy, ww, hh);
+				me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
 			} else {
 				if (zz < 30) { //note
-					me.addLargeDetails(xx, yy, ww, hh);
+					//me.addLargeDetails(xx, yy, ww, hh);
+					me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
+					me.songInfo.addLargeTiles(me, xx, yy, ww, hh);
+					me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
+					me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
 				} else {
-					me.addHugeDetails(xx, yy, ww, hh);
+					//me.addHugeDetails(xx, yy, ww, hh);
+					me.songInfo.addHugeTiles(me, xx, yy, ww, hh);
+					me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
+					me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
+					me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
 				}
 			}
 		}
@@ -137,30 +154,30 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//console.log(''+me.layer1.children.length+'/'+me.layer2.children.length+'/'+me.layer3.children.length+'/'+me.layer4.children.length);
 	};
 
-	me.addSmallDetails = function (left, top, width, height) {
+	me._addSmallDetails = function (left, top, width, height) {
 		me.clearLayer(me.layerHugeBack);
 		me.clearLayer(me.layerHugeFront);
 		me.clearLayer(me.layerLargeBack);
 		me.clearLayer(me.layerLargeFront);
 		me.clearLayer(me.layerMediumBack);
 		me.clearLayer(me.layerMediumFront);
-		
+
 		//me.songInfo.addMediumTiles(me,left, top, width, height);
 		//me.songInfo.addSmallTiles(me,left, top, width, height);
-		
-		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
-		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
-		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height,  me.layerMediumBack);
-		me.addCircles(9 * me.tapSize, '#ddf', left, top, width, height,  me.layerSmallBack);
-		
+
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height, me.layerHugeBack);
+		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height, me.layerLargeBack);
+		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height, me.layerMediumBack);
+		me.addCircles(9 * me.tapSize, '#ddf', left, top, width, height, me.layerSmallBack);
+
 		//me.songInfo.tileTrackLayers(me);
-		
+
 		//me.songInfo.addLargeTiles(me,left, top, width, height);
 		//me.songInfo.addMediumTiles(me,left, top, width, height);
-		me.songInfo.addSmallTiles(me,left, top, width, height);
+		me.songInfo.addSmallTiles(me, left, top, width, height);
 	};
-	me.addMediumDetails = function (left, top, width, height) {//full notes
-		
+	me._addMediumDetails = function (left, top, width, height) { //full notes
+
 		me.clearLayer(me.layerHugeBack);
 		me.clearLayer(me.layerHugeFront);
 		me.clearLayer(me.layerLargeBack);
@@ -168,60 +185,60 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//
 		me.clearLayer(me.layerSmallBack);
 		me.clearLayer(me.layerSmallFront);
-		
-		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
-		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
-		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height,  me.layerMediumBack);
-		
+
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height, me.layerHugeBack);
+		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height, me.layerLargeBack);
+		me.addCircles(31 * me.tapSize, '#eef', left, top, width, height, me.layerMediumBack);
+
 		//me.songInfo.tileTrackLayers(me);
-		
+
 		//me.songInfo.addLargeTiles(me,left, top, width, height);
-		me.songInfo.addMediumTiles(me,left, top, width, height);
+		me.songInfo.addMediumTiles(me, left, top, width, height);
 	};
-	me.addLargeDetails = function (left, top, width, height) {//instrument controls, notecircles, measure rectangles
-		
+	me._addLargeDetails = function (left, top, width, height) { //instrument controls, notecircles, measure rectangles
+
 		me.clearLayer(me.layerHugeBack);
 		me.clearLayer(me.layerHugeFront);
 		me.clearLayer(me.layerMediumBack);
 		me.clearLayer(me.layerMediumFront);
 		me.clearLayer(me.layerSmallBack);
 		me.clearLayer(me.layerSmallFront);
-		
-		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
-		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
-		
+
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height, me.layerHugeBack);
+		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height, me.layerLargeBack);
+
 		//me.songInfo.tileTrackLayers(me);
-		
-		me.songInfo.addLargeTiles(me,left, top, width, height);
-		
+
+		me.songInfo.addLargeTiles(me, left, top, width, height);
+
 	};
-	me.addHugeDetails = function (left, top, width, height) {//rectangles, play/stop control
-		
+	me._addHugeDetails = function (left, top, width, height) { //rectangles, play/stop control
+
 		me.clearLayer(me.layerLargeBack);
 		me.clearLayer(me.layerLargeFront);
 		me.clearLayer(me.layerMediumBack);
 		me.clearLayer(me.layerMediumFront);
 		me.clearLayer(me.layerSmallBack);
 		me.clearLayer(me.layerSmallFront);
-		
+
 		/*for(var i=0;i<me.songInfo.tracks.length;i++){
-			var id='track'+i+'label';
-			if (!me.childExists(id, me.layerHugeBack)) {
-				tileTextLabel(me.tapSize*1,me.tapSize*(1+i*30),me.tapSize*22,me.songInfo.tracks[i].name,me.layerHugeBack,id);
-			}
+		var id='track'+i+'label';
+		if (!me.childExists(id, me.layerHugeBack)) {
+		tileTextLabel(me.tapSize*1,me.tapSize*(1+i*30),me.tapSize*22,me.songInfo.tracks[i].name,me.layerHugeBack,id);
+		}
 		}*/
-		
-		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
-		
+
+		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height, me.layerHugeBack);
+
 		//me.songInfo.tileTrackLayers(me);
-		me.songInfo.addHugeTiles(me,left, top, width, height);
-		
+		me.songInfo.addHugeTiles(me, left, top, width, height);
+
 	};
 	/*me.addTestCircles = function (tileSize, color, left, top, width, height,  layer) {
-		me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
-		me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
+	me.addCircles(161 * me.tapSize, '#eef', left, top, width, height,  me.layerHugeBack);
+	me.addCircles(101 * me.tapSize, '#eef', left, top, width, height,  me.layerLargeBack);
 	};*/
-	me.addCircles = function (tileSize, color, left, top, width, height,  layer) {
+	me.addCircles = function (tileSize, color, left, top, width, height, layer) {
 		return null;
 		//console.log('addCircles', tileSize, color, left, top, width, height, levelName);
 		//var tileSize=121*me.tapSize;
@@ -254,7 +271,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			}
 		}
 	};
-	me.addNumbers = function (left, top, width, height, detailSize, key) {
+	me._addNumbers = function (left, top, width, height, detailSize, key) {
 		var g = addSVGGroup(me);
 		me.setTransform(g, left, top);
 		var w = me.innerWidth;
@@ -312,13 +329,17 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			}
 		}
 	};
+	me.clearBackFront = function (layerB, layerF) {
+		me.clearLayer(layerB);
+		me.clearLayer(layerF);
+	};
 	me.clearLayer = function (layer) {
 
 		//var cnt=layer.children.length;
-		//console.log('clearLayer',cnt,layer);
+		//console.log('clearLayer',layer);
 		while (layer.children.length > 0) {
 			//var g=layer.children[0];
-			//console.log('drop',cnt,g);
+			//console.log('drop',layer.children[0].id);
 			layer.removeChild(layer.children[0]);
 			//console.log('removed',r);
 			//cnt=layer.children.length;
@@ -349,6 +370,19 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			}
 		}
 	};
+	me.outOfRect = function (childX, childY, childWidth, childHeight, x, y, w, h) {
+		if (childX + childWidth < x //
+			 || childX > x + w //
+			 || childY + childHeight < y //
+			 || childY > y + h //
+		)
+		{
+			return true;
+		} else {
+			return false;
+
+		}
+	};
 	me.outOfView = function (child, x, y, w, h) {
 		//console.log('check',child,x, y, w, h);
 		/*if(child.tileID){
@@ -360,17 +394,18 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		if (child.id) {
 			var tbb = child.getBBox();
 			/*console.log(tbb,tbb.x+tbb.width<x //, tbb.x>x+w //, tbb.y+tbb.height<y //, tbb.y>y+h);*/
-			if (tbb.x + tbb.width < x //
-				 || tbb.x > x + w //
-				 || tbb.y + tbb.height < y //
-				 || tbb.y > y + h //
+			/*if (tbb.x + tbb.width < x //
+			|| tbb.x > x + w //
+			|| tbb.y + tbb.height < y //
+			|| tbb.y > y + h //
 			) {
-				return true;
+			return true;
 
 			} else {
-				return false;
+			return false;
 
-			}
+			}*/
+			return me.outOfView(tbb.x, tbb.y, tbb.width, tbb.height, x, y, w, h);
 		} else {
 
 			return true;
@@ -542,14 +577,14 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.contentDiv = document.getElementById(contentName);
 	me.contentSVG = document.getElementById(svgName);
 	me.rakeDiv = document.getElementById(rakeName);
-/*
+	/*
 	me.layerBackground = document.getElementById('background');
 	me.layerHuge = document.getElementById('layerHuge');
 	me.layerLarge = document.getElementById('layerLarge');
 	me.layerMedium = document.getElementById('layerMedium');
 	me.layerSmall = document.getElementById('layerSmall');
 	me.layerHUD = document.getElementById('HUD');
-	*/
+	 */
 	me.layerHugeBack = document.getElementById('hugeBack');
 	me.layerHugeFront = document.getElementById('hugeFront');
 	me.layerLargeBack = document.getElementById('largeBack');
@@ -574,8 +609,8 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	//me.rakeDiv.addEventListener('mousedown', me.rakeMouseDown, false);
 	//me.rakeDiv.addEventListener("mousewheel", me.rakeMouseWheel, false);
 	//me.rakeDiv.addEventListener("DOMMouseScroll", me.rakeMouseWheel, false);
-	
-	me.setSize(me.tapSize*me.songInfo.duration16(),me.tapSize*(me.songInfo.tracks.length*30+128));
+
+	me.setSize(me.tapSize * (me.songInfo.duration32() + me.songInfo.trackMargin), me.tapSize * (me.songInfo.tracks.length * me.songInfo.trackMargin + 128));
 	attachTapMouse(me);
 	me.adjustCountentPosition();
 	return me;
