@@ -1,6 +1,7 @@
 ﻿console.log('songinfo 1.01');
 function SongInfo() {
 	var sng = this;
+	sng.gridColor = '#999999';
 	sng.normalColor = '#000000';
 	sng.backColor = '#999999';
 	sng.handlerColor = '#000099';
@@ -162,57 +163,68 @@ function SongInfo() {
 			//console.log('no tileRollCells',x, y, w, h, left, top, width, height);
 		}
 	};
+	sng.addSongTitle = function (me, left, top, width, height, layer) {
+		var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
+		var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
+		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
+			if (!me.childExists('title', layer)) {
+				tileTextLabel(sng.leftMargin * me.tapSize, sng.topMargin * me.tapSize, 33 * me.tapSize, sng.title, layer, 'title',sng.gridColor);
+			}
+		}
+	}
+	sng.addMeasureLines = function (me, left, top, width, height, layer, detailRatio,step) {
+		var m = 0;
+		for (var i = 0; i < sng.measures.length; i++) {
+			if (i % step == 0) {
+				var h = (sng.notationHeight + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight) * me.tapSize;
+				var x = (sng.leftMargin + m) * me.tapSize;
+				var y = (sng.topMargin + sng.titleHeight) * me.tapSize;
+				var w = 5 * me.tapSize;
+				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					var id = 'ms' + i;
+					if (!me.childExists(id, layer)) {
+						tileRectangle(sng.gridColor, x, y, me.lineWidth * detailRatio, h, layer, id);
+						tileTextLabel(x, y, me.tapSize * 3 * detailRatio, ' ' + i, layer, id + 't',sng.gridColor);
+					}
+				}
+			}
+			m = m + sng.measures[i].meter32;
+		}
+	}
 	sng.addBoundingBox = function (me, layer, s) {
 		var id = 'boundingBox';
-
 		if (!me.childExists(id, layer)) {
 			var w = (sng.leftMargin + sng.duration32() + sng.rightMargin) * me.tapSize;
 			var h = (sng.topMargin + sng.titleHeight + sng.notationHeight + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight + sng.bottomMargin) * me.tapSize;
-			tileRectangle(me, '#ff0000', 0, 0, w, s, layer, id);
-			tileRectangle(me, '#ff0000', 0, h, w, s, layer, id + 'a');
-			tileRectangle(me, '#ff0000', 0, 0, s, h, layer, id + 'b');
-			tileRectangle(me, '#ff0000', w, 0, s, h, layer, id + 'c');
+			tileRectangle('#ff0000', 0, 0, w, s, layer, id);
+			tileRectangle('#ff0000', 0, h, w, s, layer, id + 'a');
+			tileRectangle('#ff0000', 0, 0, s, h, layer, id + 'b');
+			tileRectangle('#ff0000', w, 0, s, h, layer, id + 'c');
 		}
 	};
 	sng.addHugeTiles = function (me, left, top, width, height) {
-		sng.addBoundingBox(me, me.layHugeFront, 30 * me.lineWidth);
-		var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
-		var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
-		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
-			if (!me.childExists('title', me.layHugeBack)) {
-				tileTextLabel(sng.leftMargin * me.tapSize, sng.topMargin * me.tapSize, 33 * me.tapSize, sng.title, me.layHugeBack, 'title');
-			}
-		}
+		var detailRatio = 30;
+		sng.addBoundingBox(me, me.layHugeFront, detailRatio * me.lineWidth);
+		sng.addSongTitle(me, left, top, width, height, me.layHugeBack);
+		sng.addMeasureLines(me, left, top, width, height, me.layHugeBack, detailRatio,10);
 	}
 	sng.addLargeTiles = function (me, left, top, width, height) {
-		sng.addBoundingBox(me, me.layLargeAction, 3 * me.lineWidth);
-		var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
-		var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
-		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
-			if (!me.childExists('title', me.layLargeBack)) {
-				tileTextLabel(sng.leftMargin * me.tapSize, sng.topMargin * me.tapSize, 33 * me.tapSize, sng.title, me.layLargeBack, 'title');
-			}
-		}
+		var detailRatio = 3;
+		sng.addBoundingBox(me, me.layLargeAction, detailRatio * me.lineWidth);
+		sng.addSongTitle(me, left, top, width, height, me.layLargeBack);
+		sng.addMeasureLines(me, left, top, width, height, me.layLargeBack, detailRatio,1);
 	}
 	sng.addMediumTiles = function (me, left, top, width, height) {
-		sng.addBoundingBox(me, me.layMediumAction, 0.75 * me.lineWidth);
-		var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
-		var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
-		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
-			if (!me.childExists('title', me.layMediumBack)) {
-				tileTextLabel(sng.leftMargin * me.tapSize, sng.topMargin * me.tapSize, 33 * me.tapSize, sng.title, me.layMediumBack, 'title');
-			}
-		}
+		var detailRatio = 0.75;
+		sng.addBoundingBox(me, me.layMediumAction, detailRatio * me.lineWidth);
+		sng.addSongTitle(me, left, top, width, height, me.layMediumBack);
+		sng.addMeasureLines(me, left, top, width, height, me.layMediumGrid, detailRatio,1);
 	}
 	sng.addSmallTiles = function (me, left, top, width, height) {
-		sng.addBoundingBox(me, me.laySmallAction, 0.5 * me.lineWidth);
-		var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
-		var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
-		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
-			if (!me.childExists('title', me.laySmallBack)) {
-				tileTextLabel(sng.leftMargin * me.tapSize, sng.topMargin * me.tapSize, 33 * me.tapSize, sng.title, me.laySmallBack, 'title');
-			}
-		}
+		var detailRatio = 0.5;
+		sng.addBoundingBox(me, me.laySmallAction, detailRatio * me.lineWidth);
+		sng.addSongTitle(me, left, top, width, height, me.laySmallBack);
+		sng.addMeasureLines(me, left, top, width, height, me.laySmallGrid, detailRatio,1);
 	}
 	sng.tileTrackLayers = function (me) {
 		/*for(var i=0;i<sng.tracks.length;i++){

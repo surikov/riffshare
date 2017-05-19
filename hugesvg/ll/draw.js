@@ -12,7 +12,7 @@ function addSVGRectangle(me, x, y, w, h, to) {
 	target.appendChild(rect);
 	return rect;
 };
-function tileRectangle( me,color,x, y, w, h, layer, id) {
+function tileRectangle( color,x, y, w, h, layer, id) {
 	var rect = document.createElementNS(svgns, 'rect');
 	rect.setAttributeNS(null, 'x', x);
 	rect.setAttributeNS(null, 'y', y);
@@ -47,11 +47,12 @@ function tileSpot( me,x, y, w, h, layer, id) {
 		g.appendChild(txt);
 	}
 }
-function tileTextLabel( x, y, s, t, layer, id) {
+function tileTextLabel( x, y, s, t, layer, id,color) {
 		var txt = document.createElementNS(svgns, 'text');
 		txt.setAttributeNS(null, 'x', x);
 		txt.setAttributeNS(null, 'y', y);
 		txt.setAttributeNS(null, 'font-size', s);
+		txt.setAttributeNS(null, 'fill', color);
 		txt.setAttributeNS(null, 'alignment-baseline', 'text-before-edge');
 		txt.innerHTML = t;
 		txt.id=id;
