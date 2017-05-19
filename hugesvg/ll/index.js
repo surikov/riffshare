@@ -101,7 +101,9 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.addContent(xx, yy, ww, hh, me.translateZ);
 	};
 	//var probe=[];
+	var lastUsedLevel = -1;
 	me.addContent = function (xx, yy, ww, hh, zz) {
+
 		//console.log('addContent from', Math.round(xx),'x', Math.round(yy),':' ,Math.round(ww),'x', Math.round(hh),'zoom', Math.round(10*zz));
 		/*console.log('size',ww,hh);
 		console.log('translate',me.translateX,me.translateY,me.translateZ);*/
@@ -119,35 +121,86 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		 */
 		//probe=[{r:}];
 		if (zz < 0.75) { //note
+			if (lastUsedLevel != 0) {
+				console.log('details level', lastUsedLevel, '->', 0);
+				lastUsedLevel = 0;
+			}
+			/*
 			//me.addSmallDetails(xx, yy, ww, hh);
 			me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
 			me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
 			me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
-			me.songInfo.addSmallTiles(me, xx, yy, ww, hh);
 
+			 */
+			me.clearLayers([me.layHugeBack, me.layHugeFront //
+				, me.layLargeBack, me.layLargeContent, me.layLargeAction //
+				, me.layMediumBack, me.layMediumGrid, me.layMediumContent, me.layMediumSelection, me.layMediumAction //
+					//, me.laySmallBack, me.laySmallGrid, me.laySmallContent, me.laySmallSelection, me.laySmallAction//
+				]);
+			me.songInfo.addSmallTiles(me, xx, yy, ww, hh);
 		} else {
 			if (zz < 3) { //note
+				if (lastUsedLevel != 1) {
+					console.log('details level', lastUsedLevel, '->', 1);
+					lastUsedLevel = 1;
+				}
+				/*
 				//me.addMediumDetails(xx, yy, ww, hh);
 				me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
 				me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
-				me.songInfo.addMediumTiles(me, xx, yy, ww, hh);
+
 				me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
+				 */
+				me.clearLayers([me.layHugeBack, me.layHugeFront //
+					, me.layLargeBack, me.layLargeContent, me.layLargeAction //
+						//, me.layMediumBack, me.layMediumGrid, me.layMediumContent, me.layMediumSelection, me.layMediumAction//
+					, me.laySmallBack, me.laySmallGrid, me.laySmallContent, me.laySmallSelection, me.laySmallAction //
+					]);
+				me.songInfo.addMediumTiles(me, xx, yy, ww, hh);
 			} else {
 				if (zz < 30) { //note
-					//me.addLargeDetails(xx, yy, ww, hh);
-					me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
+					if (lastUsedLevel != 2) {
+						console.log('details level', lastUsedLevel, '->', 2);
+						lastUsedLevel = 2;
+					}
+					me.clearLayers([me.layHugeBack, me.layHugeFront //
+							//, me.layLargeBack, me.layLargeContent, me.layLargeAction //
+						, me.layMediumBack, me.layMediumGrid, me.layMediumContent, me.layMediumSelection, me.layMediumAction //
+						, me.laySmallBack, me.laySmallGrid, me.laySmallContent, me.laySmallSelection, me.laySmallAction //
+						]);
 					me.songInfo.addLargeTiles(me, xx, yy, ww, hh);
-					me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
-					me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
-				} else {
-					//me.addHugeDetails(xx, yy, ww, hh);
+				}
+
+				/*
+				//me.addLargeDetails(xx, yy, ww, hh);
+				me.clearBackFront(me.layerHugeBack, me.layerHugeFront);
+
+				me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
+				me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
+				 */
+				else {
+					if (lastUsedLevel != 3) {
+						console.log('details level', lastUsedLevel, '->', 3);
+						lastUsedLevel = 3;
+					}
+					me.clearLayers([//me.layHugeBack, me.layHugeFront //
+							//,
+							me.layLargeBack, me.layLargeContent, me.layLargeAction //
+						, me.layMediumBack, me.layMediumGrid, me.layMediumContent, me.layMediumSelection, me.layMediumAction //
+						, me.laySmallBack, me.laySmallGrid, me.laySmallContent, me.laySmallSelection, me.laySmallAction //
+						]);
 					me.songInfo.addHugeTiles(me, xx, yy, ww, hh);
-					me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
-					me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
-					me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
 				}
 			}
+			/*
+			//me.addHugeDetails(xx, yy, ww, hh);
+
+			me.clearBackFront(me.layerLargeBack, me.layerLargeFront);
+			me.clearBackFront(me.layerMediumBack, me.layerMediumFront);
+			me.clearBackFront(me.layerSmallBack, me.layerSmallFront);
+			 */
 		}
+
 		//addSVGFillCircle(me,xx,yy,1000);
 
 		//addSVGFillCircle(me, clickContentX, clickContentY, (me.tapSize / 2) / me.translateZ,null,'#330066');
@@ -329,25 +382,46 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			}
 		}
 	};
-	me.clearBackFront = function (layerB, layerF) {
-		me.clearLayer(layerB);
-		me.clearLayer(layerF);
-	};
-	me.clearLayer = function (layer) {
-
-		//var cnt=layer.children.length;
-		//console.log('clearLayer',layer);
-		while (layer.children.length > 0) {
-			//var g=layer.children[0];
-			//console.log('drop',layer.children[0].id);
-			layer.removeChild(layer.children[0]);
-			//console.log('removed',r);
-			//cnt=layer.children.length;
-			//break;
+	/*me.clearBackFront = function (layerB, layerF) {
+	me.clearLayer(layerB);
+	me.clearLayer(layerF);
+	};*/
+	me.clearLayers = function (layers) {
+		for (var i = 0; i < layers.length; i++) {
+			var layer = layers[i];
+			//var cnt=layer.children.length;
+			//console.log('clearLayer',layer);
+			while (layer.children.length > 0) {
+				//var g=layer.children[0];
+				//console.log('drop',layer.children[0].id);
+				layer.removeChild(layer.children[0]);
+				//console.log('removed',r);
+				//cnt=layer.children.length;
+				//break;
+			}
 		}
 	};
 	me.cleanUpLayers = function (x, y, w, h) {
 		//console.log('cleanUpLayers',x, y, w, h);
+		me.clearOutContent(x, y, w, h, me.layHugeBack);
+		me.clearOutContent(x, y, w, h, me.layHugeFront);
+
+		me.clearOutContent(x, y, w, h, me.layLargeBack);
+		me.clearOutContent(x, y, w, h, me.layLargeContent);
+		me.clearOutContent(x, y, w, h, me.layLargeAction);
+
+		me.clearOutContent(x, y, w, h, me.layMediumBack);
+		me.clearOutContent(x, y, w, h, me.layMediumGrid);
+		me.clearOutContent(x, y, w, h, me.layMediumContent);
+		me.clearOutContent(x, y, w, h, me.layMediumSelection);
+		me.clearOutContent(x, y, w, h, me.layMediumAction);
+
+		me.clearOutContent(x, y, w, h, me.laySmallBack);
+		me.clearOutContent(x, y, w, h, me.laySmallGrid);
+		me.clearOutContent(x, y, w, h, me.laySmallContent);
+		me.clearOutContent(x, y, w, h, me.laySmallSelection);
+		me.clearOutContent(x, y, w, h, me.laySmallAction);
+		/*
 		me.clearOutContent(x, y, w, h, me.layerHugeBack);
 		me.clearOutContent(x, y, w, h, me.layerLargeBack);
 		me.clearOutContent(x, y, w, h, me.layerMediumBack);
@@ -356,6 +430,8 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		me.clearOutContent(x, y, w, h, me.layerLargeFront);
 		me.clearOutContent(x, y, w, h, me.layerMediumFront);
 		me.clearOutContent(x, y, w, h, me.layerSmallFront);
+		 */
+
 	};
 	me.clearOutContent = function (x, y, w, h, layer) {
 		//console.log('clearOutContent',layer);
@@ -569,6 +645,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	} catch (ex) {
 		console.log(ex);
 	}
+	me.lineWidth = 0.05 * me.tapSize;
 	console.log('tapSize and ratio', me.tapSize, window.devicePixelRatio);
 	//document.title='5:'+me.tapSize;
 
@@ -585,6 +662,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.layerSmall = document.getElementById('layerSmall');
 	me.layerHUD = document.getElementById('HUD');
 	 */
+	/*
 	me.layerHugeBack = document.getElementById('hugeBack');
 	me.layerHugeFront = document.getElementById('hugeFront');
 	me.layerLargeBack = document.getElementById('largeBack');
@@ -593,6 +671,25 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	me.layerMediumFront = document.getElementById('mediumFront');
 	me.layerSmallBack = document.getElementById('smallBack');
 	me.layerSmallFront = document.getElementById('smallFront');
+	 */
+	me.layHugeBack = document.getElementById('hugeBack');
+	me.layHugeFront = document.getElementById('hugeFront');
+
+	me.layLargeBack = document.getElementById('largeBack');
+	me.layLargeContent = document.getElementById('largeContent');
+	me.layLargeAction = document.getElementById('largeAction');
+
+	me.layMediumBack = document.getElementById('mediumBack');
+	me.layMediumGrid = document.getElementById('mediumGrid');
+	me.layMediumContent = document.getElementById('mediumContent');
+	me.layMediumSelection = document.getElementById('mediumSelection');
+	me.layMediumAction = document.getElementById('mediumAction');
+
+	me.laySmallBack = document.getElementById('smallBack');
+	me.laySmallGrid = document.getElementById('smallGrid');
+	me.laySmallContent = document.getElementById('smallContent');
+	me.laySmallSelection = document.getElementById('smallSelection');
+	me.laySmallAction = document.getElementById('smallAction');
 	//console.log(document.getElementById('HUD'));
 	me.songInfo = new SongInfo();
 	//me.startMouseScreenX = 0.0;
@@ -610,7 +707,10 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	//me.rakeDiv.addEventListener("mousewheel", me.rakeMouseWheel, false);
 	//me.rakeDiv.addEventListener("DOMMouseScroll", me.rakeMouseWheel, false);
 
-	me.setSize(me.tapSize * (me.songInfo.duration32() + me.songInfo.trackMargin), me.tapSize * (me.songInfo.tracks.length * me.songInfo.trackMargin + 128));
+	me.setSize(//
+		me.tapSize * (me.songInfo.duration32() + me.songInfo.leftMargin + me.songInfo.rightMargin) //
+	, me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) //
+	);
 	attachTapMouse(me);
 	me.adjustCountentPosition();
 	return me;
