@@ -1,7 +1,7 @@
 ﻿console.log('songinfo 1.01');
 function SongInfo() {
 	var sng = this;
-	sng.gridColor = '#999999';
+	sng.gridColor = '#cccccc';
 	sng.normalColor = '#000000';
 	sng.backColor = '#999999';
 	sng.handlerColor = '#000099';
@@ -9,15 +9,15 @@ function SongInfo() {
 	sng.warningColor = '#990000';
 
 	sng.leftMargin = 20;
-	sng.rightMargin = 2;
+	sng.rightMargin = 50;
 	sng.topMargin = 7;
-	sng.bottomMargin = 1;
+	sng.bottomMargin = 10;
 
-	sng.titleHeight = 100;
+	sng.titleHeight = 30;
 	sng.notationHeight = 30;
 	sng.textHeight = 3;
-	sng.fretHeight = 12;
-	sng.chordsHeight = 3;
+	sng.fretHeight = 18;
+	sng.chordsHeight = 5;
 	sng.pianorollHeight = 128;
 	sng.title = 'Some not so long title';
 	sng.tracks = [{
@@ -43,11 +43,16 @@ function SongInfo() {
 		sng.measures.push({
 			meter32 : 32,
 			tempo : 120
+			,margin32:0
 		});
 	}
 	sng.measures[64].meter32 = 12;
 	sng.measures[128].meter32 = 12;
 	sng.measures[192].meter32 = 12;
+	sng.measures[0].margin32 = 8;
+	sng.measures[64].margin32 = 8;
+	sng.measures[128].margin32 = 8;
+	sng.measures[192].margin32 = 8;
 	for (var i = 250; i < 270; i++) {
 		sng.measures[i].tempo = 200;
 	}
@@ -57,7 +62,7 @@ function SongInfo() {
 	sng.duration32 = function () {
 		var m = 0;
 		for (var i = 0; i < sng.measures.length; i++) {
-			m = m + sng.measures[i].meter32;
+			m = m + sng.measures[i].meter32+ sng.measures[i].margin32;
 		}
 		//console.log('duration32',m);
 		return m;
@@ -164,13 +169,18 @@ function SongInfo() {
 		}
 	};
 	sng.addSongTitle = function (me, left, top, width, height, layer) {
-		var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
-		var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
+		//var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
+		//var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
+		var x=sng.leftMargin * me.tapSize;
+		var y=sng.topMargin * me.tapSize;
+		var w = me.tapSize * sng.duration32();
+		var h = me.tapSize * sng.titleHeight;
 		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
 			if (!me.childExists('title', layer)) {
-				tileTextLabel(sng.leftMargin * me.tapSize, sng.topMargin * me.tapSize, 33 * me.tapSize, sng.title, layer, 'title',sng.gridColor);
+				tileTextLabel(x, y, 33 * me.tapSize, sng.title, layer, 'title',sng.gridColor);
 			}
 		}
+		//tilePlaceHolder(me,x, y,w-me.tapSize,h-me.tapSize,layer,'plTitle',left, top, width, height);
 	}
 	sng.addMeasureLines = function (me, left, top, width, height, layer, detailRatio,step) {
 		var m = 0;
@@ -203,28 +213,184 @@ function SongInfo() {
 		}
 	};
 	sng.addHugeTiles = function (me, left, top, width, height) {
+		var d32=sng.duration32();
 		var detailRatio = 30;
 		sng.addBoundingBox(me, me.layHugeFront, detailRatio * me.lineWidth);
-		sng.addSongTitle(me, left, top, width, height, me.layHugeBack);
-		sng.addMeasureLines(me, left, top, width, height, me.layHugeBack, detailRatio,10);
+		//sng.addSongTitle(me, left, top, width, height, me.layHugeBack);
+		//sng.addMeasureLines(me, left, top, width, height, me.layHugeBack, detailRatio,10);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layHugeBack,'plTitle',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layHugeBack,'plNotation',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layHugeBack,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layHugeBack,'plChords',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.fretHeight*me.tapSize,me.layHugeBack,'plFret',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layHugeBack,'plPianoroll',left, top, width, height);
+		var s=200;
+		for(var i=0;i<d32;i=i+s){
+			//console.log(i);
+			tilePlaceHolder(me
+				,(sng.leftMargin+i)*me.tapSize
+				,(sng.topMargin+sng.titleHeight)*me.tapSize//
+				,(s-0)*me.tapSize
+				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
+				,me.layHugeBack,'m0_'+Math.round(i/s),left, top, width, height);
+		}
 	}
 	sng.addLargeTiles = function (me, left, top, width, height) {
+		var d32=sng.duration32();
 		var detailRatio = 3;
 		sng.addBoundingBox(me, me.layLargeAction, detailRatio * me.lineWidth);
-		sng.addSongTitle(me, left, top, width, height, me.layLargeBack);
-		sng.addMeasureLines(me, left, top, width, height, me.layLargeBack, detailRatio,1);
+		//sng.addSongTitle(me, left, top, width, height, me.layLargeBack);
+		//sng.addMeasureLines(me, left, top, width, height, me.layLargeBack, detailRatio,1);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layLargeBack,'plTitle',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layLargeBack,'plNotation',left, top, width, height);
+		for(var i=0;i<5;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//
+				,sng.duration32()*me.tapSize,0.25*me.tapSize,me.layLargeBack,'li'+i,left, top, width, height);
+		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layLargeBack,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layLargeBack,'plChords',left, top, width, height);
+		for(var i=0;i<6;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//
+				,sng.duration32()*me.tapSize,3*me.tapSize,me.layLargeBack,'plFret'+i,left, top, width, height);
+		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layLargeBack,'plPianoroll',left, top, width, height);
+		for(var i=0;i<10;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//
+				,sng.duration32()*me.tapSize,12*me.tapSize,me.layLargeBack,'plOctave'+i,left, top, width, height);
+		}
+		var s=20;
+		for(var i=0;i<d32;i=i+s){
+			//console.log(i);
+			tilePlaceHolder(me
+				,(sng.leftMargin+i)*me.tapSize
+				,(sng.topMargin+sng.titleHeight)*me.tapSize//
+				,(s-0)*me.tapSize
+				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
+				,me.layLargeBack,'m1_'+Math.round(i/s),left, top, width, height);
+		}
 	}
 	sng.addMediumTiles = function (me, left, top, width, height) {
+		var d32=sng.duration32();
 		var detailRatio = 0.75;
 		sng.addBoundingBox(me, me.layMediumAction, detailRatio * me.lineWidth);
-		sng.addSongTitle(me, left, top, width, height, me.layMediumBack);
-		sng.addMeasureLines(me, left, top, width, height, me.layMediumGrid, detailRatio,1);
+		//sng.addSongTitle(me, left, top, width, height, me.layMediumBack);
+		//sng.addMeasureLines(me, left, top, width, height, me.layMediumGrid, detailRatio,1);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layMediumBack,'plTitle',left, top, width, height);
+		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
+		//	,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layMediumBack,'plNotation',left, top, width, height);
+		for(var i=0;i<5;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//
+				,sng.duration32()*me.tapSize,0.25*me.tapSize,me.layMediumBack,'li'+i,left, top, width, height);
+		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layMediumBack,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layMediumBack,'plChords',left, top, width, height);
+		for(var i=0;i<6;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//
+				,sng.duration32()*me.tapSize,3*me.tapSize,me.layMediumBack,'plFret'+i,left, top, width, height);
+		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layMediumBack,'plPianoroll',left, top, width, height);
+		for(var i=0;i<10;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//
+				,sng.duration32()*me.tapSize,12*me.tapSize,me.layMediumBack,'plOctave'+i,left, top, width, height);
+		}
+		var s=20;
+		for(var i=0;i<d32;i=i+s){
+			//console.log(i);
+			tilePlaceHolder(me
+				,(sng.leftMargin+i)*me.tapSize
+				,(sng.topMargin+sng.titleHeight)*me.tapSize//
+				,(s-0)*me.tapSize
+				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
+				,me.layMediumBack,'m2_'+Math.round(i/s),left, top, width, height);
+		}
+		var h=sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight;
+		for(var nx=0;nx<d32;nx=nx+4){
+				tilePlaceHolder(me
+					,(sng.leftMargin+nx)*me.tapSize//
+					,(sng.topMargin+sng.titleHeight)*me.tapSize//
+					,2*me.tapSize
+					,h*me.tapSize
+					,me.layMediumBack,'v'+nx,left, top, width, height);
+		}
+		for(var ny=0;ny<h;ny=ny+4){
+				tilePlaceHolder(me
+					,sng.leftMargin*me.tapSize//
+					,(sng.topMargin+sng.titleHeight+ny)*me.tapSize//
+					,d32*me.tapSize
+					,2*me.tapSize
+					,me.layMediumBack,'h'+ny,left, top, width, height);
+		}
 	}
 	sng.addSmallTiles = function (me, left, top, width, height) {
+		var d32=sng.duration32();
 		var detailRatio = 0.5;
 		sng.addBoundingBox(me, me.laySmallAction, detailRatio * me.lineWidth);
-		sng.addSongTitle(me, left, top, width, height, me.laySmallBack);
-		sng.addMeasureLines(me, left, top, width, height, me.laySmallGrid, detailRatio,1);
+		//sng.addSongTitle(me, left, top, width, height, me.laySmallBack);
+		//sng.addMeasureLines(me, left, top, width, height, me.laySmallGrid, detailRatio,1);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.laySmallGrid,'plTitle',left, top, width, height);
+		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
+		//	,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.laySmallGrid,'plNotation',left, top, width, height);
+		for(var i=0;i<5;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//
+				,sng.duration32()*me.tapSize,0.25*me.tapSize,me.laySmallGrid,'li'+i,left, top, width, height);
+		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.laySmallGrid,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.laySmallGrid,'plChords',left, top, width, height);
+		for(var i=0;i<6;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//
+				,sng.duration32()*me.tapSize,3*me.tapSize,me.laySmallGrid,'plFret'+i,left, top, width, height);
+		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
+			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.laySmallGrid,'plPianoroll',left, top, width, height);
+		for(var i=0;i<10;i++){
+			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//
+				,sng.duration32()*me.tapSize,12*me.tapSize,me.laySmallGrid,'plOctave'+i,left, top, width, height);
+		}
+		var s=20;
+		for(var i=0;i<d32;i=i+s){
+			//console.log(i);
+			tilePlaceHolder(me
+				,(sng.leftMargin+i)*me.tapSize
+				,(sng.topMargin+sng.titleHeight)*me.tapSize//
+				,(s-0)*me.tapSize
+				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
+				,me.laySmallGrid,'m3_'+Math.round(i/s),left, top, width, height);
+		}
+		var h=sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight;
+		for(var nx=0;nx<d32;nx=nx+2){
+				tilePlaceHolder(me
+					,(sng.leftMargin+nx)*me.tapSize//
+					,(sng.topMargin+sng.titleHeight)*me.tapSize//
+					,me.tapSize
+					,h*me.tapSize
+					,me.laySmallGrid,'v'+nx,left, top, width, height);
+		}
+		for(var ny=0;ny<h;ny=ny+2){
+				tilePlaceHolder(me
+					,sng.leftMargin*me.tapSize//
+					,(sng.topMargin+sng.titleHeight+ny)*me.tapSize//
+					,d32*me.tapSize
+					,me.tapSize
+					,me.laySmallGrid,'h'+ny,left, top, width, height);
+		}
 	}
 	sng.tileTrackLayers = function (me) {
 		/*for(var i=0;i<sng.tracks.length;i++){
