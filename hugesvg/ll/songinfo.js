@@ -1,12 +1,11 @@
 ﻿console.log('songinfo 1.01');
 function SongInfo() {
 	var sng = this;
-	sng.gridColor = '#cccccc';
-	sng.normalColor = '#000000';
-	sng.backColor = '#999999';
-	sng.handlerColor = '#000099';
-	sng.commentColor = '#009900';
-	sng.warningColor = '#990000';
+
+	sng.gridColor = '#eee';
+	sng.backColor = '#ccc';
+	sng.foreColor = '#000';
+	sng.spotColor = '#00f';
 
 	sng.leftMargin = 20;
 	sng.rightMargin = 50;
@@ -15,36 +14,37 @@ function SongInfo() {
 
 	sng.titleHeight = 30;
 	sng.notationHeight = 30;
+	sng.notationTop = 10;
+
 	sng.textHeight = 3;
 	sng.fretHeight = 18;
 	sng.chordsHeight = 5;
 	sng.pianorollHeight = 128;
 	sng.title = 'Some not so long title';
-	sng.tracks = [{
-			name : 'First'
-		}, {
-			name : 'Synth'
-		}, {
-			name : 'Distortion second'
-		}, {
-			name : 'Overdrive third'
-		}, {
-			name : 'Solo'
-		}, {
-			name : 'Rhythm'
-		}, {
-			name : 'Bass fourth'
-		}, {
-			name : 'Drums'
-		}
+	/*sng.tracks = [{
+	name : 'First'
+	}, {
+	name : 'Synth'
+	}, {
+	name : 'Distortion second'
+	}, {
+	name : 'Overdrive third'
+	}, {
+	name : 'Solo'
+	}, {
+	name : 'Rhythm'
+	}, {
+	name : 'Bass fourth'
+	}, {
+	name : 'Drums'
+	}
 	];
 	sng.measures = [];
 	for (var i = 0; i < 300; i++) {
-		sng.measures.push({
-			meter32 : 32,
-			tempo : 120
-			,margin32:0
-		});
+	sng.measures.push({
+	meter32 : 32,
+	tempo : 120,margin32:0
+	});
 	}
 	sng.measures[64].meter32 = 12;
 	sng.measures[128].meter32 = 12;
@@ -54,15 +54,16 @@ function SongInfo() {
 	sng.measures[128].margin32 = 8;
 	sng.measures[192].margin32 = 8;
 	for (var i = 250; i < 270; i++) {
-		sng.measures[i].tempo = 200;
-	}
+	sng.measures[i].tempo = 200;
+	}*/
 	/*sng.trackCount=function(){
 	return 7;
 	};*/
 	sng.duration32 = function () {
 		var m = 0;
-		for (var i = 0; i < sng.measures.length; i++) {
-			m = m + sng.measures[i].meter32+ sng.measures[i].margin32;
+		for (var i = 0; i < song.positions.length; i++) {
+			//m = m + sng.measures[i].meter32+ sng.measures[i].margin32;
+			m = m + 2 * song.positions[i].meter * song.positions[i].by;
 		}
 		//console.log('duration32',m);
 		return m;
@@ -171,226 +172,287 @@ function SongInfo() {
 	sng.addSongTitle = function (me, left, top, width, height, layer) {
 		//var w = me.tapSize * (sng.leftMargin + sng.duration32() + sng.rightMargin);
 		//var h = me.tapSize * (sng.topMargin + sng.titleHeight + sng.bottomMargin);
-		var x=sng.leftMargin * me.tapSize;
-		var y=sng.topMargin * me.tapSize;
+		var x = sng.leftMargin * me.tapSize;
+		var y = sng.topMargin * me.tapSize;
 		var w = me.tapSize * sng.duration32();
 		var h = me.tapSize * sng.titleHeight;
 		if (!me.outOfRect(0, 0, w, h, left, top, width, height)) {
 			if (!me.childExists('title', layer)) {
-				tileTextLabel(x, y, 33 * me.tapSize, sng.title, layer, 'title',sng.gridColor);
+				tileTextLabel(x, y, 33 * me.tapSize, song.name, layer, 'title', sng.backColor);
 			}
 		}
 		//tilePlaceHolder(me,x, y,w-me.tapSize,h-me.tapSize,layer,'plTitle',left, top, width, height);
 	}
-	sng.addMeasureLines = function (me, left, top, width, height, layer, detailRatio,step) {
+	sng.addSmallMediumMeasureLines = function (me, left, top, width, height, layer, detailRatio, step) {
 		var m = 0;
-		for (var i = 0; i < sng.measures.length; i++) {
+		for (var i = 0; i < song.positions.length; i++) {
 			if (i % step == 0) {
-				var h = (sng.notationHeight + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight) * me.tapSize;
+
 				var x = (sng.leftMargin + m) * me.tapSize;
 				var y = (sng.topMargin + sng.titleHeight) * me.tapSize;
 				var w = 5 * me.tapSize;
+				var h = (sng.notationHeight * song.channels.length + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight) * me.tapSize;
+
 				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
 					var id = 'ms' + i;
 					if (!me.childExists(id, layer)) {
-						tileRectangle(sng.gridColor, x, y, me.lineWidth * detailRatio, h, layer, id);
-						tileTextLabel(x, y, me.tapSize * 3 * detailRatio, ' ' + i, layer, id + 't',sng.gridColor);
+						tileRectangle(sng.foreColor, x, y, me.lineWidth * detailRatio, h, layer, id);
+						
+					}
+				}
+				
+				for (var ch = 0; ch < song.channels.length; ch++) {
+					if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					id='t'+i+'x'+ch;
+					if (!me.childExists(id, layer)) {
+					tileTextLabel(x, y+ch*me.tapSize*sng.notationHeight, me.tapSize * 3 * detailRatio, ' ' + i, layer, id , sng.backColor);
+					}}
+				}
+			}
+			//m = m + sng.measures[i].meter32;
+			m = m + 2 * song.positions[i].meter * song.positions[i].by;
+		}
+	}
+	sng.addHugeLargeMeasureLines = function (me, left, top, width, height, layer, detailRatio, step) {
+		var m = 0;
+		for (var i = 0; i < song.positions.length; i++) {
+			if (i % step == 0) {
+
+				var x = (sng.leftMargin + m) * me.tapSize;
+				var y = (sng.topMargin + sng.titleHeight) * me.tapSize;
+				var w = 5 * me.tapSize;
+				var h = (sng.notationHeight * song.channels.length + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight) * me.tapSize;
+
+				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					var id = 'ms' + i;
+					if (!me.childExists(id, layer)) {
+						tileRectangle(sng.foreColor, x, y, me.lineWidth * detailRatio, h, layer, id);
+						tileTextLabel(x, y, me.tapSize * 3 * detailRatio, ' ' + i, layer, id , sng.backColor);
 					}
 				}
 			}
-			m = m + sng.measures[i].meter32;
+			//m = m + sng.measures[i].meter32;
+			m = m + 2 * song.positions[i].meter * song.positions[i].by;
 		}
 	}
+	sng.addHugeNoteLines = function (me, left, top, width, height, layer, detailRatio) {
+		for (var i = 0; i < song.channels.length; i++) {
+			var channel = song.channels[i];
+			var id = 'ntn' + i;
+			var x = me.tapSize * sng.leftMargin;
+			var y = me.tapSize * (sng.topMargin + sng.titleHeight + i * sng.notationHeight + sng.notationTop);
+			var w = sng.duration32() * me.tapSize;
+			var h = 5 * 2 * detailRatio * me.lineWidth;
+			if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+				if (!me.childExists(id, layer)) {
+					tileRectangle(sng.gridColor, x, y, w, h, layer, id);
+				}
+			}
+
+			id = 'ntnlbl' + i;
+			if (!me.childExists(id, layer)) {
+				x = me.tapSize * sng.leftMargin;
+				y = me.tapSize * (sng.topMargin + sng.titleHeight + i * sng.notationHeight + sng.notationTop);
+				w = sng.duration32() * me.tapSize;
+				h = 5 * 2 * detailRatio * me.lineWidth;
+				tileTextLabel(x, y, 0.5*me.tapSize * sng.notationHeight, channel.channel + '/' + channel.track, layer, id, sng.backColor);
+			}
+		}
+	};
+	sng.addNoteLines = function (me, left, top, width, height, layer, detailRatio) {
+		for (var i = 0; i < song.channels.length; i++) {
+			var channel = song.channels[i];
+
+			var x = me.tapSize * sng.leftMargin;
+			var y = me.tapSize * (sng.topMargin + sng.titleHeight + i * sng.notationHeight + sng.notationTop);
+			var w = sng.duration32() * me.tapSize;
+			var h = detailRatio * me.lineWidth;
+			for (var s = 0; s < 5; s++) {
+
+				//console.log(i,y);
+				var id = 'ntn' + i + 'x' + s;
+				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					if (!me.childExists(id, layer)) {
+						tileRectangle(sng.foreColor, x, y, w, h, layer, id);
+						//tilePlaceHolder(me,x,y,w,me.tapSize,layer,id,left, top, width, height);
+					}
+				}
+				y = y + 2 * me.tapSize;
+			}
+			
+			id = 'ntnlbl' + i;
+			if (!me.childExists(id, layer)) {
+				x = me.tapSize * sng.leftMargin;
+				y = me.tapSize * (sng.topMargin + sng.titleHeight + i * sng.notationHeight + sng.notationTop);
+				w = sng.duration32() * me.tapSize;
+				h = 5 * 2 * detailRatio * me.lineWidth;
+				tileTextLabel(x, y, 0.5*me.tapSize * sng.notationHeight, channel.channel + '/' + channel.track, layer, id, sng.backColor);
+			}
+		}
+	};
+	/*sng.addNoteSymbols = function (me, left, top, width, height, layer) {
+		
+	};*/
+	sng.addNoteDots = function (me, left, top, width, height, layer, detailRatio) {
+		var m = 0;
+		for (var i = 0; i < song.positions.length; i++) {
+			for (var ch = 0; ch < song.channels.length; ch++) {
+				var channel = song.channels[ch];
+				var x=(sng.leftMargin+m)* me.tapSize;
+				var y= (sng.topMargin + sng.titleHeight+ch*sng.notationHeight) * me.tapSize;
+				var w=2 * song.positions[i].meter * song.positions[i].by* me.tapSize/5;
+				var h=sng.notationHeight* me.tapSize/5;
+				var id='msr'+i+'x'+ch;
+				tilePlaceHolder(me,x, y, w, h, layer, id,left,top,width,height);
+			}
+			m = m + 2 * song.positions[i].meter * song.positions[i].by;
+		}
+	};
 	sng.addBoundingBox = function (me, layer, s) {
 		var id = 'boundingBox';
 		if (!me.childExists(id, layer)) {
 			var w = (sng.leftMargin + sng.duration32() + sng.rightMargin) * me.tapSize;
-			var h = (sng.topMargin + sng.titleHeight + sng.notationHeight + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight + sng.bottomMargin) * me.tapSize;
-			tileRectangle('#ff0000', 0, 0, w, s, layer, id);
-			tileRectangle('#ff0000', 0, h, w, s, layer, id + 'a');
-			tileRectangle('#ff0000', 0, 0, s, h, layer, id + 'b');
-			tileRectangle('#ff0000', w, 0, s, h, layer, id + 'c');
+			var h = (sng.topMargin + sng.titleHeight + sng.notationHeight * song.channels.length + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight + sng.bottomMargin) * me.tapSize;
+			tileRectangle(sng.spotColor, 0, 0, w, s, layer, id);
+			tileRectangle(sng.spotColor, 0, h, w, s, layer, id + 'a');
+			tileRectangle(sng.spotColor, 0, 0, s, h, layer, id + 'b');
+			tileRectangle(sng.spotColor, w, 0, s, h, layer, id + 'c');
 		}
 	};
 	sng.addHugeTiles = function (me, left, top, width, height) {
-		var d32=sng.duration32();
+		var d32 = sng.duration32();
 		var detailRatio = 30;
 		sng.addBoundingBox(me, me.layHugeFront, detailRatio * me.lineWidth);
-		//sng.addSongTitle(me, left, top, width, height, me.layHugeBack);
-		//sng.addMeasureLines(me, left, top, width, height, me.layHugeBack, detailRatio,10);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layHugeBack,'plTitle',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layHugeBack,'plNotation',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layHugeBack,'plText',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layHugeBack,'plChords',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.fretHeight*me.tapSize,me.layHugeBack,'plFret',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layHugeBack,'plPianoroll',left, top, width, height);
+		sng.addSongTitle(me, left, top, width, height, me.layHugeBack);
+
+		sng.addHugeLargeMeasureLines(me, left, top, width, height, me.layHugeBack, detailRatio, 10);
+		sng.addHugeNoteLines(me, left, top, width, height, me.layHugeBack, detailRatio);
+
+		/*
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layHugeBack,'plTitle',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layHugeBack,'plNotation',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layHugeBack,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layHugeBack,'plChords',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.fretHeight*me.tapSize,me.layHugeBack,'plFret',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layHugeBack,'plPianoroll',left, top, width, height);
 		var s=200;
 		for(var i=0;i<d32;i=i+s){
-			//console.log(i);
-			tilePlaceHolder(me
-				,(sng.leftMargin+i)*me.tapSize
-				,(sng.topMargin+sng.titleHeight)*me.tapSize//
-				,(s-0)*me.tapSize
-				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
-				,me.layHugeBack,'m0_'+Math.round(i/s),left, top, width, height);
-		}
+		//console.log(i);
+		tilePlaceHolder(me,(sng.leftMargin+i)*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,(s-0)*me.tapSize,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize,me.layHugeBack,'m0_'+Math.round(i/s),left, top, width, height);
+		}*/
 	}
 	sng.addLargeTiles = function (me, left, top, width, height) {
-		var d32=sng.duration32();
+		var d32 = sng.duration32();
 		var detailRatio = 3;
 		sng.addBoundingBox(me, me.layLargeAction, detailRatio * me.lineWidth);
-		//sng.addSongTitle(me, left, top, width, height, me.layLargeBack);
-		//sng.addMeasureLines(me, left, top, width, height, me.layLargeBack, detailRatio,1);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layLargeBack,'plTitle',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layLargeBack,'plNotation',left, top, width, height);
+		sng.addSongTitle(me, left, top, width, height, me.layLargeBack);
+
+		sng.addHugeLargeMeasureLines(me, left, top, width, height, me.layLargeBack, detailRatio, 1);
+		sng.addNoteLines(me, left, top, width, height, me.layLargeBack, detailRatio);
+
+		sng.addNoteDots(me, left, top, width, height, me.layLargeContent, detailRatio);
+
+		/*
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layLargeBack,'plTitle',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layLargeBack,'plNotation',left, top, width, height);
 		for(var i=0;i<5;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//
-				,sng.duration32()*me.tapSize,0.25*me.tapSize,me.layLargeBack,'li'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//,sng.duration32()*me.tapSize,0.25*me.tapSize,me.layLargeBack,'li'+i,left, top, width, height);
 		}
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layLargeBack,'plText',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layLargeBack,'plChords',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layLargeBack,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layLargeBack,'plChords',left, top, width, height);
 		for(var i=0;i<6;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//
-				,sng.duration32()*me.tapSize,3*me.tapSize,me.layLargeBack,'plFret'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//,sng.duration32()*me.tapSize,3*me.tapSize,me.layLargeBack,'plFret'+i,left, top, width, height);
 		}
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layLargeBack,'plPianoroll',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layLargeBack,'plPianoroll',left, top, width, height);
 		for(var i=0;i<10;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//
-				,sng.duration32()*me.tapSize,12*me.tapSize,me.layLargeBack,'plOctave'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//,sng.duration32()*me.tapSize,12*me.tapSize,me.layLargeBack,'plOctave'+i,left, top, width, height);
 		}
 		var s=20;
 		for(var i=0;i<d32;i=i+s){
-			//console.log(i);
-			tilePlaceHolder(me
-				,(sng.leftMargin+i)*me.tapSize
-				,(sng.topMargin+sng.titleHeight)*me.tapSize//
-				,(s-0)*me.tapSize
-				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
-				,me.layLargeBack,'m1_'+Math.round(i/s),left, top, width, height);
-		}
+		//console.log(i);
+		tilePlaceHolder(me,(sng.leftMargin+i)*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,(s-0)*me.tapSize,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize,me.layLargeBack,'m1_'+Math.round(i/s),left, top, width, height);
+		}*/
 	}
 	sng.addMediumTiles = function (me, left, top, width, height) {
-		var d32=sng.duration32();
+		var d32 = sng.duration32();
 		var detailRatio = 0.75;
 		sng.addBoundingBox(me, me.layMediumAction, detailRatio * me.lineWidth);
-		//sng.addSongTitle(me, left, top, width, height, me.layMediumBack);
-		//sng.addMeasureLines(me, left, top, width, height, me.layMediumGrid, detailRatio,1);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layMediumBack,'plTitle',left, top, width, height);
+		sng.addSongTitle(me, left, top, width, height, me.layMediumBack);
+
+		sng.addSmallMediumMeasureLines(me, left, top, width, height, me.layMediumGrid, detailRatio, 1);
+		sng.addNoteLines(me, left, top, width, height, me.layMediumBack, detailRatio);
+
+		sng.addNoteDots(me, left, top, width, height, me.layMediumContent, detailRatio);
+
+		/*
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layMediumBack,'plTitle',left, top, width, height);
 		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
 		//	,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layMediumBack,'plNotation',left, top, width, height);
 		for(var i=0;i<5;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//
-				,sng.duration32()*me.tapSize,0.25*me.tapSize,me.layMediumBack,'li'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//,sng.duration32()*me.tapSize,0.25*me.tapSize,me.layMediumBack,'li'+i,left, top, width, height);
 		}
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layMediumBack,'plText',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layMediumBack,'plChords',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.layMediumBack,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.layMediumBack,'plChords',left, top, width, height);
 		for(var i=0;i<6;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//
-				,sng.duration32()*me.tapSize,3*me.tapSize,me.layMediumBack,'plFret'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//,sng.duration32()*me.tapSize,3*me.tapSize,me.layMediumBack,'plFret'+i,left, top, width, height);
 		}
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layMediumBack,'plPianoroll',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.layMediumBack,'plPianoroll',left, top, width, height);
 		for(var i=0;i<10;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//
-				,sng.duration32()*me.tapSize,12*me.tapSize,me.layMediumBack,'plOctave'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//,sng.duration32()*me.tapSize,12*me.tapSize,me.layMediumBack,'plOctave'+i,left, top, width, height);
 		}
 		var s=20;
 		for(var i=0;i<d32;i=i+s){
-			//console.log(i);
-			tilePlaceHolder(me
-				,(sng.leftMargin+i)*me.tapSize
-				,(sng.topMargin+sng.titleHeight)*me.tapSize//
-				,(s-0)*me.tapSize
-				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
-				,me.layMediumBack,'m2_'+Math.round(i/s),left, top, width, height);
+		//console.log(i);
+		tilePlaceHolder(me,(sng.leftMargin+i)*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,(s-0)*me.tapSize,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize,me.layMediumBack,'m2_'+Math.round(i/s),left, top, width, height);
 		}
 		var h=sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight;
 		for(var nx=0;nx<d32;nx=nx+4){
-				tilePlaceHolder(me
-					,(sng.leftMargin+nx)*me.tapSize//
-					,(sng.topMargin+sng.titleHeight)*me.tapSize//
-					,2*me.tapSize
-					,h*me.tapSize
-					,me.layMediumBack,'v'+nx,left, top, width, height);
+		tilePlaceHolder(me,(sng.leftMargin+nx)*me.tapSize//,(sng.topMargin+sng.titleHeight)*me.tapSize//,2*me.tapSize,h*me.tapSize,me.layMediumBack,'v'+nx,left, top, width, height);
 		}
 		for(var ny=0;ny<h;ny=ny+4){
-				tilePlaceHolder(me
-					,sng.leftMargin*me.tapSize//
-					,(sng.topMargin+sng.titleHeight+ny)*me.tapSize//
-					,d32*me.tapSize
-					,2*me.tapSize
-					,me.layMediumBack,'h'+ny,left, top, width, height);
-		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize//,(sng.topMargin+sng.titleHeight+ny)*me.tapSize//,d32*me.tapSize,2*me.tapSize,me.layMediumBack,'h'+ny,left, top, width, height);
+		}*/
 	}
 	sng.addSmallTiles = function (me, left, top, width, height) {
-		var d32=sng.duration32();
+		var d32 = sng.duration32();
 		var detailRatio = 0.5;
+
 		sng.addBoundingBox(me, me.laySmallAction, detailRatio * me.lineWidth);
-		//sng.addSongTitle(me, left, top, width, height, me.laySmallBack);
-		//sng.addMeasureLines(me, left, top, width, height, me.laySmallGrid, detailRatio,1);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.laySmallGrid,'plTitle',left, top, width, height);
+
+		sng.addSongTitle(me, left, top, width, height, me.laySmallBack);
+		sng.addSmallMediumMeasureLines(me, left, top, width, height, me.laySmallGrid, detailRatio, 1);
+		sng.addNoteLines(me, left, top, width, height, me.laySmallBack, detailRatio);
+
+		sng.addNoteDots(me, left, top, width, height, me.laySmallContent, detailRatio);
+
+		/*
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.laySmallGrid,'plTitle',left, top, width, height);
 		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
 		//	,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.laySmallGrid,'plNotation',left, top, width, height);
 		for(var i=0;i<5;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//
-				,sng.duration32()*me.tapSize,0.25*me.tapSize,me.laySmallGrid,'li'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+10+i*2)*me.tapSize//,sng.duration32()*me.tapSize,0.25*me.tapSize,me.laySmallGrid,'li'+i,left, top, width, height);
 		}
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.laySmallGrid,'plText',left, top, width, height);
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.laySmallGrid,'plChords',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.textHeight*me.tapSize,me.laySmallGrid,'plText',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.chordsHeight*me.tapSize,me.laySmallGrid,'plChords',left, top, width, height);
 		for(var i=0;i<6;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//
-				,sng.duration32()*me.tapSize,3*me.tapSize,me.laySmallGrid,'plFret'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+i*3)*me.tapSize//,sng.duration32()*me.tapSize,3*me.tapSize,me.laySmallGrid,'plFret'+i,left, top, width, height);
 		}
-		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//
-			,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.laySmallGrid,'plPianoroll',left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.pianorollHeight*me.tapSize,me.laySmallGrid,'plPianoroll',left, top, width, height);
 		for(var i=0;i<10;i++){
-			tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//
-				,sng.duration32()*me.tapSize,12*me.tapSize,me.laySmallGrid,'plOctave'+i,left, top, width, height);
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight+sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight-12*(i+1))*me.tapSize//,sng.duration32()*me.tapSize,12*me.tapSize,me.laySmallGrid,'plOctave'+i,left, top, width, height);
 		}
 		var s=20;
 		for(var i=0;i<d32;i=i+s){
-			//console.log(i);
-			tilePlaceHolder(me
-				,(sng.leftMargin+i)*me.tapSize
-				,(sng.topMargin+sng.titleHeight)*me.tapSize//
-				,(s-0)*me.tapSize
-				,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize
-				,me.laySmallGrid,'m3_'+Math.round(i/s),left, top, width, height);
+		//console.log(i);
+		tilePlaceHolder(me,(sng.leftMargin+i)*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,(s-0)*me.tapSize,(sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight)*me.tapSize,me.laySmallGrid,'m3_'+Math.round(i/s),left, top, width, height);
 		}
 		var h=sng.notationHeight+sng.textHeight+sng.chordsHeight+sng.fretHeight+sng.pianorollHeight;
 		for(var nx=0;nx<d32;nx=nx+2){
-				tilePlaceHolder(me
-					,(sng.leftMargin+nx)*me.tapSize//
-					,(sng.topMargin+sng.titleHeight)*me.tapSize//
-					,me.tapSize
-					,h*me.tapSize
-					,me.laySmallGrid,'v'+nx,left, top, width, height);
+		tilePlaceHolder(me,(sng.leftMargin+nx)*me.tapSize//,(sng.topMargin+sng.titleHeight)*me.tapSize//,me.tapSize,h*me.tapSize,me.laySmallGrid,'v'+nx,left, top, width, height);
 		}
 		for(var ny=0;ny<h;ny=ny+2){
-				tilePlaceHolder(me
-					,sng.leftMargin*me.tapSize//
-					,(sng.topMargin+sng.titleHeight+ny)*me.tapSize//
-					,d32*me.tapSize
-					,me.tapSize
-					,me.laySmallGrid,'h'+ny,left, top, width, height);
-		}
+		tilePlaceHolder(me,sng.leftMargin*me.tapSize//,(sng.topMargin+sng.titleHeight+ny)*me.tapSize//,d32*me.tapSize,me.tapSize,me.laySmallGrid,'h'+ny,left, top, width, height);
+		}*/
 	}
 	sng.tileTrackLayers = function (me) {
 		/*for(var i=0;i<sng.tracks.length;i++){

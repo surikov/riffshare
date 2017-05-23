@@ -709,7 +709,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 
 	me.setSize(//
 		me.tapSize * (me.songInfo.duration32() + me.songInfo.leftMargin + me.songInfo.rightMargin) //
-	, me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) //
+	, me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight*song.channels.length + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) //
 	);
 	attachTapMouse(me);
 	me.adjustCountentPosition();
