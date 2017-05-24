@@ -293,19 +293,79 @@ function SongInfo() {
 	/*sng.addNoteSymbols = function (me, left, top, width, height, layer) {
 		
 	};*/
+	sng.findMotif=function(id,song){
+		for(var i=0;i<song.motifs.length;i++){
+			if(song.motifs[i].id==id){
+				return song.motifs[i];
+			}
+		}
+		return null;
+	};
+	sng.addMotif=function(me,id,x,y,motif,layer){
+		for(var c=0;c<motif.chords.length;c++){
+			var chord=motif.chords[c];
+			for(var n=0;n<chord.notes.length;n++){
+				var note=chord.notes[n];
+				//console.log(note);
+				var svgns = "http://www.w3.org/2000/svg";
+				var g = document.createElementNS(svgns, 'g');
+				g.id=id;
+				layer.appendChild(g);
+				/*
+				var rect = document.createElementNS(svgns, 'rect');
+				rect.setAttributeNS(null, 'x', x);
+				rect.setAttributeNS(null, 'y', y);
+				rect.setAttributeNS(null, 'height', me.tapSize);
+				rect.setAttributeNS(null, 'width', me.tapSize);
+				rect.setAttributeNS(null, 'fill', sng.foreColor);//'#' + Math.round(0xffffff * Math.random()).toString(16));
+				//me.contentSVG.appendChild(rect);
+				g.appendChild(rect);
+				
+				key:57 l6th:1 string:3
+				*/
+				
+				var shape = document.createElementNS(svgns, 'circle');
+				shape.setAttributeNS(null, 'cx', x+me.tapSize/2+chord.start*2*me.tapSize);
+				shape.setAttributeNS(null, 'cy', y+me.tapSize/2+me.tapSize*(sng.notationHeight-note.key/4));
+				shape.setAttributeNS(null, 'r', me.tapSize);
+				shape.setAttributeNS(null, 'fill', sng.backColor);
+				shape.setAttributeNS(null, 'stroke', sng.foreColor);
+				shape.setAttributeNS(null, 'stroke-width', me.tapSize/3);
+				g.appendChild(shape);
+			}
+		}
+	};
 	sng.addNoteDots = function (me, left, top, width, height, layer, detailRatio) {
+		//console.log(layer);
 		var m = 0;
 		for (var i = 0; i < song.positions.length; i++) {
+			var position=song.positions[i];
 			for (var ch = 0; ch < song.channels.length; ch++) {
 				var channel = song.channels[ch];
+				//console.log(channel);
 				var x=(sng.leftMargin+m)* me.tapSize;
 				var y= (sng.topMargin + sng.titleHeight+ch*sng.notationHeight) * me.tapSize;
-				var w=2 * song.positions[i].meter * song.positions[i].by* me.tapSize/5;
-				var h=sng.notationHeight* me.tapSize/5;
-				var id='msr'+i+'x'+ch;
-				tilePlaceHolder(me,x, y, w, h, layer, id,left,top,width,height);
+				var w=2 * position.meter * position.by* me.tapSize;
+				var h=sng.notationHeight* me.tapSize;
+				//var id='msr'+i+'x'+ch;
+				//tilePlaceHolder(me,x, y, w, h, layer, id,left,top,width,height);
+				//console.log(song.positions[i]);
+				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					//tilePlaceHolder(me,x, y, w, h, layer, id,left,top,width,height);
+					//console.log(i,':',x, y, w, h,'x',left,top,width,height,position);
+					for(var n=0;n<position.motifs.length;n++){
+						var motif=position.motifs[n];
+						if(motif.channel==channel.id){
+							//console.log('motif',sng.findMotif(motif.motif,song));
+							var id='p'+i+'c'+ch+'m'+motif.motif;
+							if (!me.childExists(id, layer)) {
+								sng.addMotif(me,id,x,y,sng.findMotif(motif.motif,song),layer);
+							}
+						}
+					}
+				}
 			}
-			m = m + 2 * song.positions[i].meter * song.positions[i].by;
+			m = m + 2 * position.meter * position.by;
 		}
 	};
 	sng.addBoundingBox = function (me, layer, s) {
@@ -349,7 +409,7 @@ function SongInfo() {
 
 		sng.addHugeLargeMeasureLines(me, left, top, width, height, me.layLargeBack, detailRatio, 1);
 		sng.addNoteLines(me, left, top, width, height, me.layLargeBack, detailRatio);
-
+//console.log(me.layLargeContent);
 		sng.addNoteDots(me, left, top, width, height, me.layLargeContent, detailRatio);
 
 		/*

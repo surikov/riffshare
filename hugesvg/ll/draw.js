@@ -12,6 +12,7 @@ function addSVGRectangle(me, x, y, w, h, to) {
 	target.appendChild(rect);
 	return rect;
 };
+
 function tileRectangle( color,x, y, w, h, layer, id) {
 	var rect = document.createElementNS(svgns, 'rect');
 	rect.setAttributeNS(null, 'x', x);
