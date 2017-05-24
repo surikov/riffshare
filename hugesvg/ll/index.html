@@ -8,9 +8,10 @@
 		<script type="text/javascript" src="songinfo.js"></script>
 		<script type="text/javascript" src="song2.js"></script>
 		<script type="text/javascript">
+			var rv=null;
 			function startInit2(){
 				console.log('start init v1.1');
-				var rv = new RakeView('rakeDiv', 'contentDiv', 'contentSVG', 200, 300);
+				rv = new RakeView('rakeDiv', 'contentDiv', 'contentSVG', 200, 300);
 				console.log('song',song);
 				//rv.adjustCountentPosition();
 				//rv.reDraw();
@@ -21,10 +22,18 @@
 				//var r=addSVGRectangle(rv, 0, 0, rv.innerWidth, rv.innerHeight,rv.layerBackground);
 				//console.log('test',r);
 			}
+			window.onresize =function (){
+				
+				if(rv){
+					
+					rv.resize();
+				}
+			};
+			console.log(window.onresize);
 		</script>
-		<title>35</title>
+		<title>36</title>
 	</head>
-	<body onload="startInit2();" style='background-color:#00f;padding:0px;margin:0px;'>
+	<body onload="startInit2();" style='background-color:#00f;padding:0px;margin:0px;' ">
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#0f0; overflow:hidden;" >
 			<div id="contentDiv" style="width:100%; height:100%; background-color:#fff;padding:0px margin:0px;" >
 				<svg id="contentSVG" viewBox="0 0 100 100">

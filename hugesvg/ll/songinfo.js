@@ -220,14 +220,16 @@ function SongInfo() {
 
 				var x = (sng.leftMargin + m) * me.tapSize;
 				var y = (sng.topMargin + sng.titleHeight) * me.tapSize;
-				var w = 5 * me.tapSize;
+				var w = me.lineWidth * detailRatio;
 				var h = (sng.notationHeight * song.channels.length + sng.textHeight + sng.fretHeight + sng.chordsHeight + sng.pianorollHeight) * me.tapSize;
 
 				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
 					var id = 'ms' + i;
+					
 					if (!me.childExists(id, layer)) {
-						tileRectangle(sng.foreColor, x, y, me.lineWidth * detailRatio, h, layer, id);
-						tileTextLabel(x, y, me.tapSize * 3 * detailRatio, ' ' + i, layer, id , sng.backColor);
+						//console.log(id);
+						tileRectangle(sng.foreColor, x, y, w, h, layer, id);
+						tileTextLabel(x, y, me.tapSize * 3 * detailRatio, ' ' + i, layer, id+'t' , sng.backColor);
 					}
 				}
 			}
@@ -301,16 +303,28 @@ function SongInfo() {
 		}
 		return null;
 	};
+	sng.pitch12to7=function( pitch){
+		var octave=Math.floor(pitch/12);
+		var n12=[0,0,1,1,2,3,3,4,4,5,5,6];
+		var idx=pitch%12;
+		var r=n12[idx];
+		var n7=octave*7+r;
+		//console.log(pitch,'/',octave,'* 12 +',idx,'=',octave,'* 7 +',r,'/',n7);
+		return n7;
+	};
 	sng.addMotif=function(me,id,x,y,motif,layer){
+		if(motif.chords.length>0){
+		//console.log('addMotif',id);
+		var svgns = "http://www.w3.org/2000/svg";
+				var g = document.createElementNS(svgns, 'g');
+				g.id=id;
+				layer.appendChild(g);
 		for(var c=0;c<motif.chords.length;c++){
 			var chord=motif.chords[c];
 			for(var n=0;n<chord.notes.length;n++){
 				var note=chord.notes[n];
 				//console.log(note);
-				var svgns = "http://www.w3.org/2000/svg";
-				var g = document.createElementNS(svgns, 'g');
-				g.id=id;
-				layer.appendChild(g);
+				
 				/*
 				var rect = document.createElementNS(svgns, 'rect');
 				rect.setAttributeNS(null, 'x', x);
@@ -325,15 +339,15 @@ function SongInfo() {
 				*/
 				
 				var shape = document.createElementNS(svgns, 'circle');
-				shape.setAttributeNS(null, 'cx', x+me.tapSize/2+chord.start*2*me.tapSize);
-				shape.setAttributeNS(null, 'cy', y+me.tapSize/2+me.tapSize*(sng.notationHeight-note.key/4));
-				shape.setAttributeNS(null, 'r', me.tapSize);
+				shape.setAttributeNS(null, 'cx', x+chord.start*2*me.tapSize+me.tapSize*1);
+				shape.setAttributeNS(null, 'cy', y+me.tapSize*(sng.notationHeight-sng.pitch12to7(note.key)+3*7-3));
+				shape.setAttributeNS(null, 'r', me.tapSize/2);
 				shape.setAttributeNS(null, 'fill', sng.backColor);
 				shape.setAttributeNS(null, 'stroke', sng.foreColor);
 				shape.setAttributeNS(null, 'stroke-width', me.tapSize/3);
 				g.appendChild(shape);
 			}
-		}
+		}}
 	};
 	sng.addNoteDots = function (me, left, top, width, height, layer, detailRatio) {
 		//console.log(layer);
@@ -357,8 +371,9 @@ function SongInfo() {
 						var motif=position.motifs[n];
 						if(motif.channel==channel.id){
 							//console.log('motif',sng.findMotif(motif.motif,song));
-							var id='p'+i+'c'+ch+'m'+motif.motif;
+							var id='mtf'+i+'c'+ch+'m'+motif.motif;
 							if (!me.childExists(id, layer)) {
+								
 								sng.addMotif(me,id,x,y,sng.findMotif(motif.motif,song),layer);
 							}
 						}

@@ -481,7 +481,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			return false;
 
 			}*/
-			return me.outOfView(tbb.x, tbb.y, tbb.width, tbb.height, x, y, w, h);
+			return me.outOfRect(tbb.x, tbb.y, tbb.width, tbb.height, x, y, w, h);
 		} else {
 
 			return true;
@@ -706,11 +706,13 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	//me.rakeDiv.addEventListener('mousedown', me.rakeMouseDown, false);
 	//me.rakeDiv.addEventListener("mousewheel", me.rakeMouseWheel, false);
 	//me.rakeDiv.addEventListener("DOMMouseScroll", me.rakeMouseWheel, false);
-
+me.resize=function(){
 	me.setSize(//
 		me.tapSize * (me.songInfo.duration32() + me.songInfo.leftMargin + me.songInfo.rightMargin) //
 	, me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight*song.channels.length + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) //
 	);
+};
+	me.resize();
 	attachTapMouse(me);
 	me.adjustCountentPosition();
 	return me;
