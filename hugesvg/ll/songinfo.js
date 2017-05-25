@@ -21,6 +21,7 @@ function SongInfo() {
 	sng.chordsHeight = 5;
 	sng.pianorollHeight = 128;
 	sng.title = 'Some not so long title';
+	sng.selectedChannel=4;
 	/*sng.tracks = [{
 	name : 'First'
 	}, {
@@ -238,6 +239,21 @@ function SongInfo() {
 			m = m + 2 * song.positions[i].meter * song.positions[i].by;
 		}
 	}
+	sng.addHugeFretLines = function (me, left, top, width, height, layer, detailRatio) {
+		var channel = song.channels[sng.selectedChannel];
+		var id = 'frt';
+		var x = me.tapSize * sng.leftMargin;
+		var y = me.tapSize * (sng.topMargin + sng.titleHeight + song.channels.length * sng.notationHeight );
+		var w = sng.duration32() * me.tapSize;
+		var h = channel.string.length*me.tapSize*3;
+		//console.log(x, y, w, h);
+		if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+				if (!me.childExists(id, layer)) {
+					tileRectangle(sng.gridColor, x, y, w, h, layer, id);
+				}
+			}
+
+	}
 	sng.addHugeNoteLines = function (me, left, top, width, height, layer, detailRatio) {
 		for (var i = 0; i < song.channels.length; i++) {
 			var channel = song.channels[i];
@@ -259,6 +275,23 @@ function SongInfo() {
 				w = sng.duration32() * me.tapSize;
 				h = 5 * 2 * detailRatio * me.lineWidth;
 				tileTextLabel(x, y, 0.5 * me.tapSize * sng.notationHeight, channel.channel + '/' + channel.track, layer, id, sng.backColor);
+			}
+		}
+	};
+	sng.addFretLines = function (me, left, top, width, height, layer, detailRatio) {
+		var channel = song.channels[sng.selectedChannel];
+		var id = 'frt';
+		var x = me.tapSize * sng.leftMargin;
+		
+		var w = sng.duration32() * me.tapSize;
+		var h = detailRatio * me.lineWidth;
+		for(var i=0;i<channel.string.length;i++){
+			var id = 'frt'+i;
+			var y = me.tapSize * (sng.topMargin + sng.titleHeight + song.channels.length * sng.notationHeight +i*3);
+			if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+				if (!me.childExists(id, layer)) {
+					tileRectangle(sng.foreColor, x, y, w, h, layer, id);
+				}
 			}
 		}
 	};
@@ -313,6 +346,57 @@ function SongInfo() {
 		//console.log(pitch,'/',octave,'* 12 +',idx,'=',octave,'* 7 +',r,'/',n7);
 		return n7;
 	};
+	sng.channelStringKey=function(order,channel){
+		for(var i=0;i<channel.string.length;i++){
+			if(channel.string[i].order==order){
+				return channel.string[i].pitch;
+			}
+		}
+	};
+	sng.addFretMotif = function (me, id, x, y, motif, layer,offset,channel) {
+		if (motif.chords.length > 0) {
+			var svgns = "http://www.w3.org/2000/svg";
+			var g = document.createElementNS(svgns, 'g');
+			g.id = id;
+			layer.appendChild(g);
+			for (var c = 0; c < motif.chords.length; c++) {
+				var chord = motif.chords[c];
+				for (var n = 0; n < chord.notes.length; n++) {
+					
+					
+					var note = chord.notes[n];
+					
+					var ny=y + me.tapSize * (sng.fretHeight - (channel.string.length-note.string-1)*3);
+					
+					var shape = document.createElementNS(svgns, 'circle');
+					shape.setAttributeNS(null, 'cx', x + chord.start * 2 * me.tapSize + me.tapSize * 1);
+					shape.setAttributeNS(null, 'cy', ny);
+					shape.setAttributeNS(null, 'r', me.tapSize *1.5);
+					shape.setAttributeNS(null, 'fill', sng.foreColor);
+					//shape.setAttributeNS(null, 'stroke', sng.foreColor);
+					//shape.setAttributeNS(null, 'stroke-width', me.tapSize / 3);
+					g.appendChild(shape);
+					
+					var t=''+(note.key-offset-sng.channelStringKey(note.string,channel));
+					//console.log(note.string,channel.string);
+					var txt = document.createElementNS(me.svgns, 'text');
+					txt.setAttributeNS(null, 'x', x + chord.start * 2 * me.tapSize + me.tapSize * 0.25);
+					txt.setAttributeNS(null, 'y', ny);
+					txt.setAttributeNS(null, 'font-size', me.tapSize*3);
+					txt.setAttributeNS(null, 'alignment-baseline', 'middle');//'text-before-edge');
+					txt.setAttributeNS(null, 'fill', sng.gridColor);
+					txt.setAttributeNS(null, 'stroke', sng.foreColor);
+					txt.setAttributeNS(null, 'stroke-width', me.tapSize / 27);
+					txt.innerHTML = t;
+					g.appendChild(txt);
+					
+					
+					//console.log();
+				}
+			}
+		}
+	};
+	
 	sng.addMotif = function (me, id, x, y, motif, layer,offset) {
 		if (motif.chords.length > 0) {
 			//console.log('addMotif',id);
@@ -355,6 +439,42 @@ function SongInfo() {
 		//console.log(clef);
 		if(clef==2)return -20;
 		return 0;
+	};
+	
+	sng.addFretDots = function (me, left, top, width, height, layer, detailRatio) {
+		var m = 0;
+		for (var i = 0; i < song.positions.length; i++) {
+			var position = song.positions[i];
+			//console.log(position);
+			//for (var ch = 0; ch < song.channels.length; ch++) {
+				//var channel = song.channels[ch];
+				//console.log(channel);
+				var channel = song.channels[sng.selectedChannel];
+				var x = (sng.leftMargin + m) * me.tapSize;
+				var y = (sng.topMargin + sng.titleHeight + song.channels.length * sng.notationHeight) * me.tapSize;
+				var w = 2 * position.meter * position.by * me.tapSize;
+				var h = sng.fretHeight * me.tapSize;
+				//var id='msr'+i+'x'+ch;
+				//tilePlaceHolder(me,x, y, w, h, layer, id,left,top,width,height);
+				//console.log(song.positions[i]);
+				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					//tilePlaceHolder(me,x, y, w, h, layer, id,left,top,width,height);
+					//console.log(i,':',x, y, w, h,'x',left,top,width,height,position);
+					for (var n = 0; n < position.motifs.length; n++) {
+						var motif = position.motifs[n];
+						if (motif.channel == channel.id) {
+							//console.log('motif',sng.findMotif(motif.motif,song));
+							var id = 'frenotes' + i + 'c' + sng.selectedChannel + 'm' + motif.motif;
+							if (!me.childExists(id, layer)) {
+sng.addFretMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.offset+sng.cleffOffset(motif.clef),channel);
+								//sng.addMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.offset+sng.cleffOffset(motif.clef));
+							}
+						}
+					}
+				}
+			//}
+			m = m + 2 * position.meter * position.by;
+		}
 	};
 	sng.addNoteDots = function (me, left, top, width, height, layer, detailRatio) {
 		//console.log(layer);
@@ -410,6 +530,7 @@ function SongInfo() {
 
 		sng.addHugeLargeMeasureLines(me, left, top, width, height, me.layHugeBack, detailRatio, 10);
 		sng.addHugeNoteLines(me, left, top, width, height, me.layHugeBack, detailRatio);
+		sng.addHugeFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
 
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layHugeBack,'plTitle',left, top, width, height);
@@ -434,7 +555,8 @@ function SongInfo() {
 		sng.addNoteLines(me, left, top, width, height, me.layLargeBack, detailRatio);
 		//console.log(me.layLargeContent);
 		sng.addNoteDots(me, left, top, width, height, me.layLargeContent, detailRatio);
-
+		sng.addFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
+sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layLargeBack,'plTitle',left, top, width, height);
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layLargeBack,'plNotation',left, top, width, height);
@@ -466,7 +588,8 @@ function SongInfo() {
 		sng.addNoteLines(me, left, top, width, height, me.layMediumBack, detailRatio);
 
 		sng.addNoteDots(me, left, top, width, height, me.layMediumContent, detailRatio);
-
+sng.addFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
+sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layMediumBack,'plTitle',left, top, width, height);
 		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
@@ -507,7 +630,8 @@ function SongInfo() {
 		sng.addNoteLines(me, left, top, width, height, me.laySmallBack, detailRatio);
 
 		sng.addNoteDots(me, left, top, width, height, me.laySmallContent, detailRatio);
-
+sng.addFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
+sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.laySmallGrid,'plTitle',left, top, width, height);
 		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
