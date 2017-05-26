@@ -150,15 +150,326 @@ Next
 
 
 -- -- Beat and tempo
+
+Beat and tempo
+
+What's a "beat?"
+
+People commonly use the word "beat" to mean "a pattern (or rhythm) played by drums." The thing you're making when you create and play patterns in these lessons is "a beat."
+
+But, confusingly, there's another use of the word "beat," which means "a regular, repeating pulse that underlies a musical pattern." People tap their foot along with "the beat" in this context.
+
+Tempo
+
+The speed at which your patterns play back is called the tempo. Tempo is measured in beats per minute or BPM. So if we talk about a piece of music being "at 120 BPM," we mean that there are 120 beats (pulses) every minute.
+
+Some types of musical patterns have a very clear underlying beat, while others have a more subtle or implied one. To hear a steady beat, add notes on the Kick line at the positions labeled 1, 5, 9, and 13.
+
+
+Reset
+Clear
+Export to Live
+Tempo: 85 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+ This pattern is so common that it even has its own name: "four on the floor."
+
+Now try adding some notes for the top three rows, but leave the Kick row alone. Notice that no matter what you do in the other rows, the steady pattern in the Kick line makes it really hard to lose the sense of clear pulse.
+
+
+
+
 -- -- Tempo and genre
+
+
+Tempo and genre
+
+The style (or genre) of a piece of music is determined by a number of factors, including the types of sounds and patterns used, and also the tempo.
+
+You probably have some idea about the genre of a song when you hear it, just based on your experiences as a music listener. Here are "typical" tempo ranges for a number of common genres:
+
+Dub: 60-90 bpm
+Hip-hop: 60-100 bpm
+House: 115-130 bpm
+Techno/trance: 120-140 bpm
+Dubstep: 135-145 bpm
+Drum and bass: 160-180 bpm
+Try adjusting the tempo while this beat plays and listen to how it changes character, even if the pattern stays exactly the same.
+
+
+
+
+
 -- -- Backbeats
+
+Backbeats
+
+In the empty grid below, do the following:
+
+Create the "four on the floor" pattern in the Kick row again.
+Add notes in the Clap row at the positions labeled 5 and 13.
+Many styles of music that are "in four" feature a clap or snare on the second and fourth beat, a pattern known as a backbeat.
+
+
+Reset
+Clear
+Export to Live
+If you make patterns you like, you can export and open them in Ableton Live.
+Close
+Tempo: 105 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+ This combination of four-on-the-floor kicks with backbeat claps or snares is commonly used in many genres such as techno and house.
+
+
+
+
 -- -- Bars
+
+Bars
+
+So far, all of the drum patterns you've looked at loop back to the beginning after four beats. This grouping of four beats is called a bar or measure.
+
+Here's a drum pattern that's two bars long:
+
+
+Reset
+Clear
+Export to Live
+Tempo: 90 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+Songs are made by putting multiple bars of music together to form larger sections, and then putting these larger sections together.
+
+
+
+
+
+
 -- -- Rock and house
+
+Beat examples
+
+Using this simple grid, you can experiment with a huge range of classic beats in a variety of styles.
+
+Basic rock beat
+
+
+Reset
+Clear
+Export to Live
+Tempo: 90 bpm
+
+Open Hat
+Closed Hat
+Snare
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+Classic house
+
+
+Reset
+Clear
+Export to Live
+Tempo: 120 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+Notice that the house and rock beats are extremely similar. Besides their different tempos and minor differences in the hihat and kick drum lines, these patterns are the same. You'll find certain drum patterns reused in many styles.
+
+
+
 -- -- “We Will Rock You”
+
+Queen - “We Will Rock You”
+
+
+
+Reset
+Clear
+Export to Live
+Tempo: 81 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+The drum sounds in the original song are made entirely with body percussion. The "kick drum" line is foot stomps on a wooden floor, while the hand clap sounds are real hand claps.
+
+
+
+
+
 -- -- “When the Levee Breaks”
+
+?
+
+
+
+
 -- -- “Single Ladies”
+
+Beyoncé - “Single Ladies (Put a Ring on It)”
+
+
+In the previous beat examples, you may have noticed that the hihats usually play steady repeating patterns, often every half beat. But in this example, the sounds are used in somewhat unconventional ways. Here, there's still a steady pattern every half beat, but it's played by a clap sound, and there are no hihats at all.
+
+The snare is played only once in the pattern. See if you can fill in this single hit.
+
+
+Reset
+Clear
+Export to Live
+Tempo: 97 bpm
+
+Clap
+Snare
+Kick
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+ This single snare hit occurs on an offbeat — half way between two beats.
+
+
+
+
 -- -- Play with beats
+
+Play with beats
+
+Now that you've experimented with some musical examples, spend some time creating your own beats.
+
+This beat grid works just like the one you've been using, but you can also record into it as you play. When you're recording, you'll hear a click on each beat, so that it's easier to play at the right tempo.
+
+
+
+Reset
+Clear
+Export to Live
+Tempo: 85 bpm
+
+Open Hat
+Closed Hat
+Clap
+Kick
+Kick
+Clap
+Closed Hat
+Open Hat
+Keyboard
+Now that you've experimented with beats, it's time to move on to different types of musical ideas.
+
+
+
 -- Notes and scales
+
+
+
+
+
 -- -- Explore pitch
 -- -- Make patterns with pitch
 -- -- Keys and scales

@@ -122,7 +122,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		//probe=[{r:}];
 		if (zz < 0.75) { //note
 			if (lastUsedLevel != 0) {
-				console.log('details level', lastUsedLevel, '->', 0);
+				console.log('small details level', lastUsedLevel, '->', 0);
 				lastUsedLevel = 0;
 			}
 			/*
@@ -141,7 +141,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 		} else {
 			if (zz < 3) { //note
 				if (lastUsedLevel != 1) {
-					console.log('details level', lastUsedLevel, '->', 1);
+					console.log('medium details level', lastUsedLevel, '->', 1);
 					lastUsedLevel = 1;
 				}
 				/*
@@ -160,7 +160,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			} else {
 				if (zz < 30) { //note
 					if (lastUsedLevel != 2) {
-						console.log('details level', lastUsedLevel, '->', 2);
+						console.log('large details level', lastUsedLevel, '->', 2);
 						lastUsedLevel = 2;
 					}
 					me.clearLayers([me.layHugeBack, me.layHugeFront //
@@ -180,7 +180,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 				 */
 				else {
 					if (lastUsedLevel != 3) {
-						console.log('details level', lastUsedLevel, '->', 3);
+						console.log('huge details level', lastUsedLevel, '->', 3);
 						lastUsedLevel = 3;
 					}
 					me.clearLayers([//me.layHugeBack, me.layHugeFront //
@@ -481,7 +481,7 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 			return false;
 
 			}*/
-			return me.outOfView(tbb.x, tbb.y, tbb.width, tbb.height, x, y, w, h);
+			return me.outOfRect(tbb.x, tbb.y, tbb.width, tbb.height, x, y, w, h);
 		} else {
 
 			return true;
@@ -706,11 +706,13 @@ function RakeView(rakeName, contentName, svgName, width, height) {
 	//me.rakeDiv.addEventListener('mousedown', me.rakeMouseDown, false);
 	//me.rakeDiv.addEventListener("mousewheel", me.rakeMouseWheel, false);
 	//me.rakeDiv.addEventListener("DOMMouseScroll", me.rakeMouseWheel, false);
-
+me.resize=function(){
 	me.setSize(//
 		me.tapSize * (me.songInfo.duration32() + me.songInfo.leftMargin + me.songInfo.rightMargin) //
-	, me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) //
+	, me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight*song.channels.length + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) //
 	);
+};
+	me.resize();
 	attachTapMouse(me);
 	me.adjustCountentPosition();
 	return me;
