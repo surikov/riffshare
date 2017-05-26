@@ -21,7 +21,7 @@ function SongInfo() {
 	sng.chordsHeight = 5;
 	sng.pianorollHeight = 128;
 	sng.title = 'Some not so long title';
-	sng.selectedChannel=4;
+	sng.selectedChannel=0;
 	/*sng.tracks = [{
 	name : 'First'
 	}, {
@@ -353,6 +353,20 @@ function SongInfo() {
 			}
 		}
 	};
+	sng.fretLineColor=function(fret){
+		var n=1*fret;
+		//console.log(n,fret);
+		//if(n>11)return '#aaa';
+		if(n>6)return '#aaa';
+		if(n>4)return '#999';
+		if(n>2)return '#666';
+		if(n>0)return '#333';
+		
+		
+		
+		
+		return '#000';
+	};
 	sng.addFretMotif = function (me, id, x, y, motif, layer,offset,channel) {
 		if (motif.chords.length > 0) {
 			var svgns = "http://www.w3.org/2000/svg";
@@ -365,28 +379,40 @@ function SongInfo() {
 					
 					
 					var note = chord.notes[n];
+					var t=''+(note.key-offset-sng.channelStringKey(note.string,channel));//+':'+note.l6th;
+					var colordeep=sng.fretLineColor(t);
+					//var ny=y + me.tapSize * (sng.fretHeight - (channel.string.length-note.string-1)*3);
+					var ny=y + me.tapSize * 3 * (channel.string.length-1)-me.tapSize * 3 *(channel.string.length-note.string);
 					
-					var ny=y + me.tapSize * (sng.fretHeight - (channel.string.length-note.string-1)*3);
-					
+					var line=document.createElementNS(svgns, 'line');
+					line.setAttributeNS(null, 'x1', x + chord.start * 2 * me.tapSize + me.tapSize * 1);
+					line.setAttributeNS(null, 'y1', ny);
+					line.setAttributeNS(null, 'x2', x + chord.start * 2 * me.tapSize + me.tapSize * 1 + 1+2*me.tapSize*(note.l6th-1));
+					line.setAttributeNS(null, 'y2', ny);
+					line.setAttributeNS(null, 'stroke', colordeep);
+					line.setAttributeNS(null, 'stroke-width', me.tapSize *2);
+					line.setAttributeNS(null, 'stroke-linecap', 'round');
+					g.appendChild(line);
+					/*
 					var shape = document.createElementNS(svgns, 'circle');
 					shape.setAttributeNS(null, 'cx', x + chord.start * 2 * me.tapSize + me.tapSize * 1);
 					shape.setAttributeNS(null, 'cy', ny);
-					shape.setAttributeNS(null, 'r', me.tapSize *1.5);
+					shape.setAttributeNS(null, 'r', me.tapSize *1);
 					shape.setAttributeNS(null, 'fill', sng.foreColor);
 					//shape.setAttributeNS(null, 'stroke', sng.foreColor);
 					//shape.setAttributeNS(null, 'stroke-width', me.tapSize / 3);
 					g.appendChild(shape);
+					*/
 					
-					var t=''+(note.key-offset-sng.channelStringKey(note.string,channel));
 					//console.log(note.string,channel.string);
 					var txt = document.createElementNS(me.svgns, 'text');
-					txt.setAttributeNS(null, 'x', x + chord.start * 2 * me.tapSize + me.tapSize * 0.25);
+					txt.setAttributeNS(null, 'x', x + chord.start * 2 * me.tapSize + me.tapSize * 0.3);
 					txt.setAttributeNS(null, 'y', ny);
-					txt.setAttributeNS(null, 'font-size', me.tapSize*3);
+					txt.setAttributeNS(null, 'font-size', me.tapSize*2);
 					txt.setAttributeNS(null, 'alignment-baseline', 'middle');//'text-before-edge');
 					txt.setAttributeNS(null, 'fill', sng.gridColor);
-					txt.setAttributeNS(null, 'stroke', sng.foreColor);
-					txt.setAttributeNS(null, 'stroke-width', me.tapSize / 27);
+					txt.setAttributeNS(null, 'stroke', colordeep);
+					txt.setAttributeNS(null, 'stroke-width', me.tapSize / 37);
 					txt.innerHTML = t;
 					g.appendChild(txt);
 					
@@ -397,7 +423,7 @@ function SongInfo() {
 		}
 	};
 	
-	sng.addMotif = function (me, id, x, y, motif, layer,offset) {
+	sng.addMotif = function (me, id, x, y, motif, layer,offset,active,detailRatio) {
 		if (motif.chords.length > 0) {
 			//console.log('addMotif',id);
 			var svgns = "http://www.w3.org/2000/svg";
@@ -422,12 +448,66 @@ function SongInfo() {
 
 					key:57 l6th:1 string:3
 					 */
-
+					var ny=y + me.tapSize * (sng.notationHeight - sng.pitch12to7(note.key-offset) + 3 * 7 - 3);
+					var nx=x + chord.start * 2 * me.tapSize + me.tapSize * 1;
+					/*
+					if(ny-y<sng.notationTop*me.tapSize){
+						tileRectangle(sng.foreColor,nx-9*me.tapSize/10, ny, me.tapSize+8*me.tapSize/10, detailRatio * me.lineWidth, g, id+'x'+c+'x'+n);
+					}*/
+					//var sy=ny+(ny+me.tapSize)%(2*me.tapSize);
+					for(var by=y;by<y+sng.notationTop*me.tapSize;by=by+2*me.tapSize){
+						if(by>=ny){
+							var bx=nx-9*me.tapSize/10;
+							var id='liup'+chord.start+'x'+by;
+							if (!me.childExists(id, g)) {
+								tileRectangle(sng.foreColor,bx, by, me.tapSize+8*me.tapSize/10, detailRatio * me.lineWidth, g, id);
+							}
+						}
+					}
+					for(var b=y+(sng.notationTop+2*5)*me.tapSize;b<=ny;b=b+2*me.tapSize){
+						var bx=nx-9*me.tapSize/10;
+						var by=b;//+me.tapSize/5;
+						var id='lidown'+chord.start+'x'+by;
+						if (!me.childExists(id, g)) {
+							tileRectangle(sng.foreColor,bx, by, me.tapSize+8*me.tapSize/10, detailRatio * me.lineWidth, g, id);
+						}
+					}
+					/*var sy=ny+(ny+me.tapSize)%(2*me.tapSize);
+					
+					for(var by=sy;by<y+sng.notationTop*me.tapSize;by=by+2*me.tapSize){
+						var bx=nx-9*me.tapSize/10;
+						var id='nost'+bx+'x'+by;
+						//if (!me.childExists(id, g)) {
+							tileRectangle(sng.foreColor,bx, by, me.tapSize+8*me.tapSize/10, detailRatio * me.lineWidth, g, id);
+						//}
+					}
+					for(var b=y+(sng.notationTop+2*5)*me.tapSize;b<ny;b=b+2*me.tapSize){
+						var bx=nx-9*me.tapSize/10;
+						var by=b+me.tapSize/5;
+						var id='nost'+bx+'x'+by;
+						//if (!me.childExists(id, g)) {
+							tileRectangle(sng.foreColor,bx, by, me.tapSize+8*me.tapSize/10, detailRatio * me.lineWidth, g, id);
+						//}
+					}*/
+					/*
+					var rect = document.createElementNS(svgns, 'rect');
+					rect.setAttributeNS(null, 'x', nx);
+					rect.setAttributeNS(null, 'y', ny);
+					rect.setAttributeNS(null, 'height', me.tapSize);
+					rect.setAttributeNS(null, 'width', me.tapSize);
+					rect.setAttributeNS(null, 'fill', sng.backColor);
+					g.appendChild(rect);
+					*/
+					
 					var shape = document.createElementNS(svgns, 'circle');
-					shape.setAttributeNS(null, 'cx', x + chord.start * 2 * me.tapSize + me.tapSize * 1);
-					shape.setAttributeNS(null, 'cy', y + me.tapSize * (sng.notationHeight - sng.pitch12to7(note.key-offset) + 3 * 7 - 3));
+					shape.setAttributeNS(null, 'cx', nx);
+					shape.setAttributeNS(null, 'cy', ny);
 					shape.setAttributeNS(null, 'r', me.tapSize / 2);
-					shape.setAttributeNS(null, 'fill', sng.backColor);
+					if(active){
+						shape.setAttributeNS(null, 'fill', sng.spotColor);
+					}else{
+						shape.setAttributeNS(null, 'fill', sng.backColor);
+					}
 					shape.setAttributeNS(null, 'stroke', sng.foreColor);
 					shape.setAttributeNS(null, 'stroke-width', me.tapSize / 3);
 					g.appendChild(shape);
@@ -502,13 +582,82 @@ sng.addFretMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.o
 							var id = 'mtf' + i + 'c' + ch + 'm' + motif.motif;
 							if (!me.childExists(id, layer)) {
 
-								sng.addMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.offset+sng.cleffOffset(motif.clef));
+								sng.addMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.offset+sng.cleffOffset(motif.clef),ch==sng.selectedChannel,detailRatio);
 							}
 						}
 					}
 				}
 			}
 			m = m + 2 * position.meter * position.by;
+		}
+	};
+	sng.addRollDots = function (me, left, top, width, height, layer, detailRatio) {
+		var m = 0;
+		for (var i = 0; i < song.positions.length; i++) {
+			var position = song.positions[i];
+			for (var ch = 0; ch < song.channels.length; ch++) {
+				var channel = song.channels[ch];
+				var x = (sng.leftMargin + m) * me.tapSize;
+				var y = (sng.topMargin + sng.titleHeight + ch * sng.notationHeight) * me.tapSize;
+				var w = 2 * position.meter * position.by * me.tapSize;
+				var h = sng.notationHeight * me.tapSize;
+				if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+					for (var n = 0; n < position.motifs.length; n++) {
+						var motif = position.motifs[n];
+						if (motif.channel == channel.id) {
+							var id = 'rl' + i + 'c' + ch + 'm' + motif.motif;
+							if (!me.childExists(id, layer)) {
+								//sng.addMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.offset+sng.cleffOffset(motif.clef),ch==sng.selectedChannel,detailRatio);
+								//sng.addRollMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.offset+sng.cleffOffset(motif.clef),ch==sng.selectedChannel,detailRatio);
+							}
+						}
+					}
+				}
+			}
+			m = m + 2 * position.meter * position.by;
+		}
+	}
+	sng.addRollLines = function (me, left, top, width, height, layer, detailRatio) {
+		var x=sng.leftMargin*me.tapSize;
+		var y=me.tapSize * (me.songInfo.titleHeight + me.songInfo.notationHeight*song.channels.length + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin );
+		var w=sng.duration32()* me.tapSize;
+		var h=0.9*me.tapSize;
+		for(var i=0;i<10;i++){
+		tileRectangle(sng.forColor,x, y-(12*i+0)*me.tapSize, w, detailRatio * me.lineWidth, layer, 'roll'+y);
+		tileRectangle(sng.backColor,x, y-(12*i+2)*me.tapSize, w, h, layer, 'roll'+y);
+		tileRectangle(sng.backColor,x, y-(12*i+4)*me.tapSize, w, h, layer, 'roll'+y);
+		tileRectangle(sng.backColor,x, y-(12*i+7)*me.tapSize, w, h, layer, 'roll'+y);
+		tileRectangle(sng.backColor,x, y-(12*i+9)*me.tapSize, w, h, layer, 'roll'+y);
+		tileRectangle(sng.backColor,x, y-(12*i+11)*me.tapSize, w, h, layer, 'roll'+y);
+		//console.log(x, y, w, h);
+		}
+	}
+	sng.addGridLines=function(me, left, top, width, height, layer, detailRatio){
+		var y=(sng.topMargin+me.songInfo.titleHeight)*me.tapSize;
+		var w=detailRatio * me.lineWidth;
+		//sng.duration32()* me.tapSize;
+		var h= me.tapSize * ( me.songInfo.notationHeight*song.channels.length + me.songInfo.textHeight + me.songInfo.fretHeight + me.songInfo.chordsHeight + me.songInfo.pianorollHeight + me.songInfo.topMargin + me.songInfo.bottomMargin) ;
+		//if(left<sng.leftMargin*me.tapSize)
+		for(var x=left-(left%me.tapSize);x<left+width;x=x+me.tapSize){
+			var id='gridV'+x;
+			if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+				//console.log(x, y, w, h);
+				if (!me.childExists(id, layer)) {
+					tileRectangle( sng.gridColor, x, y, w, h, layer, id);
+				}
+			}
+		}
+		var x=(sng.leftMargin+0)*me.tapSize;
+		w=sng.duration32()* me.tapSize;
+		h=detailRatio * me.lineWidth;
+		for(var y=top-(top%me.tapSize);y<top+height;y=y+me.tapSize){
+			var id='gridH'+y;
+			if (!me.outOfRect(x, y, w, h, left, top, width, height)) {
+				//console.log(x, y, w, h);
+				if (!me.childExists(id, layer)) {
+					tileRectangle( sng.gridColor, x, y, w, h, layer, id);
+				}
+			}
 		}
 	};
 	sng.addBoundingBox = function (me, layer, s) {
@@ -555,8 +704,13 @@ sng.addFretMotif(me, id, x, y, sng.findMotif(motif.motif, song), layer,channel.o
 		sng.addNoteLines(me, left, top, width, height, me.layLargeBack, detailRatio);
 		//console.log(me.layLargeContent);
 		sng.addNoteDots(me, left, top, width, height, me.layLargeContent, detailRatio);
-		sng.addFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
-sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
+		sng.addFretLines(me, left, top, width, height, me.layLargeBack, detailRatio);
+		
+sng.addFretDots(me, left, top, width, height, me.layLargeContent, detailRatio);
+
+//sng.addRollLines(me, left, top, width, height, me.layLargeBack, detailRatio);
+sng.addRollDots(me, left, top, width, height, me.layLargeBack, detailRatio);
+
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layLargeBack,'plTitle',left, top, width, height);
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//,sng.duration32()*me.tapSize,sng.notationHeight*me.tapSize,me.layLargeBack,'plNotation',left, top, width, height);
@@ -588,8 +742,11 @@ sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
 		sng.addNoteLines(me, left, top, width, height, me.layMediumBack, detailRatio);
 
 		sng.addNoteDots(me, left, top, width, height, me.layMediumContent, detailRatio);
-sng.addFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
+sng.addFretLines(me, left, top, width, height, me.layMediumBack, detailRatio);
 sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
+sng.addGridLines(me, left, top, width, height, me.layMediumBack, detailRatio);
+sng.addRollLines(me, left, top, width, height, me.layMediumBack, detailRatio);
+sng.addRollDots(me, left, top, width, height, me.layMediumBack, detailRatio);
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.layMediumBack,'plTitle',left, top, width, height);
 		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
@@ -630,8 +787,12 @@ sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
 		sng.addNoteLines(me, left, top, width, height, me.laySmallBack, detailRatio);
 
 		sng.addNoteDots(me, left, top, width, height, me.laySmallContent, detailRatio);
-sng.addFretLines(me, left, top, width, height, me.layHugeBack, detailRatio);
-sng.addFretDots(me, left, top, width, height, me.layMediumContent, detailRatio);
+sng.addFretLines(me, left, top, width, height, me.laySmallBack, detailRatio);
+sng.addFretDots(me, left, top, width, height, me.laySmallContent, detailRatio);
+sng.addGridLines(me, left, top, width, height, me.laySmallBack, detailRatio);
+sng.addRollLines(me, left, top, width, height, me.laySmallBack, detailRatio);
+sng.addRollDots(me, left, top, width, height, me.laySmallBack, detailRatio);
+
 		/*
 		tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+0)*me.tapSize//,sng.duration32()*me.tapSize,sng.titleHeight*me.tapSize,me.laySmallGrid,'plTitle',left, top, width, height);
 		//tilePlaceHolder(me,sng.leftMargin*me.tapSize,(sng.topMargin+sng.titleHeight)*me.tapSize//
