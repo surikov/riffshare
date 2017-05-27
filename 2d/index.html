@@ -2,45 +2,50 @@
 	<head>
 	<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-		<script type="text/javascript" src="index.js"></script>
-		<script type="text/javascript" src="tapmouse.js"></script>
-		<script type="text/javascript" src="draw.js"></script>
-		<script type="text/javascript" src="songinfo.js"></script>
-		<script type="text/javascript">
-			function startInit2(){
-				console.log('start init v1.1');
-				var rv = new RakeView('rakeDiv', 'contentDiv', 'contentSVG', 200, 300);
-				//rv.adjustCountentPosition();
-				//rv.reDraw();
-				
-				//rv.setSize(rv.tapSize*16*300,rv.tapSize*(100+128+(10+6)*2));
-				//rv.setSize(rv.tapSize*16*300,rv.tapSize*(100+128+(10+6)*2));
-				//rv.setSize(rv.tapSize*500*16,rv.tapSize*300);
-				//var r=addSVGRectangle(rv, 0, 0, rv.innerWidth, rv.innerHeight,rv.layerBackground);
-				//console.log('test',r);
-			}
-		</script>
-		<title>33</title>
+		<script type="text/javascript" src="song.js"></script>
+		<script type="text/javascript" src="riffshare2d.js"></script>
+		<script type="text/javascript" src="action.js"></script>
+		<script type="text/javascript" src="input.js"></script>
+		<script type="text/javascript" src="layout.js"></script>
+		<script type="text/javascript" src="tile.js"></script>
+		<title>555</title>
 	</head>
-	<body onload="startInit2();" style='background-color:#00f;padding:0px;margin:0px;'>
+	<body style='background-color:#00f;padding:0px;margin:0px;'>
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#0f0; overflow:hidden;" >
 			<div id="contentDiv" style="width:100%; height:100%; background-color:#fff;padding:0px margin:0px;" >
 				<svg id="contentSVG" viewBox="0 0 100 100">
-					<g id='hugeBack'/>
-					<g id='hugeFront'/>
-					<g id='largeBack'/>
-					<g id='largeContent'/>
-					<g id='largeAction'/>
-					<g id='mediumBack'/>
-					<g id='mediumGrid'/>
-					<g id='mediumContent'/>
-					<g id='mediumSelection'/>
-					<g id='mediumAction'/>
-					<g id='smallBack'/>
-					<g id='smallGrid'/>
-					<g id='smallContent'/>
-					<g id='smallSelection'/>
-					<g id='smallAction'/>
+					<g id='huge'>
+						<g id='hugetitles'/>
+						<g id='hugeholders'/>
+						<g id='hugeborders'/>
+						<g id='hugespots'/>
+					</g>
+					<g id='large'>
+						<g id='largetitles'/>
+						<g id='largelines'/>
+						<g id='largeborders'/>
+						<g id='largeshadow'/>
+						<g id='largesymbols'/>
+						<g id='largespots'/>
+					</g>
+					<g id='medium'>
+						<g id='mediumtitles'/>
+						<g id='mediumgrid'/>
+						<g id='mediumlines'/>
+						<g id='mediumborders'/>
+						<g id='mediumshadow'/>
+						<g id='mediumsymbols'/>
+						<g id='mediumspots'/>
+					</g>
+					<g id='small'>
+						<g id='smalltitles'/>
+						<g id='smallgrid'/>
+						<g id='smalllines'/>
+						<g id='smallborders'/>
+						<g id='smallshadow'/>
+						<g id='smallsymbols'/>
+						<g id='smallhotspots'/>
+					</g>
 				</svg>
 			</div>
 		</div>
