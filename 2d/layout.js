@@ -57,6 +57,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 				console.log('small details level', this.lastUsedLevel, '->', 0);
 				this.lastUsedLevel = 0;
 				this.clearLayers([this.hugeGroup,this.largeGroup,this.mediumGroup]);
+				this.clearSpots();
 			}
 			this.clearUselessDetails(xx, yy, ww, hh,this.smallGroup);
 			this.addSmallTiles(xx, yy, ww, hh);
@@ -66,6 +67,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 					console.log('medium details level', this.lastUsedLevel, '->', 1);
 					this.lastUsedLevel = 1;
 					this.clearLayers([this.hugeGroup,this.largeGroup,this.smallGroup]);
+					this.clearSpots();
 				}
 				this.clearUselessDetails(xx, yy, ww, hh,this.mediumGroup);
 				this.addMediumTiles(xx, yy, ww, hh);
@@ -75,6 +77,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 						console.log('large details level', this.lastUsedLevel, '->', 2);
 						this.lastUsedLevel = 2;
 						this.clearLayers([this.hugeGroup,this.mediumGroup,this.smallGroup]);
+						this.clearSpots();
 					}
 					this.clearUselessDetails(xx, yy, ww, hh,this.largeGroup);
 					this.addLargeTiles(xx, yy, ww, hh);
@@ -84,6 +87,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 						console.log('huge details level', this.lastUsedLevel, '->', 3);
 						this.lastUsedLevel = 3;
 						this.clearLayers([this.largeGroup,this.mediumGroup,this.smallGroup]);
+						this.clearSpots();
 					}
 					this.clearUselessDetails(xx, yy, ww, hh,this.hugeGroup);
 					this.addHugeTiles(xx, yy, ww, hh);
@@ -154,6 +158,11 @@ RiffShare2D.prototype.clearLayers = function (layers) {
 	};
 RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh) {
 	this.tilePlaceHolder(0,0,this.innerWidth,this.innerHeight,'huge',this.hugetitles,xx, yy, ww, hh);
+	this.tilePlaceHolder(this.cfg.marginLeft*this.tapSize
+						,this.cfg.marginTop*this.tapSize
+						,this.innerWidth-(this.cfg.marginLeft+this.cfg.marginRight)*this.tapSize
+						,this.innerHeight-(this.cfg.marginTop+this.cfg.marginBottom)*this.tapSize
+						,'songbody',this.hugetitles,xx, yy, ww, hh);
 };
 RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh) {
 	this.tilePlaceHolder(0,0,this.innerWidth,this.innerHeight,'large',this.largetitles,xx, yy, ww, hh);

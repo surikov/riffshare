@@ -57,8 +57,8 @@ RiffShare2D.prototype.rakeMouseMove = function (mouseEvent) {
 RiffShare2D.prototype.rakeMouseUp = function (mouseEvent) {
 		mouseEvent.preventDefault();
 		riffShare2d.rakeDiv.removeEventListener('mousemove', riffShare2d.rakeMouseMove, true);
-		if (Math.abs(riffShare2d.clickX - mouseEvent.clientX) < riffShare2d.translateZ*riffShare2d.tapSize / 4 //
-				&& Math.abs(riffShare2d.clickY - mouseEvent.clientY) < riffShare2d.translateZ*riffShare2d.tapSize / 4) {
+		if (Math.abs(riffShare2d.clickX - mouseEvent.clientX) < riffShare2d.translateZ*riffShare2d.tapSize / 8 //
+				&& Math.abs(riffShare2d.clickY - mouseEvent.clientY) < riffShare2d.translateZ*riffShare2d.tapSize / 8) {
 			riffShare2d.click();
 		}
 		riffShare2d.adjustContentPosition();
@@ -137,21 +137,22 @@ RiffShare2D.prototype.rakeTouchEnd = function (touchEvent) {
 		riffShare2d.queueTiles();
 		if (!twoZoom) {
 			if (touchEvent.touches.length < 2) {
-				if (Math.abs(riffShare2d.clickX - riffShare2d.startMouseScreenX) < riffShare2d.translateZ*riffShare2d.tapSize / 4 //
-						&& Math.abs(riffShare2d.clickY - riffShare2d.startMouseScreenY) < riffShare2d.translateZ*riffShare2d.tapSize / 4) {
+				if (Math.abs(riffShare2d.clickX - riffShare2d.startMouseScreenX) < riffShare2d.translateZ*riffShare2d.tapSize / 8 //
+						&& Math.abs(riffShare2d.clickY - riffShare2d.startMouseScreenY) < riffShare2d.translateZ*riffShare2d.tapSize / 8) {
 					riffShare2d.click();
 				}
-				riffShare2d.adjustContentPosition();
 				return;
 			}
 		}
 		riffShare2d.twoZoom = false;
+		riffShare2d.adjustContentPosition();
 	};
 RiffShare2D.prototype.click = function () {
 		var xy = this.unzoom(this.clickX, this.clickY, this.translateZ);
 		this.clickContentX = xy.x;
 		this.clickContentY = xy.y;
 		console.log('click', this.clickX, this.clickY, 'content', this.clickContentX, this.clickContentY, 'zoom', this.translateZ);
+		this.runSpots(this.clickContentX, this.clickContentY);
 	};
 RiffShare2D.prototype.vectorDistance = function (xy1,xy2) {
 	var xy=this.vectorSubstract(xy1,xy2);

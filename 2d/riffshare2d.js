@@ -62,7 +62,17 @@ RiffShare2D.prototype.init=function(){
 	this.innerHeight = 2000;
 	this.lastUsedLevel=0;
 	
+	this.spots=[];
+	
 	this.timeOutID=0;
+	
+	this.cfg={};
+	
+	this.cfg.marginLeft=50;
+	this.cfg.marginRight=20;
+	this.cfg.marginTop=10;
+	this.cfg.marginBottom=20;
+	this.cfg.heightTitle=30;
 	
 	this.setupInput();
 	this.setSize(50000,10000);
