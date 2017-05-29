@@ -69,4 +69,15 @@ RiffShare2D.prototype.tileLine = function (g,x1,y1,x2,y2,s,t) {
 	line.setAttributeNS(null, 'stroke-linecap', 'round');
 	g.appendChild(line);
 };
+RiffShare2D.prototype.tileSymbol = function (g,x,y,w,h,href) {
+	console.log(g,x,y,w,h,href);
+	var use=document.createElementNS(this.svgns, 'use');
+	use.setAttributeNS(null, 'x', x);
+	use.setAttributeNS(null, 'y', y);
+	use.setAttributeNS(null, 'width', w);
+	use.setAttributeNS(null, 'height', h);
+	use.setAttributeNS(null, 'href', href);
+	use.setAttributeNS('xlink', 'href', href);
+	g.appendChild(use);
+};
 

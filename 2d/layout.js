@@ -163,13 +163,17 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh) {
 						,this.innerWidth-(this.cfg.marginLeft+this.cfg.marginRight)*this.tapSize
 						,this.innerHeight-(this.cfg.marginTop+this.cfg.marginBottom)*this.tapSize
 						,'songbody',this.hugetitles,xx, yy, ww, hh);
+	var g=this.rakeGroup(0,0,1000,10000,'testSymbol',this.hugetitles, xx, yy, ww, hh);if(g){this.tileSymbol(g,220,0,500,1000,'#testSymbol');}
 };
 RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh) {
 	this.tilePlaceHolder(0,0,this.innerWidth,this.innerHeight,'large',this.largetitles,xx, yy, ww, hh);
+	var g=this.rakeGroup(0,0,1000,10000,'testSymbol',this.hugetitles, xx, yy, ww, hh);if(g){this.tileSymbol(g,220,0,500,1000,'#testSymbol');}
 };
 RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh) {
 	this.tilePlaceHolder(0,0,this.innerWidth,this.innerHeight,'medium',this.mediumtitles,xx, yy, ww, hh);
+	var g=this.rakeGroup(0,0,1000,10000,'testSymbol',this.hugetitles, xx, yy, ww, hh);if(g){this.tileSymbol(g,220,0,500,1000,'#testSymbol');}
 };
 RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh) {
 	this.tilePlaceHolder(0,0,this.innerWidth,this.innerHeight,'small',this.smalltitles,xx, yy, ww, hh);
+	var g=this.rakeGroup(0,0,1000,10000,'testSymbol',this.hugetitles, xx, yy, ww, hh);if(g){this.tileSymbol(g,220,0,500,1000,'#testSymbol');}
 };
