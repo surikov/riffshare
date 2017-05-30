@@ -27,6 +27,7 @@ RiffShare2D.prototype.adjustContentPosition = function () {
 		} else {
 			this.translateY = (this.contentDiv.clientHeight * this.translateZ - this.innerHeight) / 2;
 		}
+		console.log(this.translateX,this.translateY,this.translateZ);
 		this.moveZoom();
 };
 RiffShare2D.prototype.resetTiles = function () {
