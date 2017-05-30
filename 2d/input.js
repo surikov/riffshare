@@ -87,7 +87,7 @@ RiffShare2D.prototype.rakeTouchStart = function (touchEvent) {
 			riffShare2d.twodistance = 0;
 			return;
 		} else {
-			startTouchZoom(touchEvent);
+			riffShare2d.startTouchZoom(touchEvent);
 		}
 	};
 RiffShare2D.prototype.rakeTouchMove = function (touchEvent) {
@@ -135,7 +135,7 @@ RiffShare2D.prototype.rakeTouchMove = function (touchEvent) {
 RiffShare2D.prototype.rakeTouchEnd = function (touchEvent) {
 		touchEvent.preventDefault();
 		riffShare2d.queueTiles();
-		if (!twoZoom) {
+		if (!riffShare2d.twoZoom) {
 			if (touchEvent.touches.length < 2) {
 				if (Math.abs(riffShare2d.clickX - riffShare2d.startMouseScreenX) < riffShare2d.translateZ*riffShare2d.tapSize / 8 //
 						&& Math.abs(riffShare2d.clickY - riffShare2d.startMouseScreenY) < riffShare2d.translateZ*riffShare2d.tapSize / 8) {
