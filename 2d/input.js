@@ -141,6 +141,7 @@ RiffShare2D.prototype.rakeTouchEnd = function (touchEvent) {
 						&& Math.abs(riffShare2d.clickY - riffShare2d.startMouseScreenY) < riffShare2d.translateZ*riffShare2d.tapSize / 8) {
 					riffShare2d.click();
 				}
+				riffShare2d.adjustContentPosition();
 				return;
 			}
 		}
