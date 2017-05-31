@@ -1,6 +1,8 @@
 RiffShare2D.prototype.addSpot = function (id,x,y,w,h,a) {
 	this.dropSpot(id);
-	this.spots.push({id:id,x:x,y:y,w:w,h:h,a:a});
+	var spot={id:id,x:x,y:y,w:w,h:h,a:a};
+	this.spots.push(spot);
+	return spot;
 };
 RiffShare2D.prototype.findSpot = function (id) {
 	for(var i=0;i<this.spots.length;i++){

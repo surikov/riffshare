@@ -27,17 +27,7 @@ RiffShare2D.prototype.rakeGroup = function (x, y, w, h, id, layer, left, top, wi
 	return null;
 };
 
-RiffShare2D.prototype.measuresLength16th = function () {
-	if (this.currentSong) {
-		var m = 0;
-		for (var i = 0; i < this.currentSong.positions.length; i++) {
-			m = m + this.currentSong.positions[i].meter * song.positions[i].by;
-		}
-		return m;
-	} else {
-		return 1;
-	}
-};
+
 RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t) {
 	var txt = document.createElementNS(this.svgns, 'text');
 	txt.setAttributeNS(null, 'x', x);

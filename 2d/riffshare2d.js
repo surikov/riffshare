@@ -60,7 +60,7 @@ RiffShare2D.prototype.init = function () {
 
 	this.translateX = 0;
 	this.translateY = 0;
-	this.translateZ = 1;
+	this.translateZ = 10;
 	this.innerWidth = 3000;
 	this.innerHeight = 2000;
 	this.lastUsedLevel = 0;
@@ -77,13 +77,17 @@ RiffShare2D.prototype.init = function () {
 	this.heightSongText = 10;
 	this.heightTrTitle = 10;
 	this.heightTrChords = 10;
-	this.heightTrSheet = 10;
+	this.heightTrSheet = 29;
+	this.marginTrSheetLines = 11;
 	this.heightTrFret = 10;
 	this.heightTrText = 10;
 	this.heightPRTitle = 3;
 	this.heightPRGrid = 127;
+	this.marginFirstMeasure = 30;
+	this.marginChangedMeasure = 10;
 	
-	this.colorGrid = '#ccc';
+	this.colorGrid = '#ddd';
+	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
 	
 	this.hideTrackSheet=[];
@@ -119,13 +123,13 @@ RiffShare2D.prototype.setSong = function (song) {
 	this.hideTrackFret=[];
 	this.hideTrackText=[];
 	this.hideRoll=false;
-	
+	/*
 	this.hideTrackSheet[1]=true;
 	this.hideTrackChords[1]=true;
 	this.hideTrackFret[1]=true;
 	this.hideTrackText[1]=true;
 	this.hideRoll=true;
-	
+	*/
 	this.resetSize();
 };
 RiffShare2D.prototype.resetSize = function () {
