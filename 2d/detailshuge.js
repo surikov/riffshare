@@ -32,14 +32,16 @@ RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height
 		) * this.tapSize;*/
 		var id = 'trackTitle' + i;
 		//console.log(id,y,this.calculateTrackHeight(i));
-		//this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
+		this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
 		this.addSpot(id, x, y, w, h, function () {
 			if (!(riffShare2d.hideTrackSheet[this.channelOrder])) {
+				console.log('hide track',this.channelOrder);
 				riffShare2d.hideTrackSheet[this.channelOrder] = true;
 				riffShare2d.hideTrackChords[this.channelOrder] = true;
 				riffShare2d.hideTrackFret[this.channelOrder] = true;
 				riffShare2d.hideTrackText[this.channelOrder] = true;
 			} else {
+				console.log('show track',this.channelOrder);
 				riffShare2d.hideTrackSheet[this.channelOrder] = false;
 				riffShare2d.hideTrackChords[this.channelOrder] = false;
 				riffShare2d.hideTrackFret[this.channelOrder] = false;
@@ -51,35 +53,29 @@ RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height
 		if (g) {
 			this.tileText(g, x, y, 11 * this.tapSize, this.currentSong.channels[i].channel + ' / ' + this.currentSong.channels[i].track, this.colorComment);
 		}
-		if (!(riffShare2d.hideTrackChords[this.channelOrder])) {
+		//x=x+i*10*this.tapSize;
+		var yS=y + (this.heightTrTitle + this.heightTrSheet) * this.tapSize;
+		if (!(riffShare2d.hideTrackChords[i])) {
 			id = 'trackTitle' + i + 'chords';
-			g = this.rakeGroup(x, y + (this.heightTrTitle + this.heightTrSheet) * this.tapSize, w, h, id, layer, left, top, width, height);
+			g = this.rakeGroup(x, yS, w, h, id, layer, left, top, width, height);
 			if (g) {
-				this.tileText(g, x, y + (this.heightTrTitle + this.heightTrSheet) * this.tapSize, 5 * this.tapSize, id, this.colorComment);
+				this.tileText(g, x, yS, 5 * this.tapSize, id, this.colorComment);
 			}
-			/*id = 'trackTitle' + i + 'text';
-			g = this.rakeGroup(x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords) * this.tapSize, w, h, id, layer, left, top, width, height);
-			if (g) {
-				this.tileText(g, x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords) * this.tapSize, 5 * this.tapSize, id, this.colorComment);
-			}
-			id = 'trackTitle' + i + 'fret';
-			g = this.rakeGroup(x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords + this.heightTrText) * this.tapSize, w, h, id, layer, left, top, width, height);
-			if (g) {
-				this.tileText(g, x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords + this.heightTrText) * this.tapSize, 5 * this.tapSize, id, this.colorComment);
-			}*/
+			yS=yS+this.heightTrChords* this.tapSize;
 		}
-		if (!(riffShare2d.hideTrackText[this.channelOrder])) {
+		if (!(riffShare2d.hideTrackText[i])) {
 			id = 'trackTitle' + i + 'text';
-			g = this.rakeGroup(x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords) * this.tapSize, w, h, id, layer, left, top, width, height);
+			g = this.rakeGroup(x, yS, w, h, id, layer, left, top, width, height);
 			if (g) {
-				this.tileText(g, x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords) * this.tapSize, 5 * this.tapSize, id, this.colorComment);
+				this.tileText(g, x, yS, 5 * this.tapSize, id, this.colorComment);
 			}
+			yS=yS+this.heightTrText * this.tapSize
 		}
-		if (!(riffShare2d.hideTrackFret[this.channelOrder])) {
+		if (!(riffShare2d.hideTrackFret[i])) {
 			id = 'trackTitle' + i + 'fret';
-			g = this.rakeGroup(x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords + this.heightTrText) * this.tapSize, w, h, id, layer, left, top, width, height);
+			g = this.rakeGroup(x, yS, w, h, id, layer, left, top, width, height);
 			if (g) {
-				this.tileText(g, x, y + (this.heightTrTitle + this.heightTrSheet + this.heightTrChords + this.heightTrText) * this.tapSize, 5 * this.tapSize, id, this.colorComment);
+				this.tileText(g, x, yS, 5 * this.tapSize, id, this.colorComment);
 			}
 		}
 		y = y + this.calculateTrackHeight(i) * this.tapSize;
@@ -137,6 +133,7 @@ RiffShare2D.prototype.tileSongRoll = function (layer, left, top, width, height) 
 	if (g) {
 		this.tileText(g, x, y, 3 * this.tapSize, 'Pianoroll', this.colorComment);
 	}
+	this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
 	this.addSpot(id, x, y, w, h, function () {
 		riffShare2d.hideRoll = !(riffShare2d.hideRoll);
 		riffShare2d.clearAllTiles();

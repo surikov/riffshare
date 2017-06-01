@@ -165,7 +165,9 @@ RiffShare2D.prototype.calculateTrackHeight = function (n) {
 	var h=this.heightTrTitle;
 	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
 	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
-	if(!(this.hideTrackFret[n])){h=h+this.heightTrFret;}
+	//if(!(this.hideTrackFret[n])){h=h+this.heightTrFret;}
+	if(!(this.hideTrackFret[n])){h=h+this.currentSong.channels[n].string.length;}
+	
 	if(!(this.hideTrackText[n])){h=h+this.heightTrText;}
 	return h;
 };
