@@ -103,7 +103,33 @@ RiffShare2D.prototype.init = function () {
 	};
 	console.log('done init');
 };
-
+RiffShare2D.prototype.channelStringKey=function(order,channel){
+		for(var i=0;i<channel.string.length;i++){
+			if(channel.string[i].order==order){
+				return channel.string[i].pitch;
+			}
+		}
+	};
+RiffShare2D.prototype.cleffOffset=function(clef){
+		if(clef==2)return -20;
+		return 0;
+	};
+RiffShare2D.prototype.fretLineColor=function(n){
+		//var n=1*fret;
+		if(n>6)return '#aaa';
+		if(n>4)return '#999';
+		if(n>2)return '#666';
+		if(n>0)return '#333';
+		return '#000';
+	};
+RiffShare2D.prototype.findMotifById = function (id) {
+		for (var i = 0; i < this.currentSong.motifs.length; i++) {
+			if (this.currentSong.motifs[i].id == id) {
+				return this.currentSong.motifs[i];
+			}
+		}
+		return null;
+	};
 RiffShare2D.prototype.queueTiles = function () {
 	if (this.timeOutID > 0) {
 		//console.log('still wait redraw');

@@ -12,4 +12,5 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileOctaveLines(this.smalltitles, xx, yy, ww, hh, detailRatio);
 	this.tileScoreLines(this.smalltitles, xx, yy, ww, hh, detailRatio);
 	this.tileStrings(this.smalltitles, xx, yy, ww, hh, detailRatio);
+	this.tileFretMotifs(this.smalltitles, xx, yy, ww, hh, detailRatio);
 };

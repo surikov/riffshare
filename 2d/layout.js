@@ -161,14 +161,58 @@ RiffShare2D.prototype.clearLayers = function (layers) {
 		}
 	}
 };
+RiffShare2D.prototype.calculateMeasureX = function (n) {
+	var m = this.marginLeft;
+		for (var i = 0; i < n; i++) {
+			m = m + this.measureLength(i);
+		}
+		return m;	
+};
+RiffShare2D.prototype.calculateRollGridY = function () {
+	return this.calculateRollTitleY()+this.heightPRTitle;
+}
+RiffShare2D.prototype.calculateRollTitleY = function () {
+	return this.calculateTrackY(this.currentSong.channels.length);
+}
+RiffShare2D.prototype.calculateTrackFretY = function (n) {
+	var h=this.calculateTrackY(n);
+	h=h+this.heightTrTitle;
+	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
+	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
+	if(!(this.hideTrackText[n])){h=h+this.heightTrText;}
+	return h;
+};
+RiffShare2D.prototype.calculateTrackTextY = function (n) {
+	var h=this.calculateTrackY(n);
+	h=h+this.heightTrTitle;
+	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
+	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
+	return h;
+};
+RiffShare2D.prototype.calculateTrackChordsY = function (n) {
+	var h=this.calculateTrackY(n);
+	h=h+this.heightTrTitle;
+	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
+	return h;
+};
+RiffShare2D.prototype.calculateTrackSheetY = function (n) {
+	var h=this.calculateTrackY(n);
+	h=h+this.heightTrTitle;
+	return h;
+};
+RiffShare2D.prototype.calculateTrackY = function (n) {
+	var h=this.marginTop + this.heightSongTitle + this.heightSongText;
+	for(var i=0;i<n;i++){
+		h=h+this.calculateTrackHeight(i);
+	}
+	return h;
+};
 RiffShare2D.prototype.calculateTrackHeight = function (n) {
 	var h=this.heightTrTitle;
 	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
 	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
-	//if(!(this.hideTrackFret[n])){h=h+this.heightTrFret;}
-	if(!(this.hideTrackFret[n])){h=h+this.currentSong.channels[n].string.length;}
-	
 	if(!(this.hideTrackText[n])){h=h+this.heightTrText;}
+	if(!(this.hideTrackFret[n])){h=h+this.currentSong.channels[n].string.length;}
 	return h;
 };
 RiffShare2D.prototype.calculateAllTracksHeight = function () {

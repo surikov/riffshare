@@ -12,6 +12,7 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileOctaveLines(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 this.tileScoreLines(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 this.tileStrings(this.mediumtitles, xx, yy, ww, hh, detailRatio);
+this.tileFretMotifs(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 };
 RiffShare2D.prototype.tileOnePianoLine = function (x, y, w, h, id, layer, left, top, width, height) {
 	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
