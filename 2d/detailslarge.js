@@ -6,10 +6,22 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongTracks(this.largetitles, xx, yy, ww, hh);
 	this.tileSongRoll(this.largetitles, xx, yy, ww, hh);
 	this.tileMeasureLines(this.largetitles, xx, yy, ww, hh, detailRatio);
+	//this.tileMeasureLinesScore(this.largetitles, xx, yy, ww, hh, detailRatio);
 	this.tileOctaveLines(this.largetitles, xx, yy, ww, hh, detailRatio);
 	this.tileScoreLines(this.largetitles, xx, yy, ww, hh, detailRatio);
 	this.tileStrings(this.largetitles, xx, yy, ww, hh, detailRatio);
 	this.tileFretMotifs(this.largetitles, xx, yy, ww, hh, detailRatio);
+};
+RiffShare2D.prototype.tileMeasureLinesScore = function (layer, left, top, width, height, ratio) {
+	for (var i = 0; i < this.currentSong.channels.length; i++) {
+		this.tileMeasureLinesScoreChannel(i,layer, left, top, width, height, ratio);
+	}
+};
+RiffShare2D.prototype.tileMeasureLinesScoreChannel = function (nn,layer, left, top, width, height, ratio) {
+	var x = this.marginLeft * this.tapSize;
+	var y=this.calculateTrackY(nn)* this.tapSize
+	var w = this.measuresLength16th() * this.tapSize;
+	
 };
 RiffShare2D.prototype.tileMeasureLines = function (layer, left, top, width, height, ratio) {
 	var w = this.lineWidth * ratio;

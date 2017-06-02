@@ -162,46 +162,46 @@ RiffShare2D.prototype.clearLayers = function (layers) {
 	}
 };
 RiffShare2D.prototype.calculateMeasureX = function (n) {
-	var m = this.marginLeft;
+	var m = this.marginLeft* this.tapSize;
 		for (var i = 0; i < n; i++) {
 			m = m + this.measureLength(i);
 		}
-		return m;	
+		return m;
 };
 RiffShare2D.prototype.calculateRollGridY = function () {
-	return this.calculateRollTitleY()+this.heightPRTitle;
+	return this.calculateRollTitleY()+this.heightPRTitle* this.tapSize;
 }
 RiffShare2D.prototype.calculateRollTitleY = function () {
 	return this.calculateTrackY(this.currentSong.channels.length);
 }
 RiffShare2D.prototype.calculateTrackFretY = function (n) {
 	var h=this.calculateTrackY(n);
-	h=h+this.heightTrTitle;
-	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
-	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
-	if(!(this.hideTrackText[n])){h=h+this.heightTrText;}
+	h=h+this.heightTrTitle* this.tapSize;
+	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet* this.tapSize;}
+	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords* this.tapSize;}
+	if(!(this.hideTrackText[n])){h=h+this.heightTrText* this.tapSize;}
 	return h;
 };
 RiffShare2D.prototype.calculateTrackTextY = function (n) {
 	var h=this.calculateTrackY(n);
-	h=h+this.heightTrTitle;
-	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
-	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
+	h=h+this.heightTrTitle* this.tapSize;
+	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet* this.tapSize;}
+	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords* this.tapSize;}
 	return h;
 };
 RiffShare2D.prototype.calculateTrackChordsY = function (n) {
 	var h=this.calculateTrackY(n);
-	h=h+this.heightTrTitle;
-	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet;}
+	h=h+this.heightTrTitle* this.tapSize;
+	if(!(this.hideTrackSheet[n])){h=h+this.heightTrSheet* this.tapSize;}
 	return h;
 };
 RiffShare2D.prototype.calculateTrackSheetY = function (n) {
 	var h=this.calculateTrackY(n);
-	h=h+this.heightTrTitle;
+	h=h+this.heightTrTitle* this.tapSize;
 	return h;
 };
 RiffShare2D.prototype.calculateTrackY = function (n) {
-	var h=this.marginTop + this.heightSongTitle + this.heightSongText;
+	var h=(this.marginTop + this.heightSongTitle + this.heightSongText)* this.tapSize;
 	for(var i=0;i<n;i++){
 		h=h+this.calculateTrackHeight(i);
 	}
@@ -213,7 +213,7 @@ RiffShare2D.prototype.calculateTrackHeight = function (n) {
 	if(!(this.hideTrackChords[n])){h=h+this.heightTrChords;}
 	if(!(this.hideTrackText[n])){h=h+this.heightTrText;}
 	if(!(this.hideTrackFret[n])){h=h+this.currentSong.channels[n].string.length;}
-	return h;
+	return h* this.tapSize;
 };
 RiffShare2D.prototype.calculateAllTracksHeight = function () {
 	//console.log('calculateAllTracksHeight',this);
@@ -226,7 +226,7 @@ RiffShare2D.prototype.calculateAllTracksHeight = function () {
 RiffShare2D.prototype.calculateRollHeight = function () {
 	var h=this.heightPRTitle;
 	if(!(this.hideRoll)){h=h+this.heightPRGrid;}
-	return h;
+	return h* this.tapSize;
 };
 RiffShare2D.prototype.measuresLength16th = function () {
 	if (this.currentSong) {
@@ -242,12 +242,12 @@ RiffShare2D.prototype.measuresLength16th = function () {
 RiffShare2D.prototype.measureMargin = function (i) {
 	if(i>0){
 		if(this.currentSong.positions[i-1].meter!=this.currentSong.positions[i].meter || song.positions[i-1].by!=song.positions[i].by){
-			return this.marginChangedMeasure;
+			return this.marginChangedMeasure* this.tapSize;
 		}else{
 			return 0;
 		}
 	}else{
-		return this.marginFirstMeasure;
+		return this.marginFirstMeasure* this.tapSize;
 	}
 }
 RiffShare2D.prototype.measureLength = function (i) {
@@ -260,7 +260,7 @@ RiffShare2D.prototype.measureLength = function (i) {
 		le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	return this.measureMargin(i)+this.currentSong.positions[i].meter * song.positions[i].by;
+	return this.measureMargin(i)+this.currentSong.positions[i].meter * song.positions[i].by* this.tapSize;
 };
 
 

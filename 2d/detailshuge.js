@@ -12,7 +12,7 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 RiffShare2D.prototype.tileSongTitle = function (layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
 	var y = this.marginTop * this.tapSize;
-	var w = this.measuresLength16th() * this.tapSize;
+	var w = this.measuresLength16th() ;
 	var h = this.heightSongTitle * this.tapSize;
 	var id = 'songTitle';
 	//this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
@@ -21,15 +21,48 @@ RiffShare2D.prototype.tileSongTitle = function (layer, left, top, width, height)
 		this.tileText(g, x, y, 33 * this.tapSize, this.currentSong.name, this.colorComment);
 	}
 };
-RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height) {
+RiffShare2D.prototype.tileOneTrack = function (i,layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
+	var y = this.calculateTrackY(i);
+	var w = this.measuresLength16th() ;
+	var h = this.calculateTrackHeight(i);
+	if (this.collision(x, y, w, h, left, top, width, height)) {
+		var id = 'trackTitle' + i;
+		var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+		if (g) {
+			this.tileText(g, x, y, 11 * this.tapSize, this.currentSong.channels[i].channel + ' / ' + this.currentSong.channels[i].track, this.colorComment);
+		}
+		this.tilePlaceHolder(x, y, w, this.heightTrTitle*this.tapSize, '_' + id, layer, left, top, width, height, 1);
+		this.addSpot(id, x, y, w, this.heightTrTitle*this.tapSize, function () {
+			if (!(riffShare2d.hideTrackSheet[this.channelOrder])) {
+				console.log('hide track',this.channelOrder);
+				riffShare2d.hideTrackSheet[this.channelOrder] = true;
+				riffShare2d.hideTrackChords[this.channelOrder] = true;
+				riffShare2d.hideTrackFret[this.channelOrder] = true;
+				riffShare2d.hideTrackText[this.channelOrder] = true;
+			} else {
+				console.log('show track',this.channelOrder);
+				riffShare2d.hideTrackSheet[this.channelOrder] = false;
+				riffShare2d.hideTrackChords[this.channelOrder] = false;
+				riffShare2d.hideTrackFret[this.channelOrder] = false;
+				riffShare2d.hideTrackText[this.channelOrder] = false;
+			}
+			riffShare2d.clearAllTiles();
+		}).channelOrder = i;
+	}
+};
+RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height) {
+	for (var i = 0; i < this.currentSong.channels.length; i++) {
+		this.tileOneTrack(i,layer, left, top, width, height) ;
+	}
+	/*var x = this.marginLeft * this.tapSize;
 	var y = (this.marginTop + this.heightSongTitle + this.heightSongText) * this.tapSize;
-	var w = this.measuresLength16th() * this.tapSize;
+	var w = this.measuresLength16th() ;
 	var h = this.heightTrTitle * this.tapSize;
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
-		/*var y = (this.cfg.marginTop + this.cfg.heightSongTitle+this.cfg.heightSongText //
-		+i * (this.cfg.heightTrackTitle + this.cfg.heightTrackChords + this.cfg.heightTrackSheet + this.cfg.heightTrackFret + this.cfg.heightTrackText) //
-		) * this.tapSize;*/
+		//var y = (this.cfg.marginTop + this.cfg.heightSongTitle+this.cfg.heightSongText //
+		//+i * (this.cfg.heightTrackTitle + this.cfg.heightTrackChords + this.cfg.heightTrackSheet + this.cfg.heightTrackFret + this.cfg.heightTrackText) //
+		//) * this.tapSize;
 		var id = 'trackTitle' + i;
 		//console.log(id,y,this.calculateTrackHeight(i));
 		this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
@@ -79,7 +112,7 @@ RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height
 			}
 		}
 		y = y + this.calculateTrackHeight(i) * this.tapSize;
-	}
+	}*/
 };
 RiffShare2D.prototype.tileHugeMeasureLines = function (left, top, width, height, ratio) {
 	var w = this.lineWidth * ratio;
