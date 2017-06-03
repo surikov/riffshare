@@ -115,11 +115,21 @@ RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height
 	}*/
 };
 RiffShare2D.prototype.tileHugeMeasureLines = function (left, top, width, height, ratio) {
-	var w = this.lineWidth * ratio;
-	var m = 0;
-	for (var t = 0; t < this.currentSong.positions.length; t++) {
-		if (t % 10 == 0) {
-			var x = (this.marginLeft + m) * this.tapSize;
+	//var w = this.lineWidth * ratio;
+	//var m = 0;
+	for (var i = 0; i < this.currentSong.positions.length; i++) {
+		if (i % 10 == 0) {
+			var x=this.calculateMeasureX(i);
+			var y=this.calculateTrackY(0);
+			var w=this.measureLength(i);
+			var h=this.calculateAllTracksHeight()+this.calculateRollHeight();
+			var id = 'ln' + i + 'x' + x + 'x' + y;
+			var g = this.rakeGroup(x, y, w, h, id, this.hugetitles, left, top, width, height);
+			if (g) {
+				this.tileText(g, x, y, 9 * this.tapSize, '' + (1 + i), this.colorComment);
+				this.tileRectangle(g, x, y, this.lineWidth * ratio, h, this.colorComment);
+			}
+			/*var x = (this.marginLeft + m) * this.tapSize;
 			var y = (this.marginTop + this.heightSongTitle + this.heightSongText) * this.tapSize;
 			for (var i = 0; i < this.currentSong.channels.length; i++) {
 				var h = this.calculateTrackHeight(i) - this.heightTrTitle;
@@ -144,17 +154,29 @@ RiffShare2D.prototype.tileHugeMeasureLines = function (left, top, width, height,
 					this.tileRectangle(g, x, y, w, h, this.colorComment);
 					this.tileText(g, x, y, 9 * this.tapSize, '' + (1 + t), this.colorComment);
 				}
-			}
+			}*/
 		}
-		m = m + this.currentSong.positions[t].meter * song.positions[i].by;
+		//m = m + this.currentSong.positions[t].meter * song.positions[i].by;
 	}
 };
 RiffShare2D.prototype.tileSongRoll = function (layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
-	/*var y = (this.cfg.marginTop + this.cfg.heightSongTitle+this.cfg.heightSongText //
-	+this.currentSong.channels.length * (this.cfg.heightTrackTitle + this.cfg.heightTrackChords + this.cfg.heightTrackSheet + this.cfg.heightTrackFret + this.cfg.heightTrackText) //
-	) * this.tapSize;
-	 */
+	var y = this.calculateRollTitleY();
+	var w = this.measuresLength16th() ;
+	var h = this.heightPRTitle*this.tapSize;
+	var id = 'roll';
+	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+	if (g) {
+		this.tileText(g, x, y, 3 * this.tapSize, 'Pianoroll', this.colorComment);
+		this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
+		this.addSpot(id, x, y, w, h, function () {
+			riffShare2d.hideRoll = !(riffShare2d.hideRoll);
+			riffShare2d.clearAllTiles();
+		});
+	}
+	/*
+	var x = this.marginLeft * this.tapSize;
+
 	var y = (this.marginTop + this.heightSongTitle + this.heightSongText + this.calculateAllTracksHeight()) * this.tapSize;
 	var w = this.measuresLength16th() * this.tapSize;
 	//var h = (this.cfg.heightRollTitle+this.cfg.heightRollGrid) * this.tapSize;
@@ -171,4 +193,5 @@ RiffShare2D.prototype.tileSongRoll = function (layer, left, top, width, height) 
 		riffShare2d.hideRoll = !(riffShare2d.hideRoll);
 		riffShare2d.clearAllTiles();
 	});
+	*/
 }

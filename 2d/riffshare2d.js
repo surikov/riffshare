@@ -82,7 +82,7 @@ RiffShare2D.prototype.init = function () {
 	//this.heightTrFret = 10;
 	this.heightTrText = 10;
 	this.heightPRTitle = 3;
-	this.heightPRGrid = 127;
+	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 30;
 	this.marginChangedMeasure = 10;
 	
@@ -165,14 +165,12 @@ RiffShare2D.prototype.resetSize = function () {
 	if (this.currentSong) {
 		tc = this.currentSong.channels.length
 	}*/
-	this.innerWidth = (this.marginLeft + this.measuresLength16th() + this.marginRight) * this.tapSize;
-	this.innerHeight = (this.marginTop +this.heightSongTitle+this.heightSongText//
-		//+tc * (this.cfg.heightTrackTitle + this.cfg.heightTrackChords + this.cfg.heightTrackSheet + this.cfg.heightTrackFret + this.cfg.heightTrackText//
+	this.innerWidth = (this.marginLeft + this.marginRight) * this.tapSize + this.measuresLength16th();
+	this.innerHeight = (this.marginTop +this.heightSongTitle+this.heightSongText + this.marginBottom//
+		) * this.tapSize
 		+this.calculateAllTracksHeight()
-		//) + this.cfg.heightRollTitle + this.cfg.heightRollGrid + this.cfg.marginBottom//
 		+this.calculateRollHeight()//
-		+ this.marginBottom//
-		) * this.tapSize;
+		;
 	this.contentSVG.style.width = this.contentDiv.clientWidth;
 	this.contentSVG.style.height = this.contentDiv.clientHeight;
 	this.adjustContentPosition();
