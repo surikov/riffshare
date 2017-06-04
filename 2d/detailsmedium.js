@@ -14,6 +14,7 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileStrings(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileFretMotifs(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileSheetMotifs(this.mediumtitles, xx, yy, ww, hh, detailRatio);
+	this.tileRollOctaves(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 };
 /*
 RiffShare2D.prototype.tileOnePianoLine = function (x, y, w, h, id, layer, left, top, width, height) {
