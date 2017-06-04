@@ -12,7 +12,7 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 RiffShare2D.prototype.tileSongTitle = function (layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
 	var y = this.marginTop * this.tapSize;
-	var w = this.measuresLength16th() ;
+	var w = this.songWidth32th() ;
 	var h = this.heightSongTitle * this.tapSize;
 	var id = 'songTitle';
 	//this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
@@ -24,7 +24,7 @@ RiffShare2D.prototype.tileSongTitle = function (layer, left, top, width, height)
 RiffShare2D.prototype.tileOneTrack = function (i,layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
 	var y = this.calculateTrackY(i);
-	var w = this.measuresLength16th() ;
+	var w = this.songWidth32th() ;
 	var h = this.calculateTrackHeight(i);
 	if (this.collision(x, y, w, h, left, top, width, height)) {
 		var id = 'trackTitle' + i;
@@ -32,7 +32,7 @@ RiffShare2D.prototype.tileOneTrack = function (i,layer, left, top, width, height
 		if (g) {
 			this.tileText(g, x, y, 11 * this.tapSize, this.currentSong.channels[i].channel + ' / ' + this.currentSong.channels[i].track, this.colorComment);
 		}
-		this.tilePlaceHolder(x, y, w, this.heightTrTitle*this.tapSize, '_' + id, layer, left, top, width, height, 1);
+		//this.tilePlaceHolder(x, y, w, this.heightTrTitle*this.tapSize, '_' + id, layer, left, top, width, height, 1);
 		this.addSpot(id, x, y, w, this.heightTrTitle*this.tapSize, function () {
 			if (!(riffShare2d.hideTrackSheet[this.channelOrder])) {
 				console.log('hide track',this.channelOrder);
@@ -57,7 +57,7 @@ RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height
 	}
 	/*var x = this.marginLeft * this.tapSize;
 	var y = (this.marginTop + this.heightSongTitle + this.heightSongText) * this.tapSize;
-	var w = this.measuresLength16th() ;
+	var w = this.songWidth32th() ;
 	var h = this.heightTrTitle * this.tapSize;
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
 		//var y = (this.cfg.marginTop + this.cfg.heightSongTitle+this.cfg.heightSongText //
@@ -121,7 +121,7 @@ RiffShare2D.prototype.tileHugeMeasureLines = function (left, top, width, height,
 		if (i % 10 == 0) {
 			var x=this.calculateMeasureX(i);
 			var y=this.calculateTrackY(0);
-			var w=this.measureLength(i);
+			var w=this.measureWidth32th(i);
 			var h=this.calculateAllTracksHeight()+this.calculateRollHeight();
 			var id = 'ln' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, this.hugetitles, left, top, width, height);
@@ -162,13 +162,13 @@ RiffShare2D.prototype.tileHugeMeasureLines = function (left, top, width, height,
 RiffShare2D.prototype.tileSongRoll = function (layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
 	var y = this.calculateRollTitleY();
-	var w = this.measuresLength16th() ;
+	var w = this.songWidth32th() ;
 	var h = this.heightPRTitle*this.tapSize;
 	var id = 'roll';
 	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 	if (g) {
 		this.tileText(g, x, y, 3 * this.tapSize, 'Pianoroll', this.colorComment);
-		this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
+		//this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
 		this.addSpot(id, x, y, w, h, function () {
 			riffShare2d.hideRoll = !(riffShare2d.hideRoll);
 			riffShare2d.clearAllTiles();
@@ -178,7 +178,7 @@ RiffShare2D.prototype.tileSongRoll = function (layer, left, top, width, height) 
 	var x = this.marginLeft * this.tapSize;
 
 	var y = (this.marginTop + this.heightSongTitle + this.heightSongText + this.calculateAllTracksHeight()) * this.tapSize;
-	var w = this.measuresLength16th() * this.tapSize;
+	var w = this.songWidth32th() * this.tapSize;
 	//var h = (this.cfg.heightRollTitle+this.cfg.heightRollGrid) * this.tapSize;
 	//var h=this.calculateRollHeight()* this.tapSize;
 	var h = this.heightPRTitle * this.tapSize;

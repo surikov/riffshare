@@ -161,10 +161,25 @@ RiffShare2D.prototype.clearLayers = function (layers) {
 		}
 	}
 };
+RiffShare2D.prototype.pitch12to7 = function (pitch) {
+		var octave = Math.floor(pitch / 12);
+		var n12 = [0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6];
+		var idx = pitch % 12;
+		var r = n12[idx];
+		var n7 = octave * 7 + r;
+		return n7;
+	};
+RiffShare2D.prototype.channelStringKey=function(order,channel){
+		for(var i=0;i<channel.string.length;i++){
+			if(channel.string[i].order==order){
+				return channel.string[i].pitch;
+			}
+		}
+	};
 RiffShare2D.prototype.calculateMeasureX = function (n) {
 	var m = this.marginLeft* this.tapSize;
 		for (var i = 0; i < n; i++) {
-			m = m + this.measureLength(i);
+			m = m + this.measureWidth32th(i);
 		}
 		return m;
 };
@@ -228,11 +243,11 @@ RiffShare2D.prototype.calculateRollHeight = function () {
 	if(!(this.hideRoll)){h=h+this.heightPRGrid;}
 	return h* this.tapSize;
 };
-RiffShare2D.prototype.measuresLength16th = function () {
+RiffShare2D.prototype.songWidth32th = function () {
 	if (this.currentSong) {
 		var m = 0;
 		for (var i = 0; i < this.currentSong.positions.length; i++) {
-			m = m + this.measureLength(i);//currentSong.positions[i].meter * song.positions[i].by;
+			m = m + this.measureWidth32th(i);//currentSong.positions[i].meter * song.positions[i].by;
 		}
 		return m;
 	} else {
@@ -250,7 +265,7 @@ RiffShare2D.prototype.measureMargin = function (i) {
 		return this.marginFirstMeasure* this.tapSize;
 	}
 }
-RiffShare2D.prototype.measureLength = function (i) {
+RiffShare2D.prototype.measureWidth32th = function (i) {
 	/*var le=this.currentSong.positions[i].meter * song.positions[i].by;
 	if(i>0){
 		if(this.currentSong.positions[i-1].meter!=this.currentSong.positions[i].meter || song.positions[i-1].by!=song.positions[i].by){
@@ -260,7 +275,7 @@ RiffShare2D.prototype.measureLength = function (i) {
 		le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	return this.measureMargin(i)+this.currentSong.positions[i].meter * song.positions[i].by* this.tapSize;
+	return this.measureMargin(i)+2*this.currentSong.positions[i].meter * song.positions[i].by* this.tapSize;
 };
 
 

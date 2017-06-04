@@ -13,6 +13,7 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileScoreLines(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileStrings(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileFretMotifs(this.mediumtitles, xx, yy, ww, hh, detailRatio);
+	this.tileSheetMotifs(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 };
 /*
 RiffShare2D.prototype.tileOnePianoLine = function (x, y, w, h, id, layer, left, top, width, height) {
@@ -24,7 +25,7 @@ RiffShare2D.prototype.tileOnePianoLine = function (x, y, w, h, id, layer, left, 
 RiffShare2D.prototype.tilePianoLines = function (layer, left, top, width, height, ratio) {
 	if (!riffShare2d.hideRoll) {
 		var x = this.marginLeft * this.tapSize;
-		var w = this.measuresLength16th() ;
+		var w = this.songWidth32th() ;
 		var h = 12*this.tapSize;
 		for (var i = 0; i < 128; i = i + 12) {
 			var id = 'pili' + i;// + 'ef';
@@ -63,7 +64,7 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 	for (var t = 0; t < this.currentSong.positions.length; t++) {
 		var x = this.calculateMeasureX(t);
 		//var y = (this.marginTop + this.heightSongTitle + this.heightSongText) * this.tapSize;
-		var w = this.measureLength(t);
+		var w = this.measureWidth32th(t);
 		for (var i = 0; i < this.currentSong.channels.length; i++) {
 			var h = this.calculateTrackHeight(i) - this.heightTrTitle*this.tapSize;
 			if (h > this.heightTrTitle*this.tapSize) {
@@ -74,8 +75,8 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 				if (g) {
 					//this.tileRectangle(g, x, tY, w, h, this.colorComment);
 					//this.tileText(g, x, tY, 5 * this.tapSize, '' + (1 + t), this.colorComment);
-					for (var s = 1; s < this.currentSong.positions[i].meter * song.positions[i].by; s++) {
-						this.tileRectangle(g, x + this.measureMargin(t) + s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
+					for (var s = 0; s < this.currentSong.positions[i].meter * song.positions[i].by; s++) {
+						this.tileRectangle(g, x + this.measureMargin(t) + 2*s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
 					}
 				}
 			}
@@ -89,7 +90,7 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 				//this.tileRectangle(g, x, y, w, h, this.colorComment);
 				//this.tileText(g, x, y, 5 * this.tapSize, '' + (1 + t), this.colorComment);
 				for (var s = 1; s < this.currentSong.positions[i].meter * song.positions[i].by; s++) {
-					this.tileRectangle(g, x + this.measureMargin(t) + s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
+					this.tileRectangle(g, x + this.measureMargin(t) + 2*s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
 				}
 			}
 		}
@@ -99,7 +100,7 @@ RiffShare2D.prototype.tileGridHorLines = function (layer, left, top, width, heig
 	
 	var x = this.marginLeft * this.tapSize;
 	//var y = (this.marginTop + this.heightSongTitle + this.heightSongText) * this.tapSize;
-	var w = this.measuresLength16th() ;
+	var w = this.songWidth32th() ;
 	//var h = this.lineWidth * ratio;
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
 		if (!(riffShare2d.hideTrackSheet[i])) {

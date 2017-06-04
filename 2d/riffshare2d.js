@@ -89,6 +89,7 @@ RiffShare2D.prototype.init = function () {
 	this.colorGrid = '#ddd';
 	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
+	this.colorMain = '#000';
 	
 	this.hideTrackSheet=[];
 	this.hideTrackChords=[];
@@ -160,12 +161,12 @@ RiffShare2D.prototype.setSong = function (song) {
 };
 RiffShare2D.prototype.resetSize = function () {
 	//console.log('set size', width, height, this.contentDiv.clientWidth);
-	//var ml = this.measuresLength16th();
+	//var ml = this.songWidth32th();
 	/*var tc = 1;
 	if (this.currentSong) {
 		tc = this.currentSong.channels.length
 	}*/
-	this.innerWidth = (this.marginLeft + this.marginRight) * this.tapSize + this.measuresLength16th();
+	this.innerWidth = (this.marginLeft + this.marginRight) * this.tapSize + this.songWidth32th();
 	this.innerHeight = (this.marginTop +this.heightSongTitle+this.heightSongText + this.marginBottom//
 		) * this.tapSize
 		+this.calculateAllTracksHeight()
