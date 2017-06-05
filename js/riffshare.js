@@ -1,4 +1,4 @@
-console.log('riffShare v1.79');
+console.log('riffShare v1.80');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -649,7 +649,7 @@ function tickSparkles() {
 			if (sparkleCache[i].count < 1) {
 				sparkleCache[i].sparkle.visible(false);
 			} else {
-				sparkleCache[i].sparkle.rescale((sparkleCache[i].count + 1) / sparkleCache[i].length);
+				//sparkleCache[i].sparkle.rescale((sparkleCache[i].count + 1) / sparkleCache[i].length);
 			}
 		}
 	}
