@@ -1,4 +1,4 @@
-console.log('riffShare v1.80');
+console.log('riffShare v1.81');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -635,7 +635,7 @@ function lightSparkle(s, x, y, z, color, len) {
 	sparkle.size = s;
 	sparkle.sparkle.visible(true);
 	sparkle.sparkle.move(x, y, z);
-	sparkle.length = 4 * len;
+	sparkle.length = 16 * len;
 	//sparkle.decay=decay;
 	sparkle.count = sparkle.length;
 	//sparkleCache[i].sparkle.scale=1;
@@ -650,6 +650,9 @@ function tickSparkles() {
 				sparkleCache[i].sparkle.visible(false);
 			} else {
 				//sparkleCache[i].sparkle.rescale((sparkleCache[i].count + 1) / sparkleCache[i].length);
+				var r=(sparkleCache[i].count + 1) / sparkleCache[i].length;
+				sparkleCache[i].sparkle.rescale(r);
+				console.log(i,r);
 			}
 		}
 	}
