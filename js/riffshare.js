@@ -1,4 +1,4 @@
-console.log('riffShare v1.83');
+console.log('riffShare v1.84');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -599,21 +599,23 @@ function checkSparkles(markBeat) {
 		for (var n = 0; n < drum.notes.length; n++) {
 			var note = drum.notes[n];
 			if (note.beat == markBeat) {
-				lightSparkle(9, markBeat, 1, d + 3, 0xffffff, 8);
+				lightSparkle(9, markBeat, 1, d + 3, 0xffffff, 6);
 			}
 		}
 	}
+	var sz = 30;
 	for (var t = 0; t < tracks.length; t++) {
 		var track = tracks[t];
 		for (var n = 0; n < track.notes.length; n++) {
 			var note = track.notes[n];
 			if (note.beat == markBeat) {
 				//console.log(note);
-				lightSparkle(20, markBeat + 0.5, notesPanelY + note.pitch
+				lightSparkle(sz, markBeat + 0.5, notesPanelY + note.pitch
 					//,-1*t+1.0
 				, 1, track.light, note.length);
 			}
 		}
+		sz = 10;
 	}
 }
 function lightSparkle(s, x, y, z, color, len) {
@@ -635,7 +637,7 @@ function lightSparkle(s, x, y, z, color, len) {
 	sparkle.size = s;
 	sparkle.sparkle.visible(true);
 	sparkle.sparkle.move(x, y, z);
-	sparkle.length = 8 * len;
+	sparkle.length = 4 * len;
 	//sparkle.decay=decay;
 	sparkle.count = sparkle.length;
 	//sparkleCache[i].sparkle.scale=1;
@@ -645,14 +647,14 @@ function lightSparkle(s, x, y, z, color, len) {
 function tickSparkles() {
 	for (var i = 0; i < sparkleCache.length; i++) {
 		if (sparkleCache[i].count > 0) {
-			sparkleCache[i].count--;
-			if (sparkleCache[i].count < 1) {
+			sparkleCache[i].count = sparkleCache[i].count - 1;
+			if (sparkleCache[i].count < 0) {
 				sparkleCache[i].sparkle.visible(false);
 			} else {
 				//sparkleCache[i].sparkle.rescale((sparkleCache[i].count + 1) / sparkleCache[i].length);
-				var r=(sparkleCache[i].count + 1) / sparkleCache[i].length;
+				var r = 0.25 + 0.75 * (sparkleCache[i].count ) / sparkleCache[i].length;
 				sparkleCache[i].sparkle.rescale(r);
-				//console.log(i,r);
+				//console.log(i, r);
 			}
 		}
 	}

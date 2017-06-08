@@ -1,4 +1,4 @@
-console.log("d3mJS v2.0.3");
+console.log("d3mJS v2.0.4");
 
 function place(what, from, to) {
 	var distance = from.distanceTo(to);
@@ -337,24 +337,24 @@ function ItemLine(color) {
 	};
 	return me;
 }
-function Item3dText(text,height, size, font,colorMaterial) {
+function Item3dText(text, height, size, font, colorMaterial) {
 	var me = this;
 	//console.log(text,font);
 	me.geometry = new THREE.TextGeometry(text, {
 			font : font,
-			size : size,//3,
-			height : height,//0.2,
+			size : size, //3,
+			height : height, //0.2,
 			curveSegments : 12,
 			bevelEnabled : false
 		});
 	/*me.material = new THREE.MeshStandardMaterial({
-			emissive : 0x222222,
-			color : 0x00ff00,//color,//0xff0000
-			//, roughness: 0.1
-		
-			metalness : 0.5
-		});*/
-	me.mesh = new THREE.Mesh(me.geometry, colorMaterial);//me.material);
+	emissive : 0x222222,
+	color : 0x00ff00,//color,//0xff0000
+	//, roughness: 0.1
+
+	metalness : 0.5
+	});*/
+	me.mesh = new THREE.Mesh(me.geometry, colorMaterial); //me.material);
 	me.addTo = function (d3mJS, group) {
 		var g = d3mJS.mainGroup;
 		if (group) {
@@ -365,8 +365,8 @@ function Item3dText(text,height, size, font,colorMaterial) {
 		return me;
 	};
 	/*me.color=function(color){
-		me.material.color.setHex(color);
-		return me;
+	me.material.color.setHex(color);
+	return me;
 	};*/
 	me.move = function (x, y, z, rx, ry, rz) {
 		me.mesh.position.setX(x);
@@ -521,29 +521,28 @@ function ItemSphere(size, color) {
 	};
 	return me;
 }
-function ItemNoteLine(colorMaterial,x, y, z, toX, toY, toZ) {
+function ItemNoteLine(colorMaterial, x, y, z, toX, toY, toZ) {
 	var me = this;
 	//me.sparkle = new ItemSparkle(5, 0.5, color);
 	var from3 = new THREE.Vector3(x, y, z);
-		var to3 = new THREE.Vector3(toX, toY, toZ);
-		var distance = from3.distanceTo(to3) + 0.01;
-	var ratio=1-distance/32;
-		if(ratio<0.01){
-			ratio=0.01;
-		}
-		if(ratio>1){
-			ratio=1;
-		}
+	var to3 = new THREE.Vector3(toX, toY, toZ);
+	var distance = from3.distanceTo(to3) + 0.01;
+	var ratio = 1 - distance / 32;
+	if (ratio < 0.3) {
+		ratio = 0.3;
+	}
+	if (ratio > 1) {
+		ratio = 1;
+	}
 	//console.log('ratio',ratio);
 	me.geometrySphere = new THREE.SphereGeometry(0.49, 10, 10);
-	me.geometryCylinder = new THREE.CylinderGeometry(0.49, 0.49*ratio, 1, 10);
+	me.geometryCylinder = new THREE.CylinderGeometry(0.49, 0.49 * ratio, 1, 10);
 	/*me.material = new THREE.MeshStandardMaterial({
-			emissive : color,
-			color : 0x666666
-			//, roughness: 0.1
-		,
-			metalness : 0.25
-		});*/
+	emissive : color,
+	color : 0x666666
+	//, roughness: 0.1,
+	metalness : 0.25
+	});*/
 	me.meshSphere = new THREE.Mesh(me.geometrySphere, colorMaterial);
 	me.meshCylinder = new THREE.Mesh(me.geometryCylinder, colorMaterial);
 	//me.meshCylinder.position.setY(r);
@@ -556,8 +555,7 @@ function ItemNoteLine(colorMaterial,x, y, z, toX, toY, toZ) {
 		var from3 = new THREE.Vector3(x, y, z);
 		var to3 = new THREE.Vector3(toX, toY, toZ);
 		var distance = from3.distanceTo(to3) + 0.01;
-		
-		 
+
 		var orientation = new THREE.Matrix4();
 		var offsetRotation = new THREE.Matrix4();
 		orientation.lookAt(from3, to3, new THREE.Vector3(0, 3, 0));
@@ -576,7 +574,7 @@ function ItemNoteLine(colorMaterial,x, y, z, toX, toY, toZ) {
 		me.meshCylinder.position.setY(position.y);
 		me.meshCylinder.position.setZ(position.z);
 		//console.log(distance,position,orientation);
-		
+
 		//me.sparkle.move(x,y,z+0.5);
 
 		/*
@@ -627,10 +625,10 @@ function ItemDisk(radius, height, colorMaterial) {
 	//me.sparkle = new ItemSparkle(5, 0.5, color);
 	me.geometryCylinder = new THREE.CylinderGeometry(radius, radius, height, 20);
 	/*me.material = new THREE.MeshStandardMaterial({
-			emissive : color,
-			color : 0xffffff,
-			metalness : 0.75
-		});*/
+	emissive : color,
+	color : 0xffffff,
+	metalness : 0.75
+	});*/
 	me.meshCylinder = new THREE.Mesh(me.geometryCylinder, colorMaterial);
 	me.move = function (x, y, z) {
 		me.meshCylinder.position.setX(x);
@@ -809,7 +807,7 @@ function ItemMirror(w, h, px, py, pz, rx, ry, rz) {
 				//color : 0x223344,
 				//color : 0x113355,
 				//color : 0x556677,
-				color:0x222222,
+				color : 0x222222,
 				side : THREE.DoubleSide
 			});
 		me.groundPlane = new THREE.PlaneGeometry(w, h); //300
@@ -841,12 +839,12 @@ function ItemMirror(w, h, px, py, pz, rx, ry, rz) {
 function ItemBox(w, h, d, c) {
 	var me = this;
 	me.geometry = new THREE.BoxGeometry(w, h, d);
-	me.material=c;
+	me.material = c;
 	me.material = new THREE.MeshPhongMaterial({
 			color : c
 		});
 	me.cube = new THREE.Mesh(me.geometry, me.material);
-	me.addTo = function (d3mJS,group) {
+	me.addTo = function (d3mJS, group) {
 		var g = d3mJS.mainGroup;
 		if (group) {
 			g = group;
@@ -875,12 +873,12 @@ function ItemBox(w, h, d, c) {
 function ItemBox2(w, h, d, c) {
 	var me = this;
 	me.geometry = new THREE.BoxGeometry(w, h, d);
-	me.material=c;
+	me.material = c;
 	/*me.material = new THREE.MeshPhongMaterial({
-			color : c
-		});*/
+	color : c
+	});*/
 	me.cube = new THREE.Mesh(me.geometry, me.material);
-	me.addTo = function (d3mJS,group) {
+	me.addTo = function (d3mJS, group) {
 		var g = d3mJS.mainGroup;
 		if (group) {
 			g = group;
@@ -906,15 +904,15 @@ function ItemBox2(w, h, d, c) {
 	};
 	return me;
 }
-function ItemGlass(w, h, d, m){//c,o) {
+function ItemGlass(w, h, d, m) { //c,o) {
 	var me = this;
 	me.geometry = new THREE.BoxGeometry(w, h, d);
 	/*me.material = new THREE.MeshPhongMaterial({
-			color : c,
-			transparent : true,
-			opacity : o
-		});*/
-	me.cube = new THREE.Mesh(me.geometry, m);//me.material);
+	color : c,
+	transparent : true,
+	opacity : o
+	});*/
+	me.cube = new THREE.Mesh(me.geometry, m); //me.material);
 	me.addTo = function (d3mJS) {
 		me.d3mJS = d3mJS;
 		me.d3mJS.mainGroup.add(me.cube);
@@ -943,8 +941,8 @@ function ItemKnob(w, h, d, c, hide) {
 
 	me.geometry = new THREE.BoxGeometry(w, h, d);
 	me.material = new THREE.MeshPhongMaterial({
-			color : c
-			,transparent : true,
+			color : c,
+			transparent : true,
 			opacity : 0.99
 		});
 	if (hide) {
@@ -952,7 +950,7 @@ function ItemKnob(w, h, d, c, hide) {
 	}
 	me.cube = new THREE.Mesh(me.geometry, me.material);
 
-	me.addTo = function (d3mJS,group) {
+	me.addTo = function (d3mJS, group) {
 		var g = d3mJS.mainGroup;
 		if (group) {
 			g = group;
@@ -1036,14 +1034,14 @@ function takeSparkleTexture() {
 	 */
 	return window.sparkleTexture1;
 }
-function ItemSparkle(size, seed, color,noFlash) {
+function ItemSparkle(size, seed, color, noFlash) {
 	var me = this;
 	me.size = size;
 	me.seed = seed;
 	me.color = color;
 	me.counter = 0;
-	me.scale=1;
-	me.noFlash=noFlash;
+	me.scale = 1;
+	me.noFlash = noFlash;
 	me.material = new THREE.SpriteMaterial({
 			map : takeSparkleTexture(), //vSparkleTexture1, // sparkleTexture2(),
 			blending : THREE.AdditiveBlending,
@@ -1059,7 +1057,7 @@ function ItemSparkle(size, seed, color,noFlash) {
 	me.spotSprite = new THREE.Sprite(spotMaterial);
 	me.sprite.scale.set(1, 1, 1).multiplyScalar(me.size);
 	me.spotSprite.scale.set(1, 1, 1).multiplyScalar(me.size * 0.5);
-	me.addTo = function (d3mJS,group) {
+	me.addTo = function (d3mJS, group) {
 		var g = d3mJS.mainGroup;
 		if (group) {
 			g = group;
@@ -1067,9 +1065,9 @@ function ItemSparkle(size, seed, color,noFlash) {
 		me.d3mJS = d3mJS;
 		g.add(me.sprite);
 		g.add(me.spotSprite);
-		if(me.noFlash){
+		if (me.noFlash) {
 			//
-		}else{
+		} else {
 			me.d3mJS.addTicker(me);
 		}
 		return me;
@@ -1077,20 +1075,20 @@ function ItemSparkle(size, seed, color,noFlash) {
 	me.light = function (color) {
 		me.color = color;
 		//me.material.color=color;
-		me.material.color.setHex( color );
+		me.material.color.setHex(color);
 		return me;
 	};
-	me.rescale=function(scale){
+	me.rescale = function (scale) {
 		//console.log(scale);
-		me.scale=scale;
-		me.sprite.scale.set(1, 1, 1).multiplyScalar(me.size*scale);
-		me.spotSprite.scale.set(1, 1, 1).multiplyScalar(me.size * 0.5*scale);
+		me.scale = scale;
+		me.sprite.scale.set(1, 1, 1).multiplyScalar(me.size * scale);
+		me.spotSprite.scale.set(1, 1, 1).multiplyScalar(me.size * 0.5 * scale);
 		return me;
 	};
-	me.visible=function(v){
+	me.visible = function (v) {
 		//console.log('visible',v);
-		me.sprite.visible=v;
-		me.spotSprite.visible=v;
+		me.sprite.visible = v;
+		me.spotSprite.visible = v;
 	};
 	me.move = function (x, y, z) {
 		me.sprite.position.setX(x);
@@ -1103,8 +1101,8 @@ function ItemSparkle(size, seed, color,noFlash) {
 	};
 	me.tick = function () {
 		me.counter++;
-		me.sprite.scale.set(1, 1, 1).multiplyScalar(me.scale*(me.size + 0.2 * me.size * Math.sin(me.seed * me.counter)));
-		me.spotSprite.scale.set(1, 1, 1).multiplyScalar(me.scale*(me.size * 0.5 + 0.2 * me.size * 0.5 * Math.sin(me.seed * me.counter)));
+		me.sprite.scale.set(1, 1, 1).multiplyScalar(me.scale * (me.size + 0.2 * me.size * Math.sin(me.seed * me.counter)));
+		me.spotSprite.scale.set(1, 1, 1).multiplyScalar(me.scale * (me.size * 0.5 + 0.2 * me.size * 0.5 * Math.sin(me.seed * me.counter)));
 		//console.log(material);
 		return me;
 	};
@@ -1480,7 +1478,7 @@ function ItemLaserRay(r, c) {
 			transparent : true
 		});
 	me.counter = 0;
-	me.addTo = function (d3mJS,group) {
+	me.addTo = function (d3mJS, group) {
 		var g = d3mJS.mainGroup;
 		if (group) {
 			g = group;
@@ -1488,7 +1486,7 @@ function ItemLaserRay(r, c) {
 		me.d3mJS = d3mJS;
 		me.d3mJS.addTicker(me);
 		//me.attachedTo = me.d3mJS.scene;
-		me.attachedTo = g;//me.d3mJS.mainGroup;
+		me.attachedTo = g; //me.d3mJS.mainGroup;
 		//me.d3mJS.scene.add(me.object3d);
 		return me;
 	};
@@ -1858,8 +1856,7 @@ function D3mJS() {
 				touchEvent.preventDefault();
 				me.dab();
 				me.lockOrbitForTarget();
-				}
-			else{
+			} else {
 				me.currentState = me.STATE.COLD;
 				me.isClick = false;
 				me.unLockOrbitForTarget();
@@ -1871,7 +1868,7 @@ function D3mJS() {
 				me.drag(touchEvent.touches[0].pageX, touchEvent.touches[0].pageY);
 			}
 			/*if (touchEvent.touches.length >1) {
-				me.unLockOrbitForTarget();
+			me.unLockOrbitForTarget();
 			}*/
 			touchEvent.preventDefault();
 		};
@@ -2084,7 +2081,7 @@ function D3mJS() {
 	};
 	me.init = function () {
 		console.log("D3mJS init");
-		
+
 		//console.log(me.selectedFont);
 		me.raycaster = new THREE.Raycaster(); // create once
 		me.vector2 = new THREE.Vector2(); // create once
@@ -2154,7 +2151,7 @@ function D3mJS() {
 		me.mainGroup = new THREE.Group();
 		me.scene.add(me.mainGroup);
 		me.uiControls = new THREE.XOrbitControls(me.camera, me.renderer.domElement);
-		
+
 		//me.threeTtrackballControls = new THREE.TrackballControls(me.camera, me.renderer.domElement);
 		//var cameraControl=new CameraControl();
 		//cameraControl.addTo(this);
