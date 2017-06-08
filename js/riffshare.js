@@ -652,7 +652,7 @@ function tickSparkles() {
 				sparkleCache[i].sparkle.visible(false);
 			} else {
 				//sparkleCache[i].sparkle.rescale((sparkleCache[i].count + 1) / sparkleCache[i].length);
-				var r = 0.25 + 0.75 * (sparkleCache[i].count ) / sparkleCache[i].length;
+				var r =  (sparkleCache[i].count ) / sparkleCache[i].length;
 				sparkleCache[i].sparkle.rescale(r);
 				//console.log(i, r);
 			}
