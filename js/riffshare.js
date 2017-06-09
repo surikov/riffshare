@@ -371,7 +371,7 @@ function initAudioFx() {
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0380_SBLive_sf2,
+			sound : _tone_0390_SBLive_sf2,
 			title : 'Synth Bass',
 			volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
 			octave : 3,
@@ -383,7 +383,7 @@ function initAudioFx() {
 			}),
 			light : 0x999999,
 			notes : [],
-			volumeRatio : 0.33
+			volumeRatio : 0.5
 			//39,40
 		,
 			gain : audioContext.createGain()
