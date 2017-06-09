@@ -383,7 +383,7 @@ function initAudioFx() {
 			}),
 			light : 0x999999,
 			notes : [],
-			volumeRatio : 1.1
+			volumeRatio : 0.9
 			//39,40
 		,
 			gain : audioContext.createGain()
