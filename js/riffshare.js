@@ -180,7 +180,7 @@ function initAudioFx() {
 			gain : audioContext.createGain()
 		}, {
 			//sound:_drum_Standard_32_32_460_38,
-			sound : _drum_40_0_SBLive_sf2,
+			sound : _drum_38_0_SBLive_sf2,
 			pitch : 38, //40
 			title : 'Snare drum',
 			volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
@@ -383,7 +383,7 @@ function initAudioFx() {
 			}),
 			light : 0x999999,
 			notes : [],
-			volumeRatio : 0.9
+			volumeRatio : 0.7
 			//39,40
 		,
 			gain : audioContext.createGain()
