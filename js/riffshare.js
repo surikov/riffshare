@@ -1,4 +1,4 @@
-console.log('riffShare v1.85');
+console.log('riffShare v1.86');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -371,7 +371,7 @@ function initAudioFx() {
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0390_SBLive_sf2,
+			sound : _tone_0370_SBLive_sf2,
 			title : 'Synth Bass',
 			volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
 			octave : 3,
