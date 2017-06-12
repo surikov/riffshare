@@ -77,7 +77,7 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 					//this.tileRectangle(g, x, tY, w, h, this.colorComment);
 					//this.tileText(g, x, tY, 5 * this.tapSize, '' + (1 + t), this.colorComment);
 					for (var s = 0; s < this.currentSong.positions[i].meter * song.positions[i].by; s++) {
-						this.tileRectangle(g, x + this.measureMargin(t) + 2*s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
+						this.tileRectangle(g, x + this.measureMargin(t) + this.cellWidth*s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
 					}
 				}
 			}
@@ -91,7 +91,7 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 				//this.tileRectangle(g, x, y, w, h, this.colorComment);
 				//this.tileText(g, x, y, 5 * this.tapSize, '' + (1 + t), this.colorComment);
 				for (var s = 1; s < this.currentSong.positions[i].meter * song.positions[i].by; s++) {
-					this.tileRectangle(g, x + this.measureMargin(t) + 2*s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
+					this.tileRectangle(g, x + this.measureMargin(t) + this.cellWidth*s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
 				}
 			}
 		}

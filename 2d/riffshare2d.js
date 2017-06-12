@@ -17,6 +17,8 @@ RiffShare2D.prototype.init = function () {
 		console.log(ex);
 	}
 	console.log('tapSize', this.tapSize);
+	
+	this.selectedChannel=0;
 
 	this.currentSong = null;
 
@@ -85,11 +87,14 @@ RiffShare2D.prototype.init = function () {
 	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 30;
 	this.marginChangedMeasure = 10;
+	this.cellWidth=3.5;
 	
 	this.colorGrid = '#ddd';
 	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
 	this.colorMain = '#000';
+	this.colorAction = '#903';
+	this.colorButton = '#fff';
 	
 	this.hideTrackSheet=[];
 	this.hideTrackChords=[];

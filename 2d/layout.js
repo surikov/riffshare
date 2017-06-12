@@ -275,7 +275,7 @@ RiffShare2D.prototype.measureWidth32th = function (i) {
 		le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	return this.measureMargin(i)+2*this.currentSong.positions[i].meter * song.positions[i].by* this.tapSize;
+	return this.measureMargin(i)+this.cellWidth*this.currentSong.positions[i].meter * song.positions[i].by* this.tapSize;
 };
 
 

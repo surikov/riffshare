@@ -161,8 +161,8 @@ function initAudioFx() {
 
 	drums = [{
 			//sound:_drum_Standard_32_32_460_35,
-			sound : _drum_35_0_SBLive_sf2,
-			pitch : 35, //36
+			sound : _drum_36_0_SBLive_sf2,
+			pitch : 36, //36
 			title : 'Bass drum',
 			volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
 			id : 0,

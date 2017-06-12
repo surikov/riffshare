@@ -47,7 +47,7 @@ RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t) {
 	txt.innerHTML = m;
 	g.appendChild(txt);
 };
-RiffShare2D.prototype.tileRectangle = function (g, x, y, w, h, f, s, t) {
+RiffShare2D.prototype.tileRectangle = function (g, x, y, w, h, f, s, t,r) {
 	var rect = document.createElementNS(this.svgns, 'rect');
 	rect.setAttributeNS(null, 'x', x);
 	rect.setAttributeNS(null, 'y', y);
@@ -61,6 +61,10 @@ RiffShare2D.prototype.tileRectangle = function (g, x, y, w, h, f, s, t) {
 	}
 	if (t) {
 		rect.setAttributeNS(null, 'stroke-width', t);
+	}
+	if (r) {
+		rect.setAttributeNS(null, 'rx', r);
+		rect.setAttributeNS(null, 'ry', r);
 	}
 	g.appendChild(rect);
 };

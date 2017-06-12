@@ -118,11 +118,11 @@ RiffShare2D.prototype.tileFretMotifs = function (layer, left, top, width, height
 											var t=note.key-offset-this.channelStringKey(note.string,channel);
 											var colordeep=this.fretLineColor(t);
 											var ny=y + this.tapSize * 1 * (channel.string.length-1)-this.tapSize * 1 *(channel.string.length-note.string)+this.tapSize*0.5;
-											var nx=posX+this.measureMargin(k)-this.tapSize*0.5 + chord.start * 2 * this.tapSize + this.tapSize * 1;
+											var nx=posX+this.measureMargin(k)-this.tapSize*0.5 + chord.start * this.cellWidth * this.tapSize + this.tapSize * 1;
 											this.tileLine(g
 												, nx
 												, ny
-												, nx + 1+this.tapSize*(2*note.l6th-1)
+												, nx + 1+this.tapSize*(this.cellWidth*note.l6th-1)
 												, ny
 												, colordeep, this.tapSize *0.99);
 											this.tileText(g, nx-0.3*this.tapSize, ny-0.7*this.tapSize, 1.3*this.tapSize, ''+t, '#fff', colordeep, this.tapSize / 50);
@@ -167,7 +167,7 @@ RiffShare2D.prototype.tileSheetMotifs = function (layer, left, top, width, heigh
 										for (var n = 0; n < chord.notes.length; n++) {
 											var note = chord.notes[n];
 											var ny=y + this.tapSize * (this.heightTrSheet - this.pitch12to7(note.key-offset) + 3 * 7 - 3+2.5);
-											var nx=posX+this.measureMargin(k) + chord.start * 2 * this.tapSize + this.tapSize * 1;
+											var nx=posX+this.measureMargin(k) + chord.start * this.cellWidth * this.tapSize + this.tapSize * this.cellWidth*0.5;
 											this.tileLine(g
 												, nx
 												, ny
@@ -232,11 +232,11 @@ RiffShare2D.prototype.tileMeasureOctave = function (measureN,octaveN,channelN,la
 									//var ny=y + this.tapSize * 1 * (channel.string.length-1)-this.tapSize * 1 *(channel.string.length-note.string)+this.tapSize*0.5;
 									
 									var ny=y+12*this.tapSize-(nkey%12-0.5)*this.tapSize;
-									var nx=x+this.measureMargin(measureN)-this.tapSize*0.5 + chord.start * 2 * this.tapSize + this.tapSize * 1;
+									var nx=x+this.measureMargin(measureN)-this.tapSize*0.5 + chord.start * this.cellWidth * this.tapSize + this.tapSize * 1;
 									this.tileLine(g
 										, nx
 										, ny
-										, nx + 1+this.tapSize*(2*note.l6th-1)
+										, nx + 1+this.tapSize*(this.cellWidth*note.l6th-1)
 										, ny
 										, this.colorMain, this.tapSize *0.99);
 								}
@@ -262,7 +262,9 @@ RiffShare2D.prototype.tileRollOctaves = function (layer, left, top, width, heigh
 					//this.tilePlaceHolder(posX, oY, posW, 12*this.tapSize, '_' + posX+"-"+oY, layer, left, top, width, height, 1);
 					if (this.collision(posX, oY, posW, 12*this.tapSize, left, top, width, height)) {
 						for (var i = 0; i < this.currentSong.channels.length; i++) {
-							this.tileMeasureOctave(k,o,i,layer, left, top, width, height, ratio);
+							if(i==this.selectedChannel){
+								this.tileMeasureOctave(k,o,i,layer, left, top, width, height, ratio);
+							}
 						}
 					}
 				}

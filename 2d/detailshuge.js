@@ -32,8 +32,12 @@ RiffShare2D.prototype.tileOneTrack = function (i,layer, left, top, width, height
 		if (g) {
 			this.tileText(g, x, y, 11 * this.tapSize, this.currentSong.channels[i].channel + ' / ' + this.currentSong.channels[i].track, this.colorComment);
 		}
+		var g = this.rakeGroup(0, y, x, h, id+'btn', layer, left, top, width, height);
+		if (g) {
+			this.tileRectangle(g,0,y,x,h,this.colorAction);
+		}
 		//this.tilePlaceHolder(x, y, w, this.heightTrTitle*this.tapSize, '_' + id, layer, left, top, width, height, 1);
-		this.addSpot(id, x, y, w, this.heightTrTitle*this.tapSize, function () {
+		/*this.addSpot(id, x, y, w, this.heightTrTitle*this.tapSize, function () {
 			if (!(riffShare2d.hideTrackSheet[this.channelOrder])) {
 				console.log('hide track',this.channelOrder);
 				riffShare2d.hideTrackSheet[this.channelOrder] = true;
@@ -48,7 +52,7 @@ RiffShare2D.prototype.tileOneTrack = function (i,layer, left, top, width, height
 				riffShare2d.hideTrackText[this.channelOrder] = false;
 			}
 			riffShare2d.clearAllTiles();
-		}).channelOrder = i;
+		}).channelOrder = i;*/
 	}
 };
 RiffShare2D.prototype.tileSongTracks = function (layer, left, top, width, height) {
