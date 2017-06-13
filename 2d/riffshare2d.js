@@ -89,7 +89,7 @@ RiffShare2D.prototype.init = function () {
 	this.marginChangedMeasure = 10;
 	this.cellWidth=3.5;
 	
-	this.colorGrid = '#ddd';
+	this.colorGrid = '#eee';
 	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
 	this.colorMain = '#000';
@@ -155,13 +155,13 @@ RiffShare2D.prototype.setSong = function (song) {
 	this.hideTrackFret=[];
 	this.hideTrackText=[];
 	this.hideRoll=false;
-	/*
+	
 	this.hideTrackSheet[1]=true;
 	this.hideTrackChords[1]=true;
 	this.hideTrackFret[1]=true;
 	this.hideTrackText[1]=true;
-	this.hideRoll=true;
-	*/
+	//this.hideRoll=true;
+	
 	this.resetSize();
 };
 RiffShare2D.prototype.resetSize = function () {

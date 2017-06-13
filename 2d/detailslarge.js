@@ -1,4 +1,5 @@
 RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
+//this.tileHugeSongTracks(this.largetitles, xx, yy, ww, hh);
 	this.tileSongTitle(this.largetitles, xx, yy, ww, hh);
 	this.tileSongTracks(this.largetitles, xx, yy, ww, hh);
 	this.tileSongRoll(this.largetitles, xx, yy, ww, hh);
@@ -8,21 +9,59 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileStrings(this.largetitles, xx, yy, ww, hh, detailRatio);
 	this.tileFretMotifs(this.largetitles, xx, yy, ww, hh, detailRatio);
 	this.tileSheetMotifs(this.largetitles, xx, yy, ww, hh, detailRatio);
-	this.tileRollOctaves(this.largetitles, xx, yy, ww, hh, detailRatio);
+	this.tileRollOctaves(this.largesymbols, this.largeshadow,xx, yy, ww, hh, detailRatio);
 	//this.tilePianoLines(this.largetitles, xx, yy, ww, hh, detailRatio);
+	
+};
+RiffShare2D.prototype.tileOneMeasureLine = function (layer,i,left, top, width, height, ratio) {
+	var x=this.calculateMeasureX(i);
+	var w=this.measureWidth32th(i);
+	for(var n=0;n<this.currentSong.channels.length;n++){
+		if(!(this.hideTrackSheet[n])){
+			var y=this.calculateTrackSheetY(n)+(0.5+this.marginTrSheetLines-4)*this.tapSize;
+			var h=(4+2*4)*this.tapSize;
+			var id = 'ln' + i + 'x' + x + 'x' + y;
+			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+			if (g) {
+				this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
+				this.tileRectangle(g, x, y+4*this.tapSize, this.lineWidth * ratio, h-4*this.tapSize, this.colorComment);
+			}
+		}
+		if(!(this.hideTrackFret[n])){
+			var y=this.calculateTrackFretY(n)-4*this.tapSize;
+			var h=(4+this.currentSong.channels[n].string.length)*this.tapSize;
+			var id = 'frl' + i + 'x' + x + 'x' + y;
+			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+			if (g) {
+				this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
+				this.tileRectangle(g, x, y+4*this.tapSize, this.lineWidth * ratio, h-4*this.tapSize, this.colorComment);
+			}
+		}
+	}
+	if(!(this.hideRoll)){
+		var y=this.calculateRollGridY();
+		var h=128*this.tapSize;
+		var id = 'rlli' + i ;
+		var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+		if (g) {
+			//this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
+			this.tileRectangle(g, x, y, this.lineWidth * ratio, h, this.colorComment);
+		}
+	}
 };
 RiffShare2D.prototype.tileMeasureLines = function (layer,left, top, width, height, ratio) {
-	var y=this.calculateTrackY(0);
-	var h=this.calculateAllTracksHeight()+this.calculateRollHeight();
+	//var y=this.calculateTrackY(0);
+	//var h=this.calculateAllTracksHeight()+this.calculateRollHeight();
 	for (var i = 0; i < this.currentSong.positions.length; i++) {
-		var x=this.calculateMeasureX(i);
+		this.tileOneMeasureLine(layer,i,left, top, width, height, ratio);
+		/*var x=this.calculateMeasureX(i);
 		var w=this.measureWidth32th(i);
 		var id = 'ln' + i + 'x' + x + 'x' + y;
 		var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 		if (g) {
 			this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
 			this.tileRectangle(g, x, y, this.lineWidth * ratio, h, this.colorComment);
-		}
+		}*/
 	}
 };
 RiffShare2D.prototype.tileOctaveLines = function (layer, left, top, width, height, ratio) {
@@ -204,22 +243,19 @@ RiffShare2D.prototype.tileSheetMotifs = function (layer, left, top, width, heigh
 		}
 	}}
 };
-RiffShare2D.prototype.tileMeasureOctave = function (measureN,octaveN,channelN,layer, left, top, width, height, ratio) {
+RiffShare2D.prototype.tileMeasureOctave = function (measureN,octaveN,channelN,layer, left, top, width, height, ratio,color) {
 	var channel=this.currentSong.channels[channelN];
 	var position=this.currentSong.positions[measureN];
 	for (var n = 0; n < position.motifs.length; n++) {
 			var motif = position.motifs[n];
 			if (motif.channel == channel.id) {
 				var id='oct'+measureN+"x"+octaveN+"x"+channelN;
-				//var offset=channel.offset+this.cleffOffset(motif.clef);
 				var x = this.calculateMeasureX(measureN);
 				var y=this.calculateRollGridY()+(this.heightPRGrid-12*(octaveN+1))*this.tapSize;
 				var w = this.measureWidth32th(measureN)-this.tapSize;
 				var h=12*this.tapSize-this.tapSize;
-				//this.tilePlaceHolder(x, y, w, h, '_' + id, layer, left, top, width, height, 1);
 				var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 				if (g) {
-					//console.log(measureN,octaveN,channelN);
 					var data=this.findMotifById(motif.motif);
 					if (data.chords.length > 0) {
 						for (var c = 0; c < data.chords.length; c++) {
@@ -228,9 +264,6 @@ RiffShare2D.prototype.tileMeasureOctave = function (measureN,octaveN,channelN,la
 								var note = chord.notes[n];
 								var nkey=note.key+channel.offset;
 								if(Math.floor(nkey/12)==octaveN){
-									//console.log(note);
-									//var ny=y + this.tapSize * 1 * (channel.string.length-1)-this.tapSize * 1 *(channel.string.length-note.string)+this.tapSize*0.5;
-									
 									var ny=y+12*this.tapSize-(nkey%12-0.5)*this.tapSize;
 									var nx=x+this.measureMargin(measureN)-this.tapSize*0.5 + chord.start * this.cellWidth * this.tapSize + this.tapSize * 1;
 									this.tileLine(g
@@ -238,7 +271,9 @@ RiffShare2D.prototype.tileMeasureOctave = function (measureN,octaveN,channelN,la
 										, ny
 										, nx + 1+this.tapSize*(this.cellWidth*note.l6th-1)
 										, ny
-										, this.colorMain, this.tapSize *0.99);
+										//, this.colorMain
+										,color
+										, this.tapSize *0.99);
 								}
 							}
 						}
@@ -247,7 +282,7 @@ RiffShare2D.prototype.tileMeasureOctave = function (measureN,octaveN,channelN,la
 			}
 		}
 };
-RiffShare2D.prototype.tileRollOctaves = function (layer, left, top, width, height, ratio) {
+RiffShare2D.prototype.tileRollOctaves = function (layerSymbols,layerShadows, left, top, width, height, ratio) {
 	if (!(this.hideRoll)) {
 		var x = this.marginLeft * this.tapSize;
 		var y=this.calculateRollGridY();
@@ -263,7 +298,9 @@ RiffShare2D.prototype.tileRollOctaves = function (layer, left, top, width, heigh
 					if (this.collision(posX, oY, posW, 12*this.tapSize, left, top, width, height)) {
 						for (var i = 0; i < this.currentSong.channels.length; i++) {
 							if(i==this.selectedChannel){
-								this.tileMeasureOctave(k,o,i,layer, left, top, width, height, ratio);
+								this.tileMeasureOctave(k,o,i,layerSymbols, left, top, width, height, ratio, this.colorMain);
+							}else{
+								this.tileMeasureOctave(k,o,i,layerShadows, left, top, width, height, ratio, this.colorSharp);
 							}
 						}
 					}
