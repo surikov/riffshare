@@ -161,44 +161,44 @@ function initAudioFx() {
 
 	drums = [{
 			//sound:_drum_Standard_32_32_460_35,
-			sound : _drum_36_0_SBLive_sf2,
+			sound : _drum_35_0_Chaos_sf2_file,
 			pitch : 36, //36
 			title : 'Bass drum',
 			volume : sureNumeric(readTextFromlocalStorage('drum0'), 0, 60, 100) / 100,
 			id : 0,
 			notes : [],
-			volumeRatio : 0.5,
+			volumeRatio : 0.35,
 			gain : audioContext.createGain()
 		}, {
-			sound : _drum_41_0_SBLive_sf2,
+			sound : _drum_41_26_JCLive_sf2_file,
 			pitch : 41, //43
 			title : 'Low Tom',
 			volume : sureNumeric(readTextFromlocalStorage('drum1'), 0, 60, 100) / 100,
 			id : 1,
 			notes : [],
-			volumeRatio : 0.99,
+			volumeRatio : 0.5,
 			gain : audioContext.createGain()
 		}, {
 			//sound:_drum_Standard_32_32_460_38,
-			sound : _drum_38_0_SBLive_sf2,
+			sound : _drum_40_26_JCLive_sf2_file,
 			pitch : 38, //40
 			title : 'Snare drum',
 			volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
 			id : 2,
 			notes : [],
-			volumeRatio : 0.75,
+			volumeRatio : 0.5,
 			gain : audioContext.createGain()
 		}, {
-			sound : _drum_45_0_SBLive_sf2,
+			sound : _drum_45_26_JCLive_sf2_file,
 			pitch : 45, //47,48,50
 			title : 'Mid Tom',
 			volume : sureNumeric(readTextFromlocalStorage('drum3'), 0, 60, 100) / 100,
 			id : 3,
 			notes : [],
-			volumeRatio : 0.99,
+			volumeRatio : 0.75,
 			gain : audioContext.createGain()
 		}, {
-			sound : _drum_42_0_SBLive_sf2,
+			sound : _drum_42_26_JCLive_sf2_file,
 			pitch : 42, //44
 			title : 'Closed Hi-hat',
 			volume : sureNumeric(readTextFromlocalStorage('drum4'), 0, 60, 100) / 100,
@@ -208,16 +208,16 @@ function initAudioFx() {
 			gain : audioContext.createGain()
 		}, {
 			//sound:_drum_Standard_32_32_460_46,
-			sound : _drum_46_0_SBLive_sf2,
+			sound : _drum_46_26_JCLive_sf2_file,
 			pitch : 46, //
 			title : 'Open Hi-hat',
 			volume : sureNumeric(readTextFromlocalStorage('drum5'), 0, 60, 100) / 100,
 			id : 5,
 			notes : [],
-			volumeRatio : 0.2,
+			volumeRatio : 0.15,
 			gain : audioContext.createGain()
 		}, {
-			sound : _drum_51_0_SBLive_sf2,
+			sound : _drum_51_26_JCLive_sf2_file,
 			pitch : 51, //rest
 			title : 'Ride Cymbal',
 			volume : sureNumeric(readTextFromlocalStorage('drum6'), 0, 60, 100) / 100,
@@ -226,13 +226,13 @@ function initAudioFx() {
 			volumeRatio : 0.3,
 			gain : audioContext.createGain()
 		}, {
-			sound : _drum_49_0_SBLive_sf2,
+			sound : _drum_49_26_JCLive_sf2_file,
 			pitch : 49, //
 			title : 'Splash Cymbal',
 			volume : sureNumeric(readTextFromlocalStorage('drum7'), 0, 60, 100) / 100,
 			id : 7,
 			notes : [],
-			volumeRatio : 0.2,
+			volumeRatio : 0.1,
 			gain : audioContext.createGain()
 		}
 		/*drums[z].notes.push({
@@ -257,13 +257,13 @@ function initAudioFx() {
 			}),
 			light : 0xFF3300,
 			notes : [],
-			volumeRatio : 0.75
+			volumeRatio : 1.2
 			//31
 		,
 			gain : audioContext.createGain()
 		}, {
 			//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
-			sound : _tone_0250_SBLive_sf2,
+			sound : _tone_0250_GeneralUserGS_sf2_file,
 			//sound:_tone_12_45str_46Gt000054_461_460_45127,
 			//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
 			//sound:_tone_Mandolin000055_461_460_45127,
@@ -280,12 +280,12 @@ function initAudioFx() {
 			}),
 			light : 0x00CC00,
 			notes : [],
-			volumeRatio : 0.77
+			volumeRatio : 0.33
 			//25-28
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0170_SBLive_sf2,
+			sound : _tone_0170_JCLive_sf2_file,
 			title : 'Percussive Organ',
 			volume : sureNumeric(readTextFromlocalStorage('track2'), 0, 60, 100) / 100,
 			octave : 4,
@@ -297,7 +297,7 @@ function initAudioFx() {
 			}),
 			light : 0x3333ff,
 			notes : [],
-			volumeRatio : 0.75
+			volumeRatio : 0.6
 			//17-24
 		,
 			gain : audioContext.createGain()
@@ -314,12 +314,12 @@ function initAudioFx() {
 			}),
 			light : 0x663333,
 			notes : [],
-			volumeRatio : 0.75
+			volumeRatio : 1.2
 			//30
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0020_SBLive_sf2,
+			sound : _tone_0000_Chaos_sf2_file,
 			title : 'Acoustic Piano',
 			volume : sureNumeric(readTextFromlocalStorage('track4'), 0, 60, 100) / 100,
 			octave : 3,
@@ -331,13 +331,13 @@ function initAudioFx() {
 			}),
 			light : 0x0099FF,
 			notes : [],
-			volumeRatio : 0.7
+			volumeRatio : 0.9
 			//rest
 		,
 			gain : audioContext.createGain()
 		}, {
 			//sound:_tone_Picked_32Bs_46000070_461_460_45127,
-			sound : _tone_0330_SBLive_sf2,
+			sound : _tone_0340_Aspirin_sf2_file,
 			title : 'Bass guitar',
 			volume : sureNumeric(readTextFromlocalStorage('track5'), 0, 80, 100) / 100,
 			octave : 2,
@@ -349,12 +349,12 @@ function initAudioFx() {
 			}),
 			light : 0xCC00CC,
 			notes : [],
-			volumeRatio : 1.2
+			volumeRatio : 0.9
 			//33-38
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0480_SBLive_sf2,
+			sound : _tone_0480_GeneralUserGS_sf2_file,
 			title : 'String Ensemble',
 			volume : sureNumeric(readTextFromlocalStorage('track6'), 0, 40, 100) / 100,
 			octave : 3,
@@ -366,12 +366,12 @@ function initAudioFx() {
 			}),
 			light : 0xcc9900,
 			notes : [],
-			volumeRatio : 0.75
+			volumeRatio : 0.6
 			//41-88
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_1060_SBLive_sf2,
+			sound : _tone_0390_GeneralUserGS_sf2_file,
 			title : 'Synth Bass',
 			volume : sureNumeric(readTextFromlocalStorage('track7'), 0, 80, 100) / 100,
 			octave : 3,
@@ -383,7 +383,7 @@ function initAudioFx() {
 			}),
 			light : 0x999999,
 			notes : [],
-			volumeRatio : 0.7
+			volumeRatio : 0.2
 			//39,40
 		,
 			gain : audioContext.createGain()
@@ -398,8 +398,8 @@ function initAudioFx() {
 		});
 		 */
 	];
-	for(var i=0;i<_tone_0480_SBLive_sf2.zones.length;i++){
-              _tone_0480_SBLive_sf2.zones[i].ahdsr=false;
+	for(var i=0;i<_tone_0480_GeneralUserGS_sf2_file.zones.length;i++){
+              _tone_0480_GeneralUserGS_sf2_file.zones[i].ahdsr=false;
             }
 	for (var i = 0; i < tracks.length; i++) {
 		tracks[i].gain.connect(inGain);
@@ -1337,13 +1337,13 @@ function delayedPlay() {
 function allPresetsReady() {
 	for (var i = 0; i < drums.length; i++) {
 		if (!onePresetReady(drums[i].sound)) {
-			console.log(i, 'drum wait');
+			console.log(i, 'drum wait',drums[i]);
 			return false;
 		}
 	}
 	for (var i = 0; i < tracks.length; i++) {
 		if (!onePresetReady(tracks[i].sound)) {
-			console.log(i, 'pitch wait');
+			console.log(i, 'pitch wait',tracks[i]);
 			return false;
 		}
 	}
@@ -1360,6 +1360,7 @@ function onePresetReady(preset) {
 		if (preset.zones[i].buffer) {
 			//
 		} else {
+			
 			return false;
 		}
 	}
