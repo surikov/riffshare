@@ -1,4 +1,4 @@
-console.log('riffShare v1.86');
+console.log('riffShare v1.87');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -263,7 +263,7 @@ function initAudioFx() {
 			gain : audioContext.createGain()
 		}, {
 			//sound:_tone_Good_Acoustic_GuitaGood_Acoustic_Guita_461_46101_45120_file,
-			sound : _tone_0250_GeneralUserGS_sf2_file,
+			sound : _tone_0250_Chaos_sf2_file,
 			//sound:_tone_12_45str_46Gt000054_461_460_45127,
 			//sound:_tone_Steel_32GuitarSteel_32Guitar_461_460_45127_file,
 			//sound:_tone_Mandolin000055_461_460_45127,
