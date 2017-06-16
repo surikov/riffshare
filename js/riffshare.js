@@ -1,4 +1,4 @@
-console.log('riffShare v1.87');
+console.log('riffShare v1.88');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -349,7 +349,7 @@ function initAudioFx() {
 			}),
 			light : 0xCC00CC,
 			notes : [],
-			volumeRatio : 0.9
+			volumeRatio : 0.75
 			//33-38
 		,
 			gain : audioContext.createGain()
