@@ -29,9 +29,10 @@ RiffShare2D.prototype.init = function () {
 	this.rakeDiv = document.getElementById('rakeDiv');
 
 	this.hugeGroup = document.getElementById('huge');
+	this.hugeborders = document.getElementById('hugeborders');
 	this.hugetitles = document.getElementById('hugetitles');
 	this.hugeholders = document.getElementById('hugeholders');
-	this.hugeborders = document.getElementById('hugeborders');
+	
 	this.hugespots = document.getElementById('hugespots');
 
 	this.largeGroup = document.getElementById('large');
@@ -87,9 +88,10 @@ RiffShare2D.prototype.init = function () {
 	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 30;
 	this.marginChangedMeasure = 10;
-	this.cellWidth=3.5;
+	this.cellWidth=0.75;
 	
 	this.colorGrid = '#eee';
+	this.colorHugeHolder = '#ddd';
 	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
 	this.colorMain = '#000';
@@ -145,7 +147,7 @@ RiffShare2D.prototype.queueTiles = function () {
 			//console.log(this);
 			riffShare2d.timeOutID = 0;
 			riffShare2d.resetTiles();
-		}, 100);
+		}, 300);
 };
 RiffShare2D.prototype.setSong = function (song) {
 	this.currentSong = song;

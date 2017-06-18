@@ -99,6 +99,44 @@ RiffShare2D.prototype.tileLine = function (g, x1, y1, x2, y2, s, t) {
 	line.setAttributeNS(null, 'stroke-linecap', 'round');
 	g.appendChild(line);
 };
+RiffShare2D.prototype.tilePath = function (g, lines, s, t) {
+	var line = document.createElementNS(this.svgns, 'path');
+	/*line.setAttributeNS(null, 'x1', x1);
+	line.setAttributeNS(null, 'y1', y1);
+	line.setAttributeNS(null, 'x2', x2);
+	line.setAttributeNS(null, 'y2', y2);*/
+	var d='';
+	for(var i=0;i<lines.length;i++){
+		var one=lines[i];
+		d=d+'M'+one[0].x+','+one[0].y+' ';
+		for(var k=1;k<one.length;k++){
+			d=d+'L'+one[k].x+','+one[k].y+' ';
+		}
+	}
+	//line.setAttributeNS(null, 'd', 'M'+x1+','+y1+' L'+x2+','+y2);
+	line.setAttributeNS(null, 'd', d);
+	line.setAttributeNS(null, 'fill', 'none');
+	if (s) {
+		line.setAttributeNS(null, 'stroke', s);
+	}
+	if (t) {
+		line.setAttributeNS(null, 'stroke-width', t);
+	}
+	line.setAttributeNS(null, 'stroke-linecap', 'round');
+	g.appendChild(line);
+	/*
+M = moveto
+L = lineto
+H = horizontal lineto
+V = vertical lineto
+C = curveto
+S = smooth curveto
+Q = quadratic Bézier curve
+T = smooth quadratic Bézier curveto
+A = elliptical Arc
+Z = closepath
+	*/
+};
 RiffShare2D.prototype.tileSymbol = function (g, x, y, w, h, href) {
 	console.log(g, x, y, w, h, href);
 	var use = document.createElementNS(this.svgns, 'use');

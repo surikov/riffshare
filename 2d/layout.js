@@ -57,8 +57,10 @@ RiffShare2D.prototype.resetTiles = function () {
 	var hh = rb.y - lt.y;
 	this.addContent(xx, yy, ww, hh, this.translateZ);
 };
+var msLog=0;
 RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
-	//console.log(this);
+	
+	msLog=new Date().getTime();
 	if (zz < 0.5) {
 		if (this.lastUsedLevel != 0) {
 			console.log('small details level', this.lastUsedLevel, '->', 0);
@@ -100,6 +102,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 			}
 		}
 	}
+	console.log('addContent done',(new Date().getTime()-msLog));
 };
 RiffShare2D.prototype.moveZoom = function () {
 	var x = -this.translateX;
