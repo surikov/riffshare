@@ -59,7 +59,7 @@ RiffShare2D.prototype.init = function () {
 	this.smallborders = document.getElementById('smallborders');
 	this.smallshadow = document.getElementById('smallshadow');
 	this.smallsymbols = document.getElementById('smallsymbols');
-	this.smallspots = document.getElementById('smallspots');
+	this.smallspots = document.getElementById('smallhotspots');
 
 	this.translateX = 0;
 	this.translateY = 0;
@@ -78,25 +78,25 @@ RiffShare2D.prototype.init = function () {
 	this.marginBottom = 20;
 	this.heightSongTitle = 30;
 	this.heightSongText = 10;
-	this.heightTrTitle = 10;
+	this.heightTrTitle = 17;
 	this.heightTrChords = 10;
 	this.heightTrSheet = 29;
 	this.marginTrSheetLines = 11;
 	//this.heightTrFret = 10;
 	this.heightTrText = 10;
-	this.heightPRTitle = 3;
+	this.heightPRTitle = 19;
 	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 30;
 	this.marginChangedMeasure = 10;
-	this.cellWidth=0.75;
+	this.cellWidth=1.75;
 	
 	this.colorGrid = '#eee';
 	this.colorHugeHolder = '#ddd';
 	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
 	this.colorMain = '#000';
-	this.colorAction = '#903';
-	this.colorButton = '#fff';
+	this.colorAction = '#f60';
+	this.colorButton = '#000';
 	
 	this.hideTrackSheet=[];
 	this.hideTrackChords=[];
@@ -138,6 +138,12 @@ RiffShare2D.prototype.findMotifById = function (id) {
 		}
 		return null;
 	};
+RiffShare2D.prototype.resetAllLayersNow = function () {
+	this.clearLayers([riffShare2d.hugeGroup, riffShare2d.largeGroup, riffShare2d.mediumGroup, riffShare2d.smallGroup]);
+	this.clearSpots();
+	this.resetSize();
+	this.resetTiles();
+};
 RiffShare2D.prototype.queueTiles = function () {
 	if (this.timeOutID > 0) {
 		//console.log('still wait redraw');
@@ -147,7 +153,7 @@ RiffShare2D.prototype.queueTiles = function () {
 			//console.log(this);
 			riffShare2d.timeOutID = 0;
 			riffShare2d.resetTiles();
-		}, 300);
+		}, 100);
 };
 RiffShare2D.prototype.setSong = function (song) {
 	this.currentSong = song;

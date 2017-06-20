@@ -28,15 +28,21 @@ RiffShare2D.prototype.rakeGroup = function (x, y, w, h, id, layer, left, top, wi
 };
 
 
-RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t) {
+RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t,ff,fs) {
 	var txt = document.createElementNS(this.svgns, 'text');
 	txt.setAttributeNS(null, 'x', x);
 	txt.setAttributeNS(null, 'y', y);
 	txt.setAttributeNS(null, 'font-size', n);
-	txt.setAttributeNS(null, 'alignment-baseline', 'text-before-edge');
-	txt.setAttributeNS(null, 'text-anchor', 'start');
+	//txt.setAttributeNS(null, 'alignment-baseline', 'text-before-edge');
+	//txt.setAttributeNS(null, 'text-anchor', 'start');
 	if (f) {
 		txt.setAttributeNS(null, 'fill', f);
+	}
+	if (ff) {
+		txt.setAttributeNS(null, 'font-family', ff);
+	}
+	if (fs) {
+		txt.setAttributeNS(null, 'font-style', fs);
 	}
 	if (s) {
 		txt.setAttributeNS(null, 'stroke', s);
@@ -99,7 +105,7 @@ RiffShare2D.prototype.tileLine = function (g, x1, y1, x2, y2, s, t) {
 	line.setAttributeNS(null, 'stroke-linecap', 'round');
 	g.appendChild(line);
 };
-RiffShare2D.prototype.tilePath = function (g, lines, s, t) {
+RiffShare2D.prototype.tileMultiLine = function (g, lines, s, t) {
 	var line = document.createElementNS(this.svgns, 'path');
 	/*line.setAttributeNS(null, 'x1', x1);
 	line.setAttributeNS(null, 'y1', y1);

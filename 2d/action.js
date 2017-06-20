@@ -24,10 +24,15 @@ RiffShare2D.prototype.clearSpots = function () {
 	this.spots=[];
 };
 RiffShare2D.prototype.runSpots = function (x,y) {
+	var found=false;
 	for(var i=0;i<this.spots.length;i++){
 		var spot=this.spots[i];
 		if (this.collision(x, y, 1, 1, spot.x, spot.y, spot.w, spot.h)) {
 			spot.a();
+			found=true;
 		}
+	}
+	if(found){
+		this.resetAllLayersNow();
 	}
 };
