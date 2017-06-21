@@ -27,6 +27,8 @@ RiffShare2D.prototype.init = function () {
 	this.contentDiv = document.getElementById('contentDiv');
 	this.contentSVG = document.getElementById('contentSVG');
 	this.rakeDiv = document.getElementById('rakeDiv');
+	
+	this.menuDiv = document.getElementById('menuDiv');
 
 	this.hugeGroup = document.getElementById('huge');
 	this.hugeborders = document.getElementById('hugeborders');
@@ -60,6 +62,8 @@ RiffShare2D.prototype.init = function () {
 	this.smallshadow = document.getElementById('smallshadow');
 	this.smallsymbols = document.getElementById('smallsymbols');
 	this.smallspots = document.getElementById('smallhotspots');
+	
+	this.overlayGroup = document.getElementById('overlay');
 
 	this.translateX = 0;
 	this.translateY = 0;

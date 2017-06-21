@@ -5,6 +5,8 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongRollTitle(this.hugeholders, xx, yy, ww, hh);
 	this.tileHugeMeasureLines(this.hugeborders,xx, yy, ww, hh, detailRatio);
 	this.tileHugeTrackControls(this.hugespots, xx, yy, ww, hh, detailRatio);
+	
+	this.tileMenu(xx, yy, ww, hh, detailRatio);
 };
 RiffShare2D.prototype.tileSongTitle = function (layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;

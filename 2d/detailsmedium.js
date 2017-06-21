@@ -15,6 +15,8 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 
 	//this.tileHugeTrackControls(this.mediumspots, xx, yy, ww, hh, detailRatio);
 	this.tileMediumTrackControls(this.mediumspots, xx, yy, ww, hh, detailRatio);
+	
+	this.tileMenu(xx, yy, ww, hh, detailRatio);
 };
 /*
 RiffShare2D.prototype.tileOnePianoLine = function (x, y, w, h, id, layer, left, top, width, height) {

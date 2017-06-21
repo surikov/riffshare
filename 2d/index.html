@@ -12,18 +12,20 @@
 		<script type="text/javascript" src="detailsmedium.js"></script>
 		<script type="text/javascript" src="detailslarge.js"></script>
 		<script type="text/javascript" src="detailssmall.js"></script>
-		<link href="https://fonts.googleapis.com/css?family=Lovers+Quarrel" rel="stylesheet">
+		<!-- <link href="https://fonts.googleapis.com/css?family=Lovers+Quarrel" rel="stylesheet">font-family: 'Lovers Quarrel', cursive; -->
+		<!-- <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">font-family: 'Yesteryear', cursive; -->
+		<link href="https://fonts.googleapis.com/css?family=Ruthie" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
 		<style>
 			body {
-				font-family: 'Lovers Quarrel', cursive;
+				font-family: 'Ruthie', cursive;
 			}
 		</style>
-		<title>27</title>
+		<title>28</title>
 	</head>
 	<body style='background-color:#00f;padding:0px;margin:0px;'>
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#0f0; overflow:hidden;" >
-			<div id="contentDiv" style="width:100%; height:100%; background-color:#fff;padding:0px margin:0px;" >
+			<div id="contentDiv" style="width:100%; height:100%; background-color:#fff;padding:0px; margin:0px;" >
 				<svg id="contentSVG" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 					<symbol id="iconGear" viewBox="0 0 932.179 932.179" style="enable-background:new 0 0 932.179 932.179;" xml:space="preserve">
 						<g>
@@ -56,6 +58,14 @@
 							   sodipodi:type="arc" />
 						</g>
 					</symbol>
+					<filter id="dropshadow" height="130%">
+					  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
+					  <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
+					  <feMerge> 
+						<feMergeNode/> <!-- this contains the offset blurred image -->
+						<feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+					  </feMerge>
+					</filter>
 					<g id='huge'>
 						<g id='hugeborders'/>
 						<g id='hugetitles'/>
@@ -85,12 +95,42 @@
 						<g id='smalllines'/>
 						<g id='smallborders'/>
 						<g id='smallshadow'/>
+						<!--<g id='smallsymbols' style="filter:url(#dropshadow)"/>-->
 						<g id='smallsymbols'/>
 						<g id='smallhotspots'/>
 					</g>
+					
 					<!--<use href="#iconGear" xlink:href="#iconGear" x="500" y="-100" width="1000" height="1000"/>-->
 				</svg>
+				
 			</div>
+		</div>
+		<div id="menuDiv" style="width:100%; height:100%; left:0px; top:0px; position:absolute; background-color:rgba(255,255,255,0.85); padding:0px; margin:0px; visibility:hidden; overflow:scroll;">
+		<!--  pointer-events: none; -->
+				<!--<svg id="contentSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+					<g id='overlay'/>
+				</svg>-->
+				<h1><a href="javascript:alert('1');riffShare2d.hideMenu();">test1</a></h1>
+				<h1><a href="">test2</a></h1>
+				<h1><a href="javascript:riffShare2d.hideMenu();">test3</a></h1>
+				<h1><a href="">test4</a></h1>
+				<h1><a href="">test5</a></h1>
+				<h1><a href="">test6</a></h1>
+				<h1><a href="">test7</a></h1>
+				<h1><a href="">test8</a></h1>
+				<h1><a href="">test9</a></h1>
+				<h1><a href="">test10</a></h1>
+				<h1><a href="">test11</a></h1>
+				<h1><a href="">test12</a></h1>
+				<h1><a href="">test13</a></h1>
+				<h1><a href="">test14</a></h1>
+				<h1><a href="">test15</a></h1>
+				<h1><a href="">test16</a></h1>
+				<h1><a href="">test17</a></h1>
+				<h1><a href="">test18</a></h1>
+				<h1><a href="">test19</a></h1>
+				<h1><a href="">test20</a></h1>
+				<h1><a href="">test21</a></h1>
 		</div>
 	</body>
 </html>
