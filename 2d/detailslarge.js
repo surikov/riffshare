@@ -13,7 +13,7 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileRollOctaves(this.largesymbols, this.largeshadow, xx, yy, ww, hh, detailRatio);
 	this.tileHugeTrackControls(this.largespots, xx, yy, ww, hh, detailRatio);
 	
-	this.tileMenu( xx, yy, ww, hh, detailRatio);
+	this.tileMenu( this.largespots,xx, yy, ww, hh, detailRatio);
 
 };
 RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width, height, ratio) {

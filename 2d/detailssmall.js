@@ -19,5 +19,5 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	//this.tileHugeTrackControls(this.smallspots, xx, yy, ww, hh, detailRatio);
 	this.tileMediumTrackControls(this.smallspots, xx, yy, ww, hh, detailRatio);
 	
-	this.tileMenu( xx, yy, ww, hh, detailRatio);
+	this.tileMenu(this.smallspots,  xx, yy, ww, hh, detailRatio);
 };

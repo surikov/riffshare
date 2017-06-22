@@ -40,11 +40,11 @@ RiffShare2D.prototype.runSpots = function (x, y) {
 			found = true;
 		}
 	}
-	if (this.menuFog) {
+	/*if (this.menuFog) {
 		this.hideMenu();
 	} else {
 		this.showMenu();
-	}
+	}*/
 	if (found) {
 		this.resetAllLayersNow();
 	}
@@ -53,10 +53,12 @@ RiffShare2D.prototype.showMenu = function (x, y) {
 	//this.removeMenu();
 	//this.menuInfo={x:x,y:y,r:this.translateZ};
 	//console.log(this.translateZ);
+	
 	this.menuDiv.style.visibility = "visible";
+	this.menuDiv.scrollTop = 0;
 	this.menuFog = true;
 };
-RiffShare2D.prototype.tileMenu = function (left, top, width, height, ratio) {
+RiffShare2D.prototype.tileMenu = function (layer,left, top, width, height, detailRatio) {
 	/*if(this.menuInfo){
 	var x=this.menuInfo.x;
 	var y=this.menuInfo.y;
@@ -74,6 +76,18 @@ RiffShare2D.prototype.tileMenu = function (left, top, width, height, ratio) {
 	this.tileRectangle(g, 10, 30, 100, 200, this.colorHugeHolder);
 	}
 	}*/
+	var x = 30 * this.tapSize;
+	var y = 30 * this.tapSize;
+	var w = 13 * this.tapSize;
+	var h = 13 * this.tapSize;
+	var id = 'optControls';
+	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+	if (g) {
+		this.tileCircle(g, x + w / 2 , y + w/2,  w/2, this.colorAction, this.colorAction, this.lineWidth * detailRatio);
+		this.addSpot('optControlsSpot', x,y,w,h, function(){
+			riffShare2d.showMenu();
+		});
+	}
 };
 RiffShare2D.prototype.hideMenu = function () {
 	/*if(this.overlayGroup.children.length>0){

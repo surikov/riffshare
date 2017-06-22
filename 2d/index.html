@@ -20,8 +20,78 @@
 			body {
 				font-family: 'Ruthie', cursive;
 			}
+			a {
+				color: #000;
+			}
+			table {
+				*border-collapse: collapse; /* IE7 and lower */
+				border-spacing: 0;
+				width: 10%;    
+			}
+			.bordered {
+				border: solid #ccc 1px;
+				-moz-border-radius: 6px;
+				-webkit-border-radius: 6px;
+				border-radius: 6px;
+				-webkit-box-shadow: 0 1px 1px #ccc; 
+				-moz-box-shadow: 0 1px 1px #ccc; 
+				box-shadow: 0 1px 1px #ccc;         
+				font-family: 'Anton', cursive;
+				margin-top: 100px
+				margin-bottom: 100px
+			}
+			.bordered td, .bordered th {
+				border-left: 1px solid #ccc;
+				border-top: 1px solid #ccc;
+				padding: 10px;
+				text-align: left;    
+				background-color: #fff;
+				
+			}
+			.bordered th {
+				background-color: #eeeeee;
+				background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#eeeeee));
+				background-image: -webkit-linear-gradient(top, #cccccc, #eeeeee);
+				background-image:    -moz-linear-gradient(top, #cccccc, #eeeeee);
+				background-image:     -ms-linear-gradient(top, #cccccc, #eeeeee);
+				background-image:      -o-linear-gradient(top, #cccccc, #eeeeee);
+				background-image:         linear-gradient(top, #cccccc, #eeeeee);
+				-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+				-moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+				box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+				border-top: none;
+				text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+			}
+			.bordered td:first-child, .bordered th:first-child {
+				border-left: none;
+			}
+			.bordered th:first-child {
+				-moz-border-radius: 6px 0 0 0;
+				-webkit-border-radius: 6px 0 0 0;
+				border-radius: 6px 0 0 0;
+			}
+			.bordered th:last-child {
+				-moz-border-radius: 0 6px 0 0;
+				-webkit-border-radius: 0 6px 0 0;
+				border-radius: 0 6px 0 0;
+			}
+			.bordered th:only-child{
+				-moz-border-radius: 6px 6px 0 0;
+				-webkit-border-radius: 6px 6px 0 0;
+				border-radius: 6px 6px 0 0;
+			}
+			.bordered tr:last-child td:first-child {
+				-moz-border-radius: 0 0 0 6px;
+				-webkit-border-radius: 0 0 0 6px;
+				border-radius: 0 0 0 6px;
+			}
+			.bordered tr:last-child td:last-child {
+				-moz-border-radius: 0 0 6px 0;
+				-webkit-border-radius: 0 0 6px 0;
+				border-radius: 0 0 6px 0;
+			}
 		</style>
-		<title>28</title>
+		<title>29</title>
 	</head>
 	<body style='background-color:#00f;padding:0px;margin:0px;'>
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#0f0; overflow:hidden;" >
@@ -105,11 +175,12 @@
 				
 			</div>
 		</div>
-		<div id="menuDiv" style="width:100%; height:100%; left:0px; top:0px; position:absolute; background-color:rgba(255,255,255,0.85); padding:0px; margin:0px; visibility:hidden; overflow:scroll;">
+		<div id="menuDiv" style="width:100%; height:100%; left:0px; top:0px; position:absolute; background-color:rgba(0,0,0,0.5); padding:0px; margin:0px; visibility:hidden; overflow:scroll;">
 		<!--  pointer-events: none; -->
 				<!--<svg id="contentSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 					<g id='overlay'/>
 				</svg>-->
+				<!--
 				<h1><a href="javascript:alert('1');riffShare2d.hideMenu();">test1</a></h1>
 				<h1><a href="">test2</a></h1>
 				<h1><a href="javascript:riffShare2d.hideMenu();">test3</a></h1>
@@ -131,6 +202,43 @@
 				<h1><a href="">test19</a></h1>
 				<h1><a href="">test20</a></h1>
 				<h1><a href="">test21</a></h1>
+				-->
+			<table class="bordered" align='center'>
+				<thead><tr><th><a href="javascript:riffShare2d.hideMenu();"><nobr>IMDB Top 10 Movies</nobr></a></th></tr></thead>
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Shawshank Redemption</nobr></div></a></td></tr>        
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather</nobr></div></a></td></tr>
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+				<tr><td><a href="javascript:riffShare2d.hideMenu();"><div><nobr>The Godfather: Part II</nobr></div></a></td></tr>  
+			</table>
 		</div>
 	</body>
 </html>
