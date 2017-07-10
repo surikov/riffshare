@@ -6,8 +6,8 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileTracksTitles(this.smalltitles, xx, yy, ww, hh);
 	this.tileSongRollTitle(this.smalltitles, xx, yy, ww, hh);
 	this.tilePianoLines(this.smallgrid, xx, yy, ww, hh, detailRatio);
-	this.tileGridVericalLines(this.smallgrid, xx, yy, ww, hh, detailRatio);
-	this.tileGridHorLines(this.smallgrid, xx, yy, ww, hh, detailRatio);
+	//this.tileGridVericalLines(this.smallgrid, xx, yy, ww, hh, detailRatio);
+	//this.tileGridHorLines(this.smallgrid, xx, yy, ww, hh, detailRatio);
 	this.tileMeasureLines(this.smallborders, xx, yy, ww, hh, detailRatio);
 	this.tileOctaveLines(this.smallborders, xx, yy, ww, hh, detailRatio);
 	this.tileScoreLines(this.smallborders, xx, yy, ww, hh, detailRatio);

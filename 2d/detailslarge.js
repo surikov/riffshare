@@ -5,6 +5,7 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongRollTitle(this.largetitles, xx, yy, ww, hh);
 	this.tileMeasureLines(this.largeborders, xx, yy, ww, hh, detailRatio);
 	this.tileOctaveLines(this.largeborders, xx, yy, ww, hh, detailRatio);
+
 	this.tileScoreLines(this.largeborders, xx, yy, ww, hh, detailRatio);
 	this.tileStrings(this.largesymbols, xx, yy, ww, hh, detailRatio);
 	this.tileFretMotifs(this.largesymbols, xx, yy, ww, hh, detailRatio);
@@ -12,8 +13,8 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 
 	this.tileRollOctaves(this.largesymbols, this.largeshadow, xx, yy, ww, hh, detailRatio);
 	this.tileHugeTrackControls(this.largespots, xx, yy, ww, hh, detailRatio);
-	
-	this.tileMenu( this.largespots,xx, yy, ww, hh, detailRatio);
+
+	this.tileMenu(this.largespots, xx, yy, ww, hh, detailRatio);
 
 };
 RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width, height, ratio) {
@@ -32,7 +33,7 @@ RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width,
 		}
 		if (!(this.hideTrackFret[n])) {
 			var y = this.calculateTrackFretY(n) - 4 * this.tapSize;
-			var h = (4 + this.currentSong.channels[n].string.length) * this.tapSize;
+			var h = (4 + 2 * this.currentSong.channels[n].string.length) * this.tapSize;
 			var id = 'frl' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
@@ -112,12 +113,12 @@ RiffShare2D.prototype.tileStrings = function (layer, left, top, width, height, r
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
 		if (!(this.hideTrackFret[i])) {
 			var y = this.calculateTrackFretY(i);
-			var h = (this.currentSong.channels[i].string.length + 1) * this.tapSize;
+			var h = (2 * this.currentSong.channels[i].string.length + 1) * this.tapSize;
 			var id = 'str' + i;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
 				for (var s = 0; s < this.currentSong.channels[i].string.length; s++) {
-					this.tileRectangle(g, x, y + (0.5 + s) * this.tapSize, w, this.lineWidth * ratio, this.colorComment);
+					this.tileRectangle(g, x, y + (0.5 + 2 * s) * this.tapSize, w, this.lineWidth * ratio, this.colorComment);
 				}
 			}
 		}
@@ -132,7 +133,7 @@ RiffShare2D.prototype.tileFretMotifs = function (layer, left, top, width, height
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
 		if (!(riffShare2d.hideTrackFret[i])) {
 			var channel = this.currentSong.channels[i];
-			var h = this.currentSong.channels[i].string.length * this.tapSize;
+			var h = 2 * this.currentSong.channels[i].string.length * this.tapSize;
 			//y=y+(this.heightTrTitle+this.heightTrSheet+this.heightTrChords+this.heightTrText) * this.tapSize;
 			y = this.calculateTrackFretY(i);
 			if (this.collision(x, y, w, h, left, top, width, height)) {
@@ -159,10 +160,10 @@ RiffShare2D.prototype.tileFretMotifs = function (layer, left, top, width, height
 												var note = chord.notes[n];
 												var t = note.key - offset - this.channelStringKey(note.string, channel);
 												var colordeep = this.fretLineColor(t);
-												var ny = y + this.tapSize * 1 * (channel.string.length - 1) - this.tapSize * 1 * (channel.string.length - note.string) + this.tapSize * 0.5;
-												var nx = posX + this.measureMargin(k) - this.tapSize * 0.5 + chord.start * this.cellWidth * this.tapSize + this.tapSize * 1;
-												this.tileLine(g, nx, ny, nx + 1 + this.tapSize * (this.cellWidth * note.l6th - 1), ny, colordeep, this.tapSize * 0.9);
-												this.tileText(g, nx - 0.2 * this.tapSize, ny + 0.35 * this.tapSize, 0.9 * this.tapSize, '' + t, '#fff', colordeep, this.tapSize / 50,'Anton, sans-serif','normal');
+												var ny = y + this.tapSize * 2 * (channel.string.length - 1) - this.tapSize * 2 * (channel.string.length - note.string) + this.tapSize * 0.5;
+												var nx = posX + this.measureMargin(k) + chord.start * this.cellWidth * this.tapSize + this.tapSize * 1;
+												this.tileLine(g, nx, ny, nx + 1 + this.tapSize * (this.cellWidth * note.l6th - 2), ny, colordeep, this.tapSize * 1.9);
+												this.tileText(g, nx - 0.2 * this.tapSize, ny + 0.75 * this.tapSize, 1.9 * this.tapSize, '' + t, '#fff', colordeep, this.tapSize / 50, 'Anton, sans-serif', 'normal');
 											}
 										}
 									}
@@ -175,14 +176,124 @@ RiffShare2D.prototype.tileFretMotifs = function (layer, left, top, width, height
 		}
 	}
 };
+RiffShare2D.prototype.__tileSheetStairsMotifs = function (g, x, y, chords, layer, left, top, width, height, ratio, offset) {
+	for (var c = 0; c < chords.length; c++) {
+		var chord = chords[c];
+		var minNote = 129;
+		var maxNote = -1;
+		for (var n = 0; n < chord.notes.length; n++) {
+			var note = chord.notes[n];
+			var py = this.pitch12to7(note.key - offset);
+			if (py < minNote) {
+				minNote = py;
+			}
+			if (py > maxNote) {
+				maxNote = py;
+			}
+		}
+		var linesY = y + (0.5 + this.marginTrSheetLines + 2 * 5) * this.tapSize;
+		/*var nx = x + chord.start * this.cellWidth * this.tapSize + this.tapSize * this.cellWidth * 0.5;
+		var ny=linesY-this.tapSize * minNote+this.tapSize * 28;
+		this.tileEllipse(g, nx, ny, this.tapSize * 0.75 * this.cellWidth, this.tapSize * 0.9, '#ff0000');
+		ny=linesY-this.tapSize * maxNote+this.tapSize * 28;
+		this.tileEllipse(g, nx, ny, this.tapSize * 0.75 * this.cellWidth, this.tapSize * 0.9, '#ff00ff');*/
+		lowStair = 28;
+		ny = linesY - this.tapSize * lowStair + this.tapSize * 28;
+		this.tileRectangle(g, x, ny, 7.5 * this.tapSize, this.lineWidth * ratio, '#009999');
+		highStair = 28 + 12;
+		ny = linesY - this.tapSize * highStair + this.tapSize * 28;
+		this.tileRectangle(g, x, ny, 7.5 * this.tapSize, this.lineWidth * ratio, '#99ff33');
+	}
+};
+RiffShare2D.prototype.findStartMM = function (start, minMax) {
+	for (var i = 0; i < minMax.length; i++) {
+		if (minMax[i].start == start) {
+			return i;
+		}
+	}
+	minMax.push({
+		start : start,
+		mn : 128,
+		mx : -1
+	});
+	return minMax.length - 1;
+};
+RiffShare2D.prototype.createMinMax = function (chords, offset) {
+	var minMax = [];
+	for (var c = 0; c < chords.length; c++) {
+		var chord = chords[c];
+		var mm = minMax[this.findStartMM(chord.start, minMax)];
+		for (var n = 0; n < chord.notes.length; n++) {
+			var note = chord.notes[n];
+			mm.l6th = note.l6th;
+			var ny = this.pitch12to7(note.key - offset);
+			if (ny < mm.mn) {
+				mm.mn = ny;
+			}
+			if (ny > mm.mx) {
+				mm.mx = ny;
+			}
+		}
+	}
+	return minMax;
+};
+RiffShare2D.prototype.tileNoteStick = function (g, x, ratio, mm, linesY) {
+	if (mm.l6th < 5) {
+		var nx = x + mm.start * this.cellWidth * this.tapSize + this.tapSize * (this.cellWidth - 0.1) - this.lineWidth * ratio * 2;
+		var ny = linesY - this.tapSize * mm.mn + this.tapSize * 28;
+		var lh = this.tapSize * (mm.mx - mm.mn + 10);
+		this.tileRectangle(g, nx, ny - lh, 2 * this.lineWidth * ratio, lh, this.colorMain);
+		var cnt = 0;
+		if (mm.l6th == 0.5) {
+			cnt = 4;
+		}
+		if (mm.l6th == 1) {
+			cnt = 2;
+		}
+		if (mm.l6th == 2) {
+			cnt = 1;
+		}
+		//cnt=cnt*2;
+		for (var i = 0; i < cnt; i++) {
+			var y=ny-lh+i*0.75*this.tapSize;
+			this.tileLine(g, nx, y, nx+2*this.tapSize, y+this.tapSize, this.colorMain, 2 * this.lineWidth * ratio);
+		}
+	}
+};
+RiffShare2D.prototype.tileSheetStairsMotifs = function (g, x, y, chords, ratio, offset) {
+	var linesY = y + this.linesYshift();
+	var minMax = this.createMinMax(chords, offset);
+
+	for (var i = 0; i < minMax.length; i++) {
+		var mm = minMax[i];
+		var nx = x + mm.start * this.cellWidth * this.tapSize;
+		if (mm.mn <= this.lowStair) {
+			for (var s = this.lowStair; s >= mm.mn; s = s - 2) {
+				var ny = linesY - this.tapSize * s + this.tapSize * 28;
+				this.tileRectangle(g, nx, ny, this.cellWidth * this.tapSize * 0.99, this.lineWidth * ratio, this.colorMain);
+			}
+		}
+		if (mm.mx >= this.highStair) {
+			for (var s = this.highStair; s <= mm.mx; s = s + 2) {
+				var ny = linesY - this.tapSize * s + this.tapSize * 28;
+				this.tileRectangle(g, nx, ny, this.cellWidth * this.tapSize * 0.99, this.lineWidth * ratio, this.colorMain);
+			}
+		}
+
+		this.tileNoteStick(g, x, ratio, mm, linesY);
+	}
+};
 RiffShare2D.prototype.tileSheetMotifs = function (layer, left, top, width, height, ratio) {
 	var x = this.marginLeft * this.tapSize;
 	var w = this.songWidth32th();
+
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
 		if (!(riffShare2d.hideTrackSheet[i])) {
 			var channel = this.currentSong.channels[i];
 			var h = this.heightTrSheet * this.tapSize;
-			y = this.calculateTrackSheetY(i);
+			var y = this.calculateTrackSheetY(i);
+			//var linesY = y + (0.5 + this.marginTrSheetLines + 2 * 5) * this.tapSize;
+			var linesY = y + this.linesYshift();
 			if (this.collision(x, y, w, h, left, top, width, height)) {
 				for (var k = 0; k < this.currentSong.positions.length; k++) {
 					var posX = this.calculateMeasureX(k);
@@ -190,38 +301,56 @@ RiffShare2D.prototype.tileSheetMotifs = function (layer, left, top, width, heigh
 					//this.tilePlaceHolder(posX, y, posW, h, '_' + posX+"-"+y, layer, left, top, width, height, 1);
 					if (this.collision(posX, y, posW, h, left, top, width, height)) {
 						var position = this.currentSong.positions[k];
-						for (var n = 0; n < position.motifs.length; n++) {
-							var motif = position.motifs[n];
-							if (motif.channel == channel.id) {
-								var id = 'sheetPos' + motif.channel + 'x' + motif.motif;
-								var offset = channel.offset + this.cleffOffset(motif.clef);
-								var g = this.rakeGroup(posX, y, posW, h, id, layer, left, top, width, height);
-								if (g) {
-									var data = this.findMotifById(motif.motif);
-									if (data.chords.length > 0) {
-										var lines = [];
-										for (var c = 0; c < data.chords.length; c++) {
-											var chord = data.chords[c];
-											for (var n = 0; n < chord.notes.length; n++) {
-												var note = chord.notes[n];
-												var ny = y + this.tapSize * (this.heightTrSheet - this.pitch12to7(note.key - offset) + 3 * 7 - 3 + 2.5);
-												var nx = posX + this.measureMargin(k) + chord.start * this.cellWidth * this.tapSize + this.tapSize * this.cellWidth * 0.5;
-												//this.tileLine(g, nx, ny, nx + 1, ny, this.colorMain, this.tapSize * 0.99);
-												lines.push([{
-														x : nx,
-														y : ny
-													}, {
-														x : nx + 1 ,
-														y : ny
-													}
-												]);
+
+						//var motif = this.findPositionMotifByChannel(position, channel.id);
+						//if (motif) {
+						var motifs = this.findPositionMotifByChannel(position, channel.id);
+						for (var mi = 0; mi < motifs.length; mi++) {
+							var motif = motifs[mi];
+							//console.log(motif);
+							//for (var n = 0; n < position.motifs.length; n++) {
+							//var motif = position.motifs[n];
+							//if (motif.channel == channel.id) {
+							var id = 'sheetPos' + motif.channel + 'x' + motif.motif;
+							var offset = channel.offset + this.cleffOffset(motif.clef);
+							var g = this.rakeGroup(posX, y, posW, h, id, layer, left, top, width, height);
+							if (g) {
+								var data = this.findMotifById(motif.motif);
+								if (data.chords.length > 0) {
+									//var lines = [];
+									//if(i==3 && k==5){
+										//console.log(y,data.chords);
+										//this.tileSheetStairsMotifs(g, posX + this.measureMargin(k), y-this.tapSize, data.chords, ratio, offset);
+									//}else{
+									//this.tileSheetStairsMotifs(g,posX + this.measureMargin(k), y, data.chords, layer, left, top, width, height, ratio, offset);
+										
+									//}
+									this.tileSheetStairsMotifs(g, posX + this.measureMargin(k), y, data.chords, ratio, offset);
+									for (var c = 0; c < data.chords.length; c++) {
+										var chord = data.chords[c];
+										for (var n = 0; n < chord.notes.length; n++) {
+											var note = chord.notes[n];
+											//var ny = y + this.tapSize * (this.heightTrSheet - this.pitch12to7(note.key - offset) + 3 * 7 - 3 + 2.5);
+											var noteY = this.tapSize * this.pitch12to7(note.key - offset);
+											var ny = linesY - noteY + this.tapSize * 28;
+											var nx = posX + this.measureMargin(k) + chord.start * this.cellWidth * this.tapSize + this.tapSize * this.cellWidth * 0.5;
+											//this.tileLine(g, nx, ny, nx + 1, ny, this.colorMain, this.tapSize * 0.99);
+											/*lines.push([{
+											x : nx,
+											y : ny
+											}, {
+											x : nx + 1 ,
+											y : ny
 											}
-										}
-										if (lines.length > 0) {
-											this.tileMultiLine(g, lines, this.colorMain, this.tapSize * 0.9);
+											]);*/
+											this.tileEllipse(g, nx, ny, this.tapSize * 0.45 * this.cellWidth, this.tapSize * 0.9, this.colorMain);
 										}
 									}
+									//if (lines.length > 0) {
+									//	this.tileMultiLine(g, lines, this.colorMain, this.tapSize * 0.9);
+									//}
 								}
+								//}
 							}
 						}
 					}
@@ -230,7 +359,7 @@ RiffShare2D.prototype.tileSheetMotifs = function (layer, left, top, width, heigh
 		}
 	}
 };
-RiffShare2D.prototype.hasChordInOctave = function (chords, channel,octaveN) {
+RiffShare2D.prototype.hasChordInOctave = function (chords, channel, octaveN) {
 	for (var c = 0; c < chords.length; c++) {
 		var chord = chords[c];
 		for (var n = 0; n < chord.notes.length; n++) {
@@ -250,7 +379,7 @@ RiffShare2D.prototype.tileMeasureOctave = function (measureN, octaveN, channelN,
 		var motif = position.motifs[n];
 		if (motif.channel == channel.id) {
 			var data = this.findMotifById(motif.motif);
-			if (this.hasChordInOctave(data.chords, channel,octaveN)) {
+			if (this.hasChordInOctave(data.chords, channel, octaveN)) {
 				//var id = 'oct' + measureN + "x" + octaveN + "x" + channelN;
 				var id = 'ch' + channelN + 'oct' + octaveN + 'msr' + measureN;
 				var x = this.calculateMeasureX(measureN);

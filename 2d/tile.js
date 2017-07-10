@@ -1,17 +1,17 @@
 console.log('tile v1.01');
-RiffShare2D.prototype.tilePlaceHolder = function (x, y, w, h, id, layer, left, top, width, height,ratio) {
+RiffShare2D.prototype.tilePlaceHolder = function (x, y, w, h, id, layer, left, top, width, height, ratio) {
 	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 	if (g) {
 		var s = w;
 		if (h < w) {
 			s = h;
 		}
-		this.tileRectangle(g, x, y, w, h, 'rgba(255,0,0,0.25)', '#f00', this.lineWidth*ratio);//s / 30);
-		this.tileText(g, x, y, ratio*100, id);
+		this.tileRectangle(g, x, y, w, h, 'rgba(255,0,0,0.25)', '#f00', this.lineWidth * ratio); //s / 30);
+		this.tileText(g, x, y, ratio * 100, id);
 		/*this.tileLine(g, x, y + h, x + w, y, '#0f0', s / 30);
 		this.tileCircle(g, x + w, y + h, s / 30, '#00f');
 		this.addSpot(id, x + w - s / 30, y + h - s / 30, 2 * s / 30, 2 * s / 30, function () {
-			console.log(id, 'clicked');
+		console.log(id, 'clicked');
 		});*/
 	}
 };
@@ -27,8 +27,7 @@ RiffShare2D.prototype.rakeGroup = function (x, y, w, h, id, layer, left, top, wi
 	return null;
 };
 
-
-RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t,ff,fs) {
+RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t, ff, fs) {
 	var txt = document.createElementNS(this.svgns, 'text');
 	txt.setAttributeNS(null, 'x', x);
 	txt.setAttributeNS(null, 'y', y);
@@ -53,7 +52,7 @@ RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t,ff,fs) {
 	txt.innerHTML = m;
 	g.appendChild(txt);
 };
-RiffShare2D.prototype.tileRectangle = function (g, x, y, w, h, f, s, t,r) {
+RiffShare2D.prototype.tileRectangle = function (g, x, y, w, h, f, s, t, r) {
 	var rect = document.createElementNS(this.svgns, 'rect');
 	rect.setAttributeNS(null, 'x', x);
 	rect.setAttributeNS(null, 'y', y);
@@ -90,6 +89,23 @@ RiffShare2D.prototype.tileCircle = function (g, x, y, r, f, s, t) {
 	}
 	g.appendChild(circle);
 };
+RiffShare2D.prototype.tileEllipse = function (g, x, y, rx, ry, f, s, t) {
+	var e = document.createElementNS(this.svgns, 'ellipse');
+	e.setAttributeNS(null, 'cx', x);
+	e.setAttributeNS(null, 'cy', y);
+	e.setAttributeNS(null, 'rx', rx);
+	e.setAttributeNS(null, 'ry', ry);
+	if (f) {
+		e.setAttributeNS(null, 'fill', f);
+	}
+	if (s) {
+		e.setAttributeNS(null, 'stroke', s);
+	}
+	if (t) {
+		e.setAttributeNS(null, 'stroke-width', t);
+	}
+	g.appendChild(e);
+};
 RiffShare2D.prototype.tileLine = function (g, x1, y1, x2, y2, s, t) {
 	var line = document.createElementNS(this.svgns, 'line');
 	line.setAttributeNS(null, 'x1', x1);
@@ -111,12 +127,12 @@ RiffShare2D.prototype.tileMultiLine = function (g, lines, s, t) {
 	line.setAttributeNS(null, 'y1', y1);
 	line.setAttributeNS(null, 'x2', x2);
 	line.setAttributeNS(null, 'y2', y2);*/
-	var d='';
-	for(var i=0;i<lines.length;i++){
-		var one=lines[i];
-		d=d+'M'+one[0].x+','+one[0].y+' ';
-		for(var k=1;k<one.length;k++){
-			d=d+'L'+one[k].x+','+one[k].y+' ';
+	var d = '';
+	for (var i = 0; i < lines.length; i++) {
+		var one = lines[i];
+		d = d + 'M' + one[0].x + ',' + one[0].y + ' ';
+		for (var k = 1; k < one.length; k++) {
+			d = d + 'L' + one[k].x + ',' + one[k].y + ' ';
 		}
 	}
 	//line.setAttributeNS(null, 'd', 'M'+x1+','+y1+' L'+x2+','+y2);
@@ -131,17 +147,17 @@ RiffShare2D.prototype.tileMultiLine = function (g, lines, s, t) {
 	line.setAttributeNS(null, 'stroke-linecap', 'round');
 	g.appendChild(line);
 	/*
-M = moveto
-L = lineto
-H = horizontal lineto
-V = vertical lineto
-C = curveto
-S = smooth curveto
-Q = quadratic Bézier curve
-T = smooth quadratic Bézier curveto
-A = elliptical Arc
-Z = closepath
-	*/
+	M = moveto
+	L = lineto
+	H = horizontal lineto
+	V = vertical lineto
+	C = curveto
+	S = smooth curveto
+	Q = quadratic Bézier curve
+	T = smooth quadratic Bézier curveto
+	A = elliptical Arc
+	Z = closepath
+	 */
 };
 RiffShare2D.prototype.tileSymbol = function (g, x, y, w, h, href) {
 	console.log(g, x, y, w, h, href);

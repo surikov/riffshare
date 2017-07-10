@@ -53,6 +53,21 @@ RiffShare2D.prototype.showMenu = function (x, y) {
 	//this.removeMenu();
 	//this.menuInfo={x:x,y:y,r:this.translateZ};
 	//console.log(this.translateZ);
+	this.menuTitleSpan.innerText="Song";
+	
+	var tbody = this.menuTable.tBodies[0];
+	while(tbody.rows.length>0){
+		tbody.deleteRow(0);
+	}
+	var row = tbody.insertRow(0);
+	var cell = row.insertCell(0);
+	cell.innerHTML = '<a href="javascript:riffShare2d.hideMenu();"><div><nobr>'+'test 333'+'</nobr></div></a>';
+	row = tbody.insertRow(0);
+	cell = row.insertCell(0);
+	cell.innerHTML = '<a href="javascript:riffShare2d.hideMenu();"><div><nobr>'+'test 222'+'</nobr></div></a>';
+	row = tbody.insertRow(0);
+	cell = row.insertCell(0);
+	cell.innerHTML = '<a href="javascript:riffShare2d.hideMenu();"><div><nobr>'+'test 111'+'</nobr></div></a>';
 	
 	this.menuDiv.style.visibility = "visible";
 	this.menuDiv.scrollTop = 0;

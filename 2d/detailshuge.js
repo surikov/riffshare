@@ -34,7 +34,7 @@ RiffShare2D.prototype.tileHugeSongTracks = function (layer, left, top, width, he
 		}
 		if(!(this.hideTrackFret[i])){
 			var y = this.calculateTrackFretY(i);
-			var h = this.currentSong.channels[i].string.length*this.tapSize;
+			var h = 2*this.currentSong.channels[i].string.length*this.tapSize;
 			var id = 'frpHuge'+i;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
