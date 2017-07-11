@@ -282,7 +282,7 @@ RiffShare2D.prototype.songWidth32th = function () {
 };
 RiffShare2D.prototype.measureMargin = function (i) {
 	if (i > 0) {
-		if (this.currentSong.positions[i - 1].meter != this.currentSong.positions[i].meter || song.positions[i - 1].by != song.positions[i].by) {
+		if (this.currentSong.positions[i - 1].meter != this.currentSong.positions[i].meter || this.currentSong.positions[i - 1].by != this.currentSong.positions[i].by) {
 			return this.marginChangedMeasure * this.tapSize;
 		} else {
 			return 0;
@@ -301,5 +301,5 @@ RiffShare2D.prototype.measureWidth32th = function (i) {
 	le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * song.positions[i].by * this.tapSize;
+	return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * this.currentSong.positions[i].by * this.tapSize;
 };

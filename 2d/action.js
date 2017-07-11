@@ -31,7 +31,7 @@ RiffShare2D.prototype.clearSpots = function () {
 	this.spots = [];
 };
 RiffShare2D.prototype.runSpots = function (x, y) {
-	console.log('runSpots',this.menuFog);
+	console.log('runSpots', this.menuFog);
 	var found = false;
 	for (var i = 0; i < this.spots.length; i++) {
 		var spot = this.spots[i];
@@ -41,24 +41,32 @@ RiffShare2D.prototype.runSpots = function (x, y) {
 		}
 	}
 	/*if (this.menuFog) {
-		this.hideMenu();
+	this.hideMenu();
 	} else {
-		this.showMenu();
+	this.showMenu();
 	}*/
 	if (found) {
 		this.resetAllLayersNow();
 	}
 };
-RiffShare2D.prototype.showMenu = function (x, y) {
+RiffShare2D.prototype.showMenu = function (title, items) {
 	//this.removeMenu();
 	//this.menuInfo={x:x,y:y,r:this.translateZ};
 	//console.log(this.translateZ);
-	this.menuTitleSpan.innerText="Song";
-	
+	this.menuTitleSpan.innerText = "Song";
+
 	var tbody = this.menuTable.tBodies[0];
-	while(tbody.rows.length>0){
+	while (tbody.rows.length > 0) {
 		tbody.deleteRow(0);
 	}
+	this.currentMenuActions = [];
+	for (var i = 0; i < items.length; i++) {
+		var row = tbody.insertRow(0);
+		var cell = row.insertCell(0);
+		this.currentMenuActions.push(items[i].action);
+		cell.innerHTML = '<a href="javascript:riffShare2d.popAction(' + i + ');"><div><nobr>' + items[i].title + '</nobr></div></a>';
+	}
+	/*
 	var row = tbody.insertRow(0);
 	var cell = row.insertCell(0);
 	cell.innerHTML = '<a href="javascript:riffShare2d.hideMenu();"><div><nobr>'+'test 333'+'</nobr></div></a>';
@@ -68,39 +76,68 @@ RiffShare2D.prototype.showMenu = function (x, y) {
 	row = tbody.insertRow(0);
 	cell = row.insertCell(0);
 	cell.innerHTML = '<a href="javascript:riffShare2d.hideMenu();"><div><nobr>'+'test 111'+'</nobr></div></a>';
-	
+	 */
+
 	this.menuDiv.style.visibility = "visible";
 	this.menuDiv.scrollTop = 0;
 	this.menuFog = true;
 };
-RiffShare2D.prototype.tileMenu = function (layer,left, top, width, height, detailRatio) {
-	/*if(this.menuInfo){
-	var x=this.menuInfo.x;
-	var y=this.menuInfo.y;
-	var w=this.menuInfo.r*this.tapSize*2;
-	var h=this.menuInfo.r*this.tapSize*3;
-	var id='menuPane';*/
-	/*var g = this.rakeGroup(x, y, w, h, id, this.overlayGroup, left, top, width, height);
-	if (g) {
-	this.tileRectangle(g, x, y, w, h, this.colorHugeHolder);
-	}*/
-	/*if (!this.childExists(id, this.overlayGroup)) {
-	var g = document.createElementNS(this.svgns, 'g');
-	g.id = id;
-	this.overlayGroup.appendChild(g);
-	this.tileRectangle(g, 10, 30, 100, 200, this.colorHugeHolder);
-	}
-	}*/
+RiffShare2D.prototype.popAction = function (nn) {
+	console.log('popAction', nn);
+	this.hideMenu();
+	this.currentMenuActions[nn]();
+};
+RiffShare2D.prototype.tileMainMenu = function (layer, left, top, width, height, detailRatio) {
 	var x = 30 * this.tapSize;
 	var y = 30 * this.tapSize;
 	var w = 13 * this.tapSize;
 	var h = 13 * this.tapSize;
-	var id = 'optControls';
+	var id = 'buttonMainMenu';
 	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 	if (g) {
-		this.tileCircle(g, x + w / 2 , y + w/2,  w/2, this.colorAction, this.colorAction, this.lineWidth * detailRatio);
-		this.addSpot('optControlsSpot', x,y,w,h, function(){
-			riffShare2d.showMenu();
+		this.tileCircle(g, x + w / 2, y + w / 2, w / 2, this.colorAction, this.colorAction, this.lineWidth * detailRatio);
+		this.addSpot('optControlsSpot', x, y, w, h, function () {
+			riffShare2d.showMenu('Song', [{
+						title : 'open example 1',
+						action : function () {
+							//alert('qwerty');
+							window.location.href = 'song.html';
+						}
+					}, {
+						title : 'open example 2',
+						action : function () {
+							window.location.href = 'song2.html';
+						}
+					},  {
+						title : 'open example 3',
+						action : function () {
+							window.location.href = 'song3.html';
+						}
+					},{
+						title : 'change title',
+						action : function () {
+							var r = prompt('Song title', riffShare2d.currentSong.name);
+							if (r) {
+								riffShare2d.currentSong.name = r;
+							}
+							riffShare2d.resetAllLayersNow();
+						}
+					}, {
+						title : 'new song',
+						action : function () {
+							var r = confirm('Create new song');
+							if (r) {
+								riffShare2d.currentSong = riffShare2d.emptySong();
+							}
+							riffShare2d.resetAllLayersNow();
+						}
+					}, {
+						title : 'save current song',
+						action : function () {
+							saveObject2localStorage('currentSong',riffShare2d.currentSong);
+						}
+					}
+				]);
 		});
 	}
 };

@@ -7,9 +7,9 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileTracksTitles(this.hugetitles, xx, yy, ww, hh);
 	this.tileSongRollTitle(this.hugeholders, xx, yy, ww, hh);
 	this.tileHugeMeasureLines(this.hugeborders, xx, yy, ww, hh, detailRatio);
-	this.tileHugeTrackControls(this.hugespots, xx, yy, ww, hh, detailRatio);
+	//this.tileHugeTrackControls(this.hugespots, xx, yy, ww, hh, detailRatio);
 
-	this.tileMenu(this.hugespots, xx, yy, ww, hh, detailRatio);
+	this.tileMainMenu(this.hugespots, xx, yy, ww, hh, detailRatio);
 };
 RiffShare2D.prototype.tileSongTitle = function (layer, left, top, width, height) {
 	var x = this.marginLeft * this.tapSize;
@@ -70,7 +70,8 @@ RiffShare2D.prototype.tileHugeSongTracks = function (layer, left, top, width, he
 	}
 };
 RiffShare2D.prototype.tileOneTrack = function (i, layer, left, top, width, height) {
-	var x = (this.marginLeft + this.heightPRTitle) * this.tapSize;
+	//var x = (this.marginLeft + this.heightPRTitle) * this.tapSize;
+	var x = this.marginLeft * this.tapSize;
 	var y = this.calculateTrackY(i);
 	var w = this.songWidth32th();
 	var h = this.heightTrText * this.tapSize;
@@ -121,6 +122,7 @@ RiffShare2D.prototype.tileSongRollTitle = function (layer, left, top, width, hei
 		});
 	}
 }
+/*
 RiffShare2D.prototype.tileOneHugeTrackControl = function (i, layer, left, top, width, height, detailRatio) {
 	var x = 1 * this.tapSize;
 	var y = this.calculateTrackY(i);
@@ -141,6 +143,7 @@ RiffShare2D.prototype.tileHugeTrackControls = function (layer, left, top, width,
 		this.tileOneHugeTrackControl(i, layer, left, top, width, height, detailRatio);
 	}
 };
+*/
 /*
 RiffShare2D.prototype.tileOneTrackText = function (i,layer, left, top, width, height, detailRatio) {
 var text=this.currentSong.lyrics[i].text;

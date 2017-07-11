@@ -12,9 +12,9 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSheetMotifs(this.largesymbols, xx, yy, ww, hh, detailRatio);
 
 	this.tileRollOctaves(this.largesymbols, this.largeshadow, xx, yy, ww, hh, detailRatio);
-	this.tileHugeTrackControls(this.largespots, xx, yy, ww, hh, detailRatio);
+	//this.tileHugeTrackControls(this.largespots, xx, yy, ww, hh, detailRatio);
 
-	this.tileMenu(this.largespots, xx, yy, ww, hh, detailRatio);
+	this.tileMainMenu(this.largespots, xx, yy, ww, hh, detailRatio);
 
 };
 RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width, height, ratio) {
@@ -33,7 +33,7 @@ RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width,
 		}
 		if (!(this.hideTrackFret[n])) {
 			var y = this.calculateTrackFretY(n) - 4 * this.tapSize;
-			var h = (4 + 2 * this.currentSong.channels[n].string.length) * this.tapSize;
+			var h = (3 + 2 * this.currentSong.channels[n].string.length) * this.tapSize;
 			var id = 'frl' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {

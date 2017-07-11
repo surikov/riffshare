@@ -96,7 +96,7 @@ RiffShare2D.prototype.init = function () {
 	this.marginFirstMeasure = 30;
 	this.marginChangedMeasure = 10;
 	this.cellWidth = 2.75;
-	
+
 	this.lowStair = 28;
 	this.highStair = this.lowStair + 12;
 
@@ -115,7 +115,13 @@ RiffShare2D.prototype.init = function () {
 	this.hideRoll = false;
 
 	this.setupInput();
-	this.setSong(song);
+	var o=readObjectFromlocalStorage('currentSong');
+	if(o){
+		console.log('load saved song');
+		this.setSong( o);
+	}else{
+		this.setSong( this.emptySong());
+	}
 	window.onresize = function () {
 		riffShare2d.resetSize(); //(riffShare2d.innerWidth, riffShare2d.innerHeight);
 	};
@@ -154,7 +160,7 @@ RiffShare2D.prototype.findMotifById = function (id) {
 	return null;
 };
 RiffShare2D.prototype.findPositionMotifByChannel = function (position, channelID) {
-	var m=[];
+	var m = [];
 	for (var n = 0; n < position.motifs.length; n++) {
 		var motif = position.motifs[n];
 		if (motif.channel == channelID) {
@@ -167,7 +173,80 @@ RiffShare2D.prototype.findPositionMotifByChannel = function (position, channelID
 RiffShare2D.prototype.linesYshift = function () {
 	return (0.5 + this.marginTrSheetLines + 2 * 5) * this.tapSize;
 };
+RiffShare2D.prototype.emptySong = function () {
+	console.log('create empty song');
+	var emptysong = {
+		version : '2.21',
+		album : '',
+		artist : '',
+		author : '',
+		comments : '',
+		copyright : '',
+		date : '',
+		name : 'New empty song',
+		transcriber : '',
+		writer : '',
+		lyrics : [
+		],
+		channels : [{
+				id : 70490,
+				program : 0,
+				color : 'rgb(176,218,136)',
+				offset : 0,
+				track : 'Piano',
+				channel : 'Default',
+				volumes : [{
+						position : 0,
+						value : 127
+					}
+				],
+				string : [{
+						order : 1,
+						pitch : 64
+					}, {
+						order : 2,
+						pitch : 59
+					}, {
+						order : 3,
+						pitch : 55
+					}, {
+						order : 4,
+						pitch : 50
+					}, {
+						order : 5,
+						pitch : 45
+					}, {
+						order : 6,
+						pitch : 40
+					}
+				]
+			}
+		],
+		positions : [{
+				order : 0,
+				tempo : 100,
+				meter : 4,
+				by : 4,
+				motifs : [{
+						motif : 43914,
+						channel : 70490,
+						clef : 1,
+						sign : 0
+					}
+				]
+			}
+		],
+		motifs : [{
+				id : 43914,
+				chords : [
+				]
+			}
+		]
+	};
+	return emptysong;
+};
 RiffShare2D.prototype.resetAllLayersNow = function () {
+	console.log('resetAllLayersNow');
 	this.clearLayers([riffShare2d.hugeGroup, riffShare2d.largeGroup, riffShare2d.mediumGroup, riffShare2d.smallGroup]);
 	this.clearSpots();
 	this.resetSize();
@@ -192,12 +271,12 @@ RiffShare2D.prototype.setSong = function (song) {
 	this.hideTrackFret = [];
 	this.hideTrackText = [];
 	this.hideRoll = false;
-/*
+	/*
 	this.hideTrackSheet[1] = true;
 	this.hideTrackChords[1] = true;
 	this.hideTrackFret[1] = true;
 	this.hideTrackText[1] = true;
-	*/
+	 */
 	//this.hideRoll=true;
 
 	this.resetSize();
