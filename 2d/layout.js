@@ -196,24 +196,24 @@ RiffShare2D.prototype.calculateRollTitleY = function () {
 RiffShare2D.prototype.calculateTrackFretY = function (n) {
 	var h = this.calculateTrackY(n);
 	h = h + this.heightTrTitle * this.tapSize;
-	if (!(this.hideTrackSheet[n])) {
+	if (!(this.currentSong.channels[n].hideTrackSheet)) {
 		h = h + this.heightTrSheet * this.tapSize;
 	}
-	if (!(this.hideTrackChords[n])) {
+	if (!(this.currentSong.channels[n].hideTrackChords)) {
 		h = h + this.heightTrChords * this.tapSize;
 	}
-	if (!(this.hideTrackText[n])) {
+	/*if (!(this.hideTrackText[n])) {
 		h = h + this.heightTrText * this.tapSize;
-	}
+	}*/
 	return h;
 };
 RiffShare2D.prototype.calculateTrackTextY = function (n) {
 	var h = this.calculateTrackY(n);
 	h = h + this.heightTrTitle * this.tapSize;
-	if (!(this.hideTrackSheet[n])) {
+	if (!(this.currentSong.channels[n].hideTrackSheet)) {
 		h = h + this.heightTrSheet * this.tapSize;
 	}
-	if (!(this.hideTrackChords[n])) {
+	if (!(this.currentSong.channels[n].hideTrackChords)) {
 		h = h + this.heightTrChords * this.tapSize;
 	}
 	return h;
@@ -221,7 +221,7 @@ RiffShare2D.prototype.calculateTrackTextY = function (n) {
 RiffShare2D.prototype.calculateTrackChordsY = function (n) {
 	var h = this.calculateTrackY(n);
 	h = h + this.heightTrTitle * this.tapSize;
-	if (!(this.hideTrackSheet[n])) {
+	if (!(this.currentSong.channels[n].hideTrackSheet)) {
 		h = h + this.heightTrSheet * this.tapSize;
 	}
 	return h;
@@ -240,16 +240,16 @@ RiffShare2D.prototype.calculateTrackY = function (n) {
 };
 RiffShare2D.prototype.calculateTrackHeight = function (n) {
 	var h = this.heightTrTitle;
-	if (!(this.hideTrackSheet[n])) {
+	if (!(this.currentSong.channels[n].hideTrackSheet)) {
 		h = h + this.heightTrSheet;
 	}
-	if (!(this.hideTrackChords[n])) {
+	if (!(this.currentSong.channels[n].hideTrackChords)) {
 		h = h + this.heightTrChords;
 	}
-	if (!(this.hideTrackText[n])) {
+	/*if (!(this.hideTrackText[n])) {
 		h = h + this.heightTrText;
-	}
-	if (!(this.hideTrackFret[n])) {
+	}*/
+	if (!(this.currentSong.channels[n].hideTrackFret)) {
 		h = h + 2*this.currentSong.channels[n].string.length;
 	}
 	return h * this.tapSize;
@@ -264,7 +264,7 @@ RiffShare2D.prototype.calculateAllTracksHeight = function () {
 };
 RiffShare2D.prototype.calculateRollHeight = function () {
 	var h = this.heightPRTitle;
-	if (!(this.hideRoll)) {
+	if (!(this.currentSong.hideRoll)) {
 		h = h + this.heightPRGrid;
 	}
 	return h * this.tapSize;

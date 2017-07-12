@@ -1,7 +1,9 @@
 RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongTitle(this.mediumtitles, xx, yy, ww, hh);
+	this.tileSongTexts(this.mediumtitles, xx, yy, ww, hh);
+	this.tileTracksSelectors(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileTracksTitles(this.mediumtitles, xx, yy, ww, hh);
-	this.tileSongRollTitle(this.mediumtitles, xx, yy, ww, hh);
+	this.tileMarkers(this.mediumtitles, xx, yy, ww, hh);
 	this.tilePianoLines(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileGridVericalLines(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileGridHorLines(this.mediumgrid, xx, yy, ww, hh, detailRatio);
@@ -26,7 +28,7 @@ this.tileRectangle(g, x, y, w, h, this.colorSharp);
 }
 };*/
 RiffShare2D.prototype.tilePianoLines = function (layer, left, top, width, height, ratio) {
-	if (!riffShare2d.hideRoll) {
+	if (!riffShare2d.currentSong.hideRoll) {
 		var x = this.marginLeft * this.tapSize;
 		var w = this.songWidth32th();
 		var h = 12 * this.tapSize;
@@ -86,7 +88,7 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 				}
 			}
 		}
-		if (!this.hideRoll) {
+		if (!this.currentSong.hideRoll) {
 			var h = this.heightPRGrid * this.tapSize;
 			y = this.calculateRollGridY();
 			var id = 'gvR' + x;
@@ -110,7 +112,7 @@ RiffShare2D.prototype.tileGridHorLines = function (layer, left, top, width, heig
 	var w = this.songWidth32th();
 	//var h = this.lineWidth * ratio;
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
-		if (!(riffShare2d.hideTrackSheet[i])) {
+		if (!(riffShare2d.currentSong.channels[i].hideTrackSheet)) {
 			var id = 'ghor' + i + 'x' + y;
 			var y = this.calculateTrackSheetY(i);
 			var h = this.calculateTrackHeight(i) - this.heightTrTitle * this.tapSize;

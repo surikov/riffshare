@@ -90,7 +90,7 @@ RiffShare2D.prototype.init = function () {
 	this.heightTrSheet = 29;
 	this.marginTrSheetLines = 14;
 	//this.heightTrFret = 10;
-	this.heightTrText = 10;
+	//this.heightTrText = 10;
 	this.heightPRTitle = 19;
 	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 30;
@@ -107,12 +107,13 @@ RiffShare2D.prototype.init = function () {
 	this.colorMain = '#000';
 	this.colorAction = '#f60';
 	this.colorButton = '#000';
-
+/*
 	this.hideTrackSheet = [];
 	this.hideTrackChords = [];
 	this.hideTrackFret = [];
 	this.hideTrackText = [];
 	this.hideRoll = false;
+	*/
 
 	this.setupInput();
 	var o=readObjectFromlocalStorage('currentSong');
@@ -124,6 +125,9 @@ RiffShare2D.prototype.init = function () {
 	}
 	window.onresize = function () {
 		riffShare2d.resetSize(); //(riffShare2d.innerWidth, riffShare2d.innerHeight);
+	};
+	window.onunload = function () {
+		saveObject2localStorage('currentSong', riffShare2d.currentSong);
 	};
 	console.log('done init');
 };
@@ -264,13 +268,36 @@ RiffShare2D.prototype.queueTiles = function () {
 		}, 100);
 };
 RiffShare2D.prototype.setSong = function (song) {
+	/*for(var i=0;i<song.channels.lengthl;i++){
+		if(!(song.hideTrackSheet)){
+		song.hideTrackSheet = [];
+	}
+	}
+	
+	if(!(song.hideTrackSheet)){
+		song.hideTrackSheet = [];
+	}
+	if(!(song.hideTrackChords)){
+		song.hideTrackChords = [];
+	}
+	if(!(song.hideTrackFret)){
+		song.hideTrackFret = [];
+	}
+	if(!(song.hideTrackSheet)){
+		song.hideTrackSheet = [];
+	}
+	if(!(song.hideRoll)){
+		song.hideRoll = false;
+	}*/
 	this.currentSong = song;
 	console.log(this.currentSong);
+	/*
 	this.hideTrackSheet = [];
 	this.hideTrackChords = [];
 	this.hideTrackFret = [];
 	this.hideTrackText = [];
 	this.hideRoll = false;
+	*/
 	/*
 	this.hideTrackSheet[1] = true;
 	this.hideTrackChords[1] = true;
