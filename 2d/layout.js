@@ -81,7 +81,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 			this.clearUselessDetails(xx, yy, ww, hh, this.mediumGroup);
 			this.addMediumTiles(xx, yy, ww, hh, 0.75);
 		} else {
-			if (zz < 15) {
+			if (zz < 25) {
 				if (this.lastUsedLevel != 2) {
 					console.log('large details level', this.lastUsedLevel, '->', 2);
 					this.lastUsedLevel = 2;
@@ -301,5 +301,7 @@ RiffShare2D.prototype.measureWidth32th = function (i) {
 	le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * this.currentSong.positions[i].by * this.tapSize;
+	var len16=16*this.currentSong.positions[i].meter / this.currentSong.positions[i].by;
+	//return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * this.currentSong.positions[i].by * this.tapSize;
+	return this.measureMargin(i) + this.cellWidth * len16 * this.tapSize;
 };

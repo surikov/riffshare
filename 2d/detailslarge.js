@@ -27,7 +27,7 @@ RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width,
 			var id = 'ln' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
-				this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
+				this.tileText(g, x, y-7 * this.tapSize, 5 * this.tapSize, '' + (1 + i), this.colorComment);
 				this.tileRectangle(g, x, y + 4 * this.tapSize, this.lineWidth * ratio, h - 4 * this.tapSize, this.colorComment);
 			}
 		}
@@ -37,7 +37,7 @@ RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width,
 			var id = 'frl' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
-				this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
+				this.tileText(g, x, y, 5 * this.tapSize, '' + (1 + i), this.colorComment);
 				this.tileRectangle(g, x, y + 4 * this.tapSize, this.lineWidth * ratio, h - 4 * this.tapSize, this.colorComment);
 			}
 		}
@@ -239,10 +239,12 @@ RiffShare2D.prototype.createMinMax = function (chords, offset) {
 };
 RiffShare2D.prototype.tileNoteStick = function (g, x, ratio, mm, linesY) {
 	if (mm.l6th < 5) {
-		var nx = x + mm.start * this.cellWidth * this.tapSize + this.tapSize * (this.cellWidth - 0.1) - this.lineWidth * ratio * 2;
-		var ny = linesY - this.tapSize * mm.mn + this.tapSize * 28;
 		var lh = this.tapSize * (mm.mx - mm.mn + 10);
-		this.tileRectangle(g, nx, ny - lh, 2 * this.lineWidth * ratio, lh, this.colorMain);
+		var lw=this.lineWidth * ratio * 2;
+		var nx = x + mm.start * this.cellWidth * this.tapSize + this.tapSize * this.cellWidth *(0.5+0.45)-lw ;
+		var ny = linesY - this.tapSize * mm.mn + this.tapSize * 28;
+		
+		this.tileRectangle(g, nx, ny - lh, lw, lh, this.colorMain);
 		var cnt = 0;
 		if (mm.l6th == 0.5) {
 			cnt = 4;
