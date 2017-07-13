@@ -2,6 +2,7 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongTitle(this.hugetitles, xx, yy, ww, hh);
 
 	this.tileHugeSongTracks(this.hugeholders, xx, yy, ww, hh, detailRatio);
+	//this.tileTracksSelectors(this.hugetitles, xx, yy, ww, hh, detailRatio);
 	this.tileTracksTitles(this.hugetitles, xx, yy, ww, hh);
 	this.tileMarkers(this.hugetitles, xx, yy, ww, hh);
 	//this.tileSongRollTitle(this.hugeholders, xx, yy, ww, hh);
@@ -68,7 +69,7 @@ RiffShare2D.prototype.tileHugeSongTracks = function (layer, left, top, width, he
 		}
 	}
 };
-RiffShare2D.prototype.tileOneTrack = function (i, layer, left, top, width, height) {
+RiffShare2D.prototype.tileOneTrackTitle = function (i, layer, left, top, width, height) {
 	//var x = (this.marginLeft + this.heightPRTitle) * this.tapSize;
 	var x = this.marginLeft * this.tapSize;
 	var y = this.calculateTrackY(i);
@@ -78,7 +79,8 @@ RiffShare2D.prototype.tileOneTrack = function (i, layer, left, top, width, heigh
 		var id = 'trackTitle' + i;
 		var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 		if (g) {
-			this.tileText(g, x, y + h -5 * this.tapSize, 11 * this.tapSize, this.currentSong.channels[i].channel + ' / ' + this.currentSong.channels[i].track, this.colorComment);
+			//this.tileText(g, x+h/2, y + h -5 * this.tapSize, 11 * this.tapSize, this.currentSong.channels[i].channel + ' / ' + this.currentSong.channels[i].track, this.colorComment);
+			this.tileText(g, 45*this.tapSize+x+h/2, y + h -5 * this.tapSize, 11 * this.tapSize,  this.currentSong.channels[i].track, this.colorComment);
 			/*this.addSpot('trackSelect' + i, x, y, w, h, function () {
 			riffShare2d.selectedChannel = i;
 			});*/
@@ -87,7 +89,7 @@ RiffShare2D.prototype.tileOneTrack = function (i, layer, left, top, width, heigh
 };
 RiffShare2D.prototype.tileTracksTitles = function (layer, left, top, width, height) {
 	for (var i = 0; i < this.currentSong.channels.length; i++) {
-		this.tileOneTrack(i, layer, left, top, width, height);
+		this.tileOneTrackTitle(i, layer, left, top, width, height);
 	}
 };
 RiffShare2D.prototype.tileHugeMeasureLines = function (layer, left, top, width, height, ratio) {

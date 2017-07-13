@@ -16,9 +16,9 @@ RiffShare2D.prototype.init = function () {
 	} catch (ex) {
 		console.log(ex);
 	}
-	console.log('tapSize', this.tapSize);
+	console.log('tapSize', this.tapSize,'devicePixelRatio',window.devicePixelRatio);
 
-	this.selectedChannel = 0;
+	//this.selectedChannel = 0;
 
 	this.currentSong = null;
 
@@ -95,7 +95,7 @@ RiffShare2D.prototype.init = function () {
 	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 30;
 	this.marginChangedMeasure = 10;
-	this.cellWidth = 2.75;
+	this.cellWidth = 5.75;
 
 	this.lowStair = 28;
 	this.highStair = this.lowStair + 12;
@@ -117,6 +117,7 @@ RiffShare2D.prototype.init = function () {
 
 	this.setupInput();
 	var o=readObjectFromlocalStorage('currentSong');
+	
 	if(o){
 		console.log('load saved song');
 		this.setSong( o);
@@ -268,6 +269,9 @@ RiffShare2D.prototype.queueTiles = function () {
 		}, 100);
 };
 RiffShare2D.prototype.setSong = function (song) {
+	if(!(song.selectedChannel)){
+		song.selectedChannel=0;
+	}
 	/*for(var i=0;i<song.channels.lengthl;i++){
 		if(!(song.hideTrackSheet)){
 		song.hideTrackSheet = [];

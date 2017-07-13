@@ -1,0 +1,17 @@
+﻿<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="song8.js"></script>
+		<script type="text/javascript" src="localstore.js"></script>
+		<script>
+			function go() {
+				console.log(song);
+				saveObject2localStorage('currentSong',song);
+				window.location.href = 'index.html';
+			};
+		</script>
+	</head>
+	<body>
+		<a href="javascript:go();">open example 8</a>
+	</body>
+</html>

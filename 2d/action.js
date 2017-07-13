@@ -114,6 +114,46 @@ RiffShare2D.prototype.tileMainMenu = function (layer, left, top, width, height, 
 							window.location.href = 'song3.html';
 						}
 					},{
+							title : 'open example 4',
+						action : function () {
+							window.location.href = 'song4.html';
+						}
+					},{
+							title : 'open example 5',
+						action : function () {
+							window.location.href = 'song5.html';
+						}
+					},{
+							title : 'open example 6',
+						action : function () {
+							window.location.href = 'song6.html';
+						}
+					},{
+							title : 'open example 7',
+						action : function () {
+							window.location.href = 'song7.html';
+						}
+					},{
+							title : 'open example 8',
+						action : function () {
+							window.location.href = 'song8.html';
+						}
+					},{
+							title : 'open example 9',
+						action : function () {
+							window.location.href = 'song9.html';
+						}
+					},{
+							title : 'open example 10',
+						action : function () {
+							window.location.href = 'song10.html';
+						}
+					},{
+							title : 'open example 11',
+						action : function () {
+							window.location.href = 'song11.html';
+						}
+					},{
 						title : 'change title',
 						action : function () {
 							var r = prompt('Song title', riffShare2d.currentSong.name);
