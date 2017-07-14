@@ -2,6 +2,7 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	//var detailRatio = 0.5;
 	//this.tilePlaceHolder(0, 0, this.innerWidth, this.innerHeight, 'small', this.smalltitles, xx, yy, ww, hh, detailRatio);
 	//var g=this.rakeGroup(0,0,1000,10000,'testSymbol',this.hugetitles, xx, yy, ww, hh);if(g){this.tileSymbol(g,220,0,500,1000,'#testSymbol');}
+	this.tileSongTitleMenu(this.smalltitles, xx, yy, ww, hh, detailRatio);
 	this.tileSongTitle(this.smalltitles, xx, yy, ww, hh);
 	this.tileSongTexts(this.smalltitles, xx, yy, ww, hh);
 	this.tileTracksSelectors(this.smalltitles, xx, yy, ww, hh, detailRatio);
@@ -21,5 +22,5 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	//this.tileHugeTrackControls(this.smallspots, xx, yy, ww, hh, detailRatio);
 	//this.tileMediumTrackControls(this.smallspots, xx, yy, ww, hh, detailRatio);
 	
-	this.tileMainMenu(this.smallspots,  xx, yy, ww, hh, detailRatio);
+	//this.tileMainMenu(this.smallspots,  xx, yy, ww, hh, detailRatio);
 };

@@ -89,6 +89,7 @@ RiffShare2D.prototype.init = function () {
 	this.heightTrChords = 10;
 	this.heightTrSheet = 29;
 	this.marginTrSheetLines = 14;
+	this.marginFret = 10;
 	//this.heightTrFret = 10;
 	//this.heightTrText = 10;
 	this.heightPRTitle = 19;
@@ -105,7 +106,8 @@ RiffShare2D.prototype.init = function () {
 	this.colorSharp = '#bbb';
 	this.colorComment = '#333';
 	this.colorMain = '#000';
-	this.colorAction = '#f60';
+	//this.colorAction = '#f60';
+	this.colorAction = '#cdf';
 	this.colorButton = '#000';
 /*
 	this.hideTrackSheet = [];

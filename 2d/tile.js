@@ -22,6 +22,8 @@ RiffShare2D.prototype.rakeGroup = function (x, y, w, h, id, layer, left, top, wi
 			g.id = id;
 			layer.appendChild(g);
 			return g;
+		}else{
+			//console.log(id,'exists');
 		}
 	}
 	return null;

@@ -202,6 +202,7 @@ RiffShare2D.prototype.calculateTrackFretY = function (n) {
 	if (!(this.currentSong.channels[n].hideTrackChords)) {
 		h = h + this.heightTrChords * this.tapSize;
 	}
+	h=h+this.marginFret* this.tapSize;
 	/*if (!(this.hideTrackText[n])) {
 		h = h + this.heightTrText * this.tapSize;
 	}*/
@@ -250,7 +251,7 @@ RiffShare2D.prototype.calculateTrackHeight = function (n) {
 		h = h + this.heightTrText;
 	}*/
 	if (!(this.currentSong.channels[n].hideTrackFret)) {
-		h = h + 2*this.currentSong.channels[n].string.length;
+		h = h + 2*this.currentSong.channels[n].string.length+this.marginFret;
 	}
 	return h * this.tapSize;
 };
