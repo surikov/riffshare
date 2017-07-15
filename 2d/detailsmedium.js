@@ -14,6 +14,7 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileStrings(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
 	this.tileFretMotifs(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
 	this.tileSheetMotifs(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
+	this.tileSheetClefs(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
 	this.tileRollOctaves(this.mediumsymbols, this.mediumshadow, xx, yy, ww, hh, detailRatio);
 
 	//this.tileHugeTrackControls(this.mediumspots, xx, yy, ww, hh, detailRatio);

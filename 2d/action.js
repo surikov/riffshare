@@ -154,6 +154,11 @@ RiffShare2D.prototype.tileMainMenu = function (layer, left, top, width, height, 
 							window.location.href = 'song11.html';
 						}
 					},{
+							title : 'open example test',
+						action : function () {
+							window.location.href = 'testsong.html';
+						}
+					},{
 						title : 'change title',
 						action : function () {
 							var r = prompt('Song title', riffShare2d.currentSong.name);

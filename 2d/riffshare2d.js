@@ -158,6 +158,14 @@ RiffShare2D.prototype.fretLineColor = function (n) {
 		return '#333';
 	return '#000';
 };
+RiffShare2D.prototype.findMotifInPosByChannel = function (motifs,channel) {
+	for (var i = 0; i < motifs.length; i++) {
+		if (motifs[i].channel == channel) {
+			return motifs[i];
+		}
+	}
+	return null;
+};
 RiffShare2D.prototype.findMotifById = function (id) {
 	for (var i = 0; i < this.currentSong.motifs.length; i++) {
 		if (this.currentSong.motifs[i].id == id) {
