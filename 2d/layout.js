@@ -108,11 +108,19 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 RiffShare2D.prototype.resetVertical = function (xx, yy, ww, hh, zz) {
 	//var xy = this.unzoom(0, 0, zz);
 	//console.log('resetVertical',xx,'x', yy,',', ww,'x', hh,'/', zz,xy);
-	
-	this.hugetracknames.setAttribute('transform','translate('+(xx)+',0)');
-	this.largetracknames.setAttribute('transform','translate('+(xx)+',0)');
-	this.mediumtracknames.setAttribute('transform','translate('+(xx)+',0)');
-	this.smalltracknames.setAttribute('transform','translate('+(xx)+',0)');
+	var x = this.marginLeft * this.tapSize;
+	var h = this.heightTrTitle * this.tapSize;
+	var dx=45*this.tapSize+x+h/2;
+	//dx=this.marginLeft * this.tapSize;
+	var shift=xx-dx;
+	if(xx<dx){
+		shift=0;
+	}
+	//console.log('xx',xx,'dx',dx,'shift',shift);
+	this.hugetracknames.setAttribute('transform','translate('+(shift)+',0)');
+	this.largetracknames.setAttribute('transform','translate('+(shift)+',0)');
+	this.mediumtracknames.setAttribute('transform','translate('+(shift)+',0)');
+	this.smalltracknames.setAttribute('transform','translate('+(shift)+',0)');
 };
 RiffShare2D.prototype.moveZoom = function () {
 	var x = -this.translateX;
