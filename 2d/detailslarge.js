@@ -3,7 +3,7 @@ RiffShare2D.prototype.addLargeTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongTitle(this.largetitles, xx, yy, ww, hh);
 	this.tileSongTexts(this.largetitles, xx, yy, ww, hh);
 	this.tileTracksSelectors(this.largetitles, xx, yy, ww, hh, detailRatio);
-	this.tileTracksTitles(this.largetitles, xx, yy, ww, hh);
+	this.tileTracksTitles(this.largetracknames, xx, yy, ww, hh);
 	this.tileMarkers(this.largetitles, xx, yy, ww, hh);
 	this.tileMeasureLines(this.largeborders, xx, yy, ww, hh, detailRatio);
 	this.tileOctaveLines(this.largeborders, xx, yy, ww, hh, detailRatio);

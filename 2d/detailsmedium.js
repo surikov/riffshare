@@ -3,7 +3,7 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileSongTitle(this.mediumtitles, xx, yy, ww, hh);
 	this.tileSongTexts(this.mediumtitles, xx, yy, ww, hh);
 	this.tileTracksSelectors(this.mediumtitles, xx, yy, ww, hh, detailRatio);
-	this.tileTracksTitles(this.mediumtitles, xx, yy, ww, hh);
+	this.tileTracksTitles(this.mediumtracknames, xx, yy, ww, hh);
 	this.tileMarkers(this.mediumtitles, xx, yy, ww, hh);
 	this.tilePianoLines(this.mediumtitles, xx, yy, ww, hh, detailRatio);
 	this.tileGridVericalLines(this.mediumgrid, xx, yy, ww, hh, detailRatio);

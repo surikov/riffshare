@@ -3,7 +3,7 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 
 	this.tileHugeSongTracks(this.hugeholders, xx, yy, ww, hh, detailRatio);
 	//this.tileTracksSelectors(this.hugetitles, xx, yy, ww, hh, detailRatio);
-	this.tileTracksTitles(this.hugetitles, xx, yy, ww, hh);
+	this.tileTracksTitles(this.hugetracknames, xx, yy, ww, hh);
 	this.tileMarkers(this.hugetitles, xx, yy, ww, hh);
 	//this.tileSongRollTitle(this.hugeholders, xx, yy, ww, hh);
 	this.tileHugeMeasureLines(this.hugeborders, xx, yy, ww, hh, detailRatio);

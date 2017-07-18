@@ -56,6 +56,7 @@ RiffShare2D.prototype.resetTiles = function () {
 	var ww = rb.x - lt.x;
 	var hh = rb.y - lt.y;
 	this.addContent(xx, yy, ww, hh, this.translateZ);
+	this.resetVertical(xx, yy, ww, hh, this.translateZ);
 };
 var msLog = 0;
 RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
@@ -103,6 +104,15 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 		}
 	}
 	//console.log('addContent done',(new Date().getTime()-msLog));
+};
+RiffShare2D.prototype.resetVertical = function (xx, yy, ww, hh, zz) {
+	//var xy = this.unzoom(0, 0, zz);
+	//console.log('resetVertical',xx,'x', yy,',', ww,'x', hh,'/', zz,xy);
+	
+	this.hugetracknames.setAttribute('transform','translate('+(xx)+',0)');
+	this.largetracknames.setAttribute('transform','translate('+(xx)+',0)');
+	this.mediumtracknames.setAttribute('transform','translate('+(xx)+',0)');
+	this.smalltracknames.setAttribute('transform','translate('+(xx)+',0)');
 };
 RiffShare2D.prototype.moveZoom = function () {
 	var x = -this.translateX;
@@ -153,6 +163,7 @@ RiffShare2D.prototype.clearUselessDetails = function (x, y, w, h, layer) {
 		var group = layer.children[i];
 		this.clearUselessNodes(x, y, w, h, group);
 	}
+	//console.log(x, y, w, h, layer);
 };
 RiffShare2D.prototype.clearLayers = function (layers) {
 	for (var i = 0; i < layers.length; i++) {

@@ -33,12 +33,14 @@ RiffShare2D.prototype.init = function () {
 	this.hugeGroup = document.getElementById('huge');
 	this.hugeborders = document.getElementById('hugeborders');
 	this.hugetitles = document.getElementById('hugetitles');
+	this.hugetracknames = document.getElementById('hugetracknames');
 	this.hugeholders = document.getElementById('hugeholders');
 
 	this.hugespots = document.getElementById('hugespots');
 
 	this.largeGroup = document.getElementById('large');
 	this.largetitles = document.getElementById('largetitles');
+	this.largetracknames = document.getElementById('largetracknames');
 	this.largelines = document.getElementById('largelines');
 	this.largeborders = document.getElementById('largeborders');
 	this.largeshadow = document.getElementById('largeshadow');
@@ -47,6 +49,7 @@ RiffShare2D.prototype.init = function () {
 
 	this.mediumGroup = document.getElementById('medium');
 	this.mediumtitles = document.getElementById('mediumtitles');
+	this.mediumtracknames = document.getElementById('mediumtracknames');
 	this.mediumgrid = document.getElementById('mediumgrid');
 	this.mediumlines = document.getElementById('mediumlines');
 	this.mediumborders = document.getElementById('mediumborders');
@@ -56,6 +59,7 @@ RiffShare2D.prototype.init = function () {
 
 	this.smallGroup = document.getElementById('small');
 	this.smalltitles = document.getElementById('smalltitles');
+	this.smalltracknames = document.getElementById('smalltracknames');
 	this.smallgrid = document.getElementById('smallgrid');
 	this.smalllines = document.getElementById('smalllines');
 	this.smallborders = document.getElementById('smallborders');
