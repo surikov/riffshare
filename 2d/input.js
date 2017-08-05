@@ -24,11 +24,11 @@ RiffShare2D.prototype.rakeMouseWheel = function (e) {
 	var min = Math.min(1, wheelVal);
 	var delta = Math.max(-1, min);
 	var zoom = riffShare2d.translateZ + delta * (riffShare2d.translateZ) * 0.077;
-	if (zoom < 0.25) {
-		zoom = 0.25;
+	if (zoom < 0.125) {
+		zoom = 0.125;
 	}
-	if (zoom > 100) {
-		zoom = 100;
+	if (zoom > 200) {
+		zoom = 200;
 	}
 	riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * e.layerX;
 	riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * e.layerY;

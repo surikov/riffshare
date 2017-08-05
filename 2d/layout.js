@@ -56,13 +56,13 @@ RiffShare2D.prototype.resetTiles = function () {
 	var ww = rb.x - lt.x;
 	var hh = rb.y - lt.y;
 	this.addContent(xx, yy, ww, hh, this.translateZ);
-	this.resetVertical(xx, yy, ww, hh, this.translateZ);
+	this.reLayoutVertical();
 };
 var msLog = 0;
 RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 
 	msLog = new Date().getTime();
-	if (zz < 0.5) {
+	if (zz < this.minZoomMedium) {
 		if (this.lastUsedLevel != 0) {
 			console.log('small details level', this.lastUsedLevel, '->', 0);
 			this.lastUsedLevel = 0;
@@ -72,7 +72,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 		this.clearUselessDetails(xx, yy, ww, hh, this.smallGroup);
 		this.addSmallTiles(xx, yy, ww, hh, 0.5);
 	} else {
-		if (zz < 3) {
+		if (zz < this.minZoomLarge) {
 			if (this.lastUsedLevel != 1) {
 				console.log('medium details level', this.lastUsedLevel, '->', 1);
 				this.lastUsedLevel = 1;
@@ -82,7 +82,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 			this.clearUselessDetails(xx, yy, ww, hh, this.mediumGroup);
 			this.addMediumTiles(xx, yy, ww, hh, 0.75);
 		} else {
-			if (zz < 25) {
+			if (zz < this.minZoomHuge) {
 				if (this.lastUsedLevel != 2) {
 					console.log('large details level', this.lastUsedLevel, '->', 2);
 					this.lastUsedLevel = 2;
@@ -90,7 +90,7 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 					this.clearSpots();
 				}
 				this.clearUselessDetails(xx, yy, ww, hh, this.largeGroup);
-				this.addLargeTiles(xx, yy, ww, hh, 3);
+				this.addLargeTiles(xx, yy, ww, hh, 1.25);
 			} else {
 				if (this.lastUsedLevel != 3) {
 					console.log('huge details level', this.lastUsedLevel, '->', 3);
@@ -105,29 +105,57 @@ RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
 	}
 	//console.log('addContent done',(new Date().getTime()-msLog));
 };
-RiffShare2D.prototype.resetVertical = function (xx, yy, ww, hh, zz) {
-	//var xy = this.unzoom(0, 0, zz);
-	//console.log('resetVertical',xx,'x', yy,',', ww,'x', hh,'/', zz,xy);
+RiffShare2D.prototype.reLayoutVertical = function () {
+
+	var leftTopX = 0;
+	var leftTopY = 0;
+	var rightBottomX = this.contentDiv.clientWidth;
+	var rightBottomY = this.contentDiv.clientHeight;
+	if (this.contentDiv.clientWidth * this.translateZ > this.innerWidth) {
+		leftTopX = (this.contentDiv.clientWidth - this.innerWidth / this.translateZ) / 2;
+		rightBottomX = this.contentDiv.clientWidth - leftTopX;
+	}
+	if (this.contentDiv.clientHeight * this.translateZ > this.innerHeight) {
+		leftTopY = (this.contentDiv.clientHeight - this.innerHeight / this.translateZ) / 2;
+		rightBottomY = this.contentDiv.clientHeight - leftTopY;
+	}
+	var lt = this.unzoom(leftTopX, leftTopY, this.translateZ);
+	var xx = lt.x;
+
 	var x = this.marginLeft * this.tapSize;
 	var h = this.heightTrTitle * this.tapSize;
-	var dx=45*this.tapSize+x+h/2;
-	//dx=this.marginLeft * this.tapSize;
-	var shift=xx-dx;
-	if(xx<dx){
-		shift=0;
+	var dx = 45 * this.tapSize + x + h / 2;
+	var dx = x;
+	var shift = xx - dx;
+	if (xx < dx) {
+		shift = 0;
 	}
-	//console.log('xx',xx,'dx',dx,'shift',shift);
-	this.hugetracknames.setAttribute('transform','translate('+(shift)+',0)');
-	this.largetracknames.setAttribute('transform','translate('+(shift)+',0)');
-	this.mediumtracknames.setAttribute('transform','translate('+(shift)+',0)');
-	this.smalltracknames.setAttribute('transform','translate('+(shift)+',0)');
+
+	this.stickedX = shift;
+	//console.log(this.stickedX);
+	this.hugetracknames.setAttribute('transform', 'translate(' + this.stickedX + ',0)');
+	this.largetracknames.setAttribute('transform', 'translate(' + this.stickedX + ',0)');
+	this.mediumtracknames.setAttribute('transform', 'translate(' + this.stickedX + ',0)');
+	this.smalltracknames.setAttribute('transform', 'translate(' + this.stickedX + ',0)');
 };
 RiffShare2D.prototype.moveZoom = function () {
 	var x = -this.translateX;
 	var y = -this.translateY;
 	var w = this.contentDiv.clientWidth * this.translateZ;
 	var h = this.contentDiv.clientHeight * this.translateZ;
+	if (w > 1) {
+		//
+	} else {
+		w = 1;
+	}
+	if (h > 1) {
+		//
+	} else {
+		h = 1;
+	}
+	//console.log(x,y,w,h);
 	this.contentSVG.setAttribute("viewBox", "" + x + " " + y + " " + w + " " + h + "");
+	this.reLayoutVertical();
 };
 RiffShare2D.prototype.collision = function (x1, y1, w1, h1, x2, y2, w2, h2) {
 	if (x1 + w1 < x2 //
@@ -199,10 +227,10 @@ RiffShare2D.prototype.channelStringKey = function (order, channel) {
 		}
 	}
 };
-RiffShare2D.prototype.calculateMeasureX = function (n) {
+RiffShare2D.prototype.calculateMeasureX = function (n, changes) {
 	var m = this.marginLeft * this.tapSize;
 	for (var i = 0; i < n; i++) {
-		m = m + this.measureWidth32th(i);
+		m = m + this.measureWidth32th(i, changes);
 	}
 	return m;
 };
@@ -221,9 +249,9 @@ RiffShare2D.prototype.calculateTrackFretY = function (n) {
 	if (!(this.currentSong.channels[n].hideTrackChords)) {
 		h = h + this.heightTrChords * this.tapSize;
 	}
-	h=h+this.marginFret* this.tapSize;
+	h = h + this.marginFret * this.tapSize;
 	/*if (!(this.hideTrackText[n])) {
-		h = h + this.heightTrText * this.tapSize;
+	h = h + this.heightTrText * this.tapSize;
 	}*/
 	return h;
 };
@@ -267,10 +295,10 @@ RiffShare2D.prototype.calculateTrackHeight = function (n) {
 		h = h + this.heightTrChords;
 	}
 	/*if (!(this.hideTrackText[n])) {
-		h = h + this.heightTrText;
+	h = h + this.heightTrText;
 	}*/
 	if (!(this.currentSong.channels[n].hideTrackFret)) {
-		h = h + 2*this.currentSong.channels[n].string.length+this.marginFret;
+		h = h + 2 * this.currentSong.channels[n].string.length + this.marginFret;
 	}
 	return h * this.tapSize;
 };
@@ -292,17 +320,20 @@ RiffShare2D.prototype.calculateRollHeight = function () {
 RiffShare2D.prototype.songWidth32th = function () {
 	if (this.currentSong) {
 		var m = 0;
+		var changes = this.positionOptionsChanges();
 		for (var i = 0; i < this.currentSong.positions.length; i++) {
-			m = m + this.measureWidth32th(i); //currentSong.positions[i].meter * song.positions[i].by;
+			m = m + this.measureWidth32th(i, changes); //currentSong.positions[i].meter * song.positions[i].by;
 		}
 		return m;
 	} else {
 		return 1;
 	}
 };
-RiffShare2D.prototype.measureMargin = function (i) {
+RiffShare2D.prototype.measureMargin = function (i, changes) {
 	if (i > 0) {
-		if (this.currentSong.positions[i - 1].meter != this.currentSong.positions[i].meter || this.currentSong.positions[i - 1].by != this.currentSong.positions[i].by) {
+		//var changes=this.positionOptionsChanges();
+		//if (this.currentSong.positions[i - 1].meter != this.currentSong.positions[i].meter || this.currentSong.positions[i - 1].by != this.currentSong.positions[i].by) {
+		if (changes[i]) {
 			return this.marginChangedMeasure * this.tapSize;
 		} else {
 			return 0;
@@ -311,7 +342,7 @@ RiffShare2D.prototype.measureMargin = function (i) {
 		return this.marginFirstMeasure * this.tapSize;
 	}
 }
-RiffShare2D.prototype.measureWidth32th = function (i) {
+RiffShare2D.prototype.measureWidth32th = function (i, changes) {
 	/*var le=this.currentSong.positions[i].meter * song.positions[i].by;
 	if(i>0){
 	if(this.currentSong.positions[i-1].meter!=this.currentSong.positions[i].meter || song.positions[i-1].by!=song.positions[i].by){
@@ -321,7 +352,57 @@ RiffShare2D.prototype.measureWidth32th = function (i) {
 	le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	var len16=16*this.currentSong.positions[i].meter / this.currentSong.positions[i].by;
+	var len16 = 16 * this.currentSong.positions[i].meter / this.currentSong.positions[i].by;
 	//return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * this.currentSong.positions[i].by * this.tapSize;
-	return this.measureMargin(i) + this.cellWidth * len16 * this.tapSize;
+	return this.measureMargin(i, changes) + this.cellWidth * len16 * this.tapSize;
+};
+RiffShare2D.prototype.startSlideTo = function (x, y, z) {
+	//console.log('startSlideTo', x, y, z, 'from', this.translateX, this.translateY, this.translateZ);
+
+	var stepCount = 20;
+
+	var dx = (x - this.translateX) / stepCount;
+	var dy = (y - this.translateY) / stepCount;
+	var dz = (z - this.translateZ) / stepCount;
+	var xyz = [];
+	for (var i = 0; i < stepCount; i++) {
+		xyz.push({
+			x : this.translateX + dx * i,
+			y : this.translateY + dy * i,
+			z : this.translateZ + dz * i
+		});
+	}
+	xyz.push({
+		x : x,
+		y : y,
+		z : z
+	});
+	this.stepSlideTo(xyz); //stepCount, dx, dy, dz);
+};
+RiffShare2D.prototype.stepSlideTo = function (xyz) { //stepCount, dx, dy, dz) {
+	//console.log(stepCount, dx, dy, dz, this.translateX, this.translateY, this.translateZ);
+	//this.translateX = this.translateX + dx;
+	//this.translateY = this.translateY + dy;
+	//this.translateZ = this.translateZ + dz;
+	//console.log(stepCount, dx, dy, dz, this.translateX, this.translateY, this.translateZ);
+	var n=xyz.shift();
+	if(n){
+		this.translateX = n.x;
+		this.translateY = n.y;
+		this.translateZ = n.z;
+		this.adjustContentPosition();
+		setTimeout(function () {
+			riffShare2d.stepSlideTo(xyz);
+		}, 20);
+	} else {
+		this.resetAllLayersNow();
+		//console.log(this.translateX, this.translateY, this.translateZ);
+	}
+	/*
+	if (stepCount > 1) {
+		
+	} else {
+		this.resetAllLayersNow();
+		console.log(this.translateX, this.translateY, this.translateZ);
+	}*/
 };

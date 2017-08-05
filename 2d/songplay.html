@@ -1,0 +1,27 @@
+﻿<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="song.js"></script>
+		<script type="text/javascript" src="webaudiofontfiles.js"></script>
+		<script type="text/javascript" src="webaudiofontsongplayer.js"></script>
+		<script type="text/javascript" src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
+		<script>
+			var p=null;
+			function player(){
+				if(p){
+					//
+				}else{
+					p=new WAFSongPlayer();
+				}
+				return p;
+			};
+			function go() {
+				player().initSong(song);
+				player().playAll();				
+			};
+		</script>
+	</head>
+	<body>
+		<a href="javascript:go();">play all</a>
+	</body>
+</html>
