@@ -30,4 +30,6 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	
 	//this.tileMainMenu(this.smallspots,  xx, yy, ww, hh, detailRatio);
 	this.tilePianoRollMenu(this.smalltracknames, xx, yy, ww, hh, detailRatio);
+	
+	this.tileNewMeasureButton(this.smalltitles, xx, yy, ww, hh, detailRatio);
 };

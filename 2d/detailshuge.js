@@ -11,6 +11,23 @@ RiffShare2D.prototype.addHugeTiles = function (xx, yy, ww, hh, detailRatio) {
 
 	//this.tileMainMenu(this.hugespots, xx, yy, ww, hh, detailRatio);
 	this.tilePianoRollMenu(this.hugetracknames, xx, yy, ww, hh, detailRatio);
+	this.tileNewMeasureButton(this.hugetitles, xx, yy, ww, hh, detailRatio);
+};
+RiffShare2D.prototype.tileNewMeasureButton = function (layer, left, top, width, height, ratio) {
+	var x = this.marginLeft * this.tapSize+this.songWidth32th();
+	var y = this.calculateRollGridY();
+	var w = this.marginRight* this.tapSize;
+	var h = 10 * this.tapSize;
+	var id = 'msrNewMenu';
+	var lw = this.lineWidth * ratio;
+	var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+	if (g) {
+		this.addButton('btMsre', 'New measure', h/6 , g, x, y, h, false //
+			, 0 //
+			, function(){
+				riffShare2d.redoAddNewMeasure();
+			},0);
+	}
 };
 RiffShare2D.prototype.tilePianoRollMenu = function (layer, left, top, width, height, ratio) {
 	var x = this.marginLeft * this.tapSize;
@@ -29,7 +46,9 @@ RiffShare2D.prototype.tilePianoRollMenu = function (layer, left, top, width, hei
 		},0);
 		this.addButton('btNCh', 'New channel', h/6 , g, x+1.2*h, y, h, true //
 			, 0 //
-			, null,0);
+			, function(){
+				riffShare2d.promptAddNewChannel();
+			},0);
 	}
 };
 RiffShare2D.prototype.tileHugeSongOptions = function (layer, left, top, width, height, ratio) {

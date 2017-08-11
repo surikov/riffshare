@@ -14,12 +14,12 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	//this.tileGridHorLines(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileSheetGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileChordGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
-	
+this.tileRollGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileFretGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileMeasureLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
 	this.tileOctaveLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
 	this.tileScoreLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
-	this.tileStrings(this.mediumsymbols, xx, yy, ww, hh, detailRatio,true);
+	this.tileStrings(this.mediumsymbols, xx, yy, ww, hh, detailRatio, true);
 	this.tileFretMotifs(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
 	this.tileChordMotifs(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
 	this.tileSheetMotifs(this.mediumsymbols, xx, yy, ww, hh, detailRatio);
@@ -31,6 +31,10 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 
 	//this.tileMainMenu(this.mediumspots, xx, yy, ww, hh, detailRatio);
 	this.tilePianoRollMenu(this.mediumtracknames, xx, yy, ww, hh, detailRatio);
+
+	this.tileNewMeasureButton(this.mediumgrid, xx, yy, ww, hh, detailRatio);
+
+	this.addRollSpot(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 };
 /*
 RiffShare2D.prototype.tileOnePianoLine = function (x, y, w, h, id, layer, left, top, width, height) {
@@ -81,11 +85,11 @@ RiffShare2D.prototype.tileMediumOneTrackTitle = function (i, layer, left, top, w
 				var r = prompt('Song title', riffShare2d.currentSong.channels[i].track);
 				if (r) {
 					//riffShare2d.currentSong.channels[i].track = r;
-					riffShare2d.redoChannelTitleChange(riffShare2d.currentSong.channels[i],riffShare2d.currentSong.channels[i].track , r);
+					riffShare2d.redoChannelTitleChange(riffShare2d.currentSong.channels[i], riffShare2d.currentSong.channels[i].track, r);
 				}
 			});
 			this.addButton('btMenTrDel' + i, 'Delete channel', f, g, e, y + 1 * d, s, true, 0, function () {
-				alert('Not implemented yet');
+				riffShare2d.promptDropChannel(riffShare2d.currentSong.channels[i]);
 			});
 			this.addButton('btMenTrMIDI' + i, 'Change sound', f, g, e, y + 2 * d, s, true, 0, function () {
 				alert('Not implemented yet');
@@ -113,56 +117,56 @@ RiffShare2D.prototype.tileMediumOneTrackTitle = function (i, layer, left, top, w
 			var curVol = Math.round(100 * this.currentSong.channels[i].volumes[0].value / 127);
 			//var txVol=Math.round(curVol);
 			var spot = this.addButton('btMenTrVoX' + i, '' + curVol + '%', f, g, e + 5 * s, y + 7 * d, s, true, curVol > 90 ? 0 : lw, function () {
-				riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track],riffShare2d.currentSong.channels[this.track].volumes[0].value,100 * 127 / 100);
+					riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track], riffShare2d.currentSong.channels[this.track].volumes[0].value, 100 * 127 / 100);
 					/*riffShare2d.currentSong.channels[this.track].volumes = [{
-							position : 0,
-							value : 100 * 127 / 100
-						}
+					position : 0,
+					value : 100 * 127 / 100
+					}
 					];*/
 				});
 			spot.track = i;
 			spot = this.addButton('btMenTrVo8' + i, '', f, g, e + 4 * s, y + 7 * d, s, true, curVol > 70 ? 0 : lw, function () {
-				riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track],riffShare2d.currentSong.channels[this.track].volumes[0].value,80 * 127 / 100);
+					riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track], riffShare2d.currentSong.channels[this.track].volumes[0].value, 80 * 127 / 100);
 					/*riffShare2d.currentSong.channels[this.track].volumes = [{
-							position : 0,
-							value : 80 * 127 / 100
-						}
+					position : 0,
+					value : 80 * 127 / 100
+					}
 					];*/
 				});
 			spot.track = i;
 			spot = this.addButton('btMenTrVo6' + i, '', f, g, e + 3 * s, y + 7 * d, s, true, curVol > 50 ? 0 : lw, function () {
-				riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track],riffShare2d.currentSong.channels[this.track].volumes[0].value,60 * 127 / 100);
+					riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track], riffShare2d.currentSong.channels[this.track].volumes[0].value, 60 * 127 / 100);
 					/*riffShare2d.currentSong.channels[this.track].volumes = [{
-							position : 0,
-							value : 60 * 127 / 100
-						}
+					position : 0,
+					value : 60 * 127 / 100
+					}
 					];*/
 				});
 			spot.track = i;
 			spot = this.addButton('btMenTrVo4' + i, '', f, g, e + 2 * s, y + 7 * d, s, true, curVol > 30 ? 0 : lw, function () {
-				riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track],riffShare2d.currentSong.channels[this.track].volumes[0].value,40 * 127 / 100);
+					riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track], riffShare2d.currentSong.channels[this.track].volumes[0].value, 40 * 127 / 100);
 					/*riffShare2d.currentSong.channels[this.track].volumes = [{
-							position : 0,
-							value : 40 * 127 / 100
-						}
+					position : 0,
+					value : 40 * 127 / 100
+					}
 					];*/
 				});
 			spot.track = i;
 			spot = this.addButton('btMenTrVo2' + i, '', f, g, e + 1 * s, y + 7 * d, s, true, curVol > 10 ? 0 : lw, function () {
-				riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track],riffShare2d.currentSong.channels[this.track].volumes[0].value,20 * 127 / 100);
+					riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track], riffShare2d.currentSong.channels[this.track].volumes[0].value, 20 * 127 / 100);
 					/*riffShare2d.currentSong.channels[this.track].volumes = [{
-							position : 0,
-							value : 20 * 127 / 100
-						}
+					position : 0,
+					value : 20 * 127 / 100
+					}
 					];*/
 				});
 			spot.track = i;
 			spot = this.addButton('btMenTrVo1' + i, 'Volume', f, g, e + 0 * s, y + 7 * d, s, true, 0, function () {
-				riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track],riffShare2d.currentSong.channels[this.track].volumes[0].value,0 * 127 / 100);
+					riffShare2d.redoChangeChannelVolume(riffShare2d.currentSong.channels[this.track], riffShare2d.currentSong.channels[this.track].volumes[0].value, 0 * 127 / 100);
 					/*riffShare2d.currentSong.channels[this.track].volumes = [{
-							position : 0,
-							value : 0
-						}
+					position : 0,
+					value : 0
+					}
 					];*/
 				});
 			spot.track = i;
@@ -187,7 +191,7 @@ RiffShare2D.prototype.tileMediumOneTrackTitle = function (i, layer, left, top, w
 					var spot = this.addButton('eq' + b + 'v' + v + 'c' + i, '', u, g, x + 1.2 * b * k, y + h / 3 + v * k, k, true, v >= stb && v <= enb ? 0 : lw / 3, function () {
 							//console.log(this.track,this.band,this.value,this);
 							//riffShare2d.currentSong.channels[this.track].equalizer[this.band] = this.value;
-							riffShare2d.redoChangeChannelEqualizer(riffShare2d.currentSong.channels[this.track],this.band,riffShare2d.currentSong.channels[this.track].equalizer[this.band],this.value);
+							riffShare2d.redoChangeChannelEqualizer(riffShare2d.currentSong.channels[this.track], this.band, riffShare2d.currentSong.channels[this.track].equalizer[this.band], this.value);
 						});
 					spot.band = b;
 					spot.value = 5 - v;
@@ -232,8 +236,8 @@ RiffShare2D.prototype.tileMeiumSongOptions = function (layer, left, top, width, 
 
 		this.addButton('btMenImp', 'Import song  ', h / 11, g, x, y + 0 * h / 6, h / 7, true, 0, this.promptImportSong);
 
-		this.addButton('btMenExprt', 'Export song', h / 11, g, x, y + 1 * h / 6, h / 7, true, 0, function () {
-			alert('Not implemented yet');
+		this.addButton('btMenNwSn', 'New song', h / 11, g, x, y + 1 * h / 6, h / 7, true, 0, function () {
+			riffShare2d.promptNewSong();
 		});
 		this.addButton('btMenChT', 'Change title ', h / 11, g, x, y + 2 * h / 6, h / 7, true, 0, this.promptChangeSongTitle);
 		//this.addButton('btMenAdCh', 'Add channel ', h / 7, g, x, y + 3 * h / 6, h / 7, true, 0, null);
@@ -242,15 +246,15 @@ RiffShare2D.prototype.tileMeiumSongOptions = function (layer, left, top, width, 
 
 		this.addButton('btMenWi3', '', h / 11, g, x + 2 * h / 7, y + 3 * h / 6, h / 7, true, riffShare2d.cellWidth > 5 ? 0 : lw, function () {
 			//console.log('a');
-			riffShare2d.cellWidth = 5.75;
+			riffShare2d.cellWidth = 6.0;
 		});
 		this.addButton('btMenWi2', '', h / 11, g, x + 1 * h / 7, y + 3 * h / 6, h / 7, true, riffShare2d.cellWidth > 3 ? 0 : lw, function () {
 			//console.log('b');
-			riffShare2d.cellWidth = 3.75;
+			riffShare2d.cellWidth = 2.5;
 		});
 		this.addButton('btMenWi1', 'Cell width', h / 11, g, x + 0 * h / 7, y + 3 * h / 6, h / 7, true, riffShare2d.cellWidth > 1 ? 0 : lw, function () {
 			//console.log('c');
-			riffShare2d.cellWidth = 1.75;
+			riffShare2d.cellWidth = 1.0;
 		});
 		var curVol = Math.round(100 * this.currentSong.volumes[0].value / 127);
 		this.addButton('btMenLoud10', '' + curVol + '%', h / 11, g, x + 5 * h / 7, y + 4 * h / 6, h / 7, true, curVol > 90 ? 0 : lw, function () {
@@ -317,7 +321,7 @@ RiffShare2D.prototype.tilePianoLines = function (layer, left, top, width, height
 		var x = this.marginLeft * this.tapSize;
 		var w = this.songWidth32th();
 		var h = 12 * this.tapSize;
-		for (var i = 0; i < 128; i = i + 12) {
+		for (var i = 0; i < 12 * 9; i = i + 12) {
 			var id = 'pili' + i; // + 'ef';
 			var y = this.calculateRollGridY() + 128 * this.tapSize - i * this.tapSize;
 			var g = this.rakeGroup(x, y - h, w, h, id, layer, left, top, width, height);
@@ -382,7 +386,7 @@ RiffShare2D.prototype.tileGridVericalLines = function (layer, left, top, width, 
 			if (g) {
 				//this.tileRectangle(g, x, y, w, h, this.colorComment);
 				//this.tileText(g, x, y, 5 * this.tapSize, '' + (1 + t), this.colorComment);
-				var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by;
+				var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by *this.cellDurationRatio();
 				//for (var s = 1; s < this.currentSong.positions[t].meter * this.currentSong.positions[t].by; s++) {
 				for (var s = 1; s < len16; s++) {
 					this.tileRectangle(g, x + this.measureMargin(t, changes) + this.cellWidth * s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
@@ -507,7 +511,7 @@ RiffShare2D.prototype.tileSheetGrid = function (layer, left, top, width, height,
 				var id = 'gv' + i + 'x' + x + 'x' + y;
 				var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 				if (g) {
-					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by;
+					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by *this.cellDurationRatio();
 					var xPos = x + this.measureMargin(t, changes);
 					for (var s = 0; s < len16; s++) {
 						this.tileRectangle(g, xPos + this.cellWidth * s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
@@ -529,13 +533,13 @@ RiffShare2D.prototype.tileFretGrid = function (layer, left, top, width, height, 
 			if (this.currentSong.channels[i].hideTrackFret) {
 				//
 			} else {
-				var h = this.currentSong.channels[i].string.length * this.tapSize*2-this.tapSize;
+				var h = this.currentSong.channels[i].string.length * this.tapSize * 2 - this.tapSize;
 				//if (h > this.heightTrTitle * this.tapSize) {
 				var y = this.calculateTrackFretY(i);
 				var id = 'frv' + i + 'x' + x + 'x' + y;
 				var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 				if (g) {
-					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by;
+					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by *this.cellDurationRatio();
 					var xPos = x + this.measureMargin(t, changes);
 					for (var s = 0; s < len16; s++) {
 						this.tileRectangle(g, xPos + this.cellWidth * s * this.tapSize, y, this.lineWidth * ratio, h, this.colorGrid);
@@ -561,15 +565,56 @@ RiffShare2D.prototype.tileChordGrid = function (layer, left, top, width, height,
 				var id = 'chrG' + i + 'x' + x + 'x' + y;
 				var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 				if (g) {
-					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by;
+					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by *this.cellDurationRatio();
 					var xPos = x + this.measureMargin(t, changes);
 					for (var s = 0; s < len16; s++) {
-						this.tileRectangle(g, xPos + this.cellWidth * s * this.tapSize, y+(this.heightTrChords-3.5) * this.tapSize, this.lineWidth * ratio, h, this.colorGrid);
+						this.tileRectangle(g, xPos + this.cellWidth * s * this.tapSize, y + (this.heightTrChords - 3.5) * this.tapSize, this.lineWidth * ratio, h, this.colorGrid);
 					}
-					this.tileRectangle(g, xPos , y+(this.heightTrChords-3) * this.tapSize, w,this.lineWidth * ratio, this.colorGrid);
+					this.tileRectangle(g, xPos, y + (this.heightTrChords - 3) * this.tapSize, w, this.lineWidth * ratio, this.colorGrid);
 				}
 			}
 		}
 	}
 };
-
+RiffShare2D.prototype.tileRollGrid = function (layer, left, top, width, height, ratio) {
+	var changes = this.positionOptionsChanges();
+	for (var t = 0; t < this.currentSong.positions.length; t++) {
+		var x = this.calculateMeasureX(t, changes);
+		var y = this.calculateRollGridY() + (128 - 12 * 9) * this.tapSize;
+		var w = this.measureWidth32th(t, changes);
+		var h = 12 * 9 * this.tapSize;
+		for (var i = 0; i < this.currentSong.channels.length; i++) {
+			if (this.currentSong.channels[i].hideTrackChords) {
+				//
+			} else {
+				var id = 'rllG' + i + 'x' + x ;
+				var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
+				if (g) {
+					var len16 = 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by *this.cellDurationRatio();
+					var xPos = x + this.measureMargin(t, changes);
+					for (var s = 0; s < len16; s++) {
+						this.tileRectangle(g, xPos + this.cellWidth * s * this.tapSize, y , this.lineWidth * ratio/2, h, this.colorGrid);
+					}
+				}
+			}
+		}
+	}
+};
+RiffShare2D.prototype.addRollSpot = function (layer, left, top, width, height, ratio) {
+	var id = 'rollNotes';
+	var x = this.marginLeft * this.tapSize;
+	var y = this.calculateRollGridY() + (128 - 12 * 9) * this.tapSize;
+	var w = this.songWidth32th();
+	var h = 12 * 9 * this.tapSize;
+	var g = this.rakeGroup(x + 9 * this.tapSize, y, w, h, id, layer, left, top, width, height);
+	if (g) {
+		//this.tileRectangle(g, x+9*this.tapSize, y, w, h);
+	}
+	this.addSpot(id, x, y, w, h, function () {
+		//console.log('roll',riffShare2d.clickContentX,riffShare2d.clickContentY,riffShare2d.findPositionByContentY());
+		var n=riffShare2d.findPositionByContentY();
+		if(n){
+			riffShare2d.startNote(n);//.start,n.key,n.position);
+		}
+	});
+}

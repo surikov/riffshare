@@ -164,7 +164,7 @@ RiffShare2D.prototype.click = function () {
 	var xy = this.unzoom(this.clickX, this.clickY, this.translateZ);
 	this.clickContentX = xy.x;
 	this.clickContentY = xy.y;
-	console.log('click', this.clickX, this.clickY, 'content', this.clickContentX, this.clickContentY, 'zoom', this.translateZ);
+	//console.log('click', this.clickX, this.clickY, 'content', this.clickContentX, this.clickContentY, 'zoom', this.translateZ);
 	this.runSpots(this.clickContentX, this.clickContentY);
 };
 RiffShare2D.prototype.vectorDistance = function (xy1, xy2) {

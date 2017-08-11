@@ -111,6 +111,8 @@ RiffShare2D.prototype.init = function () {
 	this.marginFirstMeasure = 50;
 	this.marginChangedMeasure = 40;
 	this.cellWidth = 3.75;
+	//this.cellDuration = '1/16';
+	//this.cellDuration = '1/32';
 
 	//this.slideIntervalID=0;
 
@@ -126,6 +128,7 @@ RiffShare2D.prototype.init = function () {
 	//this.colorAction = '#f60';
 	this.colorAction = '#bcf';
 	this.colorButton = '#000';
+	this.colorMarked = '#603';
 	/*
 	this.hideTrackSheet = [];
 	this.hideTrackChords = [];
@@ -337,6 +340,10 @@ RiffShare2D.prototype.init = function () {
 	};
 	console.log('done init');
 };
+RiffShare2D.prototype.cellDurationRatio = function (order, channel) {
+	//return 1;// 1/16
+	return 2;// 1/32
+};
 RiffShare2D.prototype.channelStringKey = function (order, channel) {
 	for (var i = 0; i < channel.string.length; i++) {
 		if (channel.string[i].order == order) {
@@ -369,6 +376,18 @@ RiffShare2D.prototype.findMotifInPosByChannel = function (motifs, channel) {
 	}
 	return null;
 };
+RiffShare2D.prototype.findCreateStepChord=function (songMeasure, step) {
+	for (var i = 0; i < songMeasure.chords.length; i++) {
+		if (songMeasure.chords[i].start == step) {
+			return songMeasure.chords[i];
+		}
+	}
+	songMeasure.chords.push({
+		start : step,
+		notes : []
+	});
+	return songMeasure.chords[songMeasure.chords.length - 1];
+}
 RiffShare2D.prototype.findMotifById = function (id) {
 	for (var i = 0; i < this.currentSong.motifs.length; i++) {
 		if (this.currentSong.motifs[i].id == id) {
@@ -493,7 +512,7 @@ RiffShare2D.prototype.emptySong = function () {
 	return emptysong;
 };
 RiffShare2D.prototype.resetAllLayersNow = function () {
-	console.log('resetAllLayersNow');
+	//console.log('resetAllLayersNow');
 	this.clearLayers([riffShare2d.hugeGroup, riffShare2d.largeGroup, riffShare2d.mediumGroup, riffShare2d.smallGroup]);
 	this.clearSpots();
 	this.resetSize();
@@ -510,6 +529,7 @@ RiffShare2D.prototype.queueTiles = function () {
 			riffShare2d.resetTiles();
 		}, 100);
 };
+
 RiffShare2D.prototype.setSong = function (song) {
 	//if (!(song.selectedChannel)) {
 	//	song.selectedChannel = 0;
@@ -583,15 +603,16 @@ RiffShare2D.prototype.setSong = function (song) {
 			this.translateZ = song.selection.translateZ;
 		}
 		if (riffShare2d.currentSong.selection.cellWidth > 5) {
-			this.cellWidth = 5.75;
+			this.cellWidth = 6.0;
 		} else {
-			if (riffShare2d.currentSong.selection.cellWidth > 3) {
-				this.cellWidth = 3.75;
+			if (riffShare2d.currentSong.selection.cellWidth > 2) {
+				this.cellWidth = 2.5;
 			} else {
-				this.cellWidth = 1.75;
+				this.cellWidth = 1.00;
 			}
 		}
 	}
+	this.startedNoteInfo=null;
 	this.resetSize();
 };
 RiffShare2D.prototype.resetSize = function () {
