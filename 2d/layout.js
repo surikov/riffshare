@@ -57,6 +57,7 @@ RiffShare2D.prototype.resetTiles = function () {
 	var hh = rb.y - lt.y;
 	this.addContent(xx, yy, ww, hh, this.translateZ);
 	this.reLayoutVertical();
+
 };
 var msLog = 0;
 RiffShare2D.prototype.addContent = function (xx, yy, ww, hh, zz) {
@@ -156,6 +157,50 @@ RiffShare2D.prototype.moveZoom = function () {
 	//console.log(x,y,w,h);
 	this.contentSVG.setAttribute("viewBox", "" + x + " " + y + " " + w + " " + h + "");
 	this.reLayoutVertical();
+	this.reLayoutBackGroundImge();
+};
+RiffShare2D.prototype.reLayoutBackGroundImge = function () {
+	var rz = 1.0;
+	var w = this.innerWidth; //this.marginLeft * this.tapSize + this.songWidth32th() + this.marginRight * this.tapSize;
+	var h = this.innerHeight; //this.workHeight();
+	var maxTranslX = w - this.contentDiv.clientWidth * this.translateZ;
+	var maxTranslY = h - this.contentDiv.clientHeight * this.translateZ;
+	var maxImgX = w - this.bgImageWidth * rz * this.translateZ;
+	var maxImgY = h - this.bgImageHeight * rz * this.translateZ;
+	var x = x = -maxImgX * this.translateX / maxTranslX;
+	var y = y = -maxImgY * this.translateY / maxTranslY;
+	if (maxTranslX == 0) {
+		x = 0;
+	}
+	if (maxTranslY == 0) {
+		y = 0;
+	}
+	if (w < this.contentDiv.clientWidth * this.translateZ) {
+		x = -this.translateX;
+	} else {
+	if (this.translateX > 0) {
+		x = -this.translateX;
+	} else {
+		if (-this.translateX > maxTranslX) {
+			x = maxImgX - maxTranslX - this.translateX;
+		}
+	}}
+	if (h < this.contentDiv.clientHeight * this.translateZ) {
+		y = -this.translateY;
+	} else {
+		if (this.translateY > 0) {
+			y = -this.translateY;
+		} else {
+			if (-this.translateY > maxTranslY) {
+				y = maxImgY - maxTranslY - this.translateY;
+			}
+		}
+	}
+	var z = rz * this.translateZ;
+	//console.log(y, this.translateY, h, this.contentDiv.clientHeight * this.translateZ);
+	var transformAttr = ' translate(' + x + ',' + y + ') scale(' + z * rz + ')';
+	this.bgImage.setAttribute('transform', transformAttr);
+	//console.log(h, this.contentDiv.clientHeight * this.translateZ);
 };
 RiffShare2D.prototype.collision = function (x1, y1, w1, h1, x2, y2, w2, h2) {
 	if (x1 + w1 < x2 //
@@ -328,6 +373,13 @@ RiffShare2D.prototype.songWidth32th = function () {
 		return 1;
 	}
 };
+RiffShare2D.prototype.workHeight = function () {
+	var h = this.calculateRollGridY() + this.marginBottom * this.tapSize;
+	if (!this.currentSong.hideRoll) {
+		h = h + 128 * this.tapSize;
+	}
+	return h;
+}
 RiffShare2D.prototype.measureMargin = function (i, changes) {
 	if (i > 0) {
 		//var changes=this.positionOptionsChanges();
@@ -351,7 +403,7 @@ RiffShare2D.prototype.measureWidth32th = function (i, changes) {
 	le=le+this.marginFirstMeasure;
 	}
 	return le;*/
-	var len16 = 16 * this.currentSong.positions[i].meter / this.currentSong.positions[i].by *this.cellDurationRatio();
+	var len16 = 16 * this.currentSong.positions[i].meter / this.currentSong.positions[i].by * this.cellDurationRatio();
 	//return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * this.currentSong.positions[i].by * this.tapSize;
 	return this.measureMargin(i, changes) + this.cellWidth * len16 * this.tapSize;
 };
@@ -409,7 +461,7 @@ RiffShare2D.prototype.findPositionByContentY = function () {
 	var changes = this.positionOptionsChanges();
 	var position = null;
 	var dx = 0;
-	var startAt=0;
+	var startAt = 0;
 	for (var t = 0; t < this.currentSong.positions.length; t++) {
 		var x = this.calculateMeasureX(t, changes);
 		if (x > this.clickContentX) {
@@ -419,24 +471,25 @@ RiffShare2D.prototype.findPositionByContentY = function () {
 			break;
 		}
 		dx = this.clickContentX - x - this.measureMargin(t, changes);
-		startAt=startAt+16*this.currentSong.positions[t ].meter/this.currentSong.positions[t].by*this.cellDurationRatio();
+		startAt = startAt + 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by * this.cellDurationRatio();
 		//console.log(startAt,this.currentSong.positions[t ]);
-		
+
 	}
 	if (position) {
 		if (dx > 0) {
 			var drumShift = 0;
-			var curChan=this.currentSong.channels[this.currentSong.channels.length - 1];
+			var curChan = this.currentSong.channels[this.currentSong.channels.length - 1];
 			if (curChan.program == 128) {
 				drumShift = -34;
 			}
-			var key = Math.floor((this.calculateRollGridY() + 128 * this.tapSize - this.clickContentY) / this.tapSize) - drumShift-curChan.offset;
+			var key = Math.floor((this.calculateRollGridY() + 128 * this.tapSize - this.clickContentY) / this.tapSize) - drumShift - curChan.offset;
 			var start = Math.floor(dx / (this.cellWidth * this.tapSize));
 			//console.log(start,startAt);
-			var r= {
+			var r = {
 				start : start,
 				key : key,
-				position : position,startAt:startAt
+				position : position,
+				startAt : startAt
 			};
 			//console.log('findPositionByContentY',r);
 			return r;

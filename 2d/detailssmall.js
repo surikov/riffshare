@@ -7,6 +7,7 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileMeiumSongOptions(this.smalltracknames, xx, yy, ww, hh, detailRatio);
 	this.tileSongTexts(this.smalltitles, xx, yy, ww, hh);
 	this.tileMediumTracksTitles(this.smalltracknames, xx, yy, ww, hh, detailRatio);
+	this.tileMediumTracksOptions(this.smalltitles, xx, yy, ww, hh, detailRatio);
 	//this.tileTracksTitles(this.smalltracknames, xx, yy, ww, hh);
 	this.tileMarkers(this.smalltitles, xx, yy, ww, hh);
 	

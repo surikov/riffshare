@@ -1,10 +1,56 @@
-RiffShare2D.prototype.addButton = function (id, label, fontSize, g, x, y, s, isStickX, lineWidth, action, toZoom) {
-	if (lineWidth) {
-		this.tileCircle(g, x + s / 2, y + s / 2, s / 2, 'none', this.colorAction, lineWidth);
-	} else {
-		this.tileCircle(g, x + s / 2, y + s / 2, s / 2, this.colorAction);
+RiffShare2D.prototype.addRangeButtons = function (spotPrefix, label, value, g, x, y, size, labelValues,onSelect) {
+	//console.log(spotPrefix, label, value,  x, y, size, labelValues);
+	for (var i = 0; i <labelValues.length; i++) {
+		var spot=null;
+		//var txt='';//+labelValues[i].label;
+		/*if(i==0){
+			txt=label;
+		}*/
+		if (value >= labelValues[i].value) {
+			spot = this.addSimpleButton(spotPrefix + i, '', g, x+i*size, y , size, function () {
+					onSelect(this.newValue);
+				});
+		} else {
+			spot = this.addHollowButton(spotPrefix + i, '', g, x+i*size, y , size, function () {
+					onSelect(this.newValue);
+				});
+		}
+		spot.newValue=labelValues[i].value;
 	}
-	this.tileText(g, x + s / 4, y + s * 0.9, fontSize, label, this.colorComment);
+	var txt='';
+	for (var i = 0; i <labelValues.length; i++) {
+		if(value==labelValues[i].value){
+			txt=labelValues[i].label;
+		}
+	}
+	this.tileText(g, x + size / 4, y + size * 0.9, size/2, label, this.colorMain);
+	this.tileText(g, x - size *3/ 4+size*labelValues.length, y + size * 0.9, size/2, txt, this.colorMain);
+};
+RiffShare2D.prototype.addZoomAnchor = function (spotId, label, g, x, y, size, toZoom) {
+	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, false, 0, null, toZoom);
+};
+RiffShare2D.prototype.addStuckZoomAnchor = function (spotId, label, g, x, y, size, toZoom) {
+	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, true, 0, null, toZoom);
+};
+RiffShare2D.prototype.addSimpleButton = function (spotId, label, g, x, y, size, action) {
+	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, false, 0, action, false);
+};
+RiffShare2D.prototype.addSimpleStuckButton = function (spotId, label, g, x, y, size, action) {
+	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, true, 0, action, false);
+};
+RiffShare2D.prototype.addHollowButton = function (spotId, label, g, x, y, size, action) {
+	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, false, size / 29, action, false);
+};
+RiffShare2D.prototype.addHollowStuckButton = function (spotId, label, g, x, y, size, action) {
+	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, true, size / 29, action, false);
+};
+RiffShare2D.prototype.addCustomButton = function (id, label, fontSize, g, x, y, s, isStickX, lineWidth, action, toZoom) {
+	if (lineWidth) {
+		this.tileCircle(g, x + s / 2, y + s / 2, s / 2, 'none', this.colorHot, lineWidth * 2);
+	} else {
+		this.tileCircle(g, x + s / 2, y + s / 2, s / 2, this.colorHot);
+	}
+	this.tileText(g, x + s / 4, y + s * 0.9, fontSize, label, this.colorMain);
 	var s = this.addSpot(id, x, y, s, s, action, isStickX, toZoom);
 	//console.log(s);
 	return s;
@@ -257,12 +303,12 @@ RiffShare2D.prototype.hideMenu = function () {
 };
 
 RiffShare2D.prototype.promptNewSong = function () {
-var r = confirm('Create new song');
-if (r) {
-	this.setSong(this.emptySong());
-//riffShare2d.currentSong = riffShare2d.emptySong();
-}
-//riffShare2d.resetAllLayersNow();
+	var r = confirm('Create new song');
+	if (r) {
+		this.setSong(this.emptySong());
+		//riffShare2d.currentSong = riffShare2d.emptySong();
+	}
+	//riffShare2d.resetAllLayersNow();
 };
 RiffShare2D.prototype.promptChangeSongTitle = function () {
 	var r = prompt('Song title', riffShare2d.currentSong.name);
@@ -327,74 +373,74 @@ RiffShare2D.prototype.promptImportSong = function () {
 	window.location.href = 'file.html';
 	/*
 	riffShare2d.showMenu('Import song', [{
-				title : 'open example 1',
-				action : function () {
-					//alert('qwerty');
-					window.location.href = 'song.html';
-				}
-			}, {
-				title : 'open example 2',
-				action : function () {
-					window.location.href = 'song2.html';
-				}
-			}, {
-				title : 'open example 3',
-				action : function () {
-					window.location.href = 'song3.html';
-				}
-			}, {
-				title : 'open example 4',
-				action : function () {
-					window.location.href = 'song4.html';
-				}
-			}, {
-				title : 'open example 5',
-				action : function () {
-					window.location.href = 'song5.html';
-				}
-			}, {
-				title : 'open example 6',
-				action : function () {
-					window.location.href = 'song6.html';
-				}
-			}, {
-				title : 'open example 7',
-				action : function () {
-					window.location.href = 'song7.html';
-				}
-			}, {
-				title : 'open example 8',
-				action : function () {
-					window.location.href = 'song8.html';
-				}
-			}, {
-				title : 'open example 9',
-				action : function () {
-					window.location.href = 'song9.html';
-				}
-			}, {
-				title : 'open example 10',
-				action : function () {
-					window.location.href = 'song10.html';
-				}
-			}, {
-				title : 'open example 11',
-				action : function () {
-					window.location.href = 'song11.html';
-				}
-			}, {
-				title : 'open example test',
-				action : function () {
-					window.location.href = 'testsong.html';
-				}
-			}, {
-				title : 'Import from MXML',
-				action : function () {
-					window.location.href = 'mxml.html';
-				}
-			}
-		]);
-		*/
+	title : 'open example 1',
+	action : function () {
+	//alert('qwerty');
+	window.location.href = 'song.html';
+	}
+	}, {
+	title : 'open example 2',
+	action : function () {
+	window.location.href = 'song2.html';
+	}
+	}, {
+	title : 'open example 3',
+	action : function () {
+	window.location.href = 'song3.html';
+	}
+	}, {
+	title : 'open example 4',
+	action : function () {
+	window.location.href = 'song4.html';
+	}
+	}, {
+	title : 'open example 5',
+	action : function () {
+	window.location.href = 'song5.html';
+	}
+	}, {
+	title : 'open example 6',
+	action : function () {
+	window.location.href = 'song6.html';
+	}
+	}, {
+	title : 'open example 7',
+	action : function () {
+	window.location.href = 'song7.html';
+	}
+	}, {
+	title : 'open example 8',
+	action : function () {
+	window.location.href = 'song8.html';
+	}
+	}, {
+	title : 'open example 9',
+	action : function () {
+	window.location.href = 'song9.html';
+	}
+	}, {
+	title : 'open example 10',
+	action : function () {
+	window.location.href = 'song10.html';
+	}
+	}, {
+	title : 'open example 11',
+	action : function () {
+	window.location.href = 'song11.html';
+	}
+	}, {
+	title : 'open example test',
+	action : function () {
+	window.location.href = 'testsong.html';
+	}
+	}, {
+	title : 'Import from MXML',
+	action : function () {
+	window.location.href = 'mxml.html';
+	}
+	}
+	]);
+	 */
 };
 
 RiffShare2D.prototype.showUndoMenu = function () {
@@ -720,7 +766,7 @@ RiffShare2D.prototype.redoDeleteMeasure = function (nn) {
 	});
 };
 RiffShare2D.prototype.startNote = function (to) {
-	console.log('startNote',to);
+	console.log('startNote', to);
 	if (this.startedNoteInfo) {
 		var start = this.startedNoteInfo.start;
 		var len = (to.start + to.startAt) - (this.startedNoteInfo.start + this.startedNoteInfo.startAt);
@@ -737,12 +783,12 @@ RiffShare2D.prototype.startNote = function (to) {
 		//console.log('at' + start + ':' + len, 'pitch' + key + '/' + shift);
 		//console.log(this.startedNoteInfo,'>',to);
 		this.startedNoteInfo = null;
-		this.redoAddNoteToCurChannel(start/this.cellDurationRatio(), key + 1, (len + 1)/this.cellDurationRatio(), shift, p);
+		this.redoAddNoteToCurChannel(start / this.cellDurationRatio(), key + 1, (len + 1) / this.cellDurationRatio(), shift, p);
 	} else {
-		var note=this.existsNoteAtCurrentChannel(to.start/this.cellDurationRatio(), to.key + 1, to.position);
+		var note = this.existsNoteAtCurrentChannel(to.start / this.cellDurationRatio(), to.key + 1, to.position);
 		if (note) {
-			this.redoDeleteNote(note.n,note.chord);
-		}else{
+			this.redoDeleteNote(note.n, note.chord);
+		} else {
 			this.startedNoteInfo = to;
 		}
 	}
@@ -758,18 +804,21 @@ RiffShare2D.prototype.existsNoteAtCurrentChannel = function (start, key, positio
 	if (m) {
 		var chord = this.findCreateStepChord(m, start);
 		//console.log('chord',key,chord);
-		for(var i=0;i<chord.notes.length;i++){
-			if(chord.notes[i].key==key){
+		for (var i = 0; i < chord.notes.length; i++) {
+			if (chord.notes[i].key == key) {
 				//chord.splice(i,1);
 				//console.log('found',chord.notes[i]);
-				return {chord:chord,n:i};
+				return {
+					chord : chord,
+					n : i
+				};
 			}
 		}
 	}
 	return false;
 }
 RiffShare2D.prototype.redoAddNoteToCurChannel = function (start, key, len, shift, position) {
-	console.log('redoAddNoteToCurChannel',start, key,len,shift,position);
+	console.log('redoAddNoteToCurChannel', start, key, len, shift, position);
 	var channelId = this.currentSong.channels[this.currentSong.channels.length - 1].id;
 	var mm = this.findPositionMotifByChannel(position, channelId);
 	var m = null;
@@ -807,15 +856,15 @@ RiffShare2D.prototype.redoAddNoteToCurChannel = function (start, key, len, shift
 		}
 	});
 };
-RiffShare2D.prototype.redoDeleteNote = function (n,chord) {
+RiffShare2D.prototype.redoDeleteNote = function (n, chord) {
 	var note = chord.notes[n];
 	riffShare2d.pushAction({
 		caption : 'Delete note',
 		undo : function () {
-			chord.notes.splice(n,0,note);
+			chord.notes.splice(n, 0, note);
 		},
 		redo : function () {
-			chord.notes.splice(n,1);
+			chord.notes.splice(n, 1);
 		}
 	});
 };

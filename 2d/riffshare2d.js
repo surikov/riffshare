@@ -68,6 +68,12 @@ RiffShare2D.prototype.init = function () {
 	this.smallspots = document.getElementById('smallhotspots');
 
 	this.overlayGroup = document.getElementById('overlay');
+	
+	this.bgGroup = document.getElementById('bgGroup');
+	this.bgImage = document.getElementById('bgImage');
+	this.bgImageWidth = 1920;
+	this.bgImageHeight = 1200;
+	
 
 	this.menuTitleSpan = document.getElementById('menuTitle');
 	this.menuTable = document.getElementById('menuTable');
@@ -86,6 +92,9 @@ RiffShare2D.prototype.init = function () {
 	this.minZoomHuge = 17;
 	this.minZoomLarge = 3;
 	this.minZoomMedium = 0.5;
+	
+	this.minZoom=0.125;
+	this.maxZoom=200;
 
 	this.spots = [];
 
@@ -110,7 +119,13 @@ RiffShare2D.prototype.init = function () {
 	this.heightPRGrid = 128;
 	this.marginFirstMeasure = 50;
 	this.marginChangedMeasure = 40;
-	this.cellWidth = 3.75;
+	this.cellWidth1=1.25;
+	this.cellWidth2=3.75;
+	this.cellWidth3=5.5;
+	
+	this.cellWidth = this.cellWidth2;
+	
+	
 	//this.cellDuration = '1/16';
 	//this.cellDuration = '1/32';
 
@@ -118,7 +133,7 @@ RiffShare2D.prototype.init = function () {
 
 	this.lowStair = 28;
 	this.highStair = this.lowStair + 12;
-
+/*
 	this.colorGrid = '#bcf';
 	this.colorPianoKeys = '#eee';
 	this.colorHugeHolder = '#ddd';
@@ -129,6 +144,13 @@ RiffShare2D.prototype.init = function () {
 	this.colorAction = '#bcf';
 	this.colorButton = '#000';
 	this.colorMarked = '#603';
+	*/
+	this.colorBG = '#fff';
+	this.colorBase = '#000';
+	this.colorHot = '#9af';
+	this.colorAux = '#bbb';
+	this.colorNearBG = '#ddd';
+	this.colorTarget = '#603';
 	/*
 	this.hideTrackSheet = [];
 	this.hideTrackChords = [];
@@ -602,13 +624,13 @@ RiffShare2D.prototype.setSong = function (song) {
 		if (song.selection.translateZ) {
 			this.translateZ = song.selection.translateZ;
 		}
-		if (riffShare2d.currentSong.selection.cellWidth > 5) {
-			this.cellWidth = 6.0;
+		if (riffShare2d.currentSong.selection.cellWidth > this.cellWidth3) {
+			this.cellWidth = this.cellWidth3;
 		} else {
-			if (riffShare2d.currentSong.selection.cellWidth > 2) {
-				this.cellWidth = 2.5;
+			if (riffShare2d.currentSong.selection.cellWidth > this.cellWidth2) {
+				this.cellWidth = this.cellWidth2;
 			} else {
-				this.cellWidth = 1.00;
+				this.cellWidth = this.cellWidth1;
 			}
 		}
 	}
