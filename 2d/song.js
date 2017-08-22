@@ -33,7 +33,7 @@ var song={version:'2.20'
 		]
 	,motifs:[
 		{id:43914,chords:[//1-1
-			{start:0,notes:[{key:72,l6th:4,string:1,palmMute:1}]}
+			{start:0,notes:[{key:72,l6th:4,string:1,palmMute:1}			,{key:0,l6th:4,string:2,palmMute:1},{key:127,l6th:4,string:3,palmMute:1}			]}
 			,{start:4,notes:[{key:72,l6th:4,string:1}]}
 			,{start:8,notes:[{key:79,l6th:4,string:1,vibrato:1}]}
 			,{start:12,notes:[{key:79,l6th:4,string:1,bend:[{at:0,to:0},{at:2,to:12},{at:6,to:4},{at:7,to:8},{at:10,to:11},{at:12,to:4}]}]}

@@ -17,6 +17,23 @@ RiffShare2D.prototype.setupInput = function () {
 	this.rakeDiv.addEventListener("touchmove", this.rakeTouchMove, false);
 	this.rakeDiv.addEventListener("touchend", this.rakeTouchEnd, false);
 };
+RiffShare2D.prototype.safeZoom = function (zoom) {
+	return zoom;
+	/*
+	var z=zoom;
+	var w = this.innerWidth;//this.marginLeft * this.tapSize + this.songWidth32th() + this.marginRight * this.tapSize;
+	if(w< this.contentDiv.clientWidth * z){
+		z= w/this.contentDiv.clientWidth;
+	}
+	
+	var h = this.innerHeight;//this.workHeight();
+	if(h< this.contentDiv.clientHeight * z){
+		z= h/this.contentDiv.clientHeight;
+	}
+	//console.log(zoom,z,h,this.contentDiv.clientHeight);
+	return z;
+	*/
+};
 RiffShare2D.prototype.rakeMouseWheel = function (e) {
 	e.preventDefault();
 	var e = window.event || e;
@@ -24,17 +41,20 @@ RiffShare2D.prototype.rakeMouseWheel = function (e) {
 	var min = Math.min(1, wheelVal);
 	var delta = Math.max(-1, min);
 	var zoom = riffShare2d.translateZ + delta * (riffShare2d.translateZ) * 0.077;
-	if (zoom < 0.25) {
-		zoom = 0.25;
+	if (zoom < riffShare2d.minZoom) {
+		zoom = riffShare2d.minZoom;
 	}
-	if (zoom > 100) {
-		zoom = 100;
+	if (zoom > riffShare2d.maxZoom) {
+		zoom = riffShare2d.maxZoom;
 	}
-	riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * e.layerX;
-	riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * e.layerY;
-	riffShare2d.translateZ = zoom;
-	riffShare2d.adjustContentPosition();
-	riffShare2d.queueTiles();
+	//if(riffShare2d.canZoomTo(zoom)){
+		zoom=riffShare2d.safeZoom(zoom);
+		riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * e.layerX;
+		riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * e.layerY;
+		riffShare2d.translateZ = zoom;
+		riffShare2d.adjustContentPosition();
+		riffShare2d.queueTiles();
+	//}
 	return false;
 };
 RiffShare2D.prototype.rakeMouseDown = function (mouseEvent) {
@@ -130,10 +150,13 @@ RiffShare2D.prototype.rakeTouchMove = function (touchEvent) {
 			if (zoom > 100) {
 				zoom = 100;
 			}
-			riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.x;
-			riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.y;
-			riffShare2d.translateZ = zoom;
-			riffShare2d.adjustContentPosition();
+			zoom=riffShare2d.safeZoom(zoom);
+			//if(riffShare2d.canZoomTo(zoom)){
+				riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.x;
+				riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.y;
+				riffShare2d.translateZ = zoom;
+				riffShare2d.adjustContentPosition();
+			//}
 		}
 	}
 };
@@ -164,7 +187,7 @@ RiffShare2D.prototype.click = function () {
 	var xy = this.unzoom(this.clickX, this.clickY, this.translateZ);
 	this.clickContentX = xy.x;
 	this.clickContentY = xy.y;
-	console.log('click', this.clickX, this.clickY, 'content', this.clickContentX, this.clickContentY, 'zoom', this.translateZ);
+	//console.log('click', this.clickX, this.clickY, 'content', this.clickContentX, this.clickContentY, 'zoom', this.translateZ);
 	this.runSpots(this.clickContentX, this.clickContentY);
 };
 RiffShare2D.prototype.vectorDistance = function (xy1, xy2) {

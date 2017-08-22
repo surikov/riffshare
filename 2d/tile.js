@@ -22,7 +22,7 @@ RiffShare2D.prototype.rakeGroup = function (x, y, w, h, id, layer, left, top, wi
 			g.id = id;
 			layer.appendChild(g);
 			return g;
-		}else{
+		} else {
 			//console.log(id,'exists');
 		}
 	}
@@ -121,6 +121,26 @@ RiffShare2D.prototype.tileLine = function (g, x1, y1, x2, y2, s, t) {
 		line.setAttributeNS(null, 'stroke-width', t);
 	}
 	line.setAttributeNS(null, 'stroke-linecap', 'round');
+	g.appendChild(line);
+};
+RiffShare2D.prototype.tileNoteTail = function (g, color, x, y) {
+	var line = document.createElementNS(this.svgns, 'path');
+	//var d = 'M'+x+','+y+' L'+(x+this.tapSize)+','+(y+this.tapSize)+' Z';
+	var d = 'M' + x + ' ' + y //
+		 + ' C ' + (x + 0*this.tapSize) + ' ' + (y + 1*this.tapSize) //
+		 + ', ' + (x + 2*this.tapSize) + ', ' + (y +0*this.tapSize) //
+		 + ', ' + (x + 2*this.tapSize) + ' ' + (y + 5*this.tapSize) //
+		 + ' C ' + (x + 2*this.tapSize) + ' ' + (y + 2*this.tapSize) //
+		 + ', ' + (x + 1*this.tapSize) + ', ' + (y +1*this.tapSize) //
+		 + ', ' +  (x + 0*this.tapSize) + ' ' + (y + 0.75*this.tapSize)//
+		 + ' Z';
+	line.setAttributeNS(null, 'd', d);
+	//line.setAttributeNS(null, 'fill', 'none');
+	//line.setAttributeNS(null, 'stroke', '#ff0000');
+	//line.setAttributeNS(null, 'stroke-width', 1);
+	line.setAttributeNS(null, 'fill', color);
+	line.setAttributeNS(null, 'stroke', color);
+	line.setAttributeNS(null, 'stroke-width', 1);
 	g.appendChild(line);
 };
 RiffShare2D.prototype.tileMultiLine = function (g, lines, s, t) {

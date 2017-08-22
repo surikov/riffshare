@@ -16,15 +16,35 @@
 		<!-- <link href="https://fonts.googleapis.com/css?family=Lovers+Quarrel" rel="stylesheet">font-family: 'Lovers Quarrel', cursive; -->
 		<!-- <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">font-family: 'Yesteryear', cursive; -->
 		<!--<link href="https://fonts.googleapis.com/css?family=Ruthie" rel="stylesheet">-->
-		<link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">
+		<!--<link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">-->
 		<!--<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">-->
-		<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+		<!--<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">-->
 		<style>
 			body {
 				font-family: 'Yesteryear', serif;
 			}
 			a {
 				color: #000;
+				text-decoration: none;
+			}
+			table {
+				*border-collapse: collapse; /* IE7 and lower */
+				border-spacing: 0;
+				width: 10%;    
+			}
+			.undobutton {
+				position:absolute;
+				top:0;
+				right:0;
+				width:10;
+				height:10;
+			}
+			.redobutton {
+				position:absolute;
+				top:10;
+				right:0;
+				width:10;
+				height:10;
 			}
 			table {
 				*border-collapse: collapse; /* IE7 and lower */
@@ -32,72 +52,78 @@
 				width: 10%;    
 			}
 			.bordered {
-				border: solid #ccc 1px;
-				-moz-border-radius: 6px;
-				-webkit-border-radius: 6px;
-				border-radius: 6px;
-				-webkit-box-shadow: 0 1px 1px #ccc; 
-				-moz-box-shadow: 0 1px 1px #ccc; 
-				box-shadow: 0 1px 1px #ccc;         
-				font-family: 'Oswald', sans-serif;
 				margin-top: 100px;
 				margin-bottom: 100px;
 			}
 			.bordered td, .bordered th {
-				border-left: 1px solid #ccc;
+				border-left: 1px solid #666;
 				border-top: 1px solid #ccc;
-				padding: 10px;
-				text-align: left;    
+				border-right: 1px solid #666;
+				text-align: left;
 				background-color: #fff;
-				
+				padding-top: 10px;
+				padding-right: 20px;
+				padding-bottom: 10px;
+				padding-left: 20px;				
 			}
 			.bordered th {
 				background-color: #eeeeee;
-				background-image: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#eeeeee));
-				background-image: -webkit-linear-gradient(top, #cccccc, #eeeeee);
-				background-image:    -moz-linear-gradient(top, #cccccc, #eeeeee);
-				background-image:     -ms-linear-gradient(top, #cccccc, #eeeeee);
-				background-image:      -o-linear-gradient(top, #cccccc, #eeeeee);
-				background-image:         linear-gradient(top, #cccccc, #eeeeee);
-				-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
-				-moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
-				box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
-				border-top: none;
-				
-			}
-			.bordered td:first-child, .bordered th:first-child {
-				border-left: none;
-			}
-			.bordered th:first-child {
-				-moz-border-radius: 6px 0 0 0;
-				-webkit-border-radius: 6px 0 0 0;
-				border-radius: 6px 0 0 0;
-			}
-			.bordered th:last-child {
-				-moz-border-radius: 0 6px 0 0;
-				-webkit-border-radius: 0 6px 0 0;
-				border-radius: 0 6px 0 0;
+				border-top: 1px solid #666;
 			}
 			.bordered th:only-child{
-				-moz-border-radius: 6px 6px 0 0;
-				-webkit-border-radius: 6px 6px 0 0;
-				border-radius: 6px 6px 0 0;
-			}
-			.bordered tr:last-child td:first-child {
-				-moz-border-radius: 0 0 0 6px;
-				-webkit-border-radius: 0 0 0 6px;
-				border-radius: 0 0 0 6px;
+				-moz-border-radius: 10px 10px 0 0;
+				-webkit-border-radius: 10px 10px 0 0;
+				border-radius: 10px 10px 0 0;
+				border-bottom: none;
 			}
 			.bordered tr:last-child td:last-child {
-				-moz-border-radius: 0 0 6px 0;
-				-webkit-border-radius: 0 0 6px 0;
-				border-radius: 0 0 6px 0;
+				-moz-border-radius: 0 0 10px 10px;
+				-webkit-border-radius: 0 0 10px 10px;
+				border-radius: 0 0 10px 10px;
+				border-bottom: 1px solid #000;
 			}
-			a {
-				text-decoration: none;
+
+			@font-face {
+			  font-family: 'Oswald';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: local('Oswald Regular'), local('Oswald-Regular'), url(oswald.woff2) format('woff2');
+			  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 			}
+			/* vietnamese */
+			@font-face {
+			  font-family: 'Oswald';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: local('Oswald Regular'), local('Oswald-Regular'), url(oswald.woff2) format('woff2');
+			  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+			}
+			/* latin-ext */
+			@font-face {
+			  font-family: 'Oswald';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: local('Oswald Regular'), local('Oswald-Regular'), url(oswald.woff2) format('woff2');
+			  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+			}
+			/* latin */
+			@font-face {
+			  font-family: 'Oswald';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: local('Oswald Regular'), local('Oswald-Regular'), url(oswald.woff2) format('woff2');
+			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+			}
+			@font-face {
+			  font-family: 'Yesteryear';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: local('Yesteryear'), local('Yesteryear-Regular'), url(yesteryer.woff2) format('woff2');
+			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+			}
+
 		</style>
-		<title>46</title>
+		<title>73</title>
 	</head>
 	<body style='background-color:#00f;padding:0px;margin:0px;'>
 		<div id="rakeDiv" style="width:100%; height:100%;  background-color:#0f0; overflow:hidden;" >
@@ -142,6 +168,9 @@
 						<feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
 					  </feMerge>
 					</filter>
+					<g id='bgGroup'>
+						<image id='bgImage' href="bg.jpg" x="0" y="0" width="1920px" height="1200px"/>
+					</g>
 					<g id='huge'>
 						<g id='hugeborders'/>
 						<g id='hugetitles'/>
@@ -149,6 +178,7 @@
 						<g id='hugeholders'/>
 						<g id='hugespots'/>
 					</g>
+
 					<g id='large'>
 						<g id='largetitles'/>
 						<g id='largetracknames' transform="translate(0)" />
@@ -185,6 +215,8 @@
 				
 			</div>
 		</div>
+		<div id="undobutton" class="undobutton" onclick='riffShare2d.undoLast();'><img id="undoimg" src='undo.png' width='100%' height='100%' /></div>
+		<div id="redobutton" class="redobutton" onclick='riffShare2d.redoNext();'><img id="redoimg" src='redo.png' width='100%' height='100%' /></div>
 		<div id="menuDiv" onclick="riffShare2d.hideMenu();" style="width:100%; height:100%; left:0px; top:0px; position:absolute; background-color:rgba(0,0,0,0.5); padding:0px; margin:0px; visibility:hidden; overflow:scroll;">
 		<!--  pointer-events: none; -->
 				<!--<svg id="contentSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
