@@ -18,7 +18,7 @@ RiffShare2D.prototype.addMediumTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileChordGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileRollGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
 	this.tileFretGrid(this.mediumgrid, xx, yy, ww, hh, detailRatio);
-	this.tileMeasureLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
+	this.tileLargeMeasureLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
 	this.tileOctaveLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
 	this.tileScoreLines(this.mediumborders, xx, yy, ww, hh, detailRatio);
 	this.tileStrings(this.mediumsymbols, xx, yy, ww, hh, detailRatio, true);

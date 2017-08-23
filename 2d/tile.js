@@ -29,29 +29,29 @@ RiffShare2D.prototype.rakeGroup = function (x, y, w, h, id, layer, left, top, wi
 	return null;
 };
 
-RiffShare2D.prototype.tileText = function (g, x, y, n, m, f, s, t, ff, fs) {
+RiffShare2D.prototype.tileText = function (g, x, y, fontSize, html, bgColor, strokeColor, strokeWidth, fontFamily, fontStyle) {
 	var txt = document.createElementNS(this.svgns, 'text');
 	txt.setAttributeNS(null, 'x', x);
 	txt.setAttributeNS(null, 'y', y);
-	txt.setAttributeNS(null, 'font-size', n);
+	txt.setAttributeNS(null, 'font-size', fontSize);
 	//txt.setAttributeNS(null, 'alignment-baseline', 'text-before-edge');
 	//txt.setAttributeNS(null, 'text-anchor', 'start');
-	if (f) {
-		txt.setAttributeNS(null, 'fill', f);
+	if (bgColor) {
+		txt.setAttributeNS(null, 'fill', bgColor);
 	}
-	if (ff) {
-		txt.setAttributeNS(null, 'font-family', ff);
+	if (fontFamily) {
+		txt.setAttributeNS(null, 'font-family', fontFamily);
 	}
-	if (fs) {
-		txt.setAttributeNS(null, 'font-style', fs);
+	if (fontStyle) {
+		txt.setAttributeNS(null, 'font-style', fontStyle);
 	}
-	if (s) {
-		txt.setAttributeNS(null, 'stroke', s);
+	if (strokeColor) {
+		txt.setAttributeNS(null, 'stroke', strokeColor);
 	}
-	if (t) {
-		txt.setAttributeNS(null, 'stroke-width', t);
+	if (strokeWidth) {
+		txt.setAttributeNS(null, 'stroke-width', strokeWidth);
 	}
-	txt.innerHTML = m;
+	txt.innerHTML = html;
 	g.appendChild(txt);
 };
 RiffShare2D.prototype.tileRectangle = function (g, x, y, w, h, f, s, t, r) {

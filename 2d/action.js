@@ -318,6 +318,16 @@ RiffShare2D.prototype.promptChangeSongTitle = function () {
 		riffShare2d.redoSongTitleChange(r);
 	}
 };
+RiffShare2D.prototype.promptMeasureBPM = function (position) {
+	var f=position.tempo;
+	//console.log('promptMeasureBPM',position);
+	var r = prompt('Tempo', ''+f);
+	var n=1*r;
+	if (n>0) {
+		//riffShare2d.currentSong.name = r;
+		riffShare2d.redoMeasureBPM(position,f,n);
+	}
+};
 RiffShare2D.prototype.promptDropChannel = function (channel) {
 	var ok = confirm('Drop channel ' + channel.track);
 	if (ok) {
@@ -553,6 +563,18 @@ RiffShare2D.prototype.pushAction = function (action) {
 	document.getElementById('redoimg').src = "redo.png";
 	}*/
 	//console.log(this.undoStep, this.undoQueue);
+};
+
+RiffShare2D.prototype.redoMeasureBPM = function (position,from,to) {
+	riffShare2d.pushAction({
+		caption : 'Set tempo from '+from+' to ' + to,
+		undo : function () {
+			position.tempo=from;
+		},
+		redo : function () {
+			position.tempo=to;
+		}
+	});
 };
 RiffShare2D.prototype.redoSongTitleChange = function (toTitle) {
 	var fromTitle = this.currentSong.name;
