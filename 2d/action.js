@@ -1,30 +1,44 @@
-RiffShare2D.prototype.addRangeButtons = function (spotPrefix, label, value, g, x, y, size, labelValues,onSelect) {
+RiffShare2D.prototype.addToggleList = function (spotPrefix, selection, g, x, y, size, labelActions) {
+	for (var i = 0; i < labelActions.length; i++) {
+		var spot = null;
+		if (selection == i) {
+			this.addHollowButton(spotPrefix + i, '', g, x + i * size, y, size, null);
+		} else {
+			spot = this.addSimpleButton(spotPrefix + i, '', g, x + i * size, y, size, function () {
+					this.selValue.action();
+				});
+			spot.selValue = labelActions[i]; 
+		}
+		this.tileText(g, x +i * size+size*0.45, y + size * 0.5-labelActions[i].up, size/2, labelActions[i].label, this.colorMain, null, null, 'ttfPe', null);
+	}
+};
+RiffShare2D.prototype.addRangeButtons = function (spotPrefix, label, value, g, x, y, size, labelValues, onSelect) {
 	//console.log(spotPrefix, label, value,  x, y, size, labelValues);
-	for (var i = 0; i <labelValues.length; i++) {
-		var spot=null;
+	for (var i = 0; i < labelValues.length; i++) {
+		var spot = null;
 		//var txt='';//+labelValues[i].label;
 		/*if(i==0){
-			txt=label;
+		txt=label;
 		}*/
 		if (value >= labelValues[i].value) {
-			spot = this.addSimpleButton(spotPrefix + i, '', g, x+i*size, y , size, function () {
+			spot = this.addSimpleButton(spotPrefix + i, '', g, x + i * size, y, size, function () {
 					onSelect(this.newValue);
 				});
 		} else {
-			spot = this.addHollowButton(spotPrefix + i, '', g, x+i*size, y , size, function () {
+			spot = this.addHollowButton(spotPrefix + i, '', g, x + i * size, y, size, function () {
 					onSelect(this.newValue);
 				});
 		}
-		spot.newValue=labelValues[i].value;
+		spot.newValue = labelValues[i].value;
 	}
-	var txt='';
-	for (var i = 0; i <labelValues.length; i++) {
-		if(value==labelValues[i].value){
-			txt=labelValues[i].label;
+	var txt = '';
+	for (var i = 0; i < labelValues.length; i++) {
+		if (value == labelValues[i].value) {
+			txt = labelValues[i].label;
 		}
 	}
-	this.tileText(g, x + size / 4, y + size * 0.9, size/2, label, this.colorMain);
-	this.tileText(g, x - size *3/ 4+size*labelValues.length, y + size * 0.9, size/2, txt, this.colorMain);
+	this.tileText(g, x + size / 4, y + size * 0.9, size / 2, label, this.colorMain);
+	this.tileText(g, x - size * 3 / 4 + size * labelValues.length, y + size * 0.9, size / 2, txt, this.colorMain);
 };
 RiffShare2D.prototype.addZoomAnchor = function (spotId, label, g, x, y, size, toZoom) {
 	return this.addCustomButton(spotId, label, size / 2, g, x, y, size, false, 0, null, toZoom);
@@ -59,14 +73,14 @@ RiffShare2D.prototype.addCustomButton = function (id, label, fontSize, g, x, y, 
 RiffShare2D.prototype.addSpot = function (id, x, y, w, h, a, stickX, toZoom) {
 	this.dropSpot(id);
 	var spot = {
-		id : id,
-		x : x,
-		y : y,
-		w : w,
-		h : h,
-		a : a,
-		sx : stickX,
-		tz : toZoom
+		id: id,
+		x: x,
+		y: y,
+		w: w,
+		h: h,
+		a: a,
+		sx: stickX,
+		tz: toZoom
 	};
 	//if (stickX) {}
 	this.spots.push(spot);
@@ -94,7 +108,7 @@ RiffShare2D.prototype.clearSpots = function () {
 RiffShare2D.prototype.runSpots = function (x, y) {
 	//console.log('runSpots', this.spots);
 	var needRedraw = false;
-	for (var i = 0; i < this.spots.length; i++) {
+	for (var i = this.spots.length - 1; i >= 0; i--) {
 		var spot = this.spots[i];
 		var checkX = spot.x;
 		var checkY = spot.y;
@@ -127,6 +141,7 @@ RiffShare2D.prototype.runSpots = function (x, y) {
 				//this.startSlideTo(0,0,5);
 				needRedraw = true;
 			}
+			break;
 		}
 	}
 	/*if (this.menuFog) {
@@ -304,7 +319,7 @@ RiffShare2D.prototype.hideMenu = function () {
 
 RiffShare2D.prototype.promptNewSong = function () {
 	var r = confirm('Create new song');
-	
+
 	if (r) {
 		this.setSong(this.emptySong());
 		//riffShare2d.currentSong = riffShare2d.emptySong();
@@ -319,13 +334,13 @@ RiffShare2D.prototype.promptChangeSongTitle = function () {
 	}
 };
 RiffShare2D.prototype.promptMeasureBPM = function (position) {
-	var f=position.tempo;
+	var f = position.tempo;
 	//console.log('promptMeasureBPM',position);
-	var r = prompt('Tempo', ''+f);
-	var n=1*r;
-	if (n>0) {
+	var r = prompt('Tempo', '' + f);
+	var n = 1 * r;
+	if (n > 0) {
 		//riffShare2d.currentSong.name = r;
-		riffShare2d.redoMeasureBPM(position,f,n);
+		riffShare2d.redoMeasureBPM(position, f, n);
 	}
 };
 RiffShare2D.prototype.promptDropChannel = function (channel) {
@@ -344,37 +359,37 @@ RiffShare2D.prototype.promptAddNewChannel = function () {
 	var r = prompt('Channel title', '');
 	if (r) {
 		var c = {
-			id : Math.floor(Math.random() * 100000),
-			program : 0,
-			offset : 0,
-			track : r,
-			channel : 'Default',
-			volumes : [{
-					position : 0,
-					value : 127
+			id: Math.floor(Math.random() * 100000),
+			program: 0,
+			offset: 0,
+			track: r,
+			channel: 'Default',
+			volumes: [{
+					position: 0,
+					value: 127
 				}
 			],
-			string : [{
-					order : 1,
-					pitch : 64
+			string: [{
+					order: 1,
+					pitch: 64
 				}, {
-					order : 2,
-					pitch : 59
+					order: 2,
+					pitch: 59
 				}, {
-					order : 3,
-					pitch : 55
+					order: 3,
+					pitch: 55
 				}, {
-					order : 4,
-					pitch : 50
+					order: 4,
+					pitch: 50
 				}, {
-					order : 5,
-					pitch : 45
+					order: 5,
+					pitch: 45
 				}, {
-					order : 6,
-					pitch : 40
+					order: 6,
+					pitch: 40
 				}
 			],
-			equalizer : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+			equalizer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 		};
 		riffShare2d.redoAddNewChannel(c);
 	}
@@ -486,7 +501,7 @@ RiffShare2D.prototype.makeUndo = function (level) {
 	}
 };
 RiffShare2D.prototype.clearUndo = function () {
-this.undoQueue = [];
+	this.undoQueue = [];
 	this.undoStep = 0;
 }
 RiffShare2D.prototype.setUndoStatus = function () {
@@ -565,37 +580,37 @@ RiffShare2D.prototype.pushAction = function (action) {
 	//console.log(this.undoStep, this.undoQueue);
 };
 
-RiffShare2D.prototype.redoMeasureBPM = function (position,from,to) {
+RiffShare2D.prototype.redoMeasureBPM = function (position, from, to) {
 	riffShare2d.pushAction({
-		caption : 'Set tempo from '+from+' to ' + to,
-		undo : function () {
-			position.tempo=from;
+		caption: 'Set tempo from ' + from + ' to ' + to,
+		undo: function () {
+			position.tempo = from;
 		},
-		redo : function () {
-			position.tempo=to;
+		redo: function () {
+			position.tempo = to;
 		}
 	});
 };
 RiffShare2D.prototype.redoSongTitleChange = function (toTitle) {
 	var fromTitle = this.currentSong.name;
 	riffShare2d.pushAction({
-		caption : 'Set song title to ' + toTitle,
-		undo : function () {
+		caption: 'Set song title to ' + toTitle,
+		undo: function () {
 			riffShare2d.currentSong.name = fromTitle;
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.name = toTitle;
 		}
 	});
 };
 RiffShare2D.prototype.redoSelectChannel = function (n) {
 	riffShare2d.pushAction({
-		caption : 'Select track ' + n + '/' + riffShare2d.currentSong.channels[n].track,
-		undo : function () {
+		caption: 'Select track ' + n + '/' + riffShare2d.currentSong.channels[n].track,
+		undo: function () {
 			var c = riffShare2d.currentSong.channels.pop();
 			riffShare2d.currentSong.channels.splice(n, 0, c);
 		},
-		redo : function () {
+		redo: function () {
 			var c = riffShare2d.currentSong.channels.splice(n, 1)[0];
 			riffShare2d.currentSong.channels.push(c);
 			riffShare2d.startSlideTo(riffShare2d.translateX, -riffShare2d.calculateTrackY(riffShare2d.currentSong.channels.length - 1), riffShare2d.minZoomHuge * 0.9);
@@ -604,73 +619,73 @@ RiffShare2D.prototype.redoSelectChannel = function (n) {
 };
 RiffShare2D.prototype.redoTogglePianoroll = function (n) {
 	riffShare2d.pushAction({
-		caption : 'Toggle pianoroll',
-		undo : function () {
+		caption: 'Toggle pianoroll',
+		undo: function () {
 			riffShare2d.currentSong.hideRoll = !(!(!(riffShare2d.currentSong.hideRoll)));
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.hideRoll = !(!(!(riffShare2d.currentSong.hideRoll)));
 		}
 	});
 };
 RiffShare2D.prototype.redoChannelTitleChange = function (channel, fromTitle, toTitle) {
 	riffShare2d.pushAction({
-		caption : 'Set channel title to ' + toTitle,
-		undo : function () {
+		caption: 'Set channel title to ' + toTitle,
+		undo: function () {
 			channel.track = fromTitle;
 		},
-		redo : function () {
+		redo: function () {
 			channel.track = toTitle;
 		}
 	});
 };
 RiffShare2D.prototype.redoToggleChannelSheet = function (channel) {
 	riffShare2d.pushAction({
-		caption : 'Toggle sheet',
-		undo : function () {
+		caption: 'Toggle sheet',
+		undo: function () {
 			channel.hideTrackSheet = !(!(!(channel.hideTrackSheet)));
 		},
-		redo : function () {
+		redo: function () {
 			channel.hideTrackSheet = !(!(!(channel.hideTrackSheet)));
 		}
 	});
 };
 RiffShare2D.prototype.redoToggleChannelFrets = function (channel) {
 	riffShare2d.pushAction({
-		caption : 'Toggle frets',
-		undo : function () {
+		caption: 'Toggle frets',
+		undo: function () {
 			channel.hideTrackFret = !(!(!(channel.hideTrackFret)));
 		},
-		redo : function () {
+		redo: function () {
 			channel.hideTrackFret = !(!(!(channel.hideTrackFret)));
 		}
 	});
 };
 RiffShare2D.prototype.redoToggleChannelChords = function (channel) {
 	riffShare2d.pushAction({
-		caption : 'Toggle chords',
-		undo : function () {
+		caption: 'Toggle chords',
+		undo: function () {
 			channel.hideTrackChords = !(!(!(channel.hideTrackChords)));
 		},
-		redo : function () {
+		redo: function () {
 			channel.hideTrackChords = !(!(!(channel.hideTrackChords)));
 		}
 	});
 };
 RiffShare2D.prototype.redoChangeChannelVolume = function (channel, from, to) {
 	riffShare2d.pushAction({
-		caption : 'Change channel volume',
-		undo : function () {
+		caption: 'Change channel volume',
+		undo: function () {
 			channel.volumes = [{
-					position : 0,
-					value : from
+					position: 0,
+					value: from
 				}
 			];
 		},
-		redo : function () {
+		redo: function () {
 			channel.volumes = [{
-					position : 0,
-					value : to
+					position: 0,
+					value: to
 				}
 			];
 		}
@@ -678,60 +693,60 @@ RiffShare2D.prototype.redoChangeChannelVolume = function (channel, from, to) {
 };
 RiffShare2D.prototype.redoChangeSongVolume = function (from, to) {
 	riffShare2d.pushAction({
-		caption : 'Change song volume from '+from+' to '+ to,
-		undo : function () {
+		caption: 'Change song volume from ' + from + ' to ' + to,
+		undo: function () {
 			riffShare2d.currentSong.volumes = [{
-						position : 0,
-						value : from
-					}
-				];
+					position: 0,
+					value: from
+				}
+			];
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.volumes = [{
-						position : 0,
-						value : to
-					}
-				];
+					position: 0,
+					value: to
+				}
+			];
 		}
 	});
 };
 RiffShare2D.prototype.redoChangeCellWidth = function (from, to) {
 	riffShare2d.pushAction({
-		caption : 'Change cell width from '+from+' to '+ to,
-		undo : function () {
-			riffShare2d.cellWidth=from;
+		caption: 'Change cell width from ' + from + ' to ' + to,
+		undo: function () {
+			riffShare2d.cellWidth = from;
 		},
-		redo : function () {
-			riffShare2d.cellWidth=to;
+		redo: function () {
+			riffShare2d.cellWidth = to;
 		}
 	});
 };
 RiffShare2D.prototype.redoChangeEcho = function (from, to) {
 	riffShare2d.pushAction({
-		caption : 'Change echo from '+from+' to '+ to,
-		undo : function () {
-			riffShare2d.currentSong.echo=from;
+		caption: 'Change echo from ' + from + ' to ' + to,
+		undo: function () {
+			riffShare2d.currentSong.echo = from;
 		},
-		redo : function () {
-			riffShare2d.currentSong.echo=to;
+		redo: function () {
+			riffShare2d.currentSong.echo = to;
 		}
 	});
 };
 RiffShare2D.prototype.redoChangeChannelEqualizer = function (channel, band, from, to) {
 	riffShare2d.pushAction({
-		caption : 'Change channel equalizer',
-		undo : function () {
+		caption: 'Change channel equalizer',
+		undo: function () {
 			channel.equalizer[band] = from;
 		},
-		redo : function () {
+		redo: function () {
 			channel.equalizer[band] = to;
 		}
 	});
 };
 RiffShare2D.prototype.redoAddNewChannel = function (channel) {
 	riffShare2d.pushAction({
-		caption : 'Add new channel',
-		undo : function () {
+		caption: 'Add new channel',
+		undo: function () {
 			for (var i = 0; i < riffShare2d.currentSong.channels.length; i++) {
 				if (riffShare2d.currentSong.channels[i].id == channel.id) {
 					riffShare2d.currentSong.channels.splice(i, 1);
@@ -739,7 +754,7 @@ RiffShare2D.prototype.redoAddNewChannel = function (channel) {
 				}
 			}
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.channels.push(channel);
 		}
 	});
@@ -759,28 +774,28 @@ RiffShare2D.prototype.redoDropChannel = function (channel) {
 	for (var i = 0; i < this.currentSong.positions.length; i++) {
 		var p = this.currentSong.positions[i];
 		var newP = {
-			order : p.order,
-			tempo : p.tempo,
-			meter : p.meter,
-			by : p.by,
-			marker : p.marker,
-			motifs : []
+			order: p.order,
+			tempo: p.tempo,
+			meter: p.meter,
+			by: p.by,
+			marker: p.marker,
+			motifs: []
 		};
 		var oldP = {
-			order : p.order,
-			tempo : p.tempo,
-			meter : p.meter,
-			by : p.by,
-			marker : p.marker,
-			motifs : []
+			order: p.order,
+			tempo: p.tempo,
+			meter: p.meter,
+			by: p.by,
+			marker: p.marker,
+			motifs: []
 		};
 		for (var n = 0; n < p.motifs.length; n++) {
 			var m = p.motifs[n];
 			var copy = {
-				motif : m.motif,
-				channel : m.channel,
-				clef : m.clef,
-				sign : m.sign
+				motif: m.motif,
+				channel: m.channel,
+				clef: m.clef,
+				sign: m.sign
 			};
 			oldP.motifs.push(copy);
 			if (this.currentSong.channels[n].id != id) {
@@ -791,12 +806,12 @@ RiffShare2D.prototype.redoDropChannel = function (channel) {
 		newPositions.push(newP);
 	}
 	riffShare2d.pushAction({
-		caption : 'Drop channel ' + channel.track,
-		undo : function () {
+		caption: 'Drop channel ' + channel.track,
+		undo: function () {
 			riffShare2d.currentSong.channels = oldChannels;
 			riffShare2d.currentSong.positions = oldPositions;
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.channels = newChannels;
 			riffShare2d.currentSong.positions = newPositions;
 		}
@@ -805,18 +820,18 @@ RiffShare2D.prototype.redoDropChannel = function (channel) {
 RiffShare2D.prototype.redoAddNewMeasure = function () {
 	//var motif={id:Math.floor(Math.random()*1000000),chords:[]};
 	var position = {
-		order : riffShare2d.currentSong.positions.length,
-		tempo : 100,
-		meter : 4,
-		by : 4,
-		motifs : []
+		order: riffShare2d.currentSong.positions.length,
+		tempo: 100,
+		meter: 4,
+		by: 4,
+		motifs: []
 	};
 	riffShare2d.pushAction({
-		caption : 'Add new position',
-		undo : function () {
+		caption: 'Add new position',
+		undo: function () {
 			riffShare2d.currentSong.positions.pop();
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.positions.push(position);
 		}
 	});
@@ -824,11 +839,11 @@ RiffShare2D.prototype.redoAddNewMeasure = function () {
 RiffShare2D.prototype.redoDeleteMeasure = function (nn) {
 	var p = this.currentSong.positions[nn];
 	riffShare2d.pushAction({
-		caption : 'Add new position',
-		undo : function () {
+		caption: 'Add new position',
+		undo: function () {
 			riffShare2d.currentSong.positions.splice(nn, 0, p);
 		},
-		redo : function () {
+		redo: function () {
 			riffShare2d.currentSong.positions.splice(nn, 1);
 		}
 	});
@@ -877,8 +892,8 @@ RiffShare2D.prototype.existsNoteAtCurrentChannel = function (start, key, positio
 				//chord.splice(i,1);
 				//console.log('found',chord.notes[i]);
 				return {
-					chord : chord,
-					n : i
+					chord: chord,
+					n: i
 				};
 			}
 		}
@@ -895,30 +910,30 @@ RiffShare2D.prototype.redoAddNoteToCurChannel = function (start, key, len, shift
 	}
 	if (!(m)) {
 		m = {
-			id : Math.floor(Math.round() * 1000000),
-			chords : []
+			id: Math.floor(Math.round() * 1000000),
+			chords: []
 		};
 		this.currentSong.motifs.push(m);
 		position.motifs.push({
-			motif : m.id,
-			channel : channelId,
-			clef : 1,
-			sign : 0
+			motif: m.id,
+			channel: channelId,
+			clef: 1,
+			sign: 0
 		});
 		//console.log('new',m);
 	}
 	//console.log('note',{key:key,l6th:len,string:1});
 	var chord = this.findCreateStepChord(m, start);
 	riffShare2d.pushAction({
-		caption : 'Add note to current channel',
-		undo : function () {
+		caption: 'Add note to current channel',
+		undo: function () {
 			chord.notes.pop();
 		},
-		redo : function () {
+		redo: function () {
 			chord.notes.push({
-				key : key,
-				l6th : len,
-				string : 1
+				key: key,
+				l6th: len,
+				string: 1
 			});
 			console.log('notes', chord.notes);
 		}
@@ -927,12 +942,24 @@ RiffShare2D.prototype.redoAddNoteToCurChannel = function (start, key, len, shift
 RiffShare2D.prototype.redoDeleteNote = function (n, chord) {
 	var note = chord.notes[n];
 	riffShare2d.pushAction({
-		caption : 'Delete note',
-		undo : function () {
+		caption: 'Delete note',
+		undo: function () {
 			chord.notes.splice(n, 0, note);
 		},
-		redo : function () {
+		redo: function () {
 			chord.notes.splice(n, 1);
+		}
+	});
+};
+RiffShare2D.prototype.redoChangeClef = function (positionMotif,to) {
+	var from = positionMotif.clef;
+	riffShare2d.pushAction({
+		caption: 'Change clef from ' + from + ' to ' + to,
+		undo: function () {
+			positionMotif.clef=from;
+		},
+		redo: function () {
+			positionMotif.clef=to;
 		}
 	});
 };

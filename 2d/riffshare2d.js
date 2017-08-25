@@ -147,7 +147,7 @@ RiffShare2D.prototype.init = function () {
 	*/
 	this.colorBG = '#fff';
 	this.colorBase = '#000';
-	this.colorHot = '#69f';
+	this.colorHot = '#9cf';//'#69f';
 	this.colorAux = '#bbb';
 	this.colorNearBG = '#ddd';
 	this.colorTarget = '#603';
