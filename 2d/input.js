@@ -7,8 +7,8 @@ RiffShare2D.prototype.setupInput = function () {
 	this.twoZoom = false;
 	this.twodistance = 0;
 	this.twocenter = {
-		x : 0,
-		y : 0
+		x: 0,
+		y: 0
 	};
 	this.rakeDiv.addEventListener('mousedown', this.rakeMouseDown, false);
 	this.rakeDiv.addEventListener("mousewheel", this.rakeMouseWheel, false);
@@ -23,16 +23,16 @@ RiffShare2D.prototype.safeZoom = function (zoom) {
 	var z=zoom;
 	var w = this.innerWidth;//this.marginLeft * this.tapSize + this.songWidth32th() + this.marginRight * this.tapSize;
 	if(w< this.contentDiv.clientWidth * z){
-		z= w/this.contentDiv.clientWidth;
+	z= w/this.contentDiv.clientWidth;
 	}
-	
+
 	var h = this.innerHeight;//this.workHeight();
 	if(h< this.contentDiv.clientHeight * z){
-		z= h/this.contentDiv.clientHeight;
+	z= h/this.contentDiv.clientHeight;
 	}
 	//console.log(zoom,z,h,this.contentDiv.clientHeight);
 	return z;
-	*/
+	 */
 };
 RiffShare2D.prototype.rakeMouseWheel = function (e) {
 	e.preventDefault();
@@ -48,12 +48,12 @@ RiffShare2D.prototype.rakeMouseWheel = function (e) {
 		zoom = riffShare2d.maxZoom;
 	}
 	//if(riffShare2d.canZoomTo(zoom)){
-		zoom=riffShare2d.safeZoom(zoom);
-		riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * e.layerX;
-		riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * e.layerY;
-		riffShare2d.translateZ = zoom;
-		riffShare2d.adjustContentPosition();
-		riffShare2d.queueTiles();
+	zoom = riffShare2d.safeZoom(zoom);
+	riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * e.layerX;
+	riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * e.layerY;
+	riffShare2d.translateZ = zoom;
+	riffShare2d.adjustContentPosition();
+	riffShare2d.queueTiles();
 	//}
 	return false;
 };
@@ -144,18 +144,24 @@ RiffShare2D.prototype.rakeTouchMove = function (touchEvent) {
 			var ratio = d / riffShare2d.twodistance;
 			riffShare2d.twodistance = d;
 			var zoom = riffShare2d.translateZ / ratio;
-			if (zoom < 0.5) {
-				zoom = 0.5;
+			/*if (zoom < 0.5) {
+			zoom = 0.5;
 			}
 			if (zoom > 100) {
-				zoom = 100;
+			zoom = 100;
+			}*/
+			if (zoom < riffShare2d.minZoom) {
+				zoom = riffShare2d.minZoom;
 			}
-			zoom=riffShare2d.safeZoom(zoom);
+			if (zoom > riffShare2d.maxZoom) {
+				zoom = riffShare2d.maxZoom;
+			}
+			zoom = riffShare2d.safeZoom(zoom);
 			//if(riffShare2d.canZoomTo(zoom)){
-				riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.x;
-				riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.y;
-				riffShare2d.translateZ = zoom;
-				riffShare2d.adjustContentPosition();
+			riffShare2d.translateX = riffShare2d.translateX - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.x;
+			riffShare2d.translateY = riffShare2d.translateY - (riffShare2d.translateZ - zoom) * riffShare2d.twocenter.y;
+			riffShare2d.translateZ = zoom;
+			riffShare2d.adjustContentPosition();
 			//}
 		}
 	}
@@ -197,8 +203,8 @@ RiffShare2D.prototype.vectorDistance = function (xy1, xy2) {
 };
 RiffShare2D.prototype.vectorSubstract = function (xy1, xy2) {
 	return {
-		x : xy1.x - xy2.x,
-		y : xy1.y - xy2.y
+		x: xy1.x - xy2.x,
+		y: xy1.y - xy2.y
 	};
 };
 RiffShare2D.prototype.vectorNorm = function (xy) {
@@ -209,8 +215,8 @@ RiffShare2D.prototype.vectorNormSquared = function (xy) {
 };
 RiffShare2D.prototype.vectorFromTouch = function (touch) {
 	return {
-		x : touch.clientX,
-		y : touch.clientY
+		x: touch.clientX,
+		y: touch.clientY
 	};
 };
 RiffShare2D.prototype.vectorFindCenter = function (xy1, xy2) {
@@ -219,20 +225,20 @@ RiffShare2D.prototype.vectorFindCenter = function (xy1, xy2) {
 };
 RiffShare2D.prototype.vectorAdd = function (xy1, xy2) {
 	return {
-		x : xy1.x + xy2.x,
-		y : xy1.y + xy2.y
+		x: xy1.x + xy2.x,
+		y: xy1.y + xy2.y
 	};
 };
 RiffShare2D.prototype.vectorScale = function (xy, coef) {
 	return {
-		x : xy.x * coef,
-		y : xy.y * coef
+		x: xy.x * coef,
+		y: xy.y * coef
 	};
 };
 RiffShare2D.prototype.unzoom = function (x, y, z) {
 	var xy = {
-		x : x * z - this.translateX,
-		y : y * z - this.translateY
+		x: x * z - this.translateX,
+		y: y * z - this.translateY
 	};
 	if (this.contentDiv.clientWidth * z > this.innerWidth) {
 		xy.x = x * z - ((this.contentDiv.clientWidth * z - this.innerWidth) / 2);
