@@ -226,12 +226,12 @@ RiffShare2D.prototype.tileHugeTracksOptions = function (layer, left, top, width,
 };
 
 RiffShare2D.prototype.tileHugeMeasureLines = function (layer, left, top, width, height, ratio) {
-	var changes = this.positionOptionsChanges();
+	//var changes = this.positionOptionsChanges();
 	for (var i = 1; i < this.currentSong.positions.length; i++) {
 		if (i % 10 == 0) {
-			var x = this.calculateMeasureX(i, changes);
+			var x = this.calculateMeasureX(i);
 			var y = this.calculateTrackY(0);
-			var w = this.measureWidth32th(i, changes);
+			var w = this.measureWidth32th(i);
 			var h = this.calculateAllTracksHeight() + this.calculateRollHeight();
 			var id = 'ln' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
@@ -243,13 +243,13 @@ RiffShare2D.prototype.tileHugeMeasureLines = function (layer, left, top, width, 
 	}
 };
 RiffShare2D.prototype.tileMarkers = function (layer, left, top, width, height) {
-	var changes = this.positionOptionsChanges();
+	//var changes = this.positionOptionsChanges();
 	for (var i = 0; i < this.currentSong.positions.length; i++) { //var changes=this.positionOptionsChanges();
 		if (this.currentSong.positions[i].marker) {
-			var x = this.calculateMeasureX(i, changes);
+			var x = this.calculateMeasureX(i);
 			//var y = this.calculateTrackY(0);
 			var y = this.calculateRollTitleY();
-			var w = this.measureWidth32th(i, changes);
+			var w = this.measureWidth32th(i);
 			//var h = this.calculateAllTracksHeight() + this.calculateRollHeight();
 			var h = this.heightPRTitle * this.tapSize;
 			var id = 'ln' + i + 'x' + x + 'x' + y;

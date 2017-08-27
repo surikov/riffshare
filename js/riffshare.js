@@ -337,7 +337,8 @@ function initAudioFx() {
 			gain : audioContext.createGain()
 		}, {
 			//sound:_tone_Picked_32Bs_46000070_461_460_45127,
-			sound : _tone_0340_Aspirin_sf2_file,
+			//sound : _tone_0340_Aspirin_sf2_file,
+			sound : _tone_0330_SoundBlasterOld_sf2,
 			title : 'Bass guitar',
 			volume : sureNumeric(readTextFromlocalStorage('track5'), 0, 80, 100) / 100,
 			octave : 2,
@@ -349,7 +350,7 @@ function initAudioFx() {
 			}),
 			light : 0xCC00CC,
 			notes : [],
-			volumeRatio : 0.75
+			volumeRatio : 0.99
 			//33-38
 		,
 			gain : audioContext.createGain()

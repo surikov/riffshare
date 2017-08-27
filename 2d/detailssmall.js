@@ -35,9 +35,9 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileNewMeasureButton(this.smalltitles, xx, yy, ww, hh, detailRatio);
 };
 RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, width, height, ratio) {
-	var changes = this.positionOptionsChanges();
-	var x = this.calculateMeasureX(i, changes);
-	var w = this.measureWidth32th(i, changes);
+	//var changes = this.positionOptionsChanges();
+	var x = this.calculateMeasureX(i);
+	var w = this.measureWidth32th(i);
 	var position = this.currentSong.positions[i];
 	for (var n = 0; n < this.currentSong.channels.length; n++) {
 		var channel=this.currentSong.channels[n];

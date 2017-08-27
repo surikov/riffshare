@@ -429,6 +429,33 @@ RiffShare2D.prototype.findPositionMotifByChannel = function (position, channelID
 	}
 	return m;
 };
+RiffShare2D.prototype.expandMeasureChanges = function (song) {
+	for (var p = 1; p < song.positions.length; p++) {
+		var cur = song.positions[p];
+		var pre = song.positions[p - 1];
+		cur.expanded=false;
+		if (cur.tempo != pre.tempo || cur.meter != pre.meter || cur.by != pre.by) {
+			cur.expanded=true;
+			console.log('expanded position',p,cur.tempo != pre.tempo , cur.meter != pre.meter , cur.by != pre.by);
+		} else {
+			for (var i = 0; i < song.channels.length; i++) {
+				var channel = song.channels[i];
+				var curMo = this.findMotifInPosByChannel(cur.motifs, channel.id);
+				var preMo = this.findMotifInPosByChannel(pre.motifs, channel.id);
+				if (curMo) {
+					if (preMo) {
+						if (curMo.clef != preMo.clef || curMo.sign != preMo.sign) {
+							cur.expanded=true;
+							console.log('expanded motif',p,curMo.clef != preMo.clef, curMo.sign != preMo.sign);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+/*
 RiffShare2D.prototype.positionOptionsChanges = function () {
 	var changes = [];
 	var info = {
@@ -458,6 +485,7 @@ RiffShare2D.prototype.positionOptionsChanges = function () {
 	}
 	return changes;
 };
+*/
 RiffShare2D.prototype.linesYshift = function () {
 	return (0.5 + this.marginTrSheetLines + 2 * 5) * this.tapSize;
 };
@@ -598,6 +626,7 @@ RiffShare2D.prototype.setSong = function (song) {
 	song.hideRoll = false;
 	}*/
 	this.currentSong = song;
+	this.expandMeasureChanges(this.currentSong);
 	console.log(this.currentSong);
 	/*
 	this.hideTrackSheet = [];

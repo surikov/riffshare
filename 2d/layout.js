@@ -271,10 +271,10 @@ RiffShare2D.prototype.channelStringKey = function (order, channel) {
 		}
 	}
 };
-RiffShare2D.prototype.calculateMeasureX = function (n, changes) {
+RiffShare2D.prototype.calculateMeasureX = function (n) {
 	var m = this.marginLeft * this.tapSize;
 	for (var i = 0; i < n; i++) {
-		m = m + this.measureWidth32th(i, changes);
+		m = m + this.measureWidth32th(i);
 	}
 	return m;
 };
@@ -364,9 +364,9 @@ RiffShare2D.prototype.calculateRollHeight = function () {
 RiffShare2D.prototype.songWidth32th = function () {
 	if (this.currentSong) {
 		var m = 0;
-		var changes = this.positionOptionsChanges();
+		//var changes = this.positionOptionsChanges();
 		for (var i = 0; i < this.currentSong.positions.length; i++) {
-			m = m + this.measureWidth32th(i, changes); //currentSong.positions[i].meter * song.positions[i].by;
+			m = m + this.measureWidth32th(i); //currentSong.positions[i].meter * song.positions[i].by;
 		}
 		return m;
 	} else {
@@ -380,11 +380,11 @@ RiffShare2D.prototype.workHeight = function () {
 	}
 	return h;
 }
-RiffShare2D.prototype.measureMargin = function (i, changes) {
+RiffShare2D.prototype.measureMargin = function (i) {
 	if (i > 0) {
 		//var changes=this.positionOptionsChanges();
 		//if (this.currentSong.positions[i - 1].meter != this.currentSong.positions[i].meter || this.currentSong.positions[i - 1].by != this.currentSong.positions[i].by) {
-		if (changes[i]) {
+		if (this.currentSong.positions[i].expanded) {
 			return this.marginChangedMeasure * this.tapSize;
 		} else {
 			return 0;
@@ -393,7 +393,7 @@ RiffShare2D.prototype.measureMargin = function (i, changes) {
 		return this.marginFirstMeasure * this.tapSize;
 	}
 }
-RiffShare2D.prototype.measureWidth32th = function (i, changes) {
+RiffShare2D.prototype.measureWidth32th = function (i) {
 	/*var le=this.currentSong.positions[i].meter * song.positions[i].by;
 	if(i>0){
 	if(this.currentSong.positions[i-1].meter!=this.currentSong.positions[i].meter || song.positions[i-1].by!=song.positions[i].by){
@@ -405,7 +405,7 @@ RiffShare2D.prototype.measureWidth32th = function (i, changes) {
 	return le;*/
 	var len16 = 16 * this.currentSong.positions[i].meter / this.currentSong.positions[i].by * this.cellDurationRatio();
 	//return this.measureMargin(i) + this.cellWidth * this.currentSong.positions[i].meter * this.currentSong.positions[i].by * this.tapSize;
-	return this.measureMargin(i, changes) + this.cellWidth * len16 * this.tapSize;
+	return this.measureMargin(i) + this.cellWidth * len16 * this.tapSize;
 };
 RiffShare2D.prototype.startSlideTo = function (x, y, z) {
 	//console.log('startSlideTo', x, y, z, 'from', this.translateX, this.translateY, this.translateZ);
@@ -458,19 +458,19 @@ RiffShare2D.prototype.stepSlideTo = function (xyz) { //stepCount, dx, dy, dz) {
 	}*/
 };
 RiffShare2D.prototype.findPositionByContentY = function () {
-	var changes = this.positionOptionsChanges();
+	//var changes = this.positionOptionsChanges();
 	var position = null;
 	var dx = 0;
 	var startAt = 0;
 	for (var t = 0; t < this.currentSong.positions.length; t++) {
-		var x = this.calculateMeasureX(t, changes);
+		var x = this.calculateMeasureX(t);
 		if (x > this.clickContentX) {
 			if (t > 0) {
 				position = this.currentSong.positions[t - 1];
 			}
 			break;
 		}
-		dx = this.clickContentX - x - this.measureMargin(t, changes);
+		dx = this.clickContentX - x - this.measureMargin(t);
 		startAt = startAt + 16 * this.currentSong.positions[t].meter / this.currentSong.positions[t].by * this.cellDurationRatio();
 		//console.log(startAt,this.currentSong.positions[t ]);
 
