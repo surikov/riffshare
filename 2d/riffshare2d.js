@@ -93,7 +93,7 @@ RiffShare2D.prototype.init = function () {
 	this.minZoomLarge = 3;
 	this.minZoomMedium = 0.5;
 	
-	this.minZoom=0.125;
+	this.minZoom=0.25;
 	this.maxZoom=200;
 
 	this.spots = [];
