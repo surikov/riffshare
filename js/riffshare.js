@@ -1,4 +1,4 @@
-console.log('riffShare v1.88');
+console.log('riffShare v1.89');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -180,7 +180,7 @@ function initAudioFx() {
 			gain : audioContext.createGain()
 		}, {
 			//sound:_drum_Standard_32_32_460_38,
-			sound : _drum_40_26_JCLive_sf2_file,
+			sound : _drum_38_22_FluidR3_GM_sf2_file,
 			pitch : 38, //40
 			title : 'Snare drum',
 			volume : sureNumeric(readTextFromlocalStorage('drum2'), 0, 60, 100) / 100,
