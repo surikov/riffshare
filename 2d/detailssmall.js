@@ -72,6 +72,9 @@ RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, w
 			var channel=this.currentSong.channels[this.currentSong.channels.length-1];
 			var motif = this.findMotifInPosByChannel(position.motifs, channel.id);
 			//this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
+			var butX=x + 1 * this.tapSize;
+			var butY=y + 2 * this.tapSize;
+			var butH=0.25 * this.tapSize;
 			this.tileText(g, x + 4 * this.tapSize, y + 9 * this.tapSize, 5 * this.tapSize, '' + (1 + i), this.colorBase);
 			this.tileRectangle(g, x, y, this.lineWidth * ratio, h, this.colorBase);
 
@@ -80,15 +83,15 @@ RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, w
 			}, 0);*/
 			//this.addZoomAnchor('btMenMsrRl', '' + (1 + i), g, x+this.tapSize, y, 10 * this.tapSize, 0.9 * this.minZoomMedium);
 
-			this.addSimpleButton('btDlMsre' + i, 'Delete measure', g, x + this.tapSize * 2, y + this.tapSize * 1.0, this.tapSize / 2, function () {
+			this.addSimpleButton('btDlMsre' + i, 'Delete measure', g, butX , butY + butH * 0, butH, function () {
 				riffShare2d.promptDropMeasure(i);
 			});
-			this.addSimpleButton('btTmpRlChMsre' + i, 'Change tempo', g, x + this.tapSize * 2, y + this.tapSize * 1.5, this.tapSize / 2, function () {
+			this.addSimpleButton('btTmpRlChMsre' + i, 'Change tempo', g, butX , butY + butH * 1, butH, function () {
 				riffShare2d.promptMeasureBPM(riffShare2d.currentSong.positions[i]);
 			});
-			this.addToggleList('btClfRl' + i + '_', motif.clef-1, g, x + this.tapSize * 2, y + this.tapSize * 2.0, this.tapSize / 2, [{
+			this.addToggleList('btClfRl' + i + '_', motif.clef-1, g, butX, butY + butH * 2, butH, [{
 						label: '&#0038;',
-						up:-0.05*this.tapSize,
+						up:-0.025*this.tapSize,
 						action: function () {
 							riffShare2d.redoChangeClef(motif,1);
 						}
@@ -100,13 +103,13 @@ RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, w
 						}
 					}, {
 						label: '&#0066;',
-						up:-0.05*this.tapSize,
+						up:-0.025*this.tapSize,
 						action: function () {
 							riffShare2d.redoChangeClef(motif,3);
 						}
 					}, {
 						label: '&#0066;',
-						up:0.05*this.tapSize,
+						up:0.025*this.tapSize,
 						action: function () {
 							riffShare2d.redoChangeClef(motif,4);
 						}
