@@ -97,7 +97,8 @@ RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width,
 			if (g) {
 				//this.tileText(g, x + 3 * this.tapSize, y - 7 * this.tapSize, 5 * this.tapSize, '' + (1 + i), this.colorBase);
 				this.tileRectangle(g, x, y + 4 * this.tapSize, this.lineWidth * ratio, h - 4 * this.tapSize, this.colorBase);
-				this.tileOneMeasureNum(g, x, y,1 + i);
+				this.tileOneMeasureNum(g, x, y- 3 * this.tapSize,1 + i);
+				this.addZoomAnchor('measureNum_' + n+'x'+i, '' , g, x - 0.5*this.tapSize, y+ 11*this.tapSize, 3 * this.tapSize, 0.9 * this.minZoomMedium);
 			}
 		}
 		if (!(this.currentSong.channels[n].hideTrackFret)) {
@@ -107,7 +108,7 @@ RiffShare2D.prototype.tileOneMeasureLine = function (layer, i, left, top, width,
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
 				//this.tileText(g, x, y, 5 * this.tapSize, '' + (1 + i), this.colorBase);
-				this.tileOneMeasureNum(g, x, y,1 + i);
+				this.tileOneMeasureNum(g, x, y- 5 * this.tapSize,1 + i);
 				this.tileRectangle(g, x, y + 1 * this.tapSize, this.lineWidth * ratio, h - 4 * this.tapSize, this.colorBase);
 			}
 		}
@@ -439,8 +440,8 @@ RiffShare2D.prototype.tileSheetStairsMotifs = function (g, x, y, chords, ratio, 
 		this.tileNoteStick(g, x, ratio, mm, linesY);
 	}
 };
-RiffShare2D.prototype.tileLargeTempo = function (g, x, y, position) {
-	this.addSimpleButton('bpmButn', '', g, x + 7 * this.tapSize, y + 2 * this.tapSize, 4 * this.tapSize, function () {
+RiffShare2D.prototype.tileLargeTempo = function (id,g, x, y, position) {
+	this.addSimpleButton(id, '', g, x + 7 * this.tapSize, y + 2 * this.tapSize, 4 * this.tapSize, function () {
 		riffShare2d.promptMeasureBPM(position);
 	});
 	this.tileText(g, x + 9 * this.tapSize, y + 5 * this.tapSize, 3 * this.tapSize, '&nbsp;&nbsp;=' + position.tempo, this.colorBase);
@@ -499,7 +500,8 @@ RiffShare2D.prototype.tileSheetClefs = function (layer, left, top, width, height
 						var g = this.rakeGroup(posX, y, posW, h, id, layer, left, top, width, height);
 						if (g) {
 							var mInP = this.findMotifInPosByChannel(position.motifs, channel.id);
-							this.tileLargeTempo(g, posX, y, position);
+							var tempoID='bpmCh'+i+'x'+k;
+							this.tileLargeTempo(tempoID,g, posX, y, position);
 
 							/*
 							this.tileText(g, posX + 5 * this.tapSize, y + (0 + 14) * this.tapSize, 7 * this.tapSize //, 'tempo' + position.tempo //, this.colorAux);

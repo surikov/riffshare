@@ -5,6 +5,7 @@ RiffShare2D.prototype.addToggleList = function (spotPrefix, selection, g, x, y, 
 			this.addHollowButton(spotPrefix + i, '', g, x + i * size, y, size, null);
 		} else {
 			spot = this.addSimpleButton(spotPrefix + i, '', g, x + i * size, y, size, function () {
+					//console.log('start',this);
 					this.selValue.action();
 				});
 			spot.selValue = labelActions[i]; 
@@ -963,3 +964,4 @@ RiffShare2D.prototype.redoChangeClef = function (positionMotif,to) {
 		}
 	});
 };
+

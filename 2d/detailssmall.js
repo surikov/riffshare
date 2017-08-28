@@ -35,7 +35,9 @@ RiffShare2D.prototype.addSmallTiles = function (xx, yy, ww, hh, detailRatio) {
 	this.tileNewMeasureButton(this.smalltitles, xx, yy, ww, hh, detailRatio);
 };
 RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, width, height, ratio) {
+	
 	//var changes = this.positionOptionsChanges();
+	var butH=0.25 * this.tapSize;
 	var x = this.calculateMeasureX(i);
 	var w = this.measureWidth32th(i);
 	var position = this.currentSong.positions[i];
@@ -48,8 +50,58 @@ RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, w
 			var id = 'ln' + i + 'x' + x + 'x' + y;
 			var g = this.rakeGroup(x, y, w, h, id, layer, left, top, width, height);
 			if (g) {
+				//console.log('postion',i,'channel',n,'motif',motif.motif);
 				this.tileText(g, x + 3 * this.tapSize, y - 7 * this.tapSize, 5 * this.tapSize, '' + (1 + i), this.colorBase);
 				this.tileRectangle(g, x, y + 4 * this.tapSize, this.lineWidth * ratio, h - 4 * this.tapSize, this.colorBase);
+				var butX=x;
+				var butY=y+ 11.75 * this.tapSize;
+				//console.log('set',motif.motif);
+				this.addToggleList('btClfSh' + n+'x'+i+ '_', motif.clef-1, g, butX, butY + butH * 2, butH, [{
+						label: '&#0038;',
+						up:-0.025*this.tapSize,
+						motif:motif,
+						action: function () {
+							riffShare2d.redoChangeClef(this.motif,1);
+						}
+					}, {
+						label: '&#0063;',
+						up:0,
+						motif:motif,
+						action: function () {
+							riffShare2d.redoChangeClef(this.motif,2);
+						}
+					}, {
+						label: '&#0066;',
+						up:-0.025*this.tapSize,
+						motif:motif,
+						action: function () {
+							riffShare2d.redoChangeClef(this.motif,3);
+						}
+					}, {
+						label: '&#0066;',
+						up:0.025*this.tapSize,
+						motif:motif,
+						action: function () {
+							riffShare2d.redoChangeClef(this.motif,4);
+						}
+					}	
+					, {
+						label: '&#0214;',
+						up:0,
+						motif:motif,
+						action: function () {
+							riffShare2d.redoChangeClef(this.motif,5);
+						}
+					}, {
+						label: '',
+						up:0,
+						motif:motif,
+						action: function () {
+							riffShare2d.redoChangeClef(this.motif,6);
+							//console.log('tap 0',this.motif,this);
+						}
+					}
+				]);
 			}
 		}
 		if (!(channel.hideTrackFret)) {
@@ -74,7 +126,7 @@ RiffShare2D.prototype.tileOneSmallMeasureLine = function (layer, i, left, top, w
 			//this.tileText(g, x, y, 3 * this.tapSize, '' + (1 + i), this.colorComment);
 			var butX=x + 1 * this.tapSize;
 			var butY=y + 2 * this.tapSize;
-			var butH=0.25 * this.tapSize;
+			
 			this.tileText(g, x + 4 * this.tapSize, y + 9 * this.tapSize, 5 * this.tapSize, '' + (1 + i), this.colorBase);
 			this.tileRectangle(g, x, y, this.lineWidth * ratio, h, this.colorBase);
 

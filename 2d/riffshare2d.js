@@ -436,7 +436,7 @@ RiffShare2D.prototype.expandMeasureChanges = function (song) {
 		cur.expanded=false;
 		if (cur.tempo != pre.tempo || cur.meter != pre.meter || cur.by != pre.by) {
 			cur.expanded=true;
-			console.log('expanded position',p,cur.tempo != pre.tempo , cur.meter != pre.meter , cur.by != pre.by);
+			//console.log('expanded position',p,cur.tempo != pre.tempo , cur.meter != pre.meter , cur.by != pre.by);
 		} else {
 			for (var i = 0; i < song.channels.length; i++) {
 				var channel = song.channels[i];
