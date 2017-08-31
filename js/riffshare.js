@@ -1,4 +1,4 @@
-console.log('riffShare v1.89');
+console.log('riffShare v1.91');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -245,7 +245,7 @@ function initAudioFx() {
 	}
 
 	tracks = [{
-			sound : _tone_0291_LesPaul_sf2,
+			sound : _tone_0300_LesPaul_sf2_file,
 			title : 'Distortion guitar',
 			volume : sureNumeric(readTextFromlocalStorage('track0'), 0, 60, 100) / 100,
 			octave : 3,
@@ -257,7 +257,7 @@ function initAudioFx() {
 			}),
 			light : 0xFF3300,
 			notes : [],
-			volumeRatio : 1.2
+			volumeRatio : 1.0
 			//31
 		,
 			gain : audioContext.createGain()
@@ -302,7 +302,7 @@ function initAudioFx() {
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0280_LesPaul_sf2,
+			sound : _tone_0280_LesPaul_sf2_file,
 			title : 'Palm mute guitar',
 			volume : sureNumeric(readTextFromlocalStorage('track3'), 0, 60, 100) / 100,
 			octave : 3,
@@ -314,7 +314,7 @@ function initAudioFx() {
 			}),
 			light : 0x663333,
 			notes : [],
-			volumeRatio : 1.2
+			volumeRatio : 1.0
 			//30
 		,
 			gain : audioContext.createGain()
@@ -355,7 +355,7 @@ function initAudioFx() {
 		,
 			gain : audioContext.createGain()
 		}, {
-			sound : _tone_0480_GeneralUserGS_sf2_file,
+			sound : _tone_0480_Aspirin_sf2_file,
 			title : 'String Ensemble',
 			volume : sureNumeric(readTextFromlocalStorage('track6'), 0, 40, 100) / 100,
 			octave : 3,
@@ -399,9 +399,9 @@ function initAudioFx() {
 		});
 		 */
 	];
-	for(var i=0;i<_tone_0480_GeneralUserGS_sf2_file.zones.length;i++){
-              _tone_0480_GeneralUserGS_sf2_file.zones[i].ahdsr=false;
-            }
+	/*for(var i=0;i<_tone_0480_Chaos_sf2_file.zones.length;i++){
+              _tone_0480_Chaos_sf2_file.zones[i].ahdsr=false;
+            }*/
 	for (var i = 0; i < tracks.length; i++) {
 		tracks[i].gain.connect(inGain);
 	}

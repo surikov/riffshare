@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en" style='height:100%;width:100%'>
 	<head>
-		<title>drums1</title>
+		<title>drum1</title>
 		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 		<script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
 		<script src="https://surikov.github.io/webaudiofontdata/sound/12835_0_Chaos_sf2_file.js"></script>
 		<script src="https://surikov.github.io/webaudiofontdata/sound/12838_22_FluidR3_GM_sf2_file.js"></script>
@@ -13,78 +13,73 @@
 		<script src="https://surikov.github.io/webaudiofontdata/sound/12846_26_JCLive_sf2_file.js"></script>
 		<script src="https://surikov.github.io/webaudiofontdata/sound/12849_26_JCLive_sf2_file.js"></script>
 		<script src="https://surikov.github.io/webaudiofontdata/sound/12851_26_JCLive_sf2_file.js"></script>
-	</head>
-	<body style='height:100%;width:100%;margin:0;padding:0'>
-		<table style='height:100%;width:100%'>
-			<tr>
-				<td bgcolor='#f69' onmousedown='drum1(event);' ontouchstart='drum1(event);'>1</td>
-				<td bgcolor='#ff0' onmousedown='drum2(event);' ontouchstart='drum2(event);'>2</td>
-				<td bgcolor='#c6f' onmousedown='drum3(event);' ontouchstart='drum3(event);'>3</td>
-			</tr>
-			<tr>
-				<td bgcolor='#36f' onmousedown='drum4(event);' ontouchstart='drum4(event);'>4</td>
-				<td bgcolor='#0c0' onmousedown='drum5(event);' ontouchstart='drum5(event);'>5</td>
-				<td bgcolor='#f60' onmousedown='drum6(event);' ontouchstart='drum6(event);'>6</td>
-			</tr>
-			<tr>
-				<td bgcolor='#3f9' onmousedown='drum7(event);' ontouchstart='drum7(event);'>7</td>
-				<td bgcolor='#f6f' onmousedown='drum8(event);' ontouchstart='drum8(event);'>8</td>
-				<td>&nbsp;</td>
-			</tr>
-		</table>
 		<script>
-			console.log('start');
-			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-			var audioContext = new AudioContextFunc();
-			var player=new WebAudioFontPlayer();
-			player.loader.decodeAfterLoading(audioContext, '_drum_35_0_Chaos_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_38_22_FluidR3_GM_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_41_26_JCLive_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_42_26_JCLive_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_45_26_JCLive_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_46_26_JCLive_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_49_26_JCLive_sf2_file');
-			player.loader.decodeAfterLoading(audioContext, '_drum_51_26_JCLive_sf2_file');
+			var player=null;
+			var audioContext=null;
+			function start(){
+				var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+				audioContext = new AudioContextFunc();
+				player=new WebAudioFontPlayer();
+				player.loader.decodeAfterLoading(audioContext, '_drum_35_0_Chaos_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_38_22_FluidR3_GM_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_41_26_JCLive_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_42_26_JCLive_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_45_26_JCLive_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_46_26_JCLive_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_49_26_JCLive_sf2_file');
+				player.loader.decodeAfterLoading(audioContext, '_drum_51_26_JCLive_sf2_file');
+			}
 			function drum1(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_35_0_Chaos_sf2_file, 0, 35, 3);
 			}
 			function drum2(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_38_22_FluidR3_GM_sf2_file, 0,22 , 3);
 			}
 			function drum3(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_41_26_JCLive_sf2_file, 0, 41, 3);
 			}
 			function drum4(event){
-				console.log(event);
 				event.preventDefault(event);
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_42_26_JCLive_sf2_file, 0, 42, 3);
 			}
 			function drum5(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_45_26_JCLive_sf2_file, 0, 45, 3);
 			}
 			function drum6(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_46_26_JCLive_sf2_file, 0, 46, 3);
 			}
 			function drum7(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_49_26_JCLive_sf2_file, 0, 49, 3);
 			}
 			function drum8(event){
-				console.log(event);
 				event.preventDefault();
 				player.queueWaveTable(audioContext, audioContext.destination, _drum_51_26_JCLive_sf2_file, 0, 51, 3);
 			}
 		</script>
+	</head>
+	<body style='height:100%;width:100%;margin:0;padding:0' onload='start()'>
+		<table style='height:100%;width:100%'>
+			<tr>
+				<td bgcolor='#f69' onmousedown='drum1(event);' ontouchstart='drum1(event);' align="center">1</td>
+				<td bgcolor='#ff0' onmousedown='drum2(event);' ontouchstart='drum2(event);' align="center">2</td>
+				<td bgcolor='#c6f' onmousedown='drum3(event);' ontouchstart='drum3(event);' align="center">3</td>
+			</tr>
+			<tr>
+				<td bgcolor='#36f' onmousedown='drum4(event);' ontouchstart='drum4(event);' align="center">4</td>
+				<td bgcolor='#0c0' onmousedown='drum5(event);' ontouchstart='drum5(event);' align="center">5</td>
+				<td bgcolor='#f60' onmousedown='drum6(event);' ontouchstart='drum6(event);' align="center">6</td>
+			</tr>
+			<tr>
+				<td bgcolor='#3f9' onmousedown='drum7(event);' ontouchstart='drum7(event);' align="center">7</td>
+				<td bgcolor='#f6f' onmousedown='drum8(event);' ontouchstart='drum8(event);' align="center">8</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
 	</body>
 </html>
