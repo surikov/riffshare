@@ -222,7 +222,7 @@ RiffShareFlat.prototype.rakeTouchMove = function (touchEvent) {
 			if (zoom > riffshareflat.maxZoom) {
 				zoom = riffshareflat.maxZoom;
 			}
-			zoom = riffshareflat.safeZoom(zoom);
+			//zoom = riffshareflat.safeZoom(zoom);
 			//if(riffshareflat.canZoomTo(zoom)){
 			riffshareflat.translateX = riffshareflat.translateX - (riffshareflat.translateZ - zoom) * riffshareflat.twocenter.x;
 			riffshareflat.translateY = riffshareflat.translateY - (riffshareflat.translateZ - zoom) * riffshareflat.twocenter.y;
