@@ -26,6 +26,8 @@ RiffShareFlat.prototype.init = function () {
 	this.bgImage = document.getElementById('bgImage');
 	this.bgImageWidth = 1920;
 	this.bgImageHeight = 1080;
+	//this.bgImageWidth = 1600;
+	//this.bgImageHeight = 816;
 	this.undoQueue = [];
 	this.undoStep = 0;
 	this.undoSize = 99;
@@ -42,13 +44,13 @@ RiffShareFlat.prototype.init = function () {
 	this.marginRight = 1;
 	this.marginTop = 1;
 	this.marginBottom = 1;
-	this.icolors=[ {color:'#999999',title:'Synth Bass'}
+	this.icolors=[ {color:'#eeccbb',title:'Synth Bass'}
 	, {color:'#cc9900',title:'String Ensemble'}
 	, {color:'#CC00CC',title:'Bass guitar'}
 	, {color:'#0099FF',title:'Acoustic Piano'}
-	, {color:'#663333',title:'Palm mute guitar'}
+	, {color:'#996633',title:'Palm mute guitar'}
 	, {color:'#3333ff',title:'Percussive Organ'}
-	, {color:'#00CC00',title:'Acoustic guitar'}
+	, {color:'#009900',title:'Acoustic guitar'}
 	, {color:'#FF3300',title:'Distortion guitar'}
 	
 	];
@@ -605,11 +607,15 @@ RiffShareFlat.prototype.tileTones = function (left, top, width, height) {
 		var storeTracks = readObjectFromlocalStorage('storeTracks');
 		for(var i=0;i<storeTracks.length;i++){
 			//console.log(storeTracks[i]);
-			var xx=x+this.tapSize * (0.5+storeTracks[i].beat);
-			var yy=y+ this.tapSize * (0.5+12*5-storeTracks[i].pitch);
+			var far=storeTracks[i].track*0.03*this.tapSize;
+			var xx=x+this.tapSize * (0.5+storeTracks[i].beat)+far;
+			var yy=y+ this.tapSize * (0.5+12*5-storeTracks[i].pitch-1)-far;
 			var le=storeTracks[i].length-1;
+			
+			var r=this.tapSize;
 			//console.log(xx,yy,this.icolors[storeTracks[i].track-1]);
-			this.tileLine(g, xx, yy, 1+xx+this.tapSize *le, yy-this.tapSize *storeTracks[i].shift, this.icolors[7-storeTracks[i].track].color, this.tapSize);
+			this.tileLine(g, xx, yy, 1+xx+this.tapSize *le, yy-this.tapSize *storeTracks[i].shift, this.icolors[7-storeTracks[i].track].color, r);
+			this.tileCircle(g, xx, yy, this.tapSize/3, 'rgba(255,255,255,0.25)');
 		}
 	}
 }
@@ -825,6 +831,22 @@ RiffShareFlat.prototype.tileEllipse = function (g, x, y, rx, ry, fillColor, stro
 		e.setAttributeNS(null, 'stroke-width', strokeWidth);
 	}
 	g.appendChild(e);
+};
+RiffShareFlat.prototype.tileCircle = function (g, x, y, r, fillColor, strokeColor, strokeWidth) {
+	var circle = document.createElementNS(this.svgns, 'circle');
+	circle.setAttributeNS(null, 'cx', x);
+	circle.setAttributeNS(null, 'cy', y);
+	circle.setAttributeNS(null, 'r', r);
+	if (fillColor) {
+		circle.setAttributeNS(null, 'fill', fillColor);
+	}
+	if (strokeColor) {
+		circle.setAttributeNS(null, 'stroke', strokeColor);
+	}
+	if (strokeWidth) {
+		circle.setAttributeNS(null, 'stroke-width', strokeWidth);
+	}
+	g.appendChild(circle);
 };
 RiffShareFlat.prototype.tileRectangle = function (g, x, y, w, h, fillColor, strokeColor, strokeWidth, r) {
 	var rect = document.createElementNS(this.svgns, 'rect');
