@@ -24,6 +24,7 @@ RiffShareFlat.prototype.init = function () {
 	this.gridGroup = document.getElementById('gridGroup');
 	this.bgGroup = document.getElementById('bgGroup');
 	this.bgImage = document.getElementById('bgImage');
+	//console.log('bgImage',this.bgImage.width,'x',this.bgImage.height);
 	this.bgImageWidth = 1920;
 	this.bgImageHeight = 1080;
 	//this.bgImageWidth = 1600;
@@ -40,19 +41,37 @@ RiffShareFlat.prototype.init = function () {
 	this.maxZoom = 20;
 	this.spots = [];
 	this.timeOutID = 0;
-	this.marginLeft = 17;
+	this.marginLeft = 18;
 	this.marginRight = 1;
 	this.marginTop = 1;
 	this.marginBottom = 1;
-	this.icolors=[ {color:'#eeccbb',title:'Synth Bass'}
-	, {color:'#cc9900',title:'String Ensemble'}
-	, {color:'#CC00CC',title:'Bass guitar'}
-	, {color:'#0099FF',title:'Acoustic Piano'}
-	, {color:'#996633',title:'Palm mute guitar'}
-	, {color:'#3333ff',title:'Percussive Organ'}
-	, {color:'#009900',title:'Acoustic guitar'}
-	, {color:'#FF3300',title:'Distortion guitar'}
-	
+	//this.storeDrums = readObjectFromlocalStorage('storeDrums');
+	this.icolors = [{
+			color: '#eeccbb',
+			title: 'Synth Bass'
+		}, {
+			color: '#cc9900',
+			title: 'String Ensemble'
+		}, {
+			color: '#CC00CC',
+			title: 'Bass guitar'
+		}, {
+			color: '#0099FF',
+			title: 'Acoustic Piano'
+		}, {
+			color: '#996633',
+			title: 'Palm mute guitar'
+		}, {
+			color: '#3333ff',
+			title: 'Percussive Organ'
+		}, {
+			color: '#009900',
+			title: 'Acoustic guitar'
+		}, {
+			color: '#FF3300',
+			title: 'Distortion guitar'
+		}
+
 	];
 	this.setupInput();
 	window.onresize = function () {
@@ -83,10 +102,10 @@ RiffShareFlat.prototype.init = function () {
 			console.log(ex);
 		}
 	}
-	var storeDrums = readObjectFromlocalStorage('storeDrums');
-	console.log(storeDrums);
-	var storeTracks = readObjectFromlocalStorage('storeTracks');
-	console.log(storeTracks);
+	this.storeDrums = readObjectFromlocalStorage('storeDrums');
+	//console.log(storeDrums);
+	this.storeTracks = readObjectFromlocalStorage('storeTracks');
+	//console.log(storeTracks);
 	//console.log(readObjectFromlocalStorage('drum0'));
 	//console.log(readObjectFromlocalStorage('track0'));
 	//console.log(readObjectFromlocalStorage('equalizer0'));
@@ -547,6 +566,7 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	var h = this.innerHeight;
 	var g = this.rakeGroup(x, y, w, h, 'grdlin', this.gridGroup, left, top, width, height);
 	if (g) {
+		this.tileRectangle(g, 0, 0, this.innerWidth, this.innerHeight, 'rgba(0,0,0,0.5)');
 		//this.tileRectangle(g, 0, 0, this.innerWidth, this.innerHeight, 'rgba(0,0,0,0.5)', null, null, this.tapSize * 5);
 		//this.tileLine(g, this.tapSize * 0.5, this.tapSize * 0.5, this.innerWidth - this.tapSize * 0.5, this.innerHeight - this.tapSize * 0.5, 'rgba(255,255,255,0.5)', this.tapSize);
 		//this.tileLine(g, this.tapSize * 0.5, this.innerHeight - this.tapSize * 0.5, this.innerWidth - this.tapSize * 0.5, this.tapSize * 0.5, 'rgba(255,255,255,0.5)', this.tapSize);
@@ -555,7 +575,7 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 		//this.tileLine(g, this.tapSize * (0.5 + this.marginLeft), this.innerHeight - this.tapSize * (0.5 + this.marginBottom), this.innerWidth - this.tapSize * (0.5 + this.marginRight), this.tapSize * (0.5 + this.marginTop + 12 * 5), 'rgba(255,255,255,0.5)', this.tapSize);
 		//
 		for (var i = 0; i < 16; i++) {
-			this.tileRectangle(g, this.tapSize * (i * 16 + this.marginLeft), this.tapSize * (this.marginTop + 12 * 5), this.tapSize * 15.9, this.tapSize * 8, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 1);
+			//this.tileRectangle(g, this.tapSize * (i * 16 + this.marginLeft), this.tapSize * (this.marginTop + 12 * 5), this.tapSize * 15.9, this.tapSize * 8, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 1);
 			for (var k = 0; k < 5; k++) {
 				this.tileRectangle(g, this.tapSize * (i * 16 + this.marginLeft), this.tapSize * (this.marginTop + 12 * k), this.tapSize * 15.9, this.tapSize * 11.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 1);
 			}
@@ -564,91 +584,132 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 		//this.tileRectangle(g, this.tapSize * (this.marginLeft - 11 - 1), this.tapSize * (this.marginTop + 12 * 5 - 1), this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
 		//this.tileText(g, this.tapSize * (this.marginLeft - 11 - 3), this.tapSize * (this.marginTop + 12 * 5 - 1 + 0.75), this.tapSize * 0.9, 'Selected instrument', '#ffffff');
 
-		
+
 	}
 	this.tileEqualizer(left, top, width, height);
-		this.tileDrumVolumes(left, top, width, height);
-		this.tileToneVolumes(left, top, width, height);
-		this.tileTempo(left, top, width, height);
-		try{
-			this.tileDrums(left, top, width, height);
-		}catch(e){
-			console.log(e);
-		}
-		try{
-			this.tileTones(left, top, width, height);
-		}catch(e){
-			console.log(e);
-		}
+	this.tileDrumVolumes(left, top, width, height);
+	this.tileToneVolumes(left, top, width, height);
+	this.tileTempo(left, top, width, height);
+	try {
+		this.tileDrums(left, top, width, height);
+	} catch (e) {
+		console.log(e);
+	}
+	try {
+		this.tileTones(left, top, width, height);
+	} catch (e) {
+		console.log(e);
+	}
 };
+RiffShareFlat.prototype.tileDrumMeasure = function (n, left, top, width, height) {
+	//console.log('tileDrumMeasure',n);
+	var x = this.tapSize * (this.marginLeft + n * 16);
+	var y = this.tapSize * (this.marginTop + 12 * 5);
+	var w = this.tapSize * 16;
+	var h = this.tapSize * 8;
+	var g = this.rakeGroup(x, y, w, h, 'drms' + n, this.gridGroup, left, top, width, height);
+	if (g) {
+		for (var i = 0; i < 8; i++) {
+			for (var k = 0; k < 4; k++) {
+				//this.tileRectangle(g, x + this.tapSize * (0 + i * 2), y + this.tapSize * (0 + k * 2), this.tapSize * 1, this.tapSize * 1, 'rgba(0,0,0,0.5)');
+				this.tileRectangle(g, x + this.tapSize * (0 + i * 2), y + this.tapSize * (1 + k * 2), this.tapSize * 1, this.tapSize * 1, 'rgba(255,255,255,0.25)');
+				this.tileRectangle(g, x + this.tapSize * (1 + i * 2), y + this.tapSize * (0 + k * 2), this.tapSize * 1, this.tapSize * 1, 'rgba(255,255,255,0.25)');
+				//this.tileRectangle(g, x + this.tapSize * (1 + i * 2), y + this.tapSize * (1 + k * 2), this.tapSize * 1, this.tapSize * 1, 'rgba(0,0,0,0.5)');
+			}
+		}
+		for (var i = 0; i < this.storeDrums.length; i++) {
+
+			if (this.storeDrums[i].beat >= n * 16 && this.storeDrums[i].beat < (n + 1) * 16) {
+				//console.log(n,this.storeDrums[i]);
+				var xx = x + this.tapSize * (0.5 + this.storeDrums[i].beat - n * 16);
+				var yy = y + this.tapSize * (0.5 + this.storeDrums[i].drum);
+				this.tileLine(g, xx, yy, 1 + xx, yy, '#fff', this.tapSize);
+			}
+		}
+	}
+}
 RiffShareFlat.prototype.tileDrums = function (left, top, width, height) {
+	//console.log('tileDrums',this.storeDrums);
+	//var storeDrums = readObjectFromlocalStorage('storeDrums');
+	for (var i = 0; i < 16; i++) {
+
+		this.tileDrumMeasure(i, left, top, width, height);
+	}
+	/*
 	var x = this.tapSize * this.marginLeft ;
 	var y = this.tapSize * (this.marginTop + 12 * 5);
 	var w = this.tapSize * 16*16;
 	var h = this.tapSize * 8;
 	var g = this.rakeGroup(x, y, w, h, 'drms', this.gridGroup, left, top, width, height);
 	if (g) {
-		var storeDrums = readObjectFromlocalStorage('storeDrums');
-		for(var i=0;i<storeDrums.length;i++){
-			var xx=x+this.tapSize * (0.5+storeDrums[i].beat);
-			var yy=y+ this.tapSize * (0.5+storeDrums[i].drum);
-			this.tileLine(g, xx, yy, 1+xx, yy, '#fff', this.tapSize);
-		}
+	var storeDrums = readObjectFromlocalStorage('storeDrums');
+	for(var i=0;i<storeDrums.length;i++){
+	var xx=x+this.tapSize * (0.5+storeDrums[i].beat);
+	var yy=y+ this.tapSize * (0.5+storeDrums[i].drum);
+	this.tileLine(g, xx, yy, 1+xx, yy, '#fff', this.tapSize);
 	}
+	}
+	 */
 }
 RiffShareFlat.prototype.tileTones = function (left, top, width, height) {
-	var x = this.tapSize * this.marginLeft ;
+	var x = this.tapSize * this.marginLeft;
 	var y = this.tapSize * this.marginTop;
-	var w = this.tapSize * 16*16;
-	var h = this.tapSize * 12*5;
-	
+	var w = this.tapSize * 16 * 16;
+	var h = this.tapSize * 12 * 5;
+
 	var g = this.rakeGroup(x, y, w, h, 'tns', this.gridGroup, left, top, width, height);
 	if (g) {
 		var storeTracks = readObjectFromlocalStorage('storeTracks');
-		for(var i=0;i<storeTracks.length;i++){
+		for (var i = 0; i < storeTracks.length; i++) {
 			//console.log(storeTracks[i]);
-			var far=storeTracks[i].track*0.03*this.tapSize;
-			var xx=x+this.tapSize * (0.5+storeTracks[i].beat)+far;
-			var yy=y+ this.tapSize * (0.5+12*5-storeTracks[i].pitch-1)-far;
-			var le=storeTracks[i].length-1;
-			
-			var r=this.tapSize;
+			var far = storeTracks[i].track * 0.03 * this.tapSize;
+			var xx = x + this.tapSize * (0.5 + storeTracks[i].beat) + far;
+			var yy = y + this.tapSize * (0.5 + 12 * 5 - storeTracks[i].pitch - 1) - far;
+			var le = storeTracks[i].length - 1;
+
+			var r = this.tapSize;
 			//console.log(xx,yy,this.icolors[storeTracks[i].track-1]);
-			this.tileLine(g, xx, yy, 1+xx+this.tapSize *le, yy-this.tapSize *storeTracks[i].shift, this.icolors[7-storeTracks[i].track].color, r);
-			this.tileCircle(g, xx, yy, this.tapSize/3, 'rgba(255,255,255,0.25)');
+			this.tileLine(g, xx, yy, 1 + xx + this.tapSize * le, yy - this.tapSize * storeTracks[i].shift, this.icolors[7 - storeTracks[i].track].color, r);
+			this.tileCircle(g, xx, yy, this.tapSize / 3, 'rgba(255,255,255,0.25)');
 		}
 	}
 }
 RiffShareFlat.prototype.tileTempo = function (left, top, width, height) {
 	var x = this.tapSize * (this.marginLeft - 12);
-	var y = this.tapSize * (this.marginTop + 12 * 5-33);
+	var y = this.tapSize * (this.marginTop + 12 * 5 - 33);
 	var w = this.tapSize * 12;
 	var h = this.tapSize * 8;
 	var g = this.rakeGroup(x, y, w, h, 'tmpo', this.gridGroup, left, top, width, height);
 	if (g) {
 		this.tileRectangle(g, x, y + this.tapSize * 0, this.tapSize * 8, this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
-		var n = sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
+		var n = sureInList(readTextFromlocalStorage('tempo'), 120, [80, 100, 120, 140, 160, 180, 200, 220]);
 		//console.log(n);
-		this.tileRectangle(g, x, y + this.tapSize * 0, this.tapSize * (n-60)/20, this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
+		this.tileRectangle(g, x, y + this.tapSize * 0, this.tapSize * (n - 60) / 20, this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 0.75, this.tapSize * 0.9, 'Tempo', '#ffffff');
 	}
 }
 RiffShareFlat.prototype.tileToneVolumes = function (left, top, width, height) {
-	var x = this.tapSize * (this.marginLeft - 12);
-	var y = this.tapSize * (this.marginTop + 12 * 5-9);
+	var x = this.tapSize * (this.marginLeft - 18);
+	var y = this.tapSize * (this.marginTop + 12 * 5 - 9);
 	var w = this.tapSize * 12;
 	var h = this.tapSize * 8;
 	var g = this.rakeGroup(x, y, w, h, 'tnvlm', this.gridGroup, left, top, width, height);
 	if (g) {
 		for (var i = 0; i < 8; i++) {
 			//this.tileRectangle(g, x, y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)');
-			for(var k=0;k<11;k++){
-				this.tileRectangle(g, x+ this.tapSize * k, y + this.tapSize * i, this.tapSize * 0.975, this.tapSize * 0.9, 'rgba(255,255,255,0.5)');
+			var n = sureNumeric(readObjectFromlocalStorage('track' + (7 - i)), 0, 70, 100) / 10;
+			for (var k = 0; k < 11; k++) {
+				//console.log(k,n);
+				if (k > n + 1) {
+					this.tileRectangle(g, x + this.tapSize * (k + 6), y + this.tapSize * i, this.tapSize * 0.975, this.tapSize * 0.9, 'rgba(255,255,255,0.5)');
+				} else {
+					this.tileRectangle(g, x + this.tapSize * (k + 6), y + this.tapSize * i, this.tapSize * 0.975, this.tapSize * 0.9, this.icolors[i].color);
+				}
 			}
-			var n = sureNumeric(readObjectFromlocalStorage('track' + (7-i)), 0, 70, 100)/10;
+
 			//console.log(n);
-			this.tileRectangle(g, x, y + this.tapSize * i, this.tapSize * (1+n), this.tapSize * 0.9, this.icolors[i].color);
-			this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize *( i+0.75), this.tapSize * 0.75, this.icolors[i].title);
+			//this.tileRectangle(g, x, y + this.tapSize * i, this.tapSize * (1+n), this.tapSize * 0.9, this.icolors[i].color);
+			this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * (i + 0.75), this.tapSize * 0.9, this.icolors[i].title, this.icolors[i].color);
 		}
 		/*
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 0.75, this.tapSize * 0.75, this.icolors[0].title);
@@ -659,21 +720,21 @@ RiffShareFlat.prototype.tileToneVolumes = function (left, top, width, height) {
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 5.75, this.tapSize * 0.75, 'Percussive Organ', '#000');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 6.75, this.tapSize * 0.75, 'Acoustic guitar', '#000');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 7.75, this.tapSize * 0.75, 'Distortion guitar', '#000');
-		*/
+		 */
 	}
 };
 RiffShareFlat.prototype.tileDrumVolumes = function (left, top, width, height) {
-	var x = this.tapSize * (this.marginLeft - 12);
+	var x = this.tapSize * (this.marginLeft - 18);
 	var y = this.tapSize * (this.marginTop + 12 * 5);
 	var w = this.tapSize * 12;
 	var h = this.tapSize * 8;
 	var g = this.rakeGroup(x, y, w, h, 'drvlm', this.gridGroup, left, top, width, height);
 	if (g) {
 		for (var i = 0; i < 8; i++) {
-			this.tileRectangle(g, x, y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
-			var n = sureNumeric(readObjectFromlocalStorage('drum' + i), 0, 70, 100)/10;
+			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
+			var n = sureNumeric(readObjectFromlocalStorage('drum' + i), 0, 70, 100) / 10;
 			//console.log(n);
-			this.tileRectangle(g, x, y + this.tapSize * i, this.tapSize * (1+n), this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
+			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * (1 + n), this.tapSize * 0.9, 'rgba(255,255,255,0.5)', null, null, this.tapSize * 0.25);
 		}
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 0.75, this.tapSize * 0.9, 'Bass drum', '#ffffff');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 1.75, this.tapSize * 0.9, 'Low tom', '#ffffff');
@@ -764,8 +825,7 @@ RiffShareFlat.prototype.collision = function (x1, y1, w1, h1, x2, y2, w2, h2) {
 		 || x1 > x2 + w2 //
 		 || y1 + h1 < y2 //
 		 || y1 > y2 + h2 //
-	)
-	{
+	) {
 		return false;
 	} else {
 		return true;
