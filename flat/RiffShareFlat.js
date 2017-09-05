@@ -52,7 +52,7 @@ RiffShareFlat.prototype.init = function () {
 	this.maxZoom = 20;
 	this.spots = [];
 	this.timeOutID = 0;
-	this.marginLeft = 18;
+	this.marginLeft = 18.5;
 	this.marginRight = 17;
 	this.marginTop = 1;
 	this.marginBottom = 1;
@@ -65,62 +65,136 @@ RiffShareFlat.prototype.init = function () {
 	for (var i = 0; i < 10; i++) {
 		this.equalizer.push(sureNumeric(readObjectFromlocalStorage('equalizer' + i), -10, 0, 10));
 	}
+	this.drumInfo = [{
+			sound: _drum_35_0_Chaos_sf2_file,
+			pitch: 36, //36
+			title: 'Bass drum',
+			id: 0,
+			volumeRatio: 0.35,
+		}, {
+			sound: _drum_41_26_JCLive_sf2_file,
+			pitch: 41, //43
+			title: 'Low Tom',
+			id: 1,
+			volumeRatio: 0.5,
+		}, {
+			sound: _drum_38_22_FluidR3_GM_sf2_file,
+			pitch: 38, //40
+			title: 'Snare drum',
+			id: 2,
+			volumeRatio: 0.5,
+		}, {
+			sound: _drum_45_26_JCLive_sf2_file,
+			pitch: 45, //47,48,50
+			title: 'Mid Tom',
+			id: 3,
+			volumeRatio: 0.75,
+		}, {
+			sound: _drum_42_26_JCLive_sf2_file,
+			pitch: 42, //44
+			title: 'Closed Hi-hat',
+			id: 4,
+			volumeRatio: 0.2,
+		}, {
+			sound: _drum_46_26_JCLive_sf2_file,
+			pitch: 46, //
+			title: 'Open Hi-hat',
+			id: 5,
+			volumeRatio: 0.15,
+		}, {
+			sound: _drum_51_26_JCLive_sf2_file,
+			pitch: 51, //rest
+			title: 'Ride Cymbal',
+			id: 6,
+			volumeRatio: 0.3,
+		}, {
+			sound: _drum_49_26_JCLive_sf2_file,
+			pitch: 49, //
+			title: 'Splash Cymbal',
+			id: 7,
+			volumeRatio: 0.1,
+		}
+	];
 	this.trackInfo = [{
-			color: 'rgba(238,204,187,1)',
-			shadow: 'rgba(238,204,187,0.4)',
+			color: 'rgba(255,204,187,1)',
+			shadow: 'rgba(255,204,187,0.4)',
 			title: 'Synth Bass',
 			order: 2,
+			sound: _tone_0390_GeneralUserGS_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track7'), 0, 70, 100),
-			nn: 7
+			nn: 7,
+			octave: 3,
+			volumeRatio: 0.2
 		}, {
 			color: 'rgba(204,153,0,1)',
 			shadow: 'rgba(204,153,0,0.4)',
 			title: 'String Ensemble',
 			order: 1,
+			sound: _tone_0480_Aspirin_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track6'), 0, 70, 100),
-			nn: 6
+			nn: 6,
+			octave: 3,
+			volumeRatio: 0.6
 		}, {
 			color: 'rgba(204,0,204,1)',
 			shadow: 'rgba(204,0,204,0.4)',
 			title: 'Bass guitar',
 			order: 5,
+			sound: _tone_0330_SoundBlasterOld_sf2,
 			volume: sureNumeric(readObjectFromlocalStorage('track5'), 0, 70, 100),
-			nn: 5
+			nn: 5,
+			octave: 2,
+			volumeRatio: 0.99
 		}, {
 			color: 'rgba(00,153,255,1)',
 			shadow: 'rgba(00,153,255,0.4)',
 			title: 'Acoustic Piano',
 			order: 3,
+			sound: _tone_0000_Chaos_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track4'), 0, 70, 100),
-			nn: 4
+			nn: 4,
+			octave: 3,
+			volumeRatio: 0.9
 		}, {
 			color: 'rgba(153,102,51,1)',
 			shadow: 'rgba(153,102,51,0.4)',
 			title: 'Palm mute guitar',
 			order: 4,
+			sound: _tone_0280_LesPaul_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track3'), 0, 70, 100),
-			nn: 3
+			nn: 3,
+			octave: 3,
+			volumeRatio: 0.9
 		}, {
 			color: 'rgba(102,51,255,1)',
 			shadow: 'rgba(102,51,255,0.4)',
 			title: 'Percussive Organ',
 			order: 0,
+			sound: _tone_0170_JCLive_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track2'), 0, 70, 100),
-			nn: 2
+			nn: 2,
+			octave: 4,
+			volumeRatio: 0.6
 		}, {
 			color: 'rgba(0,153,0,1)',
 			shadow: 'rgba(0,153,0,0.4)',
 			title: 'Acoustic guitar',
 			order: 6,
+			sound: _tone_0250_Chaos_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track1'), 0, 70, 100),
-			nn: 1
+			nn: 1,
+			octave: 3,
+			volumeRatio: 0.33
 		}, {
 			color: 'rgba(255,51,0,1)',
 			shadow: 'rgba(255,51,0,0.4)',
 			title: 'Distortion guitar',
 			order: 7,
+			sound: _tone_0300_LesPaul_sf2_file,
 			volume: sureNumeric(readObjectFromlocalStorage('track0'), 0, 70, 100),
-			nn: 0
+			nn: 0,
+			octave: 3,
+			volumeRatio: 0.9
 		}
 
 	];
@@ -154,7 +228,19 @@ RiffShareFlat.prototype.init = function () {
 			}
 			if (flatstate.orders) {
 				for (var i = 0; i < 8; i++) {
-					riffshareflat.trackInfo[i].order = flatstate.orders[i];
+					var o = sureNumeric(flatstate.orders[i], 0, i, 7)
+						riffshareflat.trackInfo[i].order = o;
+				}
+				flatstate.orders.sort();
+				for (var i = 0; i < 8; i++) {
+					if (flatstate.orders[i] == i) {
+						//
+					} else {
+						for (var n = 0; n < 8; n++) {
+							riffshareflat.trackInfo[n].order = riffshareflat.trackInfo[n].nn;
+						}
+						break;
+					}
 				}
 			}
 		} catch (ex) {
@@ -163,6 +249,21 @@ RiffShareFlat.prototype.init = function () {
 	}
 	this.storeDrums = readObjectFromlocalStorage('storeDrums');
 	this.storeTracks = readObjectFromlocalStorage('storeTracks');
+	var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+	this.audioContext = new AudioContextFunc();
+	this.player = new WebAudioFontPlayer();
+	this.reverberator = new WebAudioFontReverberator(this.audioContext);
+	this.reverberator.output.connect(this.audioContext.destination);
+	this.master = new WebAudioFontChannel(this.audioContext);
+	this.master.output.connect(this.reverberator.input);
+	for (var i = 0; i < 8; i++) {
+		this.trackInfo[i].channel = new WebAudioFontChannel(this.audioContext);
+		this.trackInfo[i].channel.output.connect(this.master.input);
+		this.drumInfo[i].channel = new WebAudioFontChannel(this.audioContext);
+		this.drumInfo[i].channel.output.connect(this.master.input);
+
+	}
+
 	this.resetSize();
 	console.log('done init');
 };
@@ -618,7 +719,9 @@ RiffShareFlat.prototype.addContent = function (x, y, w, h) {
 	this.clearUselessDetails(x, y, w, h, this.contentGroup);
 	this.addSmallTiles(x, y, w, h);
 };
-
+RiffShareFlat.prototype.startPlay = function () {
+	
+};
 RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	var x = 0;
 	var y = 0;
@@ -628,6 +731,12 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	if (g) {
 		this.tileRectangle(g, 0, 0, this.innerWidth, this.innerHeight, 'rgba(0,0,0,0.8)');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 4, this.tapSize * 5, 'RiffShare', '#fff');
+		this.tileCircle(g, 3*this.tapSize, 7*this.tapSize, 2*this.tapSize, '#fff');
+		
+		
+		this.addSpot('plybt', 1*this.tapSize, 5*this.tapSize,4*this.tapSize, 4*this.tapSize, function () {
+			riffshareflat.startPlay();
+		});
 	}
 	this.tileEqualizer(left, top, width, height);
 	this.tileDrumVolumes(left, top, width, height);
@@ -861,6 +970,7 @@ RiffShareFlat.prototype.tileTempo = function (left, top, width, height) {
 	}
 };
 RiffShareFlat.prototype.findTrackInfo = function (order) {
+	//console.log(this.trackInfo);
 	for (var i = 0; i < 8; i++) {
 		if (this.trackInfo[i].order == order) {
 			return this.trackInfo[i];
@@ -898,9 +1008,15 @@ RiffShareFlat.prototype.tileToneVolumes = function (left, top, width, height) {
 	if (g) {
 		for (var i = 0; i < 8; i++) {
 			var track = this.findTrackInfo(i);
+			/*console.log(i,track);
+			if(track){
+			//
+			}else{
+			track=this.trackInfo[0];
+			}*/
 			this.tileRectangle(g, x + this.tapSize * (0 + 6), y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)');
 			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * (1 + track.volume / 10), this.tapSize * 0.9, track.color);
-			this.tileCircle(g, x + this.tapSize * 0.9, y + this.tapSize * (i + 0.5), this.tapSize * 0.5, 'rgba(255,255,255,0.3)');
+			this.tileCircle(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.5), this.tapSize * 0.5, '#fff');
 			var s = this.addSpot('up' + i, x + this.tapSize * 0.0, y + this.tapSize * (i + 0.2), this.tapSize * 5, this.tapSize * 1, function () {
 					riffshareflat.userActionUpTrack(this.order);
 				});
@@ -934,7 +1050,9 @@ RiffShareFlat.prototype.tileDrumVolumes = function (left, top, width, height) {
 				s.drum = i;
 				s.volume = v * 10;
 			}
+			this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * (i + 0.75), this.tapSize * 0.9, this.drumInfo[i].title, '#ffffff');
 		}
+		/*
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 0.75, this.tapSize * 0.9, 'Bass drum', '#ffffff');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 1.75, this.tapSize * 0.9, 'Low tom', '#ffffff');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 2.75, this.tapSize * 0.9, 'Snare drum', '#ffffff');
@@ -943,6 +1061,7 @@ RiffShareFlat.prototype.tileDrumVolumes = function (left, top, width, height) {
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 5.75, this.tapSize * 0.9, 'Open Hi-hat', '#ffffff');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 6.75, this.tapSize * 0.9, 'Ride Cymbal', '#ffffff');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 7.75, this.tapSize * 0.9, 'Splash Cymbal', '#ffffff');
+		 */
 	}
 };
 RiffShareFlat.prototype.tileEqualizer = function (left, top, width, height) {
@@ -1044,7 +1163,8 @@ RiffShareFlat.prototype.collision = function (x1, y1, w1, h1, x2, y2, w2, h2) {
 		 || x1 > x2 + w2 //
 		 || y1 + h1 < y2 //
 		 || y1 > y2 + h2 //
-	) {
+	)
+	{
 		return false;
 	} else {
 		return true;
