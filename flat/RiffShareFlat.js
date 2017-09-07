@@ -28,6 +28,8 @@ RiffShareFlat.prototype.init = function () {
 	this.textGroup = document.getElementById('textGroup');
 	this.drumGroup = document.getElementById('drumGroup');
 	this.upperGroup = document.getElementById('upperGroup');
+	this.counterGroup = document.getElementById('counterGroup');
+	this.counterLine = null;
 	this.trackGroups = [];
 	this.trackGroups[7] = document.getElementById('track1Group');
 	this.trackGroups[6] = document.getElementById('track2Group');
@@ -37,10 +39,12 @@ RiffShareFlat.prototype.init = function () {
 	this.trackGroups[2] = document.getElementById('track6Group');
 	this.trackGroups[1] = document.getElementById('track7Group');
 	this.trackGroups[0] = document.getElementById('track8Group');
-	this.bgGroup = document.getElementById('bgGroup');
-	this.bgImage = document.getElementById('bgImage');
-	this.bgImageWidth = 1920;
-	this.bgImageHeight = 1080;
+	//this.bgGroup = document.getElementById('bgGroup');
+	//this.bgImage = document.getElementById('bgImage');
+	//this.bgImageWidth = 1280;
+	//this.bgImageHeight = 800;
+	this.sentWhen = 0;
+	this.sentMeasure = 0;
 	this.mark = null;
 	this.undoQueue = [];
 	this.undoStep = 0;
@@ -158,8 +162,8 @@ RiffShareFlat.prototype.init = function () {
 			octave: 3,
 			volumeRatio: 0.9
 		}, {
-			color: 'rgba(153,102,51,1)',
-			shadow: 'rgba(153,102,51,0.4)',
+			color: 'rgba(153,51,0,1)',
+			shadow: 'rgba(153,51,0,0.4)',
 			title: 'Palm mute guitar',
 			order: 4,
 			sound: _tone_0280_LesPaul_sf2_file,
@@ -168,8 +172,8 @@ RiffShareFlat.prototype.init = function () {
 			octave: 3,
 			volumeRatio: 0.9
 		}, {
-			color: 'rgba(102,51,255,1)',
-			shadow: 'rgba(102,51,255,0.4)',
+			color: 'rgba(51,51,255,1)',
+			shadow: 'rgba(51,51,255,0.4)',
 			title: 'Percussive Organ',
 			order: 0,
 			sound: _tone_0170_JCLive_sf2_file,
@@ -188,8 +192,8 @@ RiffShareFlat.prototype.init = function () {
 			octave: 3,
 			volumeRatio: 0.33
 		}, {
-			color: 'rgba(255,51,0,1)',
-			shadow: 'rgba(255,51,0,0.4)',
+			color: 'rgba(255,0,0,1)',
+			shadow: 'rgba(255,0,0,0.4)',
 			title: 'Distortion guitar',
 			order: 7,
 			sound: _tone_0300_LesPaul_sf2_file,
@@ -250,18 +254,18 @@ RiffShareFlat.prototype.init = function () {
 		}
 	}
 	this.storeDrums = readObjectFromlocalStorage('storeDrums');
-	try{
-	var le=this.storeDrums.length;
-	}catch(t){
+	try {
+		var le = this.storeDrums.length;
+	} catch (t) {
 		console.log(t);
-		this.storeDrums=[];
+		this.storeDrums = [];
 	}
 	this.storeTracks = readObjectFromlocalStorage('storeTracks');
-	try{
-	var le=this.storeTracks.length;
-	}catch(t){
+	try {
+		var le = this.storeTracks.length;
+	} catch (t) {
 		console.log(t);
-		this.storeTracks=[];
+		this.storeTracks = [];
 	}
 	var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 	this.audioContext = new AudioContextFunc();
@@ -283,7 +287,31 @@ RiffShareFlat.prototype.init = function () {
 		this.player.adjustPreset(this.audioContext, this.trackInfo[i].sound);
 	}
 	this.resetSize();
+	setInterval(riffshareflat.moveCounter, 50);
 	console.log('done init');
+};
+RiffShareFlat.prototype.copyDrums = function () {
+	var drums = [];
+	for (var i = 0; i < this.storeDrums.length; i++) {
+		drums.push({
+			beat: this.storeDrums.beat,
+			drum: this.storeDrums.drum
+		});
+	}
+	return drums;
+};
+RiffShareFlat.prototype.copyTones = function () {
+	var tones = [];
+	for (var i = 0; i < this.storeDrums.length; i++) {
+		tones.push({
+			beat: this.storeTracks.beat,
+			pitch: this.storeTracks.pitch,
+			track: this.storeTracks.track,
+			shift: this.storeTracks.shift,
+			length: this.storeTracks.length
+		});
+	}
+	return tones;
 };
 RiffShareFlat.prototype.setupInput = function () {
 	this.startMouseScreenX = 0;
@@ -624,7 +652,7 @@ RiffShareFlat.prototype.moveZoom = function () {
 	}
 	this.contentSVG.setAttribute("viewBox", "" + x + " " + y + " " + w + " " + h + "");
 	this.reLayoutVertical();
-	this.reLayoutBackGroundImge();
+	//this.reLayoutBackGroundImge();
 };
 RiffShareFlat.prototype.reLayoutVertical = function () {
 	var leftTopX = 0;
@@ -652,10 +680,42 @@ RiffShareFlat.prototype.reLayoutVertical = function () {
 	}
 	this.stickedX = shift;
 };
-RiffShareFlat.prototype.reLayoutBackGroundImge = function () {
-	var rz = 1.0;
+RiffShareFlat.prototype.__reLayoutBackGroundImge = function () {
+	//var zdiff=this.maxZoom-this.minZoom;
+
+	var rw = this.contentDiv.clientWidth / this.bgImageWidth;
+	var rh = this.contentDiv.clientHeight / this.bgImageHeight;
+
+	var rz = rw;
+	if (rw < rh) {
+		rz = rh;
+	}
+	//3-1
+	//20-
+	var r = (1 + 0.5 * (this.maxZoom - this.translateZ) / (this.maxZoom - this.minZoom));
+	rz = rz * r;
+	x = -this.translateX / r;
+	if (this.translateX > 0) {
+		x = -this.translateX;
+	}
+	y = -this.translateY / r;
+	if (this.translateY > 0) {
+		y = -this.translateY;
+	}
+	var z = rz * this.translateZ;
+	console.log(-this.translateX, x);
+	var transformAttr = ' translate(' + x + ',' + y + ') scale(' + z + ')';
+	this.bgImage.setAttribute('transform', transformAttr);
+}
+RiffShareFlat.prototype._reLayoutBackGroundImge = function () {
+	var rz = 1;
+
 	var w = this.innerWidth;
 	var h = this.innerHeight;
+
+	//var rw =
+	console.log(w, this.bgImageWidth * this.translateZ);
+
 	var maxTranslX = w - this.contentDiv.clientWidth * this.translateZ;
 	var maxTranslY = h - this.contentDiv.clientHeight * this.translateZ;
 	var maxImgX = w - this.bgImageWidth * rz * this.translateZ;
@@ -668,30 +728,34 @@ RiffShareFlat.prototype.reLayoutBackGroundImge = function () {
 	if (maxTranslY == 0) {
 		y = 0;
 	}
+	x = -this.translateX;
+	y = -this.translateY;
+	/*
 	if (w < this.contentDiv.clientWidth * this.translateZ) {
-		x = -this.translateX;
+	x = -this.translateX;
 	} else {
-		if (this.translateX > 0) {
-			x = -this.translateX;
-		} else {
-			if (-this.translateX > maxTranslX) {
-				x = maxImgX - maxTranslX - this.translateX;
-			}
-		}
+	if (this.translateX > 0) {
+	x = -this.translateX;
+	} else {
+	if (-this.translateX > maxTranslX) {
+	x = maxImgX - maxTranslX - this.translateX;
+	}
+	}
 	}
 	if (h < this.contentDiv.clientHeight * this.translateZ) {
-		y = -this.translateY;
+	y = -this.translateY;
 	} else {
-		if (this.translateY > 0) {
-			y = -this.translateY;
-		} else {
-			if (-this.translateY > maxTranslY) {
-				y = maxImgY - maxTranslY - this.translateY;
-			}
-		}
+	if (this.translateY > 0) {
+	y = -this.translateY;
+	} else {
+	if (-this.translateY > maxTranslY) {
+	y = maxImgY - maxTranslY - this.translateY;
 	}
+	}
+	}*/
 	var z = rz * this.translateZ;
 	var transformAttr = ' translate(' + x + ',' + y + ') scale(' + z * rz + ')';
+	//console.log(transformAttr);
 	this.bgImage.setAttribute('transform', transformAttr);
 };
 RiffShareFlat.prototype.resetAllLayersNow = function () {
@@ -751,29 +815,50 @@ RiffShareFlat.prototype.startPlay = function () {
 	var when=this.audioContext.currentTime;
 	this.sendNextPiece(when);
 	this.queueNextPiece(pieceLen/2,when+pieceLen);*/
-	this.queueNextPiece(this.audioContext.currentTime,0);
+	this.queueNextPiece(this.audioContext.currentTime, 0);
 	//this.tickID
 	//this.onAir
 };
-RiffShareFlat.prototype.queueNextPiece = function (when,measure) {
+RiffShareFlat.prototype.queueNextPiece = function (when, measure) {
 	if (this.onAir) {
 		//this.sendNextPiece(when);
-		this.sendNextMeasure(when,measure);
-		var nextMeasure=measure+1;
-		if(nextMeasure>=this.cauntMeasures()){
-			nextMeasure=0;
+		this.sendNextMeasure(when, measure);
+		var nextMeasure = measure + 1;
+		if (nextMeasure >= this.cauntMeasures()) {
+			nextMeasure = 0;
 		}
 		var N = 4 * 60 / this.tempo;
 		//var beatLen = 1 / 16 * N;
 		//var pieceLen = this.cauntMeasures() * N;
 		var nextWhen = when + N;
 		var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
-		console.log('next', nextWhen, 'wait', wait);
+		//console.log('next', nextWhen, 'wait', wait);
 		this.tickID = setTimeout(function () {
-				riffshareflat.queueNextPiece(nextWhen,nextMeasure);
+				riffshareflat.queueNextPiece(nextWhen, nextMeasure);
 			}, wait);
+		//this.moveCounter();
 	}
 }
+RiffShareFlat.prototype.moveCounter = function () {
+	//console.log(riffshareflat.counterLine);
+	//this.sentWhen=when;
+	//this.sentMeasure=measure;
+	if (riffshareflat.onAir) {
+		if (riffshareflat.counterLine) {
+			var N = 4 * 60 / riffshareflat.tempo;
+			var beatLen = 1 / 16 * N;
+			//var c16 = 16 * riffshareflat.cauntMeasures();
+			var diff = riffshareflat.sentMeasure * 16 + (riffshareflat.audioContext.currentTime - riffshareflat.sentWhen) / beatLen;
+			if (diff < 0) {
+				diff=diff+16 * riffshareflat.cauntMeasures();
+			}
+			//console.log(riffshareflat.sentMeasure*16,'at', riffshareflat.sentWhen, 'dif',diff, 'at',riffshareflat.audioContext.currentTime);
+			var x = diff * riffshareflat.tapSize;
+			var transformAttr = ' translate(' + x + ',0)';
+			riffshareflat.counterLine.setAttribute('transform', transformAttr);
+		}
+	}
+};
 RiffShareFlat.prototype.stopPlay = function () {
 	this.onAir = false;
 	clearTimeout(this.tickID);
@@ -812,20 +897,22 @@ RiffShareFlat.prototype.cauntMeasures = function () {
 	return le;
 }
 RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
-	console.log('sendNextPiece', when);
+	//console.log('sendNextPiece', when);
+	this.sentWhen = when;
+	this.sentMeasure = measure;
 	var N = 4 * 60 / this.tempo;
 	//var pieceLen = (currentLen / 16) * N;
 	var beatLen = 1 / 16 * N;
 	for (var i = 0; i < this.storeDrums.length; i++) {
 		var hit = this.storeDrums[i];
-		if (hit.beat >= measure * 16 && hit.beat < (measure+1) * 16) {
+		if (hit.beat >= measure * 16 && hit.beat < (measure + 1) * 16) {
 			var channel = this.drumInfo[hit.drum];
 			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, 3, channel.volumeRatio);
 		}
 	}
 	for (var i = 0; i < this.storeTracks.length; i++) {
 		var note = this.storeTracks[i];
-		if (note.beat >= measure * 16&& note.beat < (measure+1) * 16) {
+		if (note.beat >= measure * 16 && note.beat < (measure + 1) * 16) {
 			var channel = this.trackInfo[7 - note.track];
 			var shift = [{
 					when: note.length * beatLen,
@@ -843,8 +930,8 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	var h = this.innerHeight;
 	var g = this.rakeGroup(x, y, w, h, 'grdlin', this.paneGroup, left, top, width, height);
 	if (g) {
-		this.tileRectangle(g, 0, 0, this.innerWidth, this.innerHeight, 'rgba(0,0,0,0.8)');
-		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 4, this.tapSize * 5, 'RiffShare', '#fff');
+		//this.tileRectangle(g, 0, 0, this.innerWidth, this.innerHeight, 'rgba(0,0,0,0.8)');
+		this.tileText(g, x - this.tapSize * 0.5, y + this.tapSize * 4, this.tapSize * 7, 'RiffShare', '#333');
 
 		this.tileCircle(g, 1.5 * this.tapSize, 9 * this.tapSize, 0.5 * this.tapSize, '#999');
 		var startLabel = 'Play';
@@ -858,18 +945,17 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 			} else {
 				riffshareflat.startPlay();
 			}
-			//riffshareflat.clearLayerChildren([riffshareflat.paneGroup]);
 		});
 
 		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 1) * this.tapSize, 0.5 * this.tapSize, '#999');
 		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 1), this.tapSize * 0.9, 'Save & Share', '#fff');
 		this.addSpot('svsh', 1 * this.tapSize, (8.5 + 1.5 * 1) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
-			console.log('svsh');
+			window.open('export.html', '_self')
 		});
 		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 2) * this.tapSize, 0.5 * this.tapSize, '#999');
 		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 2), this.tapSize * 0.9, 'Import', '#fff');
 		this.addSpot('imprt', 1 * this.tapSize, (8.5 + 1.5 * 2) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
-			console.log('imprt');
+			window.open('import.html', '_self')
 		});
 		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 3) * this.tapSize, 0.5 * this.tapSize, '#999');
 		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 3), this.tapSize * 0.9, 'Clear all', '#fff');
@@ -899,6 +985,8 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	this.tileToneVolumes(left, top, width, height);
 	this.tileTempo(left, top, width, height);
 	this.tilePianoLines(left, top, width, height);
+	this.tileCounter(left, top, width, height);
+
 	try {
 		this.tileDrums(left, top, width, height);
 	} catch (e) {
@@ -973,16 +1061,20 @@ RiffShareFlat.prototype.tilePianoLines = function (left, top, width, height) {
 			this.tileRectangle(g, x, y + this.tapSize * (2 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.1)');
 			this.tileRectangle(g, x, y + this.tapSize * (4 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.1)');
 			this.tileRectangle(g, x, y + this.tapSize * (6 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.1)');
-			this.tileRectangle(g, x, y + this.tapSize * (7 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.2)');
-			this.tileRectangle(g, x, y + this.tapSize * (9 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.3)');
-			this.tileRectangle(g, x, y + this.tapSize * (11 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.4)');
+			this.tileRectangle(g, x, y + this.tapSize * (7 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.1)');
+			this.tileRectangle(g, x, y + this.tapSize * (9 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.1)');
+			this.tileRectangle(g, x, y + this.tapSize * (11 + i * 12), w, this.tapSize * 0.9, 'rgba(255,255,255,0.1)');
 		}
+
 		for (var i = 1; i < 16 * 16; i++) {
-			this.tileRectangle(g, x + this.tapSize * i, y, this.tapSize * 0.05, this.tapSize * 5 * 12, 'rgba(0,0,0,0.2)');
+			this.tileRectangle(g, x + this.tapSize * i, y, this.tapSize * 0.03, this.tapSize * 5 * 12, 'rgba(0,0,0,0.75)');
 		}
 		var track = this.findTrackInfo(0);
+		for (var i = 0; i < 4; i++) {
+			this.tileRectangle(g, x, y + this.tapSize * (11.94 + i * 12), w, this.tapSize * 0.03, track.color);
+		}
 		for (var i = 16; i < 16 * 16; i = i + 16) {
-			this.tileRectangle(g, x + this.tapSize * i, y, this.tapSize * 0.1, this.tapSize * (8 + 5 * 12), track.color);
+			this.tileRectangle(g, x + this.tapSize * i, y, this.tapSize * 0.03, this.tapSize * (8 + 5 * 12), track.color);
 		}
 	}
 };
@@ -1057,6 +1149,18 @@ RiffShareFlat.prototype.tilePartTones = function (measure, octave, track, left, 
 			}
 		}
 	}
+};
+
+RiffShareFlat.prototype.tileCounter = function (left, top, width, height) {
+	if (this.onAir) {
+	var x = this.tapSize * this.marginLeft;
+	var y = 0;
+	var w = this.tapSize;
+	var h = this.innerHeight;
+	var g = this.rakeGroup(x, y, w, h, 'cntr', this.counterGroup, left, top, width, height);
+	if (g) {
+		this.counterLine = this.tileRectangle(g, x + this.tapSize * 0.3, y, this.tapSize * 0.4, h, '#333');
+	}}
 };
 RiffShareFlat.prototype.tileTones = function (left, top, width, height) {
 	for (var m = 0; m < 16; m++) {
@@ -1172,7 +1276,7 @@ RiffShareFlat.prototype.tileToneVolumes = function (left, top, width, height) {
 			}else{
 			track=this.trackInfo[0];
 			}*/
-			this.tileRectangle(g, x + this.tapSize * (0 + 6), y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)');
+			this.tileRectangle(g, x + this.tapSize * (0 + 6), y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.3)');
 			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * (1 + track.volume / 10), this.tapSize * 0.9, track.color);
 			this.tileCircle(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.5), this.tapSize * 0.5, '#fff');
 			var s = this.addSpot('up' + i, x + this.tapSize * 0.0, y + this.tapSize * (i + 0.2), this.tapSize * 5, this.tapSize * 1, function () {
@@ -1198,7 +1302,7 @@ RiffShareFlat.prototype.tileDrumVolumes = function (left, top, width, height) {
 	var g = this.rakeGroup(x, y, w, h, 'drvlm', this.textGroup, left, top, width, height);
 	if (g) {
 		for (var i = 0; i < 8; i++) {
-			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.5)');
+			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.3)');
 			var n = this.drumVolumes[i] / 10;
 			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * i, this.tapSize * (1 + n), this.tapSize * 0.9, 'rgba(255,255,255,0.9)');
 			for (var v = 0; v < 11; v++) {
@@ -1231,7 +1335,7 @@ RiffShareFlat.prototype.tileEqualizer = function (left, top, width, height) {
 	var g = this.rakeGroup(x, y, w, h, 'eqlzr', this.textGroup, left, top, width, height);
 	if (g) {
 		for (var i = 0; i < 10; i++) {
-			this.tileRectangle(g, x + this.tapSize * i * sz, y, this.tapSize * 0.95 * sz, this.tapSize * 21, 'rgba(255,255,255,0.5)');
+			this.tileRectangle(g, x + this.tapSize * i * sz, y, this.tapSize * 0.95 * sz, this.tapSize * 21, 'rgba(255,255,255,0.3)');
 			var n = this.equalizer[i];
 			var ey = n < 0 ? y + this.tapSize * 10 : y + this.tapSize * 10 - this.tapSize * n;
 			this.tileRectangle(g, x + this.tapSize * i * sz, ey, this.tapSize * 0.95 * sz, this.tapSize * (1 + Math.abs(n)), 'rgba(255,255,255,0.9)');
@@ -1322,7 +1426,8 @@ RiffShareFlat.prototype.collision = function (x1, y1, w1, h1, x2, y2, w2, h2) {
 		 || x1 > x2 + w2 //
 		 || y1 + h1 < y2 //
 		 || y1 > y2 + h2 //
-	) {
+	)
+	{
 		return false;
 	} else {
 		return true;
@@ -1411,6 +1516,7 @@ RiffShareFlat.prototype.tileRectangle = function (g, x, y, w, h, fillColor, stro
 		rect.setAttributeNS(null, 'ry', r);
 	}
 	g.appendChild(rect);
+	return rect;
 };
 RiffShareFlat.prototype.tileText = function (g, x, y, fontSize, text, bgColor, strokeColor, strokeWidth, fontFamily, fontStyle) {
 	var txt = document.createElementNS(this.svgns, 'text');
