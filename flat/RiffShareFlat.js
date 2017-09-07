@@ -1354,16 +1354,16 @@ RiffShareFlat.prototype.tileEqualizer = function (left, top, width, height) {
 				s.volume = v;
 			}
 		}
-		this.tileText(g, x + this.tapSize * (0 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '65', '#000');
-		this.tileText(g, x + this.tapSize * (1 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '125', '#000');
-		this.tileText(g, x + this.tapSize * (2 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '250', '#000');
-		this.tileText(g, x + this.tapSize * (3 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '500', '#000');
-		this.tileText(g, x + this.tapSize * (4 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '1k', '#000');
-		this.tileText(g, x + this.tapSize * (5 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '1k', '#000');
-		this.tileText(g, x + this.tapSize * (6 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '2k', '#000');
-		this.tileText(g, x + this.tapSize * (7 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '4k', '#000');
-		this.tileText(g, x + this.tapSize * (8 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '8k', '#000');
-		this.tileText(g, x + this.tapSize * (9 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '16k', '#000');
+		this.tileText(g, x + this.tapSize * (0 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '65', '#000');
+		this.tileText(g, x + this.tapSize * (1 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '125', '#000');
+		this.tileText(g, x + this.tapSize * (2 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '250', '#000');
+		this.tileText(g, x + this.tapSize * (3 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '500', '#000');
+		this.tileText(g, x + this.tapSize * (4 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '1k', '#000');
+		this.tileText(g, x + this.tapSize * (5 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '1k', '#000');
+		this.tileText(g, x + this.tapSize * (6 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '2k', '#000');
+		this.tileText(g, x + this.tapSize * (7 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '4k', '#000');
+		this.tileText(g, x + this.tapSize * (8 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '8k', '#000');
+		this.tileText(g, x + this.tapSize * (9 * sz + 0.3), y + this.tapSize * 10.75, this.tapSize * 0.75, '16k', '#000');
 	}
 };
 RiffShareFlat.prototype.clearUselessDetails = function (x, y, w, h, layer) {
