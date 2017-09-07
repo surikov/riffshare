@@ -250,7 +250,19 @@ RiffShareFlat.prototype.init = function () {
 		}
 	}
 	this.storeDrums = readObjectFromlocalStorage('storeDrums');
+	try{
+	var le=this.storeDrums.length;
+	}catch(t){
+		console.log(t);
+		this.storeDrums=[];
+	}
 	this.storeTracks = readObjectFromlocalStorage('storeTracks');
+	try{
+	var le=this.storeTracks.length;
+	}catch(t){
+		console.log(t);
+		this.storeTracks=[];
+	}
 	var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 	this.audioContext = new AudioContextFunc();
 	this.player = new WebAudioFontPlayer();
@@ -683,7 +695,7 @@ RiffShareFlat.prototype.reLayoutBackGroundImge = function () {
 	this.bgImage.setAttribute('transform', transformAttr);
 };
 RiffShareFlat.prototype.resetAllLayersNow = function () {
-	this.clearLayerChildrent([this.contentGroup]);
+	this.clearLayerChildren([this.contentGroup]);
 	this.clearSpots();
 	this.resetSize();
 	this.resetTiles();
@@ -739,21 +751,26 @@ RiffShareFlat.prototype.startPlay = function () {
 	var when=this.audioContext.currentTime;
 	this.sendNextPiece(when);
 	this.queueNextPiece(pieceLen/2,when+pieceLen);*/
-	this.queueNextPiece(this.audioContext.currentTime);
+	this.queueNextPiece(this.audioContext.currentTime,0);
 	//this.tickID
 	//this.onAir
 };
-RiffShareFlat.prototype.queueNextPiece = function (when) {
+RiffShareFlat.prototype.queueNextPiece = function (when,measure) {
 	if (this.onAir) {
-		this.sendNextPiece(when);
+		//this.sendNextPiece(when);
+		this.sendNextMeasure(when,measure);
+		var nextMeasure=measure+1;
+		if(nextMeasure>=this.cauntMeasures()){
+			nextMeasure=0;
+		}
 		var N = 4 * 60 / this.tempo;
-		var beatLen = 1 / 16 * N;
-		var pieceLen = this.cauntMeasures() * N;
-		var next=when + pieceLen;
-		var wait=0.5*1000*(next-this.audioContext.currentTime);
-		console.log('next', next,'wait',wait);
+		//var beatLen = 1 / 16 * N;
+		//var pieceLen = this.cauntMeasures() * N;
+		var nextWhen = when + N;
+		var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
+		console.log('next', nextWhen, 'wait', wait);
 		this.tickID = setTimeout(function () {
-				riffshareflat.queueNextPiece(next);
+				riffshareflat.queueNextPiece(nextWhen,nextMeasure);
 			}, wait);
 	}
 }
@@ -794,25 +811,29 @@ RiffShareFlat.prototype.cauntMeasures = function () {
 	var le = Math.ceil((mx + 1) / 16);
 	return le;
 }
-RiffShareFlat.prototype.sendNextPiece = function (when) {
+RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
 	console.log('sendNextPiece', when);
 	var N = 4 * 60 / this.tempo;
 	//var pieceLen = (currentLen / 16) * N;
 	var beatLen = 1 / 16 * N;
 	for (var i = 0; i < this.storeDrums.length; i++) {
 		var hit = this.storeDrums[i];
-		var channel = this.drumInfo[hit.drum];
-		this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * hit.beat, channel.pitch, 3, channel.volumeRatio);
+		if (hit.beat >= measure * 16 && hit.beat < (measure+1) * 16) {
+			var channel = this.drumInfo[hit.drum];
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, 3, channel.volumeRatio);
+		}
 	}
 	for (var i = 0; i < this.storeTracks.length; i++) {
 		var note = this.storeTracks[i];
-		var channel = this.trackInfo[7 - note.track];
-		var shift = [{
-				when: note.length * beatLen,
-				pitch: note.shift + channel.octave * 12 + note.pitch
-			}
-		];
-		this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * note.beat, channel.octave * 12 + note.pitch, note.length * beatLen, channel.volumeRatio, shift);
+		if (note.beat >= measure * 16&& note.beat < (measure+1) * 16) {
+			var channel = this.trackInfo[7 - note.track];
+			var shift = [{
+					when: note.length * beatLen,
+					pitch: note.shift + channel.octave * 12 + note.pitch
+				}
+			];
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (note.beat - measure * 16), channel.octave * 12 + note.pitch, note.length * beatLen, channel.volumeRatio, shift);
+		}
 	}
 };
 RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
@@ -824,11 +845,54 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	if (g) {
 		this.tileRectangle(g, 0, 0, this.innerWidth, this.innerHeight, 'rgba(0,0,0,0.8)');
 		this.tileText(g, x + this.tapSize * 0.5, y + this.tapSize * 4, this.tapSize * 5, 'RiffShare', '#fff');
-		this.tileCircle(g, 3 * this.tapSize, 7 * this.tapSize, 2 * this.tapSize, '#fff');
 
-		this.addSpot('plybt', 1 * this.tapSize, 5 * this.tapSize, 4 * this.tapSize, 4 * this.tapSize, function () {
-			riffshareflat.startPlay();
+		this.tileCircle(g, 1.5 * this.tapSize, 9 * this.tapSize, 0.5 * this.tapSize, '#999');
+		var startLabel = 'Play';
+		if (this.onAir) {
+			startLabel = 'Stop';
+		}
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * 9.3, this.tapSize * 0.9, startLabel, '#fff');
+		this.addSpot('plybt', 1 * this.tapSize, 8.5 * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			if (riffshareflat.onAir) {
+				riffshareflat.stopPlay();
+			} else {
+				riffshareflat.startPlay();
+			}
+			//riffshareflat.clearLayerChildren([riffshareflat.paneGroup]);
 		});
+
+		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 1) * this.tapSize, 0.5 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 1), this.tapSize * 0.9, 'Save & Share', '#fff');
+		this.addSpot('svsh', 1 * this.tapSize, (8.5 + 1.5 * 1) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			console.log('svsh');
+		});
+		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 2) * this.tapSize, 0.5 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 2), this.tapSize * 0.9, 'Import', '#fff');
+		this.addSpot('imprt', 1 * this.tapSize, (8.5 + 1.5 * 2) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			console.log('imprt');
+		});
+		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 3) * this.tapSize, 0.5 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 3), this.tapSize * 0.9, 'Clear all', '#fff');
+		this.addSpot('clrsng', 1 * this.tapSize, (8.5 + 1.5 * 3) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			console.log('clrsng');
+		});
+
+		this.tileCircle(g, 1.5 * this.tapSize, 51 * this.tapSize, 0.5 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * 51.3, this.tapSize * 0.9, 'Swap with ' + this.findTrackInfo(1).title, this.findTrackInfo(1).color);
+		this.addSpot('swp', 1 * this.tapSize, 50.5 * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			console.log('swp');
+		});
+		this.tileCircle(g, 1.5 * this.tapSize, 50 * this.tapSize, 0.5 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * 50.3, this.tapSize * 0.9, 'Transpose down', this.findTrackInfo(0).color);
+		this.addSpot('trdwn', 1 * this.tapSize, 49.5 * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			console.log('trdwn');
+		});
+		this.tileCircle(g, 1.5 * this.tapSize, 49 * this.tapSize, 0.5 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * 49.3, this.tapSize * 0.9, 'Transpose up', this.findTrackInfo(0).color);
+		this.addSpot('trupp', 1 * this.tapSize, 48.5 * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+			console.log('trupp');
+		});
+
 	}
 	this.tileEqualizer(left, top, width, height);
 	this.tileDrumVolumes(left, top, width, height);
@@ -1033,7 +1097,7 @@ RiffShareFlat.prototype.tileTones = function (left, top, width, height) {
 				riffshareflat.userActionAddNote(abeat, apitch, nn, alength, ashift);
 				riffshareflat.mark = null;
 			} else {
-				if(beat<16*16){
+				if (beat < 16 * 16) {
 					riffshareflat.mark = {
 						beat: beat,
 						pitch: pitch
@@ -1046,7 +1110,7 @@ RiffShareFlat.prototype.tileTones = function (left, top, width, height) {
 };
 RiffShareFlat.prototype.tileTempo = function (left, top, width, height) {
 	var x = this.tapSize * (this.marginLeft - 12);
-	var y = this.tapSize * (this.marginTop + 12 * 5 - 33);
+	var y = this.tapSize * (this.marginTop + 12 * 5 - 36.5);
 	var w = this.tapSize * 12;
 	var h = this.tapSize * 8;
 	var g = this.rakeGroup(x, y, w, h, 'tmpo', this.textGroup, left, top, width, height);
@@ -1159,35 +1223,36 @@ RiffShareFlat.prototype.tileDrumVolumes = function (left, top, width, height) {
 	}
 };
 RiffShareFlat.prototype.tileEqualizer = function (left, top, width, height) {
-	var x = this.tapSize * (this.marginLeft - 12);
-	var y = this.tapSize * (this.marginTop + 12 * 5 - 31);
+	var x = this.tapSize * (this.marginLeft - 17.5);
+	var y = this.tapSize * (this.marginTop + 12 * 5 - 34.5);
 	var w = this.tapSize * 10;
 	var h = this.tapSize * 21;
+	var sz = 1.65;
 	var g = this.rakeGroup(x, y, w, h, 'eqlzr', this.textGroup, left, top, width, height);
 	if (g) {
 		for (var i = 0; i < 10; i++) {
-			this.tileRectangle(g, x + this.tapSize * i * 1.1, y, this.tapSize * 1.05, this.tapSize * 21, 'rgba(255,255,255,0.5)');
+			this.tileRectangle(g, x + this.tapSize * i * sz, y, this.tapSize * 0.95 * sz, this.tapSize * 21, 'rgba(255,255,255,0.5)');
 			var n = this.equalizer[i];
 			var ey = n < 0 ? y + this.tapSize * 10 : y + this.tapSize * 10 - this.tapSize * n;
-			this.tileRectangle(g, x + this.tapSize * i * 1.1, ey, this.tapSize * 1.05, this.tapSize * (1 + Math.abs(n)), 'rgba(255,255,255,0.9)');
+			this.tileRectangle(g, x + this.tapSize * i * sz, ey, this.tapSize * 0.95 * sz, this.tapSize * (1 + Math.abs(n)), 'rgba(255,255,255,0.9)');
 			for (var v = -10; v <= 10; v++) {
-				var s = this.addSpot('eq' + i + 'x' + v, x + this.tapSize * i * 1.1, y - this.tapSize * (v - 10), this.tapSize * 1.1, this.tapSize, function () {
+				var s = this.addSpot('eq' + i + 'x' + v, x + this.tapSize * i * sz, y - this.tapSize * (v - 10), this.tapSize * 0.95 * sz, this.tapSize, function () {
 						riffshareflat.userActionEqualizer(this.band, this.volume);
 					});
 				s.band = i;
 				s.volume = v;
 			}
 		}
-		this.tileText(g, x + this.tapSize * (0 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '65', '#000');
-		this.tileText(g, x + this.tapSize * (1 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '125', '#000');
-		this.tileText(g, x + this.tapSize * (2 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '250', '#000');
-		this.tileText(g, x + this.tapSize * (3 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '500', '#000');
-		this.tileText(g, x + this.tapSize * (4 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '1k', '#000');
-		this.tileText(g, x + this.tapSize * (5 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '1k', '#000');
-		this.tileText(g, x + this.tapSize * (6 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '2k', '#000');
-		this.tileText(g, x + this.tapSize * (7 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '4k', '#000');
-		this.tileText(g, x + this.tapSize * (8 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '8k', '#000');
-		this.tileText(g, x + this.tapSize * (9 * 1.1 + 0.2), y + this.tapSize * 10.75, this.tapSize * 0.5, '16k', '#000');
+		this.tileText(g, x + this.tapSize * (0 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '65', '#000');
+		this.tileText(g, x + this.tapSize * (1 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '125', '#000');
+		this.tileText(g, x + this.tapSize * (2 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '250', '#000');
+		this.tileText(g, x + this.tapSize * (3 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '500', '#000');
+		this.tileText(g, x + this.tapSize * (4 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '1k', '#000');
+		this.tileText(g, x + this.tapSize * (5 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '1k', '#000');
+		this.tileText(g, x + this.tapSize * (6 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '2k', '#000');
+		this.tileText(g, x + this.tapSize * (7 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '4k', '#000');
+		this.tileText(g, x + this.tapSize * (8 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '8k', '#000');
+		this.tileText(g, x + this.tapSize * (9 * sz + 0.4), y + this.tapSize * 10.75, this.tapSize * 0.5, '16k', '#000');
 	}
 };
 RiffShareFlat.prototype.clearUselessDetails = function (x, y, w, h, layer) {
@@ -1370,7 +1435,7 @@ RiffShareFlat.prototype.tileText = function (g, x, y, fontSize, text, bgColor, s
 	txt.innerHTML = text;
 	g.appendChild(txt);
 };
-RiffShareFlat.prototype.clearLayerChildrent = function (layers) {
+RiffShareFlat.prototype.clearLayerChildren = function (layers) {
 	for (var i = 0; i < layers.length; i++) {
 		var layer = layers[i];
 		for (var n = 0; n < layer.children.length; n++) {
