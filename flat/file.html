@@ -10,18 +10,23 @@
 				background-color:#000;
 				color: #fff;	
 				font-size: x-large;
+				text-align: center;
 			}
 			a {
 				color: #99f;
 				text-decoration: none;
 			}
 			h1 {
-				background-color: #111;
 				text-align: center;
+				border-bottom: 1px solid #333;
 			}
 			.ftr {
-				background-color: #111;
-				text-align: center;
+				text-align: left;
+				border-top: 1px solid #333;
+			}
+			.cntr {
+				text-align: left;
+				display: inline-block;
 			}
 			@font-face {
 			  font-family: 'Gidugu';
@@ -49,11 +54,11 @@
 				<li>GitHub <a href="#">source</a></li>
 			</ul>
 		</div>
-		<p class="ftr">Return <a href="index.html">back</a></p>
+		<p class="ftr">Return to <a href="index.html">editor</a></p>
 		<script>
 		
 			var sharemail=document.getElementById('sharemail');
-			sharemail.href="mailto:to@any.body?subject=RiffShare&body=https://surikov.github.io/riffshare/flat/load.html?riff="+encodeState();
+			sharemail.href="mailto:to@any.body?subject=RiffShare&body=look to https://surikov.github.io/riffshare/flat/load.html?riff="+encodeState();
 			console.log(sharemail.href);
 		</script>
 	</body>
