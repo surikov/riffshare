@@ -162,76 +162,76 @@ function decodeState(encoded) {
 		console.log(ex);
 	}
 }
-function pad0(value,size){
-				for(var i=value.length;i<size;i++){
-					value='0'+value;
+function pad0(value, size) {
+	for (var i = value.length; i < size; i++) {
+		value = '0' + value;
+	}
+	return value;
+}
+function encodeState() {
+	var txt = '';
+	try {
+		var tempo = 1 * sureInList(readTextFromlocalStorage('tempo'), 120, [80, 100, 120, 140, 160, 180, 200, 220]);
+		txt = tempo.toString(16);
+		var tracks = '';
+		for (var i = 0; i < 8; i++) {
+			var n = Math.round(sureNumeric(readTextFromlocalStorage('track' + i), 0, 60, 100) / 10).toString(16);
+			tracks = tracks + n;
+		}
+		txt = txt + '-' + tracks;
+		var drums = '';
+		for (var i = 0; i < 8; i++) {
+			var n = Math.round(sureNumeric(readTextFromlocalStorage('drum' + i), 0, 60, 100) / 10).toString(16);
+			drums = drums + n;
+		}
+		txt = txt + '-' + drums;
+		var equalizer = '';
+		for (var i = 0; i < 10; i++) {
+			var n = pad0(Math.round(sureNumeric(readTextFromlocalStorage('equalizer' + i), -10, 60, 10) + 10).toString(16), 2);
+			equalizer = equalizer + n;
+		}
+		txt = txt + '-' + equalizer;
+		var storeDrums = readObjectFromlocalStorage('storeDrums');
+		var drumData = "";
+		for (var di = 0; di < 8; di++) {
+			for (var bi = 0; bi < 32; bi++) {
+				var part = [];
+				for (var i = 0; i < storeDrums.length; i++) {
+					var drum = storeDrums[i].drum;
+					var beat = storeDrums[i].beat;
+					if (drum == di && beat >= bi * 8 && beat < (bi + 1) * 8) {
+						part.push(beat - bi * 8);
+					}
 				}
-				return value;
-			}
-function encodeState(){
-				var txt='';
-				try{
-					var tempo=1*sureInList(readTextFromlocalStorage('tempo'),120,[80,100,120,140,160,180,200,220]);
-					txt=tempo.toString(16);
-					var tracks='';
-					for(var i=0;i<8;i++){
-						var n=Math.round(sureNumeric(readTextFromlocalStorage('track'+i),0,60,100)/10).toString(16);
-						tracks=tracks+n;
+				if (part.length > 0) {
+					var key = di << 5 | bi;
+					var data = 0;
+					for (var t = 0; t < part.length; t++) {
+						data = data | (1 << part[t]);
 					}
-					txt=txt+'-'+tracks;
-					var drums='';
-					for(var i=0;i<8;i++){
-						var n=Math.round(sureNumeric(readTextFromlocalStorage('drum'+i),0,60,100)/10).toString(16);
-						drums=drums+n;
-					}
-					txt=txt+'-'+drums;
-					var equalizer='';
-					for(var i=0;i<10;i++){
-						var n=pad0(Math.round(sureNumeric(readTextFromlocalStorage('equalizer'+i),-10,60,10)+10).toString(16),2);
-						equalizer=equalizer+n;
-					}
-					txt=txt+'-'+equalizer;
-					var storeDrums=readObjectFromlocalStorage('storeDrums');
-					var drumData="";
-					for(var di=0;di<8;di++){
-						for(var bi=0;bi<32;bi++){
-							var part=[];
-							for(var i=0;i<storeDrums.length;i++){
-								var drum=storeDrums[i].drum;
-								var beat=storeDrums[i].beat;
-								if(drum==di && beat>=bi*8 && beat<(bi+1)*8){
-									part.push(beat-bi*8);
-								}
-							}
-							if(part.length>0){
-								var key=di<<5 | bi;
-								var data=0;
-								for(var t=0;t<part.length;t++){
-									data=data |  (1<<part[t]);
-								}
-								drumData=drumData+pad0(key.toString(16),2)+pad0(data.toString(16),2);
-							}
-						}
-					}
-					txt=txt+'-'+drumData;
-					var storeTracks=readObjectFromlocalStorage('storeTracks');
-					var pitchData='';
-					for(var bi=0;bi<256;bi++){
-						var data='';
-						for(var i=0;i<storeTracks.length;i++){
-							var beat=storeTracks[i].beat;
-							var length=storeTracks[i].length;
-							var pitch=storeTracks[i].pitch;
-							var shift=64+storeTracks[i].shift;
-							var track=storeTracks[i].track;
-							if(beat==bi){
-								pitchData=pitchData+pad0(beat.toString(16),2)+track.toString(16)+pad0(length.toString(16),2)+pad0(pitch.toString(16),2)+pad0(shift.toString(16),2);
-							}
-						}
-					}
-					txt=txt+'-'+pitchData;
-				}catch(ex){
-					console.log(ex);
+					drumData = drumData + pad0(key.toString(16), 2) + pad0(data.toString(16), 2);
 				}
-				return txt;
 			}
+		}
+		txt = txt + '-' + drumData;
+		var storeTracks = readObjectFromlocalStorage('storeTracks');
+		var pitchData = '';
+		for (var bi = 0; bi < 256; bi++) {
+			var data = '';
+			for (var i = 0; i < storeTracks.length; i++) {
+				var beat = storeTracks[i].beat;
+				var length = storeTracks[i].length;
+				var pitch = storeTracks[i].pitch;
+				var shift = 64 + storeTracks[i].shift;
+				var track = storeTracks[i].track;
+				if (beat == bi) {
+					pitchData = pitchData + pad0(beat.toString(16), 2) + track.toString(16) + pad0(length.toString(16), 2) + pad0(pitch.toString(16), 2) + pad0(shift.toString(16), 2);
+				}
+			}
+		}
+		txt = txt + '-' + pitchData;
+	} catch (ex) {
+		console.log(ex);
+	}
+	return txt;
+}

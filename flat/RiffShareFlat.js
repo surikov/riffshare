@@ -300,6 +300,13 @@ RiffShareFlat.prototype.saveState = function () {
 	}
 	saveObject2localStorage('flatstate', flatstate);
 	saveText2localStorage('tempo', ''+this.tempo);
+	for(var i=0;i<8;i++){
+		saveText2localStorage('drum' + i, '' + this.drumVolumes[i]);
+		saveText2localStorage('track' + i, '' + this.trackInfo[i].volume);
+	}
+	for(var i=0;i<10;i++){
+		saveText2localStorage('equalizer' + i, '' + this.equalizer[i]);
+	}
 	saveObject2localStorage('storeDrums', this.storeDrums);
 	saveObject2localStorage('storeTracks', this.storeTracks);
 	window.onunload = null;
