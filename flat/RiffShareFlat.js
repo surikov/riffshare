@@ -215,7 +215,7 @@ RiffShareFlat.prototype.init = function () {
 		riffshareflat.saveState();
 	};
 	var flatstate = readObjectFromlocalStorage('flatstate');
-	console.log(flatstate);
+	//console.log(flatstate);
 	if (flatstate) {
 		try {
 			if (flatstate.tx) {
@@ -249,7 +249,7 @@ RiffShareFlat.prototype.init = function () {
 		}
 	}
 	this.storeDrums = sureArray(readObjectFromlocalStorage('storeDrums'), []);
-	console.log(this.storeDrums, readObjectFromlocalStorage('storeDrums'));
+	//console.log(this.storeDrums, readObjectFromlocalStorage('storeDrums'));
 	/*try {
 	var le = this.storeDrums.length;
 	} catch (t) {
@@ -257,7 +257,7 @@ RiffShareFlat.prototype.init = function () {
 	this.storeDrums = [];
 	}*/
 	this.storeTracks = sureArray(readObjectFromlocalStorage('storeTracks'), []);
-	console.log(this.storeTracks, readObjectFromlocalStorage('storeTracks'));
+	//console.log(this.storeTracks, readObjectFromlocalStorage('storeTracks'));
 	/*try {
 	var le = this.storeTracks.length;
 	} catch (t) {
@@ -302,7 +302,7 @@ RiffShareFlat.prototype.saveState = function () {
 	saveText2localStorage('tempo', ''+this.tempo);
 	for(var i=0;i<8;i++){
 		saveText2localStorage('drum' + i, '' + this.drumVolumes[i]);
-		saveText2localStorage('track' + i, '' + this.trackInfo[i].volume);
+		saveText2localStorage('track' + i, '' + this.trackInfo[7-i].volume);
 	}
 	for(var i=0;i<10;i++){
 		saveText2localStorage('equalizer' + i, '' + this.equalizer[i]);
