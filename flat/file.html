@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>RiffShareFlat file</title>
+		<meta charset="utf-8">
+		<script src="localstore.js"></script>
+		<style>
+			html, body {
+				font-family: 'Gidugu', serif;
+				background-color:#000;
+				color: #fff;	
+				font-size: x-large;
+			}
+			a {
+				color: #99f;
+				text-decoration: none;
+			}
+			h1 {
+				background-color: #111;
+				text-align: center;
+			}
+			.ftr {
+				background-color: #111;
+				text-align: center;
+			}
+			@font-face {
+			  font-family: 'Gidugu';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: local('Gidugu'), url(gidugu.woff2) format('woff2');
+			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>File</h1>
+		<div class='cntr'>
+			<ul>
+				<li>Share via <a id='sharemail' href="#">email</a></li>
+				<li>Show <a href="#">history</a></li>
+				<li><a href="#">Import</a> from .mid</li>
+				<li>Examples</a>
+					<ul>
+						<li>Adafc <a href="#">ccdd</a></li>
+						<li>Gbftyg <a href="#">xfyk</a></li>
+						<li>Rbfg <a href="#">vfu</a></li>
+					</ul>
+				</li>
+				<li>GitHub <a href="#">source</a></li>
+			</ul>
+		</div>
+		<p class="ftr">Return <a href="index.html">back</a></p>
+		<script>
+		
+			var sharemail=document.getElementById('sharemail');
+			sharemail.href="mailto:to@any.body?subject=RiffShare&body=https://surikov.github.io/riffshare/flat/load.html?riff="+encodeState();
+			console.log(sharemail.href);
+		</script>
+	</body>
+</html>
