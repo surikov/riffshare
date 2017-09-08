@@ -26,8 +26,12 @@ function readTextFromlocalStorage(name) {
 	return o;
 }
 function sureArray(v, defaultValue) {
-	if (v.length > 0) {
-		return v;
+	if (v) {
+		if (v.length > 0) {
+			return v;
+		} else {
+			return defaultValue;
+		}
 	} else {
 		return defaultValue;
 	}

@@ -42,6 +42,7 @@
 		<div class='cntr'>
 			<ul>
 				<li>Share via <a id='sharemail' href="#">email</a></li>
+				<li>Share via <a id="twitButton" class="twitter-share-button" href2="https://twitter.com/share" href="https://twitter.com/intent/tweet?text=#riffshare" data-url2="https://surikov.github.io/riffshare/edit.html" data-text2="#riffshare">Tweet</a></li>
 				<li>Show <a href="#">history</a></li>
 				<li><a href="#">Import</a> from .mid</li>
 				<li>Examples</a>
@@ -56,10 +57,29 @@
 		</div>
 		<p class="ftr">Return to <a href="index.html">editor</a></p>
 		<script>
-		
-			var sharemail=document.getElementById('sharemail');
-			sharemail.href="mailto:to@any.body?subject=RiffShare&body=look to https://surikov.github.io/riffshare/flat/load.html?riff="+encodeState();
-			console.log(sharemail.href);
+			var encoded = encodeState();
+			var sharemail = document.getElementById('sharemail');
+			sharemail.href = "mailto:to@any.body?subject=RiffShare&body=look to https://surikov.github.io/riffshare/flat/load.html?riff=" + encoded;
+			var twitterurl = "https://surikov.github.io/riffshare/flat/load.html%3Friff%3D" + encoded;
+			document.getElementById("twitButton").href="https://twitter.com/intent/tweet?text=#riffshare&url="+twitterurl;
+			window.twttr = (function (d, s, id) {
+				var js,
+				fjs = d.getElementsByTagName(s)[0],
+				t = window.twttr || {};
+				if (d.getElementById(id))
+					return;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "https://platform.twitter.com/widgets.js";
+				fjs.parentNode.insertBefore(js, fjs);
+				t._e = [];
+				t.ready = function (f) {
+					t._e.push(f);
+				};
+				return t;
+			}
+				(document, "script", "twitter-wjs"));
+			//console.log(sharemail.href);
 		</script>
 	</body>
 </html>
