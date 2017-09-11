@@ -18,7 +18,7 @@ RiffShareFlat.prototype.init = function () {
 	console.log('tapSize', this.tapSize, 'devicePixelRatio', window.devicePixelRatio);
 	this.tickID = -1;
 	this.onAir = false;
-	this.queueAhead = 0.5;
+	this.queueAhead = 0.1;
 	console.log('queueAhead',this.queueAhead);
 	this.svgns = "http://www.w3.org/2000/svg";
 	this.contentDiv = document.getElementById('contentDiv');
@@ -294,7 +294,7 @@ RiffShareFlat.prototype.init = function () {
 		this.player.adjustPreset(this.audioContext, this.trackInfo[i].sound);
 	}
 	this.resetSize();
-	//setInterval(riffshareflat.moveCounter, 50);
+	setInterval(riffshareflat.moveCounter, 100);
 	console.log('done init');
 };
 RiffShareFlat.prototype.saveState = function () {
