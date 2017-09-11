@@ -18,6 +18,7 @@ RiffShareFlat.prototype.init = function () {
 	console.log('tapSize', this.tapSize, 'devicePixelRatio', window.devicePixelRatio);
 	this.tickID = -1;
 	this.onAir = false;
+	//this.queueAhead=2;
 	this.svgns = "http://www.w3.org/2000/svg";
 	this.contentDiv = document.getElementById('contentDiv');
 	this.contentSVG = document.getElementById('contentSVG');
@@ -284,7 +285,7 @@ RiffShareFlat.prototype.init = function () {
 		this.player.adjustPreset(this.audioContext, this.trackInfo[i].sound);
 	}
 	this.resetSize();
-	setInterval(riffshareflat.moveCounter, 50);
+	//setInterval(riffshareflat.moveCounter, 50);
 	console.log('done init');
 };
 RiffShareFlat.prototype.saveState = function () {
@@ -787,6 +788,7 @@ RiffShareFlat.prototype.resetAllLayersNow = function () {
 	this.resetTiles();
 };
 RiffShareFlat.prototype.queueTiles = function () {
+	console.log('queueTiles',this.timeOutID);
 	if (this.timeOutID > 0) {
 		return;
 	}
@@ -855,6 +857,7 @@ RiffShareFlat.prototype.queueNextPiece = function (when, measure) {
 		var nextWhen = when + N;
 		var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
 		//console.log('next', nextWhen, 'wait', wait);
+		this.moveCounter();
 		this.tickID = setTimeout(function () {
 				riffshareflat.queueNextPiece(nextWhen, nextMeasure);
 			}, wait);
@@ -919,7 +922,7 @@ RiffShareFlat.prototype.cauntMeasures = function () {
 	return le;
 }
 RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
-	//console.log('sendNextPiece', when);
+	console.log('sendNextPiece', when,'from',this.audioContext.currentTime);
 	this.sentWhen = when;
 	this.sentMeasure = measure;
 	var N = 4 * 60 / this.tempo;
