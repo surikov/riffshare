@@ -18,7 +18,7 @@ RiffShareFlat.prototype.init = function () {
 	console.log('tapSize', this.tapSize, 'devicePixelRatio', window.devicePixelRatio);
 	this.tickID = -1;
 	this.onAir = false;
-	//this.queueAhead=2;
+	this.queueAhead=4;
 	this.svgns = "http://www.w3.org/2000/svg";
 	this.contentDiv = document.getElementById('contentDiv');
 	this.contentSVG = document.getElementById('contentSVG');
@@ -845,23 +845,24 @@ RiffShareFlat.prototype.startPlay = function () {
 };
 RiffShareFlat.prototype.queueNextPiece = function (when, measure) {
 	if (this.onAir) {
-		//this.sendNextPiece(when);
+		var N = 4 * 60 / this.tempo;
+		var nextWhen = when;
+		
+		console.log('sendNextPiece', when,'from',this.audioContext.currentTime);
 		this.sendNextMeasure(when, measure);
 		var nextMeasure = measure + 1;
 		if (nextMeasure >= this.cauntMeasures()) {
 			nextMeasure = 0;
 		}
-		var N = 4 * 60 / this.tempo;
-		//var beatLen = 1 / 16 * N;
-		//var pieceLen = this.cauntMeasures() * N;
-		var nextWhen = when + N;
+		nextWhen = when + N;
+		console.log('diff',nextWhen-when,'now',this.audioContext.currentTime);
+		
 		var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
-		//console.log('next', nextWhen, 'wait', wait);
+		console.log('wait',wait);
 		this.moveCounter();
 		this.tickID = setTimeout(function () {
 				riffshareflat.queueNextPiece(nextWhen, nextMeasure);
 			}, wait);
-		//this.moveCounter();
 	}
 }
 RiffShareFlat.prototype.moveCounter = function () {
@@ -872,10 +873,10 @@ RiffShareFlat.prototype.moveCounter = function () {
 		if (riffshareflat.counterLine) {
 			var N = 4 * 60 / riffshareflat.tempo;
 			var beatLen = 1 / 16 * N;
-			//var c16 = 16 * riffshareflat.cauntMeasures();
+			var c16 = 16 * riffshareflat.cauntMeasures();
 			var diff = riffshareflat.sentMeasure * 16 + (riffshareflat.audioContext.currentTime - riffshareflat.sentWhen) / beatLen;
-			if (diff < 0) {
-				diff = diff + 16 * riffshareflat.cauntMeasures();
+			while (diff < 0) {
+				diff = diff + c16;
 			}
 			//console.log(riffshareflat.sentMeasure*16,'at', riffshareflat.sentWhen, 'dif',diff, 'at',riffshareflat.audioContext.currentTime);
 			var x = diff * riffshareflat.tapSize;
@@ -922,7 +923,7 @@ RiffShareFlat.prototype.cauntMeasures = function () {
 	return le;
 }
 RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
-	console.log('sendNextPiece', when,'from',this.audioContext.currentTime);
+	
 	this.sentWhen = when;
 	this.sentMeasure = measure;
 	var N = 4 * 60 / this.tempo;
@@ -1186,6 +1187,9 @@ RiffShareFlat.prototype.tileCounter = function (left, top, width, height) {
 		var g = this.rakeGroup(x, y, w, h, 'cntr', this.counterGroup, left, top, width, height);
 		if (g) {
 			this.counterLine = this.tileRectangle(g, x + this.tapSize * 0.3, y, this.tapSize * 0.4, h, this.findTrackInfo(0).color);
+			
+			this.tileRectangle(g, 0, 0, this.tapSize * 0.001, this.tapSize * 0.001, '#000');
+			this.tileRectangle(g, this.innerWidth, this.innerHeight, this.tapSize * 0.001, this.tapSize * 0.001, '#000');
 		}
 	}
 };
