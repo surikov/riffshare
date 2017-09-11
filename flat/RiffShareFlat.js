@@ -77,49 +77,49 @@ RiffShareFlat.prototype.init = function () {
 			pitch: 36, //36
 			title: 'Bass drum',
 			id: 0,
-			volumeRatio: 0.35,
+			volumeRatio: 0.35,length:0.5
 		}, {
 			sound: _drum_41_26_JCLive_sf2_file,
 			pitch: 41, //43
 			title: 'Low Tom',
 			id: 1,
-			volumeRatio: 0.5,
+			volumeRatio: 0.5,length:0.5
 		}, {
 			sound: _drum_38_22_FluidR3_GM_sf2_file,
 			pitch: 38, //40
 			title: 'Snare drum',
 			id: 2,
-			volumeRatio: 0.5,
+			volumeRatio: 0.5,length:0.5
 		}, {
 			sound: _drum_45_26_JCLive_sf2_file,
 			pitch: 45, //47,48,50
 			title: 'Mid Tom',
 			id: 3,
-			volumeRatio: 0.75,
+			volumeRatio: 0.75,length:0.5
 		}, {
 			sound: _drum_42_26_JCLive_sf2_file,
 			pitch: 42, //44
 			title: 'Closed Hi-hat',
 			id: 4,
-			volumeRatio: 0.2,
+			volumeRatio: 0.2,length:1
 		}, {
 			sound: _drum_46_26_JCLive_sf2_file,
 			pitch: 46, //
 			title: 'Open Hi-hat',
 			id: 5,
-			volumeRatio: 0.15,
+			volumeRatio: 0.15,length:1
 		}, {
 			sound: _drum_51_26_JCLive_sf2_file,
 			pitch: 51, //rest
 			title: 'Ride Cymbal',
 			id: 6,
-			volumeRatio: 0.3,
+			volumeRatio: 0.3,length:2
 		}, {
 			sound: _drum_49_26_JCLive_sf2_file,
 			pitch: 49, //
 			title: 'Splash Cymbal',
 			id: 7,
-			volumeRatio: 0.1,
+			volumeRatio: 0.1,length:3
 		}
 	];
 	this.trackInfo = [{
@@ -856,6 +856,7 @@ RiffShareFlat.prototype.queueNextPiece = function (when, measure) {
 		}
 		nextWhen = when + N;
 		console.log('diff',nextWhen-when,'now',this.audioContext.currentTime);
+		console.log('envelopes',this.player.envelopes.length);
 		
 		var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
 		console.log('wait',wait);
@@ -933,7 +934,7 @@ RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
 		var hit = this.storeDrums[i];
 		if (hit.beat >= measure * 16 && hit.beat < (measure + 1) * 16) {
 			var channel = this.drumInfo[hit.drum];
-			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, 3, channel.volumeRatio);
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, channel.length, channel.volumeRatio);
 		}
 	}
 	for (var i = 0; i < this.storeTracks.length; i++) {
@@ -1301,30 +1302,41 @@ RiffShareFlat.prototype.tileToneVolumes = function (left, top, width, height) {
 	var sk = 0;
 	if (g) {
 		for (var i = 0; i < 8; i++) {
+			var track = this.findTrackInfo(i);
 			if (i > 0) {
 				sk = 2;
-			}
-			var track = this.findTrackInfo(i);
-			/*console.log(i,track);
-			if(track){
-			//
-			}else{
-			track=this.trackInfo[0];
-			}*/
-			this.tileRectangle(g, x + this.tapSize * (0 + 6), y + this.tapSize * (i + sk), this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.3)');
-			this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * (i + sk), this.tapSize * (1 + track.volume / 10), this.tapSize * 0.9, track.color);
-			this.tileCircle(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.5 + sk), this.tapSize * 0.5, '#fff');
-			var s = this.addSpot('up' + i, x + this.tapSize * 0.0, y + this.tapSize * (i + 0.2 + sk), this.tapSize * 5, this.tapSize * 1, function () {
-					riffshareflat.userActionUpTrack(this.order);
-				});
-			s.order = i;
-			this.tileText(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.75 + sk), this.tapSize * 1.0, track.title, track.color);
-			for (var v = 0; v < 11; v++) {
-				var s = this.addSpot('volton' + i + 'x' + v, x + this.tapSize * (6 + v), y + this.tapSize * (i + sk), this.tapSize, this.tapSize, function () {
-						riffshareflat.userActionToneVolume(this.track, this.volume);
+				//this.tileRectangle(g, x + this.tapSize * (0 + 6), y + this.tapSize * (i + sk), this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.3)');
+				this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * (i + sk), this.tapSize * (1 + track.volume / 10), this.tapSize * 0.9, track.color);
+				this.tileCircle(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.5 + sk), this.tapSize * 0.5, '#fff');
+				var s = this.addSpot('up' + i, x + this.tapSize * 0.0, y + this.tapSize * (i + 0.2 + sk), this.tapSize * 17, this.tapSize * 1, function () {
+						riffshareflat.userActionUpTrack(this.order);
 					});
-				s.track = track;
-				s.volume = v * 10;
+				s.order = i;
+				this.tileText(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.75 + sk), this.tapSize * 1.0, track.title, track.color);
+				/*for (var v = 0; v < 11; v++) {
+					var s = this.addSpot('volton' + i + 'x' + v, x + this.tapSize * (6 + v), y + this.tapSize * (i + sk), this.tapSize, this.tapSize, function () {
+							riffshareflat.userActionToneVolume(this.track, this.volume);
+						});
+					s.track = track;
+					s.volume = v * 10;
+				}*/
+			}
+			else{
+				this.tileRectangle(g, x + this.tapSize * (0 + 6), y + this.tapSize * (i + sk), this.tapSize * 11, this.tapSize * 0.9, 'rgba(255,255,255,0.3)');
+				this.tileRectangle(g, x + this.tapSize * 6, y + this.tapSize * (i + sk), this.tapSize * (1 + track.volume / 10), this.tapSize * 0.9, track.color);
+				this.tileCircle(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.5 + sk), this.tapSize * 0.5, '#fff');
+				/*var s = this.addSpot('up' + i, x + this.tapSize * 0.0, y + this.tapSize * (i + 0.2 + sk), this.tapSize * 5, this.tapSize * 1, function () {
+						riffshareflat.userActionUpTrack(this.order);
+					});
+				s.order = i;*/
+				this.tileText(g, x + this.tapSize * 1, y + this.tapSize * (i + 0.75 + sk), this.tapSize * 1.0, track.title, track.color);
+				for (var v = 0; v < 11; v++) {
+					var s = this.addSpot('volton' + i + 'x' + v, x + this.tapSize * (6 + v), y + this.tapSize * (i + sk), this.tapSize, this.tapSize, function () {
+							riffshareflat.userActionToneVolume(this.track, this.volume);
+						});
+					s.track = track;
+					s.volume = v * 10;
+				}
 			}
 		}
 	}
