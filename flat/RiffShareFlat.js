@@ -1,4 +1,4 @@
-console.log('riffshareflat v1.0.1');
+console.log('riffshareflat v1.0.2');
 function RiffShareFlat() {
 	window.riffshareflat = this;
 	return this;
