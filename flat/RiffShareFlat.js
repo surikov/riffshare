@@ -1022,7 +1022,7 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 		});*/
 
 	}
-	/*
+	
 	this.tileEqualizer(left, top, width, height);
 	this.tileDrumVolumes(left, top, width, height);
 	this.tileToneVolumes(left, top, width, height);
@@ -1039,7 +1039,7 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 		this.tileTones(left, top, width, height);
 	} catch (e) {
 		console.log(e);
-	}*/
+	}
 };
 RiffShareFlat.prototype.tileDrumMeasure = function (n, left, top, width, height) {
 	var x = this.tapSize * (this.marginLeft + n * 16);
