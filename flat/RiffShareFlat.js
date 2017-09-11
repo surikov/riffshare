@@ -78,7 +78,7 @@ RiffShareFlat.prototype.init = function () {
 			pitch: 36, //36
 			title: 'Bass drum',
 			id: 0,
-			volumeRatio: 0.35,
+			volumeRatio: 0.5,
 			length: 0.5
 		}, {
 			sound: _drum_41_26_JCLive_sf2_file,
@@ -92,7 +92,7 @@ RiffShareFlat.prototype.init = function () {
 			pitch: 38, //40
 			title: 'Snare drum',
 			id: 2,
-			volumeRatio: 0.5,
+			volumeRatio: 0.75,
 			length: 0.5
 		}, {
 			sound: _drum_45_26_JCLive_sf2_file,
@@ -106,14 +106,14 @@ RiffShareFlat.prototype.init = function () {
 			pitch: 42, //44
 			title: 'Closed Hi-hat',
 			id: 4,
-			volumeRatio: 0.2,
+			volumeRatio: 0.5,
 			length: 1
 		}, {
 			sound: _drum_46_26_JCLive_sf2_file,
 			pitch: 46, //
 			title: 'Open Hi-hat',
 			id: 5,
-			volumeRatio: 0.15,
+			volumeRatio: 0.5,
 			length: 1
 		}, {
 			sound: _drum_51_26_JCLive_sf2_file,
@@ -127,7 +127,7 @@ RiffShareFlat.prototype.init = function () {
 			pitch: 49, //
 			title: 'Splash Cymbal',
 			id: 7,
-			volumeRatio: 0.1,
+			volumeRatio: 0.3,
 			length: 3
 		}
 	];
@@ -140,7 +140,7 @@ RiffShareFlat.prototype.init = function () {
 			volume: sureNumeric(readObjectFromlocalStorage('track7'), 0, 70, 100),
 			nn: 7,
 			octave: 3,
-			volumeRatio: 0.2
+			volumeRatio: 0.5
 		}, {
 			color: 'rgba(204,153,0,1)',
 			shadow: 'rgba(204,153,0,0.4)',
@@ -200,7 +200,7 @@ RiffShareFlat.prototype.init = function () {
 			volume: sureNumeric(readObjectFromlocalStorage('track1'), 0, 70, 100),
 			nn: 1,
 			octave: 3,
-			volumeRatio: 0.33
+			volumeRatio: 0.75
 		}, {
 			color: 'rgba(255,0,0,1)',
 			shadow: 'rgba(255,0,0,0.4)',
@@ -850,14 +850,46 @@ RiffShareFlat.prototype.startPlay = function () {
 	this.queueNextPiece(pieceLen/2,when+pieceLen);*/
 	//this.tickID = 0;
 	this.queueNextPiece(this.audioContext.currentTime, 0);
+	//this.queueNextBeats(this.audioContext.currentTime, 0,8);
 	//this.tickID
 	//this.onAir
 };
+//sendNextBeats
+RiffShareFlat.prototype.queueNextBeats = function (when, beat,size) {
+	if (this.onAir) {
+			var N = 4 * 60 / this.tempo;
+			var c16 = 16 * riffshareflat.cauntMeasures();
+			var nextWhen = when;
+			var nextBeat = beat;
+			console.log('queueNextBeats',when, beat,size, this.audioContext.currentTime);
+			while (nextWhen < this.queueAhead + this.audioContext.currentTime) {
+				var pieceEnd=nextBeat+size-1;
+				if(pieceEnd>c16){
+					pieceEnd=c16-1;
+					this.sendNextBeats(nextWhen, 0,c16-nextBeat+size);
+				}
+				this.sendNextBeats(nextWhen, nextBeat,pieceEnd);
+				
+				nextMeasure = nextMeasure + 1;
+				if (nextMeasure >= this.cauntMeasures()) {
+					nextMeasure = 0;
+				}
+				nextWhen = nextWhen + N;
+				console.log('	envelopes',this.player.envelopes.length);
+			}
+
+			var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
+			this.moveCounter();
+			this.tickID = setTimeout(function () {
+					riffshareflat.queueNextPiece(nextWhen, nextMeasure);
+				}, wait);
+	}
+}
 RiffShareFlat.prototype.queueNextPiece = function (when, measure) {
 	if (this.onAir) {
 			var N = 4 * 60 / this.tempo;
 			var nextWhen = when;
-			nextMeasure = measure;
+			var nextMeasure = measure;
 
 			console.log('queueNextPiece', when, 'now', this.audioContext.currentTime, measure);
 			//console.log('N', N, 'nextWhen', nextWhen, 'ahead', this.queueAhead + this.audioContext.currentTime);
@@ -937,6 +969,34 @@ RiffShareFlat.prototype.cauntMeasures = function () {
 	var le = Math.ceil((mx + 1) / 16);
 	return le;
 }
+RiffShareFlat.prototype.sendNextBeats = function (when, startBeat,endBeat) {
+	console.log('sendNextMeasure', when, startBeat,endBeat);
+	this.sentWhen = when;
+	this.sentBeat = startBeat;
+	var N = 4 * 60 / this.tempo;
+	var beatLen = 1 / 16 * N;
+	
+	for (var i = 0; i < this.storeDrums.length; i++) {
+		var hit = this.storeDrums[i];
+		if (hit.beat >= startBeat && hit.beat <=endBeat) {
+			var channel = this.drumInfo[hit.drum];
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, channel.length, channel.volumeRatio);
+		}
+	}
+	
+	for (var i = 0; i < this.storeTracks.length; i++) {
+		var note = this.storeTracks[i];
+		if (note.beat >= startBeat && note.beat <=endBeat) {
+			var channel = this.trackInfo[7 - note.track];
+			var shift = [{
+					when: note.length * beatLen,
+					pitch: note.shift + channel.octave * 12 + note.pitch
+				}
+			];
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (note.beat - measure * 16), channel.octave * 12 + note.pitch, note.length * beatLen, channel.volumeRatio, shift);
+		}
+	}
+};
 RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
 	console.log('sendNextMeasure', when, measure);
 	this.sentWhen = when;
