@@ -9,7 +9,7 @@
 				font-family: 'Gidugu', serif;
 				background-color:#000;
 				color: #fff;	
-				font-size: x-large;
+				font-size: xx-large;
 				text-align: center;
 			}
 			a {
@@ -43,10 +43,12 @@
 			<ul>
 				<li>Share via <a id='sharemail' href="#">email</a></li>
 				<li>Share via <a id="twitButton" class="twitter-share-button" href2="https://twitter.com/share" href="https://twitter.com/intent/tweet?text=#riffshare" data-url2="https://surikov.github.io/riffshare/edit.html" data-text2="#riffshare">Tweet</a></li>
-				<li>Show <a href="#">history</a></li>
-				<li><a href="#">Import</a> from .mid</li>
+				<li><a id='copylink' href="javascript:copyLink();">Copy</a> link into clipboard</li>
+				<li>Show <a href="history.html">history</a></li>
+				<li><a href="import.html">Import</a> from .mid</li>
+				<li><a href="export.html">Export</a> to .mid</li>
 				<li><a href="examples.html">Examples</a></li>
-				<li>GitHub <a href="#">source</a></li>
+				<li>GitHub <a href="https://github.com/surikov/RiffShareAndroid">source</a></li>
 			</ul>
 		</div>
 		<p class="ftr">Return to <a href="index.html">editor</a></p>
@@ -55,7 +57,7 @@
 			var sharemail = document.getElementById('sharemail');
 			sharemail.href = "mailto:to@any.body?subject=RiffShare&body=look to https://surikov.github.io/riffshare/flat/load.html?riff=" + encoded;
 			var twitterurl = "https://surikov.github.io/riffshare/flat/load.html%3Friff%3D" + encoded;
-			document.getElementById("twitButton").href="https://twitter.com/intent/tweet?text=#riffshare&url="+twitterurl;
+			document.getElementById("twitButton").href = "https://twitter.com/intent/tweet?text=#riffshare&url=" + twitterurl;
 			window.twttr = (function (d, s, id) {
 				var js,
 				fjs = d.getElementsByTagName(s)[0],
@@ -73,7 +75,48 @@
 				return t;
 			}
 				(document, "script", "twitter-wjs"));
-			//console.log(sharemail.href);
+			clipboardDiv = document.createElement('div');
+			clipboardDiv.style.fontSize = '12pt'; // Prevent zooming on iOS
+			// Reset box model
+			clipboardDiv.style.border = '0';
+			clipboardDiv.style.padding = '0';
+			clipboardDiv.style.margin = '0';
+			// Move element out of screen
+			clipboardDiv.style.position = 'fixed';
+			clipboardDiv.style['right'] = '-9999px';
+			clipboardDiv.style.top = (window.pageYOffset || document.documentElement.scrollTop) + 'px';
+			// more hiding
+			clipboardDiv.setAttribute('readonly', '');
+			clipboardDiv.style.opacity = 0;
+			clipboardDiv.style.pointerEvents = 'none';
+			clipboardDiv.style.zIndex = -1;
+			clipboardDiv.setAttribute('tabindex', '0'); // so it can be focused
+			clipboardDiv.innerHTML = '';
+			document.body.appendChild(clipboardDiv);
+			function copyLink() {
+				copyHtmlToClipboard("https://surikov.github.io/riffshare/flat/load.html?riff=" + encoded);
+			}
+			function copyHtmlToClipboard(html) {
+				clipboardDiv.innerHTML = html;
+				var focused = document.activeElement;
+				clipboardDiv.focus();
+				window.getSelection().removeAllRanges();
+				var range = document.createRange();
+				range.setStartBefore(clipboardDiv.firstChild);
+				range.setEndAfter(clipboardDiv.lastChild);
+				window.getSelection().addRange(range);
+				var ok = false;
+				try {
+					if (document.execCommand('copy')) {
+						ok = true;
+					} else {
+						alert('Can not copy');
+					}
+				} catch (err) {
+					alert('Error ' + err);
+				}
+				focused.focus();
+			}
 		</script>
 	</body>
 </html>

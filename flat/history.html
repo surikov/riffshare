@@ -1,10 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>RiffShareFlat export</title>
+		<title>RiffShareFlat history</title>
 		<meta charset="utf-8">
 		<script src="localstore.js"></script>
-		<script src="MidiCompiler.js"></script>
 		<style>
 			html, body {
 				font-family: 'Gidugu', serif;
@@ -39,20 +38,15 @@
 		</style>
 	</head>
 	<body>
-		<h1>Export to .mid</h1>
+		<h1>History</h1>
 		<div class='cntr'>
 			<ul>
-				<li><a href='javascript:promptExport();'>File name</a></li>
+				<li>23</li>
 			</ul>
 		</div>
 		<p class="ftr">Return to <a href="index.html">editor</a></p>
 		<script>
-			function promptExport(){
-				var compiler = new MidiCompiler();
-				var storeDrums=readObjectFromlocalStorage('storeDrums');
-				var storeTracks=readObjectFromlocalStorage('storeTracks');
-				compiler.exportMidi(storeDrums,storeTracks);
-			}
+
 		</script>
 	</body>
 </html>

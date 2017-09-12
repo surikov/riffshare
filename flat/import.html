@@ -3,28 +3,128 @@
 	<head>
 		<title>RiffShareFlat import</title>
 		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+		<script src="localstore.js"></script>
+		<script src="MidiParser.js"></script>
 		<style>
 			html, body {
-				font-family: 'Yesteryear', serif;
+				font-family: 'Gidugu', serif;
 				background-color:#000;
-				color: #fff;				
+				color: #fff;	
+				font-size: xx-large;
+				text-align: center;
 			}
 			a {
 				color: #99f;
 				text-decoration: none;
 			}
+			h1 {
+				text-align: center;
+				border-bottom: 1px solid #333;
+			}
+			.ftr {
+				text-align: left;
+				border-top: 1px solid #333;
+			}
+			.cntr {
+				text-align: left;
+				display: inline-block;
+			}
 			@font-face {
-			  font-family: 'Yesteryear';
+			  font-family: 'Gidugu';
 			  font-style: normal;
 			  font-weight: 400;
-			  src: local('Yesteryear'), local('Yesteryear-Regular'), url(yesteryer.woff2) format('woff2');
+			  src: local('Gidugu'), url(gidugu.woff2) format('woff2');
 			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>Import</h1>
-		<p>Return <a href="index.html">back</a></p>
+		<h1>Import from .mid</h1>
+		<div class='cntr'>
+			<ul>
+				<li>Skip <input type="number" id="skip16" name="skip16" value="0" /> 16th</li>
+				<li><input type="file" id="filesOpen" name="files[]" multiple  /></li>
+			</ul>
+		</div>
+		<p class="ftr">Return to <a href="index.html">editor</a></p>
+		<script>
+			function adjustPitch(pitch){
+				var p=1*pitch-12*3;
+				if(p<0){
+					while(p<0){
+						p=p+12;
+					}
+				}
+				if(p>=5*12){
+					while(p>=5*12){
+						p=p-12;
+					}
+				}
+				return p;
+			}
+			function openSong(evt) {
+				console.log("openSong",evt);
+				//console.log(encodeState());
+				var skp=1*document.getElementById("skip16").value;
+				
+				var fileList = evt.target.files;
+				if (fileList.length > 0) {
+					var file = fileList.item(0);
+					var fileReader = new FileReader();
+					fileReader.onload = function (progressEvent) {
+						console.log(progressEvent);
+						if (progressEvent.target.readyState == FileReader.DONE) {
+							var arrayBuffer = progressEvent.target.result;
+							var midiParser = new MidiParser(arrayBuffer);
+							midiParser.parse();
+							console.log('slice from',skp);
+							storeDrums=[];
+							for(var b=skp;b<midiParser.songBeatSteps.length;b++){
+								if(b>(skp+255))break;
+								var beat=midiParser.songBeatSteps[b];
+								for(var c=0;c<beat.length;c++){
+									var n=6;
+									if(beat[c]>=35 && beat[c]<=36){n=0;}
+									if(beat[c]==41 || beat[c]==43){n=1;}
+									if(beat[c]==38 || beat[c]==40){n=2;}
+									if(beat[c]==45 || beat[c]==47 || beat[c]==48 || beat[c]==50){n=3;}
+									if(beat[c]==42 || beat[c]==44){n=4;}
+									if(beat[c]==46){n=5;}
+									if(beat[c]==49){n=7;}
+									storeDrums.push({drum:n,beat:b-skp});
+								}
+							}
+							saveObject2localStorage('storeDrums',storeDrums);
+							storeTracks=[];
+							for(var b=skp;b<midiParser.songTuneSteps.length;b++){
+								if(b>(skp+255))break;
+								var beat=midiParser.songTuneSteps[b];
+								for(var c=0;c<beat.length;c++){
+									var note=beat[c];
+									var n=4;
+									if(beat[c].instrument+1==31){n=0;}
+									if(beat[c].instrument+1>=25 && beat[c].instrument+1<=28){n=1;}
+									if(beat[c].instrument+1>=17 && beat[c].instrument+1<=24){n=2;}
+									if(beat[c].instrument+1==30){n=3;}
+									//
+									if(beat[c].instrument+1>=33 && beat[c].instrument+1<=38){n=5;}
+									if(beat[c].instrument+1>=41 && beat[c].instrument+1<=88){n=6;}
+									if(beat[c].instrument+1>=39 && beat[c].instrument+1<=40){n=7;}
+									var u=1*note.length;//-1;
+									if(u<1)u=1;
+									storeTracks.push({track:n,beat:b-skp,pitch:adjustPitch(note.pitch),length:u,shift:note.glissando});
+								}
+							}
+							saveObject2localStorage('storeTracks',storeTracks);
+							window.location='index.html';
+						} else {
+							console.log(progressEvent.target.readyState);
+						}
+					};
+					fileReader.readAsArrayBuffer(file);
+				}
+			}
+			document.getElementById('filesOpen').addEventListener('change', openSong, false);
+		</script>
 	</body>
 </html>

@@ -801,7 +801,7 @@ RiffShareFlat.prototype.resetAllLayersNow = function () {
 	this.resetTiles();
 };
 RiffShareFlat.prototype.queueTiles = function () {
-	console.log('queueTiles', this.timeOutID);
+	//console.log('queueTiles', this.timeOutID);
 	if (this.timeOutID > 0) {
 		return;
 	}
@@ -907,6 +907,7 @@ RiffShareFlat.prototype.stopPlay = function () {
 	this.onAir = false;
 	clearTimeout(this.tickID);
 	this.player.cancelQueue(this.audioContext);
+	this.resetAllLayersNow();
 };
 RiffShareFlat.prototype.resetNodeValues = function () {
 	for (var i = 0; i < 8; i++) {
