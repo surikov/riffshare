@@ -18,7 +18,7 @@ RiffShareFlat.prototype.init = function () {
 	console.log('tapSize', this.tapSize, 'devicePixelRatio', window.devicePixelRatio);
 	this.tickID = -1;
 	this.onAir = false;
-	this.queueAhead = 0.1;
+	this.queueAhead = 0.3;
 	console.log('queueAhead', this.queueAhead);
 	this.svgns = "http://www.w3.org/2000/svg";
 	this.contentDiv = document.getElementById('contentDiv');
@@ -862,6 +862,7 @@ RiffShareFlat.prototype.startPlay = function () {
 };
 //sendNextBeats
 RiffShareFlat.prototype.queueNextBeats = function () {
+	//console.log('queueNextBeats', this.nextWhen,this.audioContext.currentTime);
 	if (this.onAir) {
 		var beat16duration = (4 * 60 / this.tempo)/16;
 		var pieceLen16 = 16 * riffshareflat.cauntMeasures();
