@@ -19,7 +19,7 @@ RiffShareFlat.prototype.init = function () {
 	this.tickID = -1;
 	this.onAir = false;
 	this.queueAhead = 0.1;
-	console.log('queueAhead',this.queueAhead);
+	console.log('queueAhead', this.queueAhead);
 	this.svgns = "http://www.w3.org/2000/svg";
 	this.contentDiv = document.getElementById('contentDiv');
 	this.contentSVG = document.getElementById('contentSVG');
@@ -47,6 +47,8 @@ RiffShareFlat.prototype.init = function () {
 	//this.bgImageHeight = 800;
 	this.sentWhen = 0;
 	this.sentMeasure = 0;
+	this.nextBeat = 0;
+	this.nextWhen = 0;
 	this.mark = null;
 	this.undoQueue = [];
 	this.undoStep = 0;
@@ -294,7 +296,9 @@ RiffShareFlat.prototype.init = function () {
 		this.player.adjustPreset(this.audioContext, this.trackInfo[i].sound);
 	}
 	this.resetSize();
-	setInterval(riffshareflat.moveCounter, 100);
+	//setInterval(riffshareflat.moveCounter, 100);
+	setInterval(riffshareflat.moveBeatCounter, 100);
+	
 	console.log('done init');
 };
 RiffShareFlat.prototype.saveState = function () {
@@ -849,89 +853,55 @@ RiffShareFlat.prototype.startPlay = function () {
 	this.sendNextPiece(when);
 	this.queueNextPiece(pieceLen/2,when+pieceLen);*/
 	//this.tickID = 0;
-	this.queueNextPiece(this.audioContext.currentTime, 0);
-	//this.queueNextBeats(this.audioContext.currentTime, 0,8);
+	//this.queueNextPiece(this.audioContext.currentTime, 0);
+	this.nextBeat=0;
+	this.nextWhen=0;
+	this.queueNextBeats();
 	//this.tickID
 	//this.onAir
 };
 //sendNextBeats
-RiffShareFlat.prototype.queueNextBeats = function (when, beat,size) {
+RiffShareFlat.prototype.queueNextBeats = function () {
 	if (this.onAir) {
-			var N = 4 * 60 / this.tempo;
-			var c16 = 16 * riffshareflat.cauntMeasures();
-			var nextWhen = when;
-			var nextBeat = beat;
-			console.log('queueNextBeats',when, beat,size, this.audioContext.currentTime);
-			while (nextWhen < this.queueAhead + this.audioContext.currentTime) {
-				var pieceEnd=nextBeat+size-1;
-				if(pieceEnd>c16){
-					pieceEnd=c16-1;
-					this.sendNextBeats(nextWhen, 0,c16-nextBeat+size);
-				}
-				this.sendNextBeats(nextWhen, nextBeat,pieceEnd);
-				
-				nextMeasure = nextMeasure + 1;
-				if (nextMeasure >= this.cauntMeasures()) {
-					nextMeasure = 0;
-				}
-				nextWhen = nextWhen + N;
-				console.log('	envelopes',this.player.envelopes.length);
+		var beat16duration = (4 * 60 / this.tempo)/16;
+		var pieceLen16 = 16 * riffshareflat.cauntMeasures();
+		var t=this.audioContext.currentTime;
+		if(this.nextWhen<t){
+			this.nextWhen=t;
+		}
+		while(this.sentWhen<t+this.queueAhead){
+			this.sendNextBeats(this.nextWhen, this.nextBeat, this.nextBeat);
+			this.nextWhen=this.sentWhen+beat16duration;
+			this.nextBeat=this.nextBeat+1;
+			if(this.nextBeat>=pieceLen16){
+				this.nextBeat=0;
 			}
-
-			var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
-			this.moveCounter();
-			this.tickID = setTimeout(function () {
-					riffshareflat.queueNextPiece(nextWhen, nextMeasure);
-				}, wait);
+		}
+		//console.log('	envelopes', this.player.envelopes.length);
+		var wait = 0.5 * 1000 * (this.nextWhen - this.audioContext.currentTime);
+		this.moveBeatCounter();
+		this.tickID = setTimeout(function () {
+				riffshareflat.queueNextBeats();
+			}, wait);
 	}
 }
-RiffShareFlat.prototype.queueNextPiece = function (when, measure) {
+RiffShareFlat.prototype.moveBeatCounter = function () {
 	if (this.onAir) {
+		if (this.counterLine) {
 			var N = 4 * 60 / this.tempo;
-			var nextWhen = when;
-			var nextMeasure = measure;
-
-			console.log('queueNextPiece', when, 'now', this.audioContext.currentTime, measure);
-			//console.log('N', N, 'nextWhen', nextWhen, 'ahead', this.queueAhead + this.audioContext.currentTime);
-			while (nextWhen < this.queueAhead + this.audioContext.currentTime) {
-				this.sendNextMeasure(nextWhen, nextMeasure);
-				nextMeasure = nextMeasure + 1;
-				if (nextMeasure >= this.cauntMeasures()) {
-					nextMeasure = 0;
-				}
-				nextWhen = nextWhen + N;
-				//console.log('	diff',nextWhen-when,'now',this.audioContext.currentTime);
-				console.log('	envelopes',this.player.envelopes.length);
-			}
-
-			var wait = 0.5 * 1000 * (nextWhen - this.audioContext.currentTime);
-			//console.log('wait', wait);
-			this.moveCounter();
-			this.tickID = setTimeout(function () {
-					riffshareflat.queueNextPiece(nextWhen, nextMeasure);
-				}, wait);
-	}
-}
-RiffShareFlat.prototype.moveCounter = function () {
-	//console.log(riffshareflat.counterLine);
-	//this.sentWhen=when;
-	//this.sentMeasure=measure;
-	if (riffshareflat.onAir) {
-		if (riffshareflat.counterLine) {
-			var N = 4 * 60 / riffshareflat.tempo;
 			var beatLen = 1 / 16 * N;
-			var c16 = 16 * riffshareflat.cauntMeasures();
-			var diff = riffshareflat.sentMeasure * 16 + (riffshareflat.audioContext.currentTime - riffshareflat.sentWhen) / beatLen;
+			var c16 = 16 * this.cauntMeasures();
+			var diff = this.nextBeat + (this.audioContext.currentTime - this.nextWhen) / beatLen;
 			while (diff < 0) {
 				diff = diff + c16;
 			}
-			//console.log(riffshareflat.sentMeasure*16,'at', riffshareflat.sentWhen, 'dif',diff, 'at',riffshareflat.audioContext.currentTime);
-			var x = diff * riffshareflat.tapSize;
+			var x = diff * this.tapSize;
 			var transformAttr = ' translate(' + x + ',0)';
-			riffshareflat.counterLine.setAttribute('transform', transformAttr);
+			this.counterLine.setAttribute('transform', transformAttr);
 		}
 	}
 };
+
 RiffShareFlat.prototype.stopPlay = function () {
 	this.onAir = false;
 	clearTimeout(this.tickID);
@@ -969,61 +939,35 @@ RiffShareFlat.prototype.cauntMeasures = function () {
 	var le = Math.ceil((mx + 1) / 16);
 	return le;
 }
-RiffShareFlat.prototype.sendNextBeats = function (when, startBeat,endBeat) {
-	console.log('sendNextMeasure', when, startBeat,endBeat);
+RiffShareFlat.prototype.sendNextBeats = function (when, startBeat, endBeat) {
+	//console.log('sendNextMeasure', when, startBeat, endBeat);
 	this.sentWhen = when;
 	this.sentBeat = startBeat;
 	var N = 4 * 60 / this.tempo;
 	var beatLen = 1 / 16 * N;
-	
+
 	for (var i = 0; i < this.storeDrums.length; i++) {
 		var hit = this.storeDrums[i];
-		if (hit.beat >= startBeat && hit.beat <=endBeat) {
+		if (hit.beat >= startBeat && hit.beat <= endBeat) {
 			var channel = this.drumInfo[hit.drum];
-			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, channel.length, channel.volumeRatio);
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - startBeat), channel.pitch, channel.length, channel.volumeRatio);
 		}
 	}
-	
+
 	for (var i = 0; i < this.storeTracks.length; i++) {
 		var note = this.storeTracks[i];
-		if (note.beat >= startBeat && note.beat <=endBeat) {
+		if (note.beat >= startBeat && note.beat <= endBeat) {
 			var channel = this.trackInfo[7 - note.track];
 			var shift = [{
 					when: note.length * beatLen,
 					pitch: note.shift + channel.octave * 12 + note.pitch
 				}
 			];
-			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (note.beat - measure * 16), channel.octave * 12 + note.pitch, note.length * beatLen, channel.volumeRatio, shift);
+			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (note.beat - startBeat), channel.octave * 12 + note.pitch, note.length * beatLen, channel.volumeRatio, shift);
 		}
 	}
 };
-RiffShareFlat.prototype.sendNextMeasure = function (when, measure) {
-	console.log('sendNextMeasure', when, measure);
-	this.sentWhen = when;
-	this.sentMeasure = measure;
-	var N = 4 * 60 / this.tempo;
-	//var pieceLen = (currentLen / 16) * N;
-	var beatLen = 1 / 16 * N;
-	for (var i = 0; i < this.storeDrums.length; i++) {
-		var hit = this.storeDrums[i];
-		if (hit.beat >= measure * 16 && hit.beat < (measure + 1) * 16) {
-			var channel = this.drumInfo[hit.drum];
-			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (hit.beat - measure * 16), channel.pitch, channel.length, channel.volumeRatio);
-		}
-	}
-	for (var i = 0; i < this.storeTracks.length; i++) {
-		var note = this.storeTracks[i];
-		if (note.beat >= measure * 16 && note.beat < (measure + 1) * 16) {
-			var channel = this.trackInfo[7 - note.track];
-			var shift = [{
-					when: note.length * beatLen,
-					pitch: note.shift + channel.octave * 12 + note.pitch
-				}
-			];
-			this.player.queueWaveTable(this.audioContext, channel.audioNode, channel.sound, when + beatLen * (note.beat - measure * 16), channel.octave * 12 + note.pitch, note.length * beatLen, channel.volumeRatio, shift);
-		}
-	}
-};
+
 RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 	var x = 0;
 	var y = 0;
@@ -1082,7 +1026,7 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 		});*/
 
 	}
-	
+
 	this.tileEqualizer(left, top, width, height);
 	this.tileDrumVolumes(left, top, width, height);
 	this.tileToneVolumes(left, top, width, height);
