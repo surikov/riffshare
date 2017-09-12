@@ -1848,6 +1848,8 @@ RiffShareFlat.prototype.userActionSwap = function () {
 	});
 };
 RiffShareFlat.prototype.userActionClearAll = function () {
+	this.saveState();
+	addStateToHistory();
 	var d = this.copyDrums();
 	var t = this.copyTones();
 	riffshareflat.pushAction({

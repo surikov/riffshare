@@ -72,6 +72,7 @@ function getUrlVars() {
 }
 function decodeState(encoded) {
 	try {
+		addStateToHistory();
 		var strings = encoded.split('-');
 		var tempo = parseInt(strings[0], 16);
 		//console.log('tempo',tempo);
@@ -238,4 +239,44 @@ function encodeState() {
 		console.log(ex);
 	}
 	return txt;
+}
+function addStateToHistory() {
+	var hstry = sureArray(readObjectFromlocalStorage('history'), []);
+	var state = {};
+	state.label = '' + new Date();
+	state.storeDrums = sureArray(readObjectFromlocalStorage('storeDrums'), []);
+	state.storeTracks = sureArray(readObjectFromlocalStorage('storeTracks'), []);
+	for (var i = 0; i < 10; i++) {
+		state['equalizer' + i] = readTextFromlocalStorage('equalizer' + i);
+	}
+	for (var i = 0; i < 8; i++) {
+		state['drum' + i] = readTextFromlocalStorage('drum' + i);
+		state['track' + i] = readTextFromlocalStorage('track' + i);
+	}
+	state['tempo'] = readTextFromlocalStorage('tempo');
+	state['flatstate'] = readObjectFromlocalStorage('flatstate');
+	hstry.push(state);
+	while (hstry.length > 10) {
+		hstry.shift();
+	}
+	saveObject2localStorage('history', hstry);
+}
+function removeStateFromHistory(n) {
+	var hstry = sureArray(readObjectFromlocalStorage('history'), []);
+	if (hstry.length > n) {
+		var state = hstry[n];
+		hstry.splice(n, 1);
+		saveObject2localStorage('history', hstry);
+		saveObject2localStorage('storeDrums', state.storeDrums);
+		saveObject2localStorage('storeTracks', state.storeTracks);
+		saveObject2localStorage('flatstate', state.flatstate);
+		saveText2localStorage('tempo', state.tempo);
+		for (var i = 0; i < 10; i++) {
+			saveText2localStorage('equalizer' + i, state['equalizer' + i]);
+		}
+		for (var i = 0; i < 8; i++) {
+			saveText2localStorage('drum' + i, state['drum' + i]);
+			saveText2localStorage('track' + i, state['track' + i]);
+		}
+	}
 }
