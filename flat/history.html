@@ -3,7 +3,25 @@
 	<head>
 		<title>RiffShareFlat history</title>
 		<meta charset="utf-8">
+		<script src="WebAudioFontPlayer.js"></script>
+		<script src="0300_LesPaul_sf2_file.js"></script>
+		<script src="0280_LesPaul_sf2_file.js"></script>
+		<script src="0250_Chaos_sf2_file.js"></script>
+		<script src="0170_JCLive_sf2_file.js"></script>
+		<script src="0000_Chaos_sf2_file.js"></script>
+		<script src="0330_SoundBlasterOld_sf2.js"></script>
+		<script src="0390_GeneralUserGS_sf2_file.js"></script>
+		<script src="0480_Aspirin_sf2_file.js"></script>
+		<script src="12835_0_Chaos_sf2_file.js"></script>
+		<script src="12838_22_FluidR3_GM_sf2_file.js"></script>
+		<script src="12841_26_JCLive_sf2_file.js"></script>
+		<script src="12842_26_JCLive_sf2_file.js"></script>
+		<script src="12845_26_JCLive_sf2_file.js"></script>
+		<script src="12846_26_JCLive_sf2_file.js"></script>
+		<script src="12849_26_JCLive_sf2_file.js"></script>
+		<script src="12851_26_JCLive_sf2_file.js"></script>
 		<script src="localstore.js"></script>
+		<script src="set.js"></script>
 		<style>
 			html, body {
 				font-family: 'Gidugu', serif;
@@ -40,13 +58,73 @@
 	<body>
 		<h1>History</h1>
 		<div class='cntr'>
-			<ul>
-				<li>23</li>
+			<ul id="mnul">
+				<!--<li><a href="index.html">23-32-12323424<br/>
+					<svg id="hstr1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="76">
+						<rect x="0" y="0" height="76" width="256" fill="#111"></rect>
+						<rect x="0" y="0" height="1" width="1" fill="#f00"></rect>
+						<rect x="255" y="0" height="1" width="1" fill="#ff0"></rect>
+						<rect x="0" y="75" height="1" width="1" fill="#f0f"></rect>
+						<rect x="255" y="75" height="1" width="1" fill="#0f0"></rect>
+						<line x1="20" y1="50" x2="200" y2="10" stroke="rgba(204,0,204,0.9)" stroke-width="2" stroke-linecap="round"></line>
+					</svg></a>
+				</li>-->
 			</ul>
 		</div>
 		<p class="ftr">Return to <a href="index.html">editor</a></p>
 		<script>
+			var ns = "http://www.w3.org/2000/svg";
+			this.storeDrums = sureArray(readObjectFromlocalStorage('storeDrums'), []);
+			this.storeTracks = sureArray(readObjectFromlocalStorage('storeTracks'), []);
 
+			var svg = entry('test1');
+			entry('test333222');
+			entry('qwerty');
+			line(svg, 161, 62, 213, 24, '#ff0');
+			addEntry('aaa', 11, sureArray(readObjectFromlocalStorage('storeDrums'), []), sureArray(readObjectFromlocalStorage('storeTracks'), []));
+			function addEntry(label, num, storeDrums, storeTracks) {
+				var svg = entry(label);
+				for (var i = 0; i < storeDrums.length; i++) {
+					line(svg, storeDrums[i].beat, 60 + storeDrums[i].drum, storeDrums[i].beat + 1, 60 + storeDrums[i].drum, '#fff');
+				}
+				for (var i = 0; i < storeTracks.length; i++) {
+					line(svg, storeTracks[i].beat, 60 - storeTracks[i].pitch, storeTracks[i].beat + 1+storeTracks[i].length, 60 - storeTracks[i].pitch-storeTracks[i].shift, trackInfo[7 - storeTracks[i].track].color);
+				}
+			}
+			function entry(label) {
+				var ul = document.getElementById('mnul');
+				var li = document.createElement('li');
+				ul.appendChild(li);
+				var a = document.createElement('a');
+				li.appendChild(a);
+				a.href = "index.html";
+				a.appendChild(document.createTextNode(label));
+				a.appendChild(document.createElement('br'));
+				var svg = document.createElementNS(ns, "svg");
+				svg.setAttribute('width', 256);
+				svg.setAttribute('height', 76);
+				a.appendChild(svg);
+				var rect = document.createElementNS(ns, 'rect');
+				rect.setAttribute('x', 0);
+				rect.setAttribute('y', 0);
+				rect.setAttribute('width', 256);
+				rect.setAttribute('height', 76);
+				rect.setAttribute('fill', '#111');
+				svg.appendChild(rect);
+				return svg;
+			}
+			function line(svg, x1, y1, x2, y2, color) {
+				var line = document.createElementNS(ns, 'line');
+				line.setAttribute('x1', x1);
+				line.setAttribute('y1', y1);
+				line.setAttribute('x2', x2);
+				line.setAttribute('y2', y2);
+				line.setAttribute('stroke', color);
+				line.setAttribute('stroke-width', 2);
+				line.setAttribute('stroke-linecap', 'round');
+				svg.appendChild(line);
+			}
+		</script>
 		</script>
 	</body>
 </html>

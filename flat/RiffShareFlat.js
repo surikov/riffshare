@@ -75,6 +75,9 @@ RiffShareFlat.prototype.init = function () {
 	for (var i = 0; i < 10; i++) {
 		this.equalizer.push(sureNumeric(readObjectFromlocalStorage('equalizer' + i), -10, 0, 10));
 	}
+	this.drumInfo=drumInfo;
+	this.trackInfo=trackInfo;
+	/*
 	this.drumInfo = [{
 			sound: _drum_35_0_Chaos_sf2_file,
 			pitch: 36, //36
@@ -215,7 +218,7 @@ RiffShareFlat.prototype.init = function () {
 			volumeRatio: 0.9
 		}
 
-	];
+	];*/
 	this.setupInput();
 	window.onresize = function () {
 		riffshareflat.resetSize();
