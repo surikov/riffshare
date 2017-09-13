@@ -989,7 +989,7 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 			startLabel = 'Stop';
 		}
 		this.tileText(g, 4 * this.tapSize, y + this.tapSize * 9, this.tapSize * 10, startLabel, '#fff');
-		this.addSpot('plybt', 1 * this.tapSize, 1 * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize * 10, function () {
+		this.addSpot('plybt', 0, 1 * this.tapSize, this.leftMargin  * this.tapSize, this.tapSize * 10, function () {
 			if (riffshareflat.onAir) {
 				riffshareflat.stopPlay();
 			} else {
@@ -1002,14 +1002,14 @@ RiffShareFlat.prototype.addSmallTiles = function (left, top, width, height) {
 		this.addSpot('svsh', 1 * this.tapSize, (8.5 + 1.5 * 1) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
 		window.open('export.html', '_self')
 		});*/
-		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 2 + 2) * this.tapSize, 0.5 * this.tapSize, '#999');
-		this.tileText(g, 1.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 2 + 2), this.tapSize, 'File', '#fff');
-		this.addSpot('flop', 1 * this.tapSize, (8.5 + 1.5 * 2 + 2) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+		this.tileCircle(g, 4 * this.tapSize, 15 * this.tapSize, 3 * this.tapSize, '#999');
+		this.tileText(g, 3 * this.tapSize, y + this.tapSize * 17, 7*this.tapSize, 'File', '#fff');
+		this.addSpot('flop', 0, 12 * this.tapSize, this.leftMargin * this.tapSize, this.tapSize*6, function () {
 			window.open('file.html', '_self')
 		});
-		this.tileCircle(g, 1.5 * this.tapSize, (9 + 1.5 * 3 + 2) * this.tapSize, 0.5 * this.tapSize, '#999');
-		this.tileText(g, 1.5 * this.tapSize, y + this.tapSize * (9.3 + 1.5 * 3 + 2), this.tapSize, 'Clear all', '#fff');
-		this.addSpot('clrsng', 1 * this.tapSize, (8.5 + 1.5 * 3 + 2) * this.tapSize, (this.leftMargin - 2) * this.tapSize, this.tapSize, function () {
+		this.tileCircle(g, 3 * this.tapSize, 21 * this.tapSize, 2 * this.tapSize, '#999');
+		this.tileText(g, 2.5 * this.tapSize, y + this.tapSize * 22, 4*this.tapSize, 'Clear all', '#fff');
+		this.addSpot('clrsng', 0, 19 * this.tapSize, this.leftMargin * this.tapSize, 4*this.tapSize, function () {
 			riffshareflat.userActionClearAll();
 		});
 

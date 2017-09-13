@@ -240,12 +240,13 @@ function encodeState() {
 	}
 	return txt;
 }
-function addStateToHistory() {
+function addStateToHistory(nocut) {
 	var hstry = sureArray(readObjectFromlocalStorage('history'), []);
 	var state = {};
 	state.label = '' + new Date();
 	state.storeDrums = sureArray(readObjectFromlocalStorage('storeDrums'), []);
 	state.storeTracks = sureArray(readObjectFromlocalStorage('storeTracks'), []);
+	
 	for (var i = 0; i < 10; i++) {
 		state['equalizer' + i] = readTextFromlocalStorage('equalizer' + i);
 	}
@@ -256,8 +257,12 @@ function addStateToHistory() {
 	state['tempo'] = readTextFromlocalStorage('tempo');
 	state['flatstate'] = readObjectFromlocalStorage('flatstate');
 	hstry.push(state);
-	while (hstry.length > 10) {
-		hstry.shift();
+	if(nocut){
+		//
+	}else{
+		while (hstry.length > 10) {
+			hstry.shift();
+		}
 	}
 	saveObject2localStorage('history', hstry);
 }

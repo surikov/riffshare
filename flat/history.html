@@ -59,16 +59,6 @@
 		<h1>History</h1>
 		<div class='cntr'>
 			<ul id="mnul">
-				<!--<li><a href="index.html">23-32-12323424<br/>
-					<svg id="hstr1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="76">
-						<rect x="0" y="0" height="76" width="256" fill="#111"></rect>
-						<rect x="0" y="0" height="1" width="1" fill="#f00"></rect>
-						<rect x="255" y="0" height="1" width="1" fill="#ff0"></rect>
-						<rect x="0" y="75" height="1" width="1" fill="#f0f"></rect>
-						<rect x="255" y="75" height="1" width="1" fill="#0f0"></rect>
-						<line x1="20" y1="50" x2="200" y2="10" stroke="rgba(204,0,204,0.9)" stroke-width="2" stroke-linecap="round"></line>
-					</svg></a>
-				</li>-->
 			</ul>
 		</div>
 		<p class="ftr">Return to <a href="index.html">editor</a></p>
@@ -89,6 +79,7 @@
 				}
 			}
 			function pop(num) {
+				addStateToHistory(true);
 				removeStateFromHistory(num);
 				window.location='index.html';
 			}
