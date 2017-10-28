@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Index</title>
+		<meta charset="utf-8">
+		<script src="tilelevelinit.js"></script>
+		<script src="tilelevelinput.js"></script>
+		<script src="tilelevellazy.js"></script>
+		<script src="tilelevellayout.js"></script>
+		<script src="tilelevelspot.js"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<h1>Test</h1>
+		<svg id="contentSVG" width="800" height="400">
+			<circle cx="400" cy="200" r="500" stroke="black" stroke-width="3" fill="red" />
+			<circle cx="400" cy="200" r="350" stroke="black" stroke-width="3" fill="green" />
+			<circle cx="400" cy="200" r="200" stroke="black" stroke-width="3" fill="blue" />
+			<circle cx="400" cy="200" r="20" stroke="black" stroke-width="3" fill="silver" />
+		</svg>
+		<p>Another</p>
+		<svg id="SVG2" width="400" height="300">
+			<circle cx="0" cy="0" r="40" stroke="black" stroke-width="3" fill="green" />
+		</svg>
+		<script>
+			var a1=new TileLevel("contentSVG");
+			var a2=new TileLevel("SVG2");
+			
+			a1.resetInnerSize(1000,1000);
+			a2.resetInnerSize(1000,1000);
+			console.log('done');
+		</script>
+	</body>
+</html>
