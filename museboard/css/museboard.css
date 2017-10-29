@@ -1,0 +1,45 @@
+﻿html, body {
+	font-family: 'Yesteryear', serif;
+	background-color:#300 ;
+	padding:0px; 
+	margin:0px;
+	width:100%; 
+	height:100%;
+}
+a {
+	color: #f00;
+	text-decoration: none;
+}
+#divMain {
+	width:100%;
+	height:100%;
+	background-color:#030; 
+	padding:0px; 
+	margin:0px;
+	overflow:hidden;
+}
+#divContent {
+	width:100%; 
+	height:100%; 
+	background-color:#003; 
+	padding:0px; 
+	margin:0px;
+}
+#svgContent {
+	padding:0px; 
+	margin:0px;
+}
+@font-face {
+  font-family: 'Yesteryear';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Yesteryear'), local('Yesteryear-Regular'), url(../font/yesteryer.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Gidugu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Gidugu'), url(../font/gidugu.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}

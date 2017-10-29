@@ -8,6 +8,7 @@
 		<script src="tilelevellazy.js"></script>
 		<script src="tilelevellayout.js"></script>
 		<script src="tilelevelspot.js"></script>
+		<script src="tilelevelrender.js"></script>
 		<style>
 			
 		</style>
@@ -15,21 +16,82 @@
 	<body>
 		<h1>Test</h1>
 		<svg id="contentSVG" width="800" height="400">
-			<circle cx="400" cy="200" r="500" stroke="black" stroke-width="3" fill="red" />
+			<circle cx="1000" cy="1000" r="1000" stroke="black" stroke-width="3" fill="red" />
 			<circle cx="400" cy="200" r="350" stroke="black" stroke-width="3" fill="green" />
 			<circle cx="400" cy="200" r="200" stroke="black" stroke-width="3" fill="blue" />
 			<circle cx="400" cy="200" r="20" stroke="black" stroke-width="3" fill="silver" />
+			<g id='cntnt'></g>
 		</svg>
 		<p>Another</p>
 		<svg id="SVG2" width="400" height="300">
-			<circle cx="0" cy="0" r="40" stroke="black" stroke-width="3" fill="green" />
+			<circle cx="0" cy="0" r="340" stroke="black" stroke-width="3" fill="green" />
+			<circle cx="1000" cy="0" r="490" stroke="black" stroke-width="3" fill="blue" />
+			<circle cx="1000" cy="1000" r="140" stroke="black" stroke-width="3" fill="red" />
+			<circle cx="0" cy="1000" r="240" stroke="black" stroke-width="3" fill="brown" />
+			<circle cx="500" cy="500" r="70" stroke="black" stroke-width="3" fill="silver" />
+			<g id='anothr'></g>
 		</svg>
 		<script>
-			var a1=new TileLevel("contentSVG");
-			var a2=new TileLevel("SVG2");
+			console.log('start');
+			var a1=new TileLevel("contentSVG",'cntnt');
+			var a2=new TileLevel("SVG2",'anothr');
 			
-			a1.resetInnerSize(1000,1000);
+			a1.resetInnerSize(2000,2000);
 			a2.resetInnerSize(1000,1000);
+			
+			var bg=a1.addLayer();
+			var mdl=a1.addLayer();
+			var fg=a1.addLayer();
+			a1.addZoomLevel(5,function(left, top, width, height){
+				console.log('render',5);
+				var x = a1.tapSize * 7;
+				var y = a1.tapSize * 3;
+				var w = a1.tapSize * 40;
+				var h = a1.tapSize * 10;
+				var g = a1.rakeGroup(x, y, w, h, 'tstre', bg, left, top, width, height);
+				if (g) {
+					a1.tileRectangle(g, x, y, w, h, '#f96');
+				}
+			});
+			a1.addZoomLevel(50,function(left, top, width, height){
+				console.log('render',20);
+				var x = a1.tapSize * 7;
+				var y = a1.tapSize * 3;
+				var w = a1.tapSize * 40;
+				var h = a1.tapSize * 10;
+				var g = a1.rakeGroup(x, y, w, h, 'tstre', bg, left, top, width, height);
+				if (g) {
+					a1.tileRectangle(g, x, y, w, h, '#ff6');
+				}
+			});
+			a1.addZoomLevel(12,function(left, top, width, height){
+				console.log('render',12);
+				var x = a1.tapSize * 7;
+				var y = a1.tapSize * 3;
+				var w = a1.tapSize * 40;
+				var h = a1.tapSize * 10;
+				var g = a1.rakeGroup(x, y, w, h, 'tstre', bg, left, top, width, height);
+				if (g) {
+					a1.tileRectangle(g, x, y, w, h, '#f9f');
+				}
+			});
+			//console.log(a1.renderers);
+			var sng=a2.addLayer();
+			a2.addZoomLevel(14,function(left, top, width, height){
+				console.log('render2',14);
+				var x = a1.tapSize * 7;
+				var y = a1.tapSize * 3;
+				var w = a1.tapSize * 5;
+				var h = a1.tapSize * 9;
+				var g = a1.rakeGroup(x, y, w, h, 't2s', sng, left, top, width, height);
+				if (g) {
+					a1.tileRectangle(g, x, y, w, h, '#096');
+				}
+				a2.addSpot('plybt', x, y, w, h, function () {
+					console.log('spot click');
+				});
+			});
+			
 			console.log('done');
 		</script>
 	</body>
