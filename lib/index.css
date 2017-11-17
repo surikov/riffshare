@@ -9,10 +9,10 @@ html, body {
 }
 body{
 	background-image: url('img/bg.png');
-	background-color: #bcf;
+	background-color: #ddeeff;
 	background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: left bottom;
+    background-position: right bottom;
 }
 #contentSVG{
 	height: 100%;
