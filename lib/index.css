@@ -12,7 +12,7 @@ body{
 	background-color: #ddeeff;
 	background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: right bottom;
+    background-position: center bottom;
 }
 #contentSVG{
 	height: 100%;
