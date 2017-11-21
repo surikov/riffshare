@@ -26,3 +26,26 @@ body{
 	margin: 0px; 
 	overflow:hidden;
 }
+.undob {
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:20px;
+	height:20px;
+	margin-left:5px;
+	margin-top:5px;
+	margin-right:5px;
+	margin-bottom:0px;
+}
+.redob {
+	position:absolute;
+	top:30px;
+	right:0px;
+	width:20px;
+	height:20px;
+	margin-left:5px;
+	margin-top:0px;
+	margin-right:5px;
+	margin-bottom:5px;
+}
+
