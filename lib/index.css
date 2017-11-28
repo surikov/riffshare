@@ -25,7 +25,7 @@ html, body {
 }
 body{
 	background-image: url('img/bg.png');
-	background-color: #eee;
+	background-color: #fff;
 	background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center bottom;
