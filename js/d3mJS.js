@@ -1,4 +1,4 @@
-console.log("d3mJS v2.0.4");
+console.log("d3mJS v2.0.5");
 
 function place(what, from, to) {
 	var distance = from.distanceTo(to);
@@ -2128,6 +2128,8 @@ function D3mJS() {
 				canvas : me.canvas //
 				//,alpha : true
 			});
+		me.renderer.setPixelRatio(2);
+		console.log(me.renderer);
 		/*
 		//http://stemkoski.github.io/Three.js/
 		me.rendererCSS = new THREE.CSS3DRenderer();
