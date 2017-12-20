@@ -17,7 +17,7 @@
 .textA{
 	font-family: 'Racing Sans One', sans-serif;
 }
-html, body {
+html {
 	padding:0px; 
 	margin:0px;
 	width:100%; 
@@ -31,7 +31,11 @@ body2{
     background-position: center bottom;
 }
 body{
-	background-image: url('img/clouds2.jpg');
+	padding:0px; 
+	margin:0px;
+	width:100%; 
+	height:100%;
+	background-image: url('img/blur.jpg');
 	background-color: #fff;
 	background-repeat: no-repeat;
     background-attachment: fixed;
@@ -49,6 +53,10 @@ body{
 	padding: 0px;
 	margin: 0px; 
 	overflow:hidden;
+	
+	
+	
+    
 }
 .undob {
 	position:absolute;
