@@ -23,6 +23,13 @@ html {
 	width:100%; 
 	height:100%;
 }
+body{
+	padding:0px; 
+	margin:0px;
+	width:100%; 
+	height:100%;
+	background-color: #c0c6cf;
+}
 body2{
 	background-image: url('img/bg.png');
 	background-color: #fff;
@@ -30,7 +37,7 @@ body2{
     background-attachment: fixed;
     background-position: center bottom;
 }
-body{
+body3{
 	padding:0px; 
 	margin:0px;
 	width:100%; 
