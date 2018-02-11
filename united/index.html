@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Index</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+		<script src="https://surikov.github.io/tilelevel/tilelevel.js"></script>
+		<!--
+		<script src="../../../tilelevel/tilelevel.js"></script>		
+		-->
+		<script src="js/FretChordSheet.js"></script>
+		<script src="js/do.js"></script>
+		<script src="js/draw.js"></script>
+		<script src="js/importmxml.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/metric.js"></script>
+		<script src="js/modal.js"></script>
+		<script src="js/saveLoad.js"></script>
+		<script src="js/spot.js"></script>
+		<script src="js/tonedata.js"></script>
+
+		<link href="https://fonts.googleapis.com/css?family=Racing+Sans+One" rel="stylesheet">
+		<link href="css/index.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="contentDiv" >
+			<svg id="contentSVG">
+				<defs>
+					<radialGradient id="bgGradient">
+						<stop offset="0%" stop-color="#eef"/>
+						<stop offset="100%" stop-color="#abc"/>
+					</radialGradient>
+				</defs>
+				<g id='cntnt'></g>
+			</svg>
+		</div>
+		<div id="undobutton" class="undob"><img id="undoimg" src='img/undo.png' width='100%' height='100%' /></div>
+		<div id="redobutton" class="redob"><img id="redoimg" src='img/redo.png' width='100%' height='100%' /></div>
+		<input type="file" style="display:none" id="chooseFileInput" name='selefile'/>
+		<script>
+			var FretChordSheet = new FretChordSheet();
+			FretChordSheet.init();
+		</script>
+	</body>
+</html>
