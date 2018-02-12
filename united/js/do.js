@@ -53,7 +53,7 @@ FretChordSheet.prototype.setUndoStatus = function () {
 };
 FretChordSheet.prototype.redoNext = function (v) {
 	if (this.undoStep < this.undoQueue.length) {
-		this.modalDialogMode=false;
+		this.modalDialogMode = false;
 		var a = this.undoQueue[this.undoStep];
 		console.log('redo', a.caption);
 		a.redo();
@@ -65,7 +65,7 @@ FretChordSheet.prototype.redoNext = function (v) {
 };
 FretChordSheet.prototype.undoLast = function () {
 	if (this.undoStep > 0) {
-		this.modalDialogMode=false;
+		this.modalDialogMode = false;
 		this.undoStep--;
 		var a = this.undoQueue[this.undoStep];
 		console.log('undo', a.caption);
@@ -170,6 +170,7 @@ FretChordSheet.prototype.userActionTrackUp = function (n) {
 	});
 };
 FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, note) {
+	//console.log('userActionAddNote',note);
 	var me = this;
 	var pre = this.cloneMeasure(morder);
 	var minfo = this.measureInfo(morder);
@@ -177,7 +178,7 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 	beat.chords[track].notes.push(note);
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Add note ' + track + ":" + morder + ":" + start192 + ":" + note,
+		caption: 'Add note ' + track + ":" + morder + ":" + start192 + ":" + note.octave+ "/" + note.step+ "/" + note.accidental,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -190,15 +191,15 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 		}
 	});
 };
-FretChordSheet.prototype.userActionAddDrum = function ( morder, start192, drum) {
+FretChordSheet.prototype.userActionAddDrum = function (morder, start192, drum) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
 	var minfo = this.measureInfo(morder);
 	var beat = this.beatInfo(minfo, start192);
-	beat.drums[drum]=1;
+	beat.drums[drum] = 1;
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Add drum ' +  morder + ":" + start192 + ":" + drum,
+		caption: 'Add drum ' + morder + ":" + start192 + ":" + drum,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -229,12 +230,12 @@ FretChordSheet.prototype.userActionBreakMode = function (n) {
 		}
 	});
 };
-FretChordSheet.prototype.userActionDropDrums = function ( morder, start192, duration192, drum) {
+FretChordSheet.prototype.userActionDropDrums = function (morder, start192, duration192, drum) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
-	var noteDrums = me.findDrums( morder, start192, duration192, drum);
+	var noteDrums = me.findDrums(morder, start192, duration192, drum);
 	for (var d = 0; d < noteDrums.length; d++) {
-		me.dropDrumAtBeat( noteDrums[d].morder, noteDrums[d].beatStart, noteDrums[d].drum);
+		me.dropDrumAtBeat(noteDrums[d].morder, noteDrums[d].beatStart, noteDrums[d].drum);
 	}
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
@@ -251,17 +252,38 @@ FretChordSheet.prototype.userActionDropDrums = function ( morder, start192, dura
 		}
 	});
 };
-FretChordSheet.prototype.userActionDropNotes = function (track, morder, start192, duration192, octave, step, accidental) {
+FretChordSheet.prototype.userActionDropNotes = function (track, morder, start192, duration192, pitch) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
-	var noteBeats = me.findNotes(track, morder, start192, duration192, step, octave, accidental);
+	var noteBeats = me.findNotes(track, morder, start192, duration192, pitch);
 	for (var d = 0; d < noteBeats.length; d++) {
-		me.dropNoteAtBeat(noteBeats[d].track, noteBeats[d].morder, noteBeats[d].beatStart
-		noteBeats[d].note.step, noteBeats[d].note.octave, noteBeats[d].note.accidental);
+		me.dropNoteAtBeat(noteBeats[d].track, noteBeats[d].morder, noteBeats[d].beatStart, pitch);
 	}
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Drop notes ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + octave+'/'+ step+'/'+ accidental,
+		caption: 'Drop notes ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + pitch,
+		undo: function () {
+			me.measures[morder] = pre;
+			me.shrinkMeasures();
+			me.reCalcContentSize();
+		},
+		redo: function () {
+			me.measures[morder] = after;
+			me.shrinkMeasures();
+			me.reCalcContentSize();
+		}
+	});
+};
+FretChordSheet.prototype.userActionDropNotes7 = function (track, morder, start192, duration192, octave, step) {
+	var me = this;
+	var pre = this.cloneMeasure(morder);
+	var noteBeats = me.findNotes7(track, morder, start192, duration192, step, octave);
+	for (var d = 0; d < noteBeats.length; d++) {
+		me.dropNoteAtBeat(noteBeats[d].track, noteBeats[d].morder, noteBeats[d].beatStart, noteBeats[d].note.octave, noteBeats[d].note.step);
+	}
+	var after = this.cloneMeasure(morder);
+	this.pushAction({
+		caption: 'Drop notes ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + octave + '/' + step,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -338,9 +360,9 @@ FretChordSheet.prototype.userActionRollMeter = function (morder) {
 	var me = this;
 	var minfo = this.measureInfo(morder);
 	var pre = minfo.duration4;
-	var aftr=pre+1;
-	if(aftr>7){
-		aftr=3;
+	var aftr = pre + 1;
+	if (aftr > 7) {
+		aftr = 3;
 	}
 	this.pushAction({
 		caption: 'Roll meter ' + morder,
@@ -358,9 +380,9 @@ FretChordSheet.prototype.userActionRollKeys = function (morder) {
 	var me = this;
 	var minfo = this.measureInfo(morder);
 	var pre = minfo.keys;
-	var aftr=pre+1;
-	if(aftr>=this.keys.length){
-		aftr=0;
+	var aftr = pre + 1;
+	if (aftr >= this.keys.length) {
+		aftr = 0;
 	}
 	this.pushAction({
 		caption: 'Roll keys ' + morder,
@@ -384,7 +406,29 @@ FretChordSheet.prototype.dropDrumAtBeat = function (morder, beatStart, drum) {
 		}
 	}
 };
-FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, octave,step, accidental) {
+FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, pitch) {
+	
+	if (morder < this.measures.length) {
+		var minfo = this.measures[morder];
+		
+		for (var i = 0; i < minfo.beats.length; i++) {
+			var measureBeat = minfo.beats[i];
+			
+			if (measureBeat.start192 == beatStart) {
+				var measureToneChord = measureBeat.chords[track];
+				//console.log(pitch,measureToneChord);
+				for (var n = 0; n < measureToneChord.notes.length; n++) {
+					var measureToneNote = measureToneChord.notes[n];
+					if (this.octaveStepAccidental(measureToneNote.octave, measureToneNote.step, measureToneNote.accidental) == pitch) {
+						measureToneChord.notes.splice(n, 1);
+						break;
+					}
+				}
+			}
+		}
+	}
+};
+FretChordSheet.prototype.dropNoteAtBeat7 = function (track, morder, beatStart, octave, step) {
 	if (morder < this.measures.length) {
 		minfo = this.measures[morder];
 		for (var i = 0; i < minfo.beats.length; i++) {
@@ -393,7 +437,7 @@ FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, oc
 				var measureToneChord = measureBeat.chords[track];
 				for (var n = 0; n < measureToneChord.notes.length; n++) {
 					var measureToneNote = measureToneChord.notes[n];
-					if (measureToneNote.octave == octave && measureToneNote.step == step && measureToneNote.accidental == accidental) {
+					if (measureToneNote.octave == octave && measureToneNote.step == step) {
 						measureToneChord.notes.splice(n, 1);
 						break;
 					}

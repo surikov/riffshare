@@ -65,8 +65,8 @@ FretChordSheet.prototype.init = function () {
 	this.measures = [];
 	this.strings = [28, 23, 19, 14, 9, 4];
 	this.markNotes = [];
-	this.markStaff = null;
-	this.markFret = null;
+	//this.markStaff = null;
+	//this.markFret = null;
 	this.contentHeight = 121 * 3 * this.tiler.tapSize;
 	this.trackOrder = [0, 1, 2, 3, 4, 5, 6, 7];
 	this.colors = {
@@ -317,7 +317,6 @@ FretChordSheet.prototype.init = function () {
 			me.tilePianorollGrid(left, top, width, height, lineWidth);
 			me.tilePianorollNotes(left, top, width, height, lineWidth);
 			me.tilePianorollMark(left, top, width, height, lineWidth);
-
 		}
 		if (me.options.hideStaff < 2) {
 			me.tileStaffLines(left, top, width, height, lineWidth);

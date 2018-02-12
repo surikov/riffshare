@@ -94,14 +94,14 @@ FretChordSheet.prototype.findBeatX = function (measureNum, step192) {
 	return x;
 };
 FretChordSheet.prototype.octaveStepAccidental = function (octave, step, accidental) {
-	var r=octave*12;
-	if(step==1){r=r+2;}
-	if(step==2){r=r+4;}
-	if(step==3){r=r+5;}
-	if(step==4){r=r+7;}
-	if(step==5){r=r+9;}
-	if(step==6){r=r+11;}
-	r=r+accidental;
+	var r = octave * 12;
+	if (step == 1) { r = r + 2; }
+	if (step == 2) { r = r + 4; }
+	if (step == 3) { r = r + 5; }
+	if (step == 4) { r = r + 7; }
+	if (step == 5) { r = r + 9; }
+	if (step == 6) { r = r + 11; }
+	r = r + accidental;
 	return r;
 };
 FretChordSheet.prototype.note7 = function (pitch) {//, noAltModeSharp) {
@@ -176,7 +176,26 @@ FretChordSheet.prototype.findNotes = function (track, morder, start192, duration
 				var measureToneChord = measureBeat.chords[track];
 				for (var n = 0; n < measureToneChord.notes.length; n++) {
 					var measureToneNote = measureToneChord.notes[n];
-					if (measureToneNote.pitch == pitch) {
+					if (this.octaveStepAccidental(measureToneNote.octave,measureToneNote.step,measureToneNote.accidental) == pitch) {
+						notes.push({ track: track, morder: morder, beatStart: measureBeat.start192, note: measureToneNote });
+					}
+				}
+			}
+		}
+	}
+	return notes;
+};
+FretChordSheet.prototype.findNotes7 = function (track, morder, start192, duration192, octave, step) {
+	var notes = [];
+	if (morder < this.measures.length) {
+		minfo = this.measures[morder];
+		for (var i = 0; i < minfo.beats.length; i++) {
+			var measureBeat = minfo.beats[i];
+			if (measureBeat.start192 >= start192 && measureBeat.start192 < start192 + duration192) {
+				var measureToneChord = measureBeat.chords[track];
+				for (var n = 0; n < measureToneChord.notes.length; n++) {
+					var measureToneNote = measureToneChord.notes[n];
+					if (measureToneNote.octave == octave && measureToneNote.step == step) {
 						notes.push({ track: track, morder: morder, beatStart: measureBeat.start192, note: measureToneNote });
 					}
 				}
@@ -193,20 +212,17 @@ FretChordSheet.prototype.pitch2staffY = function (pitch) {//12, pitch7){//, noAl
 };
 
 
-FretChordSheet.prototype.keyName = function (pitch) {
-	var n = pitch % 12;
-	if (n == 0) { return 'C' }
-	if (n == 1) { return 'C#' }
-	if (n == 2) { return 'D' }
-	if (n == 3) { return 'D#' }
-	if (n == 4) { return 'E' }
-	if (n == 5) { return 'F' }
-	if (n == 6) { return 'F#' }
-	if (n == 7) { return 'G' }
-	if (n == 8) { return 'G#' }
-	if (n == 9) { return 'A' }
-	if (n == 10) { return 'A#' }
-	return 'B';
+FretChordSheet.prototype.keyName = function (note) {
+	var name='C';
+	if (note.step == 1)name='D';
+	if (note.step == 2)name='E';
+	if (note.step == 3)name='F';
+	if (note.step == 4)name='G';
+	if (note.step == 5)name='A';
+	if (note.step == 6)name='B';
+	if(note.accidental>0)name=name+'#';
+	if(note.accidental<0)name=name+'b';
+	return name;
 };
 
 FretChordSheet.prototype.isEmptyMeasureBeat = function (beat) {

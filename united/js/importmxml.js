@@ -143,7 +143,7 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 				fifths = _fifths;
 			}
 		}
-		var clefoctavechange= 1*measure.of('attributes').of('clef').of('clef-octave-change').value;
+		var clefoctavechange = 1 * measure.of('attributes').of('clef').of('clef-octave-change').value;
 		var quant = 6 * (32 / 4) / divisions;
 		var beats = measure.of('attributes').of('time').of('beats').value;
 		var beattype = measure.of('attributes').of('time').of('beat-type').value;
@@ -161,7 +161,7 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 			minfo.keys = 7 + 8 + fifths;
 		}
 		if (track > -1) {
-			this.parseToneMeasure(quant, i, track, measure, this.keys[minfo.keys],clefoctavechange);
+			this.parseToneMeasure(quant, i, track, measure, this.keys[minfo.keys], clefoctavechange);
 		} else {
 			this.parseDrumMeasure(vt, part.of('id').value, quant, i, measure);
 		}
@@ -205,7 +205,7 @@ FretChordSheet.prototype.stepNum = function (step) {
 	if (step.toUpperCase() == 'H') { return 5; }
 	return 0;
 }
-FretChordSheet.prototype.findTieStart = function (trackNo, mOrder, start192, octave,step,accidental) {
+FretChordSheet.prototype.findTieStart = function (trackNo, mOrder, start192, octave, step, accidental) {
 	for (var m = 0; m < this.measures.length; m++) {
 		if (m <= mOrder) {
 			var minfo = this.measures[m];
@@ -230,7 +230,7 @@ FretChordSheet.prototype.findTieStart = function (trackNo, mOrder, start192, oct
 	}
 	return null;
 };
-FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, keys,clefoctavechange) {
+FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, keys, clefoctavechange) {
 	var notes = measure.all('note');
 	var minfo = this.measureInfo(n);
 	var voices = this.findVoices(notes);
@@ -249,15 +249,15 @@ FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, 
 					var binfo = this.beatInfo(minfo, idx);
 					var step = notes[i].of('pitch').of('step').value;
 					var alter = notes[i].of('pitch').of('alter').value;
-					alter=alter?alter:0;
+					alter = alter ? alter : 0;
 					var octave = notes[i].of('pitch').of('octave').value;
 					var tie = notes[i].of('notations').of('tied').of('type').value;
-					var note = { octave: octave,step:this.stepNum(step),accidental:alter, slides: [{ shift: 0, end192: duration * quant }] };
+					var note = { octave: octave, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }] };
 					if (tie != "stop") {
-						this.dropNoteAtBeat(track, n, idx, octave,step,alter);
+						this.dropNoteAtBeat7(track, n, idx, octave, step, alter);
 						binfo.chords[track].notes.push(note);
 					} else {
-						var tied = this.findTieStart(track, n, idx, octave,step,alter);
+						var tied = this.findTieStart(track, n, idx, octave, step, alter);
 						if (tied) {
 							tied.slides[tied.slides.length - 1].end192 = tied.slides[tied.slides.length - 1].end192 + duration * quant;
 						}

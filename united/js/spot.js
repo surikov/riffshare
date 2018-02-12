@@ -73,7 +73,10 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 					var duration192 = _x.duration6;
 					var yy = Math.floor((me.tiler.clickContentY - me.margins.sheetTop) / (3 * me.tiler.tapSize));
 					var y7 = (7 * 6 - 1) - yy;
-					var pitch = 12 * Math.floor(y7 / 7) + me.note12(y7 % 7);
+					//var pitch = 12 * Math.floor(y7 / 7) + me.note12(y7 % 7);
+					var octave = Math.floor(y7 / 7);
+					var step = y7 % 7;
+					var accidental = 0;
 					var track = -1;
 					for (var k = 0; k < me.trackOrder.length; k++) {
 						if (me.trackOrder[k] == 0) {
@@ -87,20 +90,27 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 							, morder: this.morder
 							, start192: start192
 							, duration192: duration192
-							, pitch: pitch
-							, hintStep: y7
+							//, pitch: pitch
+							//, hintStep: y7
+							, octave: octave
+							, step: step
+							, accidental: accidental
 						});
 						me.markNotes.sort(function (a, b) {
 							return a.morder * 1000 + a.start192 - (b.morder * 1000 + b.start192);
 						});
 						var note = new MeasureToneNote();
-						note.pitch = me.markNotes[0].pitch;
-						note.hintStep = me.markNotes[0].hintStep;
+						//note.pitch = me.markNotes[0].pitch;
+						//note.hintStep = me.markNotes[0].hintStep;
+						note.octave = me.markNotes[0].octave;
+						note.step = me.markNotes[0].step;
+						note.accidental = me.markNotes[0].accidental;
 						for (var mm = 1; mm < me.markNotes.length; mm++) {
 							var from = me.markNotes[mm - 1];
 							var to = me.markNotes[mm];
 							var fullTo192 = me.findBeatDistance(me.markNotes[0].morder, me.markNotes[0].start192, to.morder, to.start192);
-							note.slides.push({ shift: from.pitch - to.pitch, end192: fullTo192 + to.duration192 });
+							var shift = me.octaveStepAccidental(from.octave, from.step, from.accidental) - me.octaveStepAccidental(to.octave, to.step, to.accidental);
+							note.slides.push({ shift: shift, end192: fullTo192 + to.duration192 });
 						}
 						me.userActionAddNote(track, me.markNotes[0].morder, me.markNotes[0].start192, note);
 						me.markNotes = [];
@@ -113,11 +123,14 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 								, morder: this.morder
 								, start192: start192
 								, duration192: duration192
-								, pitch: pitch
-								, hintStep: y7
+								//, pitch: pitch
+								//, hintStep: y7
+								, octave: octave
+								, step: step
+								, accidental: accidental
 							});
 						} else {
-							var noteBeats = me.findNotes(track, this.morder, start192, duration192, pitch);
+							var noteBeats = me.findNotes7(track, this.morder, start192, duration192, octave, step);
 							if (noteBeats.length > 0) {
 								me.userActionDropNotes(track, this.morder, start192, duration192, pitch)
 							} else {
@@ -126,8 +139,11 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 									, morder: this.morder
 									, start192: start192
 									, duration192: duration192
-									, pitch: pitch
-									, hintStep: y7
+									//, pitch: pitch
+									//, hintStep: y7
+									, octave: octave
+									, step: step
+									, accidental: accidental
 								});
 							}
 						}
@@ -161,7 +177,13 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 						var _x = me.findMeasureBeat192(me.tiler.clickContentX, this.mx, measure);//this.minfo);
 						var start192 = _x.quarter * 8 * 6 + _x.left6;
 						var duration192 = _x.duration6;
-						var pitch = 59 - Math.floor((me.tiler.clickContentY - me.margins.pianorollTop) / (3 * me.tiler.tapSize));
+						//var pitch = 59 - Math.floor((me.tiler.clickContentY - me.margins.pianorollTop) / (3 * me.tiler.tapSize));
+						var yy = Math.floor((me.tiler.clickContentY - me.margins.pianorollTop) / (3 * me.tiler.tapSize));
+						var y12 = (12 * 5 - 1) - yy;
+						var octave = Math.floor(y12 / 12);
+						var step = me.note7(y12 % 12);
+						var accidental = (y12 % 12)-me.note12(step);
+						//console.log('pianoroll',octave,step,accidental);
 						var track = -1;
 						for (var k = 0; k < me.trackOrder.length; k++) {
 							if (me.trackOrder[k] == 0) {
@@ -170,17 +192,31 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 							}
 						}
 						if (me.markNotes.length >= me.options.markNotesCount) {
-							me.markNotes.splice(0, 0, { minfo: measure, morder: this.morder, start192: start192, duration192: duration192, pitch: pitch });
+							me.markNotes.splice(0, 0, { 
+								minfo: measure
+								, morder: this.morder
+								, start192: start192
+								, duration192: duration192
+								//, pitch: pitch 
+								, octave: octave
+								, step: step
+								, accidental: accidental
+							});
 							me.markNotes.sort(function (a, b) {
 								return a.morder * 1000 + a.start192 - (b.morder * 1000 + b.start192);
 							});
 							var note = new MeasureToneNote();
-							note.pitch = me.markNotes[0].pitch;
+							//note.pitch = me.markNotes[0].pitch;
+							note.octave = me.markNotes[0].octave;
+							note.step = me.markNotes[0].step;
+							note.accidental = me.markNotes[0].accidental;
 							for (var mm = 1; mm < me.markNotes.length; mm++) {
 								var from = me.markNotes[mm - 1];
 								var to = me.markNotes[mm];
 								var fullTo192 = me.findBeatDistance(me.markNotes[0].morder, me.markNotes[0].start192, to.morder, to.start192);
-								note.slides.push({ shift: from.pitch - to.pitch, end192: fullTo192 + to.duration192 });
+								//note.slides.push({ shift: from.pitch - to.pitch, end192: fullTo192 + to.duration192 });
+								var shift = me.octaveStepAccidental(from.octave, from.step, from.accidental) - me.octaveStepAccidental(to.octave, to.step, to.accidental);
+								note.slides.push({ shift: shift, end192: fullTo192 + to.duration192 });
 							}
 							me.userActionAddNote(track, me.markNotes[0].morder, me.markNotes[0].start192, note);
 							me.markNotes = [];
@@ -188,13 +224,34 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 							me.reCalcContentSize();
 						} else {
 							if (me.markNotes.length > 0) {
-								me.markNotes.push({ minfo: me.measureInfo(this.morder), morder: this.morder, start192: start192, duration192: duration192, pitch: pitch });
+								me.markNotes.push({
+									minfo: me.measureInfo(this.morder)
+									, morder: this.morder
+									, start192: start192
+									, duration192: duration192
+									//, pitch: pitch 
+									, octave: octave
+									, step: step
+									, accidental: accidental
+								});
 							} else {
-								var noteBeats = me.findNotes(track, this.morder, start192, duration192, pitch);
+								var p=me.octaveStepAccidental(octave,step,accidental);
+								var noteBeats = me.findNotes(track, this.morder, start192, duration192, p);
 								if (noteBeats.length > 0) {
-									me.userActionDropNotes(track, this.morder, start192, duration192, pitch)
+									//me.userActionDropNotes(track, this.morder, start192, duration192, pitch)
+									me.userActionDropNotes(track, this.morder, start192, duration192, p);
+									//console.log(p);
 								} else {
-									me.markNotes.push({ minfo: me.measureInfo(this.morder), morder: this.morder, start192: start192, duration192: duration192, pitch: pitch });
+									me.markNotes.push({
+										minfo: me.measureInfo(this.morder)
+										, morder: this.morder
+										, start192: start192
+										, duration192: duration192
+										//, pitch: pitch 
+										, octave: octave
+										, step: step
+										, accidental: accidental
+									});
 								}
 							}
 						}
