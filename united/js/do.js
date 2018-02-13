@@ -191,15 +191,23 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 		}
 	});
 };
-FretChordSheet.prototype.userActionAlterNote = function (track, morder, start192, note) {
+FretChordSheet.prototype.userActionAlterNote = function ( morder,  note) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
-	var minfo = this.measureInfo(morder);
-	var beat = this.beatInfo(minfo, start192);
-	beat.chords[track].notes.push(note);
+	var state1=note.accidental;
+	if(note.accidental<0){
+		note.accidental=0;
+	}else{
+		if(note.accidental>0){
+			note.accidental=-1;
+		}else{
+			note.accidental=1;
+		}
+	}
+	var state2=note.accidental;
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Alter note ' + track + ":" + morder + ":" + start192 + ":" + note.octave+ "/" + note.step+ "/" + note.accidental,
+		caption: 'Alter note ' + state1+' -> '+state2,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();

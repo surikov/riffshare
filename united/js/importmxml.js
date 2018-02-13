@@ -248,9 +248,9 @@ FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, 
 				if (notes[i].has('pitch')) {
 					var binfo = this.beatInfo(minfo, idx);
 					var step = notes[i].of('pitch').of('step').value;
-					var alter = notes[i].of('pitch').of('alter').value;
+					var alter = 1*notes[i].of('pitch').of('alter').value;
 					alter = alter ? alter : 0;
-					var octave = notes[i].of('pitch').of('octave').value;
+					var octave = 1*notes[i].of('pitch').of('octave').value;
 					var tie = notes[i].of('notations').of('tied').of('type').value;
 					var note = { octave: octave, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }] };
 					if (tie != "stop") {

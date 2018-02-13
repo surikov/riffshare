@@ -39,7 +39,7 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 											//var yy = me.pitch2staffY(note.pitch, 0, 0, !altModeSharp);
 											var yy = 6 * 7 - 7 * note.octave - note.step - 1;
 											var xx = me.options.measureHeader + beat.start192 / 6;
-											me.tileNoteTools(note, xx, yy, tg);
+											me.tileNoteTools(x,note, xx, yy, tg);
 											//console.log(note, xx, yy, tg);
 										}
 									}
@@ -187,6 +187,17 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 						var octave = Math.floor(y12 / 12);
 						var step = me.note7(y12 % 12);
 						var accidental = (y12 % 12)-me.note12(step);
+						//console.log(step,accidental,me.keys[minfo.keys],minfo.keys);
+						if(accidental>0){
+							//console.log(accidental);
+							//me.keys[minfo.keys][0]
+							if((step==0 ||step==1 ||step==3 ||step==4 ||step==5) && me.keys[minfo.keys][step+1]<0){
+								step=step+1;
+								accidental=-1;
+							}
+						}
+
+
 						//console.log('pianoroll',octave,step,accidental);
 						var track = -1;
 						for (var k = 0; k < me.trackOrder.length; k++) {

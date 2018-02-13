@@ -22,12 +22,21 @@ FretChordSheet.prototype.init = function () {
 	this.layerDialogs = this.tiler.addBaseLayer();
 	this.margins = {
 		sheetLeft: 60 * this.tiler.tapSize
-		, pianorollTop: (1) * 3 * this.tiler.tapSize
-		, sheetTop: (1 + 12 * 5 + 1) * 3 * this.tiler.tapSize
-		, fretTop: (1 + 12 * 5 + 1 + 6 * 7 + 1) * 3 * this.tiler.tapSize
-		, drumsTop: (1 + 12 * 5 + 1 + 6 * 7 + 1 + 6 + 1) * 3 * this.tiler.tapSize
-
+		//, pianorollTop: (1) * 3 * this.tiler.tapSize
+		//, sheetTop: (1 + 12 * 5 + 1) * 3 * this.tiler.tapSize
+		//, fretTop: (1 + 12 * 5 + 1 + 6 * 7 + 1) * 3 * this.tiler.tapSize
+		//, drumsTop: (1 + 12 * 5 + 1 + 6 * 7 + 1 + 6 + 1) * 3 * this.tiler.tapSize
+		, pianorollTop: 0
+		, sheetTop: 0
+		, fretTop: 0
+		, drumsTop: 0
 	};
+	/*this.margins.pianorollTop=3 * this.tiler.tapSize;
+	this.margins.sheetTop=this.margins.pianorollTop+(5*12+1)* 3 * this.tiler.tapSize;
+	this.margins.fretTop=this.margins.sheetTop+(6*7+1)* 3 * this.tiler.tapSize;
+	this.margins.drumsTop=this.margins.fretTop+(6+1)* 3 * this.tiler.tapSize;
+*/
+	
 	this.feelNames = ['straight 1/8', 'straight 1/16', 'swing 1/16', 'triplet 2/16', 'straight 1/32'];
 	this.breakNames = ['none', 'narrow', 'wide'];
 
@@ -44,6 +53,7 @@ FretChordSheet.prototype.init = function () {
 		, hideDrums: 1
 		, clef8: [0, 0, 0, 0, 0, 0, 0, 0]
 	};
+	
 	this.keys = [
 		[0, 0, 0, 0, 0, 0, 0]//C 0
 		, [0, 0, 0, 1, 0, 0, 0]//G 1
@@ -87,6 +97,7 @@ FretChordSheet.prototype.init = function () {
 		, fretLine8: '#999'
 	};
 	this.modalDialogMode = false;
+	
 	this.drumInfo = [{
 		//sound: _drum_35_0_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum0'), 0, 70, 100),
@@ -275,6 +286,7 @@ FretChordSheet.prototype.init = function () {
 
 	];
 	this.tiler.adjustContentPosition();
+	
 	var me = this;
 	var accidentalLevel=3;
 	var noteLevel=9;
@@ -375,6 +387,7 @@ FretChordSheet.prototype.init = function () {
 		me.tileMeasurePlaceholders(left, top, width, height, lineWidth);
 		me.tileModalDialog(left, top, width, height, lineWidth);
 	});
+	
 	window.addEventListener("beforeunload", function () { me.saveState(me.prefix); });
 	window.addEventListener("blur", function () { me.saveState(me.prefix); });
 	document.getElementById('chooseFileInput').addEventListener('change', function (evt) { me.doImport(evt); }, false);

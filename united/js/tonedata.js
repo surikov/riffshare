@@ -35,6 +35,13 @@ FretChordSheet.prototype.measureInfo = function (n) {
 			//
 		} else {
 			this.measures[i] = new MeasureInfo();
+			/*for(var n=0;n<i;n++){
+				console.log(this.measures[n]);
+			}
+			console.log(this.measures[i]);*/
+			if(i>0){
+				this.measures[i].keys=this.measures[i-1].keys;
+			}
 		}
 	}
 	return this.measures[n];

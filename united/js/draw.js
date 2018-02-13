@@ -1,18 +1,4 @@
-﻿/*FretChordSheet.prototype.tileTest = function (left, top, width, height, layer, lineWidth) {
-	var me = this;
-	layer.renderGroup(//
-		this.margins.sheetLeft//
-		, this.margins.sheetTop//
-		, this.options.measureLen * 3 * layer.tapSize//
-		, 6 * 7 * 3 * layer.tapSize//
-		, 'tstxt23txt', left, top, width, height, function (tg) {
-			for (var o = 0; o < 6; o++) {
-				for (var n = 0; n < 7; n++) {
-					me.tileNoteHead(n, 7 * o + n, tg);
-				}
-			}
-		});
-};*/
+﻿
 FretChordSheet.prototype.tileOctaveNumbers = function (sz, left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var i = 0; i < 5; i++) {
@@ -442,144 +428,11 @@ FretChordSheet.prototype.tileFretNotes = function (left, top, width, height, lay
 			});
 	}
 };
-/*
-FretChordSheet.prototype.tileStaffMark = function (left, top, width, height, layer, lineWidth) {
-	var me = this;
-	if (me.markStaff) {
-		for (var i = 0; i < this.calcMeasureCount(); i++) {
-			var minfo = this.measureInfo(i);
-			layer.renderGroup(minfo.left * 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
-				, this.margins.sheetTop//
-				, minfo.duration192 / 6 * 3 * layer.tapSize //this.options.measureLen * 3 * layer.tapSize//
-				, 6 * 7 * 3 * layer.tapSize//
-				, 'stfmrk' + i, left, top, width, height, function (tg) {
-					var tx = me.markStaff.start192 / 6 * 3 * layer.tapSize + me.margins.sheetLeft;
-					//var ty = tg.y + tg.h - (7 * me.octave(me.markStaff.pitch) + me.note7(me.markStaff.pitch) + 1) * 3 * layer.tapSize;
-					//var ty = (5 * 12 - me.markNote.pitch - 1) * 3 * layer.tapSize + me.margins.pianorollTop;
-					//var ty = (5 * 12 - me.markNote.pitch - 1) * 3 * layer.tapSize + me.margins.pianorollTop;
-					//, tg.y + tg.h - (me.note12(curMark.step) + curMark.accidental) * 3 * me.tiler.tapSize - 3 * me.tiler.tapSize / 2
-					var ty = tg.y + tg.h - (7 * me.markStaff.octave + me.markStaff.step + 1) * 3 * layer.tapSize;
-					if (tx >= tg.x
-						&& tx <= tg.x + tg.w
-						&& ty >= tg.y
-						&& ty <= tg.y + tg.h
-					) {
-						tg.layer.tileCircle(tg.g
-							, tx + 1.5 * layer.tapSize
-							, ty + 1.5 * layer.tapSize
-							
-							, 1.5 * layer.tapSize, 'rgba(0,0,0,0)'
-							, me.colors.base
-							, 0.5 * layer.tapSize);
-						return;
 
-					}
-				});
-		}
-	}
-}
-*/
-/*
-FretChordSheet.prototype.tileStaffNotes = function (left, top, width, height, layer, lineWidth) {
-	var me = this;
-	for (var i = 0; i < this.calcMeasureCount(); i++) {
-		var minfo=this.measureInfo(i);
-		layer.renderGroup(minfo.left* 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
-			, this.margins.sheetTop//
-			, minfo.duration192/6* 3 * layer.tapSize //this.options.measureLen * 3 * layer.tapSize//
-			, 6 * 7 * 3 * layer.tapSize//
-			, 'stfnotes' + i, left, top, width, height, function (tg) {
-				for (var t = 0; t < me.tones.length; t++) {
-					var tx = me.tones[t].start192 / 6 * 3 * layer.tapSize + me.margins.sheetLeft;
-					var ty = tg.y + tg.h - (7 * me.octave(me.tones[t].pitch) + me.note7(me.tones[t].pitch) + 1) * 3 * layer.tapSize;
-					if (tx >= tg.x
-						&& tx <= tg.x + tg.w
-						&& ty >= tg.y
-						&& ty <= tg.y + tg.h
-					) {
-						me.tileNoteHead(me.tones[t].start192 / 6 - i * me.options.measureLen, 6 * 7 - (7 * me.octave(me.tones[t].pitch) + me.note7(me.tones[t].pitch)) - 1, tg);
-					}
-				}
-			});
-	}
-};
-*/
 
-FretChordSheet.prototype.tileStaffGrid = function (left, top, width, height, layer, lineWidth) {
-	var me = this;
-	for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
-		var minfo = this.measureInfo(i);
-		layer.renderGroup(minfo.left * 3 * layer.tapSize//this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
-			, this.margins.sheetTop//
-			, minfo.duration192 / 6 * 3 * layer.tapSize //this.options.measureLen * 3 * layer.tapSize//
-			, 6 * 7 * 3 * layer.tapSize//
-			, 'stfgrd' + i, left, top, width, height, function (tg) {
-				for (var k = 1; k < 6 * 7; k++) {
-					layer.tileRectangle(tg.g, tg.x, tg.y + k * 3 * layer.tapSize
-						, tg.w, lineWidth * 0.5, me.colors.grid);
-				}
-				for (var k = 0; k < me.options.measureLen / 8; k++) {
-					layer.tileRectangle(tg.g, tg.x + 8 * (1 + k) * 3 * layer.tapSize, tg.y
-						, lineWidth * 2, 6 * 7 * 3 * layer.tapSize, me.colors.grid);
-					for (var nn = 1; nn < me.feelPattern6[me.options.feel].length - 1; nn++) {
-						layer.tileRectangle(tg.g, tg.x + (8 * k + me.feelPattern6[me.options.feel][nn] / 6) * 3 * layer.tapSize, tg.y
-							, lineWidth * 0.5, 6 * 7 * 3 * layer.tapSize, me.colors.grid);
-					}
-				}
-			});
-	}
-};
 
-FretChordSheet.prototype.tileStaff = function (left, top, width, height, layer, lineWidth) {
-	var me = this;
-	var sk = 57;
-	for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
-		var minfo = this.measureInfo(i);
-		layer.renderGroup(minfo.left * 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
-			, this.margins.sheetTop//
-			, minfo.duration192 / 6 * 3 * layer.tapSize //this.options.measureLen * 3 * layer.tapSize//
-			, 6 * 7 * 3 * layer.tapSize//
-			, 'stff' + i, left, top, width, height, function (tg) {
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 0) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 1) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 2) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 3) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 4) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
 
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 0) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 1) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 2) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 3) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 4) * layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				if (i < me.calcMeasureCount()) {
-					layer.tileRectangle(tg.g, tg.x + tg.w, tg.y + (31.5 + 6 * 0) * layer.tapSize, lineWidth, 81 * layer.tapSize, me.colors.staff);
-				}
-			});
-	}
-};
-FretChordSheet.prototype.tileBars = function (left, top, width, height, layer, lineWidth) {
-	for (var i = 0; i < this.barCount; i++) {
-		var xx = this.margins.sheetLeft + i * 3 * this.barSize * layer.tapSize;
-		var me = this;
-		layer.renderGroup(xx, this.margins.sheetTop
-			, 1 * layer.tapSize, 60 * layer.tapSize, 'brLine' + i, left, top, width, height
-			, function (tg) {
-				layer.tileRectangle(tg.g, xx, me.margins.sheetTop, lineWidth, 2 * 3 * 4 * layer.tapSize, me.colors.base);
-			});
-	}
-}
-FretChordSheet.prototype.tileMeasureGrid = function (left, top, width, height, layer, lineWidth, n) {
-	var xx = this.margins.sheetLeft + n * 3 * this.barSize * layer.tapSize;
-	var tg = layer.tileGroup(0, 0, this.calcContentWidth(), this.contentHeight, 'brGrid' + n, left, top, width, height);
-	if (tg) {
-		for (var x = 0; x < this.barSize; x++) {
-			layer.tileRectangle(tg.g, xx + x * 3 * layer.tapSize, 0, lineWidth / 7, this.contentHeight, this.colors.grid);
-		}
-		for (var y = 0; y < this.contentHeight; y = y + 3 * layer.tapSize) {
-			layer.tileRectangle(tg.g, xx, y, 3 * this.barSize * layer.tapSize, lineWidth / 7, this.colors.grid);
-		}
-	}
-}
+
 FretChordSheet.prototype.tileNoteChordHead = function (x, ys, tg) {
 	for (var i = 0; i < ys.length; i++) {
 		this.tileNoteHead(x, ys[i], tg);
@@ -839,14 +692,14 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 		});
 };
 
-FretChordSheet.prototype.tileNoteTools = function (note, xx, yy, tg) {
+FretChordSheet.prototype.tileNoteTools = function (morder,note, xx, yy, tg) {
 	var me = this;
 	this.tileKnob(tg, 'noteAlt' + xx + 'x' + yy
 		, xx * 3 * this.tiler.tapSize - 1.5 * this.tiler.tapSize
 		, yy * 3 * this.tiler.tapSize - 1.5 * this.tiler.tapSize
 		, this.tiler.tapSize, '#?b', function () {
 			//console.log(me.note7(note.pitch), note);
-			me.userActionAlterNote();
+			me.userActionAlterNote(morder,  note);
 		});
 };
 FretChordSheet.prototype.tilePianoOctaveLines = function (left, top, width, height, lineWidth) {
@@ -1022,11 +875,11 @@ FretChordSheet.prototype.tileStaffMeasureNotes = function (x, minfo, mx, trackNu
 											alts[note.step + note.octave * 7] = 0;
 											me.tileSmallNoteNatural(xx - 1.5, yy, tg, color, me.trackOrder[trackNum]);
 										} else {
-											if (note.accidental > 0 && a == 0) {
+											if (note.accidental > 0 && (!(a > 0))) {
 												alts[note.step + note.octave * 7] = 1;
 												me.tileSmallNoteSharp(xx - 1.5, yy, tg, color, me.trackOrder[trackNum]);
 											} else {
-												if (note.accidental < 0 && a == 0) {
+												if (note.accidental < 0 && (!(a < 0))) {
 													alts[note.step + note.octave * 7] = -1;
 													me.tileSmallNoteFlat(xx - 1.5, yy, tg, color, me.trackOrder[trackNum]);
 												}
@@ -1430,6 +1283,7 @@ FretChordSheet.prototype.tilePianorollNoteLine = function (tg, tonenote, start19
 		if (o) {
 			delta = (0.2 + o * 0.05) * this.tiler.tapSize;
 		}
+		//console.log(ty1, delta,p,tonenote);
 		tg.layer.tileLine(tg.g, tx1 + delta
 			, ty1 + delta
 			, tx2 + delta
