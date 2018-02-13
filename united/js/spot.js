@@ -36,9 +36,11 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 									for (var n = 0; n < chord.notes.length; n++) {
 										var note = chord.notes[n];
 										if (note) {
-											var yy = me.pitch2staffY(note.pitch, 0, 0, !altModeSharp);
+											//var yy = me.pitch2staffY(note.pitch, 0, 0, !altModeSharp);
+											var yy = 6 * 7 - 7 * note.octave - note.step - 1;
 											var xx = me.options.measureHeader + beat.start192 / 6;
 											me.tileNoteTools(note, xx, yy, tg);
+											//console.log(note, xx, yy, tg);
 										}
 									}
 								}
@@ -76,7 +78,7 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 					//var pitch = 12 * Math.floor(y7 / 7) + me.note12(y7 % 7);
 					var octave = Math.floor(y7 / 7);
 					var step = y7 % 7;
-					var accidental = 0;
+					var accidental = me.keys[minfo.keys][step];
 					var track = -1;
 					for (var k = 0; k < me.trackOrder.length; k++) {
 						if (me.trackOrder[k] == 0) {
@@ -130,9 +132,11 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 								, accidental: accidental
 							});
 						} else {
+							//console.log('check exists');
 							var noteBeats = me.findNotes7(track, this.morder, start192, duration192, octave, step);
 							if (noteBeats.length > 0) {
-								me.userActionDropNotes(track, this.morder, start192, duration192, pitch)
+								//console.log('exists',noteBeats);
+								me.userActionDropNotes7(track, this.morder, start192, duration192, octave, step)
 							} else {
 								me.markNotes.push({
 									minfo: me.measureInfo(this.morder)

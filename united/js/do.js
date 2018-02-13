@@ -191,6 +191,27 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 		}
 	});
 };
+FretChordSheet.prototype.userActionAlterNote = function (track, morder, start192, note) {
+	var me = this;
+	var pre = this.cloneMeasure(morder);
+	var minfo = this.measureInfo(morder);
+	var beat = this.beatInfo(minfo, start192);
+	beat.chords[track].notes.push(note);
+	var after = this.cloneMeasure(morder);
+	this.pushAction({
+		caption: 'Alter note ' + track + ":" + morder + ":" + start192 + ":" + note.octave+ "/" + note.step+ "/" + note.accidental,
+		undo: function () {
+			me.measures[morder] = pre;
+			me.shrinkMeasures();
+			me.reCalcContentSize();
+		},
+		redo: function () {
+			me.measures[morder] = after;
+			me.shrinkMeasures();
+			me.reCalcContentSize();
+		}
+	});
+};
 FretChordSheet.prototype.userActionAddDrum = function (morder, start192, drum) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
@@ -275,15 +296,18 @@ FretChordSheet.prototype.userActionDropNotes = function (track, morder, start192
 	});
 };
 FretChordSheet.prototype.userActionDropNotes7 = function (track, morder, start192, duration192, octave, step) {
+	//console.log('userActionDropNotes7', octave, step);
 	var me = this;
 	var pre = this.cloneMeasure(morder);
-	var noteBeats = me.findNotes7(track, morder, start192, duration192, step, octave);
+	var noteBeats = me.findNotes7(track, morder, start192, duration192, octave, step);
+	//console.log('noteBeats',noteBeats, octave, step);
 	for (var d = 0; d < noteBeats.length; d++) {
-		me.dropNoteAtBeat(noteBeats[d].track, noteBeats[d].morder, noteBeats[d].beatStart, noteBeats[d].note.octave, noteBeats[d].note.step);
+		//console.log('dropNoteAtBeat7', noteBeats[d].note.octave, noteBeats[d].note.step);
+		me.dropNoteAtBeat7(noteBeats[d].track, noteBeats[d].morder, noteBeats[d].beatStart, noteBeats[d].note.octave, noteBeats[d].note.step);
 	}
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Drop notes ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + octave + '/' + step,
+		caption: 'Drop notes7 ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + octave + '/' + step,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -429,6 +453,7 @@ FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, pi
 	}
 };
 FretChordSheet.prototype.dropNoteAtBeat7 = function (track, morder, beatStart, octave, step) {
+	
 	if (morder < this.measures.length) {
 		minfo = this.measures[morder];
 		for (var i = 0; i < minfo.beats.length; i++) {

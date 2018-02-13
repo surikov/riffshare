@@ -186,6 +186,7 @@ FretChordSheet.prototype.findNotes = function (track, morder, start192, duration
 	return notes;
 };
 FretChordSheet.prototype.findNotes7 = function (track, morder, start192, duration192, octave, step) {
+	//console.log('findNotes7', octave, step);
 	var notes = [];
 	if (morder < this.measures.length) {
 		minfo = this.measures[morder];
@@ -195,7 +196,9 @@ FretChordSheet.prototype.findNotes7 = function (track, morder, start192, duratio
 				var measureToneChord = measureBeat.chords[track];
 				for (var n = 0; n < measureToneChord.notes.length; n++) {
 					var measureToneNote = measureToneChord.notes[n];
+					//console.log(measureToneNote);
 					if (measureToneNote.octave == octave && measureToneNote.step == step) {
+						//console.log('found');
 						notes.push({ track: track, morder: morder, beatStart: measureBeat.start192, note: measureToneNote });
 					}
 				}
