@@ -472,6 +472,34 @@ FretChordSheet.prototype.userActionRollKeys = function (morder) {
 		}
 	});
 };
+FretChordSheet.prototype.userActionRollClefOctave = function (morder) {
+	var me = this;
+	var minfo = this.measureInfo(morder);
+	var trackNum=0;
+	for (var i = 0; i < 8; i++) {
+		if (me.trackOrder[i] == 0) {
+			trackNum=i;
+			break;
+		}
+	}
+	var pre = minfo.shifts[trackNum]||0;
+	var aftr = pre + 1;
+	if (aftr > 1) {
+		aftr = -1;
+	}
+	
+	this.pushAction({
+		caption: 'Roll octave ' + morder+'/'+trackNum+' '+pre+'->'+aftr,
+		undo: function () {
+			minfo.shifts[trackNum] = pre;
+			console.log(minfo.shifts);
+		},
+		redo: function () {
+			minfo.shifts[trackNum] = aftr;
+			console.log(minfo.shifts);
+		}
+	});
+};
 
 FretChordSheet.prototype.dropDrumAtBeat = function (morder, beatStart, drum) {
 	if (morder < this.measures.length) {
@@ -567,6 +595,9 @@ FretChordSheet.prototype.cloneMeasure = function (morder) {
 		clone.duration4 = minfo.duration4;
 		for (var i = 0; i < minfo.beats.length; i++) {
 			clone.beats[i] = this.cloneBeat(minfo.beats[i]);
+		}
+		for(var i=0;i<8;i++){
+			clone.shifts[i]=minfo.shifts[i]||0;
 		}
 	}
 	return clone;

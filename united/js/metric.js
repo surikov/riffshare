@@ -10,14 +10,14 @@ FretChordSheet.prototype.resetHeaderWidth = function () {
 	}
 };
 FretChordSheet.prototype.reCalcContentSize = function () {
-	this.contentHeight = 121 * 3 * this.tiler.tapSize;
+	this.contentHeight = 133 * 3 * this.tiler.tapSize;
 	this.margins.sheetTop = 1 * 3 * this.tiler.tapSize;
 	this.margins.fretTop = 1 * 3 * this.tiler.tapSize;
 	this.margins.drumsTop = 1 * 3 * this.tiler.tapSize;
 	if (this.options.hidePiano < 2) {
-		this.margins.sheetTop = this.margins.sheetTop + (12 * 5 + 1) * 3 * this.tiler.tapSize;
-		this.margins.fretTop = this.margins.fretTop + (12 * 5 + 1) * 3 * this.tiler.tapSize;
-		this.margins.drumsTop = this.margins.drumsTop + (12 * 5 + 1) * 3 * this.tiler.tapSize;
+		this.margins.sheetTop = this.margins.sheetTop + (12 * 6 + 1) * 3 * this.tiler.tapSize;
+		this.margins.fretTop = this.margins.fretTop + (12 * 6 + 1) * 3 * this.tiler.tapSize;
+		this.margins.drumsTop = this.margins.drumsTop + (12 * 6 + 1) * 3 * this.tiler.tapSize;
 	}
 	if (this.options.hideStaff < 2) {
 		this.margins.fretTop = this.margins.fretTop + (6 * 7 + 1) * 3 * this.tiler.tapSize;

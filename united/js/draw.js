@@ -1,7 +1,7 @@
 ﻿
-FretChordSheet.prototype.tileOctaveNumbers = function (sz, left, top, width, height, layer, lineWidth) {
+/*FretChordSheet.prototype.tileOctaveNumbers = function (sz, left, top, width, height, layer, lineWidth) {
 	var me = this;
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 6; i++) {
 		layer.renderGroup(0//me.margins.sheetLeft //-sz/50 //5 * 3 * layer.tapSize//
 			, me.margins.pianorollTop + i * 12 * 3 * layer.tapSize//
 			, me.options.measureLen * 3 * layer.tapSize//
@@ -10,7 +10,7 @@ FretChordSheet.prototype.tileOctaveNumbers = function (sz, left, top, width, hei
 				layer.tileText(tg.g, tg.x + sz * 0 * layer.tapSize, tg.y + tg.h - sz / 10, sz, '' + (5 - i), me.colors.barCounter);
 			});
 	}
-};
+};*/
 FretChordSheet.prototype.tileBarNumbers = function (sz, left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var i = 0; i < this.calcMeasureCount(); i++) {
@@ -62,9 +62,9 @@ FretChordSheet.prototype.tilePianoMark = function (left, top, width, height, lay
 		}
 	}
 };*/
-FretChordSheet.prototype.tilePianorollNotes = function (left, top, width, height, layer, lineWidth) {
+/*FretChordSheet.prototype.tilePianorollNotes = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
-	for (var n = 0; n < 5; n++) {
+	for (var n = 0; n < 6; n++) {
 		for (var i = 0; i < this.calcMeasureCount(); i++) {
 			var minfo = this.measureInfo(i);
 			layer.renderGroup(minfo.left * 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
@@ -94,10 +94,10 @@ FretChordSheet.prototype.tilePianorollNotes = function (left, top, width, height
 				});
 		}
 	}
-};
+};*/
 FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
-	for (var n = 0; n < 5; n++) {
+	for (var n = 0; n < 6; n++) {
 		for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
 			var minfo = this.measureInfo(i);
 			layer.renderGroup(minfo.left * 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
@@ -121,7 +121,7 @@ FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height,
 };
 FretChordSheet.prototype.tilePianorollOctaves = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
-	for (var n = 0; n < 5; n++) {
+	for (var n = 0; n < 6; n++) {
 		for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
 			var minfo = this.measureInfo(i);
 			layer.renderGroup(minfo.left * 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
@@ -141,7 +141,7 @@ FretChordSheet.prototype.tilePianorollOctaves = function (left, top, width, heig
 };
 FretChordSheet.prototype.tilePianorollKeys = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
-	for (var n = 0; n < 5; n++) {
+	for (var n = 0; n < 6; n++) {
 		for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
 			var minfo = this.measureInfo(i);
 			layer.renderGroup(minfo.left * 3 * layer.tapSize //this.margins.sheetLeft + i * this.options.measureLen * 3 * layer.tapSize//
@@ -692,14 +692,14 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 		});
 };
 
-FretChordSheet.prototype.tileNoteTools = function (morder,note, xx, yy, tg) {
+FretChordSheet.prototype.tileNoteTools = function (morder, note, xx, yy, tg) {
 	var me = this;
 	this.tileKnob(tg, 'noteAlt' + xx + 'x' + yy
 		, xx * 3 * this.tiler.tapSize - 1.5 * this.tiler.tapSize
 		, yy * 3 * this.tiler.tapSize - 1.5 * this.tiler.tapSize
 		, this.tiler.tapSize, '#?b', function () {
 			//console.log(me.note7(note.pitch), note);
-			me.userActionAlterNote(morder,  note);
+			me.userActionAlterNote(morder, note);
 		});
 };
 FretChordSheet.prototype.tilePianoOctaveLines = function (left, top, width, height, lineWidth) {
@@ -707,7 +707,7 @@ FretChordSheet.prototype.tilePianoOctaveLines = function (left, top, width, heig
 	var mx = 0;
 	for (var x = 0; x < this.measures.length; x++) {
 		var minfo = this.measureInfo(x);
-		for (var y = 0; y < 5; y++) {
+		for (var y = 0; y < 6; y++) {
 			this.layerOctaves.renderGroup(mx + this.margins.sheetLeft
 				, this.margins.pianorollTop + y * 3 * 12 * this.tiler.tapSize
 				, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
@@ -782,7 +782,8 @@ FretChordSheet.prototype.tileNoteHead = function (x, y, tg, color, shift) {
 		, "M0,25c-4.03729,-0.90252 -7.9074,-4.60195 -7.14222,-9.02873c0.05883,-5.52261 4.10862,-9.82038 8.21857,-12.80907c5.30957,-3.66664 13.99142,-5.87541 19.0695,-1.31335c5.07808,4.56206 2.7264,11.70948 0.16548,14.59555c-4.73015,5.95609 -12.62795,9.9081 -20.31133,8.55559l0,0.00001z" //
 		, c);//this.colors.base);
 }
-
+//var nnn=1;
+//var kkk='';
 FretChordSheet.prototype.tileStaffKeys = function (minfo, tg, left, top, width, height, yShift) {
 	var me = this;
 	var keyArr = me.keys[minfo.keys];
@@ -800,6 +801,41 @@ FretChordSheet.prototype.tileStaffKeys = function (minfo, tg, left, top, width, 
 	if (keyArr[4] == -1) me.tileNoteFlat(5, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 3, tg);
 	if (keyArr[5] == -1) me.tileNoteFlat(3, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 2, tg);
 	if (keyArr[6] == -1) me.tileNoteFlat(1, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 1, tg);
+
+
+}
+FretChordSheet.prototype.tileStaffTrackShift = function (minfo, tg) {
+	var me = this;
+	var color = '#123';
+	var trackNum=0;
+	for (var i = 0; i < 8; i++) {
+		if (me.trackOrder[i] == 0) {
+			trackNum=i;
+			color = me.trackInfo[i].color;
+			break;
+		}
+	}
+	//var nn = minfo.clefOctaveChange || 0;
+	var nn=minfo.shifts[trackNum]||0;
+	var lbl='';
+	if(nn>0){
+		lbl='+1';
+	}
+	if(nn<0){
+		lbl='-1';
+	}
+	tg.layer.tileText(tg.g
+		, tg.x + 5 * tg.layer.tapSize
+		, tg.y + (63 + 0 * 19) * tg.layer.tapSize
+		, 7 * tg.layer.tapSize
+		, lbl
+		, color);
+	tg.layer.tileText(tg.g
+		, tg.x + 5 * tg.layer.tapSize
+		, tg.y + (63 + 3 * 19) * tg.layer.tapSize
+		, 7 * tg.layer.tapSize
+		, lbl
+		, color);
 }
 /*
 FretChordSheet.prototype.tileNoteAltSharp = function (pitch, alts, xx, yy, tg) {
@@ -866,7 +902,8 @@ FretChordSheet.prototype.tileStaffMeasureNotes = function (x, minfo, mx, trackNu
 										if (me.trackOrder[trackNum] == 0) {
 											color = me.trackInfo[c].color;
 										}
-										var yy = 6 * 7 - 7 * note.octave - note.step - 1;
+										var octaveShift=minfo.shifts[trackNum]||0;
+										var yy = 6 * 7 - 7 * (note.octave-octaveShift) - note.step - 1;
 										var xx = me.options.measureHeader + beat.start192 / 6;
 										me.tileNoteHead(xx, yy, tg, color, me.trackOrder[trackNum]);
 										var a = alts[note.step + note.octave * 7];
@@ -998,6 +1035,13 @@ FretChordSheet.prototype.tileStaffButtons = function (left, top, width, height, 
 				s = me.tileKnob(tg, 'rollKyesSel2_' + x, 3 * me.tiler.tapSize, 90 * me.tiler.tapSize, 20 * me.tiler.tapSize, '', function () {
 					me.userActionRollKeys(_x);
 				});
+
+				s = me.tileKnob(tg, 'rollOctaveSel1_' + x, 3 * me.tiler.tapSize, 57 * me.tiler.tapSize, 10 * me.tiler.tapSize, '', function () {
+					me.userActionRollClefOctave(_x);
+				});
+				s = me.tileKnob(tg, 'rollOctaveSel2_' + x, 3 * me.tiler.tapSize, (3 * 19 + 57) * me.tiler.tapSize, 10 * me.tiler.tapSize, '', function () {
+					me.userActionRollClefOctave(_x);
+				});
 			});
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
@@ -1014,6 +1058,7 @@ FretChordSheet.prototype.tileStaffKeySigns = function (left, top, width, height,
 			, 'staffKeys' + x, left, top, width, height, function (tg) {
 				me.tileStaffKeys(minfo, tg, left, top, width, height, 0);
 				me.tileStaffKeys(minfo, tg, left, top, width, height, 3);
+				me.tileStaffTrackShift(minfo, tg);
 			});
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
@@ -1092,7 +1137,7 @@ FretChordSheet.prototype.tilePianoOctaveKeys = function (left, top, width, heigh
 			minfo = this.measureInfo(this.measures.length - 1);
 		}
 		var keyArr = me.keys[minfo.keys];//, [1, 0, 0, 1, 0, 0, 0]//D 2
-		for (var y = 0; y < 5; y++) {
+		for (var y = 0; y < 6; y++) {
 			this.layerOctaveKeys.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 				, this.margins.pianorollTop + y * 3 * 12 * this.tiler.tapSize
 				, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
@@ -1246,7 +1291,7 @@ FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height,
 			minfo = this.measureInfo(x);
 		else
 			minfo = this.measureInfo(this.measures.length - 1);
-		for (var y = 0; y < 5; y++) {
+		for (var y = 0; y < 6; y++) {
 			this.layerGrid.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 				, this.margins.pianorollTop + y * 3 * 12 * this.tiler.tapSize
 				, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
@@ -1271,7 +1316,7 @@ FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height,
 FretChordSheet.prototype.tilePianorollNoteLine = function (tg, tonenote, start192, measureNum, color, o) {
 	var tx1 = tg.x + start192 / 6 * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize;
 	var p = tonenote.octave * 12 + this.note12(tonenote.step) + tonenote.accidental;
-	var ty1 = (5 * 12 - p - 1) * 3 * tg.layer.tapSize + this.margins.pianorollTop + 1.5 * tg.layer.tapSize;
+	var ty1 = (6 * 12 - p - 1) * 3 * tg.layer.tapSize + this.margins.pianorollTop + 1.5 * tg.layer.tapSize;
 	//console.log(tonenote);
 	for (var i = 0; i < tonenote.slides.length; i++) {
 		var tx2 = this.findBeatX(measureNum, start192 + tonenote.slides[i].end192 - 6) + 1.5 * tg.layer.tapSize;
@@ -1295,7 +1340,7 @@ FretChordSheet.prototype.tilePianorollNoteLine = function (tg, tonenote, start19
 };
 FretChordSheet.prototype.tilePianorollMeasureNotes = function (x, minfo, mx, trackNum, left, top, width, height, lineWidth) {
 	var me = this;
-	for (var y = 0; y < 5; y++) {
+	for (var y = 0; y < 6; y++) {
 		this.layerNotes.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 			, this.margins.pianorollTop + y * 3 * 12 * this.tiler.tapSize
 			, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
@@ -1311,7 +1356,7 @@ FretChordSheet.prototype.tilePianorollMeasureNotes = function (x, minfo, mx, tra
 									for (var n = 0; n < chord.notes.length; n++) {
 										var note = chord.notes[n];
 										if (note) {
-											if (note.octave >= (4 - y) && note.octave < (5 - y)) {
+											if (note.octave >= (5 - y) && note.octave < (6 - y)) {
 												var color = me.trackInfo[c].color;
 												if (me.trackOrder[trackNum] > 0) {
 													color = me.trackInfo[c].shadow;
@@ -1403,7 +1448,7 @@ FretChordSheet.prototype.tileStaffMark = function (left, top, width, height, lin
 						this.layerNotes.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 							, this.margins.sheetTop// + y * 3 * 12 * this.tiler.tapSize
 							, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
-							, 7*6 * 3 * this.tiler.tapSize
+							, 7 * 6 * 3 * this.tiler.tapSize
 							, 'markStafNote' + mm, left, top, width, height, function (tg) {
 								tg.layer.tileCircle(tg.g
 									, tg.x + curMark.start192 / 6 * 3 * me.tiler.tapSize + 3 * me.tiler.tapSize / 2
@@ -1431,8 +1476,8 @@ FretChordSheet.prototype.tilePianorollMark = function (left, top, width, height,
 				}
 				if (minfo)
 					if (curMark.morder == x) {
-						for (var y = 0; y < 5; y++) {
-							var s = 4 - y;
+						for (var y = 0; y < 6; y++) {
+							var s = 5 - y;
 
 							//if (curMark.pitch >= s * 12 && curMark.pitch < s * 12 + 12) {
 							if (curMark.octave == s) {
@@ -1460,13 +1505,13 @@ FretChordSheet.prototype.tilePianorollMark = function (left, top, width, height,
 FretChordSheet.prototype.tileOctaveNumbers = function (lx, sz, left, top, width, height, lineWidth) {
 	var me = this;
 	this.layerOctaveNumbers.lockX = me.tiler.svg.clientWidth - lx;
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 6; i++) {
 		this.layerOctaveNumbers.renderGroup(0//
-			, me.margins.pianorollTop + i * 12 * 3 * this.tiler.tapSize - 2 * 3 * this.tiler.tapSize//
+			, me.margins.pianorollTop + i * 12 * 3 * this.tiler.tapSize - 14 * 3 * this.tiler.tapSize//
 			, me.options.measureLen * 3 * this.tiler.tapSize//
-			, 12 * 3 * this.tiler.tapSize//
+			, 12 * 4 * this.tiler.tapSize//
 			, 'octaveNum' + i, left, top, width, height, function (tg) {
-				tg.layer.tileText(tg.g, tg.x + sz * 0 * tg.layer.tapSize, tg.y + tg.h - sz / 10, sz, '' + (5 - i), me.colors.barCounter);
+				tg.layer.tileText(tg.g, tg.x + sz * 0 * tg.layer.tapSize, tg.y + tg.h - sz / 10, sz, '' + (6 - i), me.colors.barCounter);
 			});
 	}
 };

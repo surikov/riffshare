@@ -170,7 +170,7 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 		} else {
 			d32 = this.measures[x - 1].duration4 * 8;
 		}
-		for (var y = 0; y < 5; y++) {
+		for (var y = 0; y < 6; y++) {
 			this.layerOctaves.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 				, this.margins.pianorollTop + y * 3 * 12 * this.tiler.tapSize
 				, (this.options.measureHeader + d32) * 3 * this.tiler.tapSize - this.options.measureHeader * 3 * this.tiler.tapSize
@@ -183,7 +183,7 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 						var duration192 = _x.duration6;
 						//var pitch = 59 - Math.floor((me.tiler.clickContentY - me.margins.pianorollTop) / (3 * me.tiler.tapSize));
 						var yy = Math.floor((me.tiler.clickContentY - me.margins.pianorollTop) / (3 * me.tiler.tapSize));
-						var y12 = (12 * 5 - 1) - yy;
+						var y12 = (12 * 6 - 1) - yy;
 						var octave = Math.floor(y12 / 12);
 						var step = me.note7(y12 % 12);
 						var accidental = (y12 % 12)-me.note12(step);

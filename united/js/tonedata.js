@@ -27,6 +27,7 @@ function MeasureInfo() {
 	this.meter = 120;
 	this.duration4 = 4;
 	this.keys = 0;
+	this.shifts = [];
 	return this;
 }
 FretChordSheet.prototype.measureInfo = function (n) {
@@ -39,8 +40,8 @@ FretChordSheet.prototype.measureInfo = function (n) {
 				console.log(this.measures[n]);
 			}
 			console.log(this.measures[i]);*/
-			if(i>0){
-				this.measures[i].keys=this.measures[i-1].keys;
+			if (i > 0) {
+				this.measures[i].keys = this.measures[i - 1].keys;
 			}
 		}
 	}

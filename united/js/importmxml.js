@@ -124,12 +124,14 @@ FretChordSheet.prototype.parsePartTrackNum = function (vt, id) {
 	return track;
 };
 FretChordSheet.prototype.parsePart = function (vt, track, part) {
+	//console.log(vt, track, part);
 	var measures = part.all('measure');
 	var divisions = 1;
 	var fifths = 0;
 	var cudu = 4;
 	var anchor = 0;
 	var luco = 0;
+	var clefOctaveChange =0;
 	for (var i = 0; i < measures.length; i++) {
 		luco++
 		var measure = measures[i];
@@ -137,6 +139,17 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 		if (_divisions) {
 			divisions = _divisions;
 		}
+		var clefs=measure.of('attributes').all('clef');
+		for(var cl=0;cl<clefs.length;cl++){
+			if(clefs[cl].of('clef-octave-change').value){
+				console.log('clefOctaveChange',i,clefs[cl].of('clef-octave-change').value);
+				clefOctaveChange =1*clefs[cl].of('clef-octave-change').value;
+			}
+		}
+		//var clefOctaveChange = measure.of('attributes').of('clef').of('clef-octave-change').value;
+		/*if(clefOctaveChange){
+			console.log('clefOctaveChange',measure.of('attributes').of('clef'));
+		}*/
 		var _fifths = measure.of('attributes').of('key').of('fifths').value;
 		if (_fifths.length > 0) {
 			_fifths = 1 * _fifths;
@@ -144,25 +157,30 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 				fifths = _fifths;
 			}
 		}
-		var clefoctavechange = 1 * measure.of('attributes').of('clef').of('clef-octave-change').value;
+		//var clefoctavechange = 1 * measure.of('attributes').of('clef').of('clef-octave-change').value;
 		var quant = 6 * (32 / 4) / divisions;
 		var beats = measure.of('attributes').of('time').of('beats').value;
 		var beattype = measure.of('attributes').of('time').of('beat-type').value;
 		if ((beats) && (beattype)) {
 			cudu = Math.floor(4 * beats / beattype);
-			if (cudu < 3) { cudu = 3 }
-			if (cudu > 7) { cudu = 7 }
+			if (cudu < 3) { 
+				cudu = 3 
+			}
+			if (cudu > 7) { 
+				cudu = 7 
+			}
 		}
 		var minfo = this.measureInfo(i);
 		minfo.duration4 = cudu;
-
+		//minfo.clefOctaveChange=clefOctaveChange;
 		if (fifths >= 0) {
 			minfo.keys = fifths;
 		} else {
-			minfo.keys = 7 + 8 + fifths;
+			minfo.keys = 7 - fifths;
 		}
 		if (track > -1) {
-			this.parseToneMeasure(quant, i, track, measure, this.keys[minfo.keys], clefoctavechange);
+			minfo.shifts[track]=clefOctaveChange;
+			this.parseToneMeasure(quant, i, track, measure, this.keys[minfo.keys]);
 		} else {
 			this.parseDrumMeasure(vt, part.of('id').value, quant, i, measure);
 		}
@@ -231,7 +249,7 @@ FretChordSheet.prototype.findTieStart = function (trackNo, mOrder, start192, oct
 	}
 	return null;
 };
-FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, keys, clefoctavechange) {
+FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, keys) {
 	var notes = measure.all('note');
 	var minfo = this.measureInfo(n);
 	var voices = this.findVoices(notes);
@@ -249,11 +267,12 @@ FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, 
 				if (notes[i].has('pitch')) {
 					var binfo = this.beatInfo(minfo, idx);
 					var step = notes[i].of('pitch').of('step').value;
-					var alter = 1*notes[i].of('pitch').of('alter').value;
+					var alter = 1 * notes[i].of('pitch').of('alter').value;
 					alter = alter ? alter : 0;
-					var octave = 1*notes[i].of('pitch').of('octave').value;
+					var octave = 1 * notes[i].of('pitch').of('octave').value;
+					//octave=octave+clefOctaveChange;
 					var tie = notes[i].of('notations').of('tied').of('type').value;
-					var note = { octave: octave, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }] };
+					var note = { octave: octave-1, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }] };
 					if (tie != "stop") {
 						this.dropNoteAtBeat7(track, n, idx, octave, step, alter);
 						binfo.chords[track].notes.push(note);
