@@ -392,6 +392,7 @@ FretChordSheet.prototype.init = function () {
 	window.addEventListener("blur", function () { me.saveState(me.prefix); });
 	document.getElementById('chooseFileInput').addEventListener('change', function (evt) { me.doImport(evt); }, false);
 	me.resetUndoStatus();
+	me.resetPinStatus();
 	me.loadState(me.prefix);
 	me.reCalcContentSize();
 };

@@ -6,11 +6,15 @@
 	document.getElementById('redobutton').style.top = (5 * 2 + this.tiler.tapSize) + 'px';
 	this.clearUndo();
 	var me = this;
-	document.getElementById('undobutton').onclick = function () { me.undoLast(); };
-	document.getElementById('redobutton').onclick = function () { me.redoNext(); };
+	document.getElementById('undobutton').onclick = function () {
+		me.undoLast();
+	};
+	document.getElementById('redobutton').onclick = function () {
+		me.redoNext();
+	};
 	this.setUndoStatus();
 }
-FretChordSheet.prototype.setUndoStatus = function () {
+/*FretChordSheet.prototype.setUndoStatus = function () {
 	if (this.undoStep < this.undoQueue.length) {
 		document.getElementById('redoimg').src = "redoActive.png";
 	} else {
@@ -21,7 +25,49 @@ FretChordSheet.prototype.setUndoStatus = function () {
 	} else {
 		document.getElementById('undoimg').src = "undo.png";
 	}
+};*/
+FretChordSheet.prototype.resetPinStatus = function () {
+	document.getElementById('pinbutton').style.width = this.tiler.tapSize + 'px';
+	document.getElementById('backbutton').style.width = this.tiler.tapSize + 'px';
+	document.getElementById('pinbutton').style.height = this.tiler.tapSize + 'px';
+	document.getElementById('backbutton').style.height = this.tiler.tapSize + 'px';
+	document.getElementById('pinbutton').style.top = (5 * 2 + 2*this.tiler.tapSize) + 'px';
+	document.getElementById('backbutton').style.top = (5 * 4 + 3*this.tiler.tapSize) + 'px';
+	this.pinnedXYZ=null;
+	var me = this;
+	document.getElementById('pinbutton').onclick = function () {
+		me.pinnedXYZ={
+			x:me.tiler.translateX
+			,y:me.tiler.translateY
+			,z:me.tiler.translateZ
+			,done:false
+		};
+		me.setPinStatus();
+	};
+	document.getElementById('backbutton').onclick = function () {
+		if(me.pinnedXYZ){
+			me.pinnedXYZ.done=true;
+			console.log(me.pinnedXYZ);
+			me.setPinStatus();
+			me.tiler.startSlideTo(me.pinnedXYZ.x, me.pinnedXYZ.y, me.pinnedXYZ.z);
+		}
+	};
+	this.setPinStatus();
+}
+FretChordSheet.prototype.setPinStatus = function () {
+	if (this.pinnedXYZ) {
+		document.getElementById('pinimg').src = "img/pinWhite.png";
+		if(this.pinnedXYZ.done){
+			document.getElementById('backimg').src = "img/handGrey.png";
+		}else{
+			document.getElementById('backimg').src = "img/handWhite.png";
+		}
+	} else {		
+		document.getElementById('pinimg').src = "img/pinGrey.png";
+		document.getElementById('backimg').src = "img/handGrey.png";
+	}
 };
+/*
 FretChordSheet.prototype.makeUndo = function (level) {
 	console.log('makeUndo', level);
 	var last = null;
@@ -34,7 +80,7 @@ FretChordSheet.prototype.makeUndo = function (level) {
 		this.resetAllLayersNow();
 		this.startSlideTo(last.x, last.y, last.z);
 	}
-};
+};*/
 FretChordSheet.prototype.clearUndo = function () {
 	this.undoQueue = [];
 	this.undoStep = 0;
@@ -178,7 +224,7 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 	beat.chords[track].notes.push(note);
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Add note ' + track + ":" + morder + ":" + start192 + ":" + note.octave+ "/" + note.step+ "/" + note.accidental,
+		caption: 'Add note ' + track + ":" + morder + ":" + start192 + ":" + note.octave + "/" + note.step + "/" + note.accidental,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -191,23 +237,23 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 		}
 	});
 };
-FretChordSheet.prototype.userActionAlterNote = function ( morder,  note) {
+FretChordSheet.prototype.userActionAlterNote = function (morder, note) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
-	var state1=note.accidental;
-	if(note.accidental<0){
-		note.accidental=0;
-	}else{
-		if(note.accidental>0){
-			note.accidental=-1;
-		}else{
-			note.accidental=1;
+	var state1 = note.accidental;
+	if (note.accidental < 0) {
+		note.accidental = 0;
+	} else {
+		if (note.accidental > 0) {
+			note.accidental = -1;
+		} else {
+			note.accidental = 1;
 		}
 	}
-	var state2=note.accidental;
+	var state2 = note.accidental;
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Alter note ' + state1+' -> '+state2,
+		caption: 'Alter note ' + state1 + ' -> ' + state2,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -439,13 +485,13 @@ FretChordSheet.prototype.dropDrumAtBeat = function (morder, beatStart, drum) {
 	}
 };
 FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, pitch) {
-	
+
 	if (morder < this.measures.length) {
 		var minfo = this.measures[morder];
-		
+
 		for (var i = 0; i < minfo.beats.length; i++) {
 			var measureBeat = minfo.beats[i];
-			
+
 			if (measureBeat.start192 == beatStart) {
 				var measureToneChord = measureBeat.chords[track];
 				//console.log(pitch,measureToneChord);
@@ -461,7 +507,7 @@ FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, pi
 	}
 };
 FretChordSheet.prototype.dropNoteAtBeat7 = function (track, morder, beatStart, octave, step) {
-	
+
 	if (morder < this.measures.length) {
 		minfo = this.measures[morder];
 		for (var i = 0; i < minfo.beats.length; i++) {

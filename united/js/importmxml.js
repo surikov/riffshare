@@ -13,6 +13,7 @@ FretChordSheet.prototype.doImport = function (evt) {
 		if (progressEvent.target.readyState == FileReader.DONE) {
 			var xml = progressEvent.target.result;
 			me.resetUndoStatus();
+			me.resetPinStatus();
 			me.doParse(xml);
 			me.shrinkMeasures();
 			me.reCalcContentSize();
