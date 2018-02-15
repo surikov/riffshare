@@ -123,15 +123,34 @@ FretChordSheet.prototype.findBeatX = function (measureNum, step192) {
 	x = x + (step192 - ms192) / 6 * 3 * this.tiler.tapSize;
 	return x;
 };
+FretChordSheet.prototype.stringFret = function (note) {
+	var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental)-12;
+	//console.log('stringFret', pitch);
+	var r = {
+		string: 5 - 0
+		, fret: pitch - this.stringPitches[5 - 0]
+	};
+	for (var i = 1; i < this.stringPitches.length; i++) {
+		//console.log(i, 'string',r.string, 'fret',r.fret,'sp',this.stringPitches[5 - i]);
+		if (this.stringPitches[5 - i] > pitch) {
+			break;
+		}
+		r = {
+			string: 5 - i
+			, fret: pitch - this.stringPitches[5-i]
+		};
+	}
+	//console.log('return',r.string, r.fret);
+	return r;
+};
 FretChordSheet.prototype.octaveStepAccidental = function (octave, step, accidental) {
-	var r = octave * 12;
-	if (step == 1) { r = r + 2; }
-	if (step == 2) { r = r + 4; }
-	if (step == 3) { r = r + 5; }
-	if (step == 4) { r = r + 7; }
-	if (step == 5) { r = r + 9; }
-	if (step == 6) { r = r + 11; }
-	r = r + accidental;
+	var r = octave * 12 + accidental;
+	if (step == 1) return r + 2;
+	if (step == 2) return r + 4;
+	if (step == 3) return r + 5;
+	if (step == 4) return r + 7;
+	if (step == 5) return r + 9;
+	if (step == 6) return r + 11;
 	return r;
 };
 FretChordSheet.prototype.note7 = function (pitch) {//, noAltModeSharp) {
@@ -147,7 +166,8 @@ FretChordSheet.prototype.note7 = function (pitch) {//, noAltModeSharp) {
 	return n7;
 };
 FretChordSheet.prototype.note12 = function (n7) {
-	if (n7 == 0) return 0;
+	if (n7 == 0)
+		return 0;
 	if (n7 == 1) return 2;
 	if (n7 == 2) return 4;
 	if (n7 == 3) return 5;
@@ -171,7 +191,7 @@ FretChordSheet.prototype.name7 = function (pitch) {
 	if (n12 == 11) n7 = 'B';
 	return n7;
 };
-FretChordSheet.prototype.stringNumber = function (pitch) {
+/*FretChordSheet.prototype.stringNumber = function (pitch) {
 	var r6 = 1;
 	for (var i = 0; i < this.strings.length; i++) {
 		r6 = i + 1;
@@ -180,7 +200,7 @@ FretChordSheet.prototype.stringNumber = function (pitch) {
 		}
 	}
 	return r6;
-};
+};*/
 FretChordSheet.prototype.findDrums = function (morder, start192, duration192, drum) {
 	var noteDrums = [];
 	if (morder < this.measures.length) {

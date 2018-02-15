@@ -73,7 +73,7 @@ FretChordSheet.prototype.init = function () {
 	];
 
 	this.measures = [];
-	this.strings = [28, 23, 19, 14, 9, 4];
+	this.stringPitches = [28, 23, 19, 14, 9, 4];
 	this.markNotes = [];
 	//this.markStaff = null;
 	//this.markFret = null;
@@ -311,6 +311,7 @@ FretChordSheet.prototype.init = function () {
 		}
 		if (me.options.hideFrets < 2) {
 			me.tileFretLines(left, top, width, height, lineWidth);
+			me.tileFretNotes(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideDrums < 2) {
 			me.tileDrumLines(left, top, width, height, lineWidth);
@@ -345,6 +346,7 @@ FretChordSheet.prototype.init = function () {
 		if (me.options.hideFrets < 2) {
 			me.tileFretLines(left, top, width, height, lineWidth);
 			me.tileFretGrid(left, top, width, height, lineWidth);
+			me.tileFretNotes(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideDrums < 2) {
 			me.tileDrumLines(left, top, width, height, lineWidth);
@@ -373,6 +375,7 @@ FretChordSheet.prototype.init = function () {
 		}
 		if (me.options.hideFrets < 2) {
 			me.tileFretLines(left, top, width, height, lineWidth);
+			me.tileFretNotes(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideDrums < 2) {
 			me.tileDrumLines(left, top, width, height, lineWidth);
