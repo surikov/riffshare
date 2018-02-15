@@ -9,9 +9,39 @@ FretChordSheet.prototype.resetHeaderWidth = function () {
 		}
 	}
 };
+
+
+
+FretChordSheet.prototype.upperTrackNum = function () {
+	var track = -1;
+	for (var k = 0; k < this.trackOrder.length; k++) {
+		if (this.trackOrder[k] == 0) {
+			track = k;
+			break;
+		}
+	}
+	return track;
+};
+
 FretChordSheet.prototype.reCalcContentSize = function () {
-	this.contentHeight = 133 * 3 * this.tiler.tapSize;
-	this.margins.sheetTop = 1 * 3 * this.tiler.tapSize;
+	this.contentHeight = 137 * 3 * this.tiler.tapSize;
+	this.margins.pianorollTop = 5 * 3 * this.tiler.tapSize;
+	this.margins.sheetTop = this.margins.pianorollTop;
+	this.margins.fretTop = this.margins.pianorollTop;
+	this.margins.drumsTop = this.margins.pianorollTop;
+	if (this.options.hidePiano < 2) {
+		this.margins.sheetTop = this.margins.sheetTop + (12 * 6 + 1) * 3 * this.tiler.tapSize;
+		this.margins.fretTop = this.margins.fretTop + (12 * 6 + 1) * 3 * this.tiler.tapSize;
+		this.margins.drumsTop = this.margins.drumsTop + (12 * 6 + 1) * 3 * this.tiler.tapSize;
+	}
+	if (this.options.hideStaff < 2) {
+		this.margins.fretTop = this.margins.fretTop + (6 * 7 + 1) * 3 * this.tiler.tapSize;
+		this.margins.drumsTop = this.margins.drumsTop + (6 * 7 + 1) * 3 * this.tiler.tapSize;
+	}
+	if (this.options.hideFrets < 2) {
+		this.margins.drumsTop = this.margins.drumsTop + (6 + 1) * 3 * this.tiler.tapSize;
+	}
+	/*this.margins.sheetTop = 1 * 3 * this.tiler.tapSize;
 	this.margins.fretTop = 1 * 3 * this.tiler.tapSize;
 	this.margins.drumsTop = 1 * 3 * this.tiler.tapSize;
 	if (this.options.hidePiano < 2) {
@@ -25,7 +55,7 @@ FretChordSheet.prototype.reCalcContentSize = function () {
 	}
 	if (this.options.hideFrets < 2) {
 		this.margins.drumsTop = this.margins.drumsTop + (6 + 1) * 3 * this.tiler.tapSize;
-	}
+	}*/
 	this.tiler.resetInnerSize(this.calcContentWidth(), this.contentHeight);
 	this.tiler.resetSize();
 };
@@ -176,7 +206,7 @@ FretChordSheet.prototype.findNotes = function (track, morder, start192, duration
 				var measureToneChord = measureBeat.chords[track];
 				for (var n = 0; n < measureToneChord.notes.length; n++) {
 					var measureToneNote = measureToneChord.notes[n];
-					if (this.octaveStepAccidental(measureToneNote.octave,measureToneNote.step,measureToneNote.accidental) == pitch) {
+					if (this.octaveStepAccidental(measureToneNote.octave, measureToneNote.step, measureToneNote.accidental) == pitch) {
 						notes.push({ track: track, morder: morder, beatStart: measureBeat.start192, note: measureToneNote });
 					}
 				}
@@ -216,15 +246,15 @@ FretChordSheet.prototype.pitch2staffY = function (pitch) {//12, pitch7){//, noAl
 
 
 FretChordSheet.prototype.keyName = function (note) {
-	var name='C';
-	if (note.step == 1)name='D';
-	if (note.step == 2)name='E';
-	if (note.step == 3)name='F';
-	if (note.step == 4)name='G';
-	if (note.step == 5)name='A';
-	if (note.step == 6)name='B';
-	if(note.accidental>0)name=name+'#';
-	if(note.accidental<0)name=name+'b';
+	var name = 'C';
+	if (note.step == 1) name = 'D';
+	if (note.step == 2) name = 'E';
+	if (note.step == 3) name = 'F';
+	if (note.step == 4) name = 'G';
+	if (note.step == 5) name = 'A';
+	if (note.step == 6) name = 'B';
+	if (note.accidental > 0) name = name + '#';
+	if (note.accidental < 0) name = name + 'b';
 	return name;
 };
 

@@ -475,13 +475,13 @@ FretChordSheet.prototype.userActionRollKeys = function (morder) {
 FretChordSheet.prototype.userActionRollClefOctave = function (morder) {
 	var me = this;
 	var minfo = this.measureInfo(morder);
-	var trackNum=0;
-	for (var i = 0; i < 8; i++) {
+	var trackNum=me.upperTrackNum();
+	/*for (var i = 0; i < 8; i++) {
 		if (me.trackOrder[i] == 0) {
 			trackNum=i;
 			break;
 		}
-	}
+	}*/
 	var pre = minfo.shifts[trackNum]||0;
 	var aftr = pre + 1;
 	if (aftr > 1) {

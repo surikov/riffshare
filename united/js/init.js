@@ -166,7 +166,7 @@ FretChordSheet.prototype.init = function () {
 	];
 	this.trackInfo = [{
 		color: 'rgb(255,127,0)',
-		shadow: 'rgba(255,127,0,0.4)',
+		shadow: 'rgba(255,127,0,0.25)',
 		title: 'Synth Bass',
 		order: 2,
 		//sound: _tone_0390_GeneralUserGS_sf2_file,
@@ -177,7 +177,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.5
 	}, {
 		color: 'rgb(96,96,0)',
-		shadow: 'rgba(96,96,0,0.4)',
+		shadow: 'rgba(96,96,0,0.25)',
 		title: 'String Ensemble',
 		order: 1,
 		//sound: _tone_0490_Chaos_sf2_file,
@@ -188,7 +188,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.3
 	}, {
 		color: 'rgb(153,0,153)',
-		shadow: 'rgba(153,0,153,0.4)',
+		shadow: 'rgba(153,0,153,0.25)',
 		title: 'Bass guitar',
 		order: 5,
 		//sound: _tone_0340_Aspirin_sf2_file,
@@ -205,7 +205,7 @@ FretChordSheet.prototype.init = function () {
 		}
 	}, {
 		color: 'rgb(0,127,255)',
-		shadow: 'rgba(0,127,255,0.4)',
+		shadow: 'rgba(0,127,255,0.25)',
 		title: 'Grand Piano',
 		order: 3,
 		//sound: _tone_0001_FluidR3_GM_sf2_file,
@@ -216,7 +216,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.5
 	}, {
 		color: 'rgb(140,35,25)',
-		shadow: 'rgba(140,35,25,0.4)',
+		shadow: 'rgba(140,35,25,0.25)',
 		title: 'Jazz guitar',
 		order: 4,
 		//sound: _tone_0260_GeneralUserGS_sf2_file,
@@ -227,7 +227,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 1.0
 	}, {
 		color: 'rgb(35,0,140)',
-		shadow: 'rgba(35,0,140,0.4)',
+		shadow: 'rgba(35,0,140,0.25)',
 		title: 'Percussive Organ',
 		order: 0,
 		inChordDelay: 0,
@@ -238,7 +238,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.7
 	}, {
 		color: 'rgb(0,102,0)',
-		shadow: 'rgba(0,102,0,0.4)',
+		shadow: 'rgba(0,102,0,0.25)',
 		title: 'Acoustic guitar',
 		order: 6,
 		//sound: _tone_0250_Chaos_sf2_file,
@@ -261,7 +261,7 @@ FretChordSheet.prototype.init = function () {
 		}
 	}, {
 		color: 'rgb(255,0,0)',
-		shadow: 'rgba(255,0,0,0.4)',
+		shadow: 'rgba(255,0,0,0.25)',
 		title: 'Distortion guitar',
 		order: 7,
 		//sound: _tone_0300_LesPaul_sf2_file,

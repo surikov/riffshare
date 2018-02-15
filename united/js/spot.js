@@ -3,6 +3,7 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 	var mx = 0;
 	for (var x = 0; x < this.measures.length; x++) {
 		var minfo = this.measureInfo(x);
+		var octaveShift=minfo.shifts[me.upperTrackNum()]||0;
 		this.layerOctaves.renderGroup(mx + this.margins.sheetLeft
 			, this.margins.sheetTop
 			, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
@@ -37,7 +38,7 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 										var note = chord.notes[n];
 										if (note) {
 											//var yy = me.pitch2staffY(note.pitch, 0, 0, !altModeSharp);
-											var yy = 6 * 7 - 7 * note.octave - note.step - 1;
+											var yy = 6 * 7 - 7 * (note.octave-octaveShift) - note.step - 1;
 											var xx = me.options.measureHeader + beat.start192 / 6;
 											me.tileNoteTools(x,note, xx, yy, tg);
 											//console.log(note, xx, yy, tg);
@@ -76,16 +77,18 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 					var yy = Math.floor((me.tiler.clickContentY - me.margins.sheetTop) / (3 * me.tiler.tapSize));
 					var y7 = (7 * 6 - 1) - yy;
 					//var pitch = 12 * Math.floor(y7 / 7) + me.note12(y7 % 7);
-					var octave = Math.floor(y7 / 7);
+					var octaveShift=minfo.shifts[me.upperTrackNum()]||0;
+					//console.log(octaveShift,minfo.shifts);
+					var octave = Math.floor(y7 / 7)+octaveShift;
 					var step = y7 % 7;
 					var accidental = me.keys[minfo.keys][step];
-					var track = -1;
-					for (var k = 0; k < me.trackOrder.length; k++) {
+					var track = me.upperTrackNum();
+					/*for (var k = 0; k < me.trackOrder.length; k++) {
 						if (me.trackOrder[k] == 0) {
 							track = k;
 							break;
 						}
-					}
+					}*/
 					if (me.markNotes.length >= me.options.markNotesCount) {
 						me.markNotes.splice(0, 0, {
 							minfo: measure
@@ -199,13 +202,13 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 
 
 						//console.log('pianoroll',octave,step,accidental);
-						var track = -1;
-						for (var k = 0; k < me.trackOrder.length; k++) {
+						var track = me.upperTrackNum();
+						/*for (var k = 0; k < me.trackOrder.length; k++) {
 							if (me.trackOrder[k] == 0) {
 								track = k;
 								break;
 							}
-						}
+						}*/
 						if (me.markNotes.length >= me.options.markNotesCount) {
 							me.markNotes.splice(0, 0, { 
 								minfo: measure

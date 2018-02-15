@@ -787,34 +787,35 @@ FretChordSheet.prototype.tileNoteHead = function (x, y, tg, color, shift) {
 FretChordSheet.prototype.tileStaffKeys = function (minfo, tg, left, top, width, height, yShift) {
 	var me = this;
 	var keyArr = me.keys[minfo.keys];
-	if (keyArr[0] == 1) me.tileNoteSharp(2, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 0, tg);
-	if (keyArr[1] == 1) me.tileNoteSharp(4, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 1, tg);
-	if (keyArr[2] == 1) me.tileNoteSharp(6, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 2, tg);
-	if (keyArr[3] == 1) me.tileNoteSharp(1, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 3, tg);
-	if (keyArr[4] == 1) me.tileNoteSharp(3, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 4, tg);
-	if (keyArr[5] == 1) me.tileNoteSharp(5, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 2, tg);
-	if (keyArr[6] == 1) me.tileNoteSharp(7, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 1, tg);
-	if (keyArr[0] == -1) me.tileNoteFlat(6, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 0, tg);
-	if (keyArr[1] == -1) me.tileNoteFlat(4, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 1, tg);
-	if (keyArr[2] == -1) me.tileNoteFlat(2, yShift * 7 + 7 * 6 - 1 - 7 * 4 - 2, tg);
-	if (keyArr[3] == -1) me.tileNoteFlat(7, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 4, tg);
-	if (keyArr[4] == -1) me.tileNoteFlat(5, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 3, tg);
-	if (keyArr[5] == -1) me.tileNoteFlat(3, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 2, tg);
-	if (keyArr[6] == -1) me.tileNoteFlat(1, yShift * 7 + 7 * 6 - 1 - 7 * 4 + 1, tg);
+	if (keyArr[0] == 1) me.tileNoteSharp(2, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 0, tg);
+	if (keyArr[1] == 1) me.tileNoteSharp(4, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 1, tg);
+	if (keyArr[2] == 1) me.tileNoteSharp(6, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 2, tg);
+	if (keyArr[3] == 1) me.tileNoteSharp(1, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 3, tg);
+	if (keyArr[4] == 1) me.tileNoteSharp(3, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 4, tg);
+	if (keyArr[5] == 1) me.tileNoteSharp(5, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 + 2, tg);
+	if (keyArr[6] == 1) me.tileNoteSharp(7, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 + 1, tg);
+	if (keyArr[0] == -1) me.tileNoteFlat(6, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 0, tg);
+	if (keyArr[1] == -1) me.tileNoteFlat(4, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 1, tg);
+	if (keyArr[2] == -1) me.tileNoteFlat(2, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 - 2, tg);
+	if (keyArr[3] == -1) me.tileNoteFlat(7, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 + 4, tg);
+	if (keyArr[4] == -1) me.tileNoteFlat(5, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 + 3, tg);
+	if (keyArr[5] == -1) me.tileNoteFlat(3, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 + 2, tg);
+	if (keyArr[6] == -1) me.tileNoteFlat(1, yShift * 2*7 + 7 * 6 - 1 - 7 * 4 + 1, tg);
 
 
 }
 FretChordSheet.prototype.tileStaffTrackShift = function (minfo, tg) {
 	var me = this;
-	var color = '#123';
-	var trackNum=0;
-	for (var i = 0; i < 8; i++) {
+	
+	var trackNum=me.upperTrackNum();
+	var color = me.trackInfo[trackNum].color;
+	/*for (var i = 0; i < 8; i++) {
 		if (me.trackOrder[i] == 0) {
 			trackNum=i;
 			color = me.trackInfo[i].color;
 			break;
 		}
-	}
+	}*/
 	//var nn = minfo.clefOctaveChange || 0;
 	var nn=minfo.shifts[trackNum]||0;
 	var lbl='';
@@ -832,7 +833,7 @@ FretChordSheet.prototype.tileStaffTrackShift = function (minfo, tg) {
 		, color);
 	tg.layer.tileText(tg.g
 		, tg.x + 5 * tg.layer.tapSize
-		, tg.y + (63 + 3 * 19) * tg.layer.tapSize
+		, tg.y + (63 + 36) * tg.layer.tapSize
 		, 7 * tg.layer.tapSize
 		, lbl
 		, color);
@@ -1032,14 +1033,14 @@ FretChordSheet.prototype.tileStaffButtons = function (left, top, width, height, 
 				s = me.tileKnob(tg, 'rollKyesSel_' + x, 3 * me.tiler.tapSize, 33 * me.tiler.tapSize, 20 * me.tiler.tapSize, '', function () {
 					me.userActionRollKeys(_x);
 				});
-				s = me.tileKnob(tg, 'rollKyesSel2_' + x, 3 * me.tiler.tapSize, 90 * me.tiler.tapSize, 20 * me.tiler.tapSize, '', function () {
+				s = me.tileKnob(tg, 'rollKyesSel2_' + x, 3 * me.tiler.tapSize, (90-21) * me.tiler.tapSize, 20 * me.tiler.tapSize, '', function () {
 					me.userActionRollKeys(_x);
 				});
 
-				s = me.tileKnob(tg, 'rollOctaveSel1_' + x, 3 * me.tiler.tapSize, 57 * me.tiler.tapSize, 10 * me.tiler.tapSize, '', function () {
+				s = me.tileKnob(tg, 'rollOctaveSel1_' + x, 3 * me.tiler.tapSize, 55 * me.tiler.tapSize, 10 * me.tiler.tapSize, '', function () {
 					me.userActionRollClefOctave(_x);
 				});
-				s = me.tileKnob(tg, 'rollOctaveSel2_' + x, 3 * me.tiler.tapSize, (3 * 19 + 57) * me.tiler.tapSize, 10 * me.tiler.tapSize, '', function () {
+				s = me.tileKnob(tg, 'rollOctaveSel2_' + x, 3 * me.tiler.tapSize, (3 * 19 + 55-21) * me.tiler.tapSize, 10 * me.tiler.tapSize, '', function () {
 					me.userActionRollClefOctave(_x);
 				});
 			});
@@ -1057,7 +1058,7 @@ FretChordSheet.prototype.tileStaffKeySigns = function (left, top, width, height,
 			, 6 * 7 * 3 * this.tiler.tapSize
 			, 'staffKeys' + x, left, top, width, height, function (tg) {
 				me.tileStaffKeys(minfo, tg, left, top, width, height, 0);
-				me.tileStaffKeys(minfo, tg, left, top, width, height, 3);
+				me.tileStaffKeys(minfo, tg, left, top, width, height, 1);
 				me.tileStaffTrackShift(minfo, tg);
 			});
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
@@ -1074,14 +1075,14 @@ FretChordSheet.prototype.tileStaffLines = function (left, top, width, height, li
 			, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
 			, 6 * 7 * 3 * this.tiler.tapSize
 			, 'staffLines' + x, left, top, width, height, function (tg) {
-				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y + (31.5 + 6 * 0) * tg.layer.tapSize, lineWidth * 3, 81 * tg.layer.tapSize, me.colors.base);
+				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y + (31.5 + 6 * 0) * tg.layer.tapSize, lineWidth * 3, (81-7*3) * tg.layer.tapSize, me.colors.base);
 
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 0) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 1) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 2) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 3) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 4) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
-				var sk = 57;
+				var sk = 57-7*3;
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 0) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 1) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + sk + 6 * 2) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
@@ -1433,6 +1434,7 @@ FretChordSheet.prototype.tileDrumNotes = function (left, top, width, height, lin
 FretChordSheet.prototype.tileStaffMark = function (left, top, width, height, lineWidth) {
 	if (this.markNotes.length > 0) {
 		var me = this;
+		
 		for (var mm = 0; mm < me.markNotes.length; mm++) {
 			var curMark = me.markNotes[mm];
 			var mx = 0;
@@ -1445,6 +1447,7 @@ FretChordSheet.prototype.tileStaffMark = function (left, top, width, height, lin
 				}
 				if (minfo)
 					if (curMark.morder == x) {
+						var octaveShift=minfo.shifts[me.upperTrackNum()]||0;
 						this.layerNotes.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 							, this.margins.sheetTop// + y * 3 * 12 * this.tiler.tapSize
 							, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
@@ -1452,7 +1455,7 @@ FretChordSheet.prototype.tileStaffMark = function (left, top, width, height, lin
 							, 'markStafNote' + mm, left, top, width, height, function (tg) {
 								tg.layer.tileCircle(tg.g
 									, tg.x + curMark.start192 / 6 * 3 * me.tiler.tapSize + 3 * me.tiler.tapSize / 2
-									, tg.y + tg.h - (curMark.step + curMark.octave * 7) * 3 * me.tiler.tapSize - 3 * me.tiler.tapSize / 2
+									, tg.y + tg.h - (curMark.step + (curMark.octave-octaveShift) * 7) * 3 * me.tiler.tapSize - 3 * me.tiler.tapSize / 2
 									, 3 * me.tiler.tapSize / 2, me.colors.buttonFill);
 							});
 					}
