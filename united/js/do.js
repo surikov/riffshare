@@ -1,9 +1,11 @@
 ﻿FretChordSheet.prototype.resetUndoStatus = function () {
+	/*
 	document.getElementById('undobutton').style.width = this.tiler.tapSize + 'px';
 	document.getElementById('undobutton').style.height = this.tiler.tapSize + 'px';
 	document.getElementById('redobutton').style.width = this.tiler.tapSize + 'px';
 	document.getElementById('redobutton').style.height = this.tiler.tapSize + 'px';
 	document.getElementById('redobutton').style.top = (5 * 2 + this.tiler.tapSize) + 'px';
+	*/
 	this.clearUndo();
 	var me = this;
 	document.getElementById('undobutton').onclick = function () {
@@ -27,15 +29,17 @@
 	}
 };*/
 FretChordSheet.prototype.resetPinStatus = function () {
+	/*
 	document.getElementById('pinbutton').style.width = this.tiler.tapSize + 'px';
 	document.getElementById('backbutton').style.width = this.tiler.tapSize + 'px';
 	document.getElementById('pinbutton').style.height = this.tiler.tapSize + 'px';
 	document.getElementById('backbutton').style.height = this.tiler.tapSize + 'px';
 	document.getElementById('pinbutton').style.top = (5 * 2 + 2*this.tiler.tapSize) + 'px';
 	document.getElementById('backbutton').style.top = (5 * 4 + 3*this.tiler.tapSize) + 'px';
+	*/
 	this.pinnedXYZ=null;
 	var me = this;
-	document.getElementById('pinbutton').onclick = function () {
+	/*document.getElementById('pinbutton').onclick = function () {
 		me.pinnedXYZ={
 			x:me.tiler.translateX
 			,y:me.tiler.translateY
@@ -52,8 +56,28 @@ FretChordSheet.prototype.resetPinStatus = function () {
 			me.tiler.startSlideTo(me.pinnedXYZ.x, me.pinnedXYZ.y, me.pinnedXYZ.z);
 		}
 	};
-	this.setPinStatus();
+	*/
+	//this.setPinStatus();
+	
+	document.getElementById('menubutton').onclick = function () {
+		me.showMainMenu();
+	};
+	document.getElementById('closeMenuB').onclick = function () {
+		me.closeMainMenu();
+	};
 }
+FretChordSheet.prototype.showMainMenu = function () {
+	console.log('menu');
+	var wd=7*this.tiler.tapSize;
+	if(wd>window.innerWidth-this.tiler.tapSize){
+		wd=window.innerWidth-this.tiler.tapSize
+	}
+	document.getElementById("menuDiv").style.width = wd+'px';
+};
+FretChordSheet.prototype.closeMainMenu = function () {
+	console.log('closeMainMenu');
+	document.getElementById("menuDiv").style.width = "0";
+};
 FretChordSheet.prototype.setPinStatus = function () {
 	if (this.pinnedXYZ) {
 		document.getElementById('pinimg').src = "img/pinWhite.png";
