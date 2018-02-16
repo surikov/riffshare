@@ -11,7 +11,7 @@
 			});
 	}
 };*/
-FretChordSheet.prototype.tileBarNumbers = function (sz, left, top, width, height, layer, lineWidth) {
+/*FretChordSheet.prototype.tileBarNumbers = function (sz, left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var i = 0; i < this.calcMeasureCount(); i++) {
 		var minfo = this.measureInfo(i);
@@ -23,8 +23,8 @@ FretChordSheet.prototype.tileBarNumbers = function (sz, left, top, width, height
 				layer.tileText(tg.g, tg.x + sz / 50 * layer.tapSize, tg.y + tg.h, sz, '' + (1 + i), me.colors.barCounter);
 			});
 	}
-};
-FretChordSheet.prototype.tileLeftMenu = function (left, top, width, height, layer, lineWidth) {
+};*/
+/*FretChordSheet.prototype.tileLeftMenu = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
 	layer.renderGroup(0, 0, me.margins.sheetLeft, this.contentHeight, 'lemenu', left, top, width, height, function (tg) {
 		me.tileRange(tg, 'btnFeel', 3 * me.tiler.tapSize, 1 * 3 * me.tiler.tapSize, 3 * me.tiler.tapSize, me.margins.sheetLeft - 6 * me.tiler.tapSize, 1 + me.options.feel, 5, 'Feel: ' + me.feelNames[me.options.feel], function (v) {
@@ -34,7 +34,7 @@ FretChordSheet.prototype.tileLeftMenu = function (left, top, width, height, laye
 			me.userActionChangeMeasureMode(v - 1);
 		});
 	});
-};
+};*/
 /*
 FretChordSheet.prototype.tilePianoMark = function (left, top, width, height, layer, lineWidth) {
 	if (this.markNote) {
@@ -95,7 +95,7 @@ FretChordSheet.prototype.tilePianoMark = function (left, top, width, height, lay
 		}
 	}
 };*/
-FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height, layer, lineWidth) {
+/*FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var n = 0; n < 6; n++) {
 		for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
@@ -118,7 +118,7 @@ FretChordSheet.prototype.tilePianorollGrid = function (left, top, width, height,
 				});
 		}
 	}
-};
+};*/
 FretChordSheet.prototype.tilePianorollOctaves = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var n = 0; n < 6; n++) {

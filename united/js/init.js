@@ -21,7 +21,7 @@ FretChordSheet.prototype.init = function () {
 	this.layerLeftMenu = this.tiler.addBaseLayer();
 	this.layerDialogs = this.tiler.addBaseLayer();
 	this.margins = {
-		sheetLeft: 60 * this.tiler.tapSize
+		sheetLeft: 1 * this.tiler.tapSize
 		//, pianorollTop: (1) * 3 * this.tiler.tapSize
 		//, sheetTop: (1 + 12 * 5 + 1) * 3 * this.tiler.tapSize
 		//, fretTop: (1 + 12 * 5 + 1 + 6 * 7 + 1) * 3 * this.tiler.tapSize
@@ -295,7 +295,7 @@ FretChordSheet.prototype.init = function () {
 	this.tiler.addZoomLevel(accidentalLevel, function (left, top, width, height) {
 		var lineWidth = 0.1 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
-		me.tileLeftMenu(left, top, width, height, lineWidth);
+		//me.tileLeftMenu(left, top, width, height, lineWidth);
 
 		me.tileBarNumbers(9 * me.tiler.tapSize, left, top, width, height, lineWidth);
 		if (me.options.hidePiano < 2) {
@@ -324,7 +324,7 @@ FretChordSheet.prototype.init = function () {
 	this.tiler.addZoomLevel(noteLevel, function (left, top, width, height) {
 		var lineWidth = 0.2 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
-		me.tileLeftMenu(left, top, width, height, lineWidth);
+		//me.tileLeftMenu(left, top, width, height, lineWidth);
 		me.tileBarNumbers(11 * me.tiler.tapSize, left, top, width, height, lineWidth);
 		if (me.options.hidePiano < 2) {
 			me.tilePianoOctaveLines(left, top, width, height, lineWidth);
@@ -360,7 +360,7 @@ FretChordSheet.prototype.init = function () {
 	this.tiler.addZoomLevel(measureLevel, function (left, top, width, height) {
 		var lineWidth = 0.3 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
-		me.tileLeftMenu(left, top, width, height, lineWidth);
+		//me.tileLeftMenu(left, top, width, height, lineWidth);
 		me.tileBarNumbers(15 * me.tiler.tapSize, left, top, width, height, lineWidth);
 		me.tileBarButtons(left, top, width, height, lineWidth);
 		if (me.options.hidePiano < 2) {

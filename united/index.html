@@ -35,18 +35,48 @@
 				<g id='cntnt'></g>
 			</svg>
 		</div>
-		<div id="menubutton" class="menub"><img id="menuimg" src='img/tools.png' width='100%' height='100%' /></div>
+		<div id="menubutton" class="menub"><img id="menuimg" src='img/gears.png' width='100%' height='100%' /></div>
 		<div id="undobutton" class="undob"><img id="undoimg" src='img/undo.png' width='100%' height='100%' /></div>
 		<div id="redobutton" class="redob"><img id="redoimg" src='img/redo.png' width='100%' height='100%' /></div>
 		<!--<div id="pinbutton" class="pinb"><img id="pinimg" src='img/pinGrey.png' width='100%' height='100%' /></div>
 		<div id="backbutton" class="backb"><img id="backimg" src='img/handGrey.png' width='100%' height='100%' /></div>-->
 		<div id="menuDiv" class="mainmenu">
-				<a href="javascript:void(0)" id="closeMenuB">close menu</a>
-				<br/><a href="#">test</a>
-				<br/><a href="#">2</a>
-				<br/><a href="#">3</a>
-				<br/><a href="#">4</a>
-			  </div>
+			<div class="menucontent">
+				<p>
+					<a href="javascript:void(0)" id="closeMenuB">Close</a> menu
+				</p>
+				<p>
+					<a href="#" id='channel1'>1</a>
+					<br/><a href="#" id='channel2'>2</a>
+					<br/><a href="#" id='channel3'>3</a>
+					<br/><a href="#" id='channel4'>4</a>
+					<br/><a href="#" id='channel5'>5</a>
+					<br/><a href="#" id='channel6'>6</a>
+					<br/><a href="#" id='channel7'>7</a>
+					<br/><a href="#" id='channel8'>8</a>
+				</p>
+				<p>
+					<span id='feelLabel'>feel</span>
+					<br/><input type="range" id='rangeFeel' min="0" max="4">
+				</p>
+				<p>
+						<span id='tpnLabel'>tpn</span>
+						<br/><input type="range" id='rangeTPN' min="1" max="3">
+					</p>
+				<p>
+							<span id='breakLabel'>tpn</span>
+							<br/><input type="range" id='rangeBreak' min="1" max="3">
+						</p>
+				<p><a href="javascript:void(0)" id="clearSongB">Clear song</a></p>
+				<p><a href="javascript:void(0)" id="importSongB">Import MusicXML</a></p>
+				<p>
+					<a href="javascript:void(0)" id="switchPianoB">piano</a>
+					<br/><a href="javascript:void(0)" id="switchStaffB">staff</a>
+					<br/><a href="javascript:void(0)" id="switchFretsB">frets</a>
+					<br/><a href="javascript:void(0)" id="switchDrumsB">drums</a>
+				</p>
+			</div>
+		</div>
 		<input type="file" style="display:none" id="chooseFileInput" name='selefile'/>
 		<script>
 			var FretChordSheet = new FretChordSheet();

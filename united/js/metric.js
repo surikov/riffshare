@@ -10,12 +10,14 @@ FretChordSheet.prototype.resetHeaderWidth = function () {
 	}
 };
 
-
-
 FretChordSheet.prototype.upperTrackNum = function () {
+	return this.findTrackNum(0);
+};
+
+FretChordSheet.prototype.findTrackNum = function (nn) {
 	var track = -1;
 	for (var k = 0; k < this.trackOrder.length; k++) {
-		if (this.trackOrder[k] == 0) {
+		if (this.trackOrder[k] == nn) {
 			track = k;
 			break;
 		}

@@ -18,14 +18,14 @@
 }
 /*FretChordSheet.prototype.setUndoStatus = function () {
 	if (this.undoStep < this.undoQueue.length) {
-		document.getElementById('redoimg').src = "redoActive.png";
+		document.getElementById('redoimg').src = 'redoActive.png';
 	} else {
-		document.getElementById('redoimg').src = "redo.png";
+		document.getElementById('redoimg').src = 'redo.png';
 	}
 	if (this.undoStep > 0) {
-		document.getElementById('undoimg').src = "undoActive.png";
+		document.getElementById('undoimg').src = 'undoActive.png';
 	} else {
-		document.getElementById('undoimg').src = "undo.png";
+		document.getElementById('undoimg').src = 'undo.png';
 	}
 };*/
 FretChordSheet.prototype.resetPinStatus = function () {
@@ -65,32 +65,131 @@ FretChordSheet.prototype.resetPinStatus = function () {
 	document.getElementById('closeMenuB').onclick = function () {
 		me.closeMainMenu();
 	};
+	for(var i=0;i<8;i++){
+		var o=document.getElementById('channel'+(i+1));
+		o.linkedNum=i;
+		o.onclick=function(){
+			console.log('click '+this.linkedNum);
+			me.userActionTrackUp(me.findTrackNum(this.linkedNum));
+			me.closeMainMenu();
+			me.tiler.resetAllLayersNow();
+		};
+	}
+	document.getElementById('rangeFeel').onchange=function(){
+		me.userActionChangeFeel(1*document.getElementById('rangeFeel').value);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();		
+	};
+	document.getElementById('rangeTPN').onchange=function(){
+		me.userActionChangeMarkMode(1*document.getElementById('rangeTPN').value);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();		
+	};
+
+	document.getElementById('rangeBreak').onchange=function(){
+		me.userActionBreakMode(1*document.getElementById('rangeBreak').value);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();		
+	};
+
+	document.getElementById('clearSongB').onclick = function () {
+		me.userActionClearSong();
+		me.closeMainMenu();
+		me.reCalcContentSize();
+		me.tiler.resetAllLayersNow();	
+	};
+
+	document.getElementById('importSongB').onclick = function () {
+		
+		me.closeMainMenu();
+		me.promptImport();	
+	};
+
+	document.getElementById('switchPianoB').onclick = function () {
+		me.userActionSetHidePiano(me.options.hidePiano == 1 ? 2 : 1);
+		me.closeMainMenu();
+		me.reCalcContentSize();
+		me.tiler.resetAllLayersNow();	
+	};
+
+	document.getElementById('switchStaffB').onclick = function () {
+		me.userActionSetHideStaff(me.options.hideStaff == 1 ? 2 : 1);
+		me.closeMainMenu();
+		me.reCalcContentSize();
+		me.tiler.resetAllLayersNow();	
+	};
+
+	document.getElementById('switchFretsB').onclick = function () {
+		me.userActionSetHideFrets(me.options.hideFrets == 1 ? 2 : 1);
+		me.closeMainMenu();
+		me.reCalcContentSize();
+		me.tiler.resetAllLayersNow();	
+	};
+
+	document.getElementById('switchDrumsB').onclick = function () {
+		me.userActionSetHideDrums(me.options.hideDrums == 1 ? 2 : 1);
+		me.closeMainMenu();
+		me.reCalcContentSize();
+		me.tiler.resetAllLayersNow();	
+	};
 }
+/*FretChordSheet.prototype.resetPosition = function () {
+	this.tiler.translateX = 0;
+	this.tiler.translateY = 0;
+};*/
 FretChordSheet.prototype.showMainMenu = function () {
 	console.log('menu');
 	var wd=7*this.tiler.tapSize;
 	if(wd>window.innerWidth-this.tiler.tapSize){
 		wd=window.innerWidth-this.tiler.tapSize
 	}
-	document.getElementById("menuDiv").style.width = wd+'px';
+
+	for(var i=0;i<8;i++){
+		var o=document.getElementById('channel'+(i+1));
+		o.innerText=this.trackInfo[this.findTrackNum(i)].title;
+		o.style.color=this.trackInfo[this.findTrackNum(i)].color;
+		//me.userActionTrackUp(s.toneNum);
+	}
+	document.getElementById('feelLabel').innerHTML='Feel: ' + this.feelNames[this.options.feel];
+	document.getElementById('rangeFeel').value=this.options.feel;
+	//console.log(this.options.feel);
+	document.getElementById('tpnLabel').innerHTML='Taps per note: ' + this.options.markNotesCount;
+	document.getElementById('rangeTPN').value=this.options.markNotesCount;
+
+	document.getElementById('breakLabel').innerHTML='Measure break: ' + this.breakNames[this.options.breakMode];
+	document.getElementById('rangeBreak').value=this.options.breakMode;
+
+	document.getElementById('switchPianoB').innerHTML=this.options.hidePiano == 1 ? 'Hide pianoroll' : 'Show pianoroll';
+	document.getElementById('switchStaffB').innerHTML=this.options.hideStaff == 1 ? 'Hide staff' : 'Show staff';
+	document.getElementById('switchFretsB').innerHTML=this.options.hideFrets == 1 ? 'Hide fretboard' : 'Show fretboard';
+	document.getElementById('switchDrumsB').innerHTML=this.options.hideDrums == 1 ? 'Hide drums' : 'Show drums';
+
+	document.getElementById('menuDiv').style.width = wd+'px';
 };
 FretChordSheet.prototype.closeMainMenu = function () {
 	console.log('closeMainMenu');
-	document.getElementById("menuDiv").style.width = "0";
+	document.getElementById('menuDiv').style.width = '0';
 };
+
 FretChordSheet.prototype.setPinStatus = function () {
 	if (this.pinnedXYZ) {
-		document.getElementById('pinimg').src = "img/pinWhite.png";
+		document.getElementById('pinimg').src = 'img/pinWhite.png';
 		if(this.pinnedXYZ.done){
-			document.getElementById('backimg').src = "img/handGrey.png";
+			document.getElementById('backimg').src = 'img/handGrey.png';
 		}else{
-			document.getElementById('backimg').src = "img/handWhite.png";
+			document.getElementById('backimg').src = 'img/handWhite.png';
 		}
 	} else {		
-		document.getElementById('pinimg').src = "img/pinGrey.png";
-		document.getElementById('backimg').src = "img/handGrey.png";
+		document.getElementById('pinimg').src = 'img/pinGrey.png';
+		document.getElementById('backimg').src = 'img/handGrey.png';
 	}
 };
+
+FretChordSheet.prototype.menuChannelSelect = function (nn) {
+	var kk=this.findTrackNum(nn);
+	this.userActionTrackUp(kk);
+};
+
 /*
 FretChordSheet.prototype.makeUndo = function (level) {
 	console.log('makeUndo', level);
@@ -111,14 +210,14 @@ FretChordSheet.prototype.clearUndo = function () {
 }
 FretChordSheet.prototype.setUndoStatus = function () {
 	if (this.undoStep < this.undoQueue.length) {
-		document.getElementById('redoimg').src = "img/redoActive.png";
+		document.getElementById('redoimg').src = 'img/redoActive.png';
 	} else {
-		document.getElementById('redoimg').src = "img/redo.png";
+		document.getElementById('redoimg').src = 'img/redo.png';
 	}
 	if (this.undoStep > 0) {
-		document.getElementById('undoimg').src = "img/undoActive.png";
+		document.getElementById('undoimg').src = 'img/undoActive.png';
 	} else {
-		document.getElementById('undoimg').src = "img/undo.png";
+		document.getElementById('undoimg').src = 'img/undo.png';
 	}
 };
 FretChordSheet.prototype.redoNext = function (v) {
@@ -233,9 +332,11 @@ FretChordSheet.prototype.userActionTrackUp = function (n) {
 		caption: 'Up track ' + n,
 		undo: function () {
 			me.trackOrder = old;
+			//me.closeMainMenu();
 		},
 		redo: function () {
 			me.trackOrder = newOrder;
+			//me.closeMainMenu();
 		}
 	});
 };
@@ -248,7 +349,7 @@ FretChordSheet.prototype.userActionAddNote = function (track, morder, start192, 
 	beat.chords[track].notes.push(note);
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Add note ' + track + ":" + morder + ":" + start192 + ":" + note.octave + "/" + note.step + "/" + note.accidental,
+		caption: 'Add note ' + track + ':' + morder + ':' + start192 + ':' + note.octave + '/' + note.step + '/' + note.accidental,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -298,7 +399,7 @@ FretChordSheet.prototype.userActionAddDrum = function (morder, start192, drum) {
 	beat.drums[drum] = 1;
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Add drum ' + morder + ":" + start192 + ":" + drum,
+		caption: 'Add drum ' + morder + ':' + start192 + ':' + drum,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -338,7 +439,7 @@ FretChordSheet.prototype.userActionDropDrums = function (morder, start192, durat
 	}
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Drop drums ' + ":" + morder + ":" + start192 + ":" + duration192 + ":" + drum,
+		caption: 'Drop drums ' + ':' + morder + ':' + start192 + ':' + duration192 + ':' + drum,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -360,7 +461,7 @@ FretChordSheet.prototype.userActionDropNotes = function (track, morder, start192
 	}
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Drop notes ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + pitch,
+		caption: 'Drop notes ' + track + ':' + morder + ':' + start192 + ':' + duration192 + ':' + pitch,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
@@ -385,7 +486,7 @@ FretChordSheet.prototype.userActionDropNotes7 = function (track, morder, start19
 	}
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
-		caption: 'Drop notes7 ' + track + ":" + morder + ":" + start192 + ":" + duration192 + ":" + octave + '/' + step,
+		caption: 'Drop notes7 ' + track + ':' + morder + ':' + start192 + ':' + duration192 + ':' + octave + '/' + step,
 		undo: function () {
 			me.measures[morder] = pre;
 			me.shrinkMeasures();
