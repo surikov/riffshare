@@ -138,7 +138,7 @@ FretChordSheet.prototype.resetPinStatus = function () {
 	this.tiler.translateY = 0;
 };*/
 FretChordSheet.prototype.showMainMenu = function () {
-	console.log('menu');
+	//console.log('menu');
 	var wd=7*this.tiler.tapSize;
 	if(wd>window.innerWidth-this.tiler.tapSize){
 		wd=window.innerWidth-this.tiler.tapSize
@@ -167,7 +167,7 @@ FretChordSheet.prototype.showMainMenu = function () {
 	document.getElementById('menuDiv').style.width = wd+'px';
 };
 FretChordSheet.prototype.closeMainMenu = function () {
-	console.log('closeMainMenu');
+	//console.log('closeMainMenu');
 	document.getElementById('menuDiv').style.width = '0';
 };
 

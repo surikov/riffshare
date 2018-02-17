@@ -58,3 +58,12 @@ FretChordSheet.prototype.beatInfo = function (minfo, start192) {
 	minfo.beats.push(b);
 	return b;
 };
+FretChordSheet.prototype.notePitchAt = function (binfo, track, pitch) {
+	var chord = binfo.chords[track];
+	for (var i = 0; i < chord.notes.length; i++) {
+		if (this.octaveStepAccidental(chord.notes[i].octave, chord.notes[i].step, chord.notes[i].accidental) == pitch) {
+			return chord.notes[i];
+		}
+	}
+	return null;
+};

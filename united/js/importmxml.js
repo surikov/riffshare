@@ -63,7 +63,7 @@ FretChordSheet.prototype.doParse = function (xml) {
 		if (track > -1) {
 			mina = this.trackInfo[track].title;
 		}
-		console.log('part', p.of('id').value, mina,'track',track);
+		console.log('part', p.of('id').value, 'to',track,mina);
 		this.parsePart(vt, track, p);
 	}
 };
@@ -116,7 +116,10 @@ FretChordSheet.prototype.drumIndex = function (vt, partId, insId) {
 	return 4;
 };
 FretChordSheet.prototype.findTrackByInsName = function (name) {
-	if (name.toLowerCase().includes("guitar")) { return 6; }
+	if (name.toLowerCase().includes("distort")) { return 7; }
+	if (name.toLowerCase().includes("drive")) { return 7; }
+	if (name.toLowerCase().includes("rhytm")) { return 7; }
+	if (name.toLowerCase().includes("jazz")) { return 4; }
 	if (name.toLowerCase().includes("organ")) { return 5; }
 	if (name.toLowerCase().includes("bass")) { return 2; }
 	if (name.toLowerCase().includes("choir")) { return 5; }
@@ -124,6 +127,7 @@ FretChordSheet.prototype.findTrackByInsName = function (name) {
 	if (name.toLowerCase().includes("viol")) { return 1; }
 	if (name.toLowerCase().includes("string")) { return 1; }
 	if (name.toLowerCase().includes("synth")) { return 0; }
+	if (name.toLowerCase().includes("guitar")) { return 6; }
 	return 3;
 };
 FretChordSheet.prototype.parsePartTrackNum = function (vt, id) {
@@ -137,6 +141,7 @@ FretChordSheet.prototype.parsePartTrackNum = function (vt, id) {
 			if (ch == 10 || sp.of('midi-instrument').of('midi-unpitched').value.length > 0) {
 				return -1;
 			} else {
+				console.log( sp.of('part-name').value);
 				if (prg > 0) {
 					track = this.midi2ins(prg - 1);
 				} else {
@@ -174,7 +179,7 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 			}
 		}
 	}
-	console.log('	voices', voices, 'staffs', staffs);
+	//console.log('	voices', voices, 'staffs', staffs);
 	for (var i = 0; i < measures.length; i++) {
 		luco++
 		var measure = measures[i];
@@ -185,7 +190,7 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 		var clefs = measure.of('attributes').all('clef');
 		for (var cl = 0; cl < clefs.length; cl++) {
 			if (clefs[cl].of('clef-octave-change').value) {
-				console.log('	clefOctaveChange', i, clefs[cl].of('clef-octave-change').value);
+				//console.log('	clefOctaveChange', i, clefs[cl].of('clef-octave-change').value);
 				clefOctaveChange = 1 * clefs[cl].of('clef-octave-change').value;
 			}
 		}
@@ -248,7 +253,7 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 							if (barlinerepeattimes) {
 								barline.of('repeat').of('count').value = 1 * barlinerepeattimes;
 							}
-							console.log(barlinerepeatdirection, barlinerepeattimes, barline.of('ending').of('number').value, barline.of('ending').of('type').value);
+							//console.log(barlinerepeatdirection, barlinerepeattimes, barline.of('ending').of('number').value, barline.of('ending').of('type').value);
 							i = anchor - 1;
 						}
 					}
@@ -321,7 +326,10 @@ FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, 
 						var tie = notes[i].of('notations').of('tied').of('type').value;
 						var note = {
 							//name:step,
-							octave: octave - 1, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }]
+							octave: octave - 1
+							, step: this.stepNum(step)
+							, accidental: alter
+							, slides: [{ shift: 0, end192: duration * quant }]
 						};
 						if (notes[i].of('notations').of('technical').has('string')) {
 							note.string = 1 * notes[i].of('notations').of('technical').of('string').value;
@@ -329,9 +337,20 @@ FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, 
 							//console.log(this.octaveStepAccidental(note.octave,note.step,note.accidental),':',note);
 						}
 						if (tie != "stop") {
-							this.dropNoteAtBeat7(track, n, idx, octave, step, alter);
-							binfo.chords[track].notes.push(note);
+							var newPitch=this.octaveStepAccidental(note.octave, note.step, note.accidental);
+							//console.log(track, newPitch);
+							var exNote = this.notePitchAt(binfo, track, newPitch);
+							this.dropNoteAtBeat7(track, n, idx, octave, step);
+							//binfo.chords[track].notes.push(note);
 							//console.log('push', idx, note);
+							if(exNote){
+								//console.log('replace', idx, note);
+								if(exNote.string){
+									note.string=exNoteString;
+									note.fret=exNote.fret;
+								}								
+							}
+							binfo.chords[track].notes.push(note);
 						} else {
 							var tied = this.findTieStart(track, n, idx, octave, step, alter);
 							if (tied) {
@@ -351,32 +370,33 @@ FretChordSheet.prototype.parseDrumMeasure = function (vt, partId, quant, n, meas
 	//var voices = this.findVoices(notes);
 	for (var v = 0; v < voices.length; v++) {
 		for (var s = 0; s < staffs.length; s++) {
-		var voice = voices[v];
-		var staff = staffs[s];
-		var idx = 0;
-		var lastdur = 0;
-		for (var i = 0; i < notes.length; i++) {
-			if (voice == '' + notes[i].of('voice').value && staff == '' + notes[i].of('staff').value) {
-				var duration = 1 * notes[i].of('duration').value;
-				var insId = notes[i].of('instrument').of('id').value;
-				if (insId) {
-					var chord = notes[i].has('chord');
-					var drnum = this.drumIndex(vt, partId, insId);
-					var tie = notes[i].of('notations').of('tied').of('type').value;
-					if (tie != "stop") {
-						if (!(chord)) {
-							idx = idx + quant * lastdur;
+			var voice = voices[v];
+			var staff = staffs[s];
+			var idx = 0;
+			var lastdur = 0;
+			for (var i = 0; i < notes.length; i++) {
+				if (voice == '' + notes[i].of('voice').value && staff == '' + notes[i].of('staff').value) {
+					var duration = 1 * notes[i].of('duration').value;
+					var insId = notes[i].of('instrument').of('id').value;
+					if (insId) {
+						var chord = notes[i].has('chord');
+						var drnum = this.drumIndex(vt, partId, insId);
+						var tie = notes[i].of('notations').of('tied').of('type').value;
+						if (tie != "stop") {
+							if (!(chord)) {
+								idx = idx + quant * lastdur;
+							}
+							var binfo = this.beatInfo(minfo, idx);
+							binfo.drums[drnum] = 1;
 						}
-						var binfo = this.beatInfo(minfo, idx);
-						binfo.drums[drnum] = 1;
+					} else {
+						idx = idx + quant * lastdur;
 					}
-				} else {
-					idx = idx + quant * lastdur;
+					lastdur = duration;
 				}
-				lastdur = duration;
 			}
 		}
-	}}
+	}
 };
 /*
 FretChordSheet.prototype.existsArr = function (v, at) {
