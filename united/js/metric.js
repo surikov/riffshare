@@ -126,6 +126,16 @@ FretChordSheet.prototype.findBeatX = function (measureNum, step192) {
 	return x;
 };
 FretChordSheet.prototype.stringFret = function (note) {
+	if(note.string){
+		return {
+			string: note.string
+			, fret: note.fret
+		};
+	}else{
+		return this.defaultStringFret(note);
+	}
+};
+FretChordSheet.prototype.defaultStringFret = function (note) {
 	var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental)-12;
 	//console.log('stringFret', pitch);
 	var r = {

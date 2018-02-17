@@ -8,7 +8,7 @@ function MeasureToneNote() {
 	this.octave = 0;
 	this.step = 0;
 	this.accidental = 0;
-	this.string = 0;
+	this.fret = 0;
 	return this;
 }
 function MeasureToneChord() {

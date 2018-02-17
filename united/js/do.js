@@ -681,6 +681,7 @@ FretChordSheet.prototype.dropNoteAtBeat7 = function (track, morder, beatStart, o
 FretChordSheet.prototype.cloneNote = function (measureToneNote) {
 	var clone = new MeasureToneNote();
 	clone.string = measureToneNote.string;
+	clone.fret = measureToneNote.fret;
 	clone.octave = measureToneNote.octave;
 	clone.step = measureToneNote.step;
 	clone.accidental = measureToneNote.accidental;

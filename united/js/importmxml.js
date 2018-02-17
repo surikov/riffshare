@@ -216,12 +216,13 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 	}
 };
 FretChordSheet.prototype.stepNum = function (step) {
-	if (step.toUpperCase() == 'E') { return 1; }
-	if (step.toUpperCase() == 'F') { return 2; }
-	if (step.toUpperCase() == 'G') { return 3; }
-	if (step.toUpperCase() == 'A') { return 4; }
-	if (step.toUpperCase() == 'B') { return 5; }
-	if (step.toUpperCase() == 'H') { return 5; }
+	if (step.toUpperCase() == 'D') { return 1; }
+	if (step.toUpperCase() == 'E') { return 2; }
+	if (step.toUpperCase() == 'F') { return 3; }
+	if (step.toUpperCase() == 'G') { return 4; }
+	if (step.toUpperCase() == 'A') { return 5; }
+	if (step.toUpperCase() == 'B') { return 6; }
+	if (step.toUpperCase() == 'H') { return 6; }
 	return 0;
 }
 FretChordSheet.prototype.findTieStart = function (trackNo, mOrder, start192, octave, step, accidental) {
@@ -272,7 +273,14 @@ FretChordSheet.prototype.parseToneMeasure = function (quant, n, track, measure, 
 					var octave = 1 * notes[i].of('pitch').of('octave').value;
 					//octave=octave+clefOctaveChange;
 					var tie = notes[i].of('notations').of('tied').of('type').value;
-					var note = { octave: octave-1, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }] };
+					var note = { 
+						//name:step,
+						octave: octave-1, step: this.stepNum(step), accidental: alter, slides: [{ shift: 0, end192: duration * quant }] };
+					if (notes[i].of('notations').of('technical').has('string')) {
+						note.string=1*notes[i].of('notations').of('technical').of('string').value;
+						note.fret=1*notes[i].of('notations').of('technical').of('fret').value;
+						//console.log(this.octaveStepAccidental(note.octave,note.step,note.accidental),':',note);
+					}
 					if (tie != "stop") {
 						this.dropNoteAtBeat7(track, n, idx, octave, step, alter);
 						binfo.chords[track].notes.push(note);

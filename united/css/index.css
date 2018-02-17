@@ -99,7 +99,7 @@ body3{
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #fff;
+    background-color: #eef;
     overflow-x: hidden;
     transition: 0.5s;
 	margin: 0px;
@@ -107,14 +107,17 @@ body3{
 	box-shadow: 0px 0px 0.3cm grey;
 }
 .menucontent {
-    height: 100%;
-	margin: 0;
-	padding:0.1cm;
+	margin: 0px;
+	padding:0px;
 	border-left-style: solid;
 	border-left-color: #ccc;
 	border-left-width: 1px;
 }
-
+.buttonicon {
+    height: 1cm;
+	width:1cm;
+	vertical-align: middle;
+}
 a {
 	color: black;
 	text-decoration: none;
