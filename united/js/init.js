@@ -7,6 +7,7 @@ FretChordSheet.prototype.init = function () {
 		saveObject2localStorage(this.prefix + '_position', {});
 		window.location = "index.html";
 	}
+	this.air=false;
 	this.tiler = new TileLevel("contentSVG", 'cntnt');
 	this.tiler.translateZ = 6.9;
 	this.layerBack = this.tiler.addBaseLayer();
@@ -99,7 +100,7 @@ FretChordSheet.prototype.init = function () {
 	this.modalDialogMode = false;
 	
 	this.drumInfo = [{
-		//sound: _drum_35_0_Chaos_sf2_file,
+		sound: _drum_35_0_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum0'), 0, 70, 100),
 		pitch: 36, //36
 		title: 'Bass drum',
@@ -107,7 +108,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.95,
 		length: 0.5
 	}, {
-		//sound: _drum_41_26_JCLive_sf2_file,
+		sound: _drum_41_26_JCLive_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum1'), 0, 70, 100),
 		pitch: 41, //43
 		title: 'Low Tom',
@@ -115,7 +116,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.5,
 		length: 0.5
 	}, {
-		//sound: _drum_38_22_FluidR3_GM_sf2_file,
+		sound: _drum_38_22_FluidR3_GM_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum2'), 0, 70, 100),
 		pitch: 38, //40
 		title: 'Snare drum',
@@ -123,7 +124,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 1.0,
 		length: 0.5
 	}, {
-		//sound: _drum_45_26_JCLive_sf2_file,
+		sound: _drum_45_26_JCLive_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum3'), 0, 70, 100),
 		pitch: 45, //47,48,50
 		title: 'Mid Tom',
@@ -131,7 +132,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.75,
 		length: 0.5
 	}, {
-		//sound: _drum_42_26_JCLive_sf2_file,
+		sound: _drum_42_26_JCLive_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum4'), 0, 70, 100),
 		pitch: 42, //44
 		title: 'Closed Hi-hat',
@@ -139,7 +140,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.5,
 		length: 1
 	}, {
-		//sound: _drum_46_26_JCLive_sf2_file,
+		sound: _drum_46_26_JCLive_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum5'), 0, 70, 100),
 		pitch: 46, //
 		title: 'Open Hi-hat',
@@ -147,7 +148,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.5,
 		length: 1
 	}, {
-		//sound: _drum_39_0_Chaos_sf2_file,//_drum_51_26_JCLive_sf2_file,
+		sound: _drum_39_0_Chaos_sf2_file,//_drum_51_26_JCLive_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum6'), 0, 70, 100),
 		pitch: 51, //rest
 		title: 'Hand Clap',
@@ -155,7 +156,7 @@ FretChordSheet.prototype.init = function () {
 		volumeRatio: 0.3,
 		length: 2
 	}, {
-		//sound: _drum_49_26_JCLive_sf2_file,
+		sound: _drum_49_26_JCLive_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum7'), 0, 70, 100),
 		pitch: 49, //
 		title: 'Splash Cymbal',
@@ -169,7 +170,7 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(255,127,0,0.25)',
 		title: 'Synth Bass',
 		order: 2,
-		//sound: _tone_0390_GeneralUserGS_sf2_file,
+		sound: _tone_0390_GeneralUserGS_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track7'), 0, 70, 100),
 		nn: 7,
 		octave: 3,
@@ -180,7 +181,7 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(96,96,0,0.25)',
 		title: 'String Ensemble',
 		order: 1,
-		//sound: _tone_0490_Chaos_sf2_file,
+		sound: _tone_0490_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track6'), 0, 70, 100),
 		nn: 6,
 		octave: 3,
@@ -191,14 +192,14 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(153,0,153,0.25)',
 		title: 'Bass guitar',
 		order: 5,
-		//sound: _tone_0340_Aspirin_sf2_file,
+		sound: _tone_0340_Aspirin_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track5'), 0, 70, 100),
 		nn: 5,
 		octave: 2,
 		inChordDelay: 0.01,
 		volumeRatio: 0.75
 		, linkedSlap: {
-			//sound: _tone_0360_Aspirin_sf2_file,
+			sound: _tone_0360_Aspirin_sf2_file,
 			octave: 2,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
@@ -208,7 +209,7 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(0,127,255,0.25)',
 		title: 'Grand Piano',
 		order: 3,
-		//sound: _tone_0001_FluidR3_GM_sf2_file,
+		sound: _tone_0001_FluidR3_GM_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track4'), 0, 70, 100),
 		nn: 4,
 		octave: 3,
@@ -219,7 +220,7 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(140,35,25,0.25)',
 		title: 'Jazz guitar',
 		order: 4,
-		//sound: _tone_0260_GeneralUserGS_sf2_file,
+		sound: _tone_0260_GeneralUserGS_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track3'), 0, 70, 100),
 		nn: 3,
 		octave: 3,
@@ -231,7 +232,7 @@ FretChordSheet.prototype.init = function () {
 		title: 'Percussive Organ',
 		order: 0,
 		inChordDelay: 0,
-		//sound: _tone_0170_SBLive_sf2,
+		sound: _tone_0170_SBLive_sf2,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track2'), 0, 70, 100),
 		nn: 2,
 		octave: 4,
@@ -241,20 +242,20 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(0,102,0,0.25)',
 		title: 'Acoustic guitar',
 		order: 6,
-		//sound: _tone_0250_Chaos_sf2_file,
+		sound: _tone_0250_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track1'), 0, 70, 100),
 		nn: 1,
 		octave: 3,
 		inChordDelay: 0.01,
 		volumeRatio: 0.5
 		, linkedPalmMute: {
-			//sound: _tone_0280_JCLive_sf2_file,
+			sound: _tone_0280_JCLive_sf2_file,
 			octave: 3,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
 		}
 		, linkedHarmonics: {
-			//sound: _tone_0310_SoundBlasterOld_sf2,
+			sound: _tone_0310_SoundBlasterOld_sf2,
 			octave: 3,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
@@ -264,20 +265,20 @@ FretChordSheet.prototype.init = function () {
 		shadow: 'rgba(255,0,0,0.25)',
 		title: 'Distortion guitar',
 		order: 7,
-		//sound: _tone_0300_LesPaul_sf2_file,
+		sound: _tone_0300_LesPaul_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track0'), 0, 70, 100),
 		nn: 0,
 		octave: 3,
 		inChordDelay: 0.01,
 		volumeRatio: 0.7
 		, linkedPalmMute: {
-			//sound: _tone_0280_LesPaul_sf2_file,
+			sound: _tone_0280_LesPaul_sf2_file,
 			octave: 3,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
 		}
 		, linkedHarmonics: {
-			//sound: _tone_0310_LesPaul_sf2_file,
+			sound: _tone_0310_LesPaul_sf2_file,
 			octave: 3,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75

@@ -65,6 +65,9 @@ FretChordSheet.prototype.resetPinStatus = function () {
 	document.getElementById('closeMenuB').onclick = function () {
 		me.closeMainMenu();
 	};
+	document.getElementById('playButton').onclick = function () {
+		me.startPlayAll();
+	};
 	for(var i=0;i<8;i++){
 		var o=document.getElementById('channel'+(i+1));
 		o.linkedNum=i;
@@ -139,6 +142,7 @@ FretChordSheet.prototype.resetPinStatus = function () {
 };*/
 FretChordSheet.prototype.showMainMenu = function () {
 	//console.log('menu');
+	var me=this;
 	var wd=7*this.tiler.tapSize;
 	if(wd>window.innerWidth-this.tiler.tapSize){
 		wd=window.innerWidth-this.tiler.tapSize
@@ -150,6 +154,20 @@ FretChordSheet.prototype.showMainMenu = function () {
 		o.style.color=this.trackInfo[this.findTrackNum(i)].color;
 		//me.userActionTrackUp(s.toneNum);
 	}
+	if(this.air){
+		document.getElementById('playButton').innerHTML='Stop';
+		document.getElementById('playButton').onclick = function () {
+			me.stopPlay();
+			me.closeMainMenu();
+		};
+	}else{
+		document.getElementById('playButton').innerHTML='Play';
+		document.getElementById('playButton').onclick = function () {
+			me.startPlayAll();
+			me.closeMainMenu();
+		};
+	}
+
 	document.getElementById('feelLabel').innerHTML='Feel: ' + this.feelNames[this.options.feel];
 	document.getElementById('rangeFeel').value=this.options.feel;
 	//console.log(this.options.feel);
