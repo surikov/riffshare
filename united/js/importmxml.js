@@ -226,6 +226,29 @@ FretChordSheet.prototype.parsePart = function (vt, track, part) {
 		} else {
 			minfo.keys = 7 - fifths;
 		}
+		var directions = measure.all('direction');
+		//console.log(directions);
+		for(var dr=0;dr<directions.length;dr++){
+			var direction=directions[dr];
+			//console.log(direction);
+			var tempo=direction.of('sound').of('tempo').value;
+			//var dynamics=direction.of('sound').of('dynamics').value;
+			var beatUnit=direction.of('direction-type').of('metronome').of('beat-unit').value;
+			var perMinute=direction.of('direction-type').of('metronome').of('per-minute').value;
+			if(tempo){
+				minfo.tempo=tempo*1;
+				console.log(i,'tempo',tempo);
+			}else{
+				
+					if((beatUnit)&& (perMinute)){
+						minfo.tempo=perMinute*this.beatUnit(beatUnit);
+						console.log(i,'perMinute',perMinute,beatUnit);
+					}
+				
+			}
+		}
+
+
 		if (track > -1) {
 			minfo.shifts[track] = clefOctaveChange;
 			this.parseToneMeasure(quant, i, track, measure, this.keys[minfo.keys], voices, staffs);
@@ -397,6 +420,15 @@ FretChordSheet.prototype.parseDrumMeasure = function (vt, partId, quant, n, meas
 			}
 		}
 	}
+};
+FretChordSheet.prototype.beatUnit = function (name) {
+	var r=1;
+	if(name=='16th '){return 4/16;}
+	if(name=='eighth'){return 4/8;}
+	if(name=='quarter'){return 4/4;}
+	if(name=='half'){return 4/2;}
+	if(name=='whole'){return 4/1;}
+	return r;
 };
 /*
 FretChordSheet.prototype.existsArr = function (v, at) {

@@ -689,6 +689,18 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 			rect.setAttributeNS(null, 'width', tg.w);
 			rect.setAttributeNS(null, 'fill', 'url(#bgGradient)');//'#f00');
 			tg.g.appendChild(rect);
+
+			
+				me.tickerLine = document.createElementNS(tg.layer.svgns, 'rect');
+				
+				
+				me.tickerLine.setAttributeNS(null, 'x', tg.x);
+				me.tickerLine.setAttributeNS(null, 'y', tg.y);
+				me.tickerLine.setAttributeNS(null, 'height', tg.h);
+				me.tickerLine.setAttributeNS(null, 'width', me.tiler.tapSize*3*8);
+				me.tickerLine.setAttributeNS(null, 'fill', 'rgba(255,255,255,0.0000001)');//'#f00');
+				tg.g.appendChild(me.tickerLine);
+			
 		});
 };
 

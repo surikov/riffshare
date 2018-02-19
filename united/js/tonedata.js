@@ -24,7 +24,7 @@ function MeasureBeat() {
 }
 function MeasureInfo() {
 	this.beats = [];
-	this.meter = 120;
+	this.tempo = 121;
 	this.duration4 = 4;
 	this.keys = 0;
 	this.shifts = [];
@@ -42,6 +42,8 @@ FretChordSheet.prototype.measureInfo = function (n) {
 			console.log(this.measures[i]);*/
 			if (i > 0) {
 				this.measures[i].keys = this.measures[i - 1].keys;
+				this.measures[i].meter = this.measures[i - 1].meter;
+				this.measures[i].tempo = this.measures[i - 1].tempo;
 			}
 		}
 	}

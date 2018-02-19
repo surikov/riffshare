@@ -173,7 +173,7 @@ FretChordSheet.prototype.init = function () {
 		sound: _tone_0390_GeneralUserGS_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track7'), 0, 70, 100),
 		nn: 7,
-		octave: 3,
+		octave: 2,
 		inChordDelay: 0.01,
 		volumeRatio: 0.5
 	}, {
@@ -184,7 +184,7 @@ FretChordSheet.prototype.init = function () {
 		sound: _tone_0490_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track6'), 0, 70, 100),
 		nn: 6,
-		octave: 3,
+		octave: 2,
 		inChordDelay: 0,
 		volumeRatio: 0.3
 	}, {
@@ -212,7 +212,7 @@ FretChordSheet.prototype.init = function () {
 		sound: _tone_0001_FluidR3_GM_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track4'), 0, 70, 100),
 		nn: 4,
-		octave: 3,
+		octave: 2,
 		inChordDelay: 0,
 		volumeRatio: 0.5
 	}, {
@@ -223,7 +223,7 @@ FretChordSheet.prototype.init = function () {
 		sound: _tone_0260_GeneralUserGS_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track3'), 0, 70, 100),
 		nn: 3,
-		octave: 3,
+		octave: 2,
 		inChordDelay: 0,
 		volumeRatio: 1.0
 	}, {
@@ -245,18 +245,18 @@ FretChordSheet.prototype.init = function () {
 		sound: _tone_0250_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track1'), 0, 70, 100),
 		nn: 1,
-		octave: 3,
+		octave: 2,
 		inChordDelay: 0.01,
 		volumeRatio: 0.5
 		, linkedPalmMute: {
 			sound: _tone_0280_JCLive_sf2_file,
-			octave: 3,
+			octave: 2,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
 		}
 		, linkedHarmonics: {
 			sound: _tone_0310_SoundBlasterOld_sf2,
-			octave: 3,
+			octave: 2,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
 		}
@@ -268,18 +268,18 @@ FretChordSheet.prototype.init = function () {
 		sound: _tone_0300_LesPaul_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'track0'), 0, 70, 100),
 		nn: 0,
-		octave: 3,
+		octave: 2,
 		inChordDelay: 0.01,
 		volumeRatio: 0.7
 		, linkedPalmMute: {
 			sound: _tone_0280_LesPaul_sf2_file,
-			octave: 3,
+			octave: 2,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
 		}
 		, linkedHarmonics: {
 			sound: _tone_0310_LesPaul_sf2_file,
-			octave: 3,
+			octave: 2,
 			inChordDelay: 0.01,
 			volumeRatio: 0.75
 		}

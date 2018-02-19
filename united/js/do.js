@@ -735,6 +735,7 @@ FretChordSheet.prototype.cloneMeasure = function (morder) {
 	if (morder < this.measures.length) {
 		minfo = this.measures[morder];
 		clone.meter = minfo.meter;
+		clone.tempo = minfo.tempo;		
 		clone.keys = minfo.keys;
 		clone.duration4 = minfo.duration4;
 		for (var i = 0; i < minfo.beats.length; i++) {
