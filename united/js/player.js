@@ -124,11 +124,13 @@ FretChordSheet.prototype.startQueue = function () {
 		this.startPlayLoop();
 	}
 };
-FretChordSheet.prototype.moveTicker = function (measureNum,beat4) {
+FretChordSheet.prototype.moveTicker = function (measureNum,beat16) {
 	if(this.tickerLine){
-		this.tickerX=this.findBeatX(measureNum,beat4*48);
+		this.tickerX=this.findBeatX(measureNum,beat16*12);
 		//beat4*this.tiler.tapSize*3*8;
 		//console.log(this.tickerX);
+		var minfo = this.measureInfo(measureNum);
+		this.tickerLine.setAttributeNS(null, 'width',this.tiler.tapSize*3*minfo.duration4*8);
 		this.tickerLine.setAttribute('transform', 'translate(' + this.tickerX + ')');
 	}
 };
@@ -139,7 +141,7 @@ FretChordSheet.prototype.hideTicker = function () {
 };
 FretChordSheet.prototype.showTicker = function () {
 	if(this.tickerLine){
-		this.tickerLine.setAttributeNS(null, 'fill', 'rgba(255,255,255,0.25)');
+		this.tickerLine.setAttributeNS(null, 'fill', 'rgba(255,255,255,0.5)');
 	}
 };
 FretChordSheet.prototype.startPlayLoop = function () {
@@ -147,28 +149,30 @@ FretChordSheet.prototype.startPlayLoop = function () {
 	var minfo = this.measureInfo(0);
 	var wholeNoteDuration = 4 * 60 / minfo.tempo;
 	var measureNum = 0;
-	var beat4 = 0;
-	this.playBeatAt(this.audioContext.currentTime, measureNum, beat4);
-	var nextLoopTime = this.audioContext.currentTime + 1 / 4 * wholeNoteDuration;
+	//var beat4 = 0;
+	var beat16 = 0;
+	this.playBeatAt(this.audioContext.currentTime, measureNum, beat16);
+	this.moveTicker(measureNum,beat16);
+	var nextLoopTime = this.audioContext.currentTime + 1 / 16 * wholeNoteDuration;
 	var me = this;
 	this.loopIntervalID = setInterval(function () {
 		if (me.air) {
-			if (me.audioContext.currentTime > nextLoopTime - 1 / 4 * wholeNoteDuration) {
+			if (me.audioContext.currentTime > nextLoopTime - 1 / 16 * wholeNoteDuration) {
 				try {
-					me.moveTicker(measureNum,beat4);
-					beat4++;
-					if (beat4 >= me.measures[measureNum].duration4) {
-						beat4 = 0;
+					//me.moveTicker(measureNum,beat4);
+					beat16++;
+					if (beat16 >= 4*me.measures[measureNum].duration4) {
+						beat16 = 0;
 						measureNum++;
 						if (measureNum > me.measures.length - 1) {
 							measureNum = 0;
 						}
-						
-						minfo = me.measureInfo(measureNum,beat4);
+						me.moveTicker(measureNum,beat16);
+						minfo = me.measureInfo(measureNum,beat16);
 						wholeNoteDuration = 4 * 60 / minfo.tempo;
 					}
-					me.playBeatAt(nextLoopTime, measureNum, beat4);
-					nextLoopTime = nextLoopTime + 1 / 4 * wholeNoteDuration;
+					me.playBeatAt(nextLoopTime, measureNum, beat16);
+					nextLoopTime = nextLoopTime + 1 / 16 * wholeNoteDuration;
 					
 				} catch (ex) { 
 					console.log(ex); 
@@ -185,14 +189,14 @@ FretChordSheet.prototype.stopPlayLoop = function () {
 FretChordSheet.prototype.cancelQueue = function () {
 	this.player.cancelQueue(this.audioContext);
 }
-FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat4) {
+FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 	//console.log('playBeatAt', when, measureNum, beat4);
 	var minfo = this.measures[measureNum];
 	wholeNoteDuration = 4 * 60 / minfo.tempo;
 	for (var i = 0; i < minfo.beats.length; i++) {
 		var binfo = minfo.beats[i];
-		var whenPlay = when + wholeNoteDuration * binfo.start192 / 192 - wholeNoteDuration * beat4 / 4;
-		if (binfo.start192 >= 48 * beat4 && binfo.start192 < 48 * (beat4 + 1)) {
+		var whenPlay = when + wholeNoteDuration * binfo.start192 / 192 - wholeNoteDuration * beat16 / 16;
+		if (binfo.start192 >= 12 * beat16 && binfo.start192 < 12 * (beat16 + 1)) {
 			//console.log('send', whenPlay, binfo);
 			for (var d = 0; d < binfo.drums.length; d++) {
 				if (binfo.drums[d]) {

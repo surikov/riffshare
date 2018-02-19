@@ -110,7 +110,7 @@ body3{
 	margin: 0px;
 	padding:0px;
 	border-left-style: solid;
-	border-left-color: #ccc;
+	border-left-color: #abc;
 	border-left-width: 1px;
 }
 .buttonicon {
@@ -130,5 +130,5 @@ a {
 .menuheader {
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
-	border-bottom-color:#ccc;
+	border-bottom-color:#abc;
 }
