@@ -152,7 +152,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 	//var beat4 = 0;
 	var beat16 = 0;
 	this.playBeatAt(this.audioContext.currentTime, measureNum, beat16);
-	this.moveTicker(measureNum,beat16);
+	//this.moveTicker(measureNum,beat16);
 	var nextLoopTime = this.audioContext.currentTime + 1 / 16 * wholeNoteDuration;
 	var me = this;
 	this.loopIntervalID = setInterval(function () {
@@ -167,7 +167,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 						if (measureNum > me.measures.length - 1) {
 							measureNum = 0;
 						}
-						me.moveTicker(measureNum,beat16);
+						//me.moveTicker(measureNum,beat16);
 						minfo = me.measureInfo(measureNum,beat16);
 						wholeNoteDuration = 4 * 60 / minfo.tempo;
 					}
