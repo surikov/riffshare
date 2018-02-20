@@ -73,12 +73,10 @@
 		<div id="menuDiv" class="mainmenu">
 			<div class="menucontent" id='subDivMenu'>
 				<div class="menuheader">
-					<a href="javascript:void(0)" id="closeMenuB"><img class="buttonicon" src='img/cross.png' />Options 1.58</a>
+					<a href="javascript:void(0)" id="closeMenuB"><img class="buttonicon" src='img/cross.png' />Options 1.59</a>
 				</div>
 				<div class="menuelements">
-					<p>
-						<a href="javascript:void(0)" id='playButton'>Play</a>
-					</p>
+					<div id="playButton" class="menubutton">Play</div>
 					<p>
 						<a href="#" id='channel1'>1</a>
 						<br/><a href="#" id='channel2'>2</a>
@@ -89,10 +87,8 @@
 						<br/><a href="#" id='channel7'>7</a>
 						<br/><a href="#" id='channel8'>8</a>
 					</p>
-					<p>
-						<span id='feelLabel'>feel</span>
-						<br/><input type="range" id='rangeFeel' min="0" max="4">
-					</p>
+					<div id="feelLabel" class="menubutton">feel</div>
+					
 					<p>
 							<span id='tpnLabel'>tpn</span>
 							<br/><input type="range" id='rangeTPN' min="1" max="3">
@@ -101,8 +97,9 @@
 								<span id='breakLabel'>tpn</span>
 								<br/><input type="range" id='rangeBreak' min="1" max="3">
 							</p>
-					<p><a href="javascript:void(0)" id="clearSongB">Clear song</a></p>
-					<p><a href="javascript:void(0)" id="importSongB">Merge MusicXML</a></p>
+					<div id="clearSongB" class="menubutton">Clear song</div>
+					<div id="importSongB" class="menubutton">Play</div>
+					
 					<p>
 						<a href="javascript:void(0)" id="switchPianoB">piano</a>
 						<br/><a href="javascript:void(0)" id="switchStaffB">staff</a>
@@ -118,9 +115,11 @@
 					<a href="javascript:void(0)" id="closeFeelB"><img class="buttonicon" src='img/cross.png' />Feel</a>
 				</div>
 				<div class="menuelements">
-					<p>
-						<a href="javascript:void(0)" id='playButton'>Play</a>
-					</p>
+					<div id="setFeel0" class="menubutton">straight 1/8</div>
+					<div id="setFeel1" class="menubutton">straight 1/16</div>
+					<div id="setFeel2" class="menubutton">swing 1/16</div>
+					<div id="setFeel3" class="menubutton">triplet 2/16</div>
+					<div id="setFeel4" class="menubutton">straight 1/32</div>
 				</div>
 			</div>
 		</div>

@@ -132,3 +132,10 @@ a {
 	border-bottom-width: 1px;
 	border-bottom-color:#abc;
 }
+.menubutton {
+	margin: 0;
+	padding-top:0.5cm;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color:#abc;
+}

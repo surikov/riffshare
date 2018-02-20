@@ -36,6 +36,7 @@ FretChordSheet.prototype.initAudio = function () {
 		this.equalizer = this.player.createChannel(this.audioContext);
 		this.output = this.audioContext.createGain();
 		if (this.isMobile()) {
+			console.log('no echo for mobile mode');
 			this.equalizer.output.connect(this.output);
 		} else {
 			this.echo = this.player.createReverberator(this.audioContext);

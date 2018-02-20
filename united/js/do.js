@@ -78,11 +78,34 @@ FretChordSheet.prototype.resetPinStatus = function () {
 			me.tiler.resetAllLayersNow();
 		};
 	}
-	document.getElementById('rangeFeel').onchange=function(){
+	/*document.getElementById('rangeFeel').onchange=function(){
 		me.userActionChangeFeel(1*document.getElementById('rangeFeel').value);
 		me.closeMainMenu();
 		me.tiler.resetAllLayersNow();		
+	};*/
+	document.getElementById('setFeel0').onclick = function () {
+		me.userActionChangeFeel(0);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();
 	};
+	document.getElementById('setFeel1').onclick = function () {
+		me.userActionChangeFeel(1);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();
+	};
+	document.getElementById('setFeel2').onclick = function () {
+		me.userActionChangeFeel(2);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();
+	};
+	document.getElementById('setFeel3').onclick = function () {
+		me.userActionChangeFeel(3);
+		me.closeMainMenu();
+		me.tiler.resetAllLayersNow();
+	};
+
+
+
 	document.getElementById('rangeTPN').onchange=function(){
 		me.userActionChangeMarkMode(1*document.getElementById('rangeTPN').value);
 		me.closeMainMenu();
@@ -191,7 +214,7 @@ FretChordSheet.prototype.showMainMenu = function () {
 	}
 
 	document.getElementById('feelLabel').innerHTML='Feel: ' + this.feelNames[this.options.feel];
-	document.getElementById('rangeFeel').value=this.options.feel;
+	//document.getElementById('rangeFeel').value=this.options.feel;
 	//console.log(this.options.feel);
 	document.getElementById('tpnLabel').innerHTML='Taps per note: ' + this.options.markNotesCount;
 	document.getElementById('rangeTPN').value=this.options.markNotesCount;
