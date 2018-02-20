@@ -31,10 +31,12 @@ FretChordSheet.prototype.initAudio = function () {
 		this.destination = this.audioContext.destination;
 		this.equalizer = this.player.createChannel(this.audioContext);
 		this.output = this.audioContext.createGain();
-		this.echo = this.player.createReverberator(this.audioContext);
+		/*this.echo = this.player.createReverberator(this.audioContext);
 		this.echo.wet.gain.setTargetAtTime(0.5, 0, 0.0001);
 		this.echo.output.connect(this.output);
 		this.equalizer.output.connect(this.echo.input);
+		*/
+		this.equalizer.output.connect(this.output);
 		this.output.connect(this.destination);
 		this.initPresets();
 	}
@@ -131,7 +133,8 @@ FretChordSheet.prototype.moveTicker = function (measureNum,beat16) {
 		//console.log(this.tickerX);
 		var minfo = this.measureInfo(measureNum);
 		this.tickerLine.setAttributeNS(null, 'width',this.tiler.tapSize*3*minfo.duration4*8);
-		this.tickerLine.setAttribute('transform', 'translate(' + this.tickerX + ')');
+		//this.tickerLine.setAttribute('transform', 'translate(' + this.tickerX + ')');
+		this.tickerLine.setAttributeNS(null, 'x',this.tickerX);
 	}
 };
 FretChordSheet.prototype.hideTicker = function () {
@@ -152,7 +155,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 	//var beat4 = 0;
 	var beat16 = 0;
 	this.playBeatAt(this.audioContext.currentTime, measureNum, beat16);
-	//this.moveTicker(measureNum,beat16);
+	this.moveTicker(measureNum,beat16);
 	var nextLoopTime = this.audioContext.currentTime + 1 / 16 * wholeNoteDuration;
 	var me = this;
 	this.loopIntervalID = setInterval(function () {
@@ -167,7 +170,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 						if (measureNum > me.measures.length - 1) {
 							measureNum = 0;
 						}
-						//me.moveTicker(measureNum,beat16);
+						me.moveTicker(measureNum,beat16);
 						minfo = me.measureInfo(measureNum,beat16);
 						wholeNoteDuration = 4 * 60 / minfo.tempo;
 						console.log(measureNum,'nodes',me.player.envelopes.length,'now',me.audioContext.currentTime,'tick',1 / 16 * wholeNoteDuration);
