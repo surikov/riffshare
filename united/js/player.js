@@ -201,7 +201,7 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 		var binfo = minfo.beats[i];
 		var whenPlay = when + wholeNoteDuration * binfo.start192 / 192 - wholeNoteDuration * beat16 / 16;
 		if (binfo.start192 >= 12 * beat16 && binfo.start192 < 12 * (beat16 + 1)) {
-			//console.log('send', whenPlay, measureNum, beat16);
+			console.log('send', whenPlay, measureNum, beat16);
 			for (var d = 0; d < binfo.drums.length; d++) {
 				if (binfo.drums[d]) {
 					var drum = this.drumInfo[d].sound;
