@@ -42,8 +42,35 @@ FretChordSheet.prototype.initAudio = function () {
 			this.echo.wet.gain.setTargetAtTime(0.5, 0, 0.0001);
 			this.echo.output.connect(this.output);
 			this.equalizer.output.connect(this.echo.input);
-
 		}
+		/*
+		this.delay1=this.audioContext.createDelay();
+		this.delay1.delayTime.setTargetAtTime(0.025, 0, 0.0001);
+		this.amount1=this.audioContext.createGain();
+		this.amount1.gain.setTargetAtTime(0.1, 0, 0.0001);
+		this.delay1.connect(this.amount1);
+		this.amount1.connect(this.output);		
+		this.equalizer.output.connect(this.delay1);
+
+		this.delay2=this.audioContext.createDelay();
+		this.delay2.delayTime.setTargetAtTime(0.05, 0, 0.0001);
+		this.amount2=this.audioContext.createGain();
+		this.amount2.gain.setTargetAtTime(0.1, 0, 0.0001);
+		this.delay2.connect(this.amount2);
+		this.amount2.connect(this.output);		
+		this.equalizer.output.connect(this.delay2);
+
+		this.delay3=this.audioContext.createDelay();
+		this.delay3.delayTime.setTargetAtTime(0.075, 0, 0.0001);
+		this.amount3=this.audioContext.createGain();
+		this.amount3.gain.setTargetAtTime(0.1, 0, 0.0001);
+		this.delay3.connect(this.amount3);
+		this.amount3.connect(this.output);		
+		this.equalizer.output.connect(this.delay3);
+
+		this.equalizer.output.connect(this.output);
+		*/
+
 		this.output.connect(this.destination);
 		this.initPresets();
 	}
@@ -180,7 +207,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 						me.moveTicker(measureNum, beat16);
 						minfo = me.measureInfo(measureNum, beat16);
 						wholeNoteDuration = 4 * 60 / minfo.tempo;
-						console.log(measureNum, 'nodes', me.player.envelopes.length, 'now', me.audioContext.currentTime, 'tick', 1 / 16 * wholeNoteDuration);
+						//console.log(measureNum, 'nodes', me.player.envelopes.length, 'now', me.audioContext.currentTime, 'tick', 1 / 16 * wholeNoteDuration);
 					}
 					if (nextLoopTime <= me.audioContext.currentTime) {
 						nextLoopTime = me.audioContext.currentTime
@@ -211,7 +238,7 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 		var binfo = minfo.beats[i];
 		var whenPlay = when + wholeNoteDuration * binfo.start192 / 192 - wholeNoteDuration * beat16 / 16;
 		if (binfo.start192 >= 12 * beat16 && binfo.start192 < 12 * (beat16 + 1)) {
-			console.log('send', whenPlay, measureNum, beat16);
+			//console.log('send', whenPlay, measureNum, beat16);
 			for (var d = 0; d < binfo.drums.length; d++) {
 				if (binfo.drums[d]) {
 					var drum = this.drumInfo[d].sound;

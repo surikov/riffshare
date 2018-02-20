@@ -109,9 +109,9 @@ body3{
 .menucontent {
 	margin: 0px;
 	padding:0px;
-	border-left-style: solid;
-	border-left-color: #abc;
-	border-left-width: 1px;
+	border-left-style1: solid;
+	border-left-color1: #abc;
+	border-left-width1: 1px;
 }
 .buttonicon {
     height: 1cm;
