@@ -75,7 +75,7 @@ FretChordSheet.prototype.waitPresets = function (afterDone) {
 				function () {
 					me.waitPresets(afterDone);
 				}
-				, 111);
+				, 1111);
 		} else {
 			afterDone();
 		}
@@ -170,6 +170,10 @@ FretChordSheet.prototype.startPlayLoop = function () {
 						//me.moveTicker(measureNum,beat16);
 						minfo = me.measureInfo(measureNum,beat16);
 						wholeNoteDuration = 4 * 60 / minfo.tempo;
+						console.log(measureNum,'nodes',me.player.envelopes.length,'now',me.audioContext.currentTime,'tick',1 / 16 * wholeNoteDuration);
+					}
+					if(nextLoopTime<=me.audioContext.currentTime){
+						nextLoopTime=me.audioContext.currentTime
 					}
 					me.playBeatAt(nextLoopTime, measureNum, beat16);
 					nextLoopTime = nextLoopTime + 1 / 16 * wholeNoteDuration;
@@ -180,7 +184,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 				}
 			}
 		}
-	}, 22);
+	}, 1 / 16 * wholeNoteDuration);
 }
 FretChordSheet.prototype.stopPlayLoop = function () {
 	clearInterval(this.loopIntervalID);
@@ -197,7 +201,7 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 		var binfo = minfo.beats[i];
 		var whenPlay = when + wholeNoteDuration * binfo.start192 / 192 - wholeNoteDuration * beat16 / 16;
 		if (binfo.start192 >= 12 * beat16 && binfo.start192 < 12 * (beat16 + 1)) {
-			//console.log('send', whenPlay, binfo);
+			//console.log('send', whenPlay, measureNum, beat16);
 			for (var d = 0; d < binfo.drums.length; d++) {
 				if (binfo.drums[d]) {
 					var drum = this.drumInfo[d].sound;
