@@ -294,6 +294,7 @@ FretChordSheet.prototype.init = function () {
 	var measureLevel=50;
 	var wholeLevel=500;
 	this.tiler.addZoomLevel(accidentalLevel, function (left, top, width, height) {
+		/*
 		var lineWidth = 0.1 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
 		//me.tileLeftMenu(left, top, width, height, lineWidth);
@@ -320,9 +321,11 @@ FretChordSheet.prototype.init = function () {
 			me.tileDrumNames(left, top, width, height, lineWidth);
 		}
 		me.tileModalDialog(left, top, width, height, lineWidth);
+		*/
 	});
 
 	this.tiler.addZoomLevel(noteLevel, function (left, top, width, height) {
+		/*
 		var lineWidth = 0.2 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
 		//me.tileLeftMenu(left, top, width, height, lineWidth);
@@ -357,8 +360,10 @@ FretChordSheet.prototype.init = function () {
 			me.tileDrumNotes(left, top, width, height, lineWidth);
 		}
 		me.tileModalDialog(left, top, width, height, lineWidth);
+		*/
 	});
 	this.tiler.addZoomLevel(measureLevel, function (left, top, width, height) {
+/*
 		var lineWidth = 0.3 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
 		//me.tileLeftMenu(left, top, width, height, lineWidth);
@@ -383,13 +388,16 @@ FretChordSheet.prototype.init = function () {
 			me.tileDrumNotes(left, top, width, height, lineWidth);
 		}
 		me.tileModalDialog(left, top, width, height, lineWidth);
+		*/
 	});
 	this.tiler.addZoomLevel(wholeLevel, function (left, top, width, height) {
+		/*
 		var lineWidth = 1 * me.tiler.tapSize;
 		me.tileBackground(left, top, width, height, lineWidth);
 		me.tileSomeBarNumbers(left, top, width, height, lineWidth);
 		me.tileMeasurePlaceholders(left, top, width, height, lineWidth);
 		me.tileModalDialog(left, top, width, height, lineWidth);
+		*/
 	});
 	
 	window.addEventListener("beforeunload", function () { me.saveState(me.prefix); });
