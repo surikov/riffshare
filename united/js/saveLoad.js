@@ -13,6 +13,7 @@ FretChordSheet.prototype.saveState = function (prefix) {
 		, hideStaff: this.options.hideStaff
 		, hideFrets: this.options.hideFrets
 		, hideDrums: this.options.hideDrums
+		,volumes:this.volumes//=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 	});
 };
 FretChordSheet.prototype.loadState = function (prefix) {
@@ -32,6 +33,7 @@ FretChordSheet.prototype.loadState = function (prefix) {
 		this.resetHeaderWidth();
 		this.measures = sureArray(p.measures, []);
 		this.trackOrder = sureArray(p.trackOrder, [0, 1, 2, 3, 4, 5, 6, 7]);
+		this.volumes = sureArray(p.volumes, [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
 		this.shrinkMeasures();
 	} catch (e) {
 		console.log(e);

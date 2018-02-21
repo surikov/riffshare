@@ -98,7 +98,7 @@ FretChordSheet.prototype.init = function () {
 		, fretLine8: '#999'
 	};
 	this.modalDialogMode = false;
-	
+	this.volumes=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 	this.drumInfo = [{
 		sound: _drum_35_0_Chaos_sf2_file,
 		volume: sureNumeric(readObjectFromlocalStorage(this.prefix + 'drum0'), 0, 70, 100),

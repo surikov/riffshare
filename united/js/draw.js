@@ -349,7 +349,7 @@ FretChordSheet.prototype.tileFretSpot = function (left, top, width, height, laye
 	}
 };
 */
-FretChordSheet.prototype.tileFretGrid = function (left, top, width, height, layer, lineWidth) {
+/*FretChordSheet.prototype.tileFretGrid = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
 		var minfo = this.measureInfo(i);
@@ -370,7 +370,7 @@ FretChordSheet.prototype.tileFretGrid = function (left, top, width, height, laye
 				}
 			});
 	}
-};
+};*/
 FretChordSheet.prototype.tilFretStrings = function (left, top, width, height, layer, lineWidth) {
 	var me = this;
 	for (var i = 0; i < this.calcMeasureCount() + 1; i++) {
@@ -1131,11 +1131,11 @@ FretChordSheet.prototype.tileFretLines = function (left, top, width, height, lin
 		this.layerOctaves.renderGroup(mx + this.margins.sheetLeft
 			, this.margins.fretTop //+ y * 3 * 12 * this.tiler.tapSize
 			, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
-			, 6 * 3 * this.tiler.tapSize
+			, 12 * 3 * this.tiler.tapSize
 			, 'frtLines' + x, left, top, width, height, function (tg) {
 				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y, 3 * lineWidth, tg.h, me.colors.base);
 				for (var i = 0; i < 6; i++) {
-					tg.layer.tileRectangle(tg.g, tg.x, tg.y + (1.5 + i * 3) * tg.layer.tapSize, tg.w, lineWidth, me.colors.base);
+					tg.layer.tileRectangle(tg.g, tg.x, tg.y + (1.5 + 2*i * 3) * tg.layer.tapSize, tg.w, lineWidth, me.colors.base);
 				}
 			});
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
@@ -1275,26 +1275,26 @@ FretChordSheet.prototype.tileFretGrid = function (left, top, width, height, line
 		this.layerGrid.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
 			, this.margins.fretTop //
 			, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
-			, 6 * 3 * this.tiler.tapSize
+			, 12 * 3 * this.tiler.tapSize
 			, 'frtGrid' + x, left, top, width, height, function (tg) {
 				for (var k = 0; k < minfo.duration4; k++) {
 					if (k > 0) {
 						tg.layer.tileRectangle(tg.g, tg.x + 8 * k * 3 * tg.layer.tapSize, tg.y
-							, lineWidth * 2, 6 * 3 * tg.layer.tapSize, me.colors.grid);
+							, lineWidth * 2, (2*6 -1)* 3 * tg.layer.tapSize, me.colors.grid);
 					}
 					for (var nn = 1; nn < me.feelPattern6[me.options.feel].length - 1; nn++) {
 						tg.layer.tileRectangle(tg.g, tg.x + (8 * k + me.feelPattern6[me.options.feel][nn] / 6) * 3 * tg.layer.tapSize, tg.y
-							, lineWidth * 0.5, 6 * 3 * tg.layer.tapSize, me.colors.grid);
+							, lineWidth * 0.5, (2*6 -1)* 3 * tg.layer.tapSize, me.colors.grid);
 					}
 				}
-				for (var k = 1; k < 6; k++) {
+				/*for (var k = 1; k < 6; k++) {
 					tg.layer.tileRectangle(tg.g
 						, tg.x
 						, tg.y + k * 3 * tg.layer.tapSize
 						, tg.w
 						, lineWidth
 						, me.colors.grid);
-				}
+				}*/
 			});
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
@@ -1455,7 +1455,7 @@ FretChordSheet.prototype.tileFretMeasureNotes = function (x, minfo, mx, trackNum
 										if (tx2 - tx1 < 1) {
 											tx2 = tx1 + 1;
 										}
-										var ty1=tg.y + ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize;
+										var ty1=tg.y + 2*ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize;
 										//console.log(trackNum,me.stringFret(note));
 										//me.tileFretNoteLine(tg, note, beat.start192, x, color, me.trackOrder[trackNum]);
 										tg.layer.tileLine(tg.g
@@ -1464,7 +1464,7 @@ FretChordSheet.prototype.tileFretMeasureNotes = function (x, minfo, mx, trackNum
 											, ty1+ delta
 											//, tg.x + xx * 3 * tg.layer.tapSize + 1
 											,tx2+ delta
-											, tg.y + ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize+ delta
+											, tg.y + 2*ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize+ delta
 											, color, 2.9 * tg.layer.tapSize);
 										if (me.trackOrder[trackNum] == 0) {
 											tg.layer.tileText(tg.g, tx1, ty1+ 1 * tg.layer.tapSize, 2.5*tg.layer.tapSize, '' + ss.fret, me.colors.noteLabel);

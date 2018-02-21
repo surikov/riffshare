@@ -222,7 +222,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 				}
 			}
 		}
-	}, 1 / 16 * wholeNoteDuration);
+	}, 33);
 }
 FretChordSheet.prototype.stopPlayLoop = function () {
 	clearInterval(this.loopIntervalID);
@@ -245,6 +245,9 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 					var drum = this.drumInfo[d].sound;
 					var pitch = drum.zones[0].keyRangeLow;
 					var volume = this.drumInfo[d].volumeRatio;
+					
+					volume=volume*this.volumes[d+8];
+					volume=volume+0.0000001;
 					this.player.queueWaveTable(this.audioContext, this.equalizer.input, drum, whenPlay, pitch, 3, volume);
 				}
 			}
@@ -253,6 +256,9 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 				if (chord.notes.length > 0) {
 					var track = this.trackInfo[c];
 					var volume = track.volumeRatio;
+					volume=volume*this.volumes[c];
+					volume=volume+0.0000001;
+					//console.log(c,track);
 					for (var n = 0; n < chord.notes.length; n++) {
 						var note = chord.notes[n];
 						var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental) + track.octave * 12;

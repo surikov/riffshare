@@ -26,7 +26,7 @@ FretChordSheet.prototype.findTrackNum = function (nn) {
 };
 
 FretChordSheet.prototype.reCalcContentSize = function () {
-	this.contentHeight = 137 * 3 * this.tiler.tapSize;
+	this.contentHeight = 143 * 3 * this.tiler.tapSize;
 	this.margins.pianorollTop = 5 * 3 * this.tiler.tapSize;
 	this.margins.sheetTop = this.margins.pianorollTop;
 	this.margins.fretTop = this.margins.pianorollTop;
@@ -41,7 +41,7 @@ FretChordSheet.prototype.reCalcContentSize = function () {
 		this.margins.drumsTop = this.margins.drumsTop + (6 * 7 + 1) * 3 * this.tiler.tapSize;
 	}
 	if (this.options.hideFrets < 2) {
-		this.margins.drumsTop = this.margins.drumsTop + (6 + 1) * 3 * this.tiler.tapSize;
+		this.margins.drumsTop = this.margins.drumsTop + (12 + 1) * 3 * this.tiler.tapSize;
 	}
 	/*this.margins.sheetTop = 1 * 3 * this.tiler.tapSize;
 	this.margins.fretTop = 1 * 3 * this.tiler.tapSize;
