@@ -7,6 +7,7 @@ html {
 	width:100%; 
 	height:100%;
 	font-family: 'Racing Sans One', sans-serif;
+	font-size: 0.5cm;
 }
 body{
 	padding:0px; 
@@ -138,4 +139,21 @@ a {
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	border-bottom-color:#abc;
+}
+.menubuttonHead {
+	margin: 0;
+	padding-top:0.5cm;
+}
+.menubuttonRow {
+	margin: 0;
+	padding-top:0.5cm;
+	font-size: 75%;
+}
+.menubuttonFoot {
+	margin: 0;
+	padding-top:0.5cm;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color:#abc;
+	font-size: 75%;
 }

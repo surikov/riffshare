@@ -39,6 +39,7 @@
 
 		<script src="js/FretChordSheet.js"></script>
 		<script src="js/do.js"></script>
+		<script src="js/menu.js"></script>
 		<script src="js/draw.js"></script>
 		<script src="js/importmxml.js"></script>
 		<script src="js/init.js"></script>
@@ -77,35 +78,32 @@
 				</div>
 				<div class="menuelements">
 					<div id="playButton" class="menubutton">Play</div>
-					<p>
-						<a href="#" id='channel1'>1</a>
-						<br/><a href="#" id='channel2'>2</a>
-						<br/><a href="#" id='channel3'>3</a>
-						<br/><a href="#" id='channel4'>4</a>
-						<br/><a href="#" id='channel5'>5</a>
-						<br/><a href="#" id='channel6'>6</a>
-						<br/><a href="#" id='channel7'>7</a>
-						<br/><a href="#" id='channel8'>8</a>
-					</p>
+					<div id="channel1" class="menubutton">1</div>
+					<div id="channel2" class="menubuttonRow">2</div>
+					<div id="channel3" class="menubuttonRow">3</div>
+					<div id="channel4" class="menubuttonRow">4</div>
+					<div id="channel5" class="menubuttonRow">5</div>
+					<div id="channel6" class="menubuttonRow">6</div>
+					<div id="channel7" class="menubuttonRow">7</div>
+					<div id="channel8" class="menubuttonFoot">8</div>					
 					<div id="feelLabel" class="menubutton">feel</div>
-					
-					<p>
-							<span id='tpnLabel'>tpn</span>
-							<br/><input type="range" id='rangeTPN' min="1" max="3">
-						</p>
-					<p>
+					<div id="tpnLabel" class="menubutton">tpn</div>
+					<div id="breaksLabel" class="menubutton">tpn</div>
+					<!-- <p>
 								<span id='breakLabel'>tpn</span>
 								<br/><input type="range" id='rangeBreak' min="1" max="3">
 							</p>
+						-->
 					<div id="clearSongB" class="menubutton">Clear song</div>
-					<div id="importSongB" class="menubutton">merge MusicXML</div>
-					
+					<div id="importSongB" class="menubutton">Merge MusicXML</div>
+					<div id="panelsMode" class="menubutton">Panels</div>
+					<!--
 					<p>
 						<a href="javascript:void(0)" id="switchPianoB">piano</a>
 						<br/><a href="javascript:void(0)" id="switchStaffB">staff</a>
 						<br/><a href="javascript:void(0)" id="switchFretsB">frets</a>
 						<br/><a href="javascript:void(0)" id="switchDrumsB">drums</a>
-					</p>
+					</p>-->
 				</div>
 			</div>
 		</div>
@@ -120,6 +118,43 @@
 					<div id="setFeel2" class="menubutton">swing 1/16</div>
 					<div id="setFeel3" class="menubutton">triplet 2/16</div>
 					<div id="setFeel4" class="menubutton">straight 1/32</div>
+				</div>
+			</div>
+		</div>
+		<div id="menuTPN" class="mainmenu">
+			<div class="menucontent" id='subFeelMenu'>
+				<div class="menuheader">
+					<a href="javascript:void(0)" id="closeTPNB"><img class="buttonicon" src='img/cross.png' />Taps</a>
+				</div>
+				<div class="menuelements">
+					<div id="setTPN0" class="menubutton">begin-end</div>
+					<div id="setTPN1" class="menubutton">bend</div>
+					<div id="setTPN2" class="menubutton">2 bend</div>
+				</div>
+			</div>
+		</div>
+		<div id="menuBreaks" class="mainmenu">
+			<div class="menucontent" id='subFeelMenu'>
+				<div class="menuheader">
+					<a href="javascript:void(0)" id="closeBreaksB"><img class="buttonicon" src='img/cross.png' />Gaps</a>
+				</div>
+				<div class="menuelements">
+					<div id="setBreak0" class="menubutton">gapless</div>
+					<div id="setBreak1" class="menubutton">gaps</div>
+					<div id="setBreak2" class="menubutton">wide gaps</div>
+				</div>
+			</div>
+		</div>
+		<div id="menuPanels" class="mainmenu">
+			<div class="menucontent" id='subFeelMenu'>
+				<div class="menuheader">
+					<a href="javascript:void(0)" id="closePanelsB"><img class="buttonicon" src='img/cross.png' />Panels</a>
+				</div>
+				<div class="menuelements">
+					<div id="switchPianoB" class="menubutton">piano</div>
+					<div id="switchStaffB" class="menubutton">staff</div>
+					<div id="switchFretsB" class="menubutton">frets gaps</div>
+					<div id="switchDrumsB" class="menubutton">drums</div>
 				</div>
 			</div>
 		</div>
