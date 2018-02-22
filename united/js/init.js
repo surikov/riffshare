@@ -314,6 +314,7 @@ FretChordSheet.prototype.init = function () {
 		if (me.options.hideFrets < 2) {
 			me.tileFretLines(left, top, width, height, lineWidth);
 			me.tileFretNotes(left, top, width, height, lineWidth);
+			me.tileFretNoteSpot(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideDrums < 2) {
 			me.tileDrumLines(left, top, width, height, lineWidth);
