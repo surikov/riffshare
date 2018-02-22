@@ -214,6 +214,26 @@ FretChordSheet.prototype.userActionAlterNote = function (morder, note) {
 		}
 	});
 };
+FretChordSheet.prototype.userActionVibratoNote = function (morder, note) {
+	var me = this;
+	var pre = this.cloneMeasure(morder);
+	var state1 = note.vibrato;
+	if (note.vibrato) {
+		note.vibrato = 0;
+	} else {
+		note.vibrato = 1;}
+	var state2 = note.vibrato;
+	var after = this.cloneMeasure(morder);
+	this.pushAction({
+		caption: 'Vibrato note ' + state1 + ' -> ' + state2,
+		undo: function () {
+			me.measures[morder] = pre;
+		},
+		redo: function () {
+			me.measures[morder] = after;
+		}
+	});
+};
 FretChordSheet.prototype.userActionAddDrum = function (morder, start192, drum) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
@@ -501,57 +521,7 @@ FretChordSheet.prototype.dropNoteAtBeat7 = function (track, morder, beatStart, o
 		}
 	}
 };
-FretChordSheet.prototype.cloneNote = function (measureToneNote) {
-	var clone = new MeasureToneNote();
-	clone.string = measureToneNote.string;
-	clone.fret = measureToneNote.fret;
-	clone.octave = measureToneNote.octave;
-	clone.step = measureToneNote.step;
-	clone.accidental = measureToneNote.accidental;
-	clone.palmMute = measureToneNote.palmMute;
-	clone.slap = measureToneNote.slap;
-	clone.deadNote = measureToneNote.deadNote;
-	for (var i = 0; i < measureToneNote.slides.length; i++) {
-		clone.slides[i] = { shift: measureToneNote.slides[i].shift, end192: measureToneNote.slides[i].end192 };
-	}
-	return clone;
-};
-FretChordSheet.prototype.cloneChord = function (measureToneChord) {
-	var clone = new MeasureToneChord();
-	clone.direction = measureToneChord.direction;
-	for (var i = 0; i < measureToneChord.notes.length; i++) {
-		clone.notes[i] = this.cloneNote(measureToneChord.notes[i]);
-	}
-	return clone;
-};
-FretChordSheet.prototype.cloneBeat = function (measureBeat) {
-	var clone = new MeasureBeat();
-	clone.start192 = measureBeat.start192;
-	for (var i = 0; i < measureBeat.drums.length; i++) {
-		clone.drums[i] = measureBeat.drums[i];
-	}
-	for (var i = 0; i < measureBeat.chords.length; i++) {
-		clone.chords[i] = this.cloneChord(measureBeat.chords[i]);
-	}
-	return clone;
-};
-FretChordSheet.prototype.cloneMeasure = function (morder) {
-	var clone = new MeasureInfo();
-	if (morder < this.measures.length) {
-		minfo = this.measures[morder];
-		clone.meter = minfo.meter;
-		clone.tempo = minfo.tempo;		
-		clone.keys = minfo.keys;
-		clone.duration4 = minfo.duration4;
-		for (var i = 0; i < minfo.beats.length; i++) {
-			clone.beats[i] = this.cloneBeat(minfo.beats[i]);
-		}
-		for(var i=0;i<8;i++){
-			clone.shifts[i]=minfo.shifts[i]||0;
-		}
-	}
-	return clone;
-};
+
 FretChordSheet.prototype.createTrackUp = function (n) {
 	var newOrder = [];
 	for (var i = 0; i < this.trackOrder.length; i++) {

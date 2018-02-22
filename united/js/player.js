@@ -261,7 +261,7 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 					//console.log(c,track);
 					for (var n = 0; n < chord.notes.length; n++) {
 						var note = chord.notes[n];
-						console.log(note, note.slides[0].shift, note.slides.length);
+						//console.log(note, note.slides[0].shift, note.slides.length);
 						var aslides = null;
 						var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental) + track.octave * 12;
 						var duration = wholeNoteDuration * note.slides[note.slides.length - 1].end192 / 192;

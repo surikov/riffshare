@@ -3,7 +3,7 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 	var mx = 0;
 	for (var x = 0; x < this.measures.length; x++) {
 		var minfo = this.measureInfo(x);
-		var octaveShift=minfo.shifts[me.upperTrackNum()]||0;
+		var octaveShift = minfo.shifts[me.upperTrackNum()] || 0;
 		this.layerOctaves.renderGroup(mx + this.margins.sheetLeft
 			, this.margins.sheetTop
 			, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
@@ -38,9 +38,9 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 										var note = chord.notes[n];
 										if (note) {
 											//var yy = me.pitch2staffY(note.pitch, 0, 0, !altModeSharp);
-											var yy = 6 * 7 - 7 * (note.octave-octaveShift) - note.step - 1;
+											var yy = 6 * 7 - 7 * (note.octave - octaveShift) - note.step - 1;
 											var xx = me.options.measureHeader + beat.start192 / 6;
-											me.tileNoteTools(x,note, xx, yy, tg);
+											me.tileNoteTools(x, note, xx, yy, tg);
 											//console.log(note, xx, yy, tg);
 										}
 									}
@@ -53,6 +53,7 @@ FretChordSheet.prototype.tileStaffNoteSpot = function (left, top, width, height,
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
 };
+
 FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lineWidth) {
 	var me = this;
 	var mx = 0;
@@ -77,9 +78,9 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 					var yy = Math.floor((me.tiler.clickContentY - me.margins.sheetTop) / (3 * me.tiler.tapSize));
 					var y7 = (7 * 6 - 1) - yy;
 					//var pitch = 12 * Math.floor(y7 / 7) + me.note12(y7 % 7);
-					var octaveShift=minfo.shifts[me.upperTrackNum()]||0;
+					var octaveShift = minfo.shifts[me.upperTrackNum()] || 0;
 					//console.log(octaveShift,minfo.shifts);
-					var octave = Math.floor(y7 / 7)+octaveShift;
+					var octave = Math.floor(y7 / 7) + octaveShift;
 					var step = y7 % 7;
 					var accidental = me.keys[minfo.keys][step];
 					var track = me.upperTrackNum();
@@ -162,6 +163,73 @@ FretChordSheet.prototype.tileStaffSpot = function (left, top, width, height, lin
 		mx = mx + (this.options.measureHeader + d32) * 3 * this.tiler.tapSize;
 	}
 }
+FretChordSheet.prototype.tilePianoNoteSpot = function (left, top, width, height, lineWidth) {
+	var me = this;
+	var mx = 0;
+	for (var x = 0; x < this.measures.length; x++) {
+		var minfo = this.measureInfo(x);
+		if (minfo) {
+			for (var i = 0; i < 8; i++) {
+				for (var trackNum = 0; trackNum < 8; trackNum++) {
+					if (me.trackOrder[trackNum] == 7 - i) {
+						me.tilePianMeasureNoteTools(x, minfo, mx, trackNum, left, top, width, height, lineWidth);
+					}
+				}
+			}
+		}
+		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
+	}
+};
+FretChordSheet.prototype.tilePianNoteToolButton = function (tg,x,y,measureNum,note) {
+	var me=this;
+	var vibratoLabel='+';
+												if(note.vibrato){
+													vibratoLabel='x ~~~';
+												}
+	var tk=me.tileKnob(tg, 'pianoVibrato' + x + 'x' + y
+		, x-0.5 * tg.layer.tapSize
+		, y-0.5 * tg.layer.tapSize
+		, this.tiler.tapSize
+		, vibratoLabel, function () {
+			console.log(measureNum, note);
+			me.userActionVibratoNote(measureNum, note);
+		});
+};
+FretChordSheet.prototype.tilePianMeasureNoteTools = function (x, minfo, mx, trackNum, left, top, width, height, lineWidth) {
+	var me = this;
+	for (var y = 0; y < 6; y++) {
+		this.layerNotes.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
+			, this.margins.pianorollTop + y * 3 * 12 * this.tiler.tapSize
+			, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
+			, 12 * 3 * this.tiler.tapSize
+			, 'pianoMeasureNoteTools' + trackNum + 'x' + x + 'x' + y, left, top, width, height, function (tg) {
+				for (var b = 0; b < minfo.beats.length; b++) {
+					var beat = minfo.beats[b];
+					if (beat) {
+						var chord=beat.chords[me.upperTrackNum()];
+						//for (var c = 0; c < beat.chords.length; c++) {
+						//	if (c == trackNum) {
+						//		var chord = beat.chords[c];
+								if (chord) {
+									for (var n = 0; n < chord.notes.length; n++) {
+										var note = chord.notes[n];
+										if (note) {
+											if (note.octave >= (5 - y) && note.octave < (6 - y)) {
+												var tx1 =  beat.start192 / 6 * 3 * tg.layer.tapSize - 0.0 * tg.layer.tapSize;
+												var p = note.octave * 12 + me.note12(note.step) + note.accidental;
+												var ty1 = (6 * 12 - p - 1) * 3 * tg.layer.tapSize + me.margins.pianorollTop + 3 * tg.layer.tapSize-tg.y;
+												me.tilePianNoteToolButton(tg,tx1,ty1,x,note);
+											}
+										}
+									}
+								}
+							//}
+						//}
+					}
+				}
+			});
+	}
+};
 FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lineWidth) {
 	var me = this;
 	var mx = 0;
@@ -189,14 +257,14 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 						var y12 = (12 * 6 - 1) - yy;
 						var octave = Math.floor(y12 / 12);
 						var step = me.note7(y12 % 12);
-						var accidental = (y12 % 12)-me.note12(step);
+						var accidental = (y12 % 12) - me.note12(step);
 						//console.log(step,accidental,me.keys[minfo.keys],minfo.keys);
-						if(accidental>0){
+						if (accidental > 0) {
 							//console.log(accidental);
 							//me.keys[minfo.keys][0]
-							if((step==0 ||step==1 ||step==3 ||step==4 ||step==5) && me.keys[minfo.keys][step+1]<0){
-								step=step+1;
-								accidental=-1;
+							if ((step == 0 || step == 1 || step == 3 || step == 4 || step == 5) && me.keys[minfo.keys][step + 1] < 0) {
+								step = step + 1;
+								accidental = -1;
 							}
 						}
 
@@ -210,7 +278,7 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 							}
 						}*/
 						if (me.markNotes.length >= me.options.markNotesCount) {
-							me.markNotes.splice(0, 0, { 
+							me.markNotes.splice(0, 0, {
 								minfo: measure
 								, morder: this.morder
 								, start192: start192
@@ -253,7 +321,7 @@ FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lin
 									, accidental: accidental
 								});
 							} else {
-								var p=me.octaveStepAccidental(octave,step,accidental);
+								var p = me.octaveStepAccidental(octave, step, accidental);
 								var noteBeats = me.findNotes(track, this.morder, start192, duration192, p);
 								if (noteBeats.length > 0) {
 									//me.userActionDropNotes(track, this.morder, start192, duration192, pitch)

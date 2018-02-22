@@ -711,11 +711,22 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 FretChordSheet.prototype.tileNoteTools = function (morder, note, xx, yy, tg) {
 	var me = this;
 	this.tileKnob(tg, 'noteAlt' + xx + 'x' + yy
-		, xx * 3 * this.tiler.tapSize - 1.5 * this.tiler.tapSize
-		, yy * 3 * this.tiler.tapSize - 1.5 * this.tiler.tapSize
+		, xx * 3 * this.tiler.tapSize - 1 * this.tiler.tapSize
+		, yy * 3 * this.tiler.tapSize - 1 * this.tiler.tapSize
 		, this.tiler.tapSize, '#?b', function () {
 			//console.log(me.note7(note.pitch), note);
 			me.userActionAlterNote(morder, note);
+		});
+	var vibratoLabel='+';
+	if(note.vibrato){
+		vibratoLabel='x ~~~';
+	}
+	this.tileKnob(tg, 'noteVibrato' + xx + 'x' + yy
+		, xx * 3 * this.tiler.tapSize + 3 * this.tiler.tapSize
+		, yy * 3 * this.tiler.tapSize +3 * this.tiler.tapSize
+		, this.tiler.tapSize, vibratoLabel, function () {
+			//console.log(me.note7(note.pitch), note);
+			me.userActionVibratoNote(morder, note);
 		});
 };
 FretChordSheet.prototype.tilePianoOctaveLines = function (left, top, width, height, lineWidth) {

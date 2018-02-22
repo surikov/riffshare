@@ -303,6 +303,7 @@ FretChordSheet.prototype.init = function () {
 			me.tilePianoOctaveLines(left, top, width, height, lineWidth);
 			me.tileOctaveNumbers(2 * me.tiler.tapSize, 3 * me.tiler.tapSize, left, top, width, height, lineWidth);
 			me.tilePianorollNotes(left, top, width, height, lineWidth);
+			me.tilePianoNoteSpot(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideStaff < 2) {
 			me.tileStaffLines(left, top, width, height, lineWidth);
