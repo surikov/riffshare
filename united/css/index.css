@@ -53,7 +53,7 @@ body3{
 }
 .undob {
 	position:absolute;
-	bottom:2cm;
+	top:2cm;
 	right:0px;
 	width:1cm;
 	height:1cm;
@@ -61,7 +61,7 @@ body3{
 }
 .redob {
 	position:absolute;
-	bottom:1cm;
+	top:3cm;
 	right:0px;
 	width:1cm;
 	height:1cm;
@@ -87,6 +87,14 @@ body3{
 .menub {
 	position:absolute;
 	top:0;
+	right:0;
+	width:1cm;
+	height:1cm;
+	
+}
+.playb {
+	position:absolute;
+	top:1cm;
 	right:0;
 	width:1cm;
 	height:1cm;

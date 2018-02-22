@@ -14,6 +14,16 @@
 	document.getElementById('redobutton').onclick = function () {
 		me.redoNext();
 	};
+	document.getElementById('playbutton').onclick = function () {
+		if(me.air){
+			me.stopPlay();
+			document.getElementById('playimg').src = 'img/play.png';
+		}else{
+			me.startPlayAll();
+			
+			document.getElementById('playimg').src = 'img/pause.png';
+		}
+	};
 	this.setUndoStatus();
 }
 

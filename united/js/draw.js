@@ -732,7 +732,8 @@ FretChordSheet.prototype.tilePianoOctaveLines = function (left, top, width, heig
 					if (y > 0) {
 						tg.layer.tileRectangle(tg.g, tg.x, tg.y, tg.w, lineWidth, me.colors.base);
 					}
-					tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y, 3 * lineWidth, tg.h, me.colors.base);
+					var upperColor=me.trackInfo[me.upperTrackNum()].color;
+					tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y, 3 * lineWidth, tg.h, upperColor);
 				});
 		}
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
@@ -1091,7 +1092,10 @@ FretChordSheet.prototype.tileStaffLines = function (left, top, width, height, li
 			, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
 			, 6 * 7 * 3 * this.tiler.tapSize
 			, 'staffLines' + x, left, top, width, height, function (tg) {
-				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y + (31.5 + 6 * 0) * tg.layer.tapSize, lineWidth * 3, (81 - 7 * 3) * tg.layer.tapSize, me.colors.base);
+
+				var upperColor=me.trackInfo[me.upperTrackNum()].color;
+
+				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y + (31.45 + 6 * 0) * tg.layer.tapSize, lineWidth * 3, (81.2 - 7 * 3) * tg.layer.tapSize, upperColor);
 
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 0) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
 				tg.layer.tileRectangle(tg.g, tg.x, tg.y + (31.5 + 6 * 1) * tg.layer.tapSize, tg.w, lineWidth, me.colors.staff);
@@ -1133,7 +1137,8 @@ FretChordSheet.prototype.tileFretLines = function (left, top, width, height, lin
 			, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
 			, 12 * 3 * this.tiler.tapSize
 			, 'frtLines' + x, left, top, width, height, function (tg) {
-				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y, 3 * lineWidth, tg.h, me.colors.base);
+				var upperColor=me.trackInfo[me.upperTrackNum()].color;
+				tg.layer.tileRectangle(tg.g, tg.x + tg.w, tg.y, 3 * lineWidth, tg.h, upperColor);
 				for (var i = 0; i < 6; i++) {
 					tg.layer.tileRectangle(tg.g, tg.x, tg.y + (1.5 + 2*i * 3) * tg.layer.tapSize, tg.w, lineWidth, me.colors.base);
 				}
