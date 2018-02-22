@@ -219,6 +219,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 				} catch (ex) {
 					console.log(ex);
 					me.stopPlay();
+					document.getElementById('playimg').src = 'img/play.png';
 				}
 			}
 		}
@@ -265,14 +266,30 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 						var aslides = null;
 						var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental) + track.octave * 12;
 						var duration = wholeNoteDuration * note.slides[note.slides.length - 1].end192 / 192;
-						if ((note.slides[0].shift != 0) || (note.slides.length > 1)) {
+						if (note.vibrato) {
+							var stepDuration=0.08;
 							aslides = [];
 							var pitchSlide = pitch;
-							for (var s = 0; s < note.slides.length; s++) {
-								var whenSlide =  wholeNoteDuration * note.slides[s].end192 / 192;
-								pitchSlide = pitchSlide + note.slides[s].shift;
-								console.log(whenPlay,whenSlide, pitchSlide);
+							var dir=1;
+							var bend=0.75;
+							for (var du = 0; du < duration; du=du+stepDuration) {
+								var whenSlide = du;
+								pitchSlide = pitch+dir*bend;
+								dir=-dir;
+								//console.log(whenPlay, whenSlide, pitchSlide);
 								aslides.push({ when: whenSlide, pitch: pitchSlide });
+							}
+							//console.log(aslides);
+						} else {
+							if ((note.slides[0].shift != 0) || (note.slides.length > 1)) {
+								aslides = [];
+								var pitchSlide = pitch;
+								for (var s = 0; s < note.slides.length; s++) {
+									var whenSlide = wholeNoteDuration * note.slides[s].end192 / 192;
+									pitchSlide = pitchSlide + note.slides[s].shift;
+									//console.log(whenPlay, whenSlide, pitchSlide);
+									aslides.push({ when: whenSlide, pitch: pitchSlide });
+								}
 							}
 						}
 						this.player.queueWaveTable(this.audioContext, this.equalizer.input, track.sound, whenPlay, pitch, duration, volume, aslides);

@@ -135,15 +135,18 @@ FretChordSheet.prototype.userActionChangeMeasureMode = function (nn) {
 FretChordSheet.prototype.userActionClearSong = function () {
 	var me = this;
 	var old = me.measures;
+	var oldVols=me.volumes;
 	this.pushAction({
 		caption: 'Clear song',
 		undo: function () {
 			me.measures = old;
 			var minfo = me.measureInfo(0);
+			me.volumes=oldVols;
 		},
 		redo: function () {
 			me.measures = [];
 			var minfo = me.measureInfo(0);
+			me.volumes=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 		}
 	});
 };
