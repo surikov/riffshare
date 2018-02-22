@@ -1397,11 +1397,15 @@ FretChordSheet.prototype.tilePianorollMeasureNotes = function (x, minfo, mx, tra
 												me.tilePianorollNoteLine(tg, note, beat.start192, x, color, me.trackOrder[trackNum]);
 												if (me.trackOrder[trackNum] == 0) {
 													var dd = (beat.start192 / 6) * (3 * tg.layer.tapSize) + 0.95 * tg.layer.tapSize;
+													var label=me.keyName(note);
+													if(note.vibrato){
+														label=label+'~';
+													}
 													tg.layer.tileText(tg.g
 														, tg.x + dd
 														, tg.y + (12 - me.note12(note.step) - note.accidental) * 3 * tg.layer.tapSize - 0.5 * tg.layer.tapSize
 														, 2.5 * tg.layer.tapSize
-														, me.keyName(note)
+														, label
 														, me.colors.noteLabel);
 												}
 											}
@@ -1547,7 +1551,11 @@ FretChordSheet.prototype.tileFretMeasureNotes = function (x, minfo, mx, trackNum
 											, tg.y + 2 * ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize + delta
 											, color, 2.9 * tg.layer.tapSize);
 										if (me.trackOrder[trackNum] == 0) {
-											tg.layer.tileText(tg.g, tx1, ty1 + 1 * tg.layer.tapSize, 2.5 * tg.layer.tapSize, '' + ss.fret, me.colors.noteLabel);
+											var label=''+ ss.fret;
+											if(note.vibrato){
+												label=label+'~';
+											}
+											tg.layer.tileText(tg.g, tx1, ty1 + 1 * tg.layer.tapSize, 2.5 * tg.layer.tapSize, label, me.colors.noteLabel);
 										}
 									}
 								}

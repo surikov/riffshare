@@ -267,11 +267,11 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 						var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental) + track.octave * 12;
 						var duration = wholeNoteDuration * note.slides[note.slides.length - 1].end192 / 192;
 						if (note.vibrato) {
-							var stepDuration=0.08;
+							var stepDuration=0.05;
 							aslides = [];
 							var pitchSlide = pitch;
 							var dir=1;
-							var bend=0.75;
+							var bend=0.6;
 							for (var du = 0; du < duration; du=du+stepDuration) {
 								var whenSlide = du;
 								pitchSlide = pitch+dir*bend;
