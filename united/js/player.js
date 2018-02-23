@@ -187,6 +187,11 @@ FretChordSheet.prototype.startPlayLoop = function () {
 	var minfo = this.measureInfo(0);
 	var wholeNoteDuration = 4 * 60 / minfo.tempo;
 	var measureNum = 0;
+	if(this.selection){
+		if(this.selection.to){
+			measureNum=this.selection.from-1;
+		}
+	}
 	//var beat4 = 0;
 	var beat16 = 0;
 	this.playBeatAt(this.audioContext.currentTime, measureNum, beat16);
@@ -202,8 +207,16 @@ FretChordSheet.prototype.startPlayLoop = function () {
 					if (beat16 >= 4 * me.measures[measureNum].duration4) {
 						beat16 = 0;
 						measureNum++;
-						if (measureNum > me.measures.length - 1) {
-							measureNum = 0;
+						var firstMeasureNum=0;
+						var lastMeasureNum=me.measures.length - 1;
+						if(me.selection){
+							if(me.selection.to){
+								firstMeasureNum=me.selection.from-1;
+								lastMeasureNum=me.selection.to-1;
+							}
+						}
+						if (measureNum > lastMeasureNum) {
+							measureNum = firstMeasureNum;
 						}
 						me.moveTicker(measureNum, beat16);
 						minfo = me.measureInfo(measureNum, beat16);

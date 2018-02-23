@@ -405,6 +405,29 @@ FretChordSheet.prototype.userActionSetHideDrums = function (n) {
 		}
 	});
 };
+FretChordSheet.prototype.userActionRollTempo = function (morder) {
+	var me = this;
+	var minfo = this.measureInfo(morder);
+	var pre = minfo.tempo;
+	var aftr = 120;
+	if (pre==80) {aftr = 100;}
+	if (pre==100) {aftr = 120;}
+	if (pre==120) {aftr = 140;}
+	if (pre==140) {aftr = 160;}
+	if (pre==160) {aftr = 180;}
+	if (pre==180) {aftr = 200;}
+	if (pre==200) {aftr = 220;}
+	if (pre==220) {aftr = 80;}
+	this.pushAction({
+		caption: 'Roll tempo ' + morder,
+		undo: function () {
+			minfo.tempo = pre;
+		},
+		redo: function () {
+			minfo.tempo = aftr;
+		}
+	});
+};
 FretChordSheet.prototype.userActionRollMeter = function (morder) {
 	var me = this;
 	var minfo = this.measureInfo(morder);
@@ -548,3 +571,20 @@ FretChordSheet.prototype.shrinkMeasures = function () {
 	this.measures.splice(mx + 1);
 };
 
+FretChordSheet.prototype.selectMeasures = function (measureNum) {
+	console.log('selectMeasures',measureNum);
+	if(this.selection){
+		if(this.selection.to){
+			this.selection=null;
+		}else{
+			if(this.selection.from-1<=measureNum){
+				this.selection.to=measureNum+1;
+			}else{
+				this.selection.to=this.selection.from;
+				this.selection.from=measureNum+1;
+			}
+		}
+	}else{
+		this.selection={from:measureNum+1,to:0};
+	}
+}

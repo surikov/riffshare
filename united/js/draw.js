@@ -690,9 +690,9 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 			rect.setAttributeNS(null, 'fill', 'url(#bgGradient)');//'#f00');
 			tg.g.appendChild(rect);
 
-
-			me.tickerLine = document.createElementNS(tg.layer.svgns, 'rect');
-
+			if(!(me.tickerLine)){
+				me.tickerLine = document.createElementNS(tg.layer.svgns, 'rect');
+			}
 
 			me.tickerLine.setAttributeNS(null, 'x', tg.x);
 			me.tickerLine.setAttributeNS(null, 'y', tg.y);
@@ -704,6 +704,27 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 				me.tickerLine.setAttributeNS(null, 'fill', 'rgba(255,255,255,0.0000001)');
 			}
 			tg.g.appendChild(me.tickerLine);
+
+			if(me.selection){
+				if(!(me.selectionFrame)){
+					me.selectionFrame = document.createElementNS(tg.layer.svgns, 'rect');
+				}
+				var mx=me.findBeatX(me.selection.from-1,0);
+				var minfo=me.measureInfo(me.selection.from-1);
+				var endx=mx+me.tiler.tapSize * 3 * minfo.duration4*8;
+				var selCol='rgba(0,0,0,0.25)';
+				if(me.selection.to){
+					minfo=me.measureInfo(me.selection.to-1);
+					endx=me.findBeatX(me.selection.to-1,0)+me.tiler.tapSize * 3 * minfo.duration4*8;
+					selCol='rgba(0,0,0,0.15)';
+				}
+				me.selectionFrame.setAttributeNS(null, 'x', mx);
+				me.selectionFrame.setAttributeNS(null, 'y', tg.y);
+				me.selectionFrame.setAttributeNS(null, 'height', tg.h);
+				me.selectionFrame.setAttributeNS(null, 'width', endx-mx);
+				me.selectionFrame.setAttributeNS(null, 'fill', selCol);
+				tg.g.appendChild(me.selectionFrame);
+			}
 
 		});
 };
@@ -1763,6 +1784,28 @@ FretChordSheet.prototype.tileBarButtons = function (left, top, width, height, li
 				var _x = x;
 				s = me.tileKnob(tg, 'rollMeter_' + x, 20 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, '' + minfo.duration4 + "/4", function () {
 					me.userActionRollMeter(_x);
+				});
+				s = me.tileKnob(tg, 'rollTempo_' + x, 35 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, '' + minfo.tempo , function () {
+					me.userActionRollTempo(_x);
+				});
+				var selabel='Select';
+				if(me.selection){
+					if(me.selection.to){
+						if(_x>=me.selection.from-1 && _x<=me.selection.to-1){
+							selabel='Selected';
+						}else{
+							selabel='';
+						}
+					}else{
+						if(_x==me.selection.from-1){
+							selabel='From';
+						}else{
+							selabel='End';
+						}
+					}
+				}
+				s = me.tileKnob(tg, 'selection_' + x, 50 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, selabel , function () {
+					me.selectMeasures(_x);
 				});
 			});
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
