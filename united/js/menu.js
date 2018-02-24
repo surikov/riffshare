@@ -35,10 +35,16 @@
 	document.getElementById('closeMenuB').onclick = function () {
 		me.closeMainMenu();
 	};
+	document.getElementById('channel1').onclick = function () {
+		me.showToneMenu();
+	};
 	/*document.getElementById('playButton').onclick = function () {
 		me.startPlayAll();
 	};*/
-	for (var i = 0; i < 8; i++) {
+	/*document.getElementById('channel1').onclick = function () {
+		console.log('instrument menu');
+	};*/
+	for (var i = 1; i < 8; i++) {
 		var o = document.getElementById('channel' + (i + 1));
 		o.linkedNum = i;
 		o.onclick = function () {
@@ -157,6 +163,18 @@
 		me.tiler.resetAllLayersNow();
 	};
 
+
+	document.getElementById('resetVolumesB').onclick = function () {
+		me.userActionResetVolumes();
+		me.closeVolumesMenu();
+	};
+
+
+
+
+
+
+
 	document.getElementById('switchDrumsB').onclick = function () {
 		me.userActionSetHideDrums(me.options.hideDrums == 1 ? 2 : 1);
 		me.setPanelsLabels();
@@ -202,6 +220,12 @@
 	document.getElementById('closeVolumesB').onclick = function () {
 		me.closeVolumesMenu();
 	};
+
+	document.getElementById('closeToneMenuB').onclick = function () {
+		me.closeToneMenu();
+	};
+
+
 	document.getElementById('rangeVolume0').onchange = function () { me.volumes[0] = 0.1 * document.getElementById('rangeVolume0').value; console.log(me.volumes) };
 	document.getElementById('rangeVolume1').onchange = function () { me.volumes[1] = 0.1 * document.getElementById('rangeVolume1').value; };
 	document.getElementById('rangeVolume2').onchange = function () { me.volumes[2] = 0.1 * document.getElementById('rangeVolume2').value; };
@@ -261,7 +285,20 @@ FretChordSheet.prototype.showPanelsMenu = function () {
 FretChordSheet.prototype.closePanelsMenu = function () {
 	document.getElementById('menuPanels').style.width = '0';
 };
-
+FretChordSheet.prototype.showToneMenu = function () {
+	var trackNum = this.upperTrackNum();
+	document.getElementById('rangeVolumeTone').value = this.volumes[trackNum] * 10;
+	var me=this;
+	document.getElementById('rangeVolumeTone').onchange = function () {
+		//me.volumes[0] = 0.1 * document.getElementById('rangeVolume0').value; 
+		//console.log(trackNum,document.getElementById('rangeVolumeTone')) 
+		me.userActionSetVolume(0.1 * document.getElementById('rangeVolumeTone').value, trackNum);
+		//console.log(me.volumes)
+	};
+	//console.log(document.getElementById('rangeVolumeTone')) 
+	document.getElementById('menuTone').style.width = this.menuWidth() + 'px';
+	this.closeMainMenu();
+};
 
 FretChordSheet.prototype.showMainMenu = function () {
 	//console.log('menu');
@@ -318,7 +355,9 @@ FretChordSheet.prototype.closeMainMenu = function () {
 	//console.log('closeMainMenu');
 	document.getElementById('menuDiv').style.width = '0';
 };
-
+FretChordSheet.prototype.closeToneMenu = function () {
+	document.getElementById('menuTone').style.width = '0';
+};
 FretChordSheet.prototype.setPinStatus = function () {
 	if (this.pinnedXYZ) {
 		document.getElementById('pinimg').src = 'img/pinWhite.png';

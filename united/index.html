@@ -39,6 +39,7 @@
 
 		<script src="js/FretChordSheet.js"></script>
 		<script src="js/do.js"></script>
+		<script src="js/sampleInfo.js"></script>
 		<script src="js/menu.js"></script>
 		<script src="js/draw.js"></script>
 		<script src="js/importmxml.js"></script>
@@ -167,6 +168,8 @@
 					<a href="javascript:void(0)" id="closeVolumesB"><img class="buttonicon" src='img/cross.png' />Volumes</a>
 				</div>
 				<div class="menuelements">
+					<div id="resetVolumesB" class="menubutton">Reset all</div>
+
 					<div class="menubuttonRow">Distortion guitar<br/><input type="range" id='rangeVolume7' min="0" max="10"></div>
 					<div class="menubuttonRow">Acoustic guitar<br/><input type="range" id='rangeVolume6' min="0" max="10"></div>
 					<div class="menubuttonRow">Percussive Organ<br/><input type="range" id='rangeVolume5' min="0" max="10"></div>
@@ -184,6 +187,17 @@
 					<div class="menubuttonRow">Open Hi-hat<br/><input type="range" id='rangeVolume13' min="0" max="10"></div>
 					<div class="menubuttonRow">Hand Clap<br/><input type="range" id='rangeVolume14' min="0" max="10"></div>
 					<div class="menubuttonRow">Splash Cymbal<br/><input type="range" id='rangeVolume15' min="0" max="10"></div>
+				</div>
+			</div>
+		</div>
+		<div id="menuTone" class="mainmenu">
+			<div class="menucontent" id='subToneMenu'>
+				<div class="menuheader">
+					<a href="javascript:void(0)" id="closeToneMenuB"><img class="buttonicon" src='img/cross.png' />Instrument</a>
+				</div>
+				<div class="menuelements">
+					<div class="menubuttonFoot">Volume<br/><input type="range" id='rangeVolumeTone' min="0" max="10"></div>
+					<div id="toneItem" class="menubutton">qqq</div>
 				</div>
 			</div>
 		</div>

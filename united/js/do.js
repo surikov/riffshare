@@ -15,12 +15,12 @@
 		me.redoNext();
 	};
 	document.getElementById('playbutton').onclick = function () {
-		if(me.air){
+		if (me.air) {
 			me.stopPlay();
 			document.getElementById('playimg').src = 'img/play.png';
-		}else{
+		} else {
 			me.startPlayAll();
-			
+
 			document.getElementById('playimg').src = 'img/pause.png';
 		}
 	};
@@ -135,18 +135,18 @@ FretChordSheet.prototype.userActionChangeMeasureMode = function (nn) {
 FretChordSheet.prototype.userActionClearSong = function () {
 	var me = this;
 	var old = me.measures;
-	var oldVols=me.volumes;
+	var oldVols = me.volumes;
 	this.pushAction({
 		caption: 'Clear song',
 		undo: function () {
 			me.measures = old;
 			var minfo = me.measureInfo(0);
-			me.volumes=oldVols;
+			me.volumes = oldVols;
 		},
 		redo: function () {
 			me.measures = [];
 			var minfo = me.measureInfo(0);
-			me.volumes=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			me.volumes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 		}
 	});
 };
@@ -224,7 +224,8 @@ FretChordSheet.prototype.userActionVibratoNote = function (morder, note) {
 	if (note.vibrato) {
 		note.vibrato = 0;
 	} else {
-		note.vibrato = 1;}
+		note.vibrato = 1;
+	}
 	var state2 = note.vibrato;
 	var after = this.cloneMeasure(morder);
 	this.pushAction({
@@ -410,14 +411,14 @@ FretChordSheet.prototype.userActionRollTempo = function (morder) {
 	var minfo = this.measureInfo(morder);
 	var pre = minfo.tempo;
 	var aftr = 120;
-	if (pre==80) {aftr = 100;}
-	if (pre==100) {aftr = 120;}
-	if (pre==120) {aftr = 140;}
-	if (pre==140) {aftr = 160;}
-	if (pre==160) {aftr = 180;}
-	if (pre==180) {aftr = 200;}
-	if (pre==200) {aftr = 220;}
-	if (pre==220) {aftr = 80;}
+	if (pre == 80) { aftr = 100; }
+	if (pre == 100) { aftr = 120; }
+	if (pre == 120) { aftr = 140; }
+	if (pre == 140) { aftr = 160; }
+	if (pre == 160) { aftr = 180; }
+	if (pre == 180) { aftr = 200; }
+	if (pre == 200) { aftr = 220; }
+	if (pre == 220) { aftr = 80; }
 	this.pushAction({
 		caption: 'Roll tempo ' + morder,
 		undo: function () {
@@ -469,21 +470,21 @@ FretChordSheet.prototype.userActionRollKeys = function (morder) {
 FretChordSheet.prototype.userActionRollClefOctave = function (morder) {
 	var me = this;
 	var minfo = this.measureInfo(morder);
-	var trackNum=me.upperTrackNum();
+	var trackNum = me.upperTrackNum();
 	/*for (var i = 0; i < 8; i++) {
 		if (me.trackOrder[i] == 0) {
 			trackNum=i;
 			break;
 		}
 	}*/
-	var pre = minfo.shifts[trackNum]||0;
+	var pre = minfo.shifts[trackNum] || 0;
 	var aftr = pre + 1;
 	if (aftr > 1) {
 		aftr = -1;
 	}
-	
+
 	this.pushAction({
-		caption: 'Roll octave ' + morder+'/'+trackNum+' '+pre+'->'+aftr,
+		caption: 'Roll octave ' + morder + '/' + trackNum + ' ' + pre + '->' + aftr,
 		undo: function () {
 			minfo.shifts[trackNum] = pre;
 			console.log(minfo.shifts);
@@ -491,6 +492,34 @@ FretChordSheet.prototype.userActionRollClefOctave = function (morder) {
 		redo: function () {
 			minfo.shifts[trackNum] = aftr;
 			console.log(minfo.shifts);
+		}
+	});
+};
+FretChordSheet.prototype.userActionSetVolume = function (value,track) {
+	var me = this;
+	var pre = this.volumes[track];
+	this.pushAction({
+		caption: 'Set volume '+value+' for '+track,
+		undo: function () {
+			me.volumes[track] = pre;
+		},
+		redo: function () {
+			me.volumes[track] = value;
+		}
+	});
+}
+FretChordSheet.prototype.userActionResetVolumes = function () {
+	var me = this;
+	var pre = [];
+	var aftr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+	for (var i = 0; i < 16; i++) { pre[i] = me.volumes[i]; }
+	this.pushAction({
+		caption: 'Reset volumes',
+		undo: function () {
+			me.volumes = pre;
+		},
+		redo: function () {
+			me.volumes = aftr;
 		}
 	});
 };
@@ -572,19 +601,19 @@ FretChordSheet.prototype.shrinkMeasures = function () {
 };
 
 FretChordSheet.prototype.selectMeasures = function (measureNum) {
-	console.log('selectMeasures',measureNum);
-	if(this.selection){
-		if(this.selection.to){
-			this.selection=null;
-		}else{
-			if(this.selection.from-1<=measureNum){
-				this.selection.to=measureNum+1;
-			}else{
-				this.selection.to=this.selection.from;
-				this.selection.from=measureNum+1;
+	console.log('selectMeasures', measureNum);
+	if (this.selection) {
+		if (this.selection.to) {
+			this.selection = null;
+		} else {
+			if (this.selection.from - 1 <= measureNum) {
+				this.selection.to = measureNum + 1;
+			} else {
+				this.selection.to = this.selection.from;
+				this.selection.from = measureNum + 1;
 			}
 		}
-	}else{
-		this.selection={from:measureNum+1,to:0};
+	} else {
+		this.selection = { from: measureNum + 1, to: 0 };
 	}
 }

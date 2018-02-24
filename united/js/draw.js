@@ -1792,15 +1792,15 @@ FretChordSheet.prototype.tileBarButtons = function (left, top, width, height, li
 				if(me.selection){
 					if(me.selection.to){
 						if(_x>=me.selection.from-1 && _x<=me.selection.to-1){
-							selabel='Selected';
+							selabel='🗸';
 						}else{
 							selabel='';
 						}
 					}else{
 						if(_x==me.selection.from-1){
-							selabel='From';
+							selabel='🗸';
 						}else{
-							selabel='End';
+							selabel='+';
 						}
 					}
 				}
