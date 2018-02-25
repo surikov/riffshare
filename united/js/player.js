@@ -187,9 +187,9 @@ FretChordSheet.prototype.startPlayLoop = function () {
 	var minfo = this.measureInfo(0);
 	var wholeNoteDuration = 4 * 60 / minfo.tempo;
 	var measureNum = 0;
-	if(this.selection){
-		if(this.selection.to){
-			measureNum=this.selection.from-1;
+	if (this.selection) {
+		if (this.selection.to) {
+			measureNum = this.selection.from - 1;
 		}
 	}
 	//var beat4 = 0;
@@ -207,12 +207,12 @@ FretChordSheet.prototype.startPlayLoop = function () {
 					if (beat16 >= 4 * me.measures[measureNum].duration4) {
 						beat16 = 0;
 						measureNum++;
-						var firstMeasureNum=0;
-						var lastMeasureNum=me.measures.length - 1;
-						if(me.selection){
-							if(me.selection.to){
-								firstMeasureNum=me.selection.from-1;
-								lastMeasureNum=me.selection.to-1;
+						var firstMeasureNum = 0;
+						var lastMeasureNum = me.measures.length - 1;
+						if (me.selection) {
+							if (me.selection.to) {
+								firstMeasureNum = me.selection.from - 1;
+								lastMeasureNum = me.selection.to - 1;
 							}
 						}
 						if (measureNum > lastMeasureNum) {
@@ -280,15 +280,15 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 						var pitch = this.octaveStepAccidental(note.octave, note.step, note.accidental) + track.octave * 12;
 						var duration = wholeNoteDuration * note.slides[note.slides.length - 1].end192 / 192;
 						if (note.vibrato) {
-							var stepDuration=0.05;
+							var stepDuration = 0.05;
 							aslides = [];
 							var pitchSlide = pitch;
-							var dir=1;
-							var bend=0.6;
-							for (var du = 0; du < duration; du=du+stepDuration) {
+							var dir = 1;
+							var bend = 0.6;
+							for (var du = 0; du < duration; du = du + stepDuration) {
 								var whenSlide = du;
-								pitchSlide = pitch+dir*bend;
-								dir=-dir;
+								pitchSlide = pitch + dir * bend;
+								dir = -dir;
 								//console.log(whenPlay, whenSlide, pitchSlide);
 								aslides.push({ when: whenSlide, pitch: pitchSlide });
 							}
@@ -305,10 +305,20 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 								}
 							}
 						}
-						this.player.queueWaveTable(this.audioContext, this.equalizer.input, track.sound, whenPlay, pitch, duration, volume, aslides);
+						this.player.queueWaveTable(this.audioContext, this.equalizer.input
+							, this.cachedInstrument(track), whenPlay, pitch, duration, volume, aslides);
 					}
 				}
 			}
 		}
 	}
+};
+FretChordSheet.prototype.cachedInstrument = function (track) {
+	if (!(track.subSample == undefined)) {
+		console.log(track.subSample);
+		if (!(window[info.variable])) {
+			return track.sound;
+		}
+	}
+	return track.sound;
 };

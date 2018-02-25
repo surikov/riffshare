@@ -525,6 +525,18 @@ FretChordSheet.prototype.userActionResetVolumes = function () {
 };
 FretChordSheet.prototype.userActionSetTrackSample = function (trackNum,sampleNum) {
 	var me = this;	
+	var info = this.player.loader.instrumentInfo(sampleNum);
+    if(! (window[info.variable])) {
+		if (!(this.audioContext)) {
+			console.log('create audio context');
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			this.audioContext = new AudioContextFunc();
+		}
+		this.player.loader.startLoad(this.audioContext, info.url, info.variable);
+		this.player.loader.waitLoad(function () {
+			console.log('cached', sampleNum, info.title);
+		});
+	}
 	var pre=this.trackInfo[trackNum].subSample;
 	var after=sampleNum;
 	this.pushAction({
