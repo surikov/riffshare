@@ -523,6 +523,20 @@ FretChordSheet.prototype.userActionResetVolumes = function () {
 		}
 	});
 };
+FretChordSheet.prototype.userActionSetTrackSample = function (trackNum,sampleNum) {
+	var me = this;	
+	var pre=this.trackInfo[trackNum].subSample;
+	var after=sampleNum;
+	this.pushAction({
+		caption: 'Set '+trackNum+' track sample '+sampleNum,
+		undo: function () {
+			me.trackInfo[trackNum].subSample=pre;
+		},
+		redo: function () {
+			me.trackInfo[trackNum].subSample=after;
+		}
+	});
+};
 
 FretChordSheet.prototype.dropDrumAtBeat = function (morder, beatStart, drum) {
 	if (morder < this.measures.length) {
