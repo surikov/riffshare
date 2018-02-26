@@ -136,17 +136,20 @@ FretChordSheet.prototype.userActionClearSong = function () {
 	var me = this;
 	var old = me.measures;
 	var oldVols = me.volumes;
+	var oldSubs = me.subSamples;
 	this.pushAction({
 		caption: 'Clear song',
 		undo: function () {
 			me.measures = old;
 			var minfo = me.measureInfo(0);
 			me.volumes = oldVols;
+			me.subSamples = oldSubs;
 		},
 		redo: function () {
 			me.measures = [];
 			var minfo = me.measureInfo(0);
 			me.volumes = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+			me.subSamples =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 		}
 	});
 };
@@ -524,28 +527,33 @@ FretChordSheet.prototype.userActionResetVolumes = function () {
 	});
 };
 FretChordSheet.prototype.userActionSetTrackSample = function (trackNum,sampleNum) {
-	var me = this;	
-	var info = this.player.loader.instrumentInfo(sampleNum);
-    if(! (window[info.variable])) {
-		if (!(this.audioContext)) {
-			console.log('create audio context');
-			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-			this.audioContext = new AudioContextFunc();
+	var me = this;
+	if(1*sampleNum>=0){
+		var info = this.player.loader.instrumentInfo(sampleNum);
+		if(! (window[info.variable])) {
+			if (!(this.audioContext)) {
+				console.log('create audio context');
+				var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+				this.audioContext = new AudioContextFunc();
+			}
+			this.player.loader.startLoad(this.audioContext, info.url, info.variable);
+			this.player.loader.waitLoad(function () {
+				console.log('cached', sampleNum, info.title);
+			});
 		}
-		this.player.loader.startLoad(this.audioContext, info.url, info.variable);
-		this.player.loader.waitLoad(function () {
-			console.log('cached', sampleNum, info.title);
-		});
 	}
-	var pre=this.trackInfo[trackNum].subSample;
-	var after=sampleNum;
+	//var pre=this.trackInfo[trackNum].subSample;
+	var pre=this.subSamples[trackNum];
+	var after=sampleNum+1;
 	this.pushAction({
 		caption: 'Set '+trackNum+' track sample '+sampleNum,
 		undo: function () {
-			me.trackInfo[trackNum].subSample=pre;
+			me.subSamples[trackNum]=pre;
+			//console.log(me.subSamples);
 		},
 		redo: function () {
-			me.trackInfo[trackNum].subSample=after;
+			me.subSamples[trackNum]=after;
+			//console.log(me.subSamples);
 		}
 	});
 };

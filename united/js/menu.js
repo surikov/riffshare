@@ -298,6 +298,10 @@ FretChordSheet.prototype.showToneMenu = function () {
 		me.userActionSetVolume(0.1 * document.getElementById('rangeVolumeTone').value, trackNum);
 		//console.log(me.volumes)
 	};
+	document.getElementById('resetToneSubSample').onclick = function () {
+		me.userActionSetTrackSample(me.upperTrackNum(),-1);
+		me.closeToneMenu();
+	};
 	//console.log(document.getElementById('rangeVolumeTone')) 
 	document.getElementById('menuTone').style.width = this.menuWidth() + 'px';
 	this.closeMainMenu();
@@ -366,8 +370,23 @@ FretChordSheet.prototype.showMainMenu = function () {
 
 	for (var i = 0; i < 8; i++) {
 		var o = document.getElementById('channel' + (i + 1));
-		o.innerText = this.trackInfo[this.findTrackNum(i)].title;
-		o.style.color = this.trackInfo[this.findTrackNum(i)].color;
+		var trackNo=this.findTrackNum(i);
+		var tinfo=this.trackInfo[trackNo];
+		var trackTitle=tinfo.title;
+		if(this.subSamples[trackNo]){
+			var nn=this.subSamples[trackNo]-1;
+			//trackTitle=trackTitle+' '+trackNo+' '+(this.subSamples[trackNo]-1);
+			if (!(this.player)) {
+				console.log('create player');
+				this.player = new WebAudioFontPlayer();
+			}
+			var key = this.player.loader.instrumentKeys()[nn];
+			var p = 1 * key.substr(0, 3);
+			var title=this.player.loader.instrumentTitles()[p].split(':')[0];
+			trackTitle = ''+nn+'. '+title;
+		}
+		o.innerText = trackTitle;
+		o.style.color = this.trackInfo[trackNo].color;
 		//me.userActionTrackUp(s.toneNum);
 	}
 	/*if (this.air) {

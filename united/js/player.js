@@ -3,6 +3,12 @@ FretChordSheet.prototype.startPlayAll = function () {
 	this.initAudio();
 	this.air = true;
 	var me = this;
+	for(var i=0;i<8;i++){
+		if(this.subSamples[i]){
+			var info = this.player.loader.instrumentInfo(this.subSamples[i]-1);
+			this.player.loader.startLoad(this.audioContext, info.url, info.variable);
+		}
+	}
 	this.waitPresets(function () { me.startQueue(); });
 };
 FretChordSheet.prototype.stopPlay = function () {
@@ -127,6 +133,7 @@ FretChordSheet.prototype.checkPresets = function () {
 			checkedCount++;
 		}
 	}
+	
 	for (var i = 0; i < this.trackInfo.length; i++) {
 		presetCount++;
 		if (this.checkZones(this.trackInfo[i].sound)) {
@@ -314,14 +321,19 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 	}
 };
 FretChordSheet.prototype.cachedInstrument = function (track) {
-	if (!(track.subSample == undefined)) {
-		//console.log(track.subSample);
-		var key = this.player.loader.instrumentKeys()[track.subSample];
+	//console.log(this.subSamples,7-track.nn,track.title);
+	if (this.subSamples[7-track.nn]) {
+		//console.log(this.subSamples[7-track.nn]);
+		var key = '_tone_' +this.player.loader.instrumentKeys()[this.subSamples[7-track.nn]-1];
 		//console.log(key);
-		if (this.player.loader.loaded(['_tone_' + key])) {
-			var instrument=window['_tone_' + key];
+		if (this.player.loader.loaded([ key])) {
+			var instrument=window[ key];
 			//console.log(instrument);
 			return instrument;
+		}else{
+			var info = this.player.loader.instrumentInfo(this.subSamples[7-track.nn]-1);
+			this.player.loader.startLoad(this.audioContext, info.url, info.variable);
+			//console.log('start load',info.url);
 		}
 	}
 	return track.sound;
