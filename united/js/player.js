@@ -207,7 +207,7 @@ FretChordSheet.prototype.startPlayLoop = function () {
 	var me = this;
 	this.loopIntervalID = setInterval(function () {
 		if (me.air) {
-			if (me.audioContext.currentTime > nextLoopTime - 1 / 16 * wholeNoteDuration) {
+			if (me.audioContext.currentTime > nextLoopTime - 2 / 16 * wholeNoteDuration) {
 				try {
 					//me.moveTicker(measureNum,beat4);
 					beat16++;

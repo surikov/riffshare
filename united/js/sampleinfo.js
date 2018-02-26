@@ -25,3 +25,22 @@ FretChordSheet.prototype.sampleCategories = function () {
 	}
 	return this.toneCatNames;
 };
+
+FretChordSheet.prototype.drumCategories = function () {
+	if (this.drumCatNames) {
+		//
+	} else {
+		if (!(this.player)) {
+			console.log('create player');
+			this.player = new WebAudioFontPlayer();
+		}
+		var r = [];
+		for (var i = 35; i < 82; i++) {
+				r.push({ name: this.player.loader.drumTitles()[i], num: i });
+		}
+		this.drumCatNames=r;
+	}
+	return this.drumCatNames;
+};
+
+
