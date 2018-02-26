@@ -315,9 +315,13 @@ FretChordSheet.prototype.playBeatAt = function (when, measureNum, beat16) {
 };
 FretChordSheet.prototype.cachedInstrument = function (track) {
 	if (!(track.subSample == undefined)) {
-		console.log(track.subSample);
-		if (!(window[info.variable])) {
-			return track.sound;
+		//console.log(track.subSample);
+		var key = this.player.loader.instrumentKeys()[track.subSample];
+		//console.log(key);
+		if (this.player.loader.loaded(['_tone_' + key])) {
+			var instrument=window['_tone_' + key];
+			//console.log(instrument);
+			return instrument;
 		}
 	}
 	return track.sound;
