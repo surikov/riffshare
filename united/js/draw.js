@@ -690,7 +690,7 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 			rect.setAttributeNS(null, 'fill', 'url(#bgGradient)');//'#f00');
 			tg.g.appendChild(rect);
 
-			if(!(me.tickerLine)){
+			if (!(me.tickerLine)) {
 				me.tickerLine = document.createElementNS(tg.layer.svgns, 'rect');
 			}
 
@@ -705,23 +705,23 @@ FretChordSheet.prototype.tileBackground = function (left, top, width, height, li
 			}
 			tg.g.appendChild(me.tickerLine);
 
-			if(me.selection){
-				if(!(me.selectionFrame)){
+			if (me.selection) {
+				if (!(me.selectionFrame)) {
 					me.selectionFrame = document.createElementNS(tg.layer.svgns, 'rect');
 				}
-				var mx=me.findBeatX(me.selection.from-1,0);
-				var minfo=me.measureInfo(me.selection.from-1);
-				var endx=mx+me.tiler.tapSize * 3 * minfo.duration4*8;
-				var selCol='rgba(0,0,0,0.25)';
-				if(me.selection.to){
-					minfo=me.measureInfo(me.selection.to-1);
-					endx=me.findBeatX(me.selection.to-1,0)+me.tiler.tapSize * 3 * minfo.duration4*8;
-					selCol='rgba(0,0,0,0.15)';
+				var mx = me.findBeatX(me.selection.from - 1, 0);
+				var minfo = me.measureInfo(me.selection.from - 1);
+				var endx = mx + me.tiler.tapSize * 3 * minfo.duration4 * 8;
+				var selCol = 'rgba(0,0,0,0.25)';
+				if (me.selection.to) {
+					minfo = me.measureInfo(me.selection.to - 1);
+					endx = me.findBeatX(me.selection.to - 1, 0) + me.tiler.tapSize * 3 * minfo.duration4 * 8;
+					selCol = 'rgba(0,0,0,0.15)';
 				}
 				me.selectionFrame.setAttributeNS(null, 'x', mx);
 				me.selectionFrame.setAttributeNS(null, 'y', tg.y);
 				me.selectionFrame.setAttributeNS(null, 'height', tg.h);
-				me.selectionFrame.setAttributeNS(null, 'width', endx-mx);
+				me.selectionFrame.setAttributeNS(null, 'width', endx - mx);
 				me.selectionFrame.setAttributeNS(null, 'fill', selCol);
 				tg.g.appendChild(me.selectionFrame);
 			}
@@ -1418,9 +1418,9 @@ FretChordSheet.prototype.tilePianorollMeasureNotes = function (x, minfo, mx, tra
 												me.tilePianorollNoteLine(tg, note, beat.start192, x, color, me.trackOrder[trackNum]);
 												if (me.trackOrder[trackNum] == 0) {
 													var dd = (beat.start192 / 6) * (3 * tg.layer.tapSize) + 0.95 * tg.layer.tapSize;
-													var label=me.keyName(note);
-													if(note.vibrato){
-														label=label+'~';
+													var label = me.keyName(note);
+													if (note.vibrato) {
+														label = label + '~';
 													}
 													tg.layer.tileText(tg.g
 														, tg.x + dd
@@ -1457,8 +1457,8 @@ FretChordSheet.prototype.tilePianorollNotes = function (left, top, width, height
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
 };
-FretChordSheet.prototype.tileFretButtonNoteTools = function (tg,note,x,y,morder) {
-	var me=this;
+FretChordSheet.prototype.tileFretButtonNoteTools = function (tg, note, x, y, morder) {
+	var me = this;
 	var vibratoLabel = '+';
 	if (note.vibrato) {
 		vibratoLabel = 'x ~~~';
@@ -1511,7 +1511,7 @@ FretChordSheet.prototype.tileFretMeasureNoteTools = function (x, minfo, mx, left
 												//console.log(me.note7(note.pitch), note);
 												me.userActionVibratoNote(morder, note);
 											});*/
-										me.tileFretButtonNoteTools(tg,note,tx1 - tg.x,ty1 - tg.y,x);
+										me.tileFretButtonNoteTools(tg, note, tx1 - tg.x, ty1 - tg.y, x);
 									}
 								}
 							}
@@ -1572,9 +1572,9 @@ FretChordSheet.prototype.tileFretMeasureNotes = function (x, minfo, mx, trackNum
 											, tg.y + 2 * ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize + delta
 											, color, 2.9 * tg.layer.tapSize);
 										if (me.trackOrder[trackNum] == 0) {
-											var label=''+ ss.fret;
-											if(note.vibrato){
-												label=label+'~';
+											var label = '' + ss.fret;
+											if (note.vibrato) {
+												label = label + '~';
 											}
 											tg.layer.tileText(tg.g, tx1, ty1 + 1 * tg.layer.tapSize, 2.5 * tg.layer.tapSize, label, me.colors.noteLabel);
 										}
@@ -1785,26 +1785,26 @@ FretChordSheet.prototype.tileBarButtons = function (left, top, width, height, li
 				s = me.tileKnob(tg, 'rollMeter_' + x, 20 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, '' + minfo.duration4 + "/4", function () {
 					me.userActionRollMeter(_x);
 				});
-				s = me.tileKnob(tg, 'rollTempo_' + x, 35 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, '' + minfo.tempo , function () {
+				s = me.tileKnob(tg, 'rollTempo_' + x, 35 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, '' + minfo.tempo, function () {
 					me.userActionRollTempo(_x);
 				});
-				var selabel='Select';
-				if(me.selection){
-					if(me.selection.to){
-						if(_x>=me.selection.from-1 && _x<=me.selection.to-1){
-							selabel='🗸';
-						}else{
-							selabel='';
+				var selabel = 'Select';
+				if (me.selection) {
+					if (me.selection.to) {
+						if (_x >= me.selection.from - 1 && _x <= me.selection.to - 1) {
+							selabel = '🗸';
+						} else {
+							selabel = '';
 						}
-					}else{
-						if(_x==me.selection.from-1){
-							selabel='🗸';
-						}else{
-							selabel='+';
+					} else {
+						if (_x == me.selection.from - 1) {
+							selabel = '🗸';
+						} else {
+							selabel = '+';
 						}
 					}
 				}
-				s = me.tileKnob(tg, 'selection_' + x, 50 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, selabel , function () {
+				s = me.tileKnob(tg, 'selection_' + x, 50 * me.tiler.tapSize, 10 * me.tiler.tapSize, 10 * me.tiler.tapSize, selabel, function () {
 					me.selectMeasures(_x);
 				});
 			});
@@ -1957,8 +1957,11 @@ FretChordSheet.prototype.tileRange = function (tg, id, x, y, w, h, v, mx, label,
 };
 FretChordSheet.prototype.tileKnob = function (tg, id, x, y, sz, label, action, color) {
 	var c = this.colors.buttonLabel;
-	if (color) { c = color; }
-	tg.layer.tileCircle(tg.g, tg.x + x + sz / 2, tg.y + y + sz / 2, sz / 2, this.colors.buttonFill);
+	if (color) { 
+		c = color; 
+	}
+	//tg.layer.tileCircle(tg.g, tg.x + x + sz / 2, tg.y + y + sz / 2, sz / 2, this.colors.buttonFill);
+	tg.layer.tileCircle(tg.g, tg.x + x + sz / 2, tg.y + y + sz / 2, sz / 2, "rgba(0,0,0,0)",this.colors.buttonFill,sz/20);
 	tg.layer.tileText(tg.g, tg.x + x + sz / 4, tg.y + y + 0.8 * sz, 0.017 * sz * tg.layer.tapSize, label, c);
 	var s = tg.layer.addSpot(id, tg.x + x, tg.y + y, sz, sz, function () {
 		action(s);
