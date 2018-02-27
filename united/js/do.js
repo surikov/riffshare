@@ -558,6 +558,40 @@ FretChordSheet.prototype.userActionSetTrackSample = function (trackNum,sampleNum
 	});
 };
 
+FretChordSheet.prototype.userActionSetDrumSample = function (drumNum,sampleNum) {
+	var me = this;
+	if(1*sampleNum>=0){
+		var info = this.player.loader.drumInfo(sampleNum);
+		if(! (window[info.variable])) {
+			if (!(this.audioContext)) {
+				console.log('create audio context');
+				var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+				this.audioContext = new AudioContextFunc();
+			}
+			this.player.loader.startLoad(this.audioContext, info.url, info.variable);
+			this.player.loader.waitLoad(function () {
+				console.log('cached', sampleNum, info.title);
+			});
+		}
+	}
+	//var pre=this.trackInfo[trackNum].subSample;
+	var pre=this.subSamples[drumNum];
+	var after=sampleNum+1;
+	this.pushAction({
+		caption: 'Set '+(drumNum-8)+' drum sample '+sampleNum,
+		undo: function () {
+			me.subSamples[drumNum]=pre;
+			//console.log(me.subSamples);
+			me.tiler.resetAllLayersNow();
+		},
+		redo: function () {
+			me.subSamples[drumNum]=after;
+			//console.log(me.subSamples);
+			me.tiler.resetAllLayersNow();
+		}
+	});
+};
+
 FretChordSheet.prototype.dropDrumAtBeat = function (morder, beatStart, drum) {
 	if (morder < this.measures.length) {
 		minfo = this.measures[morder];

@@ -268,7 +268,13 @@ FretChordSheet.prototype.menuWidth = function () {
 	return wd;
 };
 FretChordSheet.prototype.showVolumesMenu = function () {
+	for (var i = 8; i < 16; i++) {
+		this.setDrumClick(i);
+		document.getElementById('rangeVolume' + i).value = this.volumes[i] * 10;
+		//console.log(this.volumes[i],document.getElementById('rangeVolume' + i));
+	}
 	document.getElementById('menuVolumes').style.width = this.menuWidth() + 'px';
+
 };
 FretChordSheet.prototype.closeVolumesMenu = function () {
 	document.getElementById('menuVolumes').style.width = '0';
@@ -313,6 +319,19 @@ FretChordSheet.prototype.showDrumsMenu = function (n) {
 	document.getElementById('menuAllDrums').style.width = this.menuWidth() + 'px';
 	var cats = this.drumCategories();
 	document.getElementById('catdrumscontent').innerHTML = '';
+
+	var me = this;
+	var element = document.createElement('div');
+	element.setAttribute('class', 'menubuttonFoot');
+	element.innerText = 'Reset';
+	element.onclick = function () {
+		console.log('reset');
+		me.userActionSetDrumSample(n,-1);
+		me.closeDrumsMenu();
+	};
+	document.getElementById('catdrumscontent').appendChild(element);
+
+
 	for (var i = 0; i < cats.length; i++) {
 		//this.setToneCatFunc(trackNum, i);
 		//console.log(cats[i]);
@@ -360,7 +379,8 @@ FretChordSheet.prototype.setSubDrumCatFunc = function (trackNo,drumNo, drumName)
 	element.innerText = drumName;
 	element.onclick = function () {
 		//me.closeSubDrumsMenu();
-		console.log('set',trackNo,'to',drumNo);
+		//console.log('set',trackNo,'to',drumNo);
+		me.userActionSetDrumSample(trackNo,drumNo);
 	};
 	document.getElementById('subdrumscontent').appendChild(element);
 };
@@ -480,11 +500,7 @@ FretChordSheet.prototype.showMainMenu = function () {
 		};
 	}*/
 
-	for (var i = 8; i < 16; i++) {
-		this.setDrumClick(i);
-		document.getElementById('rangeVolume' + i).value = this.volumes[i] * 10;
-		//console.log(this.volumes[i],document.getElementById('rangeVolume' + i));
-	}
+	
 	document.getElementById('feelLabel').innerHTML = 'Feel: ' + this.feelNames[this.options.feel];
 	//document.getElementById('rangeFeel').value=this.options.feel;
 	//console.log(this.options.feel);
@@ -500,6 +516,12 @@ FretChordSheet.prototype.showMainMenu = function () {
 };
 FretChordSheet.prototype.setDrumClick = function (n) {
 	var me = this;
+	var title=this.drumInfo[n-8].title;
+	if(this.subSamples[n]){
+		var info = this.waplayer().loader.drumInfo(this.subSamples[n]-1);
+		title=(this.subSamples[n]-1)+'. '+info.title;
+	}
+	document.getElementById('drumVolume' + n).innerHTML=title;
 	document.getElementById('drumVolume' + n).onclick = function () {
 		//console.log(n);
 		me.showDrumsMenu(n);

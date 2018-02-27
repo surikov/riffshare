@@ -1221,7 +1221,12 @@ FretChordSheet.prototype.tileDrumNames = function (left, top, width, height, lin
 		, 8 * 3 * this.tiler.tapSize//
 		, 'drumNames', left, top, width, height, function (tg) {
 			for (var k = 0; k < 8; k++) {
-				tg.layer.tileText(tg.g, tg.x, tg.y + k * 3 * tg.layer.tapSize + 2.5 * tg.layer.tapSize, 3 * tg.layer.tapSize, '' + (me.drumInfo[k].title), me.colors.barCounter);
+				var title=me.drumInfo[k].title;
+				if(me.subSamples[k+8]){
+					var info = me.waplayer().loader.drumInfo(me.subSamples[k+8]-1);
+					title=(me.subSamples[k+8]-1)+'. '+info.title;
+				}
+				tg.layer.tileText(tg.g, tg.x, tg.y + k * 3 * tg.layer.tapSize + 2.5 * tg.layer.tapSize, 3 * tg.layer.tapSize, '' + title, me.colors.barCounter);
 			}
 		});
 
