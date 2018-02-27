@@ -180,15 +180,15 @@ FretChordSheet.prototype.tilePianoNoteSpot = function (left, top, width, height,
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
 };
-FretChordSheet.prototype.tilePianNoteToolButton = function (tg,x,y,measureNum,note) {
-	var me=this;
-	var vibratoLabel='+';
-												if(note.vibrato){
-													vibratoLabel='x ~~~';
-												}
-	var tk=me.tileKnob(tg, 'pianoVibrato' + x + 'x' + y
-		, x-0.5 * tg.layer.tapSize
-		, y-0.5 * tg.layer.tapSize
+FretChordSheet.prototype.tilePianNoteToolButton = function (tg, x, y, measureNum, note) {
+	var me = this;
+	var vibratoLabel = '+';
+	if (note.vibrato) {
+		vibratoLabel = 'x ~~~';
+	}
+	var tk = me.tileKnob(tg, 'pianoVibrato_'+measureNum+'_' + x + 'x' + y
+		, x - 0.5 * tg.layer.tapSize
+		, y - 0.5 * tg.layer.tapSize
 		, this.tiler.tapSize
 		, vibratoLabel, function () {
 			console.log(measureNum, note);
@@ -206,24 +206,24 @@ FretChordSheet.prototype.tilePianMeasureNoteTools = function (x, minfo, mx, trac
 				for (var b = 0; b < minfo.beats.length; b++) {
 					var beat = minfo.beats[b];
 					if (beat) {
-						var chord=beat.chords[me.upperTrackNum()];
+						var chord = beat.chords[me.upperTrackNum()];
 						//for (var c = 0; c < beat.chords.length; c++) {
 						//	if (c == trackNum) {
 						//		var chord = beat.chords[c];
-								if (chord) {
-									for (var n = 0; n < chord.notes.length; n++) {
-										var note = chord.notes[n];
-										if (note) {
-											if (note.octave >= (5 - y) && note.octave < (6 - y)) {
-												var tx1 =  beat.start192 / 6 * 3 * tg.layer.tapSize - 0.0 * tg.layer.tapSize;
-												var p = note.octave * 12 + me.note12(note.step) + note.accidental;
-												var ty1 = (6 * 12 - p - 1) * 3 * tg.layer.tapSize + me.margins.pianorollTop + 3 * tg.layer.tapSize-tg.y;
-												me.tilePianNoteToolButton(tg,tx1,ty1,x,note);
-											}
-										}
+						if (chord) {
+							for (var n = 0; n < chord.notes.length; n++) {
+								var note = chord.notes[n];
+								if (note) {
+									if (note.octave >= (5 - y) && note.octave < (6 - y)) {
+										var tx1 = beat.start192 / 6 * 3 * tg.layer.tapSize - 0.0 * tg.layer.tapSize;
+										var p = note.octave * 12 + me.note12(note.step) + note.accidental;
+										var ty1 = (6 * 12 - p - 1) * 3 * tg.layer.tapSize + me.margins.pianorollTop + 3 * tg.layer.tapSize - tg.y;
+										me.tilePianNoteToolButton(tg, tx1, ty1, x, note);
 									}
 								}
-							//}
+							}
+						}
+						//}
 						//}
 					}
 				}

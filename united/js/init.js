@@ -89,7 +89,7 @@ FretChordSheet.prototype.init = function () {
 		, staff: '#000'
 		, whiteKey: 'rgba(255,255,255,0.3)'
 		, blackKey: 'rgba(0,0,0,0.1)'
-		, buttonFill: 'rgba(255,255,255,0.75)'//'#cdc'//'#00D9A3'
+		, buttonFill: 'rgba(255,255,255,0.5)'//'#cdc'//'#00D9A3'
 		, buttonShadow: 'rgba(0,0,0,0.05)'
 		, buttonLabel: '#000'
 		, bgCopy: '#fff'

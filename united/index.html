@@ -89,7 +89,7 @@
 					<div id='channel6' class='menubuttonRow'>6</div>
 					<div id='channel7' class='menubuttonRow'>7</div>
 					<div id='channel8' class='menubuttonFoot'>8</div>
-					<div id='drumsOpts' class='menubutton'>Drums</div>					
+					<div id='allVolumes' class='menubutton'>Drums</div>					
 					<div id='feelLabel' class='menubutton'>feel</div>
 					<div id='tpnLabel' class='menubutton'>tpn</div>
 					<div id='breaksLabel' class='menubutton'>tpn</div>
@@ -101,7 +101,7 @@
 					<div id='clearSongB' class='menubutton'>Clear song</div>
 					<div id='importSongB' class='menubutton'>Merge MusicXML</div>
 					<div id='panelsMode' class='menubutton'>Panels</div>
-					<div id='allVolumes' class='menubutton'>Volumes</div>
+					
 					<!--
 					<p>
 						<a href='javascript:void(0)' id='switchPianoB'>piano</a>
@@ -166,28 +166,35 @@
 		<div id='menuVolumes' class='mainmenu'>
 			<div class='menucontent' id='subFeelMenu'>
 				<div class='menuheader'>
-					<a href='javascript:void(0)' id='closeVolumesB'><img class='buttonicon' src='img/cross.png' />Volumes</a>
+					<a href='javascript:void(0)' id='closeVolumesB'><img class='buttonicon' src='img/cross.png' />Drums</a>
 				</div>
 				<div class='menuelements'>
 					<div id='resetVolumesB' class='menubutton'>Reset all</div>
 
-					<div class='menubuttonRow'>Distortion guitar<br/><input type='range' id='rangeVolume7' min='0' max='10'></div>
-					<div class='menubuttonRow'>Acoustic guitar<br/><input type='range' id='rangeVolume6' min='0' max='10'></div>
-					<div class='menubuttonRow'>Percussive Organ<br/><input type='range' id='rangeVolume5' min='0' max='10'></div>
-					<div class='menubuttonRow'>Jazz guitar<br/><input type='range' id='rangeVolume4' min='0' max='10'></div>
-					<div class='menubuttonRow'>Grand Piano<br/><input type='range' id='rangeVolume3' min='0' max='10'></div>
-					<div class='menubuttonRow'>Bass guitar<br/><input type='range' id='rangeVolume2' min='0' max='10'></div>
-					<div class='menubuttonRow'>String Ensemble<br/><input type='range' id='rangeVolume1' min='0' max='10'></div>
-					<div class='menubuttonRow'>Synth Bass<br/><input type='range' id='rangeVolume0' min='0' max='10'></div>
+					<div class='menubuttonRow' id='drumVolume8'>Bass drum</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume8' min='0' max='10'></div>
 
-					<div class='menubuttonRow'>Bass drum<br/><input type='range' id='rangeVolume8' min='0' max='10'></div>
-					<div class='menubuttonRow'>Low Tom<br/><input type='range' id='rangeVolume9' min='0' max='10'></div>
-					<div class='menubuttonRow'>Snare drum<br/><input type='range' id='rangeVolume10' min='0' max='10'></div>
-					<div class='menubuttonRow'>Mid Tom<br/><input type='range' id='rangeVolume11' min='0' max='10'></div>
-					<div class='menubuttonRow'>Closed Hi-hat<br/><input type='range' id='rangeVolume12' min='0' max='10'></div>
-					<div class='menubuttonRow'>Open Hi-hat<br/><input type='range' id='rangeVolume13' min='0' max='10'></div>
-					<div class='menubuttonRow'>Hand Clap<br/><input type='range' id='rangeVolume14' min='0' max='10'></div>
-					<div class='menubuttonRow'>Splash Cymbal<br/><input type='range' id='rangeVolume15' min='0' max='10'></div>
+					<div class='menubuttonRow' id='drumVolume9'>Low Tom</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume9' min='0' max='10'></div>
+
+					<div class='menubuttonRow' id='drumVolume10'>Snare drum</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume10' min='0' max='10'></div>
+
+					<div class='menubuttonRow' id='drumVolume11'>Mid Tom</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume11' min='0' max='10'></div>
+
+					<div class='menubuttonRow' id='drumVolume12'>Closed Hi-hat</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume12' min='0' max='10'></div>
+
+					<div class='menubuttonRow' id='drumVolume13'>Open Hi-hat</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume13' min='0' max='10'></div>
+
+					<div class='menubuttonRow' id='drumVolume14'>Hand Clap</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume14' min='0' max='10'></div>
+
+					<div class='menubuttonRow' id='drumVolume15'>Splash Cymbal</div>
+					<div class='menubuttonFoot'><input type='range' id='rangeVolume15' min='0' max='10'></div>
+
 				</div>
 			</div>
 		</div>
@@ -222,9 +229,21 @@
 				<div class='menuheader'>
 					<a href='javascript:void(0)' id='closeDrumsMenuB'>
 						<img class='buttonicon' src='img/cross.png' />
-						<span id='inscatname'>Drums</span></a>
+						<span id='drmcatname'>drum</span></a>
 				</div>
 				<div class='menuelements' id='catdrumscontent'>
+					
+				</div>
+			</div>
+		</div>
+		<div id='menuSubDrums' class='mainmenu'>
+			<div class='menucontent' id='subSubDrumsToneMenu'>
+				<div class='menuheader'>
+					<a href='javascript:void(0)' id='closeSubDrumsMenuB'>
+						<img class='buttonicon' src='img/cross.png' />
+						<span id='drmsubname'>dr samples</span></a>
+				</div>
+				<div class='menuelements' id='subdrumscontent'>
 					
 				</div>
 			</div>

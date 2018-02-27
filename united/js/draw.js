@@ -742,7 +742,7 @@ FretChordSheet.prototype.tileNoteTools = function (morder, note, xx, yy, tg) {
 	if (note.vibrato) {
 		vibratoLabel = 'x ~~~';
 	}
-	this.tileKnob(tg, 'noteVibrato' + xx + 'x' + yy
+	this.tileKnob(tg, 'noteVibrato_'+ morder+"_"+ xx + 'x' + yy
 		, xx * 3 * this.tiler.tapSize + 3 * this.tiler.tapSize
 		, yy * 3 * this.tiler.tapSize + 3 * this.tiler.tapSize
 		, this.tiler.tapSize, vibratoLabel, function () {
@@ -1463,7 +1463,7 @@ FretChordSheet.prototype.tileFretButtonNoteTools = function (tg, note, x, y, mor
 	if (note.vibrato) {
 		vibratoLabel = 'x ~~~';
 	}
-	me.tileKnob(tg, 'noteFretVibrato' + x + 'x' + y
+	me.tileKnob(tg, 'noteFretVibrato_'+morder+'_' + x + 'x' + y
 		, x
 		, y
 		, me.tiler.tapSize, vibratoLabel, function () {
