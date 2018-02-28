@@ -353,6 +353,8 @@ FretChordSheet.prototype.init = function () {
 			me.tileFretLines(left, top, width, height, lineWidth);
 			me.tileFretGrid(left, top, width, height, lineWidth);
 			me.tileFretNotes(left, top, width, height, lineWidth);
+			me.tileFretSpot(left, top, width, height, lineWidth);
+			me.tileFretMark(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideDrums < 2) {
 			me.tileDrumLines(left, top, width, height, lineWidth);

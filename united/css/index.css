@@ -128,7 +128,7 @@ body3{
 	vertical-align: middle;
 }
 a {
-	color: black;
+	color: #abc;
 	text-decoration: none;
 }
 .menuelements {
@@ -140,6 +140,16 @@ a {
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	border-bottom-color:#abc;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-shadow: 0 2px white;
+	font-size2: 1.5rem;
+	font-weight2: bold;
+	color: #999999;
+	display2: flex;
+	justify-content2: center;
+	align-items2: center;
 }
 .menubutton {
 	margin: 0;
@@ -147,6 +157,10 @@ a {
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	border-bottom-color:#abc;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
 }
 .menubuttonHead {
 	margin: 0;

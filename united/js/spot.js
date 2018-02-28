@@ -186,7 +186,7 @@ FretChordSheet.prototype.tilePianNoteToolButton = function (tg, x, y, measureNum
 	if (note.vibrato) {
 		vibratoLabel = 'x ~~~';
 	}
-	var tk = me.tileKnob(tg, 'pianoVibrato_'+measureNum+'_' + x + 'x' + y
+	var tk = me.tileKnob(tg, 'pianoVibrato_' + measureNum + '_' + x + 'x' + y
 		, x - 0.5 * tg.layer.tapSize
 		, y - 0.5 * tg.layer.tapSize
 		, this.tiler.tapSize
@@ -229,6 +229,90 @@ FretChordSheet.prototype.tilePianMeasureNoteTools = function (x, minfo, mx, trac
 				}
 			});
 	}
+};
+FretChordSheet.prototype.tileFretSpot = function (left, top, width, height, lineWidth) {
+	var me = this;
+	var mx = 0;
+	var minfo = this.measureInfo(0);
+	for (var x = 0; x <= this.measures.length; x++) {
+		var d32 = 0;
+		if (x < this.measures.length) {
+			d32 = this.measures[x].duration4 * 8;
+		} else {
+			d32 = this.measures[x - 1].duration4 * 8;
+		}
+		this.layerOctaves.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
+			, this.margins.fretTop //+ y * 3 * 12 * this.tiler.tapSize
+			, (this.options.measureHeader + d32) * 3 * this.tiler.tapSize - this.options.measureHeader * 3 * this.tiler.tapSize
+			, (5 * 2 + 1) * 3 * this.tiler.tapSize
+			, 'fretSpot_' + x, left, top, width, height, function (tg) {
+				//console.log('fretSpot_' , x,tg.x,mx,me.options.measureHeader , d32);
+				var s = tg.layer.addSpot(tg.id, tg.x, tg.y, tg.w, tg.h, function () {
+					//console.log('clicked measure', this.morder, 'len', me.measures.length);
+					var measure = me.measureInfo(this.morder);
+					//console.log('now len', me.measures.length);
+					var _x = me.findMeasureBeat192(me.tiler.clickContentX, this.mx, measure);//this.minfo);
+					var start192 = _x.quarter * 8 * 6 + _x.left6;
+					var duration192 = _x.duration6;
+					var stringNo = Math.floor((me.tiler.clickContentY - me.margins.fretTop + 1 * me.tiler.tapSize) / (2 * 3 * me.tiler.tapSize));
+					var fretNo = 0;
+					//console.log('clickied',start192,yy);
+
+					var track = me.upperTrackNum();
+					if (me.fretMark) {
+						var note = new MeasureToneNote();
+						note.string = stringNo;
+						note.fret = fretNo;
+						var pitch = me.stringPitches[note.string] + note.fret;
+						note.octave = 1 + Math.floor(pitch / 12);
+						note.step = me.note7(pitch % 12);
+						note.accidental = (pitch % 12) - me.note12(note.step);
+						var cur192 = me.fretMark.start192;
+						var end192 = start192 - me.fretMark.start192 + duration192;
+						var curMeasureNo=me.fretMark.measureNo;
+						var fullTo192 = me.findBeatDistance(me.fretMark.measureNo, me.fretMark.start192, this.morder, start192);
+						console.log('fullTo192',fullTo192);
+						if(fullTo192<0){
+							fullTo192 = me.findBeatDistance( this.morder, start192,me.fretMark.measureNo, me.fretMark.start192);
+							cur192 = start192;
+							curMeasureNo=this.morder;
+							console.log('flip');
+						}
+						/*if (start192 < me.fretMark.start192 + duration192) {
+							cur192 = start192;
+							end192 = me.fretMark.start192 - start192 + me.fretMark.duration192;
+							curMeasureNo=this.morder;
+						}*/
+						note.slides.push({ shift: 0, end192: fullTo192+duration192 });
+						//console.log(track,curMeasureNo,note);
+						me.userActionAddNote(track, curMeasureNo, cur192, note);
+						me.fretMark = null;
+					} else {
+
+						var noteBeats = me.findAllFrets(track, this.morder, start192, duration192, stringNo);
+						//console.log('noteBeats',noteBeats);
+						if (noteBeats.length > 0) {
+							me.userActionDropStringNotes(track, this.morder, start192, duration192, stringNo);
+						} else {
+							me.fretMark = {
+								start192: start192
+								, duration192: duration192
+								, stringNo: stringNo
+								, fretNo: 0
+								, measureNo: this.morder
+							};
+						}
+					}
+
+				});
+				s.mx = tg.x;
+				s.morder = x;
+			});
+		mx = mx + (this.options.measureHeader + d32) * 3 * this.tiler.tapSize;
+	}
+
+
+
 };
 FretChordSheet.prototype.tilePianoSpot = function (left, top, width, height, lineWidth) {
 	var me = this;

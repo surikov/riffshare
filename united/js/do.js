@@ -302,6 +302,29 @@ FretChordSheet.prototype.userActionDropDrums = function (morder, start192, durat
 		}
 	});
 };
+FretChordSheet.prototype.userActionDropStringNotes = function (track, morder, start192, duration192, stringNo) {
+	var me = this;
+	var pre = this.cloneMeasure(morder);
+	
+	var noteBeats = me.findAllFrets(track, morder, start192, duration192, stringNo);
+	for (var d = 0; d < noteBeats.length; d++) {
+		me.dropStringNoteAtBeat(noteBeats[d].track, noteBeats[d].morder, noteBeats[d].beatStart, stringNo);
+	}
+	var after = this.cloneMeasure(morder);
+	this.pushAction({
+		caption: 'Drop string notes ' + track + ':' + morder + ':' + start192 + ':' + duration192 + ':' + stringNo,
+		undo: function () {
+			me.measures[morder] = pre;
+			me.shrinkMeasures();
+			me.reCalcContentSize();
+		},
+		redo: function () {
+			me.measures[morder] = after;
+			me.shrinkMeasures();
+			me.reCalcContentSize();
+		}
+	});
+};
 FretChordSheet.prototype.userActionDropNotes = function (track, morder, start192, duration192, pitch) {
 	var me = this;
 	var pre = this.cloneMeasure(morder);
@@ -603,8 +626,26 @@ FretChordSheet.prototype.dropDrumAtBeat = function (morder, beatStart, drum) {
 		}
 	}
 };
+FretChordSheet.prototype.dropStringNoteAtBeat = function (track, morder, beatStart, stringNo) {
+	if (morder < this.measures.length) {
+		var minfo = this.measures[morder];
+		for (var i = 0; i < minfo.beats.length; i++) {
+			var measureBeat = minfo.beats[i];
+			if (measureBeat.start192 == beatStart) {
+				var measureToneChord = measureBeat.chords[track];
+				for (var n = 0; n < measureToneChord.notes.length; n++) {
+					var measureToneNote = measureToneChord.notes[n];
+					//if (this.octaveStepAccidental(measureToneNote.octave, measureToneNote.step, measureToneNote.accidental) == pitch) {
+					if (this.stringFret(measureToneNote).string==stringNo ) {
+						measureToneChord.notes.splice(n, 1);
+						break;
+					}
+				}
+			}
+		}
+	}
+};
 FretChordSheet.prototype.dropNoteAtBeat = function (track, morder, beatStart, pitch) {
-
 	if (morder < this.measures.length) {
 		var minfo = this.measures[morder];
 

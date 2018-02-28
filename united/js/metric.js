@@ -88,17 +88,30 @@ FretChordSheet.prototype.findMeasureBeat192 = function (clickX, measureX, measur
 	var r = { quarter: quarter, left6: r6, duration6: l6 };
 	return r;
 }
-FretChordSheet.prototype.findBeatDistance = function (measureNum, step192, toNum, toStep192) {
+FretChordSheet.prototype.findBeatDistance = function (_measureNum, _step192, _toNum, _toStep192) {
+	var measureNum=_measureNum;
+	var step192=_step192;
+	var toNum=_toNum;
+	var toStep192=_toStep192;
+	var direction=1;
+	if((measureNum>toNum) || (measureNum==toNum && step192>toStep192)){
+		direction=-1;
+		measureNum=_toNum;
+		step192=_toStep192;
+		toNum=_measureNum;
+		toStep192=_step192;
+	}
 	if (measureNum == toNum) {
-		return toStep192 - step192;
+		return direction*(toStep192 - step192);
 	} else {
+		
 		var minfo = this.measureInfo(measureNum);
 		var len192 = minfo.duration4 * 8 * 6 - step192;
 		for (var i = measureNum + 1; i <= toNum - 1; i++) {
 			minfo = this.measureInfo(i);
 			len192 = len192 + minfo.duration4 * 8 * 6
 		}
-		return len192 + toStep192;
+		return direction*(len192 + toStep192);
 	}
 };
 FretChordSheet.prototype.findBeatX = function (measureNum, step192) {
@@ -227,6 +240,26 @@ FretChordSheet.prototype.findDrums = function (morder, start192, duration192, dr
 		}
 	}
 	return noteDrums;
+};
+FretChordSheet.prototype.findAllFrets = function (track, morder, start192, duration192, stringNo) {
+	var notes = [];
+	if (morder < this.measures.length) {
+		minfo = this.measures[morder];
+		for (var i = 0; i < minfo.beats.length; i++) {
+			var measureBeat = minfo.beats[i];
+			if (measureBeat.start192 >= start192 && measureBeat.start192 < start192 + duration192) {
+				var measureToneChord = measureBeat.chords[track];
+				for (var n = 0; n < measureToneChord.notes.length; n++) {
+					var measureToneNote = measureToneChord.notes[n];
+					//if (this.octaveStepAccidental(measureToneNote.octave, measureToneNote.step, measureToneNote.accidental) == pitch) {
+					if (this.stringFret(measureToneNote).string==stringNo ) {
+						notes.push({ track: track, morder: morder, beatStart: measureBeat.start192, note: measureToneNote });
+					}
+				}
+			}
+		}
+	}
+	return notes;
 };
 FretChordSheet.prototype.findNotes = function (track, morder, start192, duration192, pitch) {
 	var notes = [];

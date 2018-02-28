@@ -322,7 +322,7 @@ FretChordSheet.prototype.showDrumsMenu = function (n) {
 
 	var me = this;
 	var element = document.createElement('div');
-	element.setAttribute('class', 'menubuttonFoot');
+	element.setAttribute('class', 'menubutton');
 	element.innerText = 'Reset';
 	element.onclick = function () {
 		console.log('reset');
@@ -342,7 +342,7 @@ FretChordSheet.prototype.showDrumsMenu = function (n) {
 FretChordSheet.prototype.setDrumCatFunc = function (trackNo,catNum, catName) {
 	var me = this;
 	var element = document.createElement('div');
-	element.setAttribute('class', 'menubuttonFoot');
+	element.setAttribute('class', 'menubutton');
 	element.innerText = catName;
 	element.onclick = function () {
 		//console.log(catNum);
@@ -375,7 +375,7 @@ FretChordSheet.prototype.showSubDrumsMenu = function (trackNo,drumNo) {
 FretChordSheet.prototype.setSubDrumCatFunc = function (trackNo,drumNo, drumName) {
 	var me = this;
 	var element = document.createElement('div');
-	element.setAttribute('class', 'menubuttonFoot');
+	element.setAttribute('class', 'menubutton');
 	element.innerText = drumName;
 	element.onclick = function () {
 		//me.closeSubDrumsMenu();
@@ -442,7 +442,7 @@ FretChordSheet.prototype.setToneCatFunc = function (trackNum, nn) {
 	};*/
 	var me = this;
 	var element = document.createElement('div');
-	element.setAttribute('class', 'menubuttonFoot');
+	element.setAttribute('class', 'menubutton');
 	element.innerText = me.sampleCategories()[nn].name;
 	element.onclick = function () {
 		me.showMenuToneCategory(trackNum, me.sampleCategories()[nn].name
