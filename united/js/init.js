@@ -311,7 +311,9 @@ FretChordSheet.prototype.init = function () {
 		if (me.options.hideStaff < 2) {
 			me.tileStaffLines(left, top, width, height, lineWidth);
 			me.tileStaffKeySigns(left, top, width, height, lineWidth);
+			me.tileStaffStems(left, top, width, height, lineWidth);
 			me.tileStaffNotes(left, top, width, height, lineWidth);
+			
 			me.tileStaffNoteSpot(left, top, width, height, lineWidth);
 		}
 		if (me.options.hideFrets < 2) {
@@ -345,7 +347,9 @@ FretChordSheet.prototype.init = function () {
 			me.tileStaffLines(left, top, width, height, lineWidth);
 			me.tilStaffGrid(left, top, width, height, lineWidth);
 			me.tileStaffKeySigns(left, top, width, height, lineWidth);
+			me.tileStaffStems(left, top, width, height, lineWidth);
 			me.tileStaffNotes(left, top, width, height, lineWidth);
+			
 			me.tileStaffMark(left, top, width, height, lineWidth);
 			me.tileStaffSpot(left, top, width, height, lineWidth);
 		}
@@ -379,7 +383,9 @@ FretChordSheet.prototype.init = function () {
 			me.tileStaffButtons(left, top, width, height, lineWidth);
 			me.tileStaffLines(left, top, width, height, lineWidth);
 			me.tileStaffKeySigns(left, top, width, height, lineWidth);
+			me.tileStaffStems(left, top, width, height, lineWidth);
 			me.tileStaffNotes(left, top, width, height, lineWidth);
+			
 		}
 		if (me.options.hideFrets < 2) {
 			me.tileFretLines(left, top, width, height, lineWidth);

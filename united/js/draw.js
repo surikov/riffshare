@@ -501,16 +501,74 @@ FretChordSheet.prototype.tileNoteNatural = function (x, y, tg) {
 		, "M 66.61286,320.84315 C 64.805667,319.79356 64.742121,318.17445 65.11286,282.62356 L 65.5,245.5 L 62,245.56379 C 60.075,245.59887 51.075,247.32926 42,249.40909 C 20.083352,254.43201 15.849529,254.84953 13.244763,252.24476 C 10.986338,249.98634 10.943053,248.75921 8.9679622,131 C 7.6544471,52.685357 7.7097889,27.690211 9.2,26.2 C 10.706751,24.693249 17.453715,24.63727 20.203121,26.108707 C 22.252486,27.205494 22.270595,27.616751 21.88738,64.358707 L 21.5,101.5 L 25,101.43621 C 26.925,101.40113 35.925,99.670743 45,97.590908 C 66.833242,92.587101 71.155059,92.155059 73.719854,94.719854 C 76.353767,97.353767 76.651799,106.06811 78.164429,224.67735 C 79.150878,302.02738 79.132272,319.1357 78.060294,320.42735 C 76.540709,322.25834 69.490449,322.51442 66.61286,320.84315 z M 35.661336,214.47043 C 49.2338,211.30284 62.99097,208.00194 65.134277,207.39867 C 66.410233,207.03954 66.89879,205.13656 67.362552,198.71934 C 68.228165,186.74158 68.616094,130.284 67.838133,129.50537 C 67.474106,129.14103 60.049106,130.52033 51.338133,132.57049 C 42.62716,134.62065 32.35,137.03321 28.5,137.93173 L 21.5,139.5654 L 20.858534,145.5327 C 20.505727,148.81471 20.168227,166.2375 20.108534,184.25 L 20,217 L 22.411336,217 C 23.737571,217 29.700071,215.8617 35.661336,214.47043 z " //
 		, this.colors.base);
 }*/
-FretChordSheet.prototype.tileNoteStemUp = function (x, y, tg) { //, yShift, hShift) {
-	tg.layer.tileRectangle(tg.g, tg.x + (x * 3 + 4.05) * tg.layer.tapSize
-		, tg.y + (y * 3 + 1.1 - 6.6 * 3) * tg.layer.tapSize // - dy
-		, 0.4 * tg.layer.tapSize, 6.6 * 3 * tg.layer.tapSize //+ dy + dh
-		, this.colors.base);
+FretChordSheet.prototype.tileNoteStemUp = function (x, y, tg, color, shift) { //, yShift, hShift) {
+	var c = color || '#999';
+	shift = shift || 0;
+	tg.layer.tileRectangle(tg.g//
+		, tg.x + (x * 3 + 3.93) * tg.layer.tapSize - 0.4 * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 1.1 - 6.6 * 3) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize// - dy
+		, 0.4 * tg.layer.tapSize//
+		, 6.6 * 3 * tg.layer.tapSize //+ dy + dh
+		, c);
 }
-FretChordSheet.prototype.tileNoteStemDown = function (x, y, tg) {
-	tg.layer.tileRectangle(tg.g, tg.x + (x * 3 - 0.7) * tg.layer.tapSize, tg.y + (y * 3 + 2.4) * tg.layer.tapSize
-		, 0.4 * tg.layer.tapSize, 6.6 * 3 * tg.layer.tapSize, this.colors.base);
+FretChordSheet.prototype.tileNoteStemDown = function (x, y, tg, color, shift) {
+	var c = color || '#999';
+	shift = shift || 0;
+	tg.layer.tileRectangle(tg.g
+		, tg.x + (x * 3 - 0.7) * tg.layer.tapSize - 0.5 * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 2.4) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, 0.4 * tg.layer.tapSize
+		, 6.6 * 3 * tg.layer.tapSize
+		, c);
 }
+FretChordSheet.prototype.tileNoteFlag8down = function (x, y, tg, color, shift) {
+	var c = color || '#999';
+	shift = shift || 0;
+	tg.layer.tilePath(tg.g, tg.x + (x * 3 - 1.22) * tg.layer.tapSize+ shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 12.8 + 9.4) * tg.layer.tapSize+ shift * 0.05 * tg.layer.tapSize
+		, 0.05 * tg.layer.tapSize //
+		, "M0,0c12.6003,3.13153 8.52623,-13.80134 11.38796,-21.63203c2.73069,-23.02648 17.77757,-41.09454 32.75498,-57.22844c18.58194,-20.27957 38.31331,-41.78204 44.35311,-69.87805c6.59531,-32.5975 -3.94836,-65.94508 -17.63124,-95.15867c-0.99081,-9.36267 -17.72272,-22.90831 -9.75105,-5.98947c13.4229,28.94262 24.51194,62.27485 15.34996,94.32426c-8.72487,31.97927 -43.57272,61.42695 -75.94619,66.21582l-0.51753,89.34658z" //
+		, c);
+}
+FretChordSheet.prototype.tileNoteFlag16down = function (x, y, tg, color, shift) {
+	var c = color || '#999';
+	shift = shift || 0;
+	tg.layer.tilePath(tg.g, tg.x + (x * 3 - 1.22) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 12.8 + 9.4) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, 0.05 * tg.layer.tapSize //
+		, "M0,0c12.6003,3.13154 8.52623,-13.80133 11.38796,-21.63203c2.73069,-23.02647 17.77757,-41.09454 32.75498,-57.22844c18.58194,-20.27957 38.31331,-41.78203 44.35311,-69.87805c6.59531,-32.5975 7.44227,-54.13258 -6.24061,-83.34617c3.67185,22.95315 3.37026,44.47287 -5.79172,76.52229c-8.72487,31.97927 -43.57272,61.42695 -75.94619,66.21582l-0.51753,89.34658z" //
+		, c);
+	tg.layer.tilePath(tg.g, tg.x + (x * 3 - 1.22) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 10.8 + 8.4) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, 0.05 * tg.layer.tapSize //
+		, "M0,0c12.6003,3.13153 8.52623,-13.80134 11.38796,-21.63203c2.73069,-23.02648 17.77757,-41.09454 32.75498,-57.22844c18.58194,-20.27957 38.31331,-41.78204 44.35311,-69.87805c6.59531,-32.5975 -3.94836,-65.94508 -17.63124,-95.15867c-0.99081,-9.36267 -17.72272,-22.90831 -9.75105,-5.98947c13.4229,28.94262 24.51194,62.27485 15.34996,94.32426c-8.72487,31.97927 -43.57272,61.42695 -75.94619,66.21582l-0.51753,89.34658z" //
+		, c);
+}
+FretChordSheet.prototype.tileNoteFlag32down = function (x, y, tg, color, shift) {
+	var c = color || '#999';
+	shift = shift || 0;
+	tg.layer.tilePath(tg.g, tg.x + (x * 3 - 1.22) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 12.8 + 9.4-0) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, 0.05 * tg.layer.tapSize //
+		, "M0,0c12.6003,3.13154 8.52623,-13.80133 11.38796,-21.63203c2.73069,-23.02647 17.77757,-41.09454 32.75498,-57.22844c18.58194,-20.27957 38.31331,-41.78203 44.35311,-69.87805c6.59531,-32.5975 7.44227,-54.13258 -6.24061,-83.34617c3.67185,22.95315 3.37026,44.47287 -5.79172,76.52229c-8.72487,31.97927 -43.57272,61.42695 -75.94619,66.21582l-0.51753,89.34658z" //
+		, c);
+	tg.layer.tilePath(tg.g, tg.x + (x * 3 - 1.22) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 12.8 + 9.4-3) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, 0.05 * tg.layer.tapSize //
+		, "M0,0c12.6003,3.13154 8.52623,-13.80133 11.38796,-21.63203c2.73069,-23.02647 17.77757,-41.09454 32.75498,-57.22844c18.58194,-20.27957 38.31331,-41.78203 44.35311,-69.87805c6.59531,-32.5975 7.44227,-54.13258 -6.24061,-83.34617c3.67185,22.95315 3.37026,44.47287 -5.79172,76.52229c-8.72487,31.97927 -43.57272,61.42695 -75.94619,66.21582l-0.51753,89.34658z" //
+		, c);
+	tg.layer.tilePath(tg.g, tg.x + (x * 3 - 1.22) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, tg.y + (y * 3 + 10.8 + 8.4-3) * tg.layer.tapSize + shift * 0.05 * tg.layer.tapSize
+		, 0.05 * tg.layer.tapSize //
+		, "M0,0c12.6003,3.13153 8.52623,-13.80134 11.38796,-21.63203c2.73069,-23.02648 17.77757,-41.09454 32.75498,-57.22844c18.58194,-20.27957 38.31331,-41.78204 44.35311,-69.87805c6.59531,-32.5975 -3.94836,-65.94508 -17.63124,-95.15867c-0.99081,-9.36267 -17.72272,-22.90831 -9.75105,-5.98947c13.4229,28.94262 24.51194,62.27485 15.34996,94.32426c-8.72487,31.97927 -43.57272,61.42695 -75.94619,66.21582l-0.51753,89.34658z" //
+		, c);
+}
+
+
+
+
+
+
 FretChordSheet.prototype.tileNoteSingle4up = function (x, y, tg) {
 	this.tileNoteHead(x, y, tg);
 	this.tileNoteStemUp(x, y, tg);
@@ -1068,6 +1126,78 @@ FretChordSheet.prototype.tileStaffNotes = function (left, top, width, height, li
 			mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 		}*/
 };
+FretChordSheet.prototype.tileStaffStems = function (left, top, width, height, lineWidth) {
+	var me = this;
+	var mx = 0;
+	for (var x = 0; x < this.measures.length; x++) {
+		var minfo = this.measureInfo(x);
+		if (minfo) {
+			minfo.beats.sort(function (a, b) { return a.start192 - b.start192; });
+			for (var i = 0; i < 8; i++) {
+				for (var trackNum = 0; trackNum < 8; trackNum++) {
+					if (me.trackOrder[trackNum] == 7 - i) {
+						me.tileStaffMeasureStems(x, minfo, mx, trackNum, left, top, width, height, lineWidth);
+					}
+				}
+			}
+		}
+		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
+	}
+}
+FretChordSheet.prototype.tileStaffMeasureStems = function (x, minfo, mx, trackNum, left, top, width, height, lineWidth) {
+	var me = this;
+	this.layerOctaves.renderGroup(mx + this.margins.sheetLeft
+		, this.margins.sheetTop
+		, (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize
+		, 6 * 7 * 3 * this.tiler.tapSize
+		, 'staffStems' + trackNum + 'x' + x, left, top, width, height, function (tg) {
+			minfo.beats.sort(function (a, b) { return a.start192 - b.start192; });
+			for (var b = 0; b < minfo.beats.length; b++) {
+				var beat = minfo.beats[b];
+				if (beat) {
+					for (var c = 0; c < beat.chords.length; c++) {
+						if (c == trackNum) {
+							var chord = beat.chords[c];
+							if (chord) {
+								for (var n = 0; n < chord.notes.length; n++) {
+									var note = chord.notes[n];
+									if (note) {
+										var color = me.trackInfo[c].shadow;
+										if (me.trackOrder[trackNum] == 0) {
+											color = me.trackInfo[c].color;
+										}
+										var octaveShift = minfo.shifts[trackNum] || 0;
+										var yy = 6 * 7 - 7 * (note.octave - octaveShift) - note.step - 1;
+										var xx = me.options.measureHeader + beat.start192 / 6;
+										var duration192 = note.slides[note.slides.length - 1].end192;
+										var duration32 = duration192 / 6;
+										if (duration32 < 2) {
+											//console.log('1/32', note);
+											me.tileNoteFlag32down(xx, yy, tg, color, me.trackOrder[trackNum]);
+										} else {
+											if (duration32 < 4) {
+												//console.log('1/16', note);
+												me.tileNoteFlag16down(xx, yy, tg, color, me.trackOrder[trackNum]);
+											} else {
+												if (duration32 <8) {
+													//console.log('1/8', note);
+													me.tileNoteFlag8down(xx, yy, tg, color, me.trackOrder[trackNum]);
+												}
+											}
+										}
+										if (duration32 < 16) {
+											me.tileNoteStemDown(xx, yy, tg, color, me.trackOrder[trackNum]);
+										}
+										//me.tileNoteHead(xx, yy, tg, color, me.trackOrder[trackNum]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
 FretChordSheet.prototype.tileStaffButtons = function (left, top, width, height, lineWidth) {
 	var me = this;
 	var mx = 0;
@@ -1572,30 +1702,31 @@ FretChordSheet.prototype.tileFretMeasureNotes = function (x, minfo, mx, trackNum
 										//var xx = me.options.measureHeader + beat.start192 / 6;
 										var ss = me.stringFret(note);
 										var tx1 = me.options.measureHeader * 3 * tg.layer.tapSize + tg.x + beat.start192 / 6 * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize;
-										if(note.slides){
-										var tx2 = me.findBeatX(x, beat.start192 + note.slides[note.slides.length - 1].end192 - 6) + 1.5 * tg.layer.tapSize;
-										if (tx2 - tx1 < 1) {
-											tx2 = tx1 + 1;
-										}
-										var ty1 = tg.y + 2 * ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize;
-										//console.log(trackNum,me.stringFret(note));
-										//me.tileFretNoteLine(tg, note, beat.start192, x, color, me.trackOrder[trackNum]);
-										tg.layer.tileLine(tg.g
-											//, tg.x + xx * 3 * tg.layer.tapSize
-											, tx1 + delta
-											, ty1 + delta
-											//, tg.x + xx * 3 * tg.layer.tapSize + 1
-											, tx2 + delta
-											, tg.y + 2 * ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize + delta
-											, color, 2.9 * tg.layer.tapSize);
-										if (me.trackOrder[trackNum] == 0) {
-											var label = '' + ss.fret;
-											if (note.vibrato) {
-												label = label + '~';
+										if (note.slides) {
+											var tx2 = me.findBeatX(x, beat.start192 + note.slides[note.slides.length - 1].end192 - 6) + 1.5 * tg.layer.tapSize;
+											if (tx2 - tx1 < 1) {
+												tx2 = tx1 + 1;
 											}
-											tg.layer.tileText(tg.g, tx1, ty1 + 1 * tg.layer.tapSize, 2.5 * tg.layer.tapSize, label, me.colors.noteLabel);
+											var ty1 = tg.y + 2 * ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize;
+											//console.log(trackNum,me.stringFret(note));
+											//me.tileFretNoteLine(tg, note, beat.start192, x, color, me.trackOrder[trackNum]);
+											tg.layer.tileLine(tg.g
+												//, tg.x + xx * 3 * tg.layer.tapSize
+												, tx1 + delta
+												, ty1 + delta
+												//, tg.x + xx * 3 * tg.layer.tapSize + 1
+												, tx2 + delta
+												, tg.y + 2 * ss.string * 3 * tg.layer.tapSize + 1.5 * tg.layer.tapSize + delta
+												, color, 2.9 * tg.layer.tapSize);
+											if (me.trackOrder[trackNum] == 0) {
+												var label = '' + ss.fret;
+												if (note.vibrato) {
+													label = label + '~';
+												}
+												tg.layer.tileText(tg.g, tx1, ty1 + 1 * tg.layer.tapSize, 2.5 * tg.layer.tapSize, label, me.colors.noteLabel);
+											}
 										}
-									}}
+									}
 								}
 							}
 						}
@@ -1741,15 +1872,15 @@ FretChordSheet.prototype.tileFretMark = function (left, top, width, height, line
 		var mx = 0;
 		for (var x = 0; x < this.measures.length; x++) {
 			var minfo = this.measureInfo(x);
-			if (x == this.fretMark.measureNo) {				
+			if (x == this.fretMark.measureNo) {
 				this.layerNotes.renderGroup(mx + this.margins.sheetLeft + this.options.measureHeader * 3 * this.tiler.tapSize
-					, this.margins.fretTop 
+					, this.margins.fretTop
 					, (this.options.measureHeader + minfo.duration4 * 8 - this.options.measureHeader) * 3 * this.tiler.tapSize
-					, 6*2 * 3 * this.tiler.tapSize
-					, 'markFretNote' , left, top, width, height, function (tg) {
+					, 6 * 2 * 3 * this.tiler.tapSize
+					, 'markFretNote', left, top, width, height, function (tg) {
 						tg.layer.tileCircle(tg.g
 							, tg.x + me.fretMark.start192 / 6 * 3 * me.tiler.tapSize + 3 * me.tiler.tapSize / 2
-							, tg.y + tg.h - (5-me.fretMark.stringNo)*2 * 3 * me.tiler.tapSize - 9 * me.tiler.tapSize / 2
+							, tg.y + tg.h - (5 - me.fretMark.stringNo) * 2 * 3 * me.tiler.tapSize - 9 * me.tiler.tapSize / 2
 							, 3 * me.tiler.tapSize / 2
 							, me.colors.buttonFill
 						);
