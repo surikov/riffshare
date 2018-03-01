@@ -285,8 +285,9 @@ FretChordSheet.prototype.tileFretSpot = function (left, top, width, height, line
 						}*/
 						note.slides.push({ shift: 0, end192: fullTo192+duration192 });
 						//console.log(track,curMeasureNo,note);
-						me.userActionAddNote(track, curMeasureNo, cur192, note);
-						me.fretMark = null;
+						//me.userActionAddNote(track, curMeasureNo, cur192, note);
+						me.showFretsMenu(track, curMeasureNo, cur192, note);
+						
 					} else {
 
 						var noteBeats = me.findAllFrets(track, this.morder, start192, duration192, stringNo);

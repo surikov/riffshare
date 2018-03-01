@@ -141,7 +141,9 @@
 		me.closeMainMenu();
 		me.promptImport();
 	};
-
+	document.getElementById('closeFretMenuB').onclick = function () {
+		me.closeFretsMenu();
+	};
 	document.getElementById('switchPianoB').onclick = function () {
 		me.userActionSetHidePiano(me.options.hidePiano == 1 ? 2 : 1);
 		me.setPanelsLabels();
@@ -304,6 +306,42 @@ FretChordSheet.prototype.showPanelsMenu = function () {
 FretChordSheet.prototype.closePanelsMenu = function () {
 	document.getElementById('menuPanels').style.width = '0';
 };
+FretChordSheet.prototype.closeFretsMenu = function () {
+	document.getElementById('menuFretSel').style.width = '0';
+};
+FretChordSheet.prototype.showFretsMenu = function (track, curMeasureNo, cur192, note) {
+	var me = this;
+	document.getElementById('fretButton0').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 0); };
+	document.getElementById('fretButton1').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 1); };
+	document.getElementById('fretButton2').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 2); };
+	document.getElementById('fretButton3').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 3); };
+	document.getElementById('fretButton4').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 4); };
+	document.getElementById('fretButton5').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 5); };
+	document.getElementById('fretButton6').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 6); };
+	document.getElementById('fretButton7').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 7); };
+	document.getElementById('fretButton8').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 8); };
+	document.getElementById('fretButton9').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 9); };
+	document.getElementById('fretButton10').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 10); };
+	document.getElementById('fretButton11').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 11); };
+	document.getElementById('fretButton12').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 12); };
+	document.getElementById('fretButton13').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 13); };
+	document.getElementById('fretButton14').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 14); };
+	document.getElementById('fretButton15').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 15); };
+	document.getElementById('fretButton16').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 16); };
+	document.getElementById('fretButton17').onclick = function () { me.setFretsNote(track, curMeasureNo, cur192, note, 17); };
+	document.getElementById('menuFretSel').style.width = this.menuWidth() + 'px';
+};
+FretChordSheet.prototype.setFretsNote = function (track, curMeasureNo, cur192, note, fret) {
+	note.fret = fret;
+	var pitch = this.stringPitches[note.string] + note.fret;
+	note.octave = 1 + Math.floor(pitch / 12);
+	note.step = this.note7(pitch % 12);
+	note.accidental = (pitch % 12) - this.note12(note.step);
+	this.userActionAddNote(track, curMeasureNo, cur192, note);
+	this.fretMark = null;
+	this.closeFretsMenu();
+	this.tiler.resetAllLayersNow();
+};
 FretChordSheet.prototype.showDrumsMenu = function (n) {
 	var span = document.getElementById('drmcatname');
 	//console.log(n,span);
@@ -326,7 +364,7 @@ FretChordSheet.prototype.showDrumsMenu = function (n) {
 	element.innerText = 'Reset';
 	element.onclick = function () {
 		console.log('reset');
-		me.userActionSetDrumSample(n,-1);
+		me.userActionSetDrumSample(n, -1);
 		me.closeDrumsMenu();
 	};
 	document.getElementById('catdrumscontent').appendChild(element);
@@ -335,36 +373,36 @@ FretChordSheet.prototype.showDrumsMenu = function (n) {
 	for (var i = 0; i < cats.length; i++) {
 		//this.setToneCatFunc(trackNum, i);
 		//console.log(cats[i]);
-		this.setDrumCatFunc(n,cats[i].num, cats[i].name);
+		this.setDrumCatFunc(n, cats[i].num, cats[i].name);
 	}
 
 };
-FretChordSheet.prototype.setDrumCatFunc = function (trackNo,catNum, catName) {
+FretChordSheet.prototype.setDrumCatFunc = function (trackNo, catNum, catName) {
 	var me = this;
 	var element = document.createElement('div');
 	element.setAttribute('class', 'menubutton');
 	element.innerText = catName;
 	element.onclick = function () {
 		//console.log(catNum);
-		me.stackLikeDrumNo=trackNo;
-		me.showSubDrumsMenu(trackNo,catNum);
+		me.stackLikeDrumNo = trackNo;
+		me.showSubDrumsMenu(trackNo, catNum);
 		me.closeDrumsMenu();
 		me.closeVolumesMenu();
 	};
 	document.getElementById('catdrumscontent').appendChild(element);
 };
-FretChordSheet.prototype.showSubDrumsMenu = function (trackNo,drumNo) {
+FretChordSheet.prototype.showSubDrumsMenu = function (trackNo, drumNo) {
 	document.getElementById('menuSubDrums').style.width = this.menuWidth() + 'px';
-	console.log(trackNo,drumNo);
+	console.log(trackNo, drumNo);
 	document.getElementById('subdrumscontent').innerHTML = '';
 	//this.setSubDrumCatFunc(trackNo,drumNo,'aaa');
 	//this.setSubDrumCatFunc(trackNo,drumNo,'bbb');
 	for (var i = 0; i < this.player.loader.drumKeys().length; i++) {
 		var info = this.player.loader.drumInfo(i);
 		//var key = this.player.loader.drumKeys()[i];
-		if(info.pitch==drumNo){
+		if (info.pitch == drumNo) {
 			//console.log(info);
-			this.setSubDrumCatFunc(trackNo,i,''+i+'. '+info.title);
+			this.setSubDrumCatFunc(trackNo, i, '' + i + '. ' + info.title);
 		}
 		/*var p = 1 * key.substr(0, 3);
 		if (p >= from && p <= to) {
@@ -372,7 +410,7 @@ FretChordSheet.prototype.showSubDrumsMenu = function (trackNo,drumNo) {
 		}*/
 	}
 }
-FretChordSheet.prototype.setSubDrumCatFunc = function (trackNo,drumNo, drumName) {
+FretChordSheet.prototype.setSubDrumCatFunc = function (trackNo, drumNo, drumName) {
 	var me = this;
 	var element = document.createElement('div');
 	element.setAttribute('class', 'menubutton');
@@ -380,7 +418,7 @@ FretChordSheet.prototype.setSubDrumCatFunc = function (trackNo,drumNo, drumName)
 	element.onclick = function () {
 		//me.closeSubDrumsMenu();
 		//console.log('set',trackNo,'to',drumNo);
-		me.userActionSetDrumSample(trackNo,drumNo);
+		me.userActionSetDrumSample(trackNo, drumNo);
 	};
 	document.getElementById('subdrumscontent').appendChild(element);
 };
@@ -500,7 +538,7 @@ FretChordSheet.prototype.showMainMenu = function () {
 		};
 	}*/
 
-	
+
 	document.getElementById('feelLabel').innerHTML = 'Feel: ' + this.feelNames[this.options.feel];
 	//document.getElementById('rangeFeel').value=this.options.feel;
 	//console.log(this.options.feel);
@@ -516,12 +554,12 @@ FretChordSheet.prototype.showMainMenu = function () {
 };
 FretChordSheet.prototype.setDrumClick = function (n) {
 	var me = this;
-	var title=this.drumInfo[n-8].title;
-	if(this.subSamples[n]){
-		var info = this.waplayer().loader.drumInfo(this.subSamples[n]-1);
-		title=(this.subSamples[n]-1)+'. '+info.title;
+	var title = this.drumInfo[n - 8].title;
+	if (this.subSamples[n]) {
+		var info = this.waplayer().loader.drumInfo(this.subSamples[n] - 1);
+		title = (this.subSamples[n] - 1) + '. ' + info.title;
 	}
-	document.getElementById('drumVolume' + n).innerHTML=title;
+	document.getElementById('drumVolume' + n).innerHTML = title;
 	document.getElementById('drumVolume' + n).onclick = function () {
 		//console.log(n);
 		me.showDrumsMenu(n);
