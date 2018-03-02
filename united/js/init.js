@@ -42,7 +42,7 @@ FretChordSheet.prototype.init = function () {
 	this.breakNames = ['none', 'narrow', 'wide'];
 
 	this.selection=null;
-
+	this.coloredMode=false;
 	this.feelPattern6 = [[0, 24, 48], [0, 12, 24, 36, 48], [0, 15, 30, 39, 48], [0, 8, 16, 24, 32, 40, 48], [0, 6, 12, 18, 24, 30, 36, 42, 48]];
 	this.measureModeNames = ['3/4', '4/4', '5/4', '6/4', '7/4'];
 	this.options = {

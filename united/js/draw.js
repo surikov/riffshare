@@ -829,7 +829,13 @@ FretChordSheet.prototype.tilePianoOctaveLines = function (left, top, width, heig
 		mx = mx + (this.options.measureHeader + minfo.duration4 * 8) * 3 * this.tiler.tapSize;
 	}
 };
-
+FretChordSheet.prototype.upperColor=function(n){
+	if(this.coloredMode){
+		return this.trackInfo[me.upperTrackNum()].color;
+	}else{
+		return '#000';
+	}
+};
 FretChordSheet.prototype.tileSmallNoteNatural = function (x, y, tg, color, shift) {
 	var c = color || '#999';
 	shift = shift || 0;
@@ -1008,7 +1014,8 @@ FretChordSheet.prototype.tileStaffMeasureNotes = function (x, minfo, mx, trackNu
 									if (note) {
 										var color = me.trackInfo[c].shadow;
 										if (me.trackOrder[trackNum] == 0) {
-											color = me.trackInfo[c].color;
+											color = //me.trackInfo[c].color;
+												me.upperColor(c);
 										}
 										var octaveShift = minfo.shifts[trackNum] || 0;
 										var yy = 6 * 7 - 7 * (note.octave - octaveShift) - note.step - 1;
@@ -1164,7 +1171,8 @@ FretChordSheet.prototype.tileStaffMeasureStems = function (x, minfo, mx, trackNu
 									if (note) {
 										var color = me.trackInfo[c].shadow;
 										if (me.trackOrder[trackNum] == 0) {
-											color = me.trackInfo[c].color;
+											color = //me.trackInfo[c].color;
+												me.upperColor(c);
 										}
 										var octaveShift = minfo.shifts[trackNum] || 0;
 										var yy = 6 * 7 - 7 * (note.octave - octaveShift) - note.step - 1;
@@ -1557,7 +1565,8 @@ FretChordSheet.prototype.tilePianorollMeasureNotes = function (x, minfo, mx, tra
 										var note = chord.notes[n];
 										if (note) {
 											if (note.octave >= (5 - y) && note.octave < (6 - y)) {
-												var color = me.trackInfo[c].color;
+												var color = //me.trackInfo[c].color;
+													me.upperColor(c);
 												if (me.trackOrder[trackNum] > 0) {
 													color = me.trackInfo[c].shadow;
 												}
@@ -1694,7 +1703,8 @@ FretChordSheet.prototype.tileFretMeasureNotes = function (x, minfo, mx, trackNum
 									if (note) {
 										var color = me.trackInfo[c].shadow;
 										if (me.trackOrder[trackNum] == 0) {
-											color = me.trackInfo[c].color;
+											color = //me.trackInfo[c].color;
+											me.upperColor(c);
 											//var ss=me.stringFret(note);
 										}
 										var octaveShift = minfo.shifts[trackNum] || 0;
