@@ -1,0 +1,169 @@
+<html>
+	<head>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src="http://webaudiomodules.org/audioworklet.js"></script>
+		<script src='lib/wamtoolslib.js'></script>
+		<script src='lib/MIDI.js'></script>
+		<script src='lib/midiPlayer.js'></script>
+	</head>
+	<body>
+		<h1>WAM</h1>
+		<p>Open setting
+			<a href='gui/dexedgui.html'>DEXED</a> 
+			| <a href='gui/dx7gui.html'>DX7</a> 
+			| <a href='gui/noisemakergui.html'>NOISEMAKER</a>
+			| <a href='gui/obxdgui.html'>OBXD</a>
+			| <a href='gui/wafontgui.html'>WebAudioFont</a>
+		</p>
+		<p>Select
+			<a href='javascript:setCurrentSynth(synth_dexed,"DEXED");'>DEXED</a> 
+			| <a href='javascript:setCurrentSynth(synth_dx7,"DX7");'>DX7</a> 
+			| <a href='javascript:setCurrentSynth(synth_noisemaker,"NOISEMAKER");'>NOISEMAKER</a>
+			| <a href='javascript:setCurrentSynth(synth_obxd,"OBXD");'>OBXD</a>
+			| <a href='javascript:setCurrentSynth(synth_wafont,"WAFont");'>WebAudioFont</a>
+		</p>
+		<p>Test selected <span id="synthLabel">[none]</span>
+			<a href='#' onclick='testSingleNote();'>testSingleNote</a> 
+			| <a href='#' onclick='testQuiedNote();'>testQuiedNote</a> 
+			| <a href='#' onclick='testChord();'>testChord</a> 
+			| <a href='#' onclick='testSequence();'>testSequence</a>
+			| <a href='#' onclick='testStart();'>testStart</a>
+			| <a href='#' onclick='testStop();'>testStop</a>
+		</p>
+		<p>Output <a href='#' onclick='output.gain.setValueAtTime(0.2, audioContext.currentTime);'>quiet</a>
+		| <a href='#' onclick='output.gain.setValueAtTime(1, audioContext.currentTime);'>normal</a>
+		| <a href='#' onclick='output.gain.setValueAtTime(1.75, audioContext.currentTime);'>loud</a>
+		</p>
+		<p>Load MIDI 
+			<a href='#' onclick='handleExample("midi/brubeck_dave-take_five.mid")'>example 1</a>
+			| <a href='#' onclick='handleExample("midi/DasBoot.mid")'>example 2</a>
+			| <a href='#' onclick='handleExample("midi/Hans_Zimmer_-_Pirates_Of_The_Caribbean.mid")'>example 3</a>
+			| <a href='#' onclick='handleExample("midi/Movie_Themes_-_Psycho.mid")'>example 4</a>
+			| <a href='#' onclick='handleExample("midi/Nirvana_-_Come_As_You_Are.mid")'>example 5</a>
+			| <a href='#' onclick='handleExample("midi/sym40-1.mid")'>example 6</a>
+			| from .mid file <input type="file" id="filesinput" name="filesarr[]"/>
+		</p>
+		<div id='midiTracks'>&nbsp;</div>
+		<script>		
+			console.log('index v1.14');			
+			window.WAM = window.WAM || {};
+			AWPF.origin = "http://www.webaudiomodules.org/";
+			WAM.origin = "http://webaudiomodules.org/";
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			if (!(audioContext.audioWorklet)) {
+				console.log('redefine audioWorklet');
+				AWPF.polyfill(audioContext).then(
+					function () {
+					console.log('done redefine audioWorklet');
+				}, function (e) {
+					console.log('error redefine audioWorklet', e);
+				});
+			}
+			var output = audioContext.createGain();
+			output.connect(audioContext.destination);
+			output.gain.setValueAtTime(1.0, audioContext.currentTime);
+			var currentSynth = null;
+			var synth_dexed = null;
+			var synth_dx7 = null;
+			var synth_noisemaker = null;
+			var synth_obxd = null;
+			var synth_wafont = new WAFWrapper(audioContext, 'wafonttest', output);
+			setCurrentSynth(synth_wafont,"WAFont");
+			loadScriptsIntoDocument(['http://webaudiomodules.org/wamsdk/wam-controller.js'], function () {
+				loadWAMsynthModule(['https://webaudiomodules.org/synths/dexed.js'
+					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+					, 'https://webaudiomodules.org/synths/wasm/dexed/dexed-base64.js' //
+					, 'https://webaudiomodules.org/synths/wasm/dexed/dexed-loader.js' //
+					, 'https://webaudiomodules.org/synths/wasm/dexed/dexed-awp.js' //
+					], audioContext, output, 'DEXED', function (m) {
+					synth_dexed = m;
+					loadRawWAM('somename3', synth_dexed);
+					redefineNoteSend(synth_dexed);
+					setCurrentSynth(synth_dexed,"DEXED");
+					console.log('done synth_dexed', synth_dexed);
+				});
+				loadWAMsynthModule(['http://www.webaudiomodules.org/synths/dx7.js'
+					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+					, 'https://webaudiomodules.org/synths/wasm/dx7/dx7-wasm.js' //
+					, 'https://webaudiomodules.org/synths/wasm/dx7/dx7-loader.js' //
+					, 'https://webaudiomodules.org/synths/wasm/dx7/dx7-awp.js' //
+					], audioContext, output, 'DX7', function (m) {
+					synth_dx7 = m;
+					loadRawWAM('somenameblablabla', synth_dx7);
+					redefineNoteSend(synth_dx7);
+					setCurrentSynth(synth_dx7,"DX7");
+					console.log('done synth_dx7', synth_dx7);
+				});
+				loadWAMsynthModule(['https://webaudiomodules.org/synths/noisemaker.js'
+					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+					, 'https://webaudiomodules.org/synths/wasm/noisemaker/noisemaker-wasm.js' //
+					, 'https://webaudiomodules.org/synths/wasm/noisemaker/noisemaker-loader.js' //
+					, 'https://webaudiomodules.org/synths/wasm/noisemaker/noisemaker-awp.js' //
+					], audioContext, output, 'NOISEMAKER', function (m) {
+					synth_noisemaker = m;
+					loadRawWAM('fornoisemaker', synth_noisemaker);
+					redefineNoteSend(synth_noisemaker);
+					setCurrentSynth(synth_noisemaker,"NOISEMAKER");
+					console.log('done synth_noisemaker', synth_noisemaker);
+				});
+				loadWAMsynthModule(['http://webaudiomodules.org/synths/obxd.js'
+					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+					, 'http://webaudiomodules.org/synths/wasm/obxd/obxd-wasm.js' //
+					, 'http://webaudiomodules.org/synths/wasm/obxd/obxd-loader.js' //
+					, 'http://webaudiomodules.org/synths/wasm/obxd/obxd-awp.js' //
+					], audioContext, output, 'OBXD', function (m) {
+					synth_obxd = m;
+					loadRawWAM('setttingobxd', synth_obxd);
+					redefineNoteSend(synth_obxd);
+					setCurrentSynth(synth_obxd,"OBXD");
+					console.log('done synth_obxd', synth_obxd);
+				});
+			});
+			function testSingleNote() {
+				queueNote(currentSynth, audioContext, audioContext.currentTime, 60, 127, 1);
+			}
+			function testQuiedNote() {
+				queueNote(currentSynth, audioContext, audioContext.currentTime, 60, 33, 1);
+			}
+			function testChord() {
+				queueNote(currentSynth, audioContext, audioContext.currentTime, 60, 127, 1);
+				queueNote(currentSynth, audioContext, audioContext.currentTime, 60 + 4, 127, 1);
+				queueNote(currentSynth, audioContext, audioContext.currentTime, 60 + 7, 127, 1);
+			}
+			function testSequence() {
+				var targetTime = audioContext.currentTime + 0.54321;
+				queueNote(currentSynth, audioContext, targetTime, 60, 127, 1);
+				queueNote(currentSynth, audioContext, targetTime, 60 + 4, 127, 1);
+				queueNote(currentSynth, audioContext, targetTime, 60 + 7, 127, 1);
+				queueNote(currentSynth, audioContext, targetTime + 1, 60 + 1, 127, 1);
+				queueNote(currentSynth, audioContext, targetTime + 2, 60 + 2, 127, 3);
+				queueNote(currentSynth, audioContext, targetTime + 2 + 0.5, 60 + 2 + 4, 127, 0.5);
+				queueNote(currentSynth, audioContext, targetTime + 2 + 1, 60 + 2 + 7, 127, 0.5);
+			}
+			function testStart() {
+				currentSynth.dispatchStartPitch(60, 127);
+			}
+			function testStop() {
+				currentSynth.dispatchCancelPitch(60, 127);
+			}
+			function cancelCurrentSynth(){
+				if(currentSynth){
+					for(var i=0;i<128;i++){
+						currentSynth.dispatchCancelPitch(i, 127);
+					}
+				}
+			}
+			function setCurrentSynth(synth, label) {
+				cancelCurrentSynth();
+				currentSynth = synth;
+				document.getElementById("synthLabel").innerHTML = label;
+			}
+			startListenMIDI(function (pitch, velocity) {
+				currentSynth.dispatchStartPitch(pitch, velocity);
+			}, function (pitch, ) {
+				currentSynth.dispatchCancelPitch(pitch);
+			});
+		</script>
+	</body>
+</html>

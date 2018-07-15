@@ -1,0 +1,33 @@
+body {
+    background-color: #2A2C30;
+	color:#909193;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+a:link {
+    color: #88D6C4;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:visited {
+    color: #88D6C4;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:hover {
+    color: #88D6C4;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:active {
+    color: #88D6C4;
+	text-decoration: none;
+	font-weight: bold;
+}
+#wamGUIdiv {
+	text-align: center;
+}
+#wamgui {
+	margin: auto;
+    width: 815px;
+}
+

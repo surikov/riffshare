@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src='http://www.webaudiomodules.org/libs/webcomponentsjs/webcomponents-lite.min.js'></script>
+		<script src='../lib/wamtoolslib.js'></script>
+		<script src="http://webaudiomodules.org/audioworklet.js"></script>
+		<link rel='import' href='http://www.webaudiomodules.org/wam-host.html'>
+		<link rel="stylesheet" type="text/css" href="dexedgui.css">
+	</head>
+	<body>
+	<div id='wamGUIdiv'>
+		<h1>
+			DEXED
+		</h1>
+		<p>
+			Press webDEXED to show advanced GUI
+		</p>
+		<p>
+			<a href='../'>back to index</a>
+		</p>
+		<script>
+			console.log('dexedgui v1.02');
+			AWPF.origin = "http://www.webaudiomodules.org/";
+			WAM.origin = "http://webaudiomodules.org/";
+		</script>
+		<wam-host id='wamgui' src='http://www.webaudiomodules.org/synths/dexed.html' autoconnect></wam-host>
+		<script>
+			redefineInitGUI(wamgui,'somename3');
+		</script>
+	</div>
+	</body>
+</html>

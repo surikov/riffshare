@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<link rel="stylesheet" type="text/css" href="wafontgui.css">
+		<script src='../lib/wamtoolslib.js'></script>
+	</head>
+	<body>
+	<div id='wamGUIdiv'>
+		<h1>
+			Web Audio Font
+		</h1>
+		<p>
+			<a href='../'>back to index</a>
+		</p>
+		<p>
+			<select id='libset' onchange="changesel(this)"></select>
+		</p>
+		<script>
+			console.log('wafontgui v1.01');
+			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+			var audioContext = new AudioContextFunc();
+			var synth_waf=new WAFWrapper(audioContext,'wafonttest',audioContext.destination);
+			var sel = document.getElementById('libset');
+			for(var i = 0; i < synth_waf.player.loader.instrumentKeys().length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = ''+(i+1)+'. '+synth_waf.player.loader.instrumentInfo(i).title;
+				if(i==synth_waf.state.preset){
+					opt.selected = 'selected'
+				}
+				sel.appendChild(opt);
+			}
+			function changesel(o) {
+				var n = document.getElementById('libset').selectedIndex;
+				synth_waf.state.preset = n;
+				synth_waf.saveState();
+				synth_waf.loadInstr(n, function () {
+					queueNote(synth_waf, synth_waf.audioContext, synth_waf.audioContext.currentTime, 60, 127, 1);
+				});
+			}
+		</script>
+	</div>
+	</body>
+</html>
