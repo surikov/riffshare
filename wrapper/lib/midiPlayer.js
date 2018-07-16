@@ -1,4 +1,4 @@
-console.log('midiPlayer v1.05');
+console.log('midiPlayer v1.06');
 var player = null;
 var reverberator = null;
 var songStart = 0;
@@ -118,7 +118,7 @@ function buildControls(song) {
 	for (var i = 0; i < song.tracks.length; i++) {
 		var v = 100 * song.tracks[i].volume;
 		html = html + '<p><input type="checkbox" id="replace'
-			 + i + '" checked /> <input id="channel'
+			 + i + '"  /> <input id="channel'
 			 + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /> '
 			 + player.loader.instrumentInfo(song.tracks[i].id).title + '</p>';
 	}
