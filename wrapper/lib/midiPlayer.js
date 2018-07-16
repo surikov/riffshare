@@ -1,4 +1,4 @@
-console.log('midiPlayer v1.06');
+console.log('midiPlayer v1.07');
 var player = null;
 var reverberator = null;
 var songStart = 0;
@@ -134,7 +134,7 @@ function buildControls(song) {
 		setVolumeAction(i, song);
 		var checkbox = document.getElementById('replace' + i);
 		checkbox.track = song.tracks[i];
-		checkbox.track.replace = true;
+		checkbox.track.replace = false;
 		checkbox.addEventListener('change', function () {
 			this.track.replace = this.checked;
 			console.log(this.track);
