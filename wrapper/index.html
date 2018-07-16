@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
-		<script src="http://webaudiomodules.org/audioworklet.js"></script>
+		<script src="https://webaudiomodules.org/audioworklet.js"></script>
 		<script src='lib/wamtoolslib.js'></script>
 		<script src='lib/MIDI.js'></script>
 		<script src='lib/midiPlayer.js'></script>
@@ -47,8 +47,8 @@
 		<script>		
 			console.log('index v1.14');			
 			window.WAM = window.WAM || {};
-			AWPF.origin = "http://www.webaudiomodules.org/";
-			WAM.origin = "http://webaudiomodules.org/";
+			AWPF.origin = "https://www.webaudiomodules.org/";
+			WAM.origin = "https://webaudiomodules.org/";
 			var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 			var audioContext = new AudioContextFunc();
 			if (!(audioContext.audioWorklet)) {
@@ -70,9 +70,9 @@
 			var synth_obxd = null;
 			var synth_wafont = new WAFWrapper(audioContext, 'wafonttest', output);
 			setCurrentSynth(synth_wafont,"WAFont");
-			loadScriptsIntoDocument(['http://webaudiomodules.org/wamsdk/wam-controller.js'], function () {
+			loadScriptsIntoDocument(['https://webaudiomodules.org/wamsdk/wam-controller.js'], function () {
 				loadWAMsynthModule(['https://webaudiomodules.org/synths/dexed.js'
-					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+					], ['https://webaudiomodules.org/wamsdk/wam-processor.js' //
 					, 'https://webaudiomodules.org/synths/wasm/dexed/dexed-base64.js' //
 					, 'https://webaudiomodules.org/synths/wasm/dexed/dexed-loader.js' //
 					, 'https://webaudiomodules.org/synths/wasm/dexed/dexed-awp.js' //
@@ -83,8 +83,8 @@
 					setCurrentSynth(synth_dexed,"DEXED");
 					console.log('done synth_dexed', synth_dexed);
 				});
-				loadWAMsynthModule(['http://www.webaudiomodules.org/synths/dx7.js'
-					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+				loadWAMsynthModule(['https://www.webaudiomodules.org/synths/dx7.js'
+					], ['https://webaudiomodules.org/wamsdk/wam-processor.js' //
 					, 'https://webaudiomodules.org/synths/wasm/dx7/dx7-wasm.js' //
 					, 'https://webaudiomodules.org/synths/wasm/dx7/dx7-loader.js' //
 					, 'https://webaudiomodules.org/synths/wasm/dx7/dx7-awp.js' //
@@ -96,7 +96,7 @@
 					console.log('done synth_dx7', synth_dx7);
 				});
 				loadWAMsynthModule(['https://webaudiomodules.org/synths/noisemaker.js'
-					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
+					], ['https://webaudiomodules.org/wamsdk/wam-processor.js' //
 					, 'https://webaudiomodules.org/synths/wasm/noisemaker/noisemaker-wasm.js' //
 					, 'https://webaudiomodules.org/synths/wasm/noisemaker/noisemaker-loader.js' //
 					, 'https://webaudiomodules.org/synths/wasm/noisemaker/noisemaker-awp.js' //
@@ -107,11 +107,11 @@
 					setCurrentSynth(synth_noisemaker,"NOISEMAKER");
 					console.log('done synth_noisemaker', synth_noisemaker);
 				});
-				loadWAMsynthModule(['http://webaudiomodules.org/synths/obxd.js'
-					], ['http://webaudiomodules.org/wamsdk/wam-processor.js' //
-					, 'http://webaudiomodules.org/synths/wasm/obxd/obxd-wasm.js' //
-					, 'http://webaudiomodules.org/synths/wasm/obxd/obxd-loader.js' //
-					, 'http://webaudiomodules.org/synths/wasm/obxd/obxd-awp.js' //
+				loadWAMsynthModule(['https://webaudiomodules.org/synths/obxd.js'
+					], ['https://webaudiomodules.org/wamsdk/wam-processor.js' //
+					, 'https://webaudiomodules.org/synths/wasm/obxd/obxd-wasm.js' //
+					, 'https://webaudiomodules.org/synths/wasm/obxd/obxd-loader.js' //
+					, 'https://webaudiomodules.org/synths/wasm/obxd/obxd-awp.js' //
 					], audioContext, output, 'OBXD', function (m) {
 					synth_obxd = m;
 					loadRawWAM('setttingobxd', synth_obxd);
