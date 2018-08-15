@@ -1,4 +1,4 @@
-console.log('riffShare v1.92');
+console.log('riffShare v1.93');
 
 var maxLen = 16 * 16;
 var currentLen = 4 * 16;
@@ -1323,7 +1323,7 @@ function riffShareStart() {
 		console.log(i, tracks[i].sound);
 		player.adjustPreset(audioContext, tracks[i].sound);
 	}
-	delayedPlay();
+	//delayedPlay();
 }
 function delayedPlay() {
 	setTimeout(function () {
