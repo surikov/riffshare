@@ -1,0 +1,12 @@
+{
+  "program": {
+    "portable": {
+      "pnacl-translate": {
+        "url": "DSP.pexe"
+      },
+      "pnacl-debug": {
+        "url": "DSP_unstripped.bc"
+      }
+    }
+  }
+}
