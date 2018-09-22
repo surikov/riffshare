@@ -26,3 +26,6 @@ body{
 	font-family: 'Comfortaa', sans-serif;
 	font-size: 1cm;
 }
+.bgField{
+	fill: rgba(127,127,127,0.5);
+}
