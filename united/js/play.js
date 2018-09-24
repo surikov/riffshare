@@ -214,28 +214,19 @@ function setModel(song) {
 	modelOctaves.length = 0;
 
 	for (var i = 1; i < 10; i++) {
-		var g = {
-			id: 'octave' + i,
-			x: 0,
-			y: 127 - i * 12,
-			w: 50,
-			h: 2,
-			z: [1, 100],
-			l: []
-		}
-		var label = {
-			kind: 't',
-			x: 0,
-			y: 127 - i * 12,
-			t: 'o' + i,
-			css: 'timeLabel3'
-		};
-		//console.log('/',i*20);
-		g.l.push(label);
-		modelOctaves.push(g);
+		modelOctaves.push({
+			id: 'octave' + i, x: 0, y: 127 - i * 12, w: 50, h: 2, z: [1, 3],
+			l: [{ kind: 't', x: 0, y: 127 - i * 12, t: '' + i, css: 'timeLabel3' }]
+		});
+	}
+	for (var i = 1; i < 10; i++) {
+		modelOctaves.push({
+			id: 'octave' + i, x: 0, y: 127 - i * 12, w: 50, h: 2, z: [3, 5],
+			l: [{ kind: 't', x: 0, y: 127 - i * 12, t: '' + i, css: 'timeLabel5' }]
+		});
 	}
 
-	for (var i = 0; i < song.duration; i = i + 0.5) {
+	for (var i = 0; i < song.duration; i = i + 1) {
 		modelTimeline.push({
 			id: 'time1x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [1, 3],
 			l: [{
@@ -244,12 +235,21 @@ function setModel(song) {
 			}]
 		});
 	}
-	for (var i = 0; i < song.duration; i = i + 0.75) {
+	for (var i = 0; i < song.duration; i = i + 2) {
 		modelTimeline.push({
-			id: 'time3x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [3, 10],
+			id: 'time3x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [3, 5],
 			l: [{
 				kind: 't',
 				x: i * 20, y: 1, t: formatSeconds(i), css: 'timeLabel3'
+			}]
+		});
+	}
+	for (var i = 0; i < song.duration; i = i + 3) {
+		modelTimeline.push({
+			id: 'time5x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [5, 10],
+			l: [{
+				kind: 't',
+				x: i * 20, y: 1, t: formatSeconds(i), css: 'timeLabel5'
 			}]
 		});
 	}
@@ -273,23 +273,31 @@ function setModel(song) {
 	}
 	for (var t = 0; t < song.tracks.length; t++) {
 		var track = song.tracks[t];
-		//console.log(track.program);
-		var g = {
-			id: 'track' + t,
-			x: 0,
-			y: 0,
-			w: song.duration * 20,
-			h: 128,
-			z: [1, 100],
-			l: []
+		//console.log(song.duration);
+		for (var i = 0; i < song.duration; i = i + 3) {
+			var g = {
+				id: 'track' + t + 'x' + i,
+				x: i * 20,
+				y: 0,
+				w: 3 * 20,
+				h: 128,
+				z: [1, 100],
+				l: []
+			}
+			modelTracks.push(g);
 		}
 		for (var i = 0; i < track.notes.length; i++) {
 			var note = track.notes[i];
 			var x = note.when * 20 + 0.5;
+			if (note.duration > 9) {
+				note.duration=1;
+			}
 			var d = note.duration * 20 - 1;
 			if (d <= 0) {
 				d = 0.01;
 			}
+			var nn = Math.floor(note.when / 3);
+			var g = modelTracks[nn];
 			g.l.push(
 				{
 					kind: 'l',
@@ -297,18 +305,54 @@ function setModel(song) {
 					y1: 127 - note.pitch,
 					x2: x + d,
 					y2: 127 - note.pitch,
-					css: 'ln'
+					css: 'atrack'
 				}
 			);
 		}
-		modelTracks.push(g);
 	}
-	for (var i = 0; i < song.beats.length; i++) {
-		//console.log(i, song.beats[i]);
+
+	for (var t = 0; t < song.beats.length; t++) {
+		var beat = song.beats[t];
+		for (var i = 0; i < song.duration; i = i + 3) {
+			var g = {
+				id: 'beat' + t + 'x' + i,
+				x: i * 20,
+				y: 0,
+				w: 3 * 20,
+				h: 128,
+				z: [1, 100],
+				l: []
+			}
+			modelTracks.push(g);
+		}
+		for (var i = 0; i < beat.notes.length; i++) {
+			var note = track.notes[i];
+			if (note) {
+				//console.log(beat.n,note);
+				var x = note.when * 20;
+				var d = 0.01;
+				var nn = Math.floor(note.when / 3);
+				var g = modelTracks[nn];
+				g.l.push(
+					{
+						kind: 'r',
+						x: x,
+						y: note.pitch-30.1,
+						w:1.5,
+						h:1.5,
+						rx: 0.3,
+						ry: 0.3,
+						css: 'abeat'
+					}
+				);
+			}
+		}
 	}
 };
-function formatSeconds(t){
-	var s;
-	s='/'+t;
-	return s;
+
+function formatSeconds(t) {
+	var h = Math.floor(t / 3600);
+	var m = Math.floor(t / 60) % 60;
+	var s = Math.floor(t % 60);
+	return '' + ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2);
 }

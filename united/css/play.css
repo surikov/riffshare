@@ -34,6 +34,14 @@ body{
 	stroke-width:0.95cm; 
 	stroke-linecap:round;
 }
+.atrack {
+	stroke:#666; 
+	stroke-width:0.95cm; 
+	stroke-linecap:round;
+}
+.abeat {
+	fill: #666;
+}
 .buttonSpot {
 	fill: rgba(127,127,127,0.0001);
 }
@@ -46,6 +54,10 @@ body{
 }
 .timeLabel3 {
 	font-size: 3cm;
+	fill: rgba(127,127,127,0.5);
+}
+.timeLabel5 {
+	font-size: 5cm;
 	fill: rgba(127,127,127,0.5);
 }
 .timeLabel10 {
