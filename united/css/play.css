@@ -40,6 +40,19 @@ body{
 .buttonFill {
 	fill: #069;
 }
-.timeLabel {
+.timeLabel1 {
 	font-size: 1cm;
+	fill: rgba(127,127,127,0.5);
+}
+.timeLabel3 {
+	font-size: 3cm;
+	fill: rgba(127,127,127,0.5);
+}
+.timeLabel10 {
+	font-size: 10cm;
+	fill: rgba(127,127,127,0.5);
+}
+.timeLabel30 {
+	font-size: 30cm;
+	fill: rgba(127,127,127,0.5);
 }

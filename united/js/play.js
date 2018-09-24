@@ -158,7 +158,7 @@ function init() {
 			lockY: true,
 			lockZ: false*/
 			kind: levelEngine.layerRow
-			, shiftY: levelEngine.viewHeight / levelEngine.tapSize-1
+			, shiftY: levelEngine.viewHeight / levelEngine.tapSize - 1.2
 		}, {
 			g: document.getElementById('octaves'),
 			m: modelOctaves,
@@ -219,7 +219,7 @@ function setModel(song) {
 			x: 0,
 			y: 127 - i * 12,
 			w: 50,
-			h: 200,
+			h: 2,
 			z: [1, 100],
 			l: []
 		}
@@ -228,7 +228,7 @@ function setModel(song) {
 			x: 0,
 			y: 127 - i * 12,
 			t: 'o' + i,
-			css: 'timeLabel'
+			css: 'timeLabel3'
 		};
 		//console.log('/',i*20);
 		g.l.push(label);
@@ -236,25 +236,40 @@ function setModel(song) {
 	}
 
 	for (var i = 0; i < song.duration; i = i + 0.5) {
-		var g = {
-			id: 'time' + i,
-			x: i * 20,
-			y: 0,
-			w: 50,
-			h: 200,
-			z: [1, 100],
-			l: []
-		}
-		var label = {
-			kind: 't',
-			x: i * 20,
-			y: 1,
-			t: 't' + i,
-			css: 'timeLabel'
-		};
-		//console.log('/',i*20);
-		g.l.push(label);
-		modelTimeline.push(g);
+		modelTimeline.push({
+			id: 'time1x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [1, 3],
+			l: [{
+				kind: 't',
+				x: i * 20, y: 1, t: formatSeconds(i), css: 'timeLabel1'
+			}]
+		});
+	}
+	for (var i = 0; i < song.duration; i = i + 0.75) {
+		modelTimeline.push({
+			id: 'time3x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [3, 10],
+			l: [{
+				kind: 't',
+				x: i * 20, y: 1, t: formatSeconds(i), css: 'timeLabel3'
+			}]
+		});
+	}
+	for (var i = 0; i < song.duration; i = i + 15) {
+		modelTimeline.push({
+			id: 'time10x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [10, 30],
+			l: [{
+				kind: 't',
+				x: i * 20, y: 1, t: formatSeconds(i), css: 'timeLabel10'
+			}]
+		});
+	}
+	for (var i = 0; i < song.duration; i = i + 40) {
+		modelTimeline.push({
+			id: 'time30x' + i, x: i * 20, y: 0, w: 50, h: 200, z: [30, 100],
+			l: [{
+				kind: 't',
+				x: i * 20, y: 1, t: formatSeconds(i), css: 'timeLabel30'
+			}]
+		});
 	}
 	for (var t = 0; t < song.tracks.length; t++) {
 		var track = song.tracks[t];
@@ -268,10 +283,8 @@ function setModel(song) {
 			z: [1, 100],
 			l: []
 		}
-		modelTracks.push(g);
 		for (var i = 0; i < track.notes.length; i++) {
 			var note = track.notes[i];
-			//console.log(note);
 			var x = note.when * 20 + 0.5;
 			var d = note.duration * 20 - 1;
 			if (d <= 0) {
@@ -288,8 +301,14 @@ function setModel(song) {
 				}
 			);
 		}
+		modelTracks.push(g);
 	}
 	for (var i = 0; i < song.beats.length; i++) {
 		//console.log(i, song.beats[i]);
 	}
 };
+function formatSeconds(t){
+	var s;
+	s='/'+t;
+	return s;
+}
