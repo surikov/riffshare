@@ -1,81 +1,18 @@
 ﻿console.log('play v1.01');
+
 var levelEngine = null;
 var modelTracks = [];
 var modelTimeline = [];
 var modelOctaves = [];
+var anchor = null;
 function init() {
 	console.log('init');
 	levelEngine = new LevelEngine(document.getElementById('contentSVG'));
-	levelEngine.innerWidth = 30000 * levelEngine.tapSize;
-	levelEngine.innerHeight = 120 * levelEngine.tapSize;
+	levelEngine.innerWidth = 1 * levelEngine.tapSize;
+	levelEngine.innerHeight = 128 * levelEngine.tapSize;
 
 	levelEngine.mx = 99;
 	levelEngine.translateZ = 7;
-
-	var m3 = [{
-			id: 'a99',
-			x: 0,
-			y: 0,
-			w: 30000,
-			h: 500,
-			z: [1, 100],
-			l: [{
-					kind: 'r',
-					x: 0,
-					y: 0,
-					w: 30000,
-					h: 500,
-					rx: 88,
-					ry: 88,
-					css: 'bgField',
-					a: function (xx, yy) {
-						console.log('1', xx, yy);
-						//alert('Anchor');
-					}
-				}, {
-					kind: 'r',
-					x: 0,
-					y: 0,
-					w: 300,
-					h: 50,
-					rx: 11,
-					ry: 11,
-					css: 'bgField',
-					a: function (xx, yy) {
-						console.log('2', xx, yy);
-						//alert('Anchor');
-					}
-				}, {
-					kind: 'r',
-					x: 0,
-					y: 0,
-					w: 30,
-					h: 20,
-					rx: 5,
-					ry: 5,
-					css: 'bgField',
-					a: function (xx, yy) {
-						console.log('3', xx, yy);
-						//alert('Anchor');
-					}
-				}, {
-					kind: 'r',
-					x: 0,
-					y: 0,
-					w: 3,
-					h: 2,
-					rx: 0.2,
-					ry: 0.2,
-					css: 'bgField',
-					a: function (xx, yy) {
-						console.log('4', xx, yy, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
-						//alert('Anchor');
-					}
-				}
-			]
-		}
-	];
-	var anchor = null;
 
 	var controlsModel = [{
 			id: 'controlsLayer',
@@ -111,16 +48,11 @@ function init() {
 					h: 1,
 					css: 'buttonSpot',
 					a: function (xx, yy) {
-						//console.log('button1', xx, yy);
-						//console.log('translate', levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
-						//alert('Anchor');
-						//console.log('anchor', anchor);
 						if (anchor) {
 							levelEngine.startSlideTo(anchor.x, anchor.y, anchor.z);
 							console.log('back', anchor);
 							anchor = null;
 						} else {
-
 							anchor = {
 								x: levelEngine.translateX,
 								y: levelEngine.translateY,
@@ -166,23 +98,15 @@ function init() {
 					css: 'buttonSpot',
 					a: function (xx, yy) {
 						console.log('button2', xx, yy);
-						//alert('Anchor');
 						document.getElementById('chooseFileInput').click();
 					}
 				}
 			]
 		}
 	];
-	levelEngine.setModel([/*{
-			g: document.getElementById('cntnt'),
-			m: m3
-			},*/
-			{
+	levelEngine.setModel([{
 				g: document.getElementById('controls'),
 				m: controlsModel,
-				/*lockX: true,
-				lockY: true,
-				lockZ: true*/
 				kind: levelEngine.layerOverlay
 			}, {
 				g: document.getElementById('tracks'),
@@ -215,66 +139,36 @@ function init() {
 			}, {
 				g: document.getElementById('timeline'),
 				m: modelTimeline,
-				/*lockX: false,
-				lockY: true,
-				lockZ: false*/
 				kind: levelEngine.layerRow,
 				shiftY: levelEngine.viewHeight / levelEngine.tapSize - 1.2
 			}, {
 				g: document.getElementById('octaves'),
 				m: modelOctaves,
-				/*lockX: true,
-				lockY: false,
-				lockZ: true*/
 				kind: levelEngine.layerColumn,
 				shiftX: levelEngine.viewWidth / levelEngine.tapSize - 2
 			}
 		]);
-	//console.log(levelEngine.viewWidth / levelEngine.tapSize - 1, levelEngine.viewWidth, levelEngine.tapSize);
 	levelEngine.applyZoomPosition();
 	document.getElementById('chooseFileInput').addEventListener('change', function (event) {
 		var file = event.target.files[0];
-		//console.log(file);
 		var fileReader = new FileReader();
 		fileReader.onload = function (progressEvent ) {
-			//console.log(progressEvent);
 			var arrayBuffer = progressEvent.target.result;
-			//console.log(arrayBuffer);
 			var midiFile = new MIDIFile(arrayBuffer);
 			var parsedSong = midiFile.parseSong();
 			setModel(parsedSong);
 			levelEngine.innerWidth = parsedSong.duration * 20 * levelEngine.tapSize;
 			levelEngine.resetModel();
-
-			//clearAllDetails();
-			/*levelEngine.valid = false;
-			levelEngine.applyZoomPosition();
-			levelEngine.adjustContentPosition();
-			levelEngine.slideToContentPosition();*/
 		};
 		fileReader.readAsArrayBuffer(file);
-		//console.log(evt);
 	}, false);
 
 };
-/*function clearAllDetails  () {
-if (levelEngine.model) {
-for (var i = 0; i < levelEngine.model.length; i++) {
-var group = levelEngine.model[i].g;
-levelEngine.msEdgeHook(group);
-console.log(group);
-while (group.children.length) {
-group.removeChild(group.children[0]);
-}
-}
-}
-};*/
 function setModel(song) {
 	modelTracks.length = 0;
 	modelTimeline.length = 0;
 	modelOctaves.length = 0;
-
-	for (var i = 1; i < 10; i++) {
+	/*for (var i = 1; i < 10; i++) {
 		modelOctaves.push({
 			id: 'octave' + i,
 			x: 0,
@@ -309,127 +203,111 @@ function setModel(song) {
 				}
 			]
 		});
+	}*/
+	addOctaveLine(song, modelOctaves, 'octave13', 'octave1',  [1, 3]);
+	addOctaveLine(song, modelOctaves, 'octave39', 'octave9',  [3, 9]);
+	/*for (var i = 0; i < song.duration; i = i + 1) {
+	modelTimeline.push({
+	id: 'time1x' + i,
+	x: i * 20,
+	y: 0,
+	w: 50,
+	h: 200,
+	z: [1, 3],
+	l: [{
+	kind: 't',
+	x: i * 20,
+	y: 1,
+	t: formatSeconds(i),
+	css: 'timeLabel1'
 	}
-
-	for (var i = 0; i < song.duration; i = i + 1) {
-		modelTimeline.push({
-			id: 'time1x' + i,
-			x: i * 20,
-			y: 0,
-			w: 50,
-			h: 200,
-			z: [1, 3],
-			l: [{
-					kind: 't',
-					x: i * 20,
-					y: 1,
-					t: formatSeconds(i),
-					css: 'timeLabel1'
-				}
-			]
-		});
+	]
+	});
 	}
 	for (var i = 0; i < song.duration; i = i + 2) {
-		modelTimeline.push({
-			id: 'time3x' + i,
-			x: i * 20,
-			y: 0,
-			w: 50,
-			h: 200,
-			z: [3, 5],
-			l: [{
-					kind: 't',
-					x: i * 20,
-					y: 1,
-					t: formatSeconds(i),
-					css: 'timeLabel3'
-				}
-			]
-		});
+	modelTimeline.push({
+	id: 'time3x' + i,
+	x: i * 20,
+	y: 0,
+	w: 50,
+	h: 200,
+	z: [3, 5],
+	l: [{
+	kind: 't',
+	x: i * 20,
+	y: 1,
+	t: formatSeconds(i),
+	css: 'timeLabel3'
+	}
+	]
+	});
 	}
 	for (var i = 0; i < song.duration; i = i + 3) {
-		modelTimeline.push({
-			id: 'time5x' + i,
-			x: i * 20,
-			y: 0,
-			w: 50,
-			h: 200,
-			z: [5, 10],
-			l: [{
-					kind: 't',
-					x: i * 20,
-					y: 1,
-					t: formatSeconds(i),
-					css: 'timeLabel5'
-				}
-			]
-		});
+	modelTimeline.push({
+	id: 'time5x' + i,
+	x: i * 20,
+	y: 0,
+	w: 50,
+	h: 200,
+	z: [5, 10],
+	l: [{
+	kind: 't',
+	x: i * 20,
+	y: 1,
+	t: formatSeconds(i),
+	css: 'timeLabel5'
+	}
+	]
+	});
 	}
 	for (var i = 0; i < song.duration; i = i + 15) {
-		modelTimeline.push({
-			id: 'time10x' + i,
-			x: i * 20,
-			y: 0,
-			w: 50,
-			h: 200,
-			z: [10, 30],
-			l: [{
-					kind: 't',
-					x: i * 20,
-					y: 1,
-					t: formatSeconds(i),
-					css: 'timeLabel10'
-				}
-			]
-		});
+	modelTimeline.push({
+	id: 'time10x' + i,
+	x: i * 20,
+	y: 0,
+	w: 50,
+	h: 200,
+	z: [10, 30],
+	l: [{
+	kind: 't',
+	x: i * 20,
+	y: 1,
+	t: formatSeconds(i),
+	css: 'timeLabel10'
+	}
+	]
+	});
 	}
 	for (var i = 0; i < song.duration; i = i + 40) {
-		modelTimeline.push({
-			id: 'time30x' + i,
-			x: i * 20,
-			y: 0,
-			w: 50,
-			h: 200,
-			z: [30, 100],
-			l: [{
-					kind: 't',
-					x: i * 20,
-					y: 1,
-					t: formatSeconds(i),
-					css: 'timeLabel30'
-				}
-			]
-		});
+	modelTimeline.push({
+	id: 'time30x' + i,
+	x: i * 20,
+	y: 0,
+	w: 50,
+	h: 200,
+	z: [30, 100],
+	l: [{
+	kind: 't',
+	x: i * 20,
+	y: 1,
+	t: formatSeconds(i),
+	css: 'timeLabel30'
 	}
-	for (var i = 0; i < song.duration; i = i + 3) {
-		var g = {
-			id: 'bar' + i,
-			x: i * 20,
-			y: 0,
-			w: 3 * 20,
-			h: 128,
-			z: [1, 100],
-			l: []
-		}
-		modelTracks.push(g);
-	}
+	]
+	});
+	}*/
+	addTimeLine(song, modelTimeline, 'time1x', 'timeLabel1', 1, [1, 3]);
+	addTimeLine(song, modelTimeline, 'time3x', 'timeLabel3', 2, [3, 5]);
+	addTimeLine(song, modelTimeline, 'time5x', 'timeLabel5', 3, [5, 10]);
+	addTimeLine(song, modelTimeline, 'time10x', 'timeLabel10', 15, [10, 30]);
+	addTimeLine(song, modelTimeline, 'time30x', 'timeLabel30', 40, [30, 100]);
+	addBars(song, modelTracks);
 	for (var t = 0; t < song.tracks.length; t++) {
 		var track = song.tracks[t];
-		//console.log(song.duration);
-
 		for (var i = 0; i < track.notes.length; i++) {
 			var note = track.notes[i];
-			/*if(note.slides.length){
-			console.log(note);
-			}*/
-			/*if(note.duration>33){
-			console.log(note);
-			}*/
 			var d = note.duration * 20 - 1;
 			d = (d) ? d : 0.001;
-			/*if (d <= 0) {
-			d = 0.01;
-			}*/
 			var x1 = note.when * 20 + 0.5;
 			var y1 = 127 - note.pitch;
 			var x2 = x1 + d;
@@ -465,26 +343,14 @@ function setModel(song) {
 				y2: y2,
 				css: 'atrack'
 			});
-			/*
-			g.l.push({
-			kind: 'l',
-			x1: x,
-			y1: 127 - note.pitch,
-			x2: x + d,
-			y2: 127 - note.pitch,
-			css: 'atrack'
-			});
-			 */
 		}
 	}
 
 	for (var t = 0; t < song.beats.length; t++) {
 		var beat = song.beats[t];
-		//console.log(beat);
 		for (var i = 0; i < beat.notes.length; i++) {
 			var note = beat.notes[i];
 			if (note) {
-				//console.log(beat.n,note);
 				var x = note.when * 20;
 				var d = 0.01;
 				var nn = Math.floor(note.when / 3);
@@ -503,7 +369,60 @@ function setModel(song) {
 		}
 	}
 };
-
+function addBars(song, modelTracks) {
+	for (var i = 0; i < song.duration; i = i + 3) {
+		var g = {
+			id: 'bar' + i,
+			x: i * 20,
+			y: 0,
+			w: 3 * 20,
+			h: 128,
+			z: [1, 100],
+			l: []
+		}
+		modelTracks.push(g);
+	}
+}
+function addOctaveLine(song, modelOctaves, labelPrefix, css,  zoom) {
+	for (var i = 1; i < 10; i++) {
+		modelOctaves.push({
+			id: labelPrefix + i,
+			x: 0,
+			y: 127 - i * 12,
+			w: 50,
+			h: 2,
+			z: zoom,
+			l: [{
+					kind: 't',
+					x: 0,
+					y: 127 - i * 12,
+					t: '' + i,
+					css: css
+				}
+			]
+		});
+	}
+}
+function addTimeLine(song, modelTimeline, labelPrefix, css, step, zoom) {
+	for (var i = 0; i < song.duration; i = i + step) {
+		modelTimeline.push({
+			id: labelPrefix + i,
+			x: i * 20,
+			y: 0,
+			w: 50,
+			h: 200,
+			z: zoom,
+			l: [{
+					kind: 't',
+					x: i * 20,
+					y: 1,
+					t: formatSeconds(i),
+					css: css
+				}
+			]
+		});
+	}
+}
 function formatSeconds(t) {
 	var h = Math.floor(t / 3600);
 	var m = Math.floor(t / 60) % 60;

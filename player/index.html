@@ -1,28 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang='en'>
 	<head>
-		<title>Molgav</title>
+		<title>Player v1.01</title>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0' />
 		<script src='https://surikov.github.io/tilelevel/tilelevel2.js'></script>
-		<!--<script src='tilelevel2.js'></script>-->
 		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
-		<script src='js/play.js'></script>
-		<script src='js/MIDIFile.js'></script>
+		<script src='index.js'></script>
+		<script src='midiparser.js'></script>
 		<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-		<link href='css/play.css' rel='stylesheet'>
+		<link href='index.css' rel='stylesheet'>
 	</head>
 	<body>
 		<!--<p class='Comfortaa text1cm'>Test: C D E Fb G# A H</p>-->
 		<svg id='contentSVG'>				
-			<g id='shiftCenter' transform='translate(700 500)'>
-				<g id='cntnt'></g>
-			</g>
 			<g id='subcontrols'></g>
 			<g id='tracks'></g>
 			<g id='timeline'></g>
 			<g id='octaves'></g>
-			
 			<g id='controls'></g>
 		</svg>
 		<input type='file' style='display:none' id='chooseFileInput' name='selefile'/>
