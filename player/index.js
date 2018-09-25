@@ -168,134 +168,10 @@ function setModel(song) {
 	modelTracks.length = 0;
 	modelTimeline.length = 0;
 	modelOctaves.length = 0;
-	/*for (var i = 1; i < 10; i++) {
-		modelOctaves.push({
-			id: 'octave' + i,
-			x: 0,
-			y: 127 - i * 12,
-			w: 50,
-			h: 2,
-			z: [1, 3],
-			l: [{
-					kind: 't',
-					x: 0,
-					y: 127 - i * 12,
-					t: '' + i,
-					css: 'octave1'
-				}
-			]
-		});
-	}
-	for (var i = 1; i < 10; i++) {
-		modelOctaves.push({
-			id: 'octave' + i,
-			x: 0,
-			y: 127 - i * 12,
-			w: 50,
-			h: 2,
-			z: [3, 5],
-			l: [{
-					kind: 't',
-					x: 0,
-					y: 127 - i * 12,
-					t: '' + i,
-					css: 'octave3'
-				}
-			]
-		});
-	}*/
-	addOctaveLine(song, modelOctaves, 'octave13', 'octave1',  [1, 3]);
-	addOctaveLine(song, modelOctaves, 'octave39', 'octave9',  [3, 9]);
-	/*for (var i = 0; i < song.duration; i = i + 1) {
-	modelTimeline.push({
-	id: 'time1x' + i,
-	x: i * 20,
-	y: 0,
-	w: 50,
-	h: 200,
-	z: [1, 3],
-	l: [{
-	kind: 't',
-	x: i * 20,
-	y: 1,
-	t: formatSeconds(i),
-	css: 'timeLabel1'
-	}
-	]
-	});
-	}
-	for (var i = 0; i < song.duration; i = i + 2) {
-	modelTimeline.push({
-	id: 'time3x' + i,
-	x: i * 20,
-	y: 0,
-	w: 50,
-	h: 200,
-	z: [3, 5],
-	l: [{
-	kind: 't',
-	x: i * 20,
-	y: 1,
-	t: formatSeconds(i),
-	css: 'timeLabel3'
-	}
-	]
-	});
-	}
-	for (var i = 0; i < song.duration; i = i + 3) {
-	modelTimeline.push({
-	id: 'time5x' + i,
-	x: i * 20,
-	y: 0,
-	w: 50,
-	h: 200,
-	z: [5, 10],
-	l: [{
-	kind: 't',
-	x: i * 20,
-	y: 1,
-	t: formatSeconds(i),
-	css: 'timeLabel5'
-	}
-	]
-	});
-	}
-	for (var i = 0; i < song.duration; i = i + 15) {
-	modelTimeline.push({
-	id: 'time10x' + i,
-	x: i * 20,
-	y: 0,
-	w: 50,
-	h: 200,
-	z: [10, 30],
-	l: [{
-	kind: 't',
-	x: i * 20,
-	y: 1,
-	t: formatSeconds(i),
-	css: 'timeLabel10'
-	}
-	]
-	});
-	}
-	for (var i = 0; i < song.duration; i = i + 40) {
-	modelTimeline.push({
-	id: 'time30x' + i,
-	x: i * 20,
-	y: 0,
-	w: 50,
-	h: 200,
-	z: [30, 100],
-	l: [{
-	kind: 't',
-	x: i * 20,
-	y: 1,
-	t: formatSeconds(i),
-	css: 'timeLabel30'
-	}
-	]
-	});
-	}*/
+
+	addOctaveLine(song, modelOctaves, 'octave13', 'octave1', [1, 3]);
+	addOctaveLine(song, modelOctaves, 'octave39', 'octave9', [3, 9]);
+
 	addTimeLine(song, modelTimeline, 'time1x', 'timeLabel1', 1, [1, 3]);
 	addTimeLine(song, modelTimeline, 'time3x', 'timeLabel3', 2, [3, 5]);
 	addTimeLine(song, modelTimeline, 'time5x', 'timeLabel5', 3, [5, 10]);
@@ -383,7 +259,7 @@ function addBars(song, modelTracks) {
 		modelTracks.push(g);
 	}
 }
-function addOctaveLine(song, modelOctaves, labelPrefix, css,  zoom) {
+function addOctaveLine(song, modelOctaves, labelPrefix, css, zoom) {
 	for (var i = 1; i < 10; i++) {
 		modelOctaves.push({
 			id: labelPrefix + i,
