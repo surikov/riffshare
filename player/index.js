@@ -1,4 +1,4 @@
-﻿console.log('play v1.01');
+﻿console.log('play v1.02');
 
 var levelEngine = null;
 var modelTracks = [];
@@ -6,6 +6,7 @@ var modelTimeline = [];
 var modelOctaves = [];
 var anchor = null;
 var noteRatio=33;
+var settingWidth=31;
 
 var pathList = 'M149.996,0C67.157,0,0.001,67.161,0.001,149.997C0.001,232.837,67.157,300,149.996,300s150.003-67.163,150.003-150.003' +
 	'S232.835,0,149.996,0z M90.318,204.463c-5.727,0-10.361-4.635-10.361-10.364c0-5.724,4.635-10.359,10.361-10.359' +
@@ -36,7 +37,7 @@ var iconPinSetting = null;
 
 function init() {
 	console.log('init');
-	levelEngine = new LevelEngine(document.getElementById('contentSVG'));
+	levelEngine = new TileLevel(document.getElementById('contentSVG'));
 	levelEngine.innerWidth = 100 * levelEngine.tapSize;
 	levelEngine.innerHeight = 128 * levelEngine.tapSize;
 
@@ -98,7 +99,8 @@ function init() {
 						};
 						iconPinSetting.l = pathPin;
 						//console.log('go', anchor);
-						levelEngine.startSlideTo(-6.9 * levelEngine.tapSize, -10.9 * levelEngine.tapSize, 1);
+						//levelEngine.startSlideTo(-6.9 * levelEngine.tapSize, -10.9 * levelEngine.tapSize, 1);
+						levelEngine.startSlideTo(0 * levelEngine.tapSize, 0 * levelEngine.tapSize, 1);
 					}
 					levelEngine.clearGroupDetails(document.getElementById('controls'));
 					levelEngine.tileFromModel();
@@ -155,19 +157,19 @@ function init() {
 		g: document.getElementById('subcontrols'),
 		m: [{
 			id: 'subLayer',
-			x: 7,
-			y: 11,
-			w: 5,
-			h: 7,
+			x: 0,
+			y: 0,
+			w: 30,
+			h: 128,
 			z: [1, 100],
 			l: [{
 				kind: 'r',
-				x: 7,
-				y: 11,
-				w: 5,
-				h: 5,
-				rx: 0.2,
-				ry: 0.2,
+				x: 0,
+				y: 0,
+				w: 30,
+				h: 128,
+				rx: 0.5,
+				ry: 0.5,
 				css: 'bgField',
 				a: function(xx, yy) {
 					console.log('spot', levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
@@ -194,14 +196,19 @@ function init() {
 			var midiFile = new MIDIFile(arrayBuffer);
 			var parsedSong = midiFile.parseSong();
 			setModel(parsedSong);
-			levelEngine.innerWidth = parsedSong.duration * noteRatio * levelEngine.tapSize;
+			levelEngine.innerWidth = (parsedSong.duration * noteRatio+settingWidth) * levelEngine.tapSize;
 			levelEngine.resetModel();
 		};
 		fileReader.readAsArrayBuffer(file);
 	}, false);
-
+	window.addEventListener("resize", resizeField);
 };
-
+function resizeField(){
+	console.log('resizeField');
+	levelEngine.viewWidth=document.getElementById('contentSVG').clientWidth;
+	levelEngine.viewHeight=document.getElementById('contentSVG').clientHeight;
+	levelEngine.resetModel();
+}
 function setModel(song) {
 	modelTracks.length = 0;
 	modelTimeline.length = 0;
@@ -222,7 +229,7 @@ function setModel(song) {
 			var note = track.notes[i];
 			var d = note.duration * noteRatio - 1;
 			d = (d) ? d : 0.001;
-			var x1 = note.when * noteRatio + 0.5;
+			var x1 = note.when * noteRatio + 0.5+settingWidth;
 			var y1 = 127 - note.pitch;
 			var x2 = x1 + d;
 			var y2 = 127 - note.pitch;
@@ -232,21 +239,21 @@ function setModel(song) {
 			var nn = Math.floor(note.when / 3);
 			var g = modelTracks[nn];
 			if (note.slides.length) {
-				x1 = (note.when + note.slides[0].when) * noteRatio + 0.5;
+				x1 = (note.when + note.slides[0].when) * noteRatio + 0.5+settingWidth;
 				y1 = 127 - note.slides[0].pitch;
 				for (var s = 0; s < note.slides.length - 1; s++) {
 					g.l.push({
 						kind: 'l',
 						x1: x1,
 						y1: y1,
-						x2: (note.when + note.slides[s].when) * noteRatio + 0.5,
+						x2: (note.when + note.slides[s].when) * noteRatio + 0.5+settingWidth,
 						y2: 127 - note.slides[s].pitch,
 						css: 'atrack'
 					});
-					x1 = (note.when + note.slides[s].when) * noteRatio + 0.5;
+					x1 = (note.when + note.slides[s].when) * noteRatio + 0.5+settingWidth;
 					y1 = 127 - note.slides[s].pitch;
 				}
-				x1 = (note.when + note.slides[note.slides.length - 1].when) * noteRatio + 0.5;
+				x1 = (note.when + note.slides[note.slides.length - 1].when) * noteRatio + 0.5+settingWidth;
 				y1 = 127 - note.slides[note.slides.length - 1].pitch;
 			}
 			g.l.push({
@@ -265,7 +272,7 @@ function setModel(song) {
 		for (var i = 0; i < beat.notes.length; i++) {
 			var note = beat.notes[i];
 			if (note) {
-				var x = note.when * noteRatio;
+				var x = note.when * noteRatio+settingWidth;
 				var d = 0.01;
 				var nn = Math.floor(note.when / 3);
 				var g = modelTracks[nn];
@@ -288,7 +295,7 @@ function addBars(song, modelTracks) {
 	for (var i = 0; i < song.duration; i = i + 3) {
 		var g = {
 			id: 'bar' + i,
-			x: i * noteRatio,
+			x: i * noteRatio+settingWidth,
 			y: 0,
 			w: 3 * noteRatio,
 			h: 128,
@@ -323,14 +330,14 @@ function addTimeLine(song, modelTimeline, labelPrefix, css, step, zoom) {
 	for (var i = 0; i < song.duration; i = i + step) {
 		modelTimeline.push({
 			id: labelPrefix + i,
-			x: i * noteRatio,
+			x: i * noteRatio+settingWidth,
 			y: 0,
 			w: 50,
 			h: 200,
 			z: zoom,
 			l: [{
 				kind: 't',
-				x: i * noteRatio,
+				x: i * noteRatio+settingWidth,
 				y: 1,
 				t: formatSeconds(i),
 				css: css
