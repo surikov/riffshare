@@ -50,8 +50,9 @@ body{
 	fill: #069;
 }
 .buttonBack {
-	fill: #fff;
+	fill: #eee;
 }
+
 .timeLabel1 {
 	font-size: 1cm;
 	fill: rgba(127,127,127,0.5);

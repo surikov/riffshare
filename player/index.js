@@ -5,6 +5,7 @@ var modelTracks = [];
 var modelTimeline = [];
 var modelOctaves = [];
 var anchor = null;
+var noteRatio=33;
 
 var pathList = 'M149.996,0C67.157,0,0.001,67.161,0.001,149.997C0.001,232.837,67.157,300,149.996,300s150.003-67.163,150.003-150.003' +
 	'S232.835,0,149.996,0z M90.318,204.463c-5.727,0-10.361-4.635-10.361-10.364c0-5.724,4.635-10.359,10.361-10.359' +
@@ -65,8 +66,8 @@ function init() {
 				w: 1+0.1,
 				h: 1+0.1,
 				css: 'buttonBack',
-				rx: 0.5,
-				ry: 0.5
+				rx: 0.55,
+				ry: 0.55
 			},
 			/*{
 					kind: 'p',
@@ -109,8 +110,8 @@ function init() {
 				w: 1+0.1,
 				h: 1+0.1,
 				css: 'buttonBack',
-				rx: 0.5,
-				ry: 0.5
+				rx: 0.55,
+				ry: 0.55
 			}, {
 				kind: 'p',
 				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 0.1, //1.5,
@@ -193,7 +194,7 @@ function init() {
 			var midiFile = new MIDIFile(arrayBuffer);
 			var parsedSong = midiFile.parseSong();
 			setModel(parsedSong);
-			levelEngine.innerWidth = parsedSong.duration * 20 * levelEngine.tapSize;
+			levelEngine.innerWidth = parsedSong.duration * noteRatio * levelEngine.tapSize;
 			levelEngine.resetModel();
 		};
 		fileReader.readAsArrayBuffer(file);
@@ -211,17 +212,17 @@ function setModel(song) {
 
 	addTimeLine(song, modelTimeline, 'time1x', 'timeLabel1', 1, [1, 3]);
 	addTimeLine(song, modelTimeline, 'time3x', 'timeLabel3', 2, [3, 5]);
-	addTimeLine(song, modelTimeline, 'time5x', 'timeLabel5', 3, [5, 10]);
-	addTimeLine(song, modelTimeline, 'time10x', 'timeLabel10', 15, [10, 30]);
-	addTimeLine(song, modelTimeline, 'time30x', 'timeLabel30', 40, [30, 100]);
+	addTimeLine(song, modelTimeline, 'time5x', 'timeLabel5', 2, [5, 10]);
+	addTimeLine(song, modelTimeline, 'time10x', 'timeLabel10', 5, [10, 30]);
+	addTimeLine(song, modelTimeline, 'time30x', 'timeLabel30', 15, [30, 100]);
 	addBars(song, modelTracks);
 	for (var t = 0; t < song.tracks.length; t++) {
 		var track = song.tracks[t];
 		for (var i = 0; i < track.notes.length; i++) {
 			var note = track.notes[i];
-			var d = note.duration * 20 - 1;
+			var d = note.duration * noteRatio - 1;
 			d = (d) ? d : 0.001;
-			var x1 = note.when * 20 + 0.5;
+			var x1 = note.when * noteRatio + 0.5;
 			var y1 = 127 - note.pitch;
 			var x2 = x1 + d;
 			var y2 = 127 - note.pitch;
@@ -231,21 +232,21 @@ function setModel(song) {
 			var nn = Math.floor(note.when / 3);
 			var g = modelTracks[nn];
 			if (note.slides.length) {
-				x1 = (note.when + note.slides[0].when) * 20 + 0.5;
+				x1 = (note.when + note.slides[0].when) * noteRatio + 0.5;
 				y1 = 127 - note.slides[0].pitch;
 				for (var s = 0; s < note.slides.length - 1; s++) {
 					g.l.push({
 						kind: 'l',
 						x1: x1,
 						y1: y1,
-						x2: (note.when + note.slides[s].when) * 20 + 0.5,
+						x2: (note.when + note.slides[s].when) * noteRatio + 0.5,
 						y2: 127 - note.slides[s].pitch,
 						css: 'atrack'
 					});
-					x1 = (note.when + note.slides[s].when) * 20 + 0.5;
+					x1 = (note.when + note.slides[s].when) * noteRatio + 0.5;
 					y1 = 127 - note.slides[s].pitch;
 				}
-				x1 = (note.when + note.slides[note.slides.length - 1].when) * 20 + 0.5;
+				x1 = (note.when + note.slides[note.slides.length - 1].when) * noteRatio + 0.5;
 				y1 = 127 - note.slides[note.slides.length - 1].pitch;
 			}
 			g.l.push({
@@ -264,7 +265,7 @@ function setModel(song) {
 		for (var i = 0; i < beat.notes.length; i++) {
 			var note = beat.notes[i];
 			if (note) {
-				var x = note.when * 20;
+				var x = note.when * noteRatio;
 				var d = 0.01;
 				var nn = Math.floor(note.when / 3);
 				var g = modelTracks[nn];
@@ -287,9 +288,9 @@ function addBars(song, modelTracks) {
 	for (var i = 0; i < song.duration; i = i + 3) {
 		var g = {
 			id: 'bar' + i,
-			x: i * 20,
+			x: i * noteRatio,
 			y: 0,
-			w: 3 * 20,
+			w: 3 * noteRatio,
 			h: 128,
 			z: [1, 100],
 			l: []
@@ -322,14 +323,14 @@ function addTimeLine(song, modelTimeline, labelPrefix, css, step, zoom) {
 	for (var i = 0; i < song.duration; i = i + step) {
 		modelTimeline.push({
 			id: labelPrefix + i,
-			x: i * 20,
+			x: i * noteRatio,
 			y: 0,
 			w: 50,
 			h: 200,
 			z: zoom,
 			l: [{
 				kind: 't',
-				x: i * 20,
+				x: i * noteRatio,
 				y: 1,
 				t: formatSeconds(i),
 				css: css
