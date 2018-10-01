@@ -1,0 +1,16 @@
+﻿var levelEngine = null;
+var anchor = null;
+var noteRatio=33;
+var settingWidth=31;
+var iconPinSetting = null;
+//var bgPinSetting = null;
+//var spotPinSetting = null;
+var controlsModel=[];
+var tracksModel=[];
+var settingModel=[];
+var timelineModel=[];
+var octavesModel=[];
+var currentSong=null;
+var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+var audioContext = new AudioContextFunc();
+var player = new WebAudioFontPlayer();
