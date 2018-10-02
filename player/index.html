@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang='en'>
 	<head>
-		<title>Player v1.03</title>
+		<title>Player v1.04</title>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0' />
 		<script src='https://surikov.github.io/tilelevel/npm/bundle.js'></script>
@@ -12,6 +12,7 @@
 		<script src='js/prompt.js'></script>
 		<script src='js/resizeField.js'></script>
 		<script src='js/modelControls.js'></script>
+		<script src='js/modelBG.js'></script>
 		<script src='js/modelOctaves.js'></script>
 		<script src='js/modelTimeline.js'></script>
 		<script src='js/modelTracks.js'></script>
@@ -104,10 +105,14 @@
 					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='1' transform='scale(50 50)' />
 					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='1' transform='scale(50 50)' />
                 </pattern>
+				<filter id="shadowBlur">	
+					<feGaussianBlur stdDeviation="2" result="shadow"/>	
+					<feOffset dx="1" dy="1"/>	
+				</filter>
 			</defs>
 					
 					
-					
+			<g id='background'></g>
 			<g id='subcontrols'></g>
 			<g id='tracks'></g>
 			<g id='timeline'></g>

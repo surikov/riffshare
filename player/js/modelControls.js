@@ -2,7 +2,7 @@ function fillModelControls() {
 	iconPinSetting = {
 		kind: 'p',
 		x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 - 0.1 - 1 / 2,
-		y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+		y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 		z: levelEngine.tapSize / 300,
 		l: pathList,
 		css: 'buttonFill'
@@ -19,19 +19,28 @@ function fillModelControls() {
 		z: [1, 100],
 		l: [{
 				kind: 'r',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 - 0.1 - 1 / 2 - 0.05,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5 - 0.05,
-				w: 1 + 0.1,
-				h: 1 + 0.1,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 - 0.1 - 1 / 2,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
+				w: 1,
+				h: 1,
+				css: 'buttonShadow',
+				rx: 0.5,
+				ry: 0.5
+			}, {
+				kind: 'r',
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 - 0.1 - 1 / 2 + 0.05,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5 + 0.05,
+				w: 1 - 0.1,
+				h: 1 - 0.1,
 				css: 'buttonBack',
-				rx: 0.55,
-				ry: 0.55
-			} //
+				rx: 0.45,
+				ry: 0.45
+			} // //
 		, iconPinSetting //
 		, {
 				kind: 'r',
 				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 - 0.1 - 1 / 2,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 				w: 1,
 				h: 1,
 				css: 'buttonSpot',
@@ -40,31 +49,40 @@ function fillModelControls() {
 			//------------------------------------------------------------
 		, {
 				kind: 'r',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 -1/2 - 0.05,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5 - 0.05,
-				w: 1 + 0.1,
-				h: 1 + 0.1,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 / 2 ,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5 ,
+				w: 1,
+				h: 1 ,
+				css: 'buttonShadow',
+				rx: 0.5,
+				ry: 0.5
+			}, {
+				kind: 'r',
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 / 2 + 0.05,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5 + 0.05,
+				w: 1 - 0.1,
+				h: 1 - 0.1,
 				css: 'buttonBack',
-				rx: 0.55,
-				ry: 0.55
+				rx: 0.45,
+				ry: 0.45
 			}, {
 				kind: 'p',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 -1/2,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 / 2,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 				z: levelEngine.tapSize / 300,
 				l: pathFolderBg,
 				css: 'buttonFill'
 			}, {
 				kind: 'p',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 -1/2,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 / 2,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 				z: levelEngine.tapSize / 300,
 				l: pathFolderFg,
 				css: 'buttonFill'
 			}, {
 				kind: 'r',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 -1/2,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1 / 2,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 				w: 1,
 				h: 1,
 				css: 'buttonSpot',
@@ -73,24 +91,33 @@ function fillModelControls() {
 			//------------------------------------------------------------
 		, {
 				kind: 'r',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1/2 +0.1- 0.05,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5 - 0.05,
-				w: 1 + 0.1,
-				h: 1 + 0.1,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1 / 2 + 0.1 ,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5 ,
+				w: 1 ,
+				h: 1,
+				css: 'buttonShadow',
+				rx: 0.5,
+				ry: 0.5
+			}, {
+				kind: 'r',
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1 / 2 + 0.1 + 0.05,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5 + 0.05,
+				w: 1 - 0.1,
+				h: 1 - 0.1,
 				css: 'buttonBack',
-				rx: 0.55,
-				ry: 0.55
+				rx: 0.45,
+				ry: 0.45
 			}, {
 				kind: 'p',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1/2+0.1,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1 / 2 + 0.1,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 				z: levelEngine.tapSize / 300,
 				l: pathPlay,
 				css: 'buttonFill'
 			}, {
 				kind: 'r',
-				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1/2+0.1,
-				y: levelEngine.viewHeight/ levelEngine.tapSize-1.5,
+				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 + 1 / 2 + 0.1,
+				y: levelEngine.viewHeight / levelEngine.tapSize - 1.5,
 				w: 1,
 				h: 1,
 				css: 'buttonSpot',

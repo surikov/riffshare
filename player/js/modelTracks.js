@@ -77,6 +77,7 @@ function replaceSong(song) {
 		}
 	}
 	fillSetting();
+	fillBG();
 	levelEngine.innerWidth = (song.duration * noteRatio + settingWidth) * levelEngine.tapSize;
 	levelEngine.resetModel();	
 }

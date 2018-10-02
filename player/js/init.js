@@ -8,6 +8,7 @@ function init() {
 	levelEngine.translateZ = 7;
 	fillModelControls();
 	fillSetting();
+	fillBG();
 	levelEngine.setModel([{
 				g: document.getElementById('controls'),
 				m: controlsModel,
@@ -28,6 +29,9 @@ function init() {
 				m: octavesModel,
 				kind: levelEngine.layerColumn,
 				shiftX: levelEngine.viewWidth / levelEngine.tapSize - 2
+			}, {
+				g: document.getElementById('background'),
+				m:bgModel
 			}
 		]);
 	levelEngine.applyZoomPosition();

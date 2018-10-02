@@ -10,6 +10,7 @@ var tracksModel=[];
 var settingModel=[];
 var timelineModel=[];
 var octavesModel=[];
+var bgModel=[];
 var currentSong=null;
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();

@@ -65,9 +65,12 @@ body{
 	fill: #069;
 }
 .buttonBack {
-	fill: #eee;
+	fill: #fff;
 }
-
+.buttonShadow{
+	fill: #000;
+	filter: url(#shadowBlur);
+}
 .timeLabel1 {
 	font-size: 1cm;
 	fill: rgba(127,127,127,0.5);
