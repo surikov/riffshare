@@ -41,6 +41,9 @@ body{
 .tilecomb4{
 	fill:url(#honeycomb4);
 }
+.tilecomb5{
+	fill:url(#honeycomb5);
+}
 .ln {
 	stroke:red; 
 	stroke-width:0.95cm; 

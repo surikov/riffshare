@@ -25,7 +25,7 @@ function fillSetting() {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [1, 3],
+		z: [1, 5],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -47,7 +47,7 @@ function fillSetting() {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [3, 7],
+		z: [2, 10],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -69,7 +69,7 @@ function fillSetting() {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [7, 20],
+		z: [7, 30],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -91,7 +91,7 @@ function fillSetting() {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [20, 100],
+		z: [15, 50],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -103,6 +103,28 @@ function fillSetting() {
 				css: 'tilecomb4',
 				a: function (xx, yy) {
 					console.log('spot 4', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+				}
+			}
+		]
+	});
+	settingModel.push({
+		id: 'subLayer5',
+		x: 0,
+		y: 0,
+		w: ww,
+		h: 128,
+		z: [30, 100],
+		l: [{
+				kind: 'r',
+				x: 0,
+				y: 0,
+				w: ww,
+				h: 128,
+				rx: 0.5,
+				ry: 0.5,
+				css: 'tilecomb5',
+				a: function (xx, yy) {
+					console.log('spot 5', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
