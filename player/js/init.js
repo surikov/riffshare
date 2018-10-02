@@ -36,7 +36,10 @@ function init() {
 		]);
 	levelEngine.applyZoomPosition();
 	document.getElementById('chooseFileInput').addEventListener('change', promptFile, false);
-	document.getElementById('contentSVG').addEventListener('drop', dropFile, false)
+	document.getElementById('contentSVG').addEventListener('drop', dropFile, false);
+	document.getElementById('contentSVG').addEventListener('dragenter', preventDefaults, false)
+	document.getElementById('contentSVG').addEventListener('dragover', preventDefaults, false)
+	document.getElementById('contentSVG').addEventListener('dragleave', preventDefaults, false)
 	window.addEventListener("resize", resizeField);
 }
 
