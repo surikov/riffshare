@@ -20,12 +20,12 @@ function fillSetting() {
 	}
 	//console.log(currentSong);
 	settingModel.push({
-		id: 'subLayer',
+		id: 'subLayer1',
 		x: 0,
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [1, 100],
+		z: [1, 3],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -34,9 +34,75 @@ function fillSetting() {
 				h: 128,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'bgField',
+				css: 'tilecomb1',
 				a: function (xx, yy) {
-					console.log('spot', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 1', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+				}
+			}
+		]
+	});
+	settingModel.push({
+		id: 'subLayer2',
+		x: 0,
+		y: 0,
+		w: ww,
+		h: 128,
+		z: [3, 7],
+		l: [{
+				kind: 'r',
+				x: 0,
+				y: 0,
+				w: ww,
+				h: 128,
+				rx: 0.5,
+				ry: 0.5,
+				css: 'tilecomb2',
+				a: function (xx, yy) {
+					console.log('spot 2', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+				}
+			}
+		]
+	});
+	settingModel.push({
+		id: 'subLayer3',
+		x: 0,
+		y: 0,
+		w: ww,
+		h: 128,
+		z: [7, 20],
+		l: [{
+				kind: 'r',
+				x: 0,
+				y: 0,
+				w: ww,
+				h: 128,
+				rx: 0.5,
+				ry: 0.5,
+				css: 'tilecomb3',
+				a: function (xx, yy) {
+					console.log('spot 3', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+				}
+			}
+		]
+	});
+	settingModel.push({
+		id: 'subLayer4',
+		x: 0,
+		y: 0,
+		w: ww,
+		h: 128,
+		z: [20, 100],
+		l: [{
+				kind: 'r',
+				x: 0,
+				y: 0,
+				w: ww,
+				h: 128,
+				rx: 0.5,
+				ry: 0.5,
+				css: 'tilecomb4',
+				a: function (xx, yy) {
+					console.log('spot 4', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -72,10 +138,10 @@ function fillSetting() {
 			//console.log(track,info);
 			names.l.push({
 				kind: 't',
-				x: 3,
-				y: 7*t,
-				t: ''+t+'.'+info.title,
-				css: 'octave9'
+				x: 1,
+				y: 2*t+2,
+				t: info.title,
+				css: 'trackNames'
 			});
 		}
 		for (var t = 0; t < currentSong.beats.length; t++) {
@@ -85,10 +151,10 @@ function fillSetting() {
 			//console.log(beat,info);
 			names.l.push({
 				kind: 't',
-				x: 3,
-				y: 7*(t+currentSong.tracks.length),
-				t: ''+t+'.'+info.title+': Percussion',
-				css: 'octave9'
+				x: 1,
+				y: 2*(t+currentSong.tracks.length)+2,
+				t: info.title+': Percussion',
+				css: 'trackNames'
 			});
 		}
 		settingModel.push(names);

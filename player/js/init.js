@@ -22,7 +22,7 @@ function init() {
 				g: document.getElementById('timeline'),
 				m: timelineModel,
 				kind: levelEngine.layerRow,
-				shiftY: levelEngine.viewHeight / levelEngine.tapSize - 1.2
+				shiftY: 1.0
 			}, {
 				g: document.getElementById('octaves'),
 				m: octavesModel,
@@ -31,7 +31,8 @@ function init() {
 			}
 		]);
 	levelEngine.applyZoomPosition();
-	document.getElementById('chooseFileInput').addEventListener('change', prompt, false);
+	document.getElementById('chooseFileInput').addEventListener('change', promptFile, false);
+	document.getElementById('contentSVG').addEventListener('drop', dropFile, false)
 	window.addEventListener("resize", resizeField);
 }
 

@@ -29,6 +29,18 @@ body{
 .bgField{
 	fill: rgba(127,127,127,0.5);
 }
+.tilecomb1{
+	fill:url(#honeycomb1);
+}
+.tilecomb2{
+	fill:url(#honeycomb2);
+}
+.tilecomb3{
+	fill:url(#honeycomb3);
+}
+.tilecomb4{
+	fill:url(#honeycomb4);
+}
 .ln {
 	stroke:red; 
 	stroke-width:0.95cm; 
@@ -81,4 +93,8 @@ body{
 .octave9 {
 	font-size: 5cm;
 	fill: rgba(127,127,127,0.5);
+}
+.trackNames {
+	font-size: 1cm;
+	fill: #333;
 }

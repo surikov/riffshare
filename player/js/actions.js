@@ -18,3 +18,7 @@
 function promptClickAction(x, y) {
 	document.getElementById('chooseFileInput').click();
 }
+function playClickAction(x, y) {
+	console.log(levelEngine.translateX,levelEngine.translateY,levelEngine.translateZ);
+}
+

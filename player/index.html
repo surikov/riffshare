@@ -22,14 +22,90 @@
 		<link href='css/index.css' rel='stylesheet'>
 	</head>
 	<body>
-		<svg id='contentSVG'>				
+		<svg id='contentSVG'>	
+			<defs>
+                <pattern id="secondPattern" x="2" y="2" width="20" height="20" patternUnits="userSpaceOnUse">
+               		<rect x="5" y="5" width="10" height="10" fill= "#876fc1" />
+                </pattern>
+				<pattern id="honeycomb1" width="56" height="100" patternUnits="userSpaceOnUse">               		
+					<path d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='#eee' stroke-width='2'/>
+					<path d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='#eef' stroke-width='2'/>
+                </pattern>
+				<pattern id="honeycomb1" width="56" height="100" patternUnits="userSpaceOnUse">  
+					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='1' />
+					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='1' />
+					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='1' />
+					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='1' />
+					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='1' />
+					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='1' />
+					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='1' />
+					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='1' />
+                </pattern>
+				<pattern id="honeycomb2" width="168" height="300" patternUnits="userSpaceOnUse">  
+					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(3 3)' />
+					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(3 3)' />
+					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' transform='scale(3 3)' />
+					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(3 3)' />
+					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(3 3)' />
+					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' transform='scale(3 3)' />
+					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' transform='scale(3 3)' />
+                </pattern>
+				<pattern id="honeycomb3" width="392" height="700" patternUnits="userSpaceOnUse">  
+					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(7 7)' />
+					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(7 7)' />
+					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' transform='scale(7 7)' />
+					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(7 7)' />
+					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(7 7)' />
+					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' transform='scale(7 7)' />
+					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' transform='scale(7 7)' />
+                </pattern>
+				<pattern id="honeycomb4" width="1680" height="3000" patternUnits="userSpaceOnUse">  
+					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='1' transform='scale(30 30)' />
+					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='1' transform='scale(30 30)' />
+					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='1' transform='scale(30 30)' />
+					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='1' transform='scale(30 30)' />
+					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='1' transform='scale(30 30)' />
+					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='1' transform='scale(30 30)' />
+					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='1' transform='scale(30 30)' />
+                </pattern>
+			</defs>
+					
+					
+					
 			<g id='subcontrols'></g>
 			<g id='tracks'></g>
 			<g id='timeline'></g>
 			<g id='octaves'></g>
 			<g id='controls'></g>
 		</svg>
-		<input type='file' style='display:none' id='chooseFileInput' name='selefile'/>
+		<input type='file' style='display:none' id='chooseFileInput' name='selefile' multiple accept="midi/*" />
 		<script>
 			init();
 		</script>
