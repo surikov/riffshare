@@ -196,13 +196,16 @@ function TileLevel(svg) {
 	};
 	me.rakeMouseUp = function(mouseEvent) {
 		mouseEvent.preventDefault();
-		me.cancelDragZoom();
+		
 		me.svg.removeEventListener('mousemove', me.rakeMouseMove, true);
-		if (Math.abs(me.clickX - mouseEvent.offsetX) < me.translateZ * me.clickLimit //
+		if (Math.abs(me.clickX - mouseEvent.offsetX) <  me.clickLimit //
 			&&
-			Math.abs(me.clickY - mouseEvent.offsetY) < me.translateZ * me.clickLimit) {
+			Math.abs(me.clickY - mouseEvent.offsetY) < me.clickLimit) {
+			//console.log(Math.abs(me.clickX - mouseEvent.offsetX)+'x'+Math.abs(me.clickY - mouseEvent.offsetY));
+			//console.log(me.translateZ * me.clickLimit,me.translateZ , me.clickLimit);
 			me.clicked = true;
 		}
+		me.cancelDragZoom();
 		me.slideToContentPosition();
 		me.valid = false;		
 	};
