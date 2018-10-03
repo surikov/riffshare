@@ -35,14 +35,14 @@ body{
 .tilecomb2{
 	fill:url(#honeycomb2);
 }
-.tilecomb3{
-	fill:url(#honeycomb3);
-}
 .tilecomb4{
 	fill:url(#honeycomb4);
 }
-.tilecomb5{
-	fill:url(#honeycomb5);
+.tilecomb8{
+	fill:url(#honeycomb8);
+}
+.tilecomb16{
+	fill:url(#honeycomb16);
 }
 .ln {
 	stroke:red; 

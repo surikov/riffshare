@@ -10,7 +10,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [1, 5],
+		z: [1, 2],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -32,7 +32,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [2, 10],
+		z: [2, 4],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -54,7 +54,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [7, 30],
+		z: [4, 8],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -63,7 +63,7 @@ function fillBG(song) {
 				h: 128,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'tilecomb3',
+				css: 'tilecomb4',
 				a: function (xx, yy) {
 					console.log('spot 3', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -76,7 +76,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [15, 50],
+		z: [8, 16],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -85,7 +85,7 @@ function fillBG(song) {
 				h: 128,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'tilecomb4',
+				css: 'tilecomb8',
 				a: function (xx, yy) {
 					console.log('spot 4', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -98,7 +98,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128,
-		z: [30, 100],
+		z: [16, 100],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -107,7 +107,7 @@ function fillBG(song) {
 				h: 128,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'tilecomb5',
+				css: 'tilecomb16',
 				a: function (xx, yy) {
 					console.log('spot 5', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
