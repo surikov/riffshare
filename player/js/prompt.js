@@ -16,11 +16,11 @@ function loadMIDIFile(file) {
 	fileReader.readAsArrayBuffer(file);
 }
 function dropFile(e) {
-	console.log('dropFile', e);
+	//console.log('dropFile', e);
 	preventDefaults(e);
 	var dt = e.dataTransfer;
 	var files = dt.files;
-	console.log('dropFile', e, files);
+	//console.log('dropFile', e, files);
 	loadMIDIFile(files[0]);
 }
 function preventDefaults(e) {
