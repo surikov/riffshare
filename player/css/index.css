@@ -104,3 +104,8 @@ body{
 	font-size: 1cm;
 	fill: #333;
 }
+.trackButton {
+	stroke: #069;
+	stroke-width: 0.03cm;
+	fill: none;
+}

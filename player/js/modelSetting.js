@@ -27,7 +27,7 @@ function fillSetting() {
 			y: 0,
 			w: settingWidth,
 			h: 128,
-			z: [1, 100],
+			z: [1, 6],
 			l: []
 		};
 		/*names.l.push({
@@ -44,11 +44,22 @@ function fillSetting() {
 			t: '22222',
 			css: 'octave9'
 		});*/
+		var cntr=0;
 		for (var t = 0; t < currentSong.tracks.length; t++) {
 			var track = currentSong.tracks[t];
 			var nn = findFirstIns(player, track.program);
 			var info = player.loader.instrumentInfo(nn);
 			//console.log(track,info);
+			names.l.push({
+				kind: 'r',
+				x: 0.5,
+				y: 2*t+0.5,
+				w:1.5,
+				h:1.5,
+				rx:0.75,
+				ry:0.75,
+				css: 'trackButton'
+			});
 			names.l.push({
 				kind: 't',
 				x: 1,
@@ -56,6 +67,20 @@ function fillSetting() {
 				t: info.title,
 				css: 'trackNames'
 			});
+			var f=function(){console.dir(this);};
+			console.dir(f);
+			var spot={
+				kind: 'r',
+				x: 0.5,
+				y: 2*t+0.5,
+				w: 1.5,
+				h: 1.5,
+				css: 'buttonSpot',
+				nn:cntr,
+				a: f
+			};
+			names.l.push(spot);
+			cntr++;
 		}
 		for (var t = 0; t < currentSong.beats.length; t++) {
 			var beat = currentSong.beats[t];
