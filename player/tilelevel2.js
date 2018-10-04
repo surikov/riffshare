@@ -1,4 +1,4 @@
-﻿console.log('tilelevel.js v2.33');
+﻿console.log('tilelevel.js v2.37');
 
 function TileLevel(svg) {
 	var me = this;
@@ -32,10 +32,11 @@ function TileLevel(svg) {
 	me.svg.appendChild(rect);
 	var tbb = rect.getBBox();
 	me.tapSize = tbb.width;
-	me.clickLimit = me.tapSize / 8;
+	me.clickLimit = me.tapSize / 6;
 	me.svg.removeChild(rect);
 	me.dragZoom = 1;
 	me.startDragZoom = function() {
+		console.log('startDragZoom');
 		me.dragZoom = 1.01;
 		me.applyZoomPosition();
 	};
@@ -56,6 +57,7 @@ function TileLevel(svg) {
 		var 	rh = me.viewHeight * me.translateZ * me.dragZoom;
 		//console.log(Math.round(rx) ,Math.round(ry),Math.round(rw),Math.round( rh));
 		me.svg.setAttribute('viewBox', rx + ' ' + ry + ' ' + rw + ' ' + rh);
+		//console.log('applyZoomPosition',me.translateX,me.translateY,me.translateZ);
 		if (me.model) {
 			for (var k = 0; k < me.model.length; k++) {
 				var layer = me.model[k];
@@ -66,12 +68,19 @@ function TileLevel(svg) {
 				var cY = 0;
 				var sX = 0;
 				var sY = 0;
-				if (me.viewWidth * me.translateZ > me.innerWidth) {
-					cX = (me.viewWidth * me.translateZ - me.innerWidth) / 2;
-				}
-				if (me.viewHeight * me.translateZ > me.innerHeight) {
-					cY = (me.viewHeight * me.translateZ - me.innerHeight) / 2;
-				}
+				/*if(me.twoZoom){
+					//
+				}else{*/
+					if (me.viewWidth * me.translateZ > me.innerWidth) {
+						cX = (me.viewWidth * me.translateZ - me.innerWidth) / 2;
+						//console.log('cX',cX);
+						
+					}
+					if (me.viewHeight * me.translateZ > me.innerHeight) {
+						cY = (me.viewHeight * me.translateZ - me.innerHeight) / 2;
+						//console.log('cY',cY);
+					}
+				//}
 				if (layer.kind == me.layerOverlay) {
 					tz = me.translateZ;
 					tx = -me.translateX;
@@ -269,6 +278,7 @@ function TileLevel(svg) {
 		};
 	};
 	me.startTouchZoom = function(touchEvent) {
+		console.log('startTouchZoom');
 		me.twoZoom = true;
 		var p1 = me.vectorFromTouch(touchEvent.touches[0]);
 		var p2 = me.vectorFromTouch(touchEvent.touches[1]);
@@ -282,6 +292,7 @@ function TileLevel(svg) {
 	};
 	me.rakeTouchStart = function(touchEvent) {
 		touchEvent.preventDefault();
+		console.log('rakeTouchStart count',touchEvent.touches.length,'at',touchEvent.touches[0].clientX,touchEvent.touches[0].clientY);
 		me.startedTouch = true;
 		if (touchEvent.touches.length < 2) {
 			me.twoZoom = false;
@@ -298,70 +309,92 @@ function TileLevel(svg) {
 		me.clicked = false;
 	};
 	me.rakeTouchMove = function(touchEvent) {
+		console.log('rakeTouchMove count',touchEvent.touches.length,'twoZoom',me.twoZoom);
 		touchEvent.preventDefault();
-		if (touchEvent.touches.length < 2) {
-			if (me.twoZoom) {
-				//
+		if(me.startedTouch){
+			if (touchEvent.touches.length < 2) {
+				if (me.twoZoom) {
+					//
+				} else {
+					var dX = touchEvent.touches[0].clientX - me.startMouseScreenX;
+					var dY = touchEvent.touches[0].clientY - me.startMouseScreenY;
+					me.translateX = me.translateX + dX * me.translateZ;
+					me.translateY = me.translateY + dY * me.translateZ;
+					me.startMouseScreenX = touchEvent.touches[0].clientX;
+					me.startMouseScreenY = touchEvent.touches[0].clientY;
+					me.applyZoomPosition();
+					return;
+				}
 			} else {
-				var dX = touchEvent.touches[0].clientX - me.startMouseScreenX;
-				var dY = touchEvent.touches[0].clientY - me.startMouseScreenY;
-				me.translateX = me.translateX + dX * me.translateZ;
-				me.translateY = me.translateY + dY * me.translateZ;
-				me.startMouseScreenX = touchEvent.touches[0].clientX;
-				me.startMouseScreenY = touchEvent.touches[0].clientY;
-				me.applyZoomPosition();
-				return;
-			}
-		} else {
-			if (!me.twoZoom) {
-				me.startTouchZoom(touchEvent);
-			} else {
-				var p1 = me.vectorFromTouch(touchEvent.touches[0]);
-				var p2 = me.vectorFromTouch(touchEvent.touches[1]);
-				var d = me.vectorDistance(p1, p2);
-				if (d <= 0) {
-					d = 1;
+				if (!me.twoZoom) {
+					me.startTouchZoom(touchEvent);
+				} else {
+					var p1 = me.vectorFromTouch(touchEvent.touches[0]);
+					var p2 = me.vectorFromTouch(touchEvent.touches[1]);
+					var d = me.vectorDistance(p1, p2);
+					if (d <= 0) {
+						d = 1;
+					}
+					var ratio = d / me.twodistance;
+					me.twodistance = d;
+					var zoom = me.translateZ / ratio;
+					if (zoom < 1) {
+						zoom = 1;
+					}
+					if (zoom > me.maxZoom()) {
+						zoom = me.maxZoom();
+					}
+					me.translateX = me.translateX - (me.translateZ - zoom) * me.twocenter.x;
+					me.translateY = me.translateY - (me.translateZ - zoom) * me.twocenter.y;
+					me.translateZ = zoom;
+					
+					var cX=0;
+					var cY=0;
+					if (me.viewWidth * me.translateZ > me.innerWidth) {
+						cX = (me.viewWidth * me.translateZ - me.innerWidth)/2 ;
+						//me.translateX=me.translateX+cX;
+						console.log('cX',cX,'/',me.translateX);
+					}
+					if (me.viewHeight * me.translateZ > me.innerHeight) {
+						cY = (me.viewHeight * me.translateZ - me.innerHeight)/2 ;
+						//me.translateY=me.translateY+cY;
+						console.log('cY',cY,'/',me.translateY);
+					}
+					
+					me.dragZoom = 1.0;
+					me.applyZoomPosition();
+					//me.adjustContentPosition();
+					//me.valid = false;
 				}
-				var ratio = d / me.twodistance;
-				me.twodistance = d;
-				var zoom = me.translateZ / ratio;
-				if (zoom < 1) {
-					zoom = 1;
-				}
-				if (zoom > me.maxZoom()) {
-					zoom = me.maxZoom();
-				}
-				me.translateX = me.translateX - (me.translateZ - zoom) * me.twocenter.x;
-				me.translateY = me.translateY - (me.translateZ - zoom) * me.twocenter.y;
-				me.translateZ = zoom;
-				me.dragZoom = 1.0;
-				me.applyZoomPosition();
-				//me.adjustContentPosition();
-				//me.valid = false;
 			}
 		}
 	};
 	me.rakeTouchEnd = function(touchEvent) {
 		touchEvent.preventDefault();
-		me.cancelDragZoom();
+		console.log('rakeTouchEnd me.twoZoom',me.twoZoom);
+		
 		me.valid = false;
 		if (!me.twoZoom) {
 			if (touchEvent.touches.length < 2) {
+				console.log('startedTouch',me.startedTouch);
 				if (me.startedTouch) {
 					if (Math.abs(me.clickX - me.startMouseScreenX) < me.translateZ * me.clickLimit //
 						&&
 						Math.abs(me.clickY - me.startMouseScreenY) < me.translateZ * me.clickLimit) {
 						me.clicked = true;
+						console.log('clicked',me.clicked);
 					}
 				} else {
 					//console.log('touch ended already');
 				}
+				me.cancelDragZoom();
 				me.slideToContentPosition();
 				return;
 			}
 		}
 		me.twoZoom = false;
-		me.startedTouch = false;		
+		me.startedTouch = false;	
+me.cancelDragZoom();		
 		me.slideToContentPosition();
 	};
 	me.msEdgeHook = function(g) {
@@ -453,6 +486,14 @@ function TileLevel(svg) {
 		var y = -me.translateY;
 		var w = me.svg.clientWidth * me.translateZ;
 		var h = me.svg.clientHeight * me.translateZ;
+		if (me.viewWidth * me.translateZ > me.innerWidth) {
+			cX = (me.viewWidth * me.translateZ - me.innerWidth) / 2;
+			x=x-cX;
+		}
+		if (me.viewHeight * me.translateZ > me.innerHeight) {
+			cY = (me.viewHeight * me.translateZ - me.innerHeight) / 2;
+			y=y-cY;
+		}
 		if (kind == me.layerOverlay) {
 			x = 0;
 			y = 0;
@@ -627,7 +668,7 @@ function TileLevel(svg) {
 		}
 	};
 	me.startSlideTo = function(x, y, z) {
-		me.startStepSlideTo(30, x, y, z);
+		me.startStepSlideTo(10, x, y, z);
 	}
 	me.startStepSlideTo = function(s, x, y, z) {
 		var stepCount = s;
@@ -659,7 +700,7 @@ function TileLevel(svg) {
 			me.translateY = n.y;
 			me.translateZ = n.z;
 			me.applyZoomPosition();
-			me.queueTiles();
+			//me.queueTiles();
 			var main = me;
 			setTimeout(function() {
 				main.stepSlideTo(xyz);
