@@ -10,7 +10,7 @@
 			z: levelEngine.translateZ
 		};
 		iconPinSetting.l = pathPin;
-		levelEngine.startSlideTo(0 * levelEngine.tapSize, 0 * levelEngine.tapSize, 1);
+		levelEngine.startSlideTo(0 * levelEngine.tapSize, 0 * levelEngine.tapSize, 2);
 	}
 	levelEngine.clearGroupDetails(document.getElementById('controls'));
 	levelEngine.tileFromModel();
@@ -21,4 +21,5 @@ function promptClickAction(x, y) {
 function playClickAction(x, y) {
 	console.log(levelEngine.translateX,levelEngine.translateY,levelEngine.translateZ);
 }
+
 

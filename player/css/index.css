@@ -55,8 +55,16 @@ body{
 	stroke-width:0.95cm; 
 	stroke-linecap:round;
 }
+.seltrack {
+	stroke:#000 ;
+	stroke-width:0.95cm; 
+	stroke-linecap:round;
+}
 .abeat {
 	fill: #666;
+}
+.selbeat {
+	fill: #000;
 }
 .buttonSpot {
 	fill: rgba(127,127,127,0.0001);

@@ -15,3 +15,4 @@ var currentSong=null;
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player = new WebAudioFontPlayer();
+var selectedTrack=0;
