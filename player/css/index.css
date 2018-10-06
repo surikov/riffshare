@@ -29,20 +29,20 @@ body{
 .bgField{
 	fill: rgba(127,127,127,0.5);
 }
-.tilecomb1{
-	fill:url(#honeycomb1);
+.noisy1{
+	fill:url(#noisy1);
 }
-.tilecomb2{
-	fill:url(#honeycomb2);
+.noisy2{
+	fill:url(#noisy2);
 }
-.tilecomb4{
-	fill:url(#honeycomb4);
+.noisy3{
+	fill:url(#noisy3);
 }
-.tilecomb8{
-	fill:url(#honeycomb8);
+.noisy4{
+	fill:url(#noisy4);
 }
-.tilecomb16{
-	fill:url(#honeycomb16);
+.noisy5{
+	fill:url(#noisy5);
 }
 .ln {
 	stroke:red; 
@@ -50,7 +50,7 @@ body{
 	stroke-linecap:round;
 }
 .atrack {
-	stroke:#666; 
+	stroke:#999; 
 	stroke2:rgba(0,0,0,0.5);
 	stroke-width:0.95cm; 
 	stroke-linecap:round;
@@ -61,7 +61,7 @@ body{
 	stroke-linecap:round;
 }
 .abeat {
-	fill: #666;
+	fill: #999;
 }
 .selbeat {
 	fill: #000;
@@ -78,6 +78,10 @@ body{
 .buttonShadow{
 	fill: #000;
 	filter: url(#shadowBlur);
+}
+.pitchName {
+	font-size: 1cm;
+	fill: #f00;
 }
 .timeLabel1 {
 	font-size: 1cm;

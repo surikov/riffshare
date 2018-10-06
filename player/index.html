@@ -29,94 +29,29 @@
 	<body>
 		<svg id='contentSVG'>	
 			<defs>
-				<pattern id="honeycomb1" width="56" height="100" patternUnits="userSpaceOnUse">  
-					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' />
-					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' />
-					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' />
-					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' />
-					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' />
-					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' />
-					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' />
-					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' />
+				
+                <pattern id="noisy1" width="600" height="600" patternUnits="userSpaceOnUse">  
+					<image xlink:href="img/bg.png" width="600" height="600"/>	
                 </pattern>
-				<pattern id="honeycomb2" width="112" height="200" patternUnits="userSpaceOnUse">  
-					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(2 2)' />
-					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(2 2)' />
-					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' transform='scale(2 2)' />
-					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(2 2)' />
-					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(2 2)' />
-					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' transform='scale(2 2)' />
-					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
-					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' transform='scale(2 2)' />
+                <pattern id="noisy2" width="1200" height="1200" patternUnits="userSpaceOnUse">  
+					<image xlink:href="img/bg.png" width="1200" height="1200"/>	
                 </pattern>
-				<pattern id="honeycomb4" width="224" height="400" patternUnits="userSpaceOnUse">  
-					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(4 4)' />
-					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(4 4)' />
-					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' transform='scale(4 4)' />
-					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(4 4)' />
-					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(4 4)' />
-					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' transform='scale(4 4)' />
-					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
-					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' transform='scale(4 4)' />
+                <pattern id="noisy3" width="2400" height="2400" patternUnits="userSpaceOnUse">  
+					<image xlink:href="img/bg.png" width="2400" height="2400"/>	
                 </pattern>
-                <pattern id="honeycomb8" width="448" height="800" patternUnits="userSpaceOnUse">  
-					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(8 8)' />
-					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(8 8)' />
-					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' transform='scale(8 8)' />
-					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(8 8)' />
-					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(8 8)' />
-					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' transform='scale(8 8)' />
-					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
-					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' transform='scale(8 8)' />
+                <pattern id="noisy4" width="4800" height="4800" patternUnits="userSpaceOnUse">  
+					<image xlink:href="img/bg.png" width="4800" height="4800"/>	
                 </pattern>
-                <pattern id="honeycomb16" width="896" height="1600" patternUnits="userSpaceOnUse">  
-					<line x1="28" y1="66" x2="0" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(16 16)' />
-					<line x1="0" y1="50" x2="0" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(16 16)' />
-					<line x1="0" y1="16" x2="28" y2="0" fill='none' stroke='#eee' stroke-width='2' transform='scale(16 16)' />
-					<line x1="28" y1="0" x2="56" y2="16" fill='none' stroke='#eee' stroke-width='2' transform='scale(16 16)' />
-					<line x1="56" y1="16" x2="56" y2="50" fill='none' stroke='#eee' stroke-width='2' transform='scale(16 16)' />
-					<line x1="56" y1="50" x2="28" y2="66" fill='none' stroke='#eee' stroke-width='2' transform='scale(16 16)' />
-					<line x1="28" y1="0" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="28" y1="34" x2="0" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="0" y1="50" x2="0" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="0" y1="84" x2="28" y2="100" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="28" y1="100" x2="56" y2="84" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="56" y1="84" x2="56" y2="50" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="56" y1="50" x2="28" y2="34" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
-					<line x1="28" y1="100" x2="28" y2="66" fill='none' stroke='#eef' stroke-width='2' transform='scale(16 16)' />
+                <pattern id="noisy5" width="9600" height="9600" patternUnits="userSpaceOnUse">  
+					<image xlink:href="img/bg.png" width="9600" height="9600"/>	
                 </pattern>
-
 				<filter id="shadowBlur">	
 					<feGaussianBlur stdDeviation="2" result="shadow"/>	
 					<feOffset dx="1" dy="1"/>	
 				</filter>
 			</defs>
 					
-					
+				<image2 xlink:href="img/test1.jpg" height="1280" width="1280"/>	
 			<g id='background'></g>
 			<g id='subcontrols'></g>
 			<g id='tracks'></g>
