@@ -2,14 +2,14 @@ function addTimeLine(song, modelTimeline, labelPrefix, css, step, zoom) {
 	for (var i = 0; i < song.duration; i = i + step) {
 		modelTimeline.push({
 			id: labelPrefix + i,
-			x: i * noteRatio+settingWidth,
+			x: i * cellsPerSecond+settingPanelWidth,
 			y: 0,
 			w: 50,
 			h: 200,
 			z: zoom,
 			l: [{
 				kind: 't',
-				x: i * noteRatio+settingWidth,
+				x: i * cellsPerSecond+settingPanelWidth,
 				y: 1,
 				t: formatSeconds(i),
 				css: css

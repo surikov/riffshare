@@ -18,7 +18,7 @@ function fillModelControls() {
 		y: 0.25,
 		w: 3,
 		h: 1,
-		z: [1, 100],
+		z: [1, 512],
 		l: [{
 				kind: 'r',
 				x: (levelEngine.viewWidth / levelEngine.tapSize) / 2 - 1/2-dividing -1  ,

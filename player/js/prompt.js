@@ -10,7 +10,7 @@ function loadMIDIFile(file) {
 		var midiFile = new MIDIFile(arrayBuffer);
 		var parsedSong = midiFile.parseSong();
 		replaceSong(parsedSong);
-		//levelEngine.innerWidth = (parsedSong.duration * noteRatio+settingWidth) * levelEngine.tapSize;
+		//levelEngine.innerWidth = (parsedSong.duration * cellsPerSecond+settingPanelWidth) * levelEngine.tapSize;
 		//levelEngine.resetModel();
 	};
 	fileReader.readAsArrayBuffer(file);

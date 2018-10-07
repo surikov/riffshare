@@ -3,8 +3,8 @@
 function init() {
 	levelEngine = new TileLevel(document.getElementById('contentSVG'));
 	levelEngine.innerWidth = 100 * levelEngine.tapSize;
-	levelEngine.innerHeight = 128 * levelEngine.tapSize;
-	levelEngine.mx = 99;
+	levelEngine.innerHeight = 128 * levelEngine.tapSize*noteLineHeight;
+	levelEngine.mx = 511;
 	levelEngine.translateZ = 7;
 	fillModelControls();
 	fillSetting();
@@ -32,6 +32,9 @@ function init() {
 			}, {
 				g: document.getElementById('background'),
 				m:bgModel
+			}, {
+				g: document.getElementById('active'),
+				m:activeModel
 			}
 		]);
 	levelEngine.applyZoomPosition();

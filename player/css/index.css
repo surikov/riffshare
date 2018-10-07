@@ -44,6 +44,12 @@ body{
 .noisy5{
 	fill:url(#noisy5);
 }
+.noisy6{
+	fill:url(#noisy6);
+}
+.noisy7{
+	fill:url(#noisy7);
+}
 .ln {
 	stroke:red; 
 	stroke-width:0.95cm; 
@@ -52,12 +58,12 @@ body{
 .atrack {
 	stroke:#999; 
 	stroke2:rgba(0,0,0,0.5);
-	stroke-width:0.95cm; 
+	stroke-width:4.95cm; 
 	stroke-linecap:round;
 }
 .seltrack {
 	stroke:#000 ;
-	stroke-width:0.95cm; 
+	stroke-width:4.95cm; 
 	stroke-linecap:round;
 }
 .abeat {
@@ -103,7 +109,10 @@ body{
 	font-size: 30cm;
 	fill: rgba(127,127,127,0.5);
 }
-
+.timeLabel100 {
+	font-size: 100cm;
+	fill: rgba(127,127,127,0.5);
+}
 .octave1 {
 	font-size: 3cm;
 	fill: rgba(127,127,127,0.5);
@@ -120,4 +129,19 @@ body{
 	stroke: #069;
 	stroke-width: 0.03cm;
 	fill: none;
+}
+.density1 {
+	fill: rgba(127,127,127,0.05);
+}
+.density2 {
+	fill: rgba(127,127,127,0.1);
+}
+.density3 {
+	fill: rgba(127,127,127,0.15);
+}
+.density4 {
+	fill: rgba(127,127,127,0.2);
+}
+.density5 {
+	fill: rgba(127,127,127,0.25);
 }

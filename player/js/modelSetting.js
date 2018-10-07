@@ -62,17 +62,17 @@ function addTrackSelectSpot(title, names, y, nn, selected) {
 function fillSetting() {
 	//console.log('selectedTrack',selectedTrack);
 	settingModel.length = 0;
-	var ww = settingWidth;
+	var ww = settingPanelWidth;
 	if (currentSong) {
-		ww = settingWidth + currentSong.duration * noteRatio;
+		ww = settingPanelWidth + currentSong.duration * cellsPerSecond;
 	}
 	if (currentSong) {
 		var names = {
 			id: 'namesLayer',
 			x: 0,
 			y: 0,
-			w: settingWidth,
-			h: 128,
+			w: settingPanelWidth,
+			h: 128*noteLineHeight,
 			z: [1, 6],
 			l: []
 		};
