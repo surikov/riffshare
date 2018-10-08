@@ -19,7 +19,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy1',
+				css: 'hexback1',
 				a: function (xx, yy) {
 					console.log('spot 1', xx, yy,ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -41,7 +41,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy2',
+				css: 'hexback2',
 				a: function (xx, yy) {
 					console.log('spot 2', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -63,7 +63,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy3',
+				css: 'hexback3',
 				a: function (xx, yy) {
 					console.log('spot 3', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -85,7 +85,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy4',
+				css: 'hexback4',
 				a: function (xx, yy) {
 					console.log('spot 4', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -107,7 +107,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy5',
+				css: 'hexback5',
 				a: function (xx, yy) {
 					console.log('spot 5', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -129,7 +129,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy6',
+				css: 'hexback6',
 				a: function (xx, yy) {
 					console.log('spot 6', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
@@ -151,7 +151,7 @@ function fillBG(song) {
 				h: 128*noteLineHeight,
 				rx: 0.5,
 				ry: 0.5,
-				css: 'noisy7',
+				css: 'hexback7',
 				a: function (xx, yy) {
 					console.log('spot 7', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}

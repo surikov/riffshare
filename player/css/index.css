@@ -50,7 +50,68 @@ body{
 .noisy7{
 	fill:url(#noisy7);
 }
-
+.hexback1{
+	fill:url(#hexback1);
+}
+.hexback2{
+	fill:url(#hexback2);
+}
+.hexback3{
+	fill:url(#hexback3);
+}
+.hexback4{
+	fill:url(#hexback4);
+}
+.hexback5{
+	fill:url(#hexback5);
+}
+.hexback6{
+	fill:url(#hexback6);
+}
+.hexback7{
+	fill:url(#hexback7);
+}
+.backline1{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+}
+.backline2{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+	transform: scale(2,2);
+}
+.backline3{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+	transform: scale(4,4);
+}
+.backline4{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+	transform: scale(8,8);
+}
+.backline5{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+	transform: scale(16,16);
+}
+.backline6{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+	transform: scale(32,32);
+}
+.backline7{
+	stroke:#339 ;
+	stroke-width:0.01cm; 
+	fill: none;
+	transform: scale(64,64);
+}
 .atrack {
 	stroke2:#999; 
 	stroke:rgba(127,127,127,0.75);
