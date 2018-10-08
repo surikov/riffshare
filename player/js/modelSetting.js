@@ -12,6 +12,7 @@ function findFirstDrum(player, nn) {
 		}
 	}
 }
+/*
 function selectTrack() {
 	//console.log(this.nn);
 	selectedTrack = this.nn;
@@ -23,6 +24,27 @@ function selectTrack() {
 		anchor = null;
 	}
 	levelEngine.resetModel();
+}*/
+function addSelectTrackSpot(names,y,nn){
+	names.l.push({
+			kind: 'r',
+			x: 0.5,
+			y: y,
+			w: 1.5,
+			h: 1.5,
+			css: 'buttonSpot',
+			a: function(x,y){
+				selectedTrack = nn;
+				fillSetting();
+				resetSongTracks();
+				if (anchor) {
+					iconPinSetting.l = pathList;
+					levelEngine.startSlideTo(anchor.x, anchor.y, anchor.z);
+					anchor = null;
+				}
+				levelEngine.resetModel();
+			}
+		});
 }
 function addTrackSelectSpot(title, names, y, nn, selected) {
 	if (!(selected)) {
@@ -45,6 +67,7 @@ function addTrackSelectSpot(title, names, y, nn, selected) {
 		css: 'trackNames'
 	});
 	if (!(selected)) {
+		/*
 		var spot = {
 			kind: 'r',
 			x: 0.5,
@@ -57,7 +80,10 @@ function addTrackSelectSpot(title, names, y, nn, selected) {
 		};
 		spot.a = selectTrack.bind(spot);
 		names.l.push(spot);
+		*/
+		addSelectTrackSpot(names,y,nn)
 	}
+	
 }
 function fillSetting() {
 	//console.log('selectedTrack',selectedTrack);

@@ -1,6 +1,6 @@
 function replaceSong(song) {
 	currentSong = song;
-selectedTrack=0;
+selectedTrack=-1;
 	timelineModel.length = 0;
 	octavesModel.length = 0;
 	addOctaveLine(song, octavesModel, 'octave13', 'octave1', [1, 3]);
@@ -15,11 +15,14 @@ selectedTrack=0;
 	resetSongTracks();
 	fillSetting();
 	fillBG();
+	levelEngine.translateX=0;
+	levelEngine.translateY=0;
+	levelEngine.translateZ=50;
 	levelEngine.innerWidth = (song.duration * cellsPerSecond + settingPanelWidth) * levelEngine.tapSize;
 	levelEngine.resetModel();
 }
 
-function addBars(song, tracksModel, activeModel) {
+function addBars(song, tracksModel, activeModel, spotsModel) {
 	for (var i = 0; i < song.duration; i = i + barDuration) {
 		tracksModel.push({
 			id: 'bar' + i,
@@ -37,6 +40,15 @@ function addBars(song, tracksModel, activeModel) {
 			w: barDuration * cellsPerSecond,
 			h: 128 * noteLineHeight,
 			z: [1, 512],
+			l: []
+		});
+		spotsModel.push({
+			id: 'spot' + i,
+			x: i * cellsPerSecond + settingPanelWidth,
+			y: 0,
+			w: barDuration * cellsPerSecond,
+			h: 128 * noteLineHeight,
+			z: [1, 22],
 			l: []
 		});
 	}
@@ -125,35 +137,53 @@ function addPlaceholders(song, tracksModel) {
 function resetSongTracks() {
 	tracksModel.length = 0;
 	activeModel.length = 0;
-	addBars(currentSong, tracksModel, activeModel);
+	addBars(currentSong, tracksModel, activeModel,spotsModel);
 	var cntr = 0;
 	for (var t = 0; t < currentSong.tracks.length; t++) {
 		var track = currentSong.tracks[t];
 		if (cntr != selectedTrack) {
-			addInsTrack(track, tracksModel);
+			addInsTrack(cntr,track, tracksModel,spotsModel,false);
 		}
 		cntr++;
 	}
 	for (var t = 0; t < currentSong.beats.length; t++) {
 		var beat = currentSong.beats[t];
 		if (cntr != selectedTrack) {
-			addDrumTrack(beat, tracksModel);
+			addDrumTrack(cntr,beat, tracksModel,spotsModel,false);
 		}
 		cntr++;
 	}
 	addPlaceholders(currentSong, tracksModel);
 	if (selectedTrack < currentSong.tracks.length) {
-		addInsTrack(currentSong.tracks[selectedTrack], activeModel, true);
+		if(selectedTrack>=0){
+			addInsTrack(cntr,currentSong.tracks[selectedTrack], activeModel,spotsModel, true);
+		}
 	} else {
-		addDrumTrack(currentSong.beats[selectedTrack - currentSong.tracks.length], activeModel, true);
+		addDrumTrack(cntr,currentSong.beats[selectedTrack - currentSong.tracks.length], activeModel,spotsModel, true);
 	}
+	//addSelectNoteTrackSpot(currentSong,  activeModel);
 }
 
-function addDrumTrack(beat, tracksModel, hl) {
-	var css = 'abeat';
+function addDrumTrack(cntr,beat, tracksModel,spotsModel, hl) {
+	var css = 'atrack';
+	var tap=null;
 	if (hl) {
-		css = 'selbeat';
-		console.log(beat);
+		css = 'seltrack';
+		tap=function(x,y){
+			//console.log('tap',cntr,x,y);
+			selectedTrack = -1;
+			fillSetting();
+			resetSongTracks();
+			levelEngine.resetModel();
+		};
+	}else{
+		tap=function(x,y){
+			//console.log('tap',cntr,x,y);
+			selectedTrack = cntr;
+			fillSetting();
+			resetSongTracks();
+			levelEngine.resetModel();
+		};
 	}
 	for (var i = 0; i < beat.notes.length; i++) {
 		var note = beat.notes[i];
@@ -162,6 +192,7 @@ function addDrumTrack(beat, tracksModel, hl) {
 			var d = 0.01;
 			var nn = Math.floor(note.when / barDuration);
 			var g = tracksModel[nn];
+			/*
 			g.l.push({
 				kind: 'r',
 				x: x,
@@ -170,17 +201,93 @@ function addDrumTrack(beat, tracksModel, hl) {
 				h: 1.5 * noteLineHeight,
 				rx: 0.3 * noteLineHeight,
 				ry: 0.3 * noteLineHeight,
+				a:tap,
 				css: css
 			});
+			*/
+			g.l.push({
+				kind: 'l',
+				x1: x,
+				y1: beat.n * noteLineHeight - 30 * noteLineHeight,
+				x2: x+1.01,
+				y2: beat.n * noteLineHeight - 30 * noteLineHeight+1.01,
+				//a:tap,
+				css: css
+			});
+		spotsModel[nn].l.push({
+				kind: 'r',
+				x: x-noteLineHeight/2,
+				y: beat.n * noteLineHeight - 30 * noteLineHeight-noteLineHeight/2,
+				w: noteLineHeight,
+				h: noteLineHeight,
+				a:tap,
+				css: 'buttonSpot'
+			});
+			/*g.l.push({
+				kind: 't',
+				x: x+noteLineHeight/4,
+				y: beat.n * noteLineHeight - 30 * noteLineHeight+noteLineHeight/1,
+				t:beat.n,
+				css: 'noteName'
+			});*/
+			/*g.l.push({
+				kind: 'g',
+				id:''+x+'x'+beat.n,
+				x: x+noteLineHeight/4,
+				y: beat.n * noteLineHeight - 30 * noteLineHeight+noteLineHeight/1,
+				w:noteLineHeight,
+				h:noteLineHeight,
+				z: [1, 16],
+				l: [{
+					kind: 't',
+					x: x+noteLineHeight/4,
+					y: beat.n * noteLineHeight - 30 * noteLineHeight+noteLineHeight/1,
+					t:''+beat.n,
+					css: 'noteName'
+					,a:function(x,y){
+						console.log('click',x,y);
+					}
+				}]
+			});*/
 		}
 	}
 }
-
-function addInsTrack(track, tracksModel, hl) {
+function noteName(pitch){
+	var n=pitch%12;
+	if(n==1)return 'C#';
+	if(n==2)return 'D';
+	if(n==3)return 'D#';
+	if(n==4)return 'E';
+	if(n==5)return 'F';
+	if(n==6)return 'F#';
+	if(n==7)return 'G';
+	if(n==8)return 'G#';
+	if(n==9)return 'A';
+	if(n==10)return 'A#';
+	if(n==11)return 'B';
+	return 'C';
+}
+function addInsTrack(cntr,track, tracksModel,spotsModel, hl) {
 	var css = 'atrack';
+	var tap=null;
 	if (hl) {
 		css = 'seltrack';
+		tap=function(x,y){
+			
+			selectedTrack = -1;
+			fillSetting();
+			resetSongTracks();
+			levelEngine.resetModel();
+		};
 		//console.log(track);
+	}else{
+		tap=function(x,y){
+	
+			selectedTrack = cntr;
+			fillSetting();
+			resetSongTracks();
+			levelEngine.resetModel();
+		};
 	}
 	for (var i = 0; i < track.notes.length; i++) {
 		var note = track.notes[i];
@@ -188,6 +295,8 @@ function addInsTrack(track, tracksModel, hl) {
 		d = (d) ? d : 0.001;
 		var x1 = note.when * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth;
 		var y1 = 127 * noteLineHeight - note.pitch * noteLineHeight;
+		var lx=x1;
+		var ly=y1;
 		var x2 = x1 + d;
 		var y2 = 127 * noteLineHeight - note.pitch * noteLineHeight;
 		if (note.duration > 9) {
@@ -205,6 +314,7 @@ function addInsTrack(track, tracksModel, hl) {
 					y1: y1,
 					x2: (note.when + note.slides[s].when) * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth,
 					y2: 127 * noteLineHeight - note.slides[s].pitch * noteLineHeight,
+					//a:tap,
 					css: css
 				});
 				x1 = (note.when + note.slides[s].when) * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth;
@@ -219,7 +329,35 @@ function addInsTrack(track, tracksModel, hl) {
 			y1: y1,
 			x2: x2,
 			y2: y2,
+			//a:tap,
 			css: css
+		});
+		if (hl) {
+			g.l.push({
+				kind: 'g',
+				id:''+lx+'x'+ly,
+				x: lx,
+				y: ly,
+				w:noteLineHeight,
+				h:noteLineHeight,
+				z: [1, 16],
+				l: [{
+					kind: 't',
+					x: lx-noteLineHeight/4,
+					y: ly+noteLineHeight/3,
+					t:noteName(note.pitch),
+					css: 'noteName'
+				}]
+			});
+		}
+		spotsModel[nn].l.push({
+			kind: 'l',
+			x1: x1,
+			y1: y1,
+			x2: x2,
+			y2: y2,
+			a:tap,
+			css: 'spottrack'
 		});
 	}
 }

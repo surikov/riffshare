@@ -50,14 +50,10 @@ body{
 .noisy7{
 	fill:url(#noisy7);
 }
-.ln {
-	stroke:red; 
-	stroke-width:0.95cm; 
-	stroke-linecap:round;
-}
+
 .atrack {
-	stroke:#999; 
-	stroke2:rgba(0,0,0,0.5);
+	stroke2:#999; 
+	stroke:rgba(0,0,0,0.5);
 	stroke-width:4.95cm; 
 	stroke-linecap:round;
 }
@@ -66,14 +62,20 @@ body{
 	stroke-width:4.95cm; 
 	stroke-linecap:round;
 }
-.abeat {
-	fill: #999;
+.spottrack {
+	stroke:rgba(255,0,0,0.0001);
+	stroke-width:4.95cm; 
+	stroke-linecap:round;
 }
-.selbeat {
+.abeat2 {
+	fill2: #999;
+	fill:rgba(0,0,0,0.5);
+}
+.selbeat2 {
 	fill: #000;
 }
 .buttonSpot {
-	fill: rgba(127,127,127,0.0001);
+	fill: rgba(255,127,127,0.0001);
 }
 .buttonFill {
 	fill: #069;
@@ -144,4 +146,8 @@ body{
 }
 .density5 {
 	fill: rgba(127,127,127,0.25);
+}
+.noteName {
+	font-size: 4cm;
+	fill: #fff;
 }

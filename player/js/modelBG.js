@@ -21,7 +21,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy1',
 				a: function (xx, yy) {
-					console.log('spot 1', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 1', xx, yy,ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -43,7 +43,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy2',
 				a: function (xx, yy) {
-					console.log('spot 2', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 2', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -65,7 +65,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy3',
 				a: function (xx, yy) {
-					console.log('spot 3', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 3', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -87,7 +87,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy4',
 				a: function (xx, yy) {
-					console.log('spot 4', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 4', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -109,7 +109,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy5',
 				a: function (xx, yy) {
-					console.log('spot 5', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 5', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -131,7 +131,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy6',
 				a: function (xx, yy) {
-					console.log('spot 6', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 6', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]
@@ -153,7 +153,7 @@ function fillBG(song) {
 				ry: 0.5,
 				css: 'noisy7',
 				a: function (xx, yy) {
-					console.log('spot 7', ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
+					console.log('spot 7', xx, yy, ww, levelEngine.translateX, levelEngine.translateY, levelEngine.translateZ);
 				}
 			}
 		]

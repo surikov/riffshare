@@ -36,6 +36,10 @@ function init() {
 				g: document.getElementById('active'),
 				m:activeModel
 			}
+			, {
+				g: document.getElementById('spots'),
+				m:spotsModel
+			}
 		]);
 	levelEngine.applyZoomPosition();
 	document.getElementById('chooseFileInput').addEventListener('change', promptFile, false);
