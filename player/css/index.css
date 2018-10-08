@@ -53,7 +53,7 @@ body{
 
 .atrack {
 	stroke2:#999; 
-	stroke:rgba(0,0,0,0.5);
+	stroke:rgba(127,127,127,0.75);
 	stroke-width:4.95cm; 
 	stroke-linecap:round;
 }

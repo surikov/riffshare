@@ -48,7 +48,7 @@ function addBars(song, tracksModel, activeModel, spotsModel) {
 			y: 0,
 			w: barDuration * cellsPerSecond,
 			h: 128 * noteLineHeight,
-			z: [1, 22],
+			z: [1, 16],
 			l: []
 		});
 	}
