@@ -22,7 +22,7 @@ selectedTrack=-1;
 	levelEngine.resetModel();
 }
 
-function addBars(song, tracksModel, activeModel, spotsModel) {
+function addBars(song, subModel, tracksModel, activeModel, spotsModel) {
 	for (var i = 0; i < song.duration; i = i + barDuration) {
 		tracksModel.push({
 			id: 'bar' + i,
@@ -30,7 +30,16 @@ function addBars(song, tracksModel, activeModel, spotsModel) {
 			y: 0,
 			w: barDuration * cellsPerSecond,
 			h: 128 * noteLineHeight,
-			z: [1, 100],
+			z: [16, 100],
+			l: []
+		});
+		subModel.push({
+			id: 'bar' + i,
+			x: i * cellsPerSecond + settingPanelWidth,
+			y: 0,
+			w: barDuration * cellsPerSecond,
+			h: 128 * noteLineHeight,
+			z: [1, 16],
 			l: []
 		});
 		activeModel.push({
@@ -57,17 +66,6 @@ function addBars(song, tracksModel, activeModel, spotsModel) {
 function addPlaceholders(song, tracksModel) {
 	var counts = [];
 	var mx=0;
-	/*for (var i = 0; i < song.duration; i = i + barDuration) {
-		tracksModel.push({
-			id: 'bar' + i,
-			x: i * cellsPerSecond + settingPanelWidth,
-			y: 0,
-			w: barDuration * cellsPerSecond,
-			h: 128 * noteLineHeight,
-			z: [100, 512],
-			l: []
-		});
-	}*/
 	for (var t = 0; t < currentSong.beats.length; t++) {
 		var beat = currentSong.beats[t];
 		for (var i = 0; i < beat.notes.length; i++) {
@@ -96,7 +94,6 @@ function addPlaceholders(song, tracksModel) {
 			}
 		}
 	}
-	//console.log(mx,counts);
 	for(var i=0;i<counts.length;i++){
 		counts[i] = counts[i] ? counts[i] : 0;
 		if(counts[i]>1*mx/6){
@@ -113,7 +110,6 @@ function addPlaceholders(song, tracksModel) {
 			if(counts[i]>5*mx/6){
 				css='density5';
 			}
-
 			tracksModel.push({
 				id: 'placeholder' + i,
 				x: i* barDuration* cellsPerSecond + settingPanelWidth,
@@ -137,40 +133,40 @@ function addPlaceholders(song, tracksModel) {
 function resetSongTracks() {
 	tracksModel.length = 0;
 	activeModel.length = 0;
-	addBars(currentSong, tracksModel, activeModel,spotsModel);
+	subModel.length = 0;
+	spotsModel.length = 0;
+	addBars(currentSong, subModel,tracksModel, activeModel,spotsModel);
 	var cntr = 0;
 	for (var t = 0; t < currentSong.tracks.length; t++) {
 		var track = currentSong.tracks[t];
 		if (cntr != selectedTrack) {
-			addInsTrack(cntr,track, tracksModel,spotsModel,false);
+			addInsTrack(cntr,track,subModel, tracksModel,spotsModel,false);
 		}
 		cntr++;
 	}
 	for (var t = 0; t < currentSong.beats.length; t++) {
 		var beat = currentSong.beats[t];
 		if (cntr != selectedTrack) {
-			addDrumTrack(cntr,beat, tracksModel,spotsModel,false);
+			addDrumTrack(cntr,beat,subModel, tracksModel,spotsModel,false);
 		}
 		cntr++;
 	}
 	addPlaceholders(currentSong, tracksModel);
 	if (selectedTrack < currentSong.tracks.length) {
 		if(selectedTrack>=0){
-			addInsTrack(cntr,currentSong.tracks[selectedTrack], activeModel,spotsModel, true);
+			addInsTrack(cntr,currentSong.tracks[selectedTrack],subModel, activeModel,spotsModel, true);
 		}
 	} else {
-		addDrumTrack(cntr,currentSong.beats[selectedTrack - currentSong.tracks.length], activeModel,spotsModel, true);
+		addDrumTrack(cntr,currentSong.beats[selectedTrack - currentSong.tracks.length],subModel, activeModel,spotsModel, true);
 	}
-	//addSelectNoteTrackSpot(currentSong,  activeModel);
 }
 
-function addDrumTrack(cntr,beat, tracksModel,spotsModel, hl) {
+function addDrumTrack(cntr,beat,subModel, tracksModel,spotsModel, hl) {
 	var css = 'atrack';
 	var tap=null;
 	if (hl) {
 		css = 'seltrack';
 		tap=function(x,y){
-			//console.log('tap',cntr,x,y);
 			selectedTrack = -1;
 			fillSetting();
 			resetSongTracks();
@@ -178,7 +174,6 @@ function addDrumTrack(cntr,beat, tracksModel,spotsModel, hl) {
 		};
 	}else{
 		tap=function(x,y){
-			//console.log('tap',cntr,x,y);
 			selectedTrack = cntr;
 			fillSetting();
 			resetSongTracks();
@@ -192,27 +187,22 @@ function addDrumTrack(cntr,beat, tracksModel,spotsModel, hl) {
 			var d = 0.01;
 			var nn = Math.floor(note.when / barDuration);
 			var g = tracksModel[nn];
-			/*
-			g.l.push({
-				kind: 'r',
-				x: x,
-				y: beat.n * noteLineHeight - 30 * noteLineHeight,
-				w: 1.5 * noteLineHeight,
-				h: 1.5 * noteLineHeight,
-				rx: 0.3 * noteLineHeight,
-				ry: 0.3 * noteLineHeight,
-				a:tap,
-				css: css
-			});
-			*/
 			g.l.push({
 				kind: 'l',
 				x1: x,
 				y1: beat.n * noteLineHeight - 30 * noteLineHeight,
 				x2: x+1.01,
 				y2: beat.n * noteLineHeight - 30 * noteLineHeight+1.01,
-				//a:tap,
 				css: css
+			});
+			g = subModel[nn];
+			g.l.push({
+				kind: 'l',
+				x1: x,
+				y1: beat.n * noteLineHeight - 30 * noteLineHeight,
+				x2: x+1.01,
+				y2: beat.n * noteLineHeight - 30 * noteLineHeight+1.01,
+				css: 'subtrack'
 			});
 		spotsModel[nn].l.push({
 				kind: 'r',
@@ -223,32 +213,6 @@ function addDrumTrack(cntr,beat, tracksModel,spotsModel, hl) {
 				a:tap,
 				css: 'buttonSpot'
 			});
-			/*g.l.push({
-				kind: 't',
-				x: x+noteLineHeight/4,
-				y: beat.n * noteLineHeight - 30 * noteLineHeight+noteLineHeight/1,
-				t:beat.n,
-				css: 'noteName'
-			});*/
-			/*g.l.push({
-				kind: 'g',
-				id:''+x+'x'+beat.n,
-				x: x+noteLineHeight/4,
-				y: beat.n * noteLineHeight - 30 * noteLineHeight+noteLineHeight/1,
-				w:noteLineHeight,
-				h:noteLineHeight,
-				z: [1, 16],
-				l: [{
-					kind: 't',
-					x: x+noteLineHeight/4,
-					y: beat.n * noteLineHeight - 30 * noteLineHeight+noteLineHeight/1,
-					t:''+beat.n,
-					css: 'noteName'
-					,a:function(x,y){
-						console.log('click',x,y);
-					}
-				}]
-			});*/
 		}
 	}
 }
@@ -267,22 +231,19 @@ function noteName(pitch){
 	if(n==11)return 'B';
 	return 'C';
 }
-function addInsTrack(cntr,track, tracksModel,spotsModel, hl) {
+function addInsTrack(cntr,track,subModel, tracksModel,spotsModel, hl) {
 	var css = 'atrack';
 	var tap=null;
 	if (hl) {
 		css = 'seltrack';
 		tap=function(x,y){
-			
 			selectedTrack = -1;
 			fillSetting();
 			resetSongTracks();
 			levelEngine.resetModel();
 		};
-		//console.log(track);
 	}else{
 		tap=function(x,y){
-	
 			selectedTrack = cntr;
 			fillSetting();
 			resetSongTracks();
@@ -304,6 +265,7 @@ function addInsTrack(cntr,track, tracksModel,spotsModel, hl) {
 		}
 		var nn = Math.floor(note.when / barDuration);
 		var g = tracksModel[nn];
+		var g2 = subModel[nn];
 		if (note.slides.length) {
 			x1 = (note.when + note.slides[0].when) * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth;
 			y1 = 127 * noteLineHeight - note.slides[0].pitch * noteLineHeight;
@@ -314,8 +276,15 @@ function addInsTrack(cntr,track, tracksModel,spotsModel, hl) {
 					y1: y1,
 					x2: (note.when + note.slides[s].when) * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth,
 					y2: 127 * noteLineHeight - note.slides[s].pitch * noteLineHeight,
-					//a:tap,
 					css: css
+				});
+				g2.l.push({
+					kind: 'l',
+					x1: x1,
+					y1: y1,
+					x2: (note.when + note.slides[s].when) * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth,
+					y2: 127 * noteLineHeight - note.slides[s].pitch * noteLineHeight,
+					css: 'subtrack'
 				});
 				x1 = (note.when + note.slides[s].when) * cellsPerSecond + 0.5 * noteLineHeight + settingPanelWidth;
 				y1 = 127 * noteLineHeight - note.slides[s].pitch * noteLineHeight;
@@ -329,8 +298,15 @@ function addInsTrack(cntr,track, tracksModel,spotsModel, hl) {
 			y1: y1,
 			x2: x2,
 			y2: y2,
-			//a:tap,
 			css: css
+		});
+		g2.l.push({
+			kind: 'l',
+			x1: x1,
+			y1: y1,
+			x2: x2,
+			y2: y2,
+			css: 'subtrack'
 		});
 		if (hl) {
 			g.l.push({

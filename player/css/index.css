@@ -29,27 +29,6 @@ body{
 .bgField{
 	fill: rgba(127,127,127,0.5);
 }
-.noisy1{
-	fill:url(#noisy1);
-}
-.noisy2{
-	fill:url(#noisy2);
-}
-.noisy3{
-	fill:url(#noisy3);
-}
-.noisy4{
-	fill:url(#noisy4);
-}
-.noisy5{
-	fill:url(#noisy5);
-}
-.noisy6{
-	fill:url(#noisy6);
-}
-.noisy7{
-	fill:url(#noisy7);
-}
 .hexback1{
 	fill:url(#hexback1);
 }
@@ -72,45 +51,50 @@ body{
 	fill:url(#hexback7);
 }
 .backline1{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 }
 .backline2{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(2,2);
 }
 .backline3{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(4,4);
 }
 .backline4{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(8,8);
 }
 .backline5{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(16,16);
 }
 .backline6{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(32,32);
 }
 .backline7{
-	stroke:#339 ;
-	stroke-width:0.01cm; 
+	stroke:#069 ;
+	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(64,64);
+}
+.subtrack {
+	stroke:rgba(0,96,144,0.75);
+	stroke-width:4.95cm; 
+	stroke-linecap:round;
 }
 .atrack {
 	stroke2:#999; 

@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Generator: Gravit.io -->
+<svg height="600" style="isolation:isolate" viewBox="0 0 600 600" width="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<clipPath id="_clipPath_gUs4ij2XUC8ChE3cTREptpWRdrIqw1tP">
+			<rect height="600" width="600"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#_clipPath_gUs4ij2XUC8ChE3cTREptpWRdrIqw1tP)">
+		<rect fill="rgb(255,153,17)" height="64.012" transform="matrix(1,0,0,1,0,0)" width="65" x="115" y="43.87"/>
+		<rect fill="rgb(255,221,34)" height="72.755" transform="matrix(1,0,0,1,0,0)" width="50" x="44" y="39.498"/>
+		<rect fill="rgb(255,51,119)" height="72.755" transform="matrix(1,0,0,1,0,0)" width="38" x="190" y="37"/>
+		<rect fill="rgb(255,34,255)" height="79" transform="matrix(1,0,0,1,0,0)" width="54" x="246" y="37"/>
+		<rect fill="rgb(136,17,255)" height="68.383" transform="matrix(1,0,0,1,0,0)" width="40" x="308" y="43.87"/>
+		<rect fill="rgb(51,17,102)" height="68.383" transform="matrix(1,0,0,1,0,0)" width="40" x="364" y="41.372"/>
+		<rect fill="rgb(51,17,102)" height="326" transform="matrix(1,0,0,1,0,0)" width="558" x="0" y="237"/>
+		<circle cx="197.49999999999997" cy="529.5" fill="rgb(255,34,255)" r="17.50000000000003" vector-effect="non-scaling-stroke"/>
+		<path d=" M 209 536.607 L 201.086 535.25 L 195.481 541 L 194.326 533.054 L 187.126 529.5 L 194.326 525.946 L 195.481 518 L 201.086 523.75 L 209 522.393 L 205.263 529.5 L 209 536.607 Z " fill="rgb(51,17,102)"/>
+		<circle cx="255.4999999999999" cy="529.5" fill="rgb(136,17,255)" r="17.500000000000014" vector-effect="non-scaling-stroke"/>
+		<path d=" M 267 536.607 L 259.086 535.25 L 253.481 541 L 252.326 533.054 L 245.126 529.5 L 252.326 525.946 L 253.481 518 L 259.086 523.75 L 267 522.393 L 263.263 529.5 L 267 536.607 Z " fill="rgb(255,34,255)"/>
+		<circle cx="308.4999999999999" cy="531.5" fill="rgb(255,153,17)" r="17.5" vector-effect="non-scaling-stroke"/>
+		<path d=" M 320 538.607 L 312.086 537.25 L 306.481 543 L 305.326 535.054 L 298.126 531.5 L 305.326 527.946 L 306.481 520 L 312.086 525.75 L 320 524.393 L 316.263 531.5 L 320 538.607 Z " fill="rgb(51,17,102)"/>
+		<line stroke="rgb(136,17,255)" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="3" stroke-width="20" vector-effect="non-scaling-stroke" x1="131" x2="404" y1="334" y2="334"/>
+		<line stroke="rgb(255,34,255)" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="3" stroke-width="20" vector-effect="non-scaling-stroke" x1="131" x2="404" y1="378" y2="378"/>
+		<line stroke="rgb(255,153,17)" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="3" stroke-width="20" vector-effect="non-scaling-stroke" x1="119.563" x2="392.563" y1="420" y2="420"/>
+	</g>
+</svg>

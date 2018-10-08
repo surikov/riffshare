@@ -15,6 +15,7 @@ var octavesModel=[];
 var activeModel=[];
 var bgModel=[];
 var spotsModel=[];
+var subModel=[];
 var currentSong=null;
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();

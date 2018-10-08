@@ -40,6 +40,10 @@ function init() {
 				g: document.getElementById('spots'),
 				m:spotsModel
 			}
+			, {
+				g: document.getElementById('subtracks'),
+				m:subModel
+			}
 		]);
 	levelEngine.applyZoomPosition();
 	document.getElementById('chooseFileInput').addEventListener('change', promptFile, false);
