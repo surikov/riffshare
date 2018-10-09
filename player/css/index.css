@@ -125,6 +125,11 @@ body{
 .buttonFill {
 	fill: #069;
 }
+.buttonStoke {
+	stroke: #069;
+	stroke-width: 0.03cm;
+	fill: none;
+}
 .buttonBack {
 	fill: #fff;
 }
@@ -169,13 +174,22 @@ body{
 	fill: rgba(127,127,127,0.5);
 }
 .trackNames {
-	font-size: 1cm;
+	font-size: 5cm;
+	fill: #333;
+}
+.smallNames {
+	font-size: 0.5cm;
 	fill: #333;
 }
 .trackButton {
 	stroke: #069;
-	stroke-width: 0.03cm;
+	stroke-width: 0.25cm;
 	fill: none;
+}
+.trackActiveButton {
+	stroke: #069;
+	stroke-width: 0.25cm;
+	fill: #069;
 }
 .density1 {
 	fill: rgba(127,127,127,0.05);
@@ -195,4 +209,16 @@ body{
 .noteName {
 	font-size: 4cm;
 	fill: #fff;
+}
+.masterLines {
+	stroke: #069;
+	stroke-width: 5.2cm;
+	stroke-linecap:round;
+	fill: none;
+}
+.masterShadow {
+	stroke: #999;
+	stroke-width: 6cm;
+	stroke-linecap:round;
+	fill: none;
 }

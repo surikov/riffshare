@@ -12,82 +12,49 @@ function findFirstDrum(player, nn) {
 		}
 	}
 }
-/*
-function selectTrack() {
-	//console.log(this.nn);
-	selectedTrack = this.nn;
-	fillSetting();
-	resetSongTracks();
-	if (anchor) {
-		iconPinSetting.l = pathList;
-		levelEngine.startSlideTo(anchor.x, anchor.y, anchor.z);
-		anchor = null;
-	}
-	levelEngine.resetModel();
-}*/
-function addSelectTrackSpot(names,y,nn){
+function addSelectTrackSpot(names, y, nn) {
 	names.l.push({
-			kind: 'r',
-			x: 0.5,
-			y: y,
-			w: 1.5,
-			h: 1.5,
-			css: 'buttonSpot',
-			a: function(x,y){
-				selectedTrack = nn;
-				fillSetting();
-				resetSongTracks();
-				if (anchor) {
-					iconPinSetting.l = pathList;
-					levelEngine.startSlideTo(anchor.x, anchor.y, anchor.z);
-					anchor = null;
-				}
-				levelEngine.resetModel();
-			}
-		});
+		kind: 'r',
+		x: 3.5,
+		y: y + 3,
+		w: 6,
+		h: 6,
+		css: 'buttonSpot',
+		a: function (xx, yy) {
+			levelEngine.startSlideTo(0,  - (y + 2) * levelEngine.tapSize, 1);
+		}
+	});
 }
-function addTrackSelectSpot(title, names, y, nn, selected) {
-	if (!(selected)) {
-		names.l.push({
-			kind: 'r',
-			x: 0.5,
-			y: y,
-			w: 1.5,
-			h: 1.5,
-			rx: 0.75,
-			ry: 0.75,
-			css: 'trackButton'
-		});
-	}
+function addTrackTitle(title, names, controls, y, nn, selected) {
+	names.l.push({
+		kind: 'r',
+		x: 3.5,
+		y: y + 3,
+		w: 6,
+		h: 6,
+		rx: 3,
+		ry: 3,
+		css: selected ? 'trackActiveButton' : 'trackButton'
+	});
 	names.l.push({
 		kind: 't',
-		x: 1,
-		y: y + 1.5,
+		x: 11,
+		y: y + 8,
 		t: title,
 		css: 'trackNames'
 	});
-	if (!(selected)) {
-		/*
-		var spot = {
-			kind: 'r',
-			x: 0.5,
-			y: y,
-			w: 1.5,
-			h: 1.5,
-			css: 'buttonSpot',
-			nn: nn,
-			a: null
-		};
-		spot.a = selectTrack.bind(spot);
-		names.l.push(spot);
-		*/
-		addSelectTrackSpot(names,y,nn)
-	}
-	
+	addSelectTrackSpot(names, y, nn)
+	controls.l.push({
+		kind: 't',
+		x: 1,
+		y: y + 3,
+		t: title,
+		css: 'smallNames'
+	});
 }
 function fillSetting() {
-	//console.log('selectedTrack',selectedTrack);
 	settingModel.length = 0;
+	//subSettingModel.length = 0;
 	var ww = settingPanelWidth;
 	if (currentSong) {
 		ww = settingPanelWidth + currentSong.duration * cellsPerSecond;
@@ -98,8 +65,17 @@ function fillSetting() {
 			x: 0,
 			y: 0,
 			w: settingPanelWidth,
-			h: 128*noteLineHeight,
-			z: [1, 6],
+			h: 128 * noteLineHeight,
+			z: [3, 9],
+			l: []
+		};
+		var controls = {
+			id: 'namesControlsLayer',
+			x: 0,
+			y: 0,
+			w: settingPanelWidth,
+			h: 128 * noteLineHeight,
+			z: [1, 3],
 			l: []
 		};
 		var cntr = 0;
@@ -107,16 +83,67 @@ function fillSetting() {
 			var track = currentSong.tracks[t];
 			var nn = findFirstIns(player, track.program);
 			var info = player.loader.instrumentInfo(nn);
-			addTrackSelectSpot(info.title, names, 2 * t + 0.5, cntr, selectedTrack == cntr);
+			addTrackTitle(info.title, names, controls, settingTracksTop + 10 * t, cntr, selectedTrack == cntr);
 			cntr++;
 		}
 		for (var t = 0; t < currentSong.beats.length; t++) {
 			var beat = currentSong.beats[t];
 			var nn = findFirstDrum(player, beat.n);
 			var info = player.loader.drumInfo(nn);
-			addTrackSelectSpot(info.title + ': Percussion', names, 2 * (t + currentSong.tracks.length) + 0.5, cntr, selectedTrack == cntr);
+			addTrackTitle(info.title + ': Percussion', names, controls, settingTracksTop + 10 * (t + currentSong.tracks.length), cntr, selectedTrack == cntr);
 			cntr++;
 		}
 		settingModel.push(names);
+		settingModel.push(controls);
+		fillMaster();
 	}
+}
+function addMasterVolumeSpot(n,master){
+	master.l.push({
+		kind: 'r',
+		x: 3.5,
+		y: 3+n*6,
+		w: 6,
+		h: 6,
+		css: 'buttonSpot',
+		a: function (xx, yy) {
+			console.log(masterVolume);
+			masterVolume=1-n/9;
+			console.log(masterVolume);
+			fillSetting();
+			//resetSongTracks();
+			levelEngine.resetModel();
+		}
+	}
+	);
+}
+function fillMaster() {
+	var master = {
+		id: 'masterLayer',
+		x: 0,
+		y: 0,
+		w: settingPanelWidth,
+		h: 128 * noteLineHeight,
+		z: [1, 100],
+		l: [{
+				kind: 'l',
+				x1: 6.5,
+				y1: 6,
+				x2: 6.5,
+				y2: 6*8+6,
+				css: 'masterShadow'
+			},{
+				kind: 'l',
+				x1: 6.5,
+				y1: 6*9,
+				x2: 6.501,
+				y2: 5.999999+6*(9-9*masterVolume),
+				css: 'masterLines'
+			}
+		]
+	};
+	for(var i=0;i<9;i++){
+		addMasterVolumeSpot(i,master);
+	}
+	settingModel.push(master);
 }

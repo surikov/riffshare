@@ -11,7 +11,7 @@ selectedTrack=-1;
 	addTimeLine(song, timelineModel, 'time10x', 'timeLabel10', 2, [10, 30]);
 	addTimeLine(song, timelineModel, 'time30x', 'timeLabel30', 5, [30, 100]);
 	addTimeLine(song, timelineModel, 'time100x', 'timeLabel100', 10, [100, 512]);
-
+	unpin();
 	resetSongTracks();
 	fillSetting();
 	fillBG();
@@ -133,8 +133,10 @@ function addPlaceholders(song, tracksModel) {
 function resetSongTracks() {
 	tracksModel.length = 0;
 	activeModel.length = 0;
-	subModel.length = 0;
+	
 	spotsModel.length = 0;
+
+	subModel.length = 0;
 	addBars(currentSong, subModel,tracksModel, activeModel,spotsModel);
 	var cntr = 0;
 	for (var t = 0; t < currentSong.tracks.length; t++) {

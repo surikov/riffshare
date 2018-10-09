@@ -44,6 +44,7 @@ function init() {
 				g: document.getElementById('subtracks'),
 				m:subModel
 			}
+			
 		]);
 	levelEngine.applyZoomPosition();
 	document.getElementById('chooseFileInput').addEventListener('change', promptFile, false);
@@ -52,5 +53,6 @@ function init() {
 	document.getElementById('contentSVG').addEventListener('dragover', preventDefaults, false)
 	document.getElementById('contentSVG').addEventListener('dragleave', preventDefaults, false)
 	window.addEventListener("resize", resizeField);
+	startWatchState();
 }
 

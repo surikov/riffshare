@@ -125,6 +125,16 @@ function fillModelControls() {
 				css: 'buttonSpot',
 				a: playClickAction
 			}
+			
+			
+			/*
+			, {kind: 'p',x: 0,y: 0,z: 1,l: gearPath1,css: 'buttonStoke'}
+			, {kind: 'p',x: 0,y: 0,z: 1,l: gearPath2,css: 'buttonStoke'}
+			, {kind: 'p',x: 0,y: 0,z: 1,l: gearPath3,css: 'buttonStoke'}
+			, {kind: 'p',x: 0,y: 0,z: 1,l: gearPath4,css: 'buttonStoke'}
+			, {kind: 'p',x: 0,y: 0,z: 1,l: gearPath5,css: 'buttonStoke'}
+			, {kind: 'p',x: 0,y: 0,z: 1,l: gearPath6,css: 'buttonStoke'}
+			*/
 		]
 	});
 }
