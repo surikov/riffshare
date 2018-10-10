@@ -95,29 +95,31 @@ function fillSetting() {
 		}
 		settingModel.push(names);
 		settingModel.push(controls);
-		fillMaster();
+		fillMaster(6.5,4,40,6,11);
 	}
 }
-function addMasterVolumeSpot(n,master){
+function addMasterVolumeSpot(xx,yy,hh,ww,cnt,n, master) {
+	
 	master.l.push({
 		kind: 'r',
-		x: 3.5,
-		y: 3+n*6,
-		w: 6,
-		h: 6,
+		x: xx-ww/2,
+		y: yy+n*hh/cnt,
+		w: ww+10,
+		h: hh/cnt-0.1,
 		css: 'buttonSpot',
-		a: function (xx, yy) {
+		a: function (x, y) {
 			console.log(masterVolume);
-			masterVolume=1-n/9;
+			masterVolume = 1 - n / 9;
 			console.log(masterVolume);
 			fillSetting();
 			//resetSongTracks();
 			levelEngine.resetModel();
 		}
-	}
-	);
+	});
 }
-function fillMaster() {
+function fillMaster(xx,yy,hh,ww,cnt) {
+	console.log(yy+hh-masterVolume*(hh-ww),yy+hh-ww/2);
+	console.log(yy+hh-0.5*hh+ww/2,yy+hh-ww/2);
 	var master = {
 		id: 'masterLayer',
 		x: 0,
@@ -127,23 +129,40 @@ function fillMaster() {
 		z: [1, 100],
 		l: [{
 				kind: 'l',
-				x1: 6.5,
-				y1: 6,
-				x2: 6.5,
-				y2: 6*8+6,
+				x1: xx,
+				y1: yy+ww/2,
+				x2: xx,
+				y2: yy+hh-ww/2,
 				css: 'masterShadow'
-			},{
+			}, {
 				kind: 'l',
-				x1: 6.5,
-				y1: 6*9,
-				x2: 6.501,
-				y2: 5.999999+6*(9-9*masterVolume),
+				x1: xx,
+				y1: yy+hh-ww/2-masterVolume*(hh-ww),
+				x2: xx+0.0001,
+				y2: yy+hh-ww/2,//5.999999 + 6 * (9 - 9 * masterVolume),
 				css: 'masterLines'
 			}
 		]
 	};
-	for(var i=0;i<9;i++){
-		addMasterVolumeSpot(i,master);
+	for (var i = 0; i < cnt; i++) {
+		addMasterVolumeSpot(xx,yy,hh,ww,cnt,i, master);
 	}
 	settingModel.push(master);
+}
+function createSlider(){
+	return {
+				kind: 'l',
+				x1: 6.5,
+				y1: 6,
+				x2: 6.5,
+				y2: 6 * 8 + 6,
+				css: 'masterShadow'
+			}, {
+				kind: 'l',
+				x1: 6.5,
+				y1: 6 * 9,
+				x2: 6.501,
+				y2: 5.999999 + 6 * (9 - 9 * masterVolume),
+				css: 'masterLines'
+			};
 }

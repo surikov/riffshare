@@ -23,4 +23,4 @@ var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player = new WebAudioFontPlayer();
 var selectedTrack=-1;
-var masterVolume=0.25;
+var masterVolume=0;
