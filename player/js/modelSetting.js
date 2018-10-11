@@ -54,7 +54,6 @@ function addTrackTitle(title, names, controls, y, nn, selected) {
 }
 function fillSetting() {
 	settingModel.length = 0;
-	//subSettingModel.length = 0;
 	var ww = settingPanelWidth;
 	if (currentSong) {
 		ww = settingPanelWidth + currentSong.duration * cellsPerSecond;
@@ -95,74 +94,11 @@ function fillSetting() {
 		}
 		settingModel.push(names);
 		settingModel.push(controls);
-		fillMaster(6.5,4,40,6,11);
+		settingModel.push(verticalSlider('masterVolume', 1, 10, 6.5, 4, 6, 40, 11, masterVolume, function (v) {
+				masterVolume = v;
+				fillSetting();
+				document.getElementById('subcontrols').removeChild(document.getElementById('masterVolume'));
+				levelEngine.tileFromModel();
+			}));
 	}
-}
-function addMasterVolumeSpot(xx,yy,hh,ww,cnt,n, master) {
-	
-	master.l.push({
-		kind: 'r',
-		x: xx-ww/2,
-		y: yy+n*hh/cnt,
-		w: ww+10,
-		h: hh/cnt-0.1,
-		css: 'buttonSpot',
-		a: function (x, y) {
-			console.log(masterVolume);
-			masterVolume = 1 - n / 9;
-			console.log(masterVolume);
-			fillSetting();
-			//resetSongTracks();
-			levelEngine.resetModel();
-		}
-	});
-}
-function fillMaster(xx,yy,hh,ww,cnt) {
-	console.log(yy+hh-masterVolume*(hh-ww),yy+hh-ww/2);
-	console.log(yy+hh-0.5*hh+ww/2,yy+hh-ww/2);
-	var master = {
-		id: 'masterLayer',
-		x: 0,
-		y: 0,
-		w: settingPanelWidth,
-		h: 128 * noteLineHeight,
-		z: [1, 100],
-		l: [{
-				kind: 'l',
-				x1: xx,
-				y1: yy+ww/2,
-				x2: xx,
-				y2: yy+hh-ww/2,
-				css: 'masterShadow'
-			}, {
-				kind: 'l',
-				x1: xx,
-				y1: yy+hh-ww/2-masterVolume*(hh-ww),
-				x2: xx+0.0001,
-				y2: yy+hh-ww/2,//5.999999 + 6 * (9 - 9 * masterVolume),
-				css: 'masterLines'
-			}
-		]
-	};
-	for (var i = 0; i < cnt; i++) {
-		addMasterVolumeSpot(xx,yy,hh,ww,cnt,i, master);
-	}
-	settingModel.push(master);
-}
-function createSlider(){
-	return {
-				kind: 'l',
-				x1: 6.5,
-				y1: 6,
-				x2: 6.5,
-				y2: 6 * 8 + 6,
-				css: 'masterShadow'
-			}, {
-				kind: 'l',
-				x1: 6.5,
-				y1: 6 * 9,
-				x2: 6.501,
-				y2: 5.999999 + 6 * (9 - 9 * masterVolume),
-				css: 'masterLines'
-			};
 }
