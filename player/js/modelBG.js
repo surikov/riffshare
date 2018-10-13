@@ -10,7 +10,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [1, 4],
+		z: [1, 2],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -32,7 +32,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [1, 8],
+		z: [2, 4],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -54,7 +54,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [2, 16],
+		z: [4, 8],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -76,7 +76,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [4, 32],
+		z: [8, 16],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -98,7 +98,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [8, 64],
+		z: [16, 32],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -120,7 +120,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [16, 128],
+		z: [32, 64],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -142,7 +142,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [32, 256],
+		z: [64, 128],
 		l: [{
 				kind: 'r',
 				x: 0,
@@ -164,7 +164,7 @@ function fillBG(song) {
 		y: 0,
 		w: ww,
 		h: 128*noteLineHeight,
-		z: [64, 512],
+		z: [128, 512],
 		l: [{
 				kind: 'r',
 				x: 0,
