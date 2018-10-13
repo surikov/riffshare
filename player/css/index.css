@@ -50,6 +50,9 @@ body{
 .hexback7{
 	fill:url(#hexback7);
 }
+.hexback8{
+	fill:url(#hexback8);
+}
 .backline1{
 	stroke:#069 ;
 	stroke-width:0.005cm; 
@@ -90,6 +93,12 @@ body{
 	stroke-width:0.005cm; 
 	fill: none;
 	transform: scale(64,64);
+}
+.backline8{
+	stroke:#069 ;
+	stroke-width:0.005cm; 
+	fill: none;
+	transform: scale(128,128);
 }
 .subtrack {
 	stroke:rgba(0,96,144,0.75);
