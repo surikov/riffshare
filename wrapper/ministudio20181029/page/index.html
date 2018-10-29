@@ -1,0 +1,46 @@
+<html>
+<body>
+<!-- Code Embed v2.3.2 -->
+<div id='ministudio2'>
+			<link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
+			<style>
+				#wam-container { display:none; padding:5px; background:#000; margin:20px auto; font-family:sans-serif; font-weight:100; font-size:14px; user-select:none; cursor:default; width:848px; }
+				#wam-caption { padding-left:10px; background:#222; color:#eee; height:35px; line-height:32px; }
+				#wam-gui { transition: opacity 0.25s ease-in; text-align:center; color:#ccc; background:#222; font-family:sans-serif; font-style:italic; font-size:14px; font-weight:100; }
+				#wam-caption label  { color:#ccc; font-size:12px; }
+				#wam-caption select { background:#222; color:#eee; height:20px; margin:5px 15px 0 5px; cursor:pointer; }
+
+				.obxd-frame { width:815px; height:331px; line-height:331px; }
+				.dexed-frame { width:784px; height:520px; line-height:520px; }
+				.augur-frame { width:838px; height:553px; line-height:553px; }
+				.noisemaker-frame { width:678px; height:662px; line-height:662px; }
+			</style>
+			<!-- wam gui -->
+			<div id="wam-container">
+			  <div id="wam-caption">
+				<label class='wamlabel'>bank</label><select class='wamselect' id="wam-banks"></select>
+				<label class='wamlabel'>preset</label><select class='wamselect' id="wam-presets"></select>
+			  </div>
+			  <div id="wam-gui">Loading Engine...</div>
+			</div>
+			<!-- ministudio -->
+			<div id="app-container"></div>
+			<script src="../wp-content/uploads/2018/10/preloader.bundle.js"></script>
+			<script>
+				//var wamClassName="OBXD";
+				//var wamClassName="DEXED";
+				//var wamClassName="NOISEMAKER";
+				var wamClassName="AUGUR";
+				window.onload = function(){ 
+					console.log('start init 5',wamClassName);
+					initMiniStudio(wamClassName);
+					};
+				console.log('done 5');
+			</script>
+			<script>
+				console.log('here 5');
+			</script>
+		</div>
+<!-- End of Code Embed output -->
+</body>
+</html>
