@@ -47,7 +47,9 @@ enum NoteExpressionTypeIDs
 	kTextTypeID,			///< TODO:
 	kPhonemeTypeID,			///< TODO:
 
-	kCustomStart = 100000	///< custom note change type ids must start from here
+	kCustomStart = 100000,	///< custom note change type ids must start from here
+	
+	kInvalidTypeID = 0xFFFFFFFF		///< indicates an invalid note expression type
 };
 
 //------------------------------------------------------------------------
@@ -150,7 +152,7 @@ Note that there is only one NoteExpressionTypeID per given channel of an event b
 The method getNoteExpressionStringByValue allows conversion from a normalized value to a string representation
 and the getNoteExpressionValueByString method from a string to a normalized value.
 
-When the note expression state changes (per example when switching presets) the Plug-in needs
+When the note expression state changes (for example when switching presets) the Plug-in needs
 to inform the host about it via \ref IComponentHandler::restartComponent (kNoteExpressionChanged).
 */
 //------------------------------------------------------------------------

@@ -82,8 +82,7 @@ public:
 	IPlugView* PLUGIN_API createView (FIDString /*name*/) SMTG_OVERRIDE {return nullptr;}
 
 	//---from IEditController2-------
-	tresult PLUGIN_API setKnobMode (KnobMode mode) SMTG_OVERRIDE { return kResultTrue; }
-	//tresult PLUGIN_API setKnobMode (KnobMode mode) SMTG_OVERRIDE { hostKnobMode = mode; return kResultTrue; }
+	tresult PLUGIN_API setKnobMode (KnobMode mode) SMTG_OVERRIDE { hostKnobMode = mode; return kResultTrue; }
 	tresult PLUGIN_API openHelp (TBool /*onlyCheck*/) SMTG_OVERRIDE {return kResultFalse;}
 	tresult PLUGIN_API openAboutBox (TBool /*onlyCheck*/) SMTG_OVERRIDE {return kResultFalse;}
 
@@ -102,8 +101,7 @@ public:
 	virtual void editorAttached (EditorView* /*editor*/) {}		///< called from EditorView if it was attached to a parent
 	virtual void editorRemoved (EditorView* /*editor*/) {}		///< called from EditorView if it was removed from a parent
 
-	//static KnobMode getHostKnobMode () { return hostKnobMode; }	///< return host knob mode
-	static KnobMode getHostKnobMode () { return 0; }	///< return host knob mode
+	static KnobMode getHostKnobMode () { return hostKnobMode; }	///< return host knob mode
 
 	/** Gets for a given tag the parameter object. */
 	virtual Parameter* getParameterObject (ParamID tag) { return parameters.getParameter (tag); }
@@ -245,9 +243,9 @@ public:
 	OBJ_METHODS (ProgramList, FObject)
 //------------------------------------------------------------------------
 protected:
-	typedef std::map<String, String> StringMap;
-	typedef std::vector<String> StringVector;
-	typedef std::vector<StringMap> ProgramInfoVector;
+	using StringMap = std::map<String, String>;
+	using StringVector = std::vector<String>;
+	using ProgramInfoVector = std::vector<StringMap>;
 	ProgramListInfo info;
 	UnitID unitId;
 	StringVector programNames;
@@ -279,8 +277,8 @@ public:
 
 	OBJ_METHODS (ProgramListWithPitchNames, ProgramList)
 protected:
-	typedef std::map<int16, String> PitchNameMap;
-	typedef std::vector<PitchNameMap> PitchNamesVector;
+	using PitchNameMap = std::map<int16, String>;
+	using PitchNamesVector = std::vector<PitchNameMap>;
 	PitchNamesVector pitchNames;
 };
 
@@ -359,14 +357,12 @@ public:
 	DEFINE_INTERFACES
 		DEF_INTERFACE (IUnitInfo)
 	END_DEFINE_INTERFACES (EditController)
-	//END_DEFINE_INTERFACES (EditControllerEx1)
 	REFCOUNT_METHODS (EditController)
-	//REFCOUNT_METHODS (EditControllerEx1)
 
 protected:
-	typedef std::vector<IPtr<ProgramList>> ProgramListVector;
-	typedef std::map<ProgramListID, ProgramListVector::size_type> ProgramIndexMap;
-	typedef std::vector<IPtr<Unit>> UnitVector;
+	using ProgramListVector = std::vector<IPtr<ProgramList>>;
+	using ProgramIndexMap = std::map<ProgramListID, ProgramListVector::size_type>;
+	using UnitVector = std::vector<IPtr<Unit>>;
 	UnitVector units;
 	ProgramListVector programLists;
 	ProgramIndexMap programIndexMap;

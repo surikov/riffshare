@@ -16,18 +16,22 @@ struct CRect;
 //-----------------------------------------------------------------------------
 struct CPoint
 {
-	CPoint () = default;
-	CPoint (CCoord x, CCoord y) : x (x), y (y) {}
+	constexpr CPoint () = default;
+	constexpr CPoint (CCoord x, CCoord y) : x (x), y (y) {}
 	CPoint& operator () (CCoord _x, CCoord _y) { x = _x; y = _y; return *this; }
 
-	bool operator!= (const CPoint &other) const { return (x != other.x || y != other.y); }
-	bool operator== (const CPoint &other) const { return (x == other.x && y == other.y); }
+	constexpr bool operator!= (const CPoint &other) const { return (x != other.x || y != other.y); }
+	constexpr bool operator== (const CPoint &other) const { return (x == other.x && y == other.y); }
 
 	CPoint& operator+= (const CPoint& other) { x += other.x; y += other.y; return *this; }
 	CPoint& operator-= (const CPoint& other) { x -= other.x; y -= other.y; return *this; }
-	CPoint operator+ (const CPoint& other) const { return CPoint (x + other.x, y + other.y); }
-	CPoint operator- (const CPoint& other) const { return CPoint (x - other.x, y - other.y); }
-	CPoint operator- () const { return CPoint (-x, -y); }
+	CPoint& operator*= (double factor) { x *= factor; y *= factor; return *this; }
+	CPoint& operator/= (double factor) { x /= factor; y /= factor; return *this; }
+	constexpr CPoint operator+ (const CPoint& other) const { return CPoint (x + other.x, y + other.y); }
+	constexpr CPoint operator- (const CPoint& other) const { return CPoint (x - other.x, y - other.y); }
+	constexpr CPoint operator* (double factor) const { return CPoint (x * factor, y * factor); }
+	constexpr CPoint operator/ (double factor) const { return CPoint (x / factor, y / factor); }
+	constexpr CPoint operator- () const { return CPoint (-x, -y); }
 	
 	CPoint& offset (const CCoord c) { *this += CPoint (c, c); return *this; }
 	CPoint& offset (const CCoord _x, const CCoord _y) { *this += CPoint (_x, _y); return *this; }

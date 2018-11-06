@@ -6,11 +6,14 @@
 #define __iviewlistener__
 
 #include "vstguifwd.h"
+#include "cbuttonstate.h"
+#include "cpoint.h"
 
 namespace VSTGUI {
 
 //-----------------------------------------------------------------------------
-/// @brief View Listener Interface
+/** @brief View Listener Interface
+ */
 //-----------------------------------------------------------------------------
 class IViewListener
 {
@@ -26,7 +29,8 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-/// @brief ViewContainer Listener Interface
+/** @brief ViewContainer Listener Interface
+ */
 //-----------------------------------------------------------------------------
 class IViewContainerListener
 {
@@ -40,9 +44,29 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-/// @brief View Listener Interface Adapter
+/** @brief View Mouse Listener Interface
+ *
+ *	@ingroup new_in_4_7
+ */
 //-----------------------------------------------------------------------------
-class IViewListenerAdapter : public IViewListener
+class IViewMouseListener
+{
+public:
+	virtual ~IViewMouseListener () noexcept = default;
+
+	virtual CMouseEventResult viewOnMouseDown (CView* view, CPoint pos, CButtonState buttons) = 0;
+	virtual CMouseEventResult viewOnMouseUp (CView* view, CPoint pos, CButtonState buttons) = 0;
+	virtual CMouseEventResult viewOnMouseMoved (CView* view, CPoint pos, CButtonState buttons) = 0;
+	virtual CMouseEventResult viewOnMouseCancel (CView* view) = 0;
+	virtual void viewOnMouseEntered (CView* view) = 0;
+	virtual void viewOnMouseExited (CView* view) = 0;
+};
+
+//-----------------------------------------------------------------------------
+/** @brief View Listener Interface Adapter
+ */
+//-----------------------------------------------------------------------------
+class ViewListenerAdapter : public IViewListener
 {
 public:
 	void viewSizeChanged (CView* view, const CRect& oldSize) override {}
@@ -54,9 +78,10 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-/// @brief ViewContainer Listener Interface Adapter
+/** @brief ViewContainer Listener Interface Adapter
+ */
 //-----------------------------------------------------------------------------
-class IViewContainerListenerAdapter : public IViewContainerListener
+class ViewContainerListenerAdapter : public IViewContainerListener
 {
 public:
 	void viewContainerViewAdded (CViewContainer* container, CView* view) override {}
@@ -65,7 +90,32 @@ public:
 	void viewContainerTransformChanged (CViewContainer* container) override {}
 };
 
-}
+//-----------------------------------------------------------------------------
+/** @brief View Mouse Listener Interface Adapter
+ *
+ *	@ingroup new_in_4_7
+ */
+//-----------------------------------------------------------------------------
+class ViewMouseListenerAdapter : public IViewMouseListener
+{
+public:
+	CMouseEventResult viewOnMouseDown (CView* view, CPoint pos, CButtonState buttons) override
+	{
+		return kMouseEventNotImplemented;
+	}
+	CMouseEventResult viewOnMouseUp (CView* view, CPoint pos, CButtonState buttons) override
+	{
+		return kMouseEventNotImplemented;
+	}
+	CMouseEventResult viewOnMouseMoved (CView* view, CPoint pos, CButtonState buttons) override
+	{
+		return kMouseEventNotImplemented;
+	}
+	CMouseEventResult viewOnMouseCancel (CView* view) override { return kMouseEventNotImplemented; }
+	void viewOnMouseEntered (CView* view) override {}
+	void viewOnMouseExited (CView* view) override {}
+};
 
+} // VSTGUI
 
 #endif // __iviewlistener__
