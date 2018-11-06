@@ -1,12 +1,12 @@
 #
 PROJECTNAME = VSTNES
 TARGET = ./web/$(PROJECTNAME).js
-
-SOURCEFOLDER = /Users/sss/Documents/VST_SDK/VST3_SDK/public.sdk/samples/vst/note_expression_synth/source
-INCLUDEFOLDER = /Users/sss/Documents/VST_SDK/VST3_SDK/public.sdk/samples/vst/note_expression_synth/source
-
-VSTLIB = /Users/sss/Documents/gitHubPrj/riffshare/wrapper/vst/tools/VST3lib
-CPPLIB = /Users/sss/Documents/gitHubPrj/riffshare/wrapper/vst/tools/CppLib
+CODEFOLDER = /Users/sss/Documents/gitHubPrj/riffshare/wrapper/vst/vstsamples/note_expression_synth
+SOURCEFOLDER = $(CODEFOLDER)/source
+INCLUDEFOLDER = $(CODEFOLDER)/source
+TOOLSFOLDER = /Users/sss/Documents/gitHubPrj/riffshare/wrapper/vst/tools
+VSTLIB = $(TOOLSFOLDER)/VST3lib
+CPPLIB = $(TOOLSFOLDER)/CppLib
 
 IFOLDERS = -I$(INCLUDEFOLDER)
 IFOLDERS += -I$(VSTLIB)/vstgui4
@@ -14,7 +14,8 @@ IFOLDERS += -I$(VSTLIB)
 IFOLDERS += -I$(CPPLIB)/include
 
 CFLAGS = $(IFOLDERS) -Wno-logical-op-parentheses -g
-CFLAGS += -std=c++11
+#CFLAGS += -std=c++11
+CFLAGS += -std=c++14
 CFLAGS += -stdlib=libxx
 #headers CFLAGS += -H
 #verbose CFLAGS += -v
@@ -70,6 +71,10 @@ CFILES += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
 CFILES += $(VSTLIB)/public.sdk/source/vst/vsteditcontroller.cpp
 CFILES += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
 CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cview.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/contrib/keyboardview.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/vstguidebug.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cframe.cpp
+
 
 .PHONY: $(TARGET)
 $(TARGET):

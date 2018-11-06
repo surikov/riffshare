@@ -1681,8 +1681,8 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 35696;
-/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } });
+STATICTOP = STATIC_BASE + 44176;
+/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_keyboardview_cpp() } });
 
 
 
@@ -1690,7 +1690,7 @@ STATICTOP = STATIC_BASE + 35696;
 
 
 
-var STATIC_BUMP = 35696;
+var STATIC_BUMP = 44176;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1736,60 +1736,84 @@ function copyTempDouble(ptr) {
   err('missing function: _ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_'); abort(-1);
   }
 
+  function __ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb() {
+  err('missing function: _ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb'); abort(-1);
+  }
+
+  function __ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb() {
+  err('missing function: _ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb'); abort(-1);
+  }
+
   function __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_() {
   err('missing function: _ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_'); abort(-1);
+  }
+
+  function __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE() {
+  err('missing function: _ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE() {
+  err('missing function: _ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE() {
+  err('missing function: _ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE() {
+  err('missing function: _ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE() {
+  err('missing function: _ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc() {
+  err('missing function: _ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc'); abort(-1);
+  }
+
+  function __ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE() {
+  err('missing function: _ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE'); abort(-1);
   }
 
   function __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE() {
   err('missing function: _ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE'); abort(-1);
   }
 
-  function __ZN6VSTGUI16KeyboardViewBase13setKeyPressedEsb() {
-  err('missing function: _ZN6VSTGUI16KeyboardViewBase13setKeyPressedEsb'); abort(-1);
+  function __ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd() {
+  err('missing function: _ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd'); abort(-1);
   }
 
-  function __ZN6VSTGUI16KeyboardViewBase16setBlackKeyWidthEd() {
-  err('missing function: _ZN6VSTGUI16KeyboardViewBase16setBlackKeyWidthEd'); abort(-1);
+  function __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE() {
+  err('missing function: _ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE'); abort(-1);
   }
 
-  function __ZN6VSTGUI16KeyboardViewBase16setWhiteKeyWidthEd() {
-  err('missing function: _ZN6VSTGUI16KeyboardViewBase16setWhiteKeyWidthEd'); abort(-1);
+  function __ZNK6VSTGUI12CDrawContext15getHairlineSizeEv() {
+  err('missing function: _ZNK6VSTGUI12CDrawContext15getHairlineSizeEv'); abort(-1);
   }
 
-  function __ZN6VSTGUI16KeyboardViewBase17setBlackKeyHeightEd() {
-  err('missing function: _ZN6VSTGUI16KeyboardViewBase17setBlackKeyHeightEd'); abort(-1);
+  function __ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE() {
+  err('missing function: _ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE'); abort(-1);
   }
 
-  function __ZN6VSTGUI25KeyboardViewRangeSelector17setSelectionRangeERKNS0_5RangeE() {
-  err('missing function: _ZN6VSTGUI25KeyboardViewRangeSelector17setSelectionRangeERKNS0_5RangeE'); abort(-1);
+  function __ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd() {
+  err('missing function: _ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd'); abort(-1);
   }
 
-  function __ZN6VSTGUI25KeyboardViewRangeSelector31registerKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE() {
-  err('missing function: _ZN6VSTGUI25KeyboardViewRangeSelector31registerKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE'); abort(-1);
+  function __ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb() {
+  err('missing function: _ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb'); abort(-1);
   }
 
-  function __ZN6VSTGUI25KeyboardViewRangeSelector33unregisterKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE() {
-  err('missing function: _ZN6VSTGUI25KeyboardViewRangeSelector33unregisterKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE'); abort(-1);
+  function __ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi() {
+  err('missing function: _ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi'); abort(-1);
   }
 
-  function __ZN6VSTGUI5CView20registerViewListenerEPNS_13IViewListenerE() {
-  err('missing function: _ZN6VSTGUI5CView20registerViewListenerEPNS_13IViewListenerE'); abort(-1);
+  function __ZNK6VSTGUI7CBitmap8getWidthEv() {
+  err('missing function: _ZNK6VSTGUI7CBitmap8getWidthEv'); abort(-1);
   }
 
-  function __ZN6VSTGUI5CView22unregisterViewListenerEPNS_13IViewListenerE() {
-  err('missing function: _ZN6VSTGUI5CView22unregisterViewListenerEPNS_13IViewListenerE'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI16KeyboardViewBase10isWhiteKeyEs() {
-  err('missing function: _ZNK6VSTGUI16KeyboardViewBase10isWhiteKeyEs'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI25KeyboardViewRangeSelector23getNumWhiteKeysSelectedEv() {
-  err('missing function: _ZNK6VSTGUI25KeyboardViewRangeSelector23getNumWhiteKeysSelectedEv'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI5CView11getViewSizeEv() {
-  err('missing function: _ZNK6VSTGUI5CView11getViewSizeEv'); abort(-1);
+  function __ZNK6VSTGUI7CBitmap9getHeightEv() {
+  err('missing function: _ZNK6VSTGUI7CBitmap9getHeightEv'); abort(-1);
   }
 
   function ___assert_fail(condition, filename, line, func) {
@@ -1844,6 +1868,46 @@ function copyTempDouble(ptr) {
       EXCEPTIONS.caught.push(ptr);
       EXCEPTIONS.addRef(EXCEPTIONS.deAdjust(ptr));
       return ptr;
+    }
+
+  function ___cxa_current_primary_exception() {
+      var ret = EXCEPTIONS.caught[EXCEPTIONS.caught.length-1] || 0;
+      if (ret) EXCEPTIONS.addRef(EXCEPTIONS.deAdjust(ret));
+      return ret;
+    }
+
+  
+  
+  
+  function ___cxa_free_exception(ptr) {
+      try {
+        return _free(ptr);
+      } catch(e) { // XXX FIXME
+      }
+    }function ___cxa_end_catch() {
+      // Clear state flag.
+      Module['setThrew'](0);
+      // Call destructor if one is registered then clear it.
+      var ptr = EXCEPTIONS.caught.pop();
+      if (ptr) {
+        EXCEPTIONS.decRef(EXCEPTIONS.deAdjust(ptr));
+        EXCEPTIONS.last = 0; // XXX in decRef?
+      }
+    }function ___cxa_rethrow() {
+      var ptr = EXCEPTIONS.caught.pop();
+      ptr = EXCEPTIONS.deAdjust(ptr);
+      if (!EXCEPTIONS.infos[ptr].rethrown) {
+        // Only pop if the corresponding push was through rethrow_primary_exception
+        EXCEPTIONS.caught.push(ptr)
+        EXCEPTIONS.infos[ptr].rethrown = true;
+      }
+      EXCEPTIONS.last = ptr;
+      throw ptr + " - Exception catching is disabled, this exception cannot be caught. Compile with -s DISABLE_EXCEPTION_CATCHING=0 or DISABLE_EXCEPTION_CATCHING=2 to catch.";
+    }function ___cxa_rethrow_primary_exception(ptr) {
+      if (!ptr) return;
+      EXCEPTIONS.caught.push(ptr);
+      EXCEPTIONS.infos[ptr].rethrown = true;
+      ___cxa_rethrow();
     }
 
   
@@ -5102,6 +5166,10 @@ function copyTempDouble(ptr) {
 
    
 
+  var _llvm_ceil_f32=Math_ceil;
+
+  var _llvm_ctlz_i32=true;
+
   
   function _llvm_exp2_f32(x) {
       return Math.pow(2, x);
@@ -5532,16 +5600,28 @@ function copyTempDouble(ptr) {
       return _strftime(s, maxsize, format, tm); // no locale support yet
     }
 
-  function __ZTIN6VSTGUI12KeyboardViewE() {
-  err('missing function: _ZTIN6VSTGUI12KeyboardViewE'); abort(-1);
+  function __ZN6VSTGUI11kGreyCColorE() {
+  err('missing function: _ZN6VSTGUI11kGreyCColorE'); abort(-1);
   }
 
-  function __ZTIN6VSTGUI25KeyboardViewRangeSelectorE() {
-  err('missing function: _ZTIN6VSTGUI25KeyboardViewRangeSelectorE'); abort(-1);
+  function __ZN6VSTGUI11kSystemFontE() {
+  err('missing function: _ZN6VSTGUI11kSystemFontE'); abort(-1);
   }
 
-  function __ZTIN6VSTGUI5CViewE() {
-  err('missing function: _ZTIN6VSTGUI5CViewE'); abort(-1);
+  function __ZN6VSTGUI12kBlackCColorE() {
+  err('missing function: _ZN6VSTGUI12kBlackCColorE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI12kWhiteCColorE() {
+  err('missing function: _ZN6VSTGUI12kWhiteCColorE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI14IUIDescription15kCustomViewNameE() {
+  err('missing function: _ZN6VSTGUI14IUIDescription15kCustomViewNameE'); abort(-1);
+  }
+
+  function __ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE() {
+  err('missing function: _ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE'); abort(-1);
   }
 FS.staticInit();__ATINIT__.unshift(function() { if (!Module["noFSInit"] && !FS.init.initialized) FS.init() });__ATMAIN__.push(function() { FS.ignorePermissions = false });__ATEXIT__.push(function() { FS.quit() });;
 __ATINIT__.unshift(function() { TTY.init() });__ATEXIT__.push(function() { TTY.shutdown() });;
@@ -5591,9 +5671,9 @@ function intArrayToString(array) {
 
 
 
-Module['wasmTableSize'] = 1224;
+Module['wasmTableSize'] = 1379;
 
-Module['wasmMaxTableSize'] = 1224;
+Module['wasmMaxTableSize'] = 1379;
 
 function invoke_di(index,a1) {
   var sp = stackSave();
@@ -5925,6 +6005,17 @@ function invoke_vidi(index,a1,a2,a3) {
   }
 }
 
+function invoke_vif(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_vif"](index,a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_vii(index,a1,a2) {
   var sp = stackSave();
   try {
@@ -5991,6 +6082,17 @@ function invoke_viiii(index,a1,a2,a3,a4) {
   }
 }
 
+function invoke_viiiif(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiiif"](index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_viiiii(index,a1,a2,a3,a4,a5) {
   var sp = stackSave();
   try {
@@ -6026,7 +6128,7 @@ function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
 
 Module.asmGlobalArg = {};
 
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_fi": invoke_fi, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viijii": invoke_viijii, "__ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_": __ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_, "__ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_": __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_, "__ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE": __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE, "__ZN6VSTGUI16KeyboardViewBase13setKeyPressedEsb": __ZN6VSTGUI16KeyboardViewBase13setKeyPressedEsb, "__ZN6VSTGUI16KeyboardViewBase16setBlackKeyWidthEd": __ZN6VSTGUI16KeyboardViewBase16setBlackKeyWidthEd, "__ZN6VSTGUI16KeyboardViewBase16setWhiteKeyWidthEd": __ZN6VSTGUI16KeyboardViewBase16setWhiteKeyWidthEd, "__ZN6VSTGUI16KeyboardViewBase17setBlackKeyHeightEd": __ZN6VSTGUI16KeyboardViewBase17setBlackKeyHeightEd, "__ZN6VSTGUI25KeyboardViewRangeSelector17setSelectionRangeERKNS0_5RangeE": __ZN6VSTGUI25KeyboardViewRangeSelector17setSelectionRangeERKNS0_5RangeE, "__ZN6VSTGUI25KeyboardViewRangeSelector31registerKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE": __ZN6VSTGUI25KeyboardViewRangeSelector31registerKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE, "__ZN6VSTGUI25KeyboardViewRangeSelector33unregisterKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE": __ZN6VSTGUI25KeyboardViewRangeSelector33unregisterKeyRangeChangedListenerEPNS_36IKeyboardViewKeyRangeChangedListenerE, "__ZN6VSTGUI5CView20registerViewListenerEPNS_13IViewListenerE": __ZN6VSTGUI5CView20registerViewListenerEPNS_13IViewListenerE, "__ZN6VSTGUI5CView22unregisterViewListenerEPNS_13IViewListenerE": __ZN6VSTGUI5CView22unregisterViewListenerEPNS_13IViewListenerE, "__ZNK6VSTGUI16KeyboardViewBase10isWhiteKeyEs": __ZNK6VSTGUI16KeyboardViewBase10isWhiteKeyEs, "__ZNK6VSTGUI25KeyboardViewRangeSelector23getNumWhiteKeysSelectedEv": __ZNK6VSTGUI25KeyboardViewRangeSelector23getNumWhiteKeysSelectedEv, "__ZNK6VSTGUI5CView11getViewSizeEv": __ZNK6VSTGUI5CView11getViewSizeEv, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "__ZTIN6VSTGUI12KeyboardViewE": __ZTIN6VSTGUI12KeyboardViewE, "__ZTIN6VSTGUI25KeyboardViewRangeSelectorE": __ZTIN6VSTGUI25KeyboardViewRangeSelectorE, "__ZTIN6VSTGUI5CViewE": __ZTIN6VSTGUI5CViewE };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_fi": invoke_fi, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viijii": invoke_viijii, "__ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_": __ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_, "__ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb": __ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb, "__ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb": __ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb, "__ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_": __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_, "__ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE": __ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE, "__ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc": __ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc, "__ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE": __ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE, "__ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE": __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE, "__ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd": __ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd, "__ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE": __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE, "__ZNK6VSTGUI12CDrawContext15getHairlineSizeEv": __ZNK6VSTGUI12CDrawContext15getHairlineSizeEv, "__ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE": __ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE, "__ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd": __ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd, "__ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb": __ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb, "__ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi": __ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi, "__ZNK6VSTGUI7CBitmap8getWidthEv": __ZNK6VSTGUI7CBitmap8getWidthEv, "__ZNK6VSTGUI7CBitmap9getHeightEv": __ZNK6VSTGUI7CBitmap9getHeightEv, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "__ZN6VSTGUI11kGreyCColorE": __ZN6VSTGUI11kGreyCColorE, "__ZN6VSTGUI11kSystemFontE": __ZN6VSTGUI11kSystemFontE, "__ZN6VSTGUI12kBlackCColorE": __ZN6VSTGUI12kBlackCColorE, "__ZN6VSTGUI12kWhiteCColorE": __ZN6VSTGUI12kWhiteCColorE, "__ZN6VSTGUI14IUIDescription15kCustomViewNameE": __ZN6VSTGUI14IUIDescription15kCustomViewNameE, "__ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE": __ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE };
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);
@@ -6036,6 +6138,7 @@ var _VST3_setInteger = Module["_VST3_setInteger"] = asm["_VST3_setInteger"];
 var _VST3_status = Module["_VST3_status"] = asm["_VST3_status"];
 var _VST3_stub = Module["_VST3_stub"] = asm["_VST3_stub"];
 var __GLOBAL__sub_I_coreiids_cpp = Module["__GLOBAL__sub_I_coreiids_cpp"] = asm["__GLOBAL__sub_I_coreiids_cpp"];
+var __GLOBAL__sub_I_keyboardview_cpp = Module["__GLOBAL__sub_I_keyboardview_cpp"] = asm["__GLOBAL__sub_I_keyboardview_cpp"];
 var __GLOBAL__sub_I_note_expression_synth_voice_cpp = Module["__GLOBAL__sub_I_note_expression_synth_voice_cpp"] = asm["__GLOBAL__sub_I_note_expression_synth_voice_cpp"];
 var __GLOBAL__sub_I_pluginfactoryvst3_cpp = Module["__GLOBAL__sub_I_pluginfactoryvst3_cpp"] = asm["__GLOBAL__sub_I_pluginfactoryvst3_cpp"];
 var __GLOBAL__sub_I_updatehandler_cpp = Module["__GLOBAL__sub_I_updatehandler_cpp"] = asm["__GLOBAL__sub_I_updatehandler_cpp"];
@@ -6093,12 +6196,14 @@ var dynCall_v = Module["dynCall_v"] = asm["dynCall_v"];
 var dynCall_vi = Module["dynCall_vi"] = asm["dynCall_vi"];
 var dynCall_vid = Module["dynCall_vid"] = asm["dynCall_vid"];
 var dynCall_vidi = Module["dynCall_vidi"] = asm["dynCall_vidi"];
+var dynCall_vif = Module["dynCall_vif"] = asm["dynCall_vif"];
 var dynCall_vii = Module["dynCall_vii"] = asm["dynCall_vii"];
 var dynCall_viid = Module["dynCall_viid"] = asm["dynCall_viid"];
 var dynCall_viidd = Module["dynCall_viidd"] = asm["dynCall_viidd"];
 var dynCall_viidfii = Module["dynCall_viidfii"] = asm["dynCall_viidfii"];
 var dynCall_viii = Module["dynCall_viii"] = asm["dynCall_viii"];
 var dynCall_viiii = Module["dynCall_viiii"] = asm["dynCall_viiii"];
+var dynCall_viiiif = Module["dynCall_viiiif"] = asm["dynCall_viiiif"];
 var dynCall_viiiii = Module["dynCall_viiiii"] = asm["dynCall_viiiii"];
 var dynCall_viiiiii = Module["dynCall_viiiiii"] = asm["dynCall_viiiiii"];
 var dynCall_viijii = Module["dynCall_viijii"] = asm["dynCall_viijii"];
