@@ -273,7 +273,7 @@ tresult PLUGIN_API SingleComponentEffect::queryInterface (const TUID iid, void**
 // make sure that vsteditcontroller.cpp is otherwise excluded from your project
 #define setState setEditorState
 #define getState getEditorState
-#pragma message("skip second public.sdk/source/vst/vsteditcontroller.cpp")
+#pragma message("doubled public.sdk/source/vst/vsteditcontroller.cpp")
 //#include "public.sdk/source/vst/vsteditcontroller.cpp"
 #undef setState
 #undef getState

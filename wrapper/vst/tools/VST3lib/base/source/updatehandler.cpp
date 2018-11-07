@@ -386,7 +386,7 @@ tresult UpdateHandler::doTriggerUpdates (FUnknown* u, int32 message, bool suppre
 				{
 					if (dependents == smallDependents)
 					{
-						dependents = new IDependent*[Update::kMapSize];
+						dependents = NEW IDependent*[Update::kMapSize];
 						memcpy (dependents, smallDependents, count * sizeof (dependents[0]));
 						maxDependents = Update::kMapSize;
 					}

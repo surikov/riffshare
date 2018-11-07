@@ -87,7 +87,7 @@ enum RestartFlags
 	kLatencyChanged				= 1 << 3,	///< Latency has changed (IAudioProcessor.getLatencySamples)  [SDK 3.0.0]
 	kParamTitlesChanged			= 1 << 4,	///< Parameter titles or default values or flags have changed [SDK 3.0.0]
 	kMidiCCAssignmentChanged	= 1 << 5,	///< MIDI Controller Assignments have changed     [SDK 3.0.1]
-	kNoteExpressionChanged		= 1 << 6,	///< Note Expression has changed (info, count...) [SDK 3.5.0]
+	kNoteExpressionChanged		= 1 << 6,	///< Note Expression has changed (info, count, PhysicalUIMapping, ...) [SDK 3.5.0]
 	kIoTitlesChanged			= 1 << 7,	///< Input and/or Output bus titles have changed  [SDK 3.5.0]
 	kPrefetchableSupportChanged = 1 << 8,	///< Prefetch support has changed (\see IPrefetchableSupport) [SDK 3.6.1]
 	kRoutingInfoChanged			= 1 << 9	///< RoutingInfo has changed (\see IComponent)    [SDK 3.6.6]

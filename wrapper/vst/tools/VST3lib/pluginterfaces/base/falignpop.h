@@ -16,12 +16,8 @@
 
 //---------------------------------------------------------------------------------------------------
 #if SMTG_OS_MACOS
-	#if TARGET_API_MAC_CARBON
-		#if SMTG_PLATFORM_64
-			#pragma pack(pop)
-		#else
-			#pragma options align=reset
-		#endif
+	#if !SMTG_PLATFORM_64
+		#pragma pack(pop)
 	#endif
 #elif defined __BORLANDC__
 	#pragma -a-

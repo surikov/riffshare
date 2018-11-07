@@ -24,14 +24,19 @@ public:
 	CVSTGUITimer (CallbackFunc&& callback, uint32_t fireTime = 100, bool doStart = true);
 	CVSTGUITimer (CBaseObject* timerObject, uint32_t fireTime = 100, bool doStart = false);
 	
-	bool start ();							///< starts the timer
-	bool stop ();							///< stops the timer, returns whether timer was running or not
+	/** starts the timer */
+	bool start ();
+	/** stops the timer, returns whether timer was running or not */
+	bool stop ();
 
-	bool setFireTime (uint32_t newFireTime);		///< in milliseconds
-	uint32_t getFireTime () const { return fireTime; }		///< in milliseconds
+	/** set fire time in milliseconds */
+	bool setFireTime (uint32_t newFireTime);
+	/** get fire time in milliseconds*/
+	uint32_t getFireTime () const { return fireTime; }
 
 //-----------------------------------------------------------------------------
-	static IdStringPtr kMsgTimer;					///< message string posted to CBaseObject's notify method
+	/** message string posted to CBaseObject's notify method */
+	static IdStringPtr kMsgTimer;
 //-----------------------------------------------------------------------------
 	CLASS_METHODS_NOCOPY(CVSTGUITimer, CBaseObject)
 protected:

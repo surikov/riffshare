@@ -211,13 +211,6 @@ SMTG_ALWAYS_INLINE bool iidEqual (const void* iid1, const void* iid2)
 	return p1[0] == p2[0] && p1[1] == p2[1];
 }
 
-//#define PLUGIN_API void
-//#define XSTR(x) STR(x)
-//#define STR(x) #x
-//#pragma message "The value of __APPLE__: " XSTR(__APPLE__)
-//#pragma message "The value of PLUGIN_API: " XSTR(PLUGIN_API)
-
-
 int32 PLUGIN_API atomicAdd (int32& value, int32 amount);
 }
 

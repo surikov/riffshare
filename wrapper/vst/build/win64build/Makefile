@@ -1,6 +1,6 @@
 #
 PROJECTNAME = VSTNES
-TARGET = ./web/$(PROJECTNAME).js
+TARGET = $(PROJECTNAME).js
 
 SAMPLESFOLDER = C:\projects\riffshare\riffshare\wrapper\vst\vstsamples
 SOURCEFOLDER = $(SAMPLESFOLDER)\note_expression_synth\source
@@ -10,12 +10,13 @@ VSTLIB = C:\projects\riffshare\riffshare\wrapper\vst\tools\VST3lib
 CPPLIB = C:\projects\riffshare\riffshare\wrapper\vst\tools\CppLib
 
 IFOLDERS = -I$(INCLUDEFOLDER)
+IFOLDERS += -I$(VSTLIB)/vstgui4/vstgui/lib/platform/linux
 IFOLDERS += -I$(VSTLIB)/vstgui4
 IFOLDERS += -I$(VSTLIB)
 IFOLDERS += -I$(CPPLIB)/include
 
 CFLAGS = $(IFOLDERS) -Wno-logical-op-parentheses -g
-CFLAGS += -std=c++11
+CFLAGS += -std=c++14
 CFLAGS += -stdlib=libxx
 #headers CFLAGS += -H
 #verbose CFLAGS += -v
@@ -35,49 +36,78 @@ LDFLAGS = -O2
 JSFLAGS = -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s BINARYEN_ASYNC_COMPILATION=0 
 JSFLAGS += -s EXPORT_NAME="'AudioWorkletGlobalScope.WAM.$(PROJECTNAME)'"
 
-CFILES = ../../tools/VST3JSExport.cpp \
+CUSTOMFILES = ../../tools/VST3JSExport.cpp \
 	$(SOURCEFOLDER)/factory.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_controller.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_processor.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_ui.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_voice.cpp \
 	$(SOURCEFOLDER)/note_touch_controller.cpp
-CFILES += $(VSTLIB)/pluginterfaces/base/conststringtable.cpp
-CFILES += $(VSTLIB)/pluginterfaces/base/coreiids.cpp
-CFILES += $(VSTLIB)/pluginterfaces/base/funknown.cpp
-CFILES += $(VSTLIB)/pluginterfaces/base/ustring.cpp
-CFILES += $(VSTLIB)/base/source/fbuffer.cpp
-CFILES += $(VSTLIB)/base/source/fdebug.cpp
-CFILES += $(VSTLIB)/base/source/fdynlib.cpp
-CFILES += $(VSTLIB)/base/source/fobject.cpp
-CFILES += $(VSTLIB)/base/source/fstreamer.cpp
-CFILES += $(VSTLIB)/base/source/fstring.cpp
-CFILES += $(VSTLIB)/base/source/timer.cpp
-CFILES += $(VSTLIB)/base/source/updatehandler.cpp
-CFILES += $(VSTLIB)/base/thread/source/fcondition.cpp
-CFILES += $(VSTLIB)/base/thread/source/flock.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstaudioeffect.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstbus.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstbypassprocessor.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstcomponent.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstcomponentbase.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstguieditor.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstinitiids.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstnoteexpressiontypes.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstparameters.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstpresetfile.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstrepresentation.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
-CFILES += $(VSTLIB)/public.sdk/source/vst/vsteditcontroller.cpp
-CFILES += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
-CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cview.cpp
-CFILES += $(VSTLIB)/vstgui4/vstgui/contrib/keyboardview.cpp
+VSTRUNTIME = $(VSTLIB)/pluginterfaces/base/conststringtable.cpp
+VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/coreiids.cpp
+VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/funknown.cpp
+VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/ustring.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/fbuffer.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/fdebug.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/fdynlib.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/fobject.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/fstreamer.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/fstring.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/timer.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/updatehandler.cpp
+VSTRUNTIME += $(VSTLIB)/base/thread/source/fcondition.cpp
+VSTRUNTIME += $(VSTLIB)/base/thread/source/flock.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstaudioeffect.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbus.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbypassprocessor.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstcomponent.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstcomponentbase.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstguieditor.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstinitiids.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstnoteexpressiontypes.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstparameters.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstpresetfile.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstrepresentation.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vsteditcontroller.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cview.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/contrib/keyboardview.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/vstguidebug.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cframe.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3editor.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cstring.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/coptionmenu.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cparamdisplay.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cviewcontainer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/uiattributes.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cvstguitimer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/uidescription.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/cstream.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cdrawcontext.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cbitmapfilter.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3padcontroller.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/uiviewfactory.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cgraphicspath.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/ctooltipsupport.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cbitmap.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/ccontrol.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
+#VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/cairofont.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3groupcontroller.cpp
+#VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\lib\platform\linux\cairofont.cpp
+VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\controls\ctextedit.cpp
+VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\controls\cxypad.cpp
+VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\coffscreencontext.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\lib\controls\ctextlabel.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk\source\main\linuxmain.cpp
 
 .PHONY: $(TARGET)
 $(TARGET):
 #	export EMCC_DEBUG=1
 #	emcc --clear-cache
-	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CFILES)
+	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
 #	cd ./web/ & pwd & node ../../tools/encode-wasm.js $(PROJECTNAME).wasm
 #	cp ../../tools/index.html ./web/
 #	cp ../../tools/index.js ./web/

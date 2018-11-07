@@ -17,6 +17,7 @@
 #pragma once
 
 #include "pluginterfaces/base/funknown.h"
+#include "pluginterfaces/base/typesizecheck.h"
 
 namespace Steinberg {
 
@@ -47,6 +48,8 @@ struct ViewRect
 	int32 getWidth () const { return right - left; }
 	int32 getHeight () const { return bottom - top; }
 };
+
+SMTG_TYPE_SIZE_CHECK (ViewRect, 16, 16, 16)
 
 //------------------------------------------------------------------------
 /**  \defgroup platformUIType Platform UI Types

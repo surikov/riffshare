@@ -80,7 +80,7 @@ const CString kOnlyOfflineProcess	= "OnlyOfflineProcess";	///< used for Plug-in 
 const CString kNoOfflineProcess		= "NoOfflineProcess";	///< will be NOT used for Plug-in offline processing (will work as normal insert Plug-in)
 const CString kUpDownMix			= "Up-Downmix";		///< used for Mixconverter/Up-Mixer/Down-Mixer
 const CString kAnalyzer			    = "Analyzer";	    ///< Meter, Scope, FFT-Display, not selectable as insert plugin
-const CString kAmbisonic			= "Ambisonic";		///< used for Ambisonic channel (FX or Panner/Mixconverter/Up-Mixer/Down-Mixer when combined with other category)
+const CString kAmbisonics			= "Ambisonics";		///< used for Ambisonics channel (FX or Panner/Mixconverter/Up-Mixer/Down-Mixer when combined with other category)
 
 const CString kMono					= "Mono";			///< used for Mono only Plug-in [optional]
 const CString kStereo				= "Stereo";			///< used for Stereo only Plug-in [optional]

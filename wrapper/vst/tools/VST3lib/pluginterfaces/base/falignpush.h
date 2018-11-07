@@ -16,12 +16,10 @@
 
 //----------------------------------------------------------------------------------------------
 #if SMTG_OS_MACOS
-	#if TARGET_API_MAC_CARBON
-		#if SMTG_PLATFORM_64
-			#pragma pack(push, 16)
-		#else
-			#pragma options align=mac68k
-		#endif
+	#if SMTG_PLATFORM_64
+		// no need in packing here
+	#else
+		#pragma pack(push, 1)
 	#endif
 #elif defined __BORLANDC__
 	#pragma -a8

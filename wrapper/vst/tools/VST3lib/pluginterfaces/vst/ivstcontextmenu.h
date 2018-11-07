@@ -150,6 +150,22 @@ public:
 DECLARE_CLASS_IID (IContextMenuTarget, 0x3CDF2E75, 0x85D34144, 0xBF86D36B, 0xD7C4894D)
 
 //------------------------------------------------------------------------
+/** IContextMenuItem is an entry element of the context menu. */
+struct IContextMenuItem
+{
+	String128 name;									///< Name of the item
+	int32 tag;										///< Identifier tag of the item
+	int32 flags;									///< Flags of the item
+
+	enum Flags {
+		kIsSeparator	= 1 << 0,					///< Item is a separator
+		kIsDisabled		= 1 << 1,					///< Item is disabled
+		kIsChecked		= 1 << 2,					///< Item is checked
+		kIsGroupStart	= 1 << 3 | kIsDisabled,		///< Item is a group start (like sub folder)
+		kIsGroupEnd		= 1 << 4 | kIsSeparator,	///< Item is a group end
+	};
+};
+//------------------------------------------------------------------------
 /** Context Menu Interface.
 \ingroup vstIHost vst350
 - [host imp]
@@ -166,22 +182,8 @@ See IComponentHandler3 for more.
 class IContextMenu : public FUnknown
 {
 public:
-	/** Item is a entry element of the context menu. */
-	struct Item
-	{
-		String128 name;									///< Name of the item
-		int32 tag;										///< Identifier tag of the item
-		int32 flags;									///< Flags of the item
-
-		enum Flags {
-			kIsSeparator	= 1 << 0,					///< Item is a separator
-			kIsDisabled		= 1 << 1,					///< Item is disabled
-			kIsChecked		= 1 << 2,					///< Item is checked
-			kIsGroupStart	= 1 << 3 | kIsDisabled,		///< Item is a group start (like sub folder)
-			kIsGroupEnd		= 1 << 4 | kIsSeparator,	///< Item is a group end
-		};
-	};
-
+	typedef IContextMenuItem Item;
+	
 	/** Gets the number of menu items. */
 	virtual int32 PLUGIN_API getItemCount () = 0;
 

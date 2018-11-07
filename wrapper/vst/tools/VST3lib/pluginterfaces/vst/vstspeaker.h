@@ -3,7 +3,7 @@
 //
 // Category    : Interfaces
 // Filename    : pluginterfaces/vst/vstspeaker.h
-// Created by  : Steinberg, 01/2019
+// Created by  : Steinberg, 01/2018
 // Description : common defines
 //
 //-----------------------------------------------------------------------------
@@ -305,9 +305,9 @@ const CString kString80Cube		= "8.0 Cube";
 const CString kString81Cine		= "8.1 Cine";
 const CString kString81Music	= "8.1 Music";
 const CString kString102		= "10.2 Experimental";
-const CString kString122		= "12.2";
-const CString kString50_4		= "5.0.4";
-const CString kString51_4		= "5.1.4";
+const CString kString122 = "12.2";
+const CString kString50_4 = "5.0.4";
+const CString kString51_4 = "5.1.4";
 const CString kString91Atmos	= "9.1 Dolby Atmos";
 const CString kString100		= "10.0 Auro-3D";
 const CString kString101		= "10.1 Auro-3D";
@@ -320,9 +320,9 @@ const CString kString70_4		= "7.0.4";
 const CString kString71_4		= "7.1.4";
 const CString kString140		= "14.0";
 const CString kString222		= "22.2";
-const CString kStringAmbi1stOrder = "Ambi 1st-Order";
-const CString kStringAmbi2cdOrder = "Ambi 2cd-Order";
-const CString kStringAmbi3rdOrder = "Ambi 3rd-Order";
+const CString kStringAmbi1stOrder = "1st Order Ambisonics";
+const CString kStringAmbi2cdOrder = "2nd Order Ambisonics";
+const CString kStringAmbi3rdOrder = "3rd Order Ambisonics";
 
 /*@}*/
 
@@ -408,7 +408,8 @@ inline int32 getChannelCount (SpeakerArrangement arr)
 }
 
 //------------------------------------------------------------------------
-/** Returns the index of a given speaker in a speaker arrangement (-1 if speaker is not part of the arrangement). */
+/** Returns the index of a given speaker in a speaker arrangement (-1 if speaker is not part of the
+ * arrangement). */
 inline int32 getSpeakerIndex (Speaker speaker, SpeakerArrangement arrangement)
 {
 	// check if speaker is present in arrangement
@@ -449,7 +450,8 @@ inline Speaker getSpeaker (const SpeakerArrangement& arr, int32 index)
 }
 
 //------------------------------------------------------------------------
-/** Returns true if arrSubSet is a subset speaker of arr (means each speaker of arrSubSet is included in arr). */
+/** Returns true if arrSubSet is a subset speaker of arr (means each speaker of arrSubSet is
+ * included in arr). */
 inline bool isSubsetOf (const SpeakerArrangement& arrSubSet, const SpeakerArrangement& arr)
 {
 	return (arrSubSet == (arrSubSet & arr));
@@ -468,8 +470,19 @@ inline bool isAuro (const SpeakerArrangement& arr)
 }
 
 //------------------------------------------------------------------------
+/** Returns true if arrangement is a Auro configuration. */
+inline bool isAmbisonics (const SpeakerArrangement& arr)
+{
+	if (arr == kAmbi1stOrderACN || arr == kAmbi2cdOrderACN || arr == kAmbi3rdOrderACN)
+	{
+		return true;
+	}
+	return false;
+}
+
+//------------------------------------------------------------------------
 /** Returns the speaker arrangement associated to a string representation.
-	Returns kEmpty if no associated arrangement is known.
+    Returns kEmpty if no associated arrangement is known.
 */
 inline SpeakerArrangement getSpeakerArrangementFromString (CString arrStr)
 {
@@ -492,7 +505,7 @@ inline SpeakerArrangement getSpeakerArrangementFromString (CString arrStr)
 	if (!strcmp8 (arrStr, kStringStereoTR))
 		return kStereoTR;
 	if (!strcmp8 (arrStr, kStringStereoBF))
-		return kStereoBF;	
+		return kStereoBF;
 	if (!strcmp8 (arrStr, kString30Cine))
 		return k30Cine;
 	if (!strcmp8 (arrStr, kString30Music))
@@ -672,7 +685,7 @@ inline CString getSpeakerArrangementString (SpeakerArrangement arr, bool withSpe
 
 //------------------------------------------------------------------------
 /** Returns a CString representation of a given speaker in a given arrangement
-*/
+ */
 inline CString getSpeakerShortName (const SpeakerArrangement& arr, int32 index)
 {
 	SpeakerArrangement arrTmp = arr;

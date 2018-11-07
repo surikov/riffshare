@@ -135,7 +135,7 @@ inline uint8 CharToVirtualKeyCode (tchar character)
 	return 0;
 }
 
-//------------------------------------------------------------------------------
+/** OS-independent enumeration of virtual modifier-codes. */
 enum KeyModifier
 {
 	kShiftKey     = 1 << 0, ///< same on both PC and Mac
@@ -144,18 +144,38 @@ enum KeyModifier
 	kControlKey   = 1 << 3  ///< windows: not assigned, mac: ctrl key
 };
 
-//------------------------------------------------------------------------
+/** Simple data-struct representing a key-stroke on the keyboard. */
 struct KeyCode
 {
+	/** The associated character. */
 	tchar character;
+	/** The associated virtual key-code. */
 	uint8 virt;
+	/** The associated virtual modifier-code. */
 	uint8 modifier;
 
+	/** Constructs a new KeyCode. */
 	explicit KeyCode (tchar character = 0, uint8 virt = 0, uint8 modifier = 0)
 	: character (character), virt (virt), modifier (modifier)
 	{
 	}
 };
 
+/** Utility functions to handle key-codes. 
+* @see Steinberg::KeyCode 
+*/
+namespace KeyCodes {}
+
+namespace KeyCodes {
+
+/** Is only a modifier pressed on the keyboard? */
+template <typename Key>
+bool isModifierOnlyKey (const Key& key)
+{
+	return (key.character == 0 
+		&& (key.virt == KEY_SHIFT || key.virt == KEY_ALT || key.virt == KEY_CONTROL));
+}
+
 //------------------------------------------------------------------------
+} // namespace KeyCodes
 } // namespace Steinberg

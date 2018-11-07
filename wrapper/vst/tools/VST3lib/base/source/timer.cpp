@@ -327,20 +327,4 @@ Timer* Timer::create (ITimerCallback* callback, uint32 milliseconds)
 
 #elif SMTG_OS_LINUX
 #warning DEPRECATED No Linux implementation
-#warning stub VST3JS
-
-namespace Steinberg {
-namespace SystemTime {
-/*
-    @return the current system time in milliseconds
-*/
-uint64 getTicks64 ()
-{
-	return -1;
-}
-}
-
-
-//------------------------------------------------------------------------
-} // namespace Steinberg
 #endif

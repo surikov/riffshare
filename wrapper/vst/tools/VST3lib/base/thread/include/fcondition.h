@@ -41,7 +41,7 @@
 /** @defgroup baseThread Thread Handling */
 //----------------------------------------------------------------------------------
 #pragma once
-#pragma message("int32     waits;			- Waits count")
+
 #include "pluginterfaces/base/ftypes.h"
 
 #if SMTG_PTHREADS 

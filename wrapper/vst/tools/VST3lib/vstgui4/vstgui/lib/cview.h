@@ -13,9 +13,6 @@
 #include "cgraphicstransform.h"
 #include <memory>
 
-//#pragma message("dragging.h")
-//#include "dragging.h"
-
 namespace VSTGUI {
 
 //-----------------------------------------------------------------------------

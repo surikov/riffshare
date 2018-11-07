@@ -184,8 +184,8 @@ void FDebugBreak (const char* format, ...)
 		{
 			breakIntoDebugger = false;
 		}
-#pragma message("don't care about platform CPU debugger")
-		/*if (breakIntoDebugger)
+
+		if (breakIntoDebugger)
 		{
 #if SMTG_OS_WINDOWS
 			__debugbreak (); // intrinsic version of DebugBreak()
@@ -193,10 +193,11 @@ void FDebugBreak (const char* format, ...)
 			kill (getpid (), SIGINT);
 #elif __i386__ || __x86_64__
 			{
-				__asm__ volatile ("int3");
+#pragma message("no asm")
+				//__asm__ volatile ("int3");
 			}
 #endif
-		}*/
+		}
 	}
 }
 

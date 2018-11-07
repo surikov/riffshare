@@ -72,9 +72,7 @@ int32 PLUGIN_API atomicAdd (int32& var, int32 d)
 #elif SMTG_OS_MACOS
 	return OSAtomicAdd32Barrier (d, (int32_t*)&var);
 #elif SMTG_OS_LINUX
-	//__gnu_cxx::__atomic_add (&var, d);
-	#pragma message("No lock")
-	var=0;
+	__gnu_cxx::__atomic_add (&var, d);
 	return var;
 #else
 #warning implement me!

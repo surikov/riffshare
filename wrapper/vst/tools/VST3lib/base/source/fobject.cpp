@@ -36,8 +36,7 @@
 //-----------------------------------------------------------------------------
 
 #include "base/source/fobject.h"
-//#include "base/thread/include/flock.h"
-#pragma message("no flock")
+#include "base/thread/include/flock.h"
 
 #include <vector>
 
@@ -129,25 +128,24 @@ namespace Singleton
 	typedef std::vector<FObject**> ObjectVector;
 	ObjectVector* singletonInstances = 0;
 	bool singletonsTerminated = false;
-	//Steinberg::Base::Thread::FLock* singletonsLock;
+	Steinberg::Base::Thread::FLock* singletonsLock;
 
 	bool isTerminated () {return singletonsTerminated;}
 
 	void lockRegister ()
 	{
-		//if (!singletonsLock) // assume first call not from multiple threads
-			//singletonsLock = NEW Steinberg::Base::Thread::FLock;
-		//singletonsLock->lock ();
+		if (!singletonsLock) // assume first call not from multiple threads
+			singletonsLock = NEW Steinberg::Base::Thread::FLock;
+		singletonsLock->lock ();
 	}
 	void unlockRegister () 
 	{ 
-		//singletonsLock->unlock ();
+		singletonsLock->unlock ();
 	}
 
 	void registerInstance (FObject** o)
 	{
-		//SMTG_ASSERT (singletonsTerminated == false)
-		#pragma message("singletonsTerminated stub")
+		SMTG_ASSERT (singletonsTerminated == false)
 		if (singletonsTerminated == false)
 		{
 			if (singletonInstances == 0)
@@ -176,8 +174,8 @@ namespace Singleton
 				delete singletonInstances;
 				singletonInstances = 0;
 			}
-			//delete singletonsLock;
-			//singletonsLock = 0;
+			delete singletonsLock;
+			singletonsLock = 0;
 		}
 	} deleter;
 }

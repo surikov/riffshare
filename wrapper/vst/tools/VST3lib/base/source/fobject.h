@@ -47,7 +47,6 @@
 #include "base/source/fdebug.h" // NEW
 
 
-
 namespace Steinberg {
 
 //----------------------------------
