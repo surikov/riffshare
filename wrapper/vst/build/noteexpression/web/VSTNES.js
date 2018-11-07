@@ -1681,8 +1681,8 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 44176;
-/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_keyboardview_cpp() } });
+STATICTOP = STATIC_BASE + 81248;
+/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_keyboardview_cpp() } }, { func: function() { __GLOBAL__sub_I_vst3editor_cpp() } }, { func: function() { __GLOBAL__sub_I_uidescription_cpp() } }, { func: function() { __GLOBAL__sub_I_uiviewfactory_cpp() } }, { func: function() { __GLOBAL__sub_I_cfont_cpp() } });
 
 
 
@@ -1690,7 +1690,7 @@ STATICTOP = STATIC_BASE + 44176;
 
 
 
-var STATIC_BUMP = 44176;
+var STATIC_BUMP = 81248;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1732,20 +1732,12 @@ function copyTempDouble(ptr) {
 // {{PRE_LIBRARY}}
 
 
-  function __ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_() {
-  err('missing function: _ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_'); abort(-1);
+  function __ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE() {
+  err('missing function: _ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE'); abort(-1);
   }
 
-  function __ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb() {
-  err('missing function: _ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_() {
-  err('missing function: _ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_'); abort(-1);
+  function __ZN6VSTGUI13IPlatformFont6createERKNS_10UTF8StringERKdRKi() {
+  err('missing function: _ZN6VSTGUI13IPlatformFont6createERKNS_10UTF8StringERKdRKi'); abort(-1);
   }
 
   function __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE() {
@@ -1764,56 +1756,52 @@ function copyTempDouble(ptr) {
   err('missing function: _ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE'); abort(-1);
   }
 
-  function __ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE() {
-  err('missing function: _ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE'); abort(-1);
+  function __ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE() {
+  err('missing function: _ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE'); abort(-1);
   }
 
-  function __ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc() {
-  err('missing function: _ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc'); abort(-1);
+  function __ZN6VSTGUI14IPlatformFrame8getTicksEv() {
+  err('missing function: _ZN6VSTGUI14IPlatformFrame8getTicksEv'); abort(-1);
   }
 
-  function __ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE'); abort(-1);
+  function __ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE() {
+  err('missing function: _ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE'); abort(-1);
   }
 
-  function __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE() {
-  err('missing function: _ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE'); abort(-1);
+  function __ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc() {
+  err('missing function: _ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc'); abort(-1);
   }
 
-  function __ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd() {
-  err('missing function: _ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd'); abort(-1);
+  function __ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj() {
+  err('missing function: _ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj'); abort(-1);
+  }
+
+  function __ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE() {
+  err('missing function: _ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE() {
+  err('missing function: _ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE'); abort(-1);
+  }
+
+  function __ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc() {
+  err('missing function: _ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc'); abort(-1);
+  }
+
+  function __ZN6VSTGUI28IPlatformResourceInputStream6createERKNS_20CResourceDescriptionE() {
+  err('missing function: _ZN6VSTGUI28IPlatformResourceInputStream6createERKNS_20CResourceDescriptionE'); abort(-1);
   }
 
   function __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE() {
   err('missing function: _ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE'); abort(-1);
   }
 
-  function __ZNK6VSTGUI12CDrawContext15getHairlineSizeEv() {
-  err('missing function: _ZNK6VSTGUI12CDrawContext15getHairlineSizeEv'); abort(-1);
+  function __ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE() {
+  err('missing function: _ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE'); abort(-1);
   }
 
-  function __ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE() {
-  err('missing function: _ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd() {
-  err('missing function: _ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb() {
-  err('missing function: _ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi() {
-  err('missing function: _ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI7CBitmap8getWidthEv() {
-  err('missing function: _ZNK6VSTGUI7CBitmap8getWidthEv'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI7CBitmap9getHeightEv() {
-  err('missing function: _ZNK6VSTGUI7CBitmap9getHeightEv'); abort(-1);
+  function __ZN9__gnu_cxx12__atomic_addEPVii() {
+  err('missing function: _ZN9__gnu_cxx12__atomic_addEPVii'); abort(-1);
   }
 
   function ___assert_fail(condition, filename, line, func) {
@@ -1874,6 +1862,11 @@ function copyTempDouble(ptr) {
       var ret = EXCEPTIONS.caught[EXCEPTIONS.caught.length-1] || 0;
       if (ret) EXCEPTIONS.addRef(EXCEPTIONS.deAdjust(ret));
       return ret;
+    }
+
+  function ___cxa_pure_virtual() {
+      ABORT = true;
+      throw 'Pure virtual function called!';
     }
 
   
@@ -5083,7 +5076,19 @@ function copyTempDouble(ptr) {
         return low;
       },getZero:function () {
         assert(SYSCALLS.get() === 0);
-      }};function ___syscall140(which, varargs) {SYSCALLS.varargs = varargs;
+      }};function ___syscall10(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // unlink
+      var path = SYSCALLS.getStr();
+      FS.unlink(path);
+      return 0;
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___syscall140(which, varargs) {SYSCALLS.varargs = varargs;
   try {
    // llseek
       var stream = SYSCALLS.getStreamFromFD(), offset_high = SYSCALLS.get(), offset_low = SYSCALLS.get(), result = SYSCALLS.get(), whence = SYSCALLS.get();
@@ -5099,11 +5104,166 @@ function copyTempDouble(ptr) {
   }
   }
 
+  function ___syscall145(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // readv
+      var stream = SYSCALLS.getStreamFromFD(), iov = SYSCALLS.get(), iovcnt = SYSCALLS.get();
+      return SYSCALLS.doReadv(stream, iov, iovcnt);
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
   function ___syscall146(which, varargs) {SYSCALLS.varargs = varargs;
   try {
    // writev
       var stream = SYSCALLS.getStreamFromFD(), iov = SYSCALLS.get(), iovcnt = SYSCALLS.get();
       return SYSCALLS.doWritev(stream, iov, iovcnt);
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___syscall221(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // fcntl64
+      var stream = SYSCALLS.getStreamFromFD(), cmd = SYSCALLS.get();
+      switch (cmd) {
+        case 0: {
+          var arg = SYSCALLS.get();
+          if (arg < 0) {
+            return -ERRNO_CODES.EINVAL;
+          }
+          var newStream;
+          newStream = FS.open(stream.path, stream.flags, 0, arg);
+          return newStream.fd;
+        }
+        case 1:
+        case 2:
+          return 0;  // FD_CLOEXEC makes no sense for a single process.
+        case 3:
+          return stream.flags;
+        case 4: {
+          var arg = SYSCALLS.get();
+          stream.flags |= arg;
+          return 0;
+        }
+        case 12:
+        case 12: {
+          var arg = SYSCALLS.get();
+          var offset = 0;
+          // We're always unlocked.
+          HEAP16[(((arg)+(offset))>>1)]=2;
+          return 0;
+        }
+        case 13:
+        case 14:
+        case 13:
+        case 14:
+          return 0; // Pretend that the locking is successful.
+        case 16:
+        case 8:
+          return -ERRNO_CODES.EINVAL; // These are for sockets. We don't have them fully implemented yet.
+        case 9:
+          // musl trusts getown return values, due to a bug where they must be, as they overlap with errors. just return -1 here, so fnctl() returns that, and we set errno ourselves.
+          ___setErrNo(ERRNO_CODES.EINVAL);
+          return -1;
+        default: {
+          return -ERRNO_CODES.EINVAL;
+        }
+      }
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___syscall38(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // rename
+      var old_path = SYSCALLS.getStr(), new_path = SYSCALLS.getStr();
+      FS.rename(old_path, new_path);
+      return 0;
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___syscall40(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // rmdir
+      var path = SYSCALLS.getStr();
+      FS.rmdir(path);
+      return 0;
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___syscall5(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // open
+      var pathname = SYSCALLS.getStr(), flags = SYSCALLS.get(), mode = SYSCALLS.get() // optional TODO
+      var stream = FS.open(pathname, flags, mode);
+      return stream.fd;
+    } catch (e) {
+    if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
+    return -e.errno;
+  }
+  }
+
+  function ___syscall54(which, varargs) {SYSCALLS.varargs = varargs;
+  try {
+   // ioctl
+      var stream = SYSCALLS.getStreamFromFD(), op = SYSCALLS.get();
+      switch (op) {
+        case 21509:
+        case 21505: {
+          if (!stream.tty) return -ERRNO_CODES.ENOTTY;
+          return 0;
+        }
+        case 21510:
+        case 21511:
+        case 21512:
+        case 21506:
+        case 21507:
+        case 21508: {
+          if (!stream.tty) return -ERRNO_CODES.ENOTTY;
+          return 0; // no-op, not actually adjusting terminal settings
+        }
+        case 21519: {
+          if (!stream.tty) return -ERRNO_CODES.ENOTTY;
+          var argp = SYSCALLS.get();
+          HEAP32[((argp)>>2)]=0;
+          return 0;
+        }
+        case 21520: {
+          if (!stream.tty) return -ERRNO_CODES.ENOTTY;
+          return -ERRNO_CODES.EINVAL; // not supported
+        }
+        case 21531: {
+          var argp = SYSCALLS.get();
+          return FS.ioctl(stream, op, argp);
+        }
+        case 21523: {
+          // TODO: in theory we should write to the winsize struct that gets
+          // passed in, but for now musl doesn't read anything on it
+          if (!stream.tty) return -ERRNO_CODES.ENOTTY;
+          return 0;
+        }
+        case 21524: {
+          // TODO: technically, this ioctl call should change the window size.
+          // but, since emscripten doesn't have any concept of a terminal window
+          // yet, we'll just silently throw it away as we do TIOCGWINSZ
+          if (!stream.tty) return -ERRNO_CODES.ENOTTY;
+          return 0;
+        }
+        default: abort('bad ioctl syscall ' + op);
+      }
     } catch (e) {
     if (typeof FS === 'undefined' || !(e instanceof FS.ErrnoError)) abort(e);
     return -e.errno;
@@ -5168,6 +5328,8 @@ function copyTempDouble(ptr) {
 
   var _llvm_ceil_f32=Math_ceil;
 
+  var _llvm_ceil_f64=Math_ceil;
+
   var _llvm_ctlz_i32=true;
 
   
@@ -5190,6 +5352,8 @@ function copyTempDouble(ptr) {
   return _llvm_log10_f32.apply(null, arguments)
   }
 
+   
+
   function _llvm_stackrestore(p) {
       var self = _llvm_stacksave;
       var ret = self.LLVM_SAVEDSTACKS[p];
@@ -5204,6 +5368,10 @@ function copyTempDouble(ptr) {
       }
       self.LLVM_SAVEDSTACKS.push(stackSave());
       return self.LLVM_SAVEDSTACKS.length-1;
+    }
+
+  function _llvm_trap() {
+      abort('trap!');
     }
 
   
@@ -5237,9 +5405,21 @@ function copyTempDouble(ptr) {
       return 0;
     }
 
+  function _pthread_mutex_destroy() {}
+
+  function _pthread_mutex_init() {}
+
    
 
    
+
+   
+
+  function _pthread_mutexattr_destroy() {}
+
+  function _pthread_mutexattr_init() {}
+
+  function _pthread_mutexattr_settype() {}
 
   function _pthread_once(ptr, func) {
       if (!_pthread_once.seen) _pthread_once.seen = {};
@@ -5600,28 +5780,16 @@ function copyTempDouble(ptr) {
       return _strftime(s, maxsize, format, tm); // no locale support yet
     }
 
-  function __ZN6VSTGUI11kGreyCColorE() {
-  err('missing function: _ZN6VSTGUI11kGreyCColorE'); abort(-1);
-  }
+  function _time(ptr) {
+      var ret = (Date.now()/1000)|0;
+      if (ptr) {
+        HEAP32[((ptr)>>2)]=ret;
+      }
+      return ret;
+    }
 
-  function __ZN6VSTGUI11kSystemFontE() {
-  err('missing function: _ZN6VSTGUI11kSystemFontE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12kBlackCColorE() {
-  err('missing function: _ZN6VSTGUI12kBlackCColorE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12kWhiteCColorE() {
-  err('missing function: _ZN6VSTGUI12kWhiteCColorE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI14IUIDescription15kCustomViewNameE() {
-  err('missing function: _ZN6VSTGUI14IUIDescription15kCustomViewNameE'); abort(-1);
-  }
-
-  function __ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE() {
-  err('missing function: _ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE'); abort(-1);
+  function __ZN6VSTGUI10kLineSolidE() {
+  err('missing function: _ZN6VSTGUI10kLineSolidE'); abort(-1);
   }
 FS.staticInit();__ATINIT__.unshift(function() { if (!Module["noFSInit"] && !FS.init.initialized) FS.init() });__ATMAIN__.push(function() { FS.ignorePermissions = false });__ATEXIT__.push(function() { FS.quit() });;
 __ATINIT__.unshift(function() { TTY.init() });__ATEXIT__.push(function() { TTY.shutdown() });;
@@ -5671,9 +5839,9 @@ function intArrayToString(array) {
 
 
 
-Module['wasmTableSize'] = 1379;
+Module['wasmTableSize'] = 2718;
 
-Module['wasmMaxTableSize'] = 1379;
+Module['wasmMaxTableSize'] = 2718;
 
 function invoke_di(index,a1) {
   var sp = stackSave();
@@ -5719,6 +5887,17 @@ function invoke_diid(index,a1,a2,a3) {
   }
 }
 
+function invoke_diiii(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_diiii"](index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_fi(index,a1) {
   var sp = stackSave();
   try {
@@ -5756,6 +5935,17 @@ function invoke_iidi(index,a1,a2,a3) {
   var sp = stackSave();
   try {
     return Module["dynCall_iidi"](index,a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_iif(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_iif"](index,a1,a2);
   } catch(e) {
     stackRestore(sp);
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
@@ -5906,10 +6096,43 @@ function invoke_iiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8) {
   }
 }
 
+function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_iiiiiiiiiii"](index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_iiiiij(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
     return Module["dynCall_iiiiij"](index,a1,a2,a3,a4,a5,a6);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_iiij(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_iiij"](index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_iiji(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_iiji"](index,a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
@@ -6049,6 +6272,28 @@ function invoke_viidd(index,a1,a2,a3,a4) {
   }
 }
 
+function invoke_viiddd(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiddd"](index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_viiddi(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiddi"](index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_viidfii(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
@@ -6115,6 +6360,17 @@ function invoke_viiiiii(index,a1,a2,a3,a4,a5,a6) {
   }
 }
 
+function invoke_viiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiiiiiiii"](index,a1,a2,a3,a4,a5,a6,a7,a8,a9);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
@@ -6128,7 +6384,7 @@ function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
 
 Module.asmGlobalArg = {};
 
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_fi": invoke_fi, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viijii": invoke_viijii, "__ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_": __ZN6VSTGUI10VST3EditorC1EPN9Steinberg3Vst14EditControllerEPKcS6_, "__ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb": __ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb, "__ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb": __ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb, "__ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_": __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_, "__ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE": __ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE, "__ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc": __ZN6VSTGUI14CViewContainer6notifyEPNS_11CBaseObjectEPKc, "__ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE": __ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE, "__ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE": __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE, "__ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd": __ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd, "__ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE": __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE, "__ZNK6VSTGUI12CDrawContext15getHairlineSizeEv": __ZNK6VSTGUI12CDrawContext15getHairlineSizeEv, "__ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE": __ZNK6VSTGUI12UIAttributes17getAttributeValueERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE, "__ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd": __ZNK6VSTGUI12UIAttributes18getDoubleAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERd, "__ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb": __ZNK6VSTGUI12UIAttributes19getBooleanAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERb, "__ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi": __ZNK6VSTGUI12UIAttributes19getIntegerAttributeERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERi, "__ZNK6VSTGUI7CBitmap8getWidthEv": __ZNK6VSTGUI7CBitmap8getWidthEv, "__ZNK6VSTGUI7CBitmap9getHeightEv": __ZNK6VSTGUI7CBitmap9getHeightEv, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "__ZN6VSTGUI11kGreyCColorE": __ZN6VSTGUI11kGreyCColorE, "__ZN6VSTGUI11kSystemFontE": __ZN6VSTGUI11kSystemFontE, "__ZN6VSTGUI12kBlackCColorE": __ZN6VSTGUI12kBlackCColorE, "__ZN6VSTGUI12kWhiteCColorE": __ZN6VSTGUI12kWhiteCColorE, "__ZN6VSTGUI14IUIDescription15kCustomViewNameE": __ZN6VSTGUI14IUIDescription15kCustomViewNameE, "__ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE": __ZN9Steinberg3Vst32INoteExpressionPhysicalUIMapping3iidE };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_diiii": invoke_diiii, "invoke_fi": invoke_fi, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iif": invoke_iif, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiiiiiiii": invoke_iiiiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iiij": invoke_iiij, "invoke_iiji": invoke_iiji, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viiddd": invoke_viiddd, "invoke_viiddi": invoke_viiddi, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viiiiiiiii": invoke_viiiiiiiii, "invoke_viijii": invoke_viijii, "__ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE": __ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE, "__ZN6VSTGUI13IPlatformFont6createERKNS_10UTF8StringERKdRKi": __ZN6VSTGUI13IPlatformFont6createERKNS_10UTF8StringERKdRKi, "__ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE, "__ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE": __ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE, "__ZN6VSTGUI14IPlatformFrame8getTicksEv": __ZN6VSTGUI14IPlatformFrame8getTicksEv, "__ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE": __ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE, "__ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc": __ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc, "__ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj": __ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj, "__ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE": __ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE, "__ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE": __ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE, "__ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc": __ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc, "__ZN6VSTGUI28IPlatformResourceInputStream6createERKNS_20CResourceDescriptionE": __ZN6VSTGUI28IPlatformResourceInputStream6createERKNS_20CResourceDescriptionE, "__ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE": __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE, "__ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE": __ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE, "__ZN9__gnu_cxx12__atomic_addEPVii": __ZN9__gnu_cxx12__atomic_addEPVii, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall10": ___syscall10, "___syscall140": ___syscall140, "___syscall145": ___syscall145, "___syscall146": ___syscall146, "___syscall221": ___syscall221, "___syscall38": ___syscall38, "___syscall40": ___syscall40, "___syscall5": ___syscall5, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_ceil_f64": _llvm_ceil_f64, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_llvm_trap": _llvm_trap, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "_time": _time, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "__ZN6VSTGUI10kLineSolidE": __ZN6VSTGUI10kLineSolidE };
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);
@@ -6137,11 +6393,15 @@ var _VST3_description = Module["_VST3_description"] = asm["_VST3_description"];
 var _VST3_setInteger = Module["_VST3_setInteger"] = asm["_VST3_setInteger"];
 var _VST3_status = Module["_VST3_status"] = asm["_VST3_status"];
 var _VST3_stub = Module["_VST3_stub"] = asm["_VST3_stub"];
+var __GLOBAL__sub_I_cfont_cpp = Module["__GLOBAL__sub_I_cfont_cpp"] = asm["__GLOBAL__sub_I_cfont_cpp"];
 var __GLOBAL__sub_I_coreiids_cpp = Module["__GLOBAL__sub_I_coreiids_cpp"] = asm["__GLOBAL__sub_I_coreiids_cpp"];
 var __GLOBAL__sub_I_keyboardview_cpp = Module["__GLOBAL__sub_I_keyboardview_cpp"] = asm["__GLOBAL__sub_I_keyboardview_cpp"];
 var __GLOBAL__sub_I_note_expression_synth_voice_cpp = Module["__GLOBAL__sub_I_note_expression_synth_voice_cpp"] = asm["__GLOBAL__sub_I_note_expression_synth_voice_cpp"];
 var __GLOBAL__sub_I_pluginfactoryvst3_cpp = Module["__GLOBAL__sub_I_pluginfactoryvst3_cpp"] = asm["__GLOBAL__sub_I_pluginfactoryvst3_cpp"];
+var __GLOBAL__sub_I_uidescription_cpp = Module["__GLOBAL__sub_I_uidescription_cpp"] = asm["__GLOBAL__sub_I_uidescription_cpp"];
+var __GLOBAL__sub_I_uiviewfactory_cpp = Module["__GLOBAL__sub_I_uiviewfactory_cpp"] = asm["__GLOBAL__sub_I_uiviewfactory_cpp"];
 var __GLOBAL__sub_I_updatehandler_cpp = Module["__GLOBAL__sub_I_updatehandler_cpp"] = asm["__GLOBAL__sub_I_updatehandler_cpp"];
+var __GLOBAL__sub_I_vst3editor_cpp = Module["__GLOBAL__sub_I_vst3editor_cpp"] = asm["__GLOBAL__sub_I_vst3editor_cpp"];
 var __GLOBAL__sub_I_vstinitiids_cpp = Module["__GLOBAL__sub_I_vstinitiids_cpp"] = asm["__GLOBAL__sub_I_vstinitiids_cpp"];
 var __ZSt18uncaught_exceptionv = Module["__ZSt18uncaught_exceptionv"] = asm["__ZSt18uncaught_exceptionv"];
 var ___cxa_can_catch = Module["___cxa_can_catch"] = asm["___cxa_can_catch"];
@@ -6150,12 +6410,14 @@ var ___errno_location = Module["___errno_location"] = asm["___errno_location"];
 var _emscripten_replace_memory = Module["_emscripten_replace_memory"] = asm["_emscripten_replace_memory"];
 var _free = Module["_free"] = asm["_free"];
 var _llvm_bswap_i32 = Module["_llvm_bswap_i32"] = asm["_llvm_bswap_i32"];
+var _llvm_round_f32 = Module["_llvm_round_f32"] = asm["_llvm_round_f32"];
 var _malloc = Module["_malloc"] = asm["_malloc"];
 var _memcpy = Module["_memcpy"] = asm["_memcpy"];
 var _memmove = Module["_memmove"] = asm["_memmove"];
 var _memset = Module["_memset"] = asm["_memset"];
 var _pthread_cond_broadcast = Module["_pthread_cond_broadcast"] = asm["_pthread_cond_broadcast"];
 var _pthread_mutex_lock = Module["_pthread_mutex_lock"] = asm["_pthread_mutex_lock"];
+var _pthread_mutex_trylock = Module["_pthread_mutex_trylock"] = asm["_pthread_mutex_trylock"];
 var _pthread_mutex_unlock = Module["_pthread_mutex_unlock"] = asm["_pthread_mutex_unlock"];
 var _sbrk = Module["_sbrk"] = asm["_sbrk"];
 var establishStackSpace = Module["establishStackSpace"] = asm["establishStackSpace"];
@@ -6170,10 +6432,12 @@ var dynCall_di = Module["dynCall_di"] = asm["dynCall_di"];
 var dynCall_did = Module["dynCall_did"] = asm["dynCall_did"];
 var dynCall_dii = Module["dynCall_dii"] = asm["dynCall_dii"];
 var dynCall_diid = Module["dynCall_diid"] = asm["dynCall_diid"];
+var dynCall_diiii = Module["dynCall_diiii"] = asm["dynCall_diiii"];
 var dynCall_fi = Module["dynCall_fi"] = asm["dynCall_fi"];
 var dynCall_ii = Module["dynCall_ii"] = asm["dynCall_ii"];
 var dynCall_iid = Module["dynCall_iid"] = asm["dynCall_iid"];
 var dynCall_iidi = Module["dynCall_iidi"] = asm["dynCall_iidi"];
+var dynCall_iif = Module["dynCall_iif"] = asm["dynCall_iif"];
 var dynCall_iii = Module["dynCall_iii"] = asm["dynCall_iii"];
 var dynCall_iiid = Module["dynCall_iiid"] = asm["dynCall_iiid"];
 var dynCall_iiidd = Module["dynCall_iiidd"] = asm["dynCall_iiidd"];
@@ -6187,7 +6451,10 @@ var dynCall_iiiiiid = Module["dynCall_iiiiiid"] = asm["dynCall_iiiiiid"];
 var dynCall_iiiiiii = Module["dynCall_iiiiiii"] = asm["dynCall_iiiiiii"];
 var dynCall_iiiiiiii = Module["dynCall_iiiiiiii"] = asm["dynCall_iiiiiiii"];
 var dynCall_iiiiiiiii = Module["dynCall_iiiiiiiii"] = asm["dynCall_iiiiiiiii"];
+var dynCall_iiiiiiiiiii = Module["dynCall_iiiiiiiiiii"] = asm["dynCall_iiiiiiiiiii"];
 var dynCall_iiiiij = Module["dynCall_iiiiij"] = asm["dynCall_iiiiij"];
+var dynCall_iiij = Module["dynCall_iiij"] = asm["dynCall_iiij"];
+var dynCall_iiji = Module["dynCall_iiji"] = asm["dynCall_iiji"];
 var dynCall_iijii = Module["dynCall_iijii"] = asm["dynCall_iijii"];
 var dynCall_ji = Module["dynCall_ji"] = asm["dynCall_ji"];
 var dynCall_jiij = Module["dynCall_jiij"] = asm["dynCall_jiij"];
@@ -6200,12 +6467,15 @@ var dynCall_vif = Module["dynCall_vif"] = asm["dynCall_vif"];
 var dynCall_vii = Module["dynCall_vii"] = asm["dynCall_vii"];
 var dynCall_viid = Module["dynCall_viid"] = asm["dynCall_viid"];
 var dynCall_viidd = Module["dynCall_viidd"] = asm["dynCall_viidd"];
+var dynCall_viiddd = Module["dynCall_viiddd"] = asm["dynCall_viiddd"];
+var dynCall_viiddi = Module["dynCall_viiddi"] = asm["dynCall_viiddi"];
 var dynCall_viidfii = Module["dynCall_viidfii"] = asm["dynCall_viidfii"];
 var dynCall_viii = Module["dynCall_viii"] = asm["dynCall_viii"];
 var dynCall_viiii = Module["dynCall_viiii"] = asm["dynCall_viiii"];
 var dynCall_viiiif = Module["dynCall_viiiif"] = asm["dynCall_viiiif"];
 var dynCall_viiiii = Module["dynCall_viiiii"] = asm["dynCall_viiiii"];
 var dynCall_viiiiii = Module["dynCall_viiiiii"] = asm["dynCall_viiiiii"];
+var dynCall_viiiiiiiii = Module["dynCall_viiiiiiiii"] = asm["dynCall_viiiiiiiii"];
 var dynCall_viijii = Module["dynCall_viijii"] = asm["dynCall_viijii"];
 ;
 

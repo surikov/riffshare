@@ -75,6 +75,34 @@ CFILES += $(VSTLIB)/vstgui4/vstgui/contrib/keyboardview.cpp
 CFILES += $(VSTLIB)/vstgui4/vstgui/lib/vstguidebug.cpp
 CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cframe.cpp
 
+CFILES += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3editor.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cstring.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/controls/coptionmenu.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/controls/cparamdisplay.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cviewcontainer.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/uidescription/uiattributes.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cvstguitimer.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/uidescription/uidescription.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/uidescription/cstream.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cdrawcontext.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cbitmapfilter.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3padcontroller.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/uidescription/uiviewfactory.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cgraphicspath.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/ctooltipsupport.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cbitmap.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/controls/ccontrol.cpp
+CFILES += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/cairofont.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3groupcontroller.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/controls/ctextedit.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/controls/cxypad.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/coffscreencontext.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/controls/ctextlabel.cpp
+CFILES += $(VSTLIB)/public.sdk/source/main/linuxmain.cpp
+CFILES += $(VSTLIB)/vstgui4/vstgui/lib/cfont.cpp
+CFILES += $(VSTLIB)/base/source/timer.cpp
 
 .PHONY: $(TARGET)
 $(TARGET):

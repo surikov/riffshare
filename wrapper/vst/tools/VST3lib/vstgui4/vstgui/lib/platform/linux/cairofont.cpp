@@ -1,19 +1,21 @@
-﻿// This file is part of VSTGUI. It is subject to the license terms 
+﻿// This file is part of VSTGUI. It is subject to the license terms
 // in the LICENSE file found in the top-level directory of this
 // distribution and at http://github.com/steinbergmedia/vstgui/LICENSE
 
 #include "cairofont.h"
-#include "../../../lib/cstring.h"
-#include "cairocontext.h"
-#include "linuxstring.h"
-#include <cairo/cairo-ft.h>
-#include <fontconfig/fontconfig.h>
-#include <freetype2/ft2build.h>
-#include <unordered_map>
-#include <cassert>
+//#include "../../../lib/cstring.h"
+//#include "cairocontext.h"
+//#include "linuxstring.h"
+//#include <cairo/cairo-ft.h>
+//#include <fontconfig/fontconfig.h>
+//#include <freetype2/ft2build.h>
+//#include <unordered_map>
+//#include <cassert>
 
-#include FT_FREETYPE_H
+//#include FT_FREETYPE_H
+//------------------------------------------------------------------------
 
+/*
 //------------------------------------------------------------------------
 namespace VSTGUI {
 namespace Cairo {
@@ -67,8 +69,8 @@ private:
 };
 
 using CairoFontFaceHandle =
-	Handle<cairo_font_face_t*, decltype (&cairo_font_face_reference), cairo_font_face_reference,
-		   decltype (&cairo_font_face_destroy), cairo_font_face_destroy>;
+    Handle<cairo_font_face_t*, decltype (&cairo_font_face_reference), cairo_font_face_reference,
+    decltype (&cairo_font_face_destroy), cairo_font_face_destroy>;
 
 //------------------------------------------------------------------------
 struct CairoFontFace
@@ -151,8 +153,8 @@ private:
 			FcChar8* file;
 			FcChar8* style;
 			if (FcPatternGetString (font, FC_FAMILY, 0, &family) == FcResultMatch &&
-				FcPatternGetString (font, FC_FILE, 0, &file) == FcResultMatch &&
-				FcPatternGetString (font, FC_STYLE, 0, &style) == FcResultMatch)
+			        FcPatternGetString (font, FC_FILE, 0, &file) == FcResultMatch &&
+			        FcPatternGetString (font, FC_STYLE, 0, &style) == FcResultMatch)
 			{
 				std::string familyStr (reinterpret_cast<const char*> (family));
 				std::string fileStr (reinterpret_cast<const char*> (file));
@@ -263,7 +265,7 @@ Font::Font (UTF8StringPtr name, const CCoord& size, const int32_t& style)
 		if (styleIt != it->second.styles.end ())
 		{
 			impl->font = ScaledFontHandle (
-				cairo_scaled_font_create (styleIt->second, &matrix, &ctm, options));
+			                 cairo_scaled_font_create (styleIt->second, &matrix, &ctm, options));
 		}
 		cairo_font_options_destroy (options);
 		auto status = cairo_scaled_font_status (impl->font);
@@ -323,7 +325,7 @@ const IFontPainter* Font::getPainter () const
 
 //------------------------------------------------------------------------
 void Font::drawString (CDrawContext* context, IPlatformString* string, const CPoint& p,
-					   bool antialias) const
+                       bool antialias) const
 {
 	if (auto cairoContext = dynamic_cast<Context*> (context))
 	{
@@ -335,7 +337,7 @@ void Font::drawString (CDrawContext* context, IPlatformString* string, const CPo
 				const auto& cr = cairoContext->getCairo ();
 				auto alpha = color.alpha * cairoContext->getGlobalAlpha ();
 				cairo_set_source_rgba (cr, color.red / 255., color.green / 255., color.blue / 255.,
-									   alpha);
+				                       alpha);
 				cairo_move_to (cr, p.x, p.y);
 				cairo_set_scaled_font (cr, impl->font);
 				cairo_show_text (cr, linuxString->get ().data ());
@@ -378,4 +380,33 @@ bool IPlatformFont::getAllPlatformFontFamilies (std::list<std::string>& fontFami
 }
 
 //------------------------------------------------------------------------
+} // VSTGUI
+*/
+namespace VSTGUI {
+	namespace Cairo {
+
+		Font::Font (UTF8StringPtr name, const CCoord& size, const int32_t& style){};
+		Font::~Font (){};
+
+		bool Font::valid () const{return false;};
+
+		double Font::getAscent () const {return 0;};
+		double Font::getDescent () const {return 0;};
+		double Font::getLeading () const {return 0;};
+		double Font::getCapHeight () const {return 0;};
+		const IFontPainter* Font::getPainter () const {return NULL;};
+
+		void Font::drawString (CDrawContext* context, IPlatformString* string, const CPoint& p,
+						 bool antialias ) const {};
+		CCoord Font::getStringWidth (CDrawContext* context, IPlatformString* string,
+							   bool antialias ) const {return NULL;};
+	} // Cairo
+		bool IPlatformFont::getAllPlatformFontFamilies (std::list<std::string>& fontFamilyNames)
+			{
+				return false;
+			}
+		SharedPointer<IPlatformFont> IPlatformFont::create (const UTF8String& name, const CCoord& size, const int32_t& style)
+			{
+				return NULL;
+			}
 } // VSTGUI

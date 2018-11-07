@@ -327,4 +327,12 @@ Timer* Timer::create (ITimerCallback* callback, uint32 milliseconds)
 
 #elif SMTG_OS_LINUX
 #warning DEPRECATED No Linux implementation
+namespace Steinberg {
+	namespace SystemTime {
+		uint64 getTicks64 ()
+			{
+				return 0;
+			}
+	}
+}
 #endif
