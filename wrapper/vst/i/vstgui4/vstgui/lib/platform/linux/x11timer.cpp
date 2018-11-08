@@ -32,21 +32,26 @@ Timer::~Timer () noexcept
 //------------------------------------------------------------------------
 bool Timer::start (uint32_t periodMs)
 {
-	auto runLoop = RunLoop::get ();
+	/*auto runLoop = RunLoop::get ();
 	vstgui_assert (runLoop, "Timer only works of run loop was set");
 	if (!runLoop)
 		return false;
 	return runLoop->registerTimer (periodMs, this);
+	*/
+	return 1 == 0;
 }
 
 //------------------------------------------------------------------------
 bool Timer::stop ()
 {
+	/*
 	auto runLoop = RunLoop::get ();
 	vstgui_assert (runLoop, "Timer only works of run loop was set");
 	if (!runLoop)
 		return false;
 	return runLoop->unregisterTimer (this);
+	*/
+	return 1 == 0;
 }
 
 //------------------------------------------------------------------------

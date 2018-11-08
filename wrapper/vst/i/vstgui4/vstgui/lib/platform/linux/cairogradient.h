@@ -6,8 +6,8 @@
 
 #include "../../cgradient.h"
 #include "../../cpoint.h"
-#include "cairoutils.h"
-#include <cairo/cairo.h>
+//#include "cairoutils.h"
+//#include <cairo/cairo.h>
 
 //------------------------------------------------------------------------
 namespace VSTGUI {
