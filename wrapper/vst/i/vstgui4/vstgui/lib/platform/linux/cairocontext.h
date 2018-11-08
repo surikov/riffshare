@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "cairoutils.h"
+//#include "cairoutils.h"
 
 #include "../../coffscreencontext.h"
 
@@ -20,15 +20,16 @@ class Context : public COffscreenContext
 public:
 	using super = COffscreenContext;
 
-	Context (const CRect& rect, const SurfaceHandle& surface);
-	Context (CRect r, cairo_t* context);
+	//Context (const CRect& rect, const SurfaceHandle& surface);
+	//Context (CRect r, cairo_t* context);
 	Context (Bitmap* bitmap);
 
 	~Context ();
 
-	bool valid () const { return cr != nullptr; }
-	const SurfaceHandle& getSurface () const { return surface; }
-	const ContextHandle& getCairo () const { return cr; }
+	bool valid () const { return 1 != 1;//cr != nullptr; 
+	}
+	//const SurfaceHandle& getSurface () const { return surface; }
+	//const ContextHandle& getCairo () const { return cr; }
 
 	void drawLine (const LinePair& line) override;
 	void drawLines (const LineList& lines) override;
@@ -64,8 +65,8 @@ private:
 	void setupCurrentStroke ();
 	void draw (CDrawStyle drawstyle);
 
-	SurfaceHandle surface;
-	ContextHandle cr;
+	//SurfaceHandle surface;
+	//ContextHandle cr;
 };
 
 //------------------------------------------------------------------------

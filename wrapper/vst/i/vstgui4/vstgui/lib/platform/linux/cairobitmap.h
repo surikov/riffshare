@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include <cairo/cairo.h>
+//#include <cairo/cairo.h>
 
 #include "../../cpoint.h"
 #include "../../vstguidebug.h"
 #include "../iplatformbitmap.h"
-#include "cairoutils.h"
+//#include "cairoutils.h"
 #include <functional>
 
 //------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class Bitmap : public IPlatformBitmap
 {
 public:
 	explicit Bitmap (const CPoint* size);
-	explicit Bitmap (const SurfaceHandle& surface);
+	//explicit Bitmap (const SurfaceHandle& surface);
 	~Bitmap () override;
 
 	bool load (const CResourceDescription& desc) override;
@@ -29,7 +29,7 @@ public:
 	SharedPointer<IPlatformBitmapPixelAccess> lockPixels (bool alphaPremultiplied) override;
 	void setScaleFactor (double factor) override;
 	double getScaleFactor () const override;
-
+/*
 	const SurfaceHandle& getSurface () const
 	{
 		vstgui_assert (!locked, "Bitmap is locked");
@@ -45,14 +45,16 @@ public:
 
 	using GetResourcePathFunc = std::function<std::string ()>;
 	static void setGetResourcePathFunc (GetResourcePathFunc&& func);
-
+*/
 private:
-	double scaleFactor {1.0};
-	SurfaceHandle surface;
-	CPoint size;
-	bool locked {false};
 
-	static GetResourcePathFunc getResourcePath;
+	//double scaleFactor {1.0};
+	//SurfaceHandle surface;
+	CPoint size;
+	//bool locked {false};
+
+	//static GetResourcePathFunc getResourcePath;
+	
 };
 
 //------------------------------------------------------------------------

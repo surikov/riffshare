@@ -2,12 +2,12 @@
 PROJECTNAME = VSTNES
 TARGET = $(PROJECTNAME).js
 
-SAMPLESFOLDER = C:\projects\riffshare\riffshare\wrapper\vst\vstsamples
+SAMPLESFOLDER = ..\..\vstsamples
 SOURCEFOLDER = $(SAMPLESFOLDER)\note_expression_synth\source
 INCLUDEFOLDER = $(SAMPLESFOLDER)\note_expression_synth\source
 
-VSTLIB = C:\projects\riffshare\riffshare\wrapper\vst\tools\VST3lib
-CPPLIB = C:\projects\riffshare\riffshare\wrapper\vst\tools\CppLib
+VSTLIB = ..\..\i
+CPPLIB = ..\..\i\CppLib
 
 IFOLDERS = -I$(INCLUDEFOLDER)
 IFOLDERS += -I$(VSTLIB)/vstgui4/vstgui/lib/platform/linux
@@ -94,14 +94,46 @@ VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cbitmap.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/ccontrol.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
-#VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/cairofont.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/cairofont.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/plugin-bindings/vst3groupcontroller.cpp
-#VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\lib\platform\linux\cairofont.cpp
-VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\controls\ctextedit.cpp
-VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\controls\cxypad.cpp
-VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\coffscreencontext.cpp
-VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\lib\controls\ctextlabel.cpp
-VSTRUNTIME += $(VSTLIB)/public.sdk\source\main\linuxmain.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/ctextedit.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cxypad.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/coffscreencontext.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/ctextlabel.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/linuxmain.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cfont.cpp
+VSTRUNTIME += $(VSTLIB)/base/source/timer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/uiviewcreator.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cscrollview.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/csplitview.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cswitch.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cbuttons.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cdrawmethods.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cmoviebitmap.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cgradientview.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/crowcolumnview.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/csegmentbutton.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cshadowviewcontainer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/csplashscreen.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cknob.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cswitch.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cdrawcontext.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cscrollbar.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/csearchtextedit.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/clayeredviewcontainer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\uidescription\uiviewswitchcontainer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cslider.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cmoviebutton.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/clinestyle.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/ccolor.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation\timingfunctions.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cvumeter.cpp
+VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\animation\animator.cpp
+VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\platform\linux\cairobitmap.cpp
+VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\platform\linux\x11frame.cpp
+VSTRUNTIME += $(VSTLIB)\\vstgui4\vstgui\lib\platform\linux\linuxstring.cpp
+
+
 
 .PHONY: $(TARGET)
 $(TARGET):

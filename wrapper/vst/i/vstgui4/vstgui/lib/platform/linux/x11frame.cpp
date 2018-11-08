@@ -15,17 +15,18 @@
 #include "../common/fileresourceinputstream.h"
 #include "../common/generictextedit.h"
 #include "../common/genericoptionmenu.h"
+
 #include "cairobitmap.h"
 #include "cairocontext.h"
-#include "x11platform.h"
-#include "x11utils.h"
-#include <cassert>
-#include <iostream>
-#include <unordered_map>
-#include <X11/Xlib.h>
-#include <xcb/xcb.h>
-#include <xcb/xcb_util.h>
-#include <cairo/cairo-xcb.h>
+//#include "x11platform.h"
+//#include "x11utils.h"
+//#include <cassert>
+//#include <iostream>
+//#include <unordered_map>
+//#include <X11/Xlib.h>
+//#include <xcb/xcb.h>
+//#include <xcb/xcb_util.h>
+//#include <cairo/cairo-xcb.h>
 
 #ifdef None
 #	undef None
@@ -37,6 +38,7 @@ namespace X11 {
 namespace {
 
 //------------------------------------------------------------------------
+/*
 std::string getAtomName (xcb_atom_t atom)
 {
 	std::string name;
@@ -50,8 +52,9 @@ std::string getAtomName (xcb_atom_t atom)
 	}
 	return name;
 }
-
+*/
 //------------------------------------------------------------------------
+/*
 inline CButtonState translateMouseButtons (xcb_button_t value)
 {
 	switch (value)
@@ -65,8 +68,9 @@ inline CButtonState translateMouseButtons (xcb_button_t value)
 	}
 	return 0;
 }
-
+*/
 //------------------------------------------------------------------------
+/*
 inline CButtonState translateMouseButtons (int state)
 {
 	CButtonState buttons = 0;
@@ -78,8 +82,9 @@ inline CButtonState translateMouseButtons (int state)
 		buttons |= kMButton;
 	return buttons;
 }
-
+*/
 //------------------------------------------------------------------------
+/*
 inline uint32_t translateModifiers (int state)
 {
 	uint32_t buttons = 0;
@@ -91,11 +96,12 @@ inline uint32_t translateModifiers (int state)
 		buttons |= kAlt;
 	return buttons;
 }
-
+*/
 //------------------------------------------------------------------------
 } // anonymous
 
 //------------------------------------------------------------------------
+/*
 struct RedrawTimerHandler
 	: ITimerHandler
 	, NonAtomicReferenceCounted
@@ -117,8 +123,9 @@ struct RedrawTimerHandler
 
 	RedrawCallback redrawCallback;
 };
-
+*/
 //------------------------------------------------------------------------
+/*
 struct DrawHandler
 {
 	DrawHandler (const ChildWindow& window)
@@ -177,8 +184,9 @@ private:
 		cairo_surface_flush (windowSurface);
 	}
 };
-
+*/
 //------------------------------------------------------------------------
+/*
 struct DoubleClickDetector
 {
 	void onMouseDown (CPoint where, CButtonState& buttons, xcb_timestamp_t time)
@@ -248,11 +256,15 @@ private:
 	CButtonState firstClickState;
 	xcb_timestamp_t firstClickTime{0};
 };
-
+*/
 //------------------------------------------------------------------------
+struct IFrameEventHandler
+{
+	
+};
 struct Frame::Impl : IFrameEventHandler
 {
-	using RectList = std::vector<CRect>;
+	/*using RectList = std::vector<CRect>;
 
 	ChildWindow window;
 	DrawHandler drawHandler;
@@ -545,7 +557,7 @@ struct Frame::Impl : IFrameEventHandler
 					break;
 			}
 		}
-	}
+	}*/
 };
 
 //------------------------------------------------------------------------
@@ -554,7 +566,7 @@ Frame::Frame (IPlatformFrameCallback* frame,
 			  uint32_t parent,
 			  IPlatformFrameConfig* config)
 	: IPlatformFrame (frame)
-{
+{/*
 	auto cfg = dynamic_cast<FrameConfig*> (config);
 	if (cfg && cfg->runLoop)
 	{
@@ -563,26 +575,26 @@ Frame::Frame (IPlatformFrameCallback* frame,
 
 	impl = std::unique_ptr<Impl> (new Impl (parent, {size.getWidth (), size.getHeight ()}, frame));
 
-	frame->platformOnActivate (true);
+	frame->platformOnActivate (true);*/
 }
 
 //------------------------------------------------------------------------
 Frame::~Frame ()
 {
-	impl.reset ();
-	RunLoop::exit ();
+	//impl.reset ();
+	//RunLoop::exit ();
 }
 
 //------------------------------------------------------------------------
 void Frame::optionMenuPopupStarted ()
 {
-	impl->grabPointer ();
+	//impl->grabPointer ();
 }
 
 //------------------------------------------------------------------------
 void Frame::optionMenuPopupStopped ()
 {
-	impl->ungrabPointer ();
+	//impl->ungrabPointer ();
 }
 
 //------------------------------------------------------------------------
@@ -594,15 +606,15 @@ bool Frame::getGlobalPosition (CPoint& pos) const
 //------------------------------------------------------------------------
 bool Frame::setSize (const CRect& newSize)
 {
-	vstgui_assert (impl);
-	impl->setSize (newSize);
+	//vstgui_assert (impl);
+	//impl->setSize (newSize);
 	return true;
 }
 
 //------------------------------------------------------------------------
 bool Frame::getSize (CRect& size) const
 {
-	size.setSize (impl->window.getSize ());
+	//size.setSize (impl->window.getSize ());
 	return true;
 }
 
@@ -621,22 +633,22 @@ bool Frame::getCurrentMouseButtons (CButtonState& buttons) const
 //------------------------------------------------------------------------
 bool Frame::setMouseCursor (CCursorType type)
 {
-	impl->setCursor (type);
+	//impl->setCursor (type);
 	return true;
 }
 
 //------------------------------------------------------------------------
 bool Frame::invalidRect (const CRect& rect)
 {
-	impl->invalidRect (rect);
+	//impl->invalidRect (rect);
 	return true;
 }
 
 //------------------------------------------------------------------------
 bool Frame::scrollRect (const CRect& src, const CPoint& distance)
 {
-	(void)src;
-	(void)distance;
+	//(void)src;
+	//(void)distance;
 	return false;
 }
 
@@ -657,27 +669,28 @@ bool Frame::hideTooltip ()
 //------------------------------------------------------------------------
 void* Frame::getPlatformRepresentation () const
 {
-	return reinterpret_cast<void*> (getX11WindowID ());
+	return nullptr;//reinterpret_cast<void*> (getX11WindowID ());
 }
 
 //------------------------------------------------------------------------
 uint32_t Frame::getX11WindowID () const
 {
-	return impl->window.getID ();
+	return 0;//impl->window.getID ();
 }
 
 //------------------------------------------------------------------------
 SharedPointer<IPlatformTextEdit> Frame::createPlatformTextEdit (IPlatformTextEditCallback* textEdit)
 {
-	return makeOwned<GenericTextEdit> (textEdit);
+	return nullptr;//makeOwned<GenericTextEdit> (textEdit);
 }
 
 //------------------------------------------------------------------------
 SharedPointer<IPlatformOptionMenu> Frame::createPlatformOptionMenu ()
 {
-	auto optionMenu = makeOwned<GenericOptionMenu> (dynamic_cast<CFrame*> (frame), 0);
-	optionMenu->setListener (this);
-	return optionMenu;
+	//auto optionMenu = makeOwned<GenericOptionMenu> (dynamic_cast<CFrame*> (frame), 0);
+	//optionMenu->setListener (this);
+	//return optionMenu;
+	return nullptr;//
 }
 
 #if VSTGUI_OPENGL_SUPPORT
@@ -702,14 +715,17 @@ SharedPointer<COffscreenContext> Frame::createOffscreenContext (CCoord width,
 																CCoord height,
 																double scaleFactor)
 {
-	CPoint size (width * scaleFactor, height * scaleFactor);
+	/*CPoint size (width * scaleFactor, height * scaleFactor);
 	auto bitmap = new Cairo::Bitmap (&size);
 	bitmap->setScaleFactor (scaleFactor);
 	auto context = owned (new Cairo::Context (bitmap));
 	bitmap->forget ();
 	if (context->valid ())
-		return context;
-	return nullptr;
+		return context;*/
+	CPoint size (width * scaleFactor, height * scaleFactor);
+	auto bitmap = new Cairo::Bitmap (&size);
+	auto context = owned (new Cairo::Context (bitmap));
+	return context;
 }
 
 #if VSTGUI_ENABLE_DEPRECATED_METHODS
@@ -748,18 +764,19 @@ PlatformType Frame::getPlatformType () const
 //------------------------------------------------------------------------
 Optional<UTF8String> Frame::convertCurrentKeyEventToText ()
 {
-	return RunLoop::instance ().convertCurrentKeyEventToText ();
+	return {};//RunLoop::instance ().convertCurrentKeyEventToText ();
 }
 
 //------------------------------------------------------------------------
 Frame::CreateIResourceInputStreamFunc Frame::createResourceInputStreamFunc =
 	[](const CResourceDescription& desc) -> IPlatformResourceInputStream::Ptr {
-	if (desc.type != CResourceDescription::kStringType)
+	/*if (desc.type != CResourceDescription::kStringType)
 		return nullptr;
 	auto path = Platform::getInstance ().getPath ();
 	path += "/Contents/Resources/";
 	path += desc.u.name;
-	return FileResourceInputStream::create (path);
+	return FileResourceInputStream::create (path);*/
+	return nullptr;
 };
 
 //------------------------------------------------------------------------
@@ -774,18 +791,19 @@ IPlatformFrame* IPlatformFrame::createPlatformFrame (IPlatformFrameCallback* fra
 													 PlatformType parentType,
 													 IPlatformFrameConfig* config)
 {
-	if (parentType == kDefaultNative || parentType == kX11EmbedWindowID)
+	/*if (parentType == kDefaultNative || parentType == kX11EmbedWindowID)
 	{
 		auto x11Parent = reinterpret_cast<XID> (parent);
 		return new X11::Frame (frame, size, x11Parent, config);
-	}
+	}*/
 	return nullptr;
 }
 
 //------------------------------------------------------------------------
+
 uint32_t IPlatformFrame::getTicks ()
 {
-	return static_cast<uint32_t> (X11::Platform::getCurrentTimeMs ());
+	return 0;//static_cast<uint32_t> (X11::Platform::getCurrentTimeMs ());
 }
 
 //------------------------------------------------------------------------

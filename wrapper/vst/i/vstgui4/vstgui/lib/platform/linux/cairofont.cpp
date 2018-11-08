@@ -382,8 +382,13 @@ bool IPlatformFont::getAllPlatformFontFamilies (std::list<std::string>& fontFami
 //------------------------------------------------------------------------
 } // VSTGUI
 */
+#pragma message("no font")
 namespace VSTGUI {
 	namespace Cairo {
+		struct Font::Impl
+			{
+				int dumb;
+			};
 
 		Font::Font (UTF8StringPtr name, const CCoord& size, const int32_t& style){};
 		Font::~Font (){};

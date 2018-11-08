@@ -15,6 +15,7 @@ namespace Cairo {
 namespace CairoBitmapPrivate {
 
 //-----------------------------------------------------------------------------
+/*
 struct PNGMemoryReader
 {
 	PNGMemoryReader (const uint8_t* ptr, size_t size) : ptr (ptr), size (size) {}
@@ -39,8 +40,9 @@ private:
 	const uint8_t* ptr;
 	size_t size;
 };
-
+*/
 //-----------------------------------------------------------------------------
+/*
 struct PNGMemoryWriter
 {
 	using Buffer = PNGBitmapBuffer;
@@ -63,8 +65,9 @@ private:
 		return CAIRO_STATUS_SUCCESS;
 	}
 };
-
+*/
 //-----------------------------------------------------------------------------
+/*
 static SurfaceHandle createImageFromPath (const char* path)
 {
 	if (auto surface = cairo_image_surface_create_from_png (path))
@@ -96,8 +99,9 @@ static SurfaceHandle createImageFromPath (const char* path)
 	}
 	return {};
 }
-
+*/
 //-----------------------------------------------------------------------------
+/*
 class PixelAccess : public IPlatformBitmapPixelAccess
 {
 public:
@@ -123,45 +127,48 @@ private:
 	SharedPointer<Bitmap> bitmap;
 	SurfaceHandle surface;
 };
-
+*/
 //-----------------------------------------------------------------------------
 } // CairoBitmapPrivate
 
 //-----------------------------------------------------------------------------
-Bitmap::GetResourcePathFunc Bitmap::getResourcePath = [] () { return std::string (); };
+//Bitmap::GetResourcePathFunc Bitmap::getResourcePath = [] () { return std::string (); };
 
 //-----------------------------------------------------------------------------
+/*
 void Bitmap::setGetResourcePathFunc (GetResourcePathFunc&& func)
 {
-	getResourcePath = std::move (func);
+	//getResourcePath = std::move (func);
 }
-
+*/
 //-----------------------------------------------------------------------------
 Bitmap::Bitmap (const CPoint* _size)
 {
-	if (_size)
+	/*if (_size)
 	{
 		size = *_size;
 		surface = SurfaceHandle (cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size.x, size.y));
-	}
+	}*/
 }
 
 //-----------------------------------------------------------------------------
+/*
 Bitmap::Bitmap (const SurfaceHandle& surface) : surface (surface)
 {
 	size.x = cairo_image_surface_get_width (surface);
 	size.y = cairo_image_surface_get_height (surface);
 }
-
+*/
 //-----------------------------------------------------------------------------
 Bitmap::~Bitmap ()
 {
 }
 
 //-----------------------------------------------------------------------------
+
 bool Bitmap::load (const CResourceDescription& desc)
 {
-	auto path = getResourcePath ();
+	/*auto path = getResourcePath ();
 	if (!path.empty ())
 	{
 		if (desc.type == CResourceDescription::kIntegerType)
@@ -186,41 +193,46 @@ bool Bitmap::load (const CResourceDescription& desc)
 			size.y = cairo_image_surface_get_height (surface);
 			return true;
 		}
-	}
+	}*/
 	return false;
 }
 
 //-----------------------------------------------------------------------------
+
 const CPoint& Bitmap::getSize () const
 {
 	return size;
 }
 //-----------------------------------------------------------------------------
+
 SharedPointer<IPlatformBitmapPixelAccess> Bitmap::lockPixels (bool alphaPremultiplied)
 {
-	if (locked)
+	/*if (locked)
 		return nullptr;
 #warning TODO: alphaPremultiplied is currently ignored, always treated as true
 	locked = true;
 	auto pixelAccess = owned (new CairoBitmapPrivate::PixelAccess ());
 	if (pixelAccess->init (this, surface))
-		return pixelAccess;
+		return pixelAccess;*/
 	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
+
 void Bitmap::setScaleFactor (double factor)
 {
-	scaleFactor = factor;
+	//scaleFactor = factor;
 }
 
 //-----------------------------------------------------------------------------
+
 double Bitmap::getScaleFactor () const
 {
-	return scaleFactor;
+	return 1;//scaleFactor;
 }
 
 //-----------------------------------------------------------------------------
+/*
 namespace CairoBitmapPrivate {
 
 //-----------------------------------------------------------------------------
@@ -255,9 +267,11 @@ PixelAccess::~PixelAccess ()
 
 //-----------------------------------------------------------------------------
 } // CairoBitmapPrivate
+*/
 } // Cairo
 
 //-----------------------------------------------------------------------------
+
 SharedPointer<IPlatformBitmap> IPlatformBitmap::create (CPoint* size)
 {
 	return owned (new Cairo::Bitmap (size));
@@ -266,7 +280,7 @@ SharedPointer<IPlatformBitmap> IPlatformBitmap::create (CPoint* size)
 //-----------------------------------------------------------------------------
 SharedPointer<IPlatformBitmap> IPlatformBitmap::createFromPath (UTF8StringPtr absolutePath)
 {
-	if (auto surface = Cairo::CairoBitmapPrivate::createImageFromPath (absolutePath))
+	/*if (auto surface = Cairo::CairoBitmapPrivate::createImageFromPath (absolutePath))
 	{
 		if (cairo_surface_status (surface) != CAIRO_STATUS_SUCCESS)
 		{
@@ -274,30 +288,30 @@ SharedPointer<IPlatformBitmap> IPlatformBitmap::createFromPath (UTF8StringPtr ab
 			return nullptr;
 		}
 		return owned (new Cairo::Bitmap (surface));
-	}
+	}*/
 	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
 SharedPointer<IPlatformBitmap> IPlatformBitmap::createFromMemory (const void* ptr, uint32_t memSize)
 {
-	Cairo::CairoBitmapPrivate::PNGMemoryReader reader (reinterpret_cast<const uint8_t*> (ptr),
+	/*Cairo::CairoBitmapPrivate::PNGMemoryReader reader (reinterpret_cast<const uint8_t*> (ptr),
 													   memSize);
 	if (auto surface = reader.create ())
 	{
 		return owned (new Cairo::Bitmap (Cairo::SurfaceHandle {surface}));
-	}
+	}*/
 	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
 PNGBitmapBuffer IPlatformBitmap::createMemoryPNGRepresentation (const SharedPointer<IPlatformBitmap>& bitmap)
 {
-	if (auto cairoBitmap = bitmap.cast<Cairo::Bitmap> ())
+	/*if (auto cairoBitmap = bitmap.cast<Cairo::Bitmap> ())
 	{
 		Cairo::CairoBitmapPrivate::PNGMemoryWriter writer;
 		return writer.create (cairoBitmap->getSurface ());
-	}
+	}*/
 	return {};
 }
 

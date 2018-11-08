@@ -50,7 +50,7 @@ inline bool needPixelAlignment (CDrawMode mode)
 
 //------------------------------------------------------------------------
 } // anonymous
-
+/*
 //------------------------------------------------------------------------
 DrawBlock::DrawBlock (Context& context) : context (context)
 {
@@ -92,12 +92,12 @@ DrawBlock DrawBlock::begin (Context& context)
 {
 	return DrawBlock (context);
 }
-
+*/
 //-----------------------------------------------------------------------------
-Context::Context (const CRect& rect, const SurfaceHandle& surface) : super (rect), surface (surface)
+/*Context::Context (const CRect& rect, const SurfaceHandle& surface) : super (rect), surface (surface)
 {
 	init ();
-}
+}*/
 
 //-----------------------------------------------------------------------------
 Context::Context (Bitmap* bitmap) : super (new CBitmap (bitmap)), surface (bitmap->getSurface ())
@@ -106,12 +106,13 @@ Context::Context (Bitmap* bitmap) : super (new CBitmap (bitmap)), surface (bitma
 }
 
 //-----------------------------------------------------------------------------
+/*
 Context::Context (CRect r, cairo_t* context) : super (r)
 {
 	cr = ContextHandle {cairo_reference (context)};
 	init ();
 }
-
+*/
 //-----------------------------------------------------------------------------
 Context::~Context ()
 {
