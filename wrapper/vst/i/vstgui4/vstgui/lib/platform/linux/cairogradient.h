@@ -19,7 +19,7 @@ class Gradient : public CGradient
 public:
 	Gradient (const ColorStopMap& colorStopMap);
 	~Gradient ();
-
+/*
 	void addColorStop (const std::pair<double, CColor>& colorStop) override
 	{
 		destroy ();
@@ -39,13 +39,15 @@ public:
 
 private:
 	void destroy () const;
-
+*/
 	/* we want to calculate a normalized linear and radial gradiant */
+	/*
 	mutable PatternHandle linearGradient;
 	mutable PatternHandle radialGradient;
 
 	mutable CPoint linearGradientStart;
 	mutable CPoint linearGradientEnd;
+	*/
 };
 
 //------------------------------------------------------------------------

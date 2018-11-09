@@ -10,7 +10,7 @@ namespace VSTGUI {
 //------------------------------------------------------------------------
 CGradient* CGradient::create (const ColorStopMap& colorStopMap)
 {
-	return new Cairo::Gradient (colorStopMap);
+	return nullptr;//new Cairo::Gradient (colorStopMap);
 }
 
 //------------------------------------------------------------------------
@@ -20,7 +20,7 @@ namespace Cairo {
 Gradient::Gradient (const ColorStopMap& colorStopMap) : CGradient (colorStopMap)
 {
 }
-
+/*
 //------------------------------------------------------------------------
 Gradient::~Gradient ()
 {
@@ -65,7 +65,7 @@ const PatternHandle& Gradient::getRadialGradient () const
 	}
 	return radialGradient;
 }
-
+*/
 //------------------------------------------------------------------------
 } // Cairo
 } // VSTGUI

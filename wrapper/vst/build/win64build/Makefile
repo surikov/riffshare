@@ -1,4 +1,3 @@
-#
 PROJECTNAME = VSTNES
 TARGET = $(PROJECTNAME).js
 
@@ -42,7 +41,8 @@ CUSTOMFILES = ../../tools/VST3JSExport.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_processor.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_ui.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_voice.cpp \
-	$(SOURCEFOLDER)/note_touch_controller.cpp
+	$(SOURCEFOLDER)/note_touch_controller.cpp	
+
 VSTRUNTIME = $(VSTLIB)/pluginterfaces/base/conststringtable.cpp
 VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/coreiids.cpp
 VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/funknown.cpp
@@ -121,27 +121,28 @@ VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/cdrawcontext.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cscrollbar.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/csearchtextedit.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/clayeredviewcontainer.cpp
-VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\uidescription\uiviewswitchcontainer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/uiviewswitchcontainer.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cslider.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cmoviebutton.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/clinestyle.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/ccolor.cpp
-VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation\timingfunctions.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation/timingfunctions.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/controls/cvumeter.cpp
-VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\animation\animator.cpp
-VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\platform\linux\cairobitmap.cpp
-VSTRUNTIME += $(VSTLIB)\vstgui4\vstgui\lib\platform\linux\x11frame.cpp
-VSTRUNTIME += $(VSTLIB)\\vstgui4\vstgui\lib\platform\linux\linuxstring.cpp
-
-
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation/animator.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/cairobitmap.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/x11frame.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/linuxstring.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/platform/linux/x11timer.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation/animations.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/crect.cpp
+VSTRUNTIME += $(VSTLIB)/vstgui4\vstgui\lib\platform\linux\cairogradient.cpp
 
 .PHONY: $(TARGET)
 $(TARGET):
 #	export EMCC_DEBUG=1
 #	emcc --clear-cache
-	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
-#	cd ./web/ & pwd & node ../../tools/encode-wasm.js $(PROJECTNAME).wasm
-#	cp ../../tools/index.html ./web/
-#	cp ../../tools/index.js ./web/
-#	cp ../../tools/processormodule.js ./web/
-
+#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
+#	copy /Y ..\..\tools\index.html .\
+#	copy /Y ..\..\tools\index.js .\
+#	copy /Y ..\..\tools\processormodule.js .\
+#	node ..\..\tools\encode-wasm.js $(PROJECTNAME).wasm

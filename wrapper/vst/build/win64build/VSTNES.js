@@ -1670,7 +1670,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 112544;
+STATICTOP = STATIC_BASE + 113248;
 /* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_keyboardview_cpp() } }, { func: function() { __GLOBAL__sub_I_vst3editor_cpp() } }, { func: function() { __GLOBAL__sub_I_uidescription_cpp() } }, { func: function() { __GLOBAL__sub_I_uiviewfactory_cpp() } }, { func: function() { __GLOBAL__sub_I_cfont_cpp() } }, { func: function() { __GLOBAL__sub_I_uiviewcreator_cpp() } }, { func: function() { __GLOBAL__sub_I_clinestyle_cpp() } }, { func: function() { __GLOBAL__sub_I_x11frame_cpp() } });
 
 
@@ -1679,7 +1679,7 @@ STATICTOP = STATIC_BASE + 112544;
 
 
 
-var STATIC_BUMP = 112544;
+var STATIC_BUMP = 113248;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1720,30 +1720,6 @@ function copyTempDouble(ptr) {
 
 // {{PRE_LIBRARY}}
 
-
-  function __ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE() {
-  err('missing function: _ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9Animation17ViewSizeAnimationC1ERKNS_5CRectEb() {
-  err('missing function: _ZN6VSTGUI9Animation17ViewSizeAnimationC1ERKNS_5CRectEb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9Animation19AlphaValueAnimationC1Efb() {
-  err('missing function: _ZN6VSTGUI9Animation19AlphaValueAnimationC1Efb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9Animation21ExchangeViewAnimationC1EPNS_5CViewES3_NS1_14AnimationStyleE() {
-  err('missing function: _ZN6VSTGUI9Animation21ExchangeViewAnimationC1EPNS_5CViewES3_NS1_14AnimationStyleE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE() {
-  err('missing function: _ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE'); abort(-1);
-  }
-
-  function __ZN9__gnu_cxx12__atomic_addEPVii() {
-  err('missing function: _ZN9__gnu_cxx12__atomic_addEPVii'); abort(-1);
-  }
 
   function ___assert_fail(condition, filename, line, func) {
       abort('Assertion failed: ' + Pointer_stringify(condition) + ', at: ' + [filename ? Pointer_stringify(filename) : 'unknown filename', line, func ? Pointer_stringify(func) : 'unknown function']);
@@ -5766,9 +5742,9 @@ function intArrayToString(array) {
 
 
 
-Module['wasmTableSize'] = 3861;
+Module['wasmTableSize'] = 3864;
 
-Module['wasmMaxTableSize'] = 3861;
+Module['wasmMaxTableSize'] = 3864;
 
 function invoke_di(index,a1) {
   var sp = stackSave();
@@ -6355,7 +6331,7 @@ function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
 
 Module.asmGlobalArg = {};
 
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_diiii": invoke_diiii, "invoke_fi": invoke_fi, "invoke_fii": invoke_fii, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iif": invoke_iif, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiiiiiiii": invoke_iiiiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iiij": invoke_iiij, "invoke_iiji": invoke_iiji, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viiddd": invoke_viiddd, "invoke_viiddi": invoke_viiddi, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiif": invoke_viiif, "invoke_viiii": invoke_viiii, "invoke_viiiidiii": invoke_viiiidiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viiiiiii": invoke_viiiiiii, "invoke_viiiiiiiii": invoke_viiiiiiiii, "invoke_viijii": invoke_viijii, "__ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE": __ZN6VSTGUI14IPlatformTimer6createEPNS_22IPlatformTimerCallbackE, "__ZN6VSTGUI9Animation17ViewSizeAnimationC1ERKNS_5CRectEb": __ZN6VSTGUI9Animation17ViewSizeAnimationC1ERKNS_5CRectEb, "__ZN6VSTGUI9Animation19AlphaValueAnimationC1Efb": __ZN6VSTGUI9Animation19AlphaValueAnimationC1Efb, "__ZN6VSTGUI9Animation21ExchangeViewAnimationC1EPNS_5CViewES3_NS1_14AnimationStyleE": __ZN6VSTGUI9Animation21ExchangeViewAnimationC1EPNS_5CViewES3_NS1_14AnimationStyleE, "__ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE": __ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE, "__ZN9__gnu_cxx12__atomic_addEPVii": __ZN9__gnu_cxx12__atomic_addEPVii, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall10": ___syscall10, "___syscall140": ___syscall140, "___syscall145": ___syscall145, "___syscall146": ___syscall146, "___syscall221": ___syscall221, "___syscall38": ___syscall38, "___syscall40": ___syscall40, "___syscall5": ___syscall5, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_ceil_f64": _llvm_ceil_f64, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_llvm_trap": _llvm_trap, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "_time": _time, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_diiii": invoke_diiii, "invoke_fi": invoke_fi, "invoke_fii": invoke_fii, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iif": invoke_iif, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiiiiiiii": invoke_iiiiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iiij": invoke_iiij, "invoke_iiji": invoke_iiji, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viiddd": invoke_viiddd, "invoke_viiddi": invoke_viiddi, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiif": invoke_viiif, "invoke_viiii": invoke_viiii, "invoke_viiiidiii": invoke_viiiidiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viiiiiii": invoke_viiiiiii, "invoke_viiiiiiiii": invoke_viiiiiiiii, "invoke_viijii": invoke_viijii, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall10": ___syscall10, "___syscall140": ___syscall140, "___syscall145": ___syscall145, "___syscall146": ___syscall146, "___syscall221": ___syscall221, "___syscall38": ___syscall38, "___syscall40": ___syscall40, "___syscall5": ___syscall5, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_ceil_f64": _llvm_ceil_f64, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_llvm_trap": _llvm_trap, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "_time": _time, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);
