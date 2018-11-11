@@ -1681,8 +1681,8 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 73408;
-/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_keyboardview_cpp() } }, { func: function() { __GLOBAL__sub_I_vst3editor_cpp() } }, { func: function() { __GLOBAL__sub_I_uidescription_cpp() } });
+STATICTOP = STATIC_BASE + 113712;
+/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_note_expression_synth_voice_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } }, { func: function() { __GLOBAL__sub_I_keyboardview_cpp() } }, { func: function() { __GLOBAL__sub_I_cfont_cpp() } }, { func: function() { __GLOBAL__sub_I_clinestyle_cpp() } }, { func: function() { __GLOBAL__sub_I_x11frame_cpp() } }, { func: function() { __GLOBAL__sub_I_vst3editor_cpp() } }, { func: function() { __GLOBAL__sub_I_uidescription_cpp() } }, { func: function() { __GLOBAL__sub_I_uiviewcreator_cpp() } }, { func: function() { __GLOBAL__sub_I_uiviewfactory_cpp() } });
 
 
 
@@ -1690,7 +1690,7 @@ STATICTOP = STATIC_BASE + 73408;
 
 
 
-var STATIC_BUMP = 73408;
+var STATIC_BUMP = 113712;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1731,238 +1731,6 @@ function copyTempDouble(ptr) {
 
 // {{PRE_LIBRARY}}
 
-
-  function __ZN6VSTGUI11CFileStream4openEPKciNS_9ByteOrderE() {
-  err('missing function: _ZN6VSTGUI11CFileStream4openEPKciNS_9ByteOrderE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI11CFileStreamC1Ev() {
-  err('missing function: _ZN6VSTGUI11CFileStreamC1Ev'); abort(-1);
-  }
-
-  function __ZN6VSTGUI11CFileStreamD1Ev() {
-  err('missing function: _ZN6VSTGUI11CFileStreamD1Ev'); abort(-1);
-  }
-
-  function __ZN6VSTGUI11CFileStreamlsERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE() {
-  err('missing function: _ZN6VSTGUI11CFileStreamlsERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter7Factory11getInstanceEv() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter7Factory11getInstanceEv'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyC1EPNS_10IReferenceE() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyC1EPNS_10IReferenceE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_5CRectE() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_5CRectE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CColorE() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CColorE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CPointE() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CPointE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyC1Ed() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyC1Ed'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyC1Ei() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyC1Ei'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12BitmapFilter8PropertyD1Ev() {
-  err('missing function: _ZN6VSTGUI12BitmapFilter8PropertyD1Ev'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb() {
-  err('missing function: _ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CDrawContext10drawStringEPNS_15IPlatformStringERKNS_5CRectENS_13CHoriTxtAlignEb() {
-  err('missing function: _ZN6VSTGUI12CDrawContext10drawStringEPNS_15IPlatformStringERKNS_5CRectENS_13CHoriTxtAlignEb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CDrawContext27createRoundRectGraphicsPathERKNS_5CRectEd() {
-  err('missing function: _ZN6VSTGUI12CDrawContext27createRoundRectGraphicsPathERKNS_5CRectEd'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CDrawContext9TransformC1ERS0_RKNS_18CGraphicsTransformE() {
-  err('missing function: _ZN6VSTGUI12CDrawContext9TransformC1ERS0_RKNS_18CGraphicsTransformE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CDrawContext9TransformD1Ev() {
-  err('missing function: _ZN6VSTGUI12CDrawContext9TransformD1Ev'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimer11setFireTimeEj() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimer11setFireTimeEj'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimer4stopEv() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimer4stopEv'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimer5startEv() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimer5startEv'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimerC1EPNS_11CBaseObjectEjb() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimerC1EPNS_11CBaseObjectEjb'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12OutputStreamlsERKa() {
-  err('missing function: _ZN6VSTGUI12OutputStreamlsERKa'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13CGraphicsPath12addRoundRectERKNS_5CRectEd() {
-  err('missing function: _ZN6VSTGUI13CGraphicsPath12addRoundRectERKNS_5CRectEd'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE() {
-  err('missing function: _ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_() {
-  err('missing function: _ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE() {
-  err('missing function: _ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE() {
-  err('missing function: _ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE() {
-  err('missing function: _ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE() {
-  err('missing function: _ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE() {
-  err('missing function: _ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI13UIViewFactoryC1Ev() {
-  err('missing function: _ZN6VSTGUI13UIViewFactoryC1Ev'); abort(-1);
-  }
-
-  function __ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE() {
-  err('missing function: _ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI14IPlatformFrame8getTicksEv() {
-  err('missing function: _ZN6VSTGUI14IPlatformFrame8getTicksEv'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15CTooltipSupport11hideTooltipEv() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupport11hideTooltipEv'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15CTooltipSupport11onMouseDownERKNS_6CPointE() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupport11onMouseDownERKNS_6CPointE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15CTooltipSupport12onMouseMovedERKNS_6CPointE() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupport12onMouseMovedERKNS_6CPointE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15CTooltipSupport14onMouseEnteredEPNS_5CViewE() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupport14onMouseEnteredEPNS_5CViewE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15CTooltipSupportC1EPNS_6CFrameEj() {
-  err('missing function: _ZN6VSTGUI15CTooltipSupportC1EPNS_6CFrameEj'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE() {
-  err('missing function: _ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc() {
-  err('missing function: _ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj() {
-  err('missing function: _ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE() {
-  err('missing function: _ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE() {
-  err('missing function: _ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc() {
-  err('missing function: _ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc'); abort(-1);
-  }
-
-  function __ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd() {
-  err('missing function: _ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd'); abort(-1);
-  }
-
-  function __ZN6VSTGUI20CResourceInputStream4openERKNS_20CResourceDescriptionE() {
-  err('missing function: _ZN6VSTGUI20CResourceInputStream4openERKNS_20CResourceDescriptionE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI20CResourceInputStreamC1ENS_9ByteOrderE() {
-  err('missing function: _ZN6VSTGUI20CResourceInputStreamC1ENS_9ByteOrderE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI20CResourceInputStreamD1Ev() {
-  err('missing function: _ZN6VSTGUI20CResourceInputStreamD1Ev'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE() {
-  err('missing function: _ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9CFontDescC1ERKNS_10UTF8StringERKdi() {
-  err('missing function: _ZN6VSTGUI9CFontDescC1ERKNS_10UTF8StringERKdi'); abort(-1);
-  }
-
-  function __ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE() {
-  err('missing function: _ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE'); abort(-1);
-  }
-
-  function __ZN9__gnu_cxx12__atomic_addEPVii() {
-  err('missing function: _ZN9__gnu_cxx12__atomic_addEPVii'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12BitmapFilter7Factory12createFilterEPKc() {
-  err('missing function: _ZNK6VSTGUI12BitmapFilter7Factory12createFilterEPKc'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12BitmapFilter8Property9getObjectEv() {
-  err('missing function: _ZNK6VSTGUI12BitmapFilter8Property9getObjectEv'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12CDrawContext11getClipRectERNS_5CRectE() {
-  err('missing function: _ZNK6VSTGUI12CDrawContext11getClipRectERNS_5CRectE'); abort(-1);
-  }
-
-  function __ZNK6VSTGUI12CDrawContext15getHairlineSizeEv() {
-  err('missing function: _ZNK6VSTGUI12CDrawContext15getHairlineSizeEv'); abort(-1);
-  }
 
   function ___assert_fail(condition, filename, line, func) {
       abort('Assertion failed: ' + Pointer_stringify(condition) + ', at: ' + [filename ? Pointer_stringify(filename) : 'unknown filename', line, func ? Pointer_stringify(func) : 'unknown function']);
@@ -5947,58 +5715,6 @@ function copyTempDouble(ptr) {
       }
       return ret;
     }
-
-  function __ZN6VSTGUI10kLineSolidE() {
-  err('missing function: _ZN6VSTGUI10kLineSolidE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI11kNormalFontE() {
-  err('missing function: _ZN6VSTGUI11kNormalFontE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI11kSymbolFontE() {
-  err('missing function: _ZN6VSTGUI11kSymbolFontE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI11kSystemFontE() {
-  err('missing function: _ZN6VSTGUI11kSystemFontE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI12CVSTGUITimer9kMsgTimerE() {
-  err('missing function: _ZN6VSTGUI12CVSTGUITimer9kMsgTimerE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI14kNormalFontBigE() {
-  err('missing function: _ZN6VSTGUI14kNormalFontBigE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI16kNormalFontSmallE() {
-  err('missing function: _ZN6VSTGUI16kNormalFontSmallE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI18kNormalFontSmallerE() {
-  err('missing function: _ZN6VSTGUI18kNormalFontSmallerE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI18kNormalFontVeryBigE() {
-  err('missing function: _ZN6VSTGUI18kNormalFontVeryBigE'); abort(-1);
-  }
-
-  function __ZN6VSTGUI20kNormalFontVerySmallE() {
-  err('missing function: _ZN6VSTGUI20kNormalFontVerySmallE'); abort(-1);
-  }
-
-  function __ZTIN6VSTGUI10CTextLabelE() {
-  err('missing function: _ZTIN6VSTGUI10CTextLabelE'); abort(-1);
-  }
-
-  function __ZTIN6VSTGUI9CTextEditE() {
-  err('missing function: _ZTIN6VSTGUI9CTextEditE'); abort(-1);
-  }
-
-  function _moduleHandle() {
-  err('missing function: moduleHandle'); abort(-1);
-  }
 FS.staticInit();__ATINIT__.unshift(function() { if (!Module["noFSInit"] && !FS.init.initialized) FS.init() });__ATMAIN__.push(function() { FS.ignorePermissions = false });__ATEXIT__.push(function() { FS.quit() });;
 __ATINIT__.unshift(function() { TTY.init() });__ATEXIT__.push(function() { TTY.shutdown() });;
 if (ENVIRONMENT_IS_NODE) { var fs = require("fs"); var NODEJS_PATH = require("path"); NODEFS.staticInit(); };
@@ -6047,9 +5763,9 @@ function intArrayToString(array) {
 
 
 
-Module['wasmTableSize'] = 2703;
+Module['wasmTableSize'] = 3864;
 
-Module['wasmMaxTableSize'] = 2703;
+Module['wasmMaxTableSize'] = 3864;
 
 function invoke_di(index,a1) {
   var sp = stackSave();
@@ -6095,10 +5811,32 @@ function invoke_diid(index,a1,a2,a3) {
   }
 }
 
+function invoke_diiii(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_diiii"](index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_fi(index,a1) {
   var sp = stackSave();
   try {
     return Module["dynCall_fi"](index,a1);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_fii(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    return Module["dynCall_fii"](index,a1,a2);
   } catch(e) {
     stackRestore(sp);
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
@@ -6469,6 +6207,28 @@ function invoke_viidd(index,a1,a2,a3,a4) {
   }
 }
 
+function invoke_viiddd(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiddd"](index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_viiddi(index,a1,a2,a3,a4,a5) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiddi"](index,a1,a2,a3,a4,a5);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_viidfii(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
@@ -6491,10 +6251,32 @@ function invoke_viii(index,a1,a2,a3) {
   }
 }
 
+function invoke_viiif(index,a1,a2,a3,a4) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiif"](index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_viiii(index,a1,a2,a3,a4) {
   var sp = stackSave();
   try {
     Module["dynCall_viiii"](index,a1,a2,a3,a4);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
+function invoke_viiiidiii(index,a1,a2,a3,a4,a5,a6,a7,a8) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiiidiii"](index,a1,a2,a3,a4,a5,a6,a7,a8);
   } catch(e) {
     stackRestore(sp);
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
@@ -6535,6 +6317,17 @@ function invoke_viiiiii(index,a1,a2,a3,a4,a5,a6) {
   }
 }
 
+function invoke_viiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
+  var sp = stackSave();
+  try {
+    Module["dynCall_viiiiiii"](index,a1,a2,a3,a4,a5,a6,a7);
+  } catch(e) {
+    stackRestore(sp);
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    Module["setThrew"](1, 0);
+  }
+}
+
 function invoke_viiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9) {
   var sp = stackSave();
   try {
@@ -6559,23 +6352,31 @@ function invoke_viijii(index,a1,a2,a3,a4,a5,a6) {
 
 Module.asmGlobalArg = {};
 
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_fi": invoke_fi, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iif": invoke_iif, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiiiiiiii": invoke_iiiiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iiij": invoke_iiij, "invoke_iiji": invoke_iiji, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viiiiiiiii": invoke_viiiiiiiii, "invoke_viijii": invoke_viijii, "__ZN6VSTGUI11CFileStream4openEPKciNS_9ByteOrderE": __ZN6VSTGUI11CFileStream4openEPKciNS_9ByteOrderE, "__ZN6VSTGUI11CFileStreamC1Ev": __ZN6VSTGUI11CFileStreamC1Ev, "__ZN6VSTGUI11CFileStreamD1Ev": __ZN6VSTGUI11CFileStreamD1Ev, "__ZN6VSTGUI11CFileStreamlsERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE": __ZN6VSTGUI11CFileStreamlsERKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE, "__ZN6VSTGUI12BitmapFilter7Factory11getInstanceEv": __ZN6VSTGUI12BitmapFilter7Factory11getInstanceEv, "__ZN6VSTGUI12BitmapFilter8PropertyC1EPNS_10IReferenceE": __ZN6VSTGUI12BitmapFilter8PropertyC1EPNS_10IReferenceE, "__ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_5CRectE": __ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_5CRectE, "__ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CColorE": __ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CColorE, "__ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CPointE": __ZN6VSTGUI12BitmapFilter8PropertyC1ERKNS_6CPointE, "__ZN6VSTGUI12BitmapFilter8PropertyC1Ed": __ZN6VSTGUI12BitmapFilter8PropertyC1Ed, "__ZN6VSTGUI12BitmapFilter8PropertyC1Ei": __ZN6VSTGUI12BitmapFilter8PropertyC1Ei, "__ZN6VSTGUI12BitmapFilter8PropertyD1Ev": __ZN6VSTGUI12BitmapFilter8PropertyD1Ev, "__ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb": __ZN6VSTGUI12CDrawContext10drawStringEPKcRKNS_5CRectENS_13CHoriTxtAlignEb, "__ZN6VSTGUI12CDrawContext10drawStringEPNS_15IPlatformStringERKNS_5CRectENS_13CHoriTxtAlignEb": __ZN6VSTGUI12CDrawContext10drawStringEPNS_15IPlatformStringERKNS_5CRectENS_13CHoriTxtAlignEb, "__ZN6VSTGUI12CDrawContext27createRoundRectGraphicsPathERKNS_5CRectEd": __ZN6VSTGUI12CDrawContext27createRoundRectGraphicsPathERKNS_5CRectEd, "__ZN6VSTGUI12CDrawContext9TransformC1ERS0_RKNS_18CGraphicsTransformE": __ZN6VSTGUI12CDrawContext9TransformC1ERS0_RKNS_18CGraphicsTransformE, "__ZN6VSTGUI12CDrawContext9TransformD1Ev": __ZN6VSTGUI12CDrawContext9TransformD1Ev, "__ZN6VSTGUI12CVSTGUITimer11setFireTimeEj": __ZN6VSTGUI12CVSTGUITimer11setFireTimeEj, "__ZN6VSTGUI12CVSTGUITimer4stopEv": __ZN6VSTGUI12CVSTGUITimer4stopEv, "__ZN6VSTGUI12CVSTGUITimer5startEv": __ZN6VSTGUI12CVSTGUITimer5startEv, "__ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb": __ZN6VSTGUI12CVSTGUITimerC1EONSt3__28functionIFvPS0_EEEjb, "__ZN6VSTGUI12CVSTGUITimerC1EPNS_11CBaseObjectEjb": __ZN6VSTGUI12CVSTGUITimerC1EPNS_11CBaseObjectEjb, "__ZN6VSTGUI12OutputStreamlsERKa": __ZN6VSTGUI12OutputStreamlsERKa, "__ZN6VSTGUI13CGraphicsPath12addRoundRectERKNS_5CRectEd": __ZN6VSTGUI13CGraphicsPath12addRoundRectERKNS_5CRectEd, "__ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE": __ZN6VSTGUI13IPlatformFont26getAllPlatformFontFamiliesERNSt3__24listINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEE, "__ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_": __ZN6VSTGUI13PadControllerC1EPNS_11IControllerEPN9Steinberg3Vst14EditControllerEPNS4_9ParameterES8_, "__ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13colorToStringERKNS_6CColorERNSt3__212basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator13stringToColorEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERNS_6CColorEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14bitmapToStringEPNS_7CBitmapERNSt3__212basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE": __ZN6VSTGUI13UIViewCreator14stringToBitmapEPKNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERPNS_7CBitmapEPKNS_14IUIDescriptionE, "__ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE": __ZN6VSTGUI13UIViewFactory19registerViewCreatorERKNS_12IViewCreatorE, "__ZN6VSTGUI13UIViewFactoryC1Ev": __ZN6VSTGUI13UIViewFactoryC1Ev, "__ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE": __ZN6VSTGUI14IPlatformFrame19createPlatformFrameEPNS_22IPlatformFrameCallbackERKNS_5CRectEPvNS_12PlatformTypeEPNS_20IPlatformFrameConfigE, "__ZN6VSTGUI14IPlatformFrame8getTicksEv": __ZN6VSTGUI14IPlatformFrame8getTicksEv, "__ZN6VSTGUI15CTooltipSupport11hideTooltipEv": __ZN6VSTGUI15CTooltipSupport11hideTooltipEv, "__ZN6VSTGUI15CTooltipSupport11onMouseDownERKNS_6CPointE": __ZN6VSTGUI15CTooltipSupport11onMouseDownERKNS_6CPointE, "__ZN6VSTGUI15CTooltipSupport12onMouseMovedERKNS_6CPointE": __ZN6VSTGUI15CTooltipSupport12onMouseMovedERKNS_6CPointE, "__ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE": __ZN6VSTGUI15CTooltipSupport13onMouseExitedEPNS_5CViewE, "__ZN6VSTGUI15CTooltipSupport14onMouseEnteredEPNS_5CViewE": __ZN6VSTGUI15CTooltipSupport14onMouseEnteredEPNS_5CViewE, "__ZN6VSTGUI15CTooltipSupportC1EPNS_6CFrameEj": __ZN6VSTGUI15CTooltipSupportC1EPNS_6CFrameEj, "__ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE": __ZN6VSTGUI15GroupControllerC1EPN9Steinberg3Vst9ParameterEPNS2_14EditControllerE, "__ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc": __ZN6VSTGUI15IPlatformBitmap14createFromPathEPKc, "__ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj": __ZN6VSTGUI15IPlatformBitmap16createFromMemoryEPKvj, "__ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE": __ZN6VSTGUI15IPlatformBitmap29createMemoryPNGRepresentationERKNS_13SharedPointerIS0_EE, "__ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE": __ZN6VSTGUI15IPlatformBitmap6createEPNS_6CPointE, "__ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc": __ZN6VSTGUI15IPlatformString20createWithUTF8StringEPKc, "__ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd": __ZN6VSTGUI17COffscreenContext6createEPNS_6CFrameEddd, "__ZN6VSTGUI20CResourceInputStream4openERKNS_20CResourceDescriptionE": __ZN6VSTGUI20CResourceInputStream4openERKNS_20CResourceDescriptionE, "__ZN6VSTGUI20CResourceInputStreamC1ENS_9ByteOrderE": __ZN6VSTGUI20CResourceInputStreamC1ENS_9ByteOrderE, "__ZN6VSTGUI20CResourceInputStreamD1Ev": __ZN6VSTGUI20CResourceInputStreamD1Ev, "__ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE": __ZN6VSTGUI9Animation8Animator16removeAnimationsEPNS_5CViewE, "__ZN6VSTGUI9CFontDescC1ERKNS_10UTF8StringERKdi": __ZN6VSTGUI9CFontDescC1ERKNS_10UTF8StringERKdi, "__ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE": __ZN6VSTGUI9CGradient6createERKNSt3__28multimapIdNS_6CColorENS1_4lessIdEENS1_9allocatorINS1_4pairIKdS3_EEEEEE, "__ZN9__gnu_cxx12__atomic_addEPVii": __ZN9__gnu_cxx12__atomic_addEPVii, "__ZNK6VSTGUI12BitmapFilter7Factory12createFilterEPKc": __ZNK6VSTGUI12BitmapFilter7Factory12createFilterEPKc, "__ZNK6VSTGUI12BitmapFilter8Property9getObjectEv": __ZNK6VSTGUI12BitmapFilter8Property9getObjectEv, "__ZNK6VSTGUI12CDrawContext11getClipRectERNS_5CRectE": __ZNK6VSTGUI12CDrawContext11getClipRectERNS_5CRectE, "__ZNK6VSTGUI12CDrawContext15getHairlineSizeEv": __ZNK6VSTGUI12CDrawContext15getHairlineSizeEv, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall10": ___syscall10, "___syscall140": ___syscall140, "___syscall145": ___syscall145, "___syscall146": ___syscall146, "___syscall221": ___syscall221, "___syscall38": ___syscall38, "___syscall40": ___syscall40, "___syscall5": ___syscall5, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_ceil_f64": _llvm_ceil_f64, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_llvm_trap": _llvm_trap, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "_time": _time, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "__ZN6VSTGUI10kLineSolidE": __ZN6VSTGUI10kLineSolidE, "__ZN6VSTGUI11kNormalFontE": __ZN6VSTGUI11kNormalFontE, "__ZN6VSTGUI11kSymbolFontE": __ZN6VSTGUI11kSymbolFontE, "__ZN6VSTGUI11kSystemFontE": __ZN6VSTGUI11kSystemFontE, "__ZN6VSTGUI12CVSTGUITimer9kMsgTimerE": __ZN6VSTGUI12CVSTGUITimer9kMsgTimerE, "__ZN6VSTGUI14kNormalFontBigE": __ZN6VSTGUI14kNormalFontBigE, "__ZN6VSTGUI16kNormalFontSmallE": __ZN6VSTGUI16kNormalFontSmallE, "__ZN6VSTGUI18kNormalFontSmallerE": __ZN6VSTGUI18kNormalFontSmallerE, "__ZN6VSTGUI18kNormalFontVeryBigE": __ZN6VSTGUI18kNormalFontVeryBigE, "__ZN6VSTGUI20kNormalFontVerySmallE": __ZN6VSTGUI20kNormalFontVerySmallE, "__ZTIN6VSTGUI10CTextLabelE": __ZTIN6VSTGUI10CTextLabelE, "__ZTIN6VSTGUI9CTextEditE": __ZTIN6VSTGUI9CTextEditE, "_moduleHandle": _moduleHandle };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_di": invoke_di, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_diiii": invoke_diiii, "invoke_fi": invoke_fi, "invoke_fii": invoke_fii, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iidi": invoke_iidi, "invoke_iif": invoke_iif, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidd": invoke_iiidd, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiid": invoke_iiiiid, "invoke_iiiiidi": invoke_iiiiidi, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiid": invoke_iiiiiid, "invoke_iiiiiii": invoke_iiiiiii, "invoke_iiiiiiii": invoke_iiiiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iiiiiiiiiii": invoke_iiiiiiiiiii, "invoke_iiiiij": invoke_iiiiij, "invoke_iiij": invoke_iiij, "invoke_iiji": invoke_iiji, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vid": invoke_vid, "invoke_vidi": invoke_vidi, "invoke_vif": invoke_vif, "invoke_vii": invoke_vii, "invoke_viid": invoke_viid, "invoke_viidd": invoke_viidd, "invoke_viiddd": invoke_viiddd, "invoke_viiddi": invoke_viiddi, "invoke_viidfii": invoke_viidfii, "invoke_viii": invoke_viii, "invoke_viiif": invoke_viiif, "invoke_viiii": invoke_viiii, "invoke_viiiidiii": invoke_viiiidiii, "invoke_viiiif": invoke_viiiif, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "invoke_viiiiiii": invoke_viiiiiii, "invoke_viiiiiiiii": invoke_viiiiiiiii, "invoke_viijii": invoke_viijii, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_current_primary_exception": ___cxa_current_primary_exception, "___cxa_end_catch": ___cxa_end_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_free_exception": ___cxa_free_exception, "___cxa_pure_virtual": ___cxa_pure_virtual, "___cxa_rethrow": ___cxa_rethrow, "___cxa_rethrow_primary_exception": ___cxa_rethrow_primary_exception, "___cxa_throw": ___cxa_throw, "___cxa_uncaught_exception": ___cxa_uncaught_exception, "___gxx_personality_v0": ___gxx_personality_v0, "___lock": ___lock, "___map_file": ___map_file, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall10": ___syscall10, "___syscall140": ___syscall140, "___syscall145": ___syscall145, "___syscall146": ___syscall146, "___syscall221": ___syscall221, "___syscall38": ___syscall38, "___syscall40": ___syscall40, "___syscall5": ___syscall5, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___syscall91": ___syscall91, "___unlock": ___unlock, "__addDays": __addDays, "__arraySum": __arraySum, "__isLeapYear": __isLeapYear, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_getenv": _getenv, "_llvm_ceil_f32": _llvm_ceil_f32, "_llvm_ceil_f64": _llvm_ceil_f64, "_llvm_exp2_f32": _llvm_exp2_f32, "_llvm_exp2_f64": _llvm_exp2_f64, "_llvm_fabs_f64": _llvm_fabs_f64, "_llvm_floor_f32": _llvm_floor_f32, "_llvm_floor_f64": _llvm_floor_f64, "_llvm_log10_f32": _llvm_log10_f32, "_llvm_log10_f64": _llvm_log10_f64, "_llvm_stackrestore": _llvm_stackrestore, "_llvm_stacksave": _llvm_stacksave, "_llvm_trap": _llvm_trap, "_pthread_cond_wait": _pthread_cond_wait, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_mutex_init": _pthread_mutex_init, "_pthread_mutexattr_destroy": _pthread_mutexattr_destroy, "_pthread_mutexattr_init": _pthread_mutexattr_init, "_pthread_mutexattr_settype": _pthread_mutexattr_settype, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "_strftime": _strftime, "_strftime_l": _strftime_l, "_time": _time, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);
 
+var _VST3_classInfo = Module["_VST3_classInfo"] = asm["_VST3_classInfo"];
 var _VST3_description = Module["_VST3_description"] = asm["_VST3_description"];
+var _VST3_init = Module["_VST3_init"] = asm["_VST3_init"];
+var _VST3_parameterInfo = Module["_VST3_parameterInfo"] = asm["_VST3_parameterInfo"];
+var _VST3_parametersCount = Module["_VST3_parametersCount"] = asm["_VST3_parametersCount"];
+var _VST3_selectProcessor = Module["_VST3_selectProcessor"] = asm["_VST3_selectProcessor"];
 var _VST3_setInteger = Module["_VST3_setInteger"] = asm["_VST3_setInteger"];
-var _VST3_status = Module["_VST3_status"] = asm["_VST3_status"];
-var _VST3_stub = Module["_VST3_stub"] = asm["_VST3_stub"];
+var __GLOBAL__sub_I_cfont_cpp = Module["__GLOBAL__sub_I_cfont_cpp"] = asm["__GLOBAL__sub_I_cfont_cpp"];
+var __GLOBAL__sub_I_clinestyle_cpp = Module["__GLOBAL__sub_I_clinestyle_cpp"] = asm["__GLOBAL__sub_I_clinestyle_cpp"];
 var __GLOBAL__sub_I_coreiids_cpp = Module["__GLOBAL__sub_I_coreiids_cpp"] = asm["__GLOBAL__sub_I_coreiids_cpp"];
 var __GLOBAL__sub_I_keyboardview_cpp = Module["__GLOBAL__sub_I_keyboardview_cpp"] = asm["__GLOBAL__sub_I_keyboardview_cpp"];
 var __GLOBAL__sub_I_note_expression_synth_voice_cpp = Module["__GLOBAL__sub_I_note_expression_synth_voice_cpp"] = asm["__GLOBAL__sub_I_note_expression_synth_voice_cpp"];
 var __GLOBAL__sub_I_pluginfactoryvst3_cpp = Module["__GLOBAL__sub_I_pluginfactoryvst3_cpp"] = asm["__GLOBAL__sub_I_pluginfactoryvst3_cpp"];
 var __GLOBAL__sub_I_uidescription_cpp = Module["__GLOBAL__sub_I_uidescription_cpp"] = asm["__GLOBAL__sub_I_uidescription_cpp"];
+var __GLOBAL__sub_I_uiviewcreator_cpp = Module["__GLOBAL__sub_I_uiviewcreator_cpp"] = asm["__GLOBAL__sub_I_uiviewcreator_cpp"];
+var __GLOBAL__sub_I_uiviewfactory_cpp = Module["__GLOBAL__sub_I_uiviewfactory_cpp"] = asm["__GLOBAL__sub_I_uiviewfactory_cpp"];
 var __GLOBAL__sub_I_updatehandler_cpp = Module["__GLOBAL__sub_I_updatehandler_cpp"] = asm["__GLOBAL__sub_I_updatehandler_cpp"];
 var __GLOBAL__sub_I_vst3editor_cpp = Module["__GLOBAL__sub_I_vst3editor_cpp"] = asm["__GLOBAL__sub_I_vst3editor_cpp"];
 var __GLOBAL__sub_I_vstinitiids_cpp = Module["__GLOBAL__sub_I_vstinitiids_cpp"] = asm["__GLOBAL__sub_I_vstinitiids_cpp"];
+var __GLOBAL__sub_I_x11frame_cpp = Module["__GLOBAL__sub_I_x11frame_cpp"] = asm["__GLOBAL__sub_I_x11frame_cpp"];
 var __ZSt18uncaught_exceptionv = Module["__ZSt18uncaught_exceptionv"] = asm["__ZSt18uncaught_exceptionv"];
 var ___cxa_can_catch = Module["___cxa_can_catch"] = asm["___cxa_can_catch"];
 var ___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = asm["___cxa_is_pointer_type"];
@@ -6605,7 +6406,9 @@ var dynCall_di = Module["dynCall_di"] = asm["dynCall_di"];
 var dynCall_did = Module["dynCall_did"] = asm["dynCall_did"];
 var dynCall_dii = Module["dynCall_dii"] = asm["dynCall_dii"];
 var dynCall_diid = Module["dynCall_diid"] = asm["dynCall_diid"];
+var dynCall_diiii = Module["dynCall_diiii"] = asm["dynCall_diiii"];
 var dynCall_fi = Module["dynCall_fi"] = asm["dynCall_fi"];
+var dynCall_fii = Module["dynCall_fii"] = asm["dynCall_fii"];
 var dynCall_ii = Module["dynCall_ii"] = asm["dynCall_ii"];
 var dynCall_iid = Module["dynCall_iid"] = asm["dynCall_iid"];
 var dynCall_iidi = Module["dynCall_iidi"] = asm["dynCall_iidi"];
@@ -6639,12 +6442,17 @@ var dynCall_vif = Module["dynCall_vif"] = asm["dynCall_vif"];
 var dynCall_vii = Module["dynCall_vii"] = asm["dynCall_vii"];
 var dynCall_viid = Module["dynCall_viid"] = asm["dynCall_viid"];
 var dynCall_viidd = Module["dynCall_viidd"] = asm["dynCall_viidd"];
+var dynCall_viiddd = Module["dynCall_viiddd"] = asm["dynCall_viiddd"];
+var dynCall_viiddi = Module["dynCall_viiddi"] = asm["dynCall_viiddi"];
 var dynCall_viidfii = Module["dynCall_viidfii"] = asm["dynCall_viidfii"];
 var dynCall_viii = Module["dynCall_viii"] = asm["dynCall_viii"];
+var dynCall_viiif = Module["dynCall_viiif"] = asm["dynCall_viiif"];
 var dynCall_viiii = Module["dynCall_viiii"] = asm["dynCall_viiii"];
+var dynCall_viiiidiii = Module["dynCall_viiiidiii"] = asm["dynCall_viiiidiii"];
 var dynCall_viiiif = Module["dynCall_viiiif"] = asm["dynCall_viiiif"];
 var dynCall_viiiii = Module["dynCall_viiiii"] = asm["dynCall_viiiii"];
 var dynCall_viiiiii = Module["dynCall_viiiiii"] = asm["dynCall_viiiiii"];
+var dynCall_viiiiiii = Module["dynCall_viiiiiii"] = asm["dynCall_viiiiiii"];
 var dynCall_viiiiiiiii = Module["dynCall_viiiiiiiii"] = asm["dynCall_viiiiiiiii"];
 var dynCall_viijii = Module["dynCall_viijii"] = asm["dynCall_viijii"];
 ;

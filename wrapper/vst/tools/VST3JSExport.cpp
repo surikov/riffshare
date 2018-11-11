@@ -15,72 +15,95 @@
 #include "pluginterfaces/test/itest.h"
 #include <string>
 #include <sstream>
-/*
-namespace Steinberg {
-//DEF_CLASS_IID (FUnknown)
-DEF_CLASS_IID (IDependent)
-//DEF_CLASS_IID (IPluginBase)
-DEF_CLASS_IID (ICloneable)
-DEF_CLASS_IID (IUpdateHandler)
-DEF_CLASS_IID (IBStream)
-DEF_CLASS_IID (ISizeableStream)
-namespace Vst {
-DEF_CLASS_IID (IComponent)
-DEF_CLASS_IID (IAudioProcessor)
-DEF_CLASS_IID (IConnectionPoint)
-DEF_CLASS_IID (IEditController)
-DEF_CLASS_IID (IEditController2)
-DEF_CLASS_IID (IComponentHandler)
-DEF_CLASS_IID (IComponentHandler2)
-}
-}
-*/
+
+Steinberg::IPluginFactory* iPluginFactory;
+Steinberg::PFactoryInfo pFactoryInfo;
+Steinberg::Vst::IComponent* seletedPocessorComponent;
+Steinberg::Vst::IEditController* seletedEditController;
+Steinberg::FUnknown* localPluginContext = nullptr;
+
 extern "C" {
 
-	int VST3_status() {
+	int VST3_init() {
+		iPluginFactory = GetPluginFactory();
+		iPluginFactory->getFactoryInfo (&pFactoryInfo);
 		return -1;
 	}
-	char const* VST3_description() {
-		Steinberg::IPluginFactory* f = GetPluginFactory();
-		Steinberg::PFactoryInfo i;
-		f->getFactoryInfo (&i);
-		std::ostringstream txt;
-		txt << "{"
-		    << "\"vendor\":\"" << i.vendor << "\"";
-		int cc = f->countClasses();
-		txt << ",\"count\":\"" << cc << "\"";
-		txt << ",\"plugins\":[";		
-		char dlmtr = ' ';
-		for (int i = 0; i < cc; i++) {
-			txt << dlmtr << i;
-			//Steinberg::PClassInfo info;
-			//f->getClassInfo (i, &info);
-			//txt << dlmtr << "{";
-			//txt << "\"n\":\"" << i << "\""
-			    //<< ",\"category\":\"" << info.category << "\""
-			    //<< ",\"name\":\"" << info.name << "\""
-			    //;
-			//Steinberg::FUnknown* obj;
-			//int rr = f->createInstance (info.cid, Steinberg::FUnknown::iid, (void**)&obj);
-			//txt << ",\"load\":\"" << rr << "\"";
-			//
-			//obj->release ();
-			//txt << "}";
-			dlmtr = ',';
+	char const* VST3_classInfo(int nn) {
+		Steinberg::PClassInfo pClassInfo;
+		iPluginFactory->getClassInfo (nn, &pClassInfo);
+		char buffer[999];
+		Steinberg::FUID fuid = Steinberg::FUID::fromTUID(pClassInfo.cid);
+		Steinberg::char8 strUID[33] = {0};
+		fuid.toString (strUID);
+		snprintf(buffer, sizeof(buffer)
+		         , "{\"name\":\"%s\", \"category\":\"%s\" , \"cid\":\"%s\"}"
+		         , pClassInfo.name
+		         , pClassInfo.category
+		         , strUID
+		        );
+		char const *p = buffer;
+		return p;
+	}
+	int VST3_parametersCount() {
+		return seletedEditController->getParameterCount();
+	}
+	char const* VST3_parameterInfo(int nn) {
+		char buffer[999];
+		Steinberg::Vst::ParameterInfo parameterInfo;
+		seletedEditController->getParameterInfo (nn, parameterInfo);
+		snprintf(buffer, sizeof(buffer)
+		         , "{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\"}"
+		         , nn
+		         , parameterInfo.title
+		         , parameterInfo.shortTitle
+		         , parameterInfo.units
+		         , parameterInfo.flags
+		        );
+		char const *p = buffer;
+		return p;
+	}
+	int VST3_selectProcessor(int nn) {
+		Steinberg::PClassInfo pClassInfo;
+		iPluginFactory->getClassInfo (nn, &pClassInfo);
+		int step = 10000;
+		int result = iPluginFactory->createInstance (pClassInfo.cid, Steinberg::Vst::IComponent::iid, (void**)&seletedPocessorComponent);
+		if (result == Steinberg::kResultOk) {
+			step = 20000;
+			result = seletedPocessorComponent->initialize (localPluginContext);
+			step = 30000;
+			if (seletedPocessorComponent->queryInterface (Steinberg::Vst::IEditController::iid, (void**)&seletedEditController) != Steinberg::kResultTrue)
+			{
+				step = 40000;
+				Steinberg::TUID controllerCID;
+				result = seletedPocessorComponent->getControllerClassId (controllerCID);
+				if (result == Steinberg::kResultTrue)
+				{
+					step = 50000;
+					result = iPluginFactory->createInstance (controllerCID, Steinberg::Vst::IEditController::iid, (void**)&seletedEditController);
+					if (seletedEditController && (result == Steinberg::kResultOk))
+					{
+						step = 60000;
+						result = seletedEditController->initialize (localPluginContext);
+						step = 70000;
+					}
+				}
+			}
 		}
-		f->release ();
-		txt << "]}";
-
-		char const *p = txt.str().c_str();
+		return step + result;
+	}
+	char const* VST3_description() {
+		char buffer[999];
+		snprintf(buffer, sizeof(buffer), "{\"vendor\":\"%s\", \"count\":\"%d\", \"email\":\"%s\", \"url\":\"%s\"}"
+		         , pFactoryInfo.vendor, iPluginFactory->countClasses(), pFactoryInfo.email, pFactoryInfo.url);
+		char const *p = buffer;
 		return p;
 	}
 	char const* VST3_setInteger(char* name, int value) {
 		char buffer[999];
-		snprintf(buffer, sizeof(buffer), "Set %s: %d", name, value);
+		snprintf(buffer, sizeof(buffer), "Set integer %s: %d", name, value);
 		char const *p = buffer;
 		return p;
-	}
-	void VST3_stub() {
 	}
 }
 

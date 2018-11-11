@@ -1,25 +1,51 @@
 console.log('processor');
-class VSTHELLOProcessor extends AudioWorkletProcessor {
+class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
     constructor(options) {
         super(options);
-        this.vst = AudioWorkletGlobalScope.WAM.VSTHELLO;
+        this.vst = AudioWorkletGlobalScope.WAM.VSTMODULENAME;
         console.log('processor',this.vst);
         //console.log('processor.cwrap',this.vst.cwrap);
         try{
-            this.VST3Status = this.vst.cwrap("VST3_status", 'number', []);
-            console.log('VST3_status',this.VST3Status());
+            this.VST3Init = this.vst.cwrap("VST3_init", 'number', []);
+            console.log('VST3_init',this.VST3Init());
+
             this.VST3Description = this.vst.cwrap("VST3_description", 'string', []);
             var txt=this.VST3Description();
-            console.log('VST3_description',txt);
+            //console.log('VST3_description',txt);
             var o=JSON.parse(txt);
-            console.log(o);
+            console.log('VST3_description',o);
+            var cnt=1*o.count;
+
             this.VST3SetInteger = this.vst.cwrap("VST3_setInteger", 'string', ['string','number']);
-            console.log('VST3_setInteger',this.VST3SetInteger('some',123));        
-            console.log('init VST3_stub');
-            this.VST3_stub = this.vst.cwrap("VST3_stub", '', []);
-            console.log('start VST3_stub');
-            this.VST3_stub();
-            console.log('done VST3_stub');
+            console.log('VST3_setInteger',this.VST3SetInteger('some',123));  
+
+            this.VST3_classInfo = this.vst.cwrap("VST3_classInfo", 'string', []);
+            for(var i=0;i<cnt;i++){                
+                var txt=this.VST3_classInfo(i);
+                //console.log(i,'VST3_classInfo',txt);
+                var o=JSON.parse(txt);
+                console.log(i,o);
+            }
+
+            //console.log('init VST3_stub');
+            //this.VST3_stub = this.vst.cwrap("VST3_stub", '', []);
+            //console.log('start VST3_stub');
+            //this.VST3_stub();
+            //console.log('done VST3_stub');
+            this.VST3_selectProcessor = this.vst.cwrap("VST3_selectProcessor", '', ['number']);
+            console.log('VST3_selectProcessor',this.VST3_selectProcessor(2)); 
+
+            this.VST3_parametersCount = this.vst.cwrap("VST3_parametersCount", 'number', []);
+            var parcnt=this.VST3_parametersCount();
+            console.log('VST3_parametersCount',parcnt); 
+
+            this.VST3_parameterInfo = this.vst.cwrap("VST3_parameterInfo", 'string', ['number']);
+            for(var i=0;i<parcnt;i++){                
+                var txt=this.VST3_parameterInfo(i);
+                //var o=JSON.parse(txt);
+                console.log(i,txt);
+            }
+
         }catch(exx){
             console.log('exx VST3_stub',exx);
         }
@@ -96,5 +122,5 @@ class VSTHELLOProcessor extends AudioWorkletProcessor {
         return true;
     }
 }
-registerProcessor("VSTHELLOProcessor", VSTHELLOProcessor);
+registerProcessor("VSTMODULENAMEProcessorClass", VSTMODULENAMEProcessor);
 
