@@ -19,7 +19,8 @@
 
 Steinberg::IPluginFactory* iPluginFactory;
 Steinberg::PFactoryInfo pFactoryInfo;
-Steinberg::Vst::IComponent* seletedPocessorComponent;
+Steinberg::Vst::IComponent* seletedComponent;
+Steinberg::Vst::IAudioProcessor* seletedProcessor;
 Steinberg::Vst::IEditController* seletedEditController;
 Steinberg::FUnknown* localPluginContext = nullptr;
 
@@ -53,19 +54,19 @@ extern "C" {
 		char buffer[999];
 		Steinberg::Vst::ParameterInfo parameterInfo;
 		seletedEditController->getParameterInfo (nn, parameterInfo);
-		
+
 		Steinberg::UString128 title16 (parameterInfo.title);
 		char title8[128];
 		title16.toAscii (title8, 128);
-		
+
 		Steinberg::UString128 shortTitle16 (parameterInfo.shortTitle);
 		char shortTitle8[128];
 		shortTitle16.toAscii (shortTitle8, 128);
-		
+
 		Steinberg::UString128 units16 (parameterInfo.units);
 		char units8[128];
 		units16.toAscii (units8, 128);
-		
+
 		snprintf(buffer, sizeof(buffer)
 		         , "{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\"}"
 		         , nn
@@ -81,17 +82,17 @@ extern "C" {
 		Steinberg::PClassInfo pClassInfo;
 		iPluginFactory->getClassInfo (nn, &pClassInfo);
 		int step = 10000;
-		int result = iPluginFactory->createInstance (pClassInfo.cid, Steinberg::Vst::IComponent::iid, (void**)&seletedPocessorComponent);
+		int result = iPluginFactory->createInstance (pClassInfo.cid, Steinberg::Vst::IComponent::iid, (void**)&seletedComponent);
 		if (result == Steinberg::kResultOk) {
 			step = 20000;
-			result = seletedPocessorComponent->initialize (localPluginContext);
+			result = seletedComponent->initialize (localPluginContext);
 			step = 30000;
-			if (seletedPocessorComponent->queryInterface (Steinberg::Vst::IEditController::iid, (void**)&seletedEditController) != Steinberg::kResultTrue)
+			if (seletedComponent->queryInterface (Steinberg::Vst::IEditController::iid, (void**)&seletedEditController) != Steinberg::kResultTrue)
 			{
 				step = 40000;
 				Steinberg::TUID controllerCID;
-				result = seletedPocessorComponent->getControllerClassId (controllerCID);
-				if (result == Steinberg::kResultTrue)
+				result = seletedComponent->getControllerClassId (controllerCID);
+				if (result == Steinberg::kResultOk)
 				{
 					step = 50000;
 					result = iPluginFactory->createInstance (controllerCID, Steinberg::Vst::IEditController::iid, (void**)&seletedEditController);
@@ -100,6 +101,14 @@ extern "C" {
 						step = 60000;
 						result = seletedEditController->initialize (localPluginContext);
 						step = 70000;
+						Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> seletedProcessor = seletedComponent;
+						if (!seletedProcessor) {
+							return false;
+						} else {
+							step = 80000;
+							result = seletedProcessor->getLatencySamples();
+							step = 90000;
+						}
 					}
 				}
 			}
