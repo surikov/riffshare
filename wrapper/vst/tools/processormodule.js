@@ -42,8 +42,9 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
             this.VST3_parameterInfo = this.vst.cwrap("VST3_parameterInfo", 'string', ['number']);
             for(var i=0;i<parcnt;i++){                
                 var txt=this.VST3_parameterInfo(i);
-                //var o=JSON.parse(txt);
-                console.log(i,txt);
+				//console.log(i,txt);
+                var o=JSON.parse(txt);
+                console.log(i,o);
             }
 
         }catch(exx){

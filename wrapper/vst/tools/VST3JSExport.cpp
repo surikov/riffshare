@@ -15,6 +15,7 @@
 #include "pluginterfaces/test/itest.h"
 #include <string>
 #include <sstream>
+#include "pluginterfaces/base/ustring.h"
 
 Steinberg::IPluginFactory* iPluginFactory;
 Steinberg::PFactoryInfo pFactoryInfo;
@@ -52,12 +53,25 @@ extern "C" {
 		char buffer[999];
 		Steinberg::Vst::ParameterInfo parameterInfo;
 		seletedEditController->getParameterInfo (nn, parameterInfo);
+		
+		Steinberg::UString128 title16 (parameterInfo.title);
+		char title8[128];
+		title16.toAscii (title8, 128);
+		
+		Steinberg::UString128 shortTitle16 (parameterInfo.shortTitle);
+		char shortTitle8[128];
+		shortTitle16.toAscii (shortTitle8, 128);
+		
+		Steinberg::UString128 units16 (parameterInfo.units);
+		char units8[128];
+		units16.toAscii (units8, 128);
+		
 		snprintf(buffer, sizeof(buffer)
 		         , "{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\"}"
 		         , nn
-		         , parameterInfo.title
-		         , parameterInfo.shortTitle
-		         , parameterInfo.units
+		         , title8//parameterInfo.title
+		         , shortTitle8//parameterInfo.shortTitle
+		         , units8//parameterInfo.units
 		         , parameterInfo.flags
 		        );
 		char const *p = buffer;
