@@ -5,6 +5,8 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
         this.vst = AudioWorkletGlobalScope.WAM.VSTMODULENAME;
         console.log('processor',this.vst);
         //console.log('processor.cwrap',this.vst.cwrap);
+		var testID='6EE65CD1B83A4AF480AA7929AEA6B8A0';
+		var testNum=0;
         try{
             this.VST3Init = this.vst.cwrap("VST3_init", 'number', []);
             console.log('VST3_init',this.VST3Init());
@@ -25,6 +27,9 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
                 //console.log(i,'VST3_classInfo',txt);
                 var o=JSON.parse(txt);
                 console.log(i,o);
+				if(o.cid==testID){
+					testNum=i;
+				}
             }
 
             //console.log('init VST3_stub');
@@ -32,8 +37,9 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
             //console.log('start VST3_stub');
             //this.VST3_stub();
             //console.log('done VST3_stub');
+			//2AC0A8889406497FBBA6EABFC78D1372
             this.VST3_selectProcessor = this.vst.cwrap("VST3_selectProcessor", '', ['number']);
-            console.log('VST3_selectProcessor',this.VST3_selectProcessor(2)); 
+            console.log('VST3_selectProcessor',testNum,this.VST3_selectProcessor(testNum)); 
 
             this.VST3_parametersCount = this.vst.cwrap("VST3_parametersCount", 'number', []);
             var parcnt=this.VST3_parametersCount();

@@ -16,12 +16,14 @@
 #include <string>
 #include <sstream>
 #include "pluginterfaces/base/ustring.h"
+#include "public.sdk/source/vst/hosting/processdata.h"
+#include "pluginterfaces/base/ftypes.h"
 
 Steinberg::IPluginFactory* iPluginFactory;
 Steinberg::PFactoryInfo pFactoryInfo;
-Steinberg::Vst::IComponent* seletedComponent;
-Steinberg::Vst::IAudioProcessor* seletedProcessor;
-Steinberg::Vst::IEditController* seletedEditController;
+Steinberg::Vst::IComponent* selectedComponent;
+Steinberg::Vst::IAudioProcessor* selectedProcessor;
+Steinberg::Vst::IEditController* selectedEditController;
 Steinberg::FUnknown* localPluginContext = nullptr;
 
 extern "C" {
@@ -48,12 +50,12 @@ extern "C" {
 		return p;
 	}
 	int VST3_parametersCount() {
-		return seletedEditController->getParameterCount();
+		return selectedEditController->getParameterCount();
 	}
 	char const* VST3_parameterInfo(int nn) {
 		char buffer[999];
 		Steinberg::Vst::ParameterInfo parameterInfo;
-		seletedEditController->getParameterInfo (nn, parameterInfo);
+		selectedEditController->getParameterInfo (nn, parameterInfo);
 
 		Steinberg::UString128 title16 (parameterInfo.title);
 		char title8[128];
@@ -82,32 +84,43 @@ extern "C" {
 		Steinberg::PClassInfo pClassInfo;
 		iPluginFactory->getClassInfo (nn, &pClassInfo);
 		int step = 10000;
-		int result = iPluginFactory->createInstance (pClassInfo.cid, Steinberg::Vst::IComponent::iid, (void**)&seletedComponent);
+		int result = iPluginFactory->createInstance (pClassInfo.cid, Steinberg::Vst::IComponent::iid, (void**)&selectedComponent);
 		if (result == Steinberg::kResultOk) {
 			step = 20000;
-			result = seletedComponent->initialize (localPluginContext);
+			result = selectedComponent->initialize (localPluginContext);
 			step = 30000;
-			if (seletedComponent->queryInterface (Steinberg::Vst::IEditController::iid, (void**)&seletedEditController) != Steinberg::kResultTrue)
+			if (selectedComponent->queryInterface (Steinberg::Vst::IEditController::iid, (void**)&selectedEditController) != Steinberg::kResultTrue)
 			{
 				step = 40000;
 				Steinberg::TUID controllerCID;
-				result = seletedComponent->getControllerClassId (controllerCID);
+				result = selectedComponent->getControllerClassId (controllerCID);
 				if (result == Steinberg::kResultOk)
 				{
 					step = 50000;
-					result = iPluginFactory->createInstance (controllerCID, Steinberg::Vst::IEditController::iid, (void**)&seletedEditController);
-					if (seletedEditController && (result == Steinberg::kResultOk))
+					result = iPluginFactory->createInstance (controllerCID, Steinberg::Vst::IEditController::iid, (void**)&selectedEditController);
+					if (selectedEditController && (result == Steinberg::kResultOk))
 					{
 						step = 60000;
-						result = seletedEditController->initialize (localPluginContext);
+						result = selectedEditController->initialize (localPluginContext);
 						step = 70000;
-						Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> seletedProcessor = seletedComponent;
-						if (!seletedProcessor) {
+						Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> selectedProcessor = selectedComponent;
+						if (!selectedProcessor) {
 							return false;
 						} else {
 							step = 80000;
-							result = seletedProcessor->getLatencySamples();
+							result = selectedProcessor->getLatencySamples();
 							step = 90000;
+							selectedProcessor->setProcessing (true);
+							step = 100000;
+							Steinberg::Vst::HostProcessData processData;
+							step = 110000;
+							processData.prepare (*selectedComponent, 0, Steinberg::Vst::kSample32);
+							//processData.numSamples = 0;
+							step = 120000;
+							//result = selectedProcessor->process (processData);
+							step = 130000;
+							selectedProcessor->setProcessing (false);
+							step = 140000;
 						}
 					}
 				}

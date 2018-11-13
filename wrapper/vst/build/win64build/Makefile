@@ -62,6 +62,7 @@ VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/ustring.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/linuxmain.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/processdata.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstaudioeffect.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbus.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbypassprocessor.cpp
