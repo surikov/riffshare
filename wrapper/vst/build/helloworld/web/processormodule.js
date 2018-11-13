@@ -1,8 +1,8 @@
 console.log('processor');
-class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
+class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
     constructor(options) {
         super(options);
-        this.vst = AudioWorkletGlobalScope.WAM.VSTMODULENAME;
+        this.vst = AudioWorkletGlobalScope.WAM.VSTHELLOWORLD;
         console.log('processor',this.vst);
         //console.log('processor.cwrap',this.vst.cwrap);
 		//var testID='6EE65CD1B83A4AF480AA7929AEA6B8A0';//notesynth
@@ -130,5 +130,5 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
         return true;
     }
 }
-registerProcessor("VSTMODULENAMEProcessorClass", VSTMODULENAMEProcessor);
+registerProcessor("VSTHELLOWORLDProcessorClass", VSTHELLOWORLDProcessor);
 
