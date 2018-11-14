@@ -64,7 +64,30 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
                 console.log(i,o);
             }
 			
-			this.VST3_process = this.vst.cwrap("VST3_process", '', []);
+			this.VST3_process = this.vst.cwrap("VST3_process", '', ['number','number','number']);
+
+            var buflength=128;
+            var inputArray = new Float32Array(buflength);
+            var outputArray = new Float32Array(buflength);
+            inputArray[1]=333222;
+            outputArray[2]=44445555;
+            var sizeBytes = inputArray.length * inputArray.BYTES_PER_ELEMENT;
+            var inputPtr = this.vst._malloc(sizeBytes);
+            var outputPtr = this.vst._malloc(sizeBytes);
+            var inputHeap = new Uint8Array(this.vst.HEAPU8.buffer, inputPtr, sizeBytes);
+            var outputHeap = new Uint8Array(this.vst.HEAPU8.buffer, outputPtr, sizeBytes);
+            inputHeap.set(new Uint8Array(inputArray.buffer));
+            outputHeap.set(new Uint8Array(outputArray.buffer));
+            this.VST3_process(inputHeap.byteOffset,outputHeap.byteOffset,buflength);
+            var result1 = new Float32Array(inputHeap.buffer, inputHeap.byteOffset, inputArray.length);
+            var result2 = new Float32Array(outputHeap.buffer, outputHeap.byteOffset, outputHeap.length);
+            this.vst._free(inputHeap.byteOffset);
+            this.vst._free(outputHeap.byteOffset);
+            console.log('result1',result1);
+            console.log('inputArray',inputArray);
+            console.log('result2',result2);
+            console.log('outputArray',outputArray);
+
 
         }catch(exx){
             console.log('exx VST3_stub',exx);

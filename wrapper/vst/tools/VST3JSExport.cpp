@@ -325,9 +325,9 @@ extern "C" {
 							//processData.numSamples = 0;
 							//step = 120000;
 							//result = selectedProcessor->process (processData);
-							
-							
-							
+
+
+
 							int samplingRate40k = 44000;
 							int framePosition = 0;
 							double const beatPerMinute = 120.0;
@@ -340,13 +340,13 @@ extern "C" {
 							vstProcessContext.timeSigDenominator = 4;
 							vstProcessContext.timeSigNumerator = 4;
 							vstProcessContext.state =
-							    Steinberg::Vst::ProcessContext::StatesAndFlags::kPlaying 
-							    | Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid 
-							    | Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid 
+							    Steinberg::Vst::ProcessContext::StatesAndFlags::kPlaying
+							    | Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid
+							    | Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid
 							    | Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid;
 							step = 110000;
 							int durationInSamples = 64;
-												
+
 							int const waveSamplingRate = 44100;
 							int const lengthInSamples = waveSamplingRate * 2;
 							double const rad = 2 * 3.141592653589793;
@@ -356,35 +356,35 @@ extern "C" {
 							double const freq_angle = (last_freq - head_freq) / lengthInSamples;
 							double current_freq = head_freq;
 							double pos = 0;
-							std::vector<double> wave_data_;							
+							std::vector<double> wave_data_;
 							wave_data_.resize(lengthInSamples);
-							for(int i = 0; i < lengthInSamples; ++i) {
-								for(int k = 1; k <= 30; ++k) {
+							for (int i = 0; i < lengthInSamples; ++i) {
+								for (int k = 1; k <= 30; ++k) {
 									wave_data_[i] += sin(rad * k * pos) / (double)(k);
 								}
-								wave_data_[i] *= amp;									
+								wave_data_[i] *= amp;
 								double const progress = current_freq / waveSamplingRate;
 								pos += progress;
 								current_freq += freq_angle;
 							}
-							int wave_data_index_=0;		
+							int wave_data_index_ = 0;
 							std::vector<Steinberg::Vst::AudioBusBuffers> inputs(input_buses_.GetBusCount());
-							for(int i = 0; i < inputs.size(); ++i) {
+							for (int i = 0; i < inputs.size(); ++i) {
 								inputs[i].channelBuffers32 = input_buses_.GetBus(i).data();
 								inputs[i].numChannels = input_buses_.GetBus(i).channels();
 								inputs[i].silenceFlags = false;
-								if(inputs[i].numChannels != 0) {
-									for(int ch = 0; ch < inputs[i].numChannels; ++ch) {
-										for(int smp = 0; smp < durationInSamples; ++smp) {
-											inputs[i].channelBuffers32[ch][smp] = 
-												wave_data_[(wave_data_index_ + smp) % (int)vstProcessContext.sampleRate];
+								if (inputs[i].numChannels != 0) {
+									for (int ch = 0; ch < inputs[i].numChannels; ++ch) {
+										for (int smp = 0; smp < durationInSamples; ++smp) {
+											inputs[i].channelBuffers32[ch][smp] =
+											    wave_data_[(wave_data_index_ + smp) % (int)vstProcessContext.sampleRate];
 										}
 									}
 									wave_data_index_ = (wave_data_index_ + durationInSamples) % (int)vstProcessContext.sampleRate;
 								}
 							}
 							std::vector<Steinberg::Vst::AudioBusBuffers> outputs(output_buses_.GetBusCount());
-							for(int i = 0; i < outputs.size(); ++i) {
+							for (int i = 0; i < outputs.size(); ++i) {
 								outputs[i].channelBuffers32 = output_buses_.GetBus(i).data();
 								outputs[i].numChannels = output_buses_.GetBus(i).channels();
 								outputs[i].silenceFlags = false;
@@ -411,13 +411,13 @@ extern "C" {
 							{
 								//auto lock = std::unique_lock(note_mutex_);
 								//std::unique_lock<std::mutex> lock1(from.m, std::defer_lock);
-								for(auto &note: notes_) {
+								for (auto &note : notes_) {
 									Steinberg::Vst::Event e;
 									e.busIndex = 0;
 									e.sampleOffset = 0;
 									e.ppqPosition = vstProcessContext.projectTimeMusic;
 									e.flags = Steinberg::Vst::Event::kIsLive;
-									if(note.note_state_ == Note::kNoteOn) {
+									if (note.note_state_ == Note::kNoteOn) {
 										e.type = Steinberg::Vst::Event::kNoteOnEvent;
 										e.noteOn.channel = 0;
 										e.noteOn.length = 0;
@@ -425,7 +425,7 @@ extern "C" {
 										e.noteOn.tuning = 0;
 										e.noteOn.noteId = -1;
 										e.noteOn.velocity = 100 / 127.0;
-									} else if(note.note_state_ == Note::kNoteOff) {
+									} else if (note.note_state_ == Note::kNoteOff) {
 										e.type = Steinberg::Vst::Event::kNoteOffEvent;
 										e.noteOff.channel = 0;
 										e.noteOff.pitch = note.note_number_;
@@ -483,19 +483,22 @@ extern "C" {
 		char const *p = buffer;
 		return p;
 	}
-	void VST3_process(float** inputBuffer,float** outputBuffer)
-	//WAM::AudioBus* audio, void* data)
-		{
-			/*
-			// mono 16-bit signed ints
-			synth_unit_->GetSamples(bufsize_, outbuf16_);
-
-			static const float scaler = 0.00003051757813;
-			float* outbuf = audio->outputs[0];
-			for (uint32_t n=0; n<bufsize_; n++)
-				outbuf[n] = outbuf16_[n] * scaler;
-			*/
+	int waveCounter = 0;
+	int waveLen = 111;
+	float waveSample = 0.155;
+	void VST3_process(float* inputBuffer, float* outputBuffer, int len)
+	{
+		for (int i = 0; i < len; i++) {
+			outputBuffer[i] = inputBuffer[i]+waveSample;
+			waveCounter++;
+			if (waveCounter >= waveLen) {
+				waveCounter = 0;
+				waveSample = -waveSample;
+			}
 		}
+		outputBuffer[13] = 111;
+		outputBuffer[13] = 222;
+	}
 }
 
 
