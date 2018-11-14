@@ -2,13 +2,23 @@ console.log('processor');
 class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
     constructor(options) {
         super(options);
+		this.first=true;
+		this.waveCounter=0;
+		this.waveLen=555;
+		this.waveSample=0.155;
+		this.onAir=false;
         this.vst = AudioWorkletGlobalScope.WAM.VSTHELLOWORLD;
         console.log('processor',this.vst);
         //console.log('processor.cwrap',this.vst.cwrap);
 		//var testID='6EE65CD1B83A4AF480AA7929AEA6B8A0';//notesynth
-        var testID='BD58B550F9E5634E9D2EFF39EA0927B1';//hello
+        //var testID='BD58B550F9E5634E9D2EFF39EA0927B1';//hello
+		var testID='BD58B550F9E5634E9D2EFF39EA0927B1';
 		var testNum=0;
         try{
+			
+			var offset = this.vst._malloc(24);
+			console.log('offset',offset);
+			
             this.VST3Init = this.vst.cwrap("VST3_init", 'number', []);
             console.log('VST3_init',this.VST3Init());
 
@@ -40,7 +50,7 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
             //console.log('done VST3_stub');
 			//2AC0A8889406497FBBA6EABFC78D1372
             this.VST3_selectProcessor = this.vst.cwrap("VST3_selectProcessor", '', ['number']);
-            console.log('VST3_selectProcessor',testNum,this.VST3_selectProcessor(testNum)); 
+            console.log('VST3_selectProcessor',testNum,testID,this.VST3_selectProcessor(testNum)); 
 
             this.VST3_parametersCount = this.vst.cwrap("VST3_parametersCount", 'number', []);
             var parcnt=this.VST3_parametersCount();
@@ -53,6 +63,8 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
                 var o=JSON.parse(txt);
                 console.log(i,o);
             }
+			
+			this.VST3_process = this.vst.cwrap("VST3_process", '', []);
 
         }catch(exx){
             console.log('exx VST3_stub',exx);
@@ -101,15 +113,51 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
         console.log('done processor');
     }
     onmessage(e) {
-        console.log('processor onmessage', e);
-        /*
-        var status=e.data[0];
-        var data1=e.data[1];
-        var data2=e.data[2];
-        this.wam_onmidi(this.inst, status, data1, data2);
-        */
+    	console.log('processor onmessage', e);
+    	var status = e.data[0];
+    	var data1 = e.data[1];
+    	var data2 = e.data[2];
+    	//this.wam_onmidi(this.inst, status, data1, data2);
+    	if (status == 144) {
+    		this.onAir = true;
+    	} else {
+    		if (status == 128) {
+    			this.onAir = false;
+    		}
+    	}
     }
     process(inputs, outputs, parameters) {
+		if(this.first){
+			this.first=false;
+			console.log(inputs, outputs, parameters);
+			for(var i=0;i<inputs.length;i++){
+				var input=inputs[i];
+				console.log('input',input);
+				for(var c=0;c<input.length;c++){
+					var channelBuffer=input[c];
+					console.log('input',i,'channel',c,'buffer',channelBuffer);
+				}
+			}
+			for(var i=0;i<outputs.length;i++){
+				var output=outputs[i];
+				console.log('output',output);
+				for(var c=0;c<output.length;c++){
+					var channelBuffer=output[c];
+					console.log('output',i,'channel',c,'buffer',channelBuffer);
+				}
+			}
+		}
+		if(this.onAir){
+			var float32Array=outputs[0][0];
+			for(var i=0;i<float32Array.length;i++){
+				float32Array[i]=this.waveSample;
+				this.waveCounter++;
+				if(this.waveCounter>=this.waveLen){
+					this.waveCounter=0;
+					this.waveSample=-this.waveSample;
+				}
+			}
+		}
         /*var WAM = this.dx7;
         // -- inputs
         for (var i = 0; i < this.numInputs; i++) {

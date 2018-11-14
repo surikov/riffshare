@@ -1,5 +1,6 @@
 PROJECTNAME = VSTHELLOWORLD
 TARGET = ./web/$(PROJECTNAME).js
+PLUGINID = BD58B550F9E5634E9D2EFF39EA0927B1
 
 SAMPLESFOLDER = ../../vstsamples
 SOURCEFOLDER = $(SAMPLESFOLDER)/helloworld/source
@@ -26,7 +27,7 @@ CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
 CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
-CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_setInteger', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_setInteger', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
 CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
@@ -59,6 +60,8 @@ VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/ustring.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/linuxmain.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/eventlist.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/parameterchanges.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/processdata.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstaudioeffect.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbus.cpp
@@ -76,9 +79,13 @@ VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
 
 .PHONY: $(TARGET)
 $(TARGET):
-	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
-	cp ../../tools/index.html ./web
-	cp ../../tools/index.js ./web
-	cp ../../tools/processormodule.js ./web
-	node ../../tools/convert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web
+#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
+#	cp ../../tools/index.html ./web
+#	cp ../../tools/index.js ./web
+#	cp ../../tools/processormodule.js ./web
+	copy /Y ..\..\tools\index.html .\web
+	copy /Y ..\..\tools\index.js .\web
+	copy /Y ..\..\tools\processormodule.js .\web
+	node ../../tools/convert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
+
 

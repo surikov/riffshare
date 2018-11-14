@@ -1,10 +1,11 @@
-if (process.argv.length != 5) {
-	console.log("usage: node convert.js modulename wasmfilename webfolder");
+if (process.argv.length != 6) {
+	console.log("usage: node convert.js modulename wasmfilename webfolder hexkey");
 	return;
 }
 var modulename = process.argv[2];
 var wasmfilename = process.argv[3];
 var webfolder = process.argv[4];
+var hexkey = process.argv[5];
 //let wasmName = process.argv[2];
 //let name = wasmName.substr(0, wasmName.length - 5).toUpperCase();
 fs = require('fs');
@@ -23,4 +24,5 @@ txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename);
 fs.writeFileSync(webfolder + '/index.js', txt);
 txt = fs.readFileSync(webfolder + '/processormodule.js').toString();
 txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename);
+txt = txt.replace(new RegExp('HEXPLUGINKEY', 'gi'), hexkey);
 fs.writeFileSync(webfolder + '/processormodule.js', txt);
