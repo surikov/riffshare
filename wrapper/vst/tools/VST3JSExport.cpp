@@ -40,150 +40,150 @@ Steinberg::Vst::IComponent* selectedComponent;
 Steinberg::Vst::IAudioProcessor* selectedProcessor;
 Steinberg::Vst::IEditController* selectedEditController;
 Steinberg::FUnknown* localPluginContext = nullptr;
-Steinberg::Vst::ProcessData process_data;
+//Steinberg::Vst::ProcessData process_data;
 
 template < class T >
-    struct ChannelSamplesBuffer {
-        typedef T sampleValueType;
-        ChannelSamplesBuffer(): channelsCount(0), samplesCount(0) {
-			//
+struct ChannelSamplesBuffer {
+	typedef T sampleValueType;
+	ChannelSamplesBuffer(): channelsCount(0), samplesCount(0) {
+		//
+	}
+	ChannelSamplesBuffer(int num_channels, int num_samples) {
+		resize(num_channels, num_samples);
+	}
+	int samples() const {
+		return samplesCount;
+	}
+	int channels() const {
+		return channelsCount;
+	}
+	sampleValueType ** rawdata() {
+		return bufferHeads.data();
+	}
+	sampleValueType const * const * rawdata() const {
+		return bufferHeads.data();
+	}
+	void resize(int num_channels, int num_samples) {
+		channelsCount = num_channels;
+		samplesCount = num_samples;
+		std::vector < sampleValueType > tmp(channelsCount * samplesCount);
+		std::vector < sampleValueType * > tmp_heads(channelsCount);
+		samplesVector.swap(tmp);
+		bufferHeads.swap(tmp_heads);
+		for (int i = 0; i < channelsCount; i++) {
+			bufferHeads[i] = samplesVector.data() + (i * num_samples);
 		}
-        ChannelSamplesBuffer(int num_channels, int num_samples) {
-            resize(num_channels, num_samples);
-        }
-        int samples() const {
-            return samplesCount;
-        }
-        int channels() const {
-            return channelsCount;
-        }
-        sampleValueType ** data() {
-            return bufferHeads.data();
-        }
-        sampleValueType const * const * data() const {
-            return bufferHeads.data();
-        }
-        void resize(int num_channels, int num_samples) {
-			channelsCount = num_channels;
-            samplesCount = num_samples;
-            std::vector < sampleValueType > tmp(channelsCount * samplesCount);
-            std::vector < sampleValueType * > tmp_heads(channelsCount);            
-            samplesVector.swap(tmp);
-            bufferHeads.swap(tmp_heads);
-            for (int i = 0; i < channelsCount; i++) {
-                bufferHeads[i] = samplesVector.data() + (i * num_samples);
-            }
-        }
-        void resizeSamples(int num_samples) {
-            resize(channels(), num_samples);
-        }
-        void resizeChannels(int num_channels) {
-            resize(num_channels, samples());
-        }
-        public:
-            std::vector < sampleValueType > samplesVector;
-			std::vector < sampleValueType * > bufferHeads;
-			int channelsCount;
-			int samplesCount;
-    };
+	}
+	void resizeSamples(int num_samples) {
+		resize(channels(), num_samples);
+	}
+	void resizeChannels(int num_channels) {
+		resize(num_channels, samples());
+	}
+public:
+	std::vector < sampleValueType > samplesVector;
+	std::vector < sampleValueType * > bufferHeads;
+	int channelsCount;
+	int samplesCount;
+};
 struct AudioBus {
-    typedef ChannelSamplesBuffer < float > bufferSampleType;
-    AudioBus(): vstSpeakerArr(Steinberg::Vst::SpeakerArr::kEmpty) {
-        //
-    }
-    void SetBlockSize(int num_samples) {
-        channelsBuffer.resizeSamples(num_samples);
-    }
-    void SetChannels(int num_channels, Steinberg::Vst::SpeakerArrangement speaker_arrangement) {
-        channelsBuffer.resizeChannels(num_channels);
-        vstSpeakerArr = speaker_arrangement;
-    }
-    int channels() const {
-        return channelsBuffer.channels();
-    }
-    float ** data() {
-        return channelsBuffer.data();
-    }
-    float    const *    const * data() const {
-        return channelsBuffer.data();
-    }
-    Steinberg::Vst::SpeakerArrangement GetSpeakerArrangement() const {
-        return vstSpeakerArr;
-    }
-    private:
-        bufferSampleType channelsBuffer;
-		Steinberg::uint64 vstSpeakerArr;
+	typedef ChannelSamplesBuffer < float > bufferSampleType;
+	AudioBus(): vstSpeakerArr(Steinberg::Vst::SpeakerArr::kEmpty) {
+		//
+	}
+	void SetBlockSize(int num_samples) {
+		channelsBuffer.resizeSamples(num_samples);
+	}
+	void SetChannels(int num_channels, Steinberg::Vst::SpeakerArrangement speaker_arrangement) {
+		channelsBuffer.resizeChannels(num_channels);
+		vstSpeakerArr = speaker_arrangement;
+	}
+	int channels() const {
+		return channelsBuffer.channels();
+	}
+	float ** rawdata() {
+		return channelsBuffer.rawdata();
+	}
+	float    const *    const * rawdata() const {
+		return channelsBuffer.rawdata();
+	}
+	Steinberg::Vst::SpeakerArrangement GetSpeakerArrangement() const {
+		return vstSpeakerArr;
+	}
+private:
+	bufferSampleType channelsBuffer;
+	Steinberg::uint64 vstSpeakerArr;
 };
 
 struct AudioBuses {
-    AudioBuses(): block_size_(0) {
-        //
-    }
-    AudioBuses(AudioBuses && rhs): buses_(std::move(rhs.buses_)), block_size_(rhs.block_size_) {
-        //
-    }
-    AudioBuses & operator = (AudioBuses && rhs) {
-        buses_ = std::move(rhs.buses_);
-        block_size_ = rhs.block_size_;
-        rhs.block_size_ = 0;
-        return *this;
-    }
-    int GetBusCount() const {
-        return buses_.size();
-    }
-    void SetBusCount(int n) {
-        buses_.resize(n);
-    }
-    int GetBlockSize() const {
-        return block_size_;
-    }
-    void SetBlockSize(int num_samples) {
-        for (auto & bus: buses_) {
-            bus.SetBlockSize(num_samples);
-        }
-        block_size_ = num_samples;
-    }
-    AudioBus & GetBus(int index) {
-        return buses_[index];
-    }
-    AudioBus    const & GetBus(int index) const {
-        return buses_[index];
-    }
-    void UpdateBufferHeads() {
-        int n = 0;
-        for (auto
-            const & bus: buses_) {
-            n += bus.channels();
-        }
-        std::vector < float * > tmp_heads(n);
-        n = 0;
-        for (auto & bus: buses_) {
-            for (int i = 0; i < bus.channels(); ++i) {
-                tmp_heads[n] = bus.data()[i];
-                n++;
-            }
-        }
-        heads_ = std::move(tmp_heads);
-    }
-    float ** data() {
-        return heads_.data();
-    }
-    float    const *    const * data() const {
-        return heads_.data();
-    }
-    int GetTotalChannels() const {
-        return heads_.size();
-    }
-    private:
-        int block_size_;
-		std::vector < AudioBus > buses_;
-		std::vector < float * > heads_;
+	AudioBuses(): samplesBlockSize(0) {
+		//
+	}
+	/*AudioBuses(AudioBuses && rhs): busesVector(std::move(rhs.busesVector)), samplesBlockSize(rhs.samplesBlockSize) {
+		//
+	}
+	AudioBuses & operator = (AudioBuses && rhs) {
+		busesVector = std::move(rhs.busesVector);
+		samplesBlockSize = rhs.samplesBlockSize;
+		rhs.samplesBlockSize = 0;
+		return *this;
+	}*/
+	int GetBusCount() const {
+		return busesVector.size();
+	}
+	void SetBusCount(int n) {
+		busesVector.resize(n);
+	}
+	int GetBlockSize() const {
+		return samplesBlockSize;
+	}
+	void SetBlockSize(int num_samples) {
+		for (auto & bus : busesVector) {
+			bus.SetBlockSize(num_samples);
+		}
+		samplesBlockSize = num_samples;
+	}
+	AudioBus & GetBus(int index) {
+		return busesVector[index];
+	}
+	AudioBus    const & GetBus(int index) const {
+		return busesVector[index];
+	}
+	void UpdateBufferHeads() {
+		int n = 0;
+		for (auto
+		        const & bus : busesVector) {
+			n += bus.channels();
+		}
+		std::vector < float * > tmp_heads(n);
+		n = 0;
+		for (auto & bus : busesVector) {
+			for (int i = 0; i < bus.channels(); ++i) {
+				tmp_heads[n] = bus.rawdata()[i];
+				n++;
+			}
+		}
+		headsVector = std::move(tmp_heads);
+	}
+	float ** rawdata() {
+		return headsVector.data();
+	}
+	float    const *    const * rawdata() const {
+		return headsVector.data();
+	}
+	int GetTotalChannels() const {
+		return headsVector.size();
+	}
+private:
+	int samplesBlockSize;
+	std::vector < AudioBus > busesVector;
+	std::vector < float * > headsVector;
 };
 
 
 AudioBuses outputAudioBuses;
 AudioBuses inputAudioBuses;
-Steinberg::Vst::ProcessContext createVSTContext(int samplingRate40k,int framePosition,double beatPerSecond,double beatPerMinute){
+Steinberg::Vst::ProcessContext createVSTContext(int samplingRate40k, int framePosition, double beatPerSecond, double beatPerMinute) {
 	Steinberg::Vst::ProcessContext vstProcessContext;// = {};
 	vstProcessContext.sampleRate = samplingRate40k;
 	vstProcessContext.projectTimeSamples = framePosition;
@@ -192,15 +192,16 @@ Steinberg::Vst::ProcessContext createVSTContext(int samplingRate40k,int framePos
 	vstProcessContext.timeSigDenominator = 4;
 	vstProcessContext.timeSigNumerator = 4;
 	vstProcessContext.state =
-		Steinberg::Vst::ProcessContext::StatesAndFlags::kPlaying
-		| Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid
-		| Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid
-		| Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid;
+	    Steinberg::Vst::ProcessContext::StatesAndFlags::kPlaying
+	    | Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid
+	    | Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid
+	    | Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid;
 	return vstProcessContext;
 }
 extern "C" {
 
 	int VST3_init() {
+		printf("Init module");
 		iPluginFactory = GetPluginFactory();
 		iPluginFactory->getFactoryInfo (&pFactoryInfo);
 		return -1;
@@ -297,7 +298,7 @@ extern "C" {
 							int framePosition = 0;
 							double const beatPerMinute = 120.0;
 							double beatPerSecond = beatPerMinute / 60.0;
-							Steinberg::Vst::ProcessContext vstProcessContext=createVSTContext(samplingRate40k,framePosition,beatPerSecond,beatPerMinute);
+							Steinberg::Vst::ProcessContext vstProcessContext = createVSTContext(samplingRate40k, framePosition, beatPerSecond, beatPerMinute);
 							/*
 							Steinberg::Vst::ProcessContext vstProcessContext;// = {};
 							vstProcessContext.sampleRate = samplingRate40k;
@@ -338,7 +339,7 @@ extern "C" {
 							int wave_data_index_ = 0;
 							std::vector<Steinberg::Vst::AudioBusBuffers> inputs(inputAudioBuses.GetBusCount());
 							for (int i = 0; i < inputs.size(); ++i) {
-								inputs[i].channelBuffers32 = inputAudioBuses.GetBus(i).data();
+								inputs[i].channelBuffers32 = inputAudioBuses.GetBus(i).rawdata();
 								inputs[i].numChannels = inputAudioBuses.GetBus(i).channels();
 								inputs[i].silenceFlags = false;
 								if (inputs[i].numChannels != 0) {
@@ -353,7 +354,7 @@ extern "C" {
 							}
 							std::vector<Steinberg::Vst::AudioBusBuffers> outputs(outputAudioBuses.GetBusCount());
 							for (int i = 0; i < outputs.size(); ++i) {
-								outputs[i].channelBuffers32 = outputAudioBuses.GetBus(i).data();
+								outputs[i].channelBuffers32 = outputAudioBuses.GetBus(i).rawdata();
 								outputs[i].numChannels = outputAudioBuses.GetBus(i).channels();
 								outputs[i].silenceFlags = false;
 							}
@@ -410,7 +411,8 @@ extern "C" {
 							Steinberg::Vst::ParameterChanges input_changes_;
 							Steinberg::Vst::ParameterChanges output_changes_;
 							step = 120000;
-							
+
+							Steinberg::Vst::ProcessData process_data;
 							process_data.processContext = &vstProcessContext;
 							process_data.processMode = Steinberg::Vst::ProcessModes::kRealtime;
 							process_data.symbolicSampleSize = Steinberg::Vst::SymbolicSampleSizes::kSample32;
@@ -431,12 +433,12 @@ extern "C" {
 							step = 140000;
 							selectedProcessor->setProcessing (false);
 							step = 150000;
-							
+
 							selectedProcessor->setProcessing (false);
 							result = selectedProcessor->process (process_data);
 							selectedProcessor->setProcessing (false);
 							step = 150000;
-							
+
 						}
 					}
 				}
@@ -475,27 +477,94 @@ extern "C" {
 		outputBuffer[14] = 222;
 		inputBuffer[15] = 222;
 		*/
-		int nn=-1;
-		try{
-			nn=1;
-			//selectedProcessor->setProcessing (true);
-			nn=2;
-			//selectedProcessor->process (process_data);
-			nn=3;
-			//selectedProcessor->setProcessing (false);
-			nn=4;
-			outputBuffer[2] = process_data.numSamples;
-			nn=5;
-			outputBuffer[3] = process_data.symbolicSampleSize;
-			nn=6;
-			outputBuffer[4] = process_data.numInputs;
-			nn=7;
-			outputBuffer[5] = process_data.numOutputs;
-			nn=8;
-		}catch(...){
+		int step = 10000;
+		int result=-1;
+		try {
+
+			int samplingRate40k0 = 44000;
+			int framePosition = 0;
+			int samplingRate40k1 = 44001;
+			double const beatPerMinute = 120.0;
+			int samplingRate40k2 = 44002;
+			double beatPerSecond = beatPerMinute / 60.0;
+			int samplingRate40k = 44003;
+			Steinberg::Vst::ProcessContext vstProcessContext = createVSTContext(samplingRate40k, framePosition, beatPerSecond, beatPerMinute);
+			int samplingRate40k4 = 44004;
+			step = 110000;
+			int durationInSamples = 64;
+			int const waveSamplingRate = 44100;
+			int const lengthInSamples = waveSamplingRate * 2;
+			double const rad = 2 * 3.141592653589793;
+			double const amp = 2 / 3.141592653589793 * 0.125;
+			double const head_freq = 440;
+			double const last_freq = 220;
+			double const freq_angle = (last_freq - head_freq) / lengthInSamples;
+			double current_freq = head_freq;
+			double pos = 0;
+			std::vector<double> wave_data_;
+			wave_data_.resize(lengthInSamples);
+			for (int i = 0; i < lengthInSamples; ++i) {
+				for (int k = 1; k <= 30; ++k) {
+					wave_data_[i] += sin(rad * k * pos) / (double)(k);
+				}
+				wave_data_[i] *= amp;
+				double const progress = current_freq / waveSamplingRate;
+				pos += progress;
+				current_freq += freq_angle;
+			}
+			int wave_data_index_ = 0;
+			std::vector<Steinberg::Vst::AudioBusBuffers> inputs(inputAudioBuses.GetBusCount());
+			for (int i = 0; i < inputs.size(); ++i) {
+				inputs[i].channelBuffers32 = inputAudioBuses.GetBus(i).rawdata();
+				inputs[i].numChannels = inputAudioBuses.GetBus(i).channels();
+				inputs[i].silenceFlags = false;
+				if (inputs[i].numChannels != 0) {
+					for (int ch = 0; ch < inputs[i].numChannels; ++ch) {
+						for (int smp = 0; smp < durationInSamples; ++smp) {
+							inputs[i].channelBuffers32[ch][smp] =
+							    wave_data_[(wave_data_index_ + smp) % (int)vstProcessContext.sampleRate];
+						}
+					}
+					wave_data_index_ = (wave_data_index_ + durationInSamples) % (int)vstProcessContext.sampleRate;
+				}
+			}
+			std::vector<Steinberg::Vst::AudioBusBuffers> outputs(outputAudioBuses.GetBusCount());
+			for (int i = 0; i < outputs.size(); ++i) {
+				outputs[i].channelBuffers32 = outputAudioBuses.GetBus(i).rawdata();
+				outputs[i].numChannels = outputAudioBuses.GetBus(i).channels();
+				outputs[i].silenceFlags = false;
+			}
+			Steinberg::Vst::EventList input_event_list;
+			Steinberg::Vst::EventList output_event_list;
+			Steinberg::Vst::ParameterChanges input_changes_;
+			Steinberg::Vst::ParameterChanges output_changes_;
+			input_changes_.clearQueue();
+			output_changes_.clearQueue();
+			step = 120000;
+			Steinberg::Vst::ProcessData process_data;
+			process_data.processContext = &vstProcessContext;
+			process_data.processMode = Steinberg::Vst::ProcessModes::kRealtime;
+			process_data.symbolicSampleSize = Steinberg::Vst::SymbolicSampleSizes::kSample32;
+			process_data.numSamples = durationInSamples;
+			process_data.numInputs = inputs.size();
+			process_data.numOutputs = outputs.size();
+			process_data.inputs = inputs.data();
+			process_data.outputs = outputs.data();
+			process_data.inputEvents = &input_event_list;
+			process_data.outputEvents = &output_event_list;
+			process_data.inputParameterChanges = &input_changes_;
+			process_data.outputParameterChanges = &output_changes_;
+			selectedProcessor->setProcessing (true);
+			step = 130000;
+			result = selectedProcessor->process (process_data);
+			step = 140000;
+			selectedProcessor->setProcessing (false);
+			step = 150000;
+		} catch (...) {
 			outputBuffer[0] = -1;
 		}
-		outputBuffer[1] = nn;
+		outputBuffer[1] = step;
+		outputBuffer[2] = result;
 	}
 }
 

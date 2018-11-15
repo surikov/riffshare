@@ -15,7 +15,7 @@ IFOLDERS += -I$(VSTLIB)/vstgui4
 IFOLDERS += -I$(VSTLIB)
 IFOLDERS += -I$(CPPLIB)/include
 
-CFLAGS = $(IFOLDERS) -Wno-logical-op-parentheses -g
+CFLAGS = $(IFOLDERS) -Wno-logical-op-parentheses -g4
 CFLAGS += -std=c++14
 CFLAGS += -stdlib=libxx
 #headers CFLAGS += -H
@@ -80,13 +80,13 @@ VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
 
 .PHONY: $(TARGET)
 $(TARGET):
-#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
-#	cp ../../tools/index.html ./web
-#	cp ../../tools/index.js ./web
-#	cp ../../tools/processormodule.js ./web
-	copy /Y ..\..\tools\index.html .\web
-	copy /Y ..\..\tools\index.js .\web
-	copy /Y ..\..\tools\processormodule.js .\web
+	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
+	cp ../../tools/index.html ./web
+	cp ../../tools/index.js ./web
+	cp ../../tools/processormodule.js ./web
+#	copy /Y ..\..\tools\index.html .\web
+#	copy /Y ..\..\tools\index.js .\web
+#	copy /Y ..\..\tools\processormodule.js .\web
 	node ../../tools/convert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
 
 

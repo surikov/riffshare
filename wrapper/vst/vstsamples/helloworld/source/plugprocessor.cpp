@@ -148,7 +148,7 @@ tresult PLUGIN_API PlugProcessor::process (Vst::ProcessData& data)
 	if (data.numInputs == 0 || data.numOutputs == 0)
 	{
 		// nothing to do
-		return kResultOk;
+		return 31;//kResultOk;
 	}
 
 	if (data.numSamples > 0)
@@ -157,7 +157,7 @@ tresult PLUGIN_API PlugProcessor::process (Vst::ProcessData& data)
 		// Ex: algo.process (data.inputs[0].channelBuffers32, data.outputs[0].channelBuffers32,
 		// data.numSamples);
 	}
-	return kResultOk;
+	return 33;//kResultOk;
 }
 
 //------------------------------------------------------------------------

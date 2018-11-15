@@ -160,7 +160,36 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 	process(inputs, outputs, parameters) {
 		if (this.first) {
 			this.first = false;
-			console.log('process',inputs, outputs, parameters);
+			console.log('first process start',inputs, outputs, parameters);
+            var buflength = 128;
+            var inputArray = new Float32Array(buflength);
+            var outputArray = new Float32Array(buflength);
+            inputArray[1] = 333222;
+            outputArray[2] = 44445555;
+            console.log('inputArray', inputArray);
+            console.log('outputArray', outputArray);
+            var sizeBytes = inputArray.length * inputArray.BYTES_PER_ELEMENT;
+            console.log('sizeBytes', sizeBytes,'=',inputArray.length, inputArray.BYTES_PER_ELEMENT);
+            var inputPtr = this.vst._malloc(sizeBytes);
+            console.log('inputPtr',inputPtr);
+            var outputPtr = this.vst._malloc(sizeBytes);
+            console.log('outputPtr',outputPtr);
+            var inputHeap = new Uint8Array(this.vst.HEAPU8.buffer, inputPtr, sizeBytes);
+            console.log('inputHeap',inputHeap);
+            var outputHeap = new Uint8Array(this.vst.HEAPU8.buffer, outputPtr, sizeBytes);
+            console.log('outputHeap',outputHeap);
+            inputHeap.set(new Uint8Array(inputArray.buffer));
+            outputHeap.set(new Uint8Array(outputArray.buffer));
+            console.log('VST3_process start');
+            this.VST3_process(inputHeap.byteOffset, outputHeap.byteOffset, buflength);
+            console.log('VST3_process done');
+            var inputResult = new Float32Array(inputHeap.buffer, inputHeap.byteOffset, inputArray.length);
+            console.log('inputResult', inputResult);
+            var outputResult = new Float32Array(outputHeap.buffer, outputHeap.byteOffset, outputHeap.length);
+            console.log('outputResult', outputResult);
+            this.vst._free(inputHeap.byteOffset);
+            this.vst._free(outputHeap.byteOffset);
+            /*
 			for (var i = 0; i < inputs.length; i++) {
 				var input = inputs[i];
 				console.log('input', input);
@@ -177,7 +206,8 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 					console.log('output', i, 'channel', c, 'buffer', channelBuffer);
 				}
 			}
-			console.log('done process');
+            */
+			console.log('done first process');
 			
 		}
 		if (this.onAir) {
