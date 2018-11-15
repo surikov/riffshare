@@ -61,7 +61,6 @@ ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONME
 // 2) We could be the application main() thread proxied to worker. (with Emscripten -s PROXY_TO_WORKER=1) (ENVIRONMENT_IS_WORKER == true, ENVIRONMENT_IS_PTHREAD == false)
 // 3) We could be an application pthread running in a worker. (ENVIRONMENT_IS_WORKER == true and ENVIRONMENT_IS_PTHREAD == true)
 
-
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
 function locateFile(path) {
@@ -227,6 +226,8 @@ for (key in moduleOverrides) {
 // Free the object hierarchy contained in the overrides, this lets the GC
 // reclaim data used e.g. in memoryInitializerRequest, which is a large typed array.
 moduleOverrides = undefined;
+
+// perform assertions in shell.js after we set up out() and err(), as otherwise if an assertion fails it cannot print the message
 
 
 
@@ -1487,10 +1488,6 @@ function integrateWasmJS() {
     updateGlobalBufferViews();
   }
 
-  function fixImports(imports) {
-    return imports;
-  }
-
   function getBinary() {
     try {
       if (Module['wasmBinary']) {
@@ -1629,8 +1626,6 @@ function integrateWasmJS() {
   // doesn't need to care that it is wasm or olyfilled wasm or asm.js.
 
   Module['asm'] = function(global, env, providedBuffer) {
-    env = fixImports(env);
-
     // import table
     if (!env['table']) {
       var TABLE_SIZE = Module['wasmTableSize'];
@@ -1681,7 +1676,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 16320;
+STATICTOP = STATIC_BASE + 16368;
 /* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
 
 
@@ -1690,7 +1685,7 @@ STATICTOP = STATIC_BASE + 16320;
 
 
 
-var STATIC_BUMP = 16320;
+var STATIC_BUMP = 16368;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1853,7 +1848,16 @@ function copyTempDouble(ptr) {
     }
 
   
-  var SYSCALLS={varargs:0,get:function (varargs) {
+  var SYSCALLS={buffers:[null,[],[]],printChar:function (stream, curr) {
+        var buffer = SYSCALLS.buffers[stream];
+        assert(buffer);
+        if (curr === 0 || curr === 10) {
+          (stream === 1 ? out : err)(UTF8ArrayToString(buffer, 0));
+          buffer.length = 0;
+        } else {
+          buffer.push(curr);
+        }
+      },varargs:0,get:function (varargs) {
         SYSCALLS.varargs += 4;
         var ret = HEAP32[(((SYSCALLS.varargs)-(4))>>2)];
         return ret;
@@ -1888,35 +1892,20 @@ function copyTempDouble(ptr) {
       // flush anything remaining in the buffers during shutdown
       var fflush = Module["_fflush"];
       if (fflush) fflush(0);
-      var printChar = ___syscall146.printChar;
-      if (!printChar) return;
-      var buffers = ___syscall146.buffers;
-      if (buffers[1].length) printChar(1, 10);
-      if (buffers[2].length) printChar(2, 10);
+      var buffers = SYSCALLS.buffers;
+      if (buffers[1].length) SYSCALLS.printChar(1, 10);
+      if (buffers[2].length) SYSCALLS.printChar(2, 10);
     }function ___syscall146(which, varargs) {SYSCALLS.varargs = varargs;
   try {
    // writev
       // hack to support printf in FILESYSTEM=0
       var stream = SYSCALLS.get(), iov = SYSCALLS.get(), iovcnt = SYSCALLS.get();
       var ret = 0;
-      if (!___syscall146.buffers) {
-        ___syscall146.buffers = [null, [], []]; // 1 => stdout, 2 => stderr
-        ___syscall146.printChar = function(stream, curr) {
-          var buffer = ___syscall146.buffers[stream];
-          assert(buffer);
-          if (curr === 0 || curr === 10) {
-            (stream === 1 ? out : err)(UTF8ArrayToString(buffer, 0));
-            buffer.length = 0;
-          } else {
-            buffer.push(curr);
-          }
-        };
-      }
       for (var i = 0; i < iovcnt; i++) {
         var ptr = HEAP32[(((iov)+(i*8))>>2)];
         var len = HEAP32[(((iov)+(i*8 + 4))>>2)];
         for (var j = 0; j < len; j++) {
-          ___syscall146.printChar(stream, HEAPU8[ptr+j]);
+          SYSCALLS.printChar(stream, HEAPU8[ptr+j]);
         }
         ret += len;
       }
@@ -1973,8 +1962,6 @@ function copyTempDouble(ptr) {
       PTHREAD_SPECIFIC_NEXT_KEY++;
       return 0;
     }
-
-  function _pthread_mutex_destroy() {}
 
   function _pthread_once(ptr, func) {
       if (!_pthread_once.seen) _pthread_once.seen = {};
@@ -2311,7 +2298,7 @@ function invoke_viiiiii(index,a1,a2,a3,a4,a5,a6) {
 
 Module.asmGlobalArg = {};
 
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vidi": invoke_vidi, "invoke_vii": invoke_vii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "__ZSt18uncaught_exceptionv": __ZSt18uncaught_exceptionv, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_throw": ___cxa_throw, "___gxx_personality_v0": ___gxx_personality_v0, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall6": ___syscall6, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_mutex_destroy": _pthread_mutex_destroy, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "flush_NO_FILESYSTEM": flush_NO_FILESYSTEM, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "invoke_did": invoke_did, "invoke_dii": invoke_dii, "invoke_diid": invoke_diid, "invoke_ii": invoke_ii, "invoke_iid": invoke_iid, "invoke_iii": invoke_iii, "invoke_iiid": invoke_iiid, "invoke_iiidi": invoke_iiidi, "invoke_iiii": invoke_iiii, "invoke_iiiii": invoke_iiiii, "invoke_iiiiii": invoke_iiiiii, "invoke_iiiiiiiii": invoke_iiiiiiiii, "invoke_iijii": invoke_iijii, "invoke_ji": invoke_ji, "invoke_jiij": invoke_jiij, "invoke_jiji": invoke_jiji, "invoke_v": invoke_v, "invoke_vi": invoke_vi, "invoke_vidi": invoke_vidi, "invoke_vii": invoke_vii, "invoke_viii": invoke_viii, "invoke_viiii": invoke_viiii, "invoke_viiiii": invoke_viiiii, "invoke_viiiiii": invoke_viiiiii, "__ZSt18uncaught_exceptionv": __ZSt18uncaught_exceptionv, "___assert_fail": ___assert_fail, "___cxa_allocate_exception": ___cxa_allocate_exception, "___cxa_begin_catch": ___cxa_begin_catch, "___cxa_find_matching_catch": ___cxa_find_matching_catch, "___cxa_throw": ___cxa_throw, "___gxx_personality_v0": ___gxx_personality_v0, "___resumeException": ___resumeException, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall6": ___syscall6, "_abort": _abort, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_pthread_getspecific": _pthread_getspecific, "_pthread_key_create": _pthread_key_create, "_pthread_once": _pthread_once, "_pthread_setspecific": _pthread_setspecific, "flush_NO_FILESYSTEM": flush_NO_FILESYSTEM, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX };
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);

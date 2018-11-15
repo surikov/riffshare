@@ -20,6 +20,7 @@ CFLAGS += -std=c++14
 CFLAGS += -stdlib=libxx
 #headers CFLAGS += -H
 #verbose CFLAGS += -v
+#CFLAGS += -s ASSERTIONS=1
 CFLAGS += -D__gnu_linux__=1
 CFLAGS += -D__linux__=1
 CFLAGS += -D__x86_64__=1
@@ -79,13 +80,13 @@ VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
 
 .PHONY: $(TARGET)
 $(TARGET):
-	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
-	cp ../../tools/index.html ./web
-	cp ../../tools/index.js ./web
-	cp ../../tools/processormodule.js ./web
-#	copy /Y ..\..\tools\index.html .\web
-#	copy /Y ..\..\tools\index.js .\web
-#	copy /Y ..\..\tools\processormodule.js .\web
+#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
+#	cp ../../tools/index.html ./web
+#	cp ../../tools/index.js ./web
+#	cp ../../tools/processormodule.js ./web
+	copy /Y ..\..\tools\index.html .\web
+	copy /Y ..\..\tools\index.js .\web
+	copy /Y ..\..\tools\processormodule.js .\web
 	node ../../tools/convert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
 
 
