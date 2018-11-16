@@ -2,7 +2,7 @@ console.log('processor');
 class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 	constructor(options) {
 		super(options);
-		this.first = true;
+		this.first = 0;
 		this.waveCounter = 0;
 		this.waveLen = 555;
 		this.waveSample = 0.155;
@@ -51,7 +51,7 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 			//2AC0A8889406497FBBA6EABFC78D1372
 			this.VST3_selectProcessor = this.vst.cwrap("VST3_selectProcessor", '', ['number']);
 			console.log('VST3_selectProcessor -------------------', testNum, testID, this.VST3_selectProcessor(testNum));
-			console.log('VST3_selectProcessor -------------------', testNum, testID, this.VST3_selectProcessor(testNum));
+			//console.log('VST3_selectProcessor -------------------', testNum, testID, this.VST3_selectProcessor(testNum));
 
 			this.VST3_parametersCount = this.vst.cwrap("VST3_parametersCount", 'number', []);
 			var parcnt = this.VST3_parametersCount();
@@ -65,7 +65,8 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 				console.log(i, o);
 			}
 
-			this.VST3_process = this.vst.cwrap("VST3_process", '', ['number', 'number', 'number']);
+			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
+			/*
 			var buflength = 128;
 			var inputArray = new Float32Array(buflength);
 			var outputArray = new Float32Array(buflength);
@@ -92,7 +93,7 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 			console.log('outputResult', outputResult);
 			this.vst._free(inputHeap.byteOffset);
 			this.vst._free(outputHeap.byteOffset);
-			
+			*/
 			
 			
 			
@@ -158,33 +159,33 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 		}
 	}
 	process(inputs, outputs, parameters) {
-		if (this.first) {
-			this.first = false;
-			console.log('first process start',inputs, outputs, parameters);
+		if (this.first<3) {
+			this.first++;
+			console.log('first process start',this.first,inputs, outputs, parameters);
             var buflength = 128;
             var inputArray = new Float32Array(buflength);
             var outputArray = new Float32Array(buflength);
             inputArray[1] = 333222;
             outputArray[2] = 44445555;
-            console.log('inputArray', inputArray);
-            console.log('outputArray', outputArray);
+            //console.log('inputArray', inputArray);
+            //console.log('outputArray', outputArray);
             var sizeBytes = inputArray.length * inputArray.BYTES_PER_ELEMENT;
-            console.log('sizeBytes', sizeBytes,'=',inputArray.length, inputArray.BYTES_PER_ELEMENT);
+            //console.log('sizeBytes', sizeBytes,'=',inputArray.length, inputArray.BYTES_PER_ELEMENT);
             var inputPtr = this.vst._malloc(sizeBytes);
-            console.log('inputPtr',inputPtr);
+            //console.log('inputPtr',inputPtr);
             var outputPtr = this.vst._malloc(sizeBytes);
-            console.log('outputPtr',outputPtr);
+            //console.log('outputPtr',outputPtr);
             var inputHeap = new Uint8Array(this.vst.HEAPU8.buffer, inputPtr, sizeBytes);
-            console.log('inputHeap',inputHeap);
+            //console.log('inputHeap',inputHeap);
             var outputHeap = new Uint8Array(this.vst.HEAPU8.buffer, outputPtr, sizeBytes);
-            console.log('outputHeap',outputHeap);
+            //console.log('outputHeap',outputHeap);
             inputHeap.set(new Uint8Array(inputArray.buffer));
             outputHeap.set(new Uint8Array(outputArray.buffer));
-            console.log('VST3_process start');
+            //console.log('VST3_process start');
             this.VST3_process(inputHeap.byteOffset, outputHeap.byteOffset, buflength);
             console.log('VST3_process done');
             var inputResult = new Float32Array(inputHeap.buffer, inputHeap.byteOffset, inputArray.length);
-            console.log('inputResult', inputResult);
+            //console.log('inputResult', inputResult);
             var outputResult = new Float32Array(outputHeap.buffer, outputHeap.byteOffset, outputHeap.length);
             console.log('outputResult', outputResult);
             this.vst._free(inputHeap.byteOffset);
@@ -207,7 +208,7 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 				}
 			}
             */
-			console.log('done first process');
+			//console.log('done first process');
 			
 		}
 		if (this.onAir) {

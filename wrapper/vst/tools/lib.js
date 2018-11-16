@@ -5,13 +5,13 @@ var audioWorkletNode = null;
 function probeInit() {
     console.log('probe init');
     var audioContext = new AudioContext();
-    audioContext.audioWorklet.addModule('VSTHELLOWORLD.wasm.js')
+    audioContext.audioWorklet.addModule('VSTMODULENAME.wasm.js')
         .then((v) => {
-            audioContext.audioWorklet.addModule('VSTHELLOWORLD.js')
+            audioContext.audioWorklet.addModule('VSTMODULENAME.js')
                 .then((v) => {
-                    audioContext.audioWorklet.addModule('processormodule.js')
+                    audioContext.audioWorklet.addModule('VSTMODULENAME.processor.js')
                         .then((v) => {
-                            audioWorkletNode = new AudioWorkletNode(audioContext, 'VSTHELLOWORLDProcessorClass', {});
+                            audioWorkletNode = new AudioWorkletNode(audioContext, 'VSTMODULENAMEProcessorClass', {});
                             audioWorkletNode.connect(audioContext.destination);
                             audioWorkletNode.port.onmessage = (event) => {
                                 console.log('audioWorkletNode onmessage', event.data);

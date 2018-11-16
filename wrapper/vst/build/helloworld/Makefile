@@ -21,6 +21,7 @@ CFLAGS += -stdlib=libxx
 #headers CFLAGS += -H
 #verbose CFLAGS += -v
 #CFLAGS += -s ASSERTIONS=1
+#CFLAGS += -s ENVIRONMENT=web
 CFLAGS += -D__gnu_linux__=1
 CFLAGS += -D__linux__=1
 CFLAGS += -D__x86_64__=1
@@ -81,12 +82,12 @@ VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
 .PHONY: $(TARGET)
 $(TARGET):
 	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(CUSTOMFILES) $(VSTRUNTIME)
-	cp ../../tools/index.html ./web
-	cp ../../tools/index.js ./web
-	cp ../../tools/processormodule.js ./web
-#	copy /Y ..\..\tools\index.html .\web
-#	copy /Y ..\..\tools\index.js .\web
-#	copy /Y ..\..\tools\processormodule.js .\web
-	node ../../tools/convert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
+#	cp ../../tools/index.html ./web
+#	cp ../../tools/index.js ./web
+#	cp ../../tools/processormodule.js ./web
+	copy /Y ..\..\tools\index.html .\web\$(PROJECTNAME).html
+	copy /Y ..\..\tools\lib.js .\web\$(PROJECTNAME).lib.js
+	copy /Y ..\..\tools\processormodule.js .\web\$(PROJECTNAME).processor.js
+	node ../../tools/copyconvert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
 
 
