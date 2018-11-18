@@ -74,6 +74,7 @@ VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstparameters.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstpresetfile.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstrepresentation.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
+
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/contrib/keyboardview.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation/animations.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation/animator.cpp

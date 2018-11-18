@@ -16,7 +16,7 @@
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-var Module = typeof AudioWorkletGlobalScope.WAM.VSTHELLOWORLD !== 'undefined' ? AudioWorkletGlobalScope.WAM.VSTHELLOWORLD : {};
+var Module = typeof AudioWorkletGlobalScope.WAM.DLY !== 'undefined' ? AudioWorkletGlobalScope.WAM.DLY : {};
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
@@ -1441,9 +1441,9 @@ function integrateWasmJS() {
 
   var method = 'native-wasm';
 
-  var wasmTextFile = 'VSTHELLOWORLD.wast';
-  var wasmBinaryFile = 'VSTHELLOWORLD.wasm';
-  var asmjsCodeFile = 'VSTHELLOWORLD.temp.asm.js';
+  var wasmTextFile = 'DLY.wast';
+  var wasmBinaryFile = 'DLY.wasm';
+  var asmjsCodeFile = 'DLY.temp.asm.js';
 
   if (!isDataURI(wasmTextFile)) {
     wasmTextFile = locateFile(wasmTextFile);
@@ -1681,8 +1681,8 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 17440;
-/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_VST3JSExport_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
+STATICTOP = STATIC_BASE + 20368;
+/* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_VST3JSExport_cpp() } }, { func: function() { __GLOBAL__sub_I_adelaycontroller_cpp() } }, { func: function() { __GLOBAL__sub_I_exampletest_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
 
 
 
@@ -1690,7 +1690,7 @@ STATICTOP = STATIC_BASE + 17440;
 
 
 
-var STATIC_BUMP = 17440;
+var STATIC_BUMP = 20368;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -2043,9 +2043,9 @@ function intArrayToString(array) {
 
 
 
-Module['wasmTableSize'] = 483;
+Module['wasmTableSize'] = 675;
 
-Module['wasmMaxTableSize'] = 483;
+Module['wasmMaxTableSize'] = 675;
 
 function invoke_did(index,a1,a2) {
   var sp = stackSave();
@@ -2327,7 +2327,9 @@ var _VST3_process = Module["_VST3_process"] = asm["_VST3_process"];
 var _VST3_selectProcessor = Module["_VST3_selectProcessor"] = asm["_VST3_selectProcessor"];
 var _VST3_setInteger = Module["_VST3_setInteger"] = asm["_VST3_setInteger"];
 var __GLOBAL__sub_I_VST3JSExport_cpp = Module["__GLOBAL__sub_I_VST3JSExport_cpp"] = asm["__GLOBAL__sub_I_VST3JSExport_cpp"];
+var __GLOBAL__sub_I_adelaycontroller_cpp = Module["__GLOBAL__sub_I_adelaycontroller_cpp"] = asm["__GLOBAL__sub_I_adelaycontroller_cpp"];
 var __GLOBAL__sub_I_coreiids_cpp = Module["__GLOBAL__sub_I_coreiids_cpp"] = asm["__GLOBAL__sub_I_coreiids_cpp"];
+var __GLOBAL__sub_I_exampletest_cpp = Module["__GLOBAL__sub_I_exampletest_cpp"] = asm["__GLOBAL__sub_I_exampletest_cpp"];
 var __GLOBAL__sub_I_pluginfactoryvst3_cpp = Module["__GLOBAL__sub_I_pluginfactoryvst3_cpp"] = asm["__GLOBAL__sub_I_pluginfactoryvst3_cpp"];
 var __GLOBAL__sub_I_updatehandler_cpp = Module["__GLOBAL__sub_I_updatehandler_cpp"] = asm["__GLOBAL__sub_I_updatehandler_cpp"];
 var __GLOBAL__sub_I_vstinitiids_cpp = Module["__GLOBAL__sub_I_vstinitiids_cpp"] = asm["__GLOBAL__sub_I_vstinitiids_cpp"];

@@ -41,6 +41,8 @@
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 #include <algorithm>
 
+//#include <emscripten.h>
+
 namespace Steinberg {
 namespace Vst {
 namespace NoteExpressionSynth {
@@ -52,6 +54,7 @@ FUID Processor::cid (0x6EE65CD1, 0xB83A4AF4, 0x80AA7929, 0xAEA6B8A0);
 Processor::Processor ()
 : voiceProcessor (nullptr)
 {
+	emscripten_run_script("console.log('NE processor')");
 	setControllerClass (Controller::cid);
 
 	memset (&paramState, 0, sizeof (paramState));
@@ -76,6 +79,7 @@ Processor::Processor ()
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API Processor::initialize (FUnknown* context)
 {
+	emscripten_run_script("console.log('NE initialize')");
 	tresult result = AudioEffect::initialize (context);
 	if (result == kResultTrue)
 	{
@@ -101,6 +105,7 @@ tresult PLUGIN_API Processor::getState (IBStream* state)
 tresult PLUGIN_API Processor::setBusArrangements (SpeakerArrangement* inputs, int32 numIns, 
 															SpeakerArrangement* outputs, int32 numOuts)
 {
+	emscripten_run_script("console.log('NE bus arr')");
 	// we only support one stereo output bus
 	if (numIns == 0 && numOuts == 1 && outputs[0] == SpeakerArr::kStereo)
 	{
@@ -112,6 +117,7 @@ tresult PLUGIN_API Processor::setBusArrangements (SpeakerArrangement* inputs, in
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API Processor::canProcessSampleSize (int32 symbolicSampleSize)
 {
+	emscripten_run_script("console.log('NE can proc')");
 	if (symbolicSampleSize == kSample32 || symbolicSampleSize == kSample64)
 	{
 		return kResultTrue;
@@ -122,6 +128,7 @@ tresult PLUGIN_API Processor::canProcessSampleSize (int32 symbolicSampleSize)
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API Processor::setActive (TBool state)
 {
+	emscripten_run_script("console.log('NE set act')");
 	if (state)
 	{
 		if (paramState.noiseBuffer == nullptr)
@@ -161,20 +168,25 @@ tresult PLUGIN_API Processor::setActive (TBool state)
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API Processor::process (ProcessData& data)
 {
+	emscripten_run_script("console.log('NE 1')");
 	// TODO: maybe try to make this nearly sample accurate
 	if (data.inputParameterChanges)
 	{
+		emscripten_run_script("console.log('NE 2')");
 		int32 count = data.inputParameterChanges->getParameterCount ();
 		for (int32 i = 0; i < count; i++)
 		{
+			emscripten_run_script("console.log('NE 3')");
 			IParamValueQueue* queue = data.inputParameterChanges->getParameterData (i);
 			if (queue)
 			{
+				emscripten_run_script("console.log('NE 4')");
 				int32 sampleOffset;
 				ParamValue value;
 				ParamID pid = queue->getParameterId ();
 				if (queue->getPoint (queue->getPointCount () - 1, sampleOffset, value) == kResultTrue)
 				{
+					emscripten_run_script("console.log('NE 5')");
 					switch (pid)
 					{
 						case kParamMasterVolume:
@@ -266,12 +278,13 @@ tresult PLUGIN_API Processor::process (ProcessData& data)
 		}
 	}
 	tresult result;
-
+	emscripten_run_script("console.log('NE 6')");
 	// flush mode
 	if (data.numOutputs < 1)
 		result = kResultTrue;
 	else
 		result = voiceProcessor->process (data);
+	emscripten_run_script("console.log('NE 7')");
 	if (result == kResultTrue)
 	{
 		if (data.outputParameterChanges)
@@ -288,6 +301,7 @@ tresult PLUGIN_API Processor::process (ProcessData& data)
 			data.outputs[0].silenceFlags = 0x11; // left and right channel are silent
 		}
 	}
+	emscripten_run_script("console.log('NE 8')");
 	return result;
 }
 

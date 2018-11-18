@@ -1,10 +1,10 @@
-PROJECTNAME = VSTHELLOWORLD
+PROJECTNAME = DLY
 TARGET = ./web/$(PROJECTNAME).js
-PLUGINID = BD58B550F9E5634E9D2EFF39EA0927B1
+PLUGINID = 0CDBB66985D548A9BFD8371909D24BB3
 
 SAMPLESFOLDER = ../../vstsamples
-SOURCEFOLDER = $(SAMPLESFOLDER)/helloworld/source
-INCLUDEFOLDER = $(SAMPLESFOLDER)/helloworld/include
+SOURCEFOLDER = $(SAMPLESFOLDER)/adelay/source
+INCLUDEFOLDER = $(SAMPLESFOLDER)/adelay/include
 
 VSTLIB = ../../i
 CPPLIB = ../../i/CppLib
@@ -38,10 +38,10 @@ LDFLAGS = -O2
 JSFLAGS = -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s BINARYEN_ASYNC_COMPILATION=0 
 JSFLAGS += -s EXPORT_NAME="'AudioWorkletGlobalScope.WAM.$(PROJECTNAME)'"
 
-PLUGINSOURCE = ../../tools/VST3JSExport.cpp \
-	$(SOURCEFOLDER)/plugcontroller.cpp \
-	$(SOURCEFOLDER)/plugfactory.cpp \
-	$(SOURCEFOLDER)/plugprocessor.cpp 
+PLUGINSOURCE = $(SOURCEFOLDER)/adelaycontroller.cpp \
+	$(SOURCEFOLDER)/adelayprocessor.cpp \
+	$(SOURCEFOLDER)/exampletest.cpp \
+	$(SOURCEFOLDER)/factory.cpp
 
 
 VSTRUNTIME = ../../tools/VST3JSExport.cpp

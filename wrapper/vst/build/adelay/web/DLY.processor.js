@@ -1,5 +1,5 @@
 console.log('processor');
-class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
+class DLYProcessor extends AudioWorkletProcessor {
 	constructor(options) {
 		super(options);
 		this.first = 0;
@@ -7,12 +7,12 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 		this.waveLen = 555;
 		this.waveSample = 0.155;
 		this.onAir = false;
-		this.vst = AudioWorkletGlobalScope.WAM.VSTHELLOWORLD;
+		this.vst = AudioWorkletGlobalScope.WAM.DLY;
 		console.log('processor', this.vst);
 		//console.log('processor.cwrap',this.vst.cwrap);
 		//var testID='6EE65CD1B83A4AF480AA7929AEA6B8A0';//notesynth
 		//var testID='BD58B550F9E5634E9D2EFF39EA0927B1';//hello
-		var testID = 'BD58B550F9E5634E9D2EFF39EA0927B1';
+		var testID = '0CDBB66985D548A9BFD8371909D24BB3';
 		var testNum = 0;
 		try {
 
@@ -253,4 +253,4 @@ class VSTHELLOWORLDProcessor extends AudioWorkletProcessor {
 		return true;
 	}
 }
-registerProcessor("VSTHELLOWORLDProcessorClass", VSTHELLOWORLDProcessor);
+registerProcessor("DLYProcessorClass", DLYProcessor);

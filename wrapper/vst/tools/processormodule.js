@@ -161,9 +161,12 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 	process(inputs, outputs, parameters) {
 		if (this.first<3) {
 			this.first++;
-			console.log('first process start',this.first,inputs, outputs, parameters);
+			console.log('process start',this.first,inputs, outputs, parameters);
             var buflength = 128;
             var inputArray = new Float32Array(buflength);
+        	for(var i=0;i<buflength;i++){
+        		inputArray[i]=inputs[0][i];
+        	}
             var outputArray = new Float32Array(buflength);
             inputArray[1] = 333222;
             outputArray[2] = 44445555;
@@ -183,11 +186,15 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
             outputHeap.set(new Uint8Array(outputArray.buffer));
             //console.log('VST3_process start');
             this.VST3_process(inputHeap.byteOffset, outputHeap.byteOffset, buflength);
-            console.log('VST3_process done');
+            //console.log('VST3_process done');
             var inputResult = new Float32Array(inputHeap.buffer, inputHeap.byteOffset, inputArray.length);
             //console.log('inputResult', inputResult);
             var outputResult = new Float32Array(outputHeap.buffer, outputHeap.byteOffset, outputHeap.length);
-            console.log('outputResult', outputResult);
+            for(var i=0;i<buflength;i++){
+            	outputs[0][i]=outputResult[i];
+            }
+            //console.log('outputResult', outputResult);
+            console.log('outputs', outputs);
             this.vst._free(inputHeap.byteOffset);
             this.vst._free(outputHeap.byteOffset);
             /*

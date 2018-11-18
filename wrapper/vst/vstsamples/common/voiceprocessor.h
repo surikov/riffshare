@@ -41,6 +41,8 @@
 #include "base/source/fdebug.h"
 #include <algorithm>
 
+#include <emscripten.h>
+
 #ifdef DEBUG_LOG
 	#undef DEBUG_LOG
 #endif
@@ -309,6 +311,8 @@ tresult VoiceProcessorImplementation<Precision, VoiceClass, numChannels, maxVoic
 template<class Precision, class VoiceClass, int32 numChannels, int32 maxVoices, class GlobalParameterStorage>
 tresult VoiceProcessorImplementation<Precision, VoiceClass, numChannels, maxVoices, GlobalParameterStorage>::process (ProcessData& data)
 {	
+	emscripten_run_script("console.log('VP process 1')");
+
 	const int32 kBlockSize = VOICEPROCESSOR_BLOCKSIZE;
 
 	int32 numSamples = data.numSamples;
@@ -442,7 +446,7 @@ tresult VoiceProcessorImplementation<Precision, VoiceClass, numChannels, maxVoic
 		samplesProcessed += samplesToProcess;
 
 	} // end while (numSamples > 0)
-
+	emscripten_run_script("console.log('VP process end')");
 	return kResultTrue;
 }
 
