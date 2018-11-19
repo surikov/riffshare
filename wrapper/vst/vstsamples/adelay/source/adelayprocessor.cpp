@@ -43,12 +43,12 @@
 #include <cstdlib>
 #include "base/source/fstreamer.h"
 
-#include <emscripten.h>
+/*#include <emscripten.h>
 char s[999];
 void p(char const * txt, int nn){
 	snprintf(s, sizeof(s),"console.log(' - VST3JS %s %d');//",txt,nn);
 	emscripten_run_script(s);
-}
+}*/
 namespace Steinberg {
 namespace Vst {
 
@@ -95,7 +95,7 @@ tresult PLUGIN_API ADelayProcessor::setActive (TBool state)
 
 	if (state)
 	{
-		p("setActive numChannels",numChannels);
+		//p("setActive numChannels",numChannels);
 		mBuffer = (float**)std::malloc (numChannels * sizeof (float*));
 		
 		size_t size = (size_t)(processSetup.sampleRate * sizeof (float) + 0.5);
@@ -124,7 +124,7 @@ tresult PLUGIN_API ADelayProcessor::setActive (TBool state)
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 {
-	emscripten_run_script("console.log(' - 1');//");
+	//emscripten_run_script("console.log(' - 1');//");
 	if (data.inputParameterChanges)
 	{
 		int32 numParamsChanged = data.inputParameterChanges->getParameterCount ();
@@ -152,7 +152,7 @@ tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 	}
 		}
 	}
-	emscripten_run_script("console.log(' - 2');//");
+	//emscripten_run_script("console.log(' - 2');//");
 	if (data.numSamples > 0)
 	{
 		SpeakerArrangement arr;
@@ -165,40 +165,40 @@ tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 		int32 delayInSamples = std::max<int32> (1, (int32)(mDelay * processSetup.sampleRate)); // we have a minimum of 1 sample delay here
 		for (int32 channel = 0; channel < numChannels; channel++)
 		{
-			emscripten_run_script("console.log(' - 3');//");
+			//emscripten_run_script("console.log(' - 3');//");
 			float* inputChannel = data.inputs[0].channelBuffers32[channel];
 			float* outputChannel = data.outputs[0].channelBuffers32[channel];
-			emscripten_run_script("console.log(' - 4');//");
+			//emscripten_run_script("console.log(' - 4');//");
 			int32 tempBufferPos = mBufferPos;
 			for (int32 sample = 0; sample < data.numSamples; sample++)
 			{
-				emscripten_run_script("console.log(' - 5');//");
+				//emscripten_run_script("console.log(' - 5');//");
 				float tempSample = inputChannel[sample];
-				emscripten_run_script("console.log(' - 6');//");
+				//emscripten_run_script("console.log(' - 6');//");
 				
-				p("channel",channel);
+				//p("channel",channel);
 				float * chan = mBuffer[channel];
-				p("tempBufferPos",tempBufferPos);
+				//p("tempBufferPos",tempBufferPos);
 				float f = chan[tempBufferPos];
-				p("sample",sample);
+				//p("sample",sample);
 				//outputChannel[sample] = mBuffer[channel][tempBufferPos];
 				outputChannel[sample] = f;
-				emscripten_run_script("console.log(' - 7');//");
+				//emscripten_run_script("console.log(' - 7');//");
 				mBuffer[channel][tempBufferPos] = tempSample;
-				emscripten_run_script("console.log(' - 8');//");
+				//emscripten_run_script("console.log(' - 8');//");
 				tempBufferPos++;
-				emscripten_run_script("console.log(' - 9');//");
+				//emscripten_run_script("console.log(' - 9');//");
 				if (tempBufferPos >= delayInSamples)
 					tempBufferPos = 0;
-				emscripten_run_script("console.log(' - 10');//");
+				//emscripten_run_script("console.log(' - 10');//");
 			}
-			emscripten_run_script("console.log(' - 11');//");
+			//emscripten_run_script("console.log(' - 11');//");
 		}
 		mBufferPos += data.numSamples;
 		while (delayInSamples && mBufferPos >= delayInSamples)
 			mBufferPos -= delayInSamples;
 	}	
-	emscripten_run_script("console.log(' - 8');//");
+	//emscripten_run_script("console.log(' - 8');//");
 	return kResultTrue;
 }
 

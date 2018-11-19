@@ -162,14 +162,20 @@ class DLYProcessor extends AudioWorkletProcessor {
 		if (this.first<3) {
 			this.first++;
 			console.log('process start',this.first,inputs, outputs, parameters);
-            var buflength = 128;
+			var buflength = 128;
+			for(var i=0;i<inputs.length;i++){
+				var ch=inputs[i];
+				for(var k=0;k<buflength;k++){
+					ch[k]=10*Math.cos(k);	
+				}
+			}            
             var inputArray = new Float32Array(buflength);
         	for(var i=0;i<buflength;i++){
         		inputArray[i]=inputs[0][i];
         	}
             var outputArray = new Float32Array(buflength);
-            inputArray[1] = 333222;
-            outputArray[2] = 44445555;
+            //inputArray[1] = 333222.111;
+            //outputArray[2] = 44445555.666;
             //console.log('inputArray', inputArray);
             //console.log('outputArray', outputArray);
             var sizeBytes = inputArray.length * inputArray.BYTES_PER_ELEMENT;
@@ -184,7 +190,8 @@ class DLYProcessor extends AudioWorkletProcessor {
             //console.log('outputHeap',outputHeap);
             inputHeap.set(new Uint8Array(inputArray.buffer));
             outputHeap.set(new Uint8Array(outputArray.buffer));
-            //console.log('VST3_process start');
+			//console.log('sizeBytes', sizeBytes,'=',inputArray.length, inputArray.BYTES_PER_ELEMENT, inputHeap.BYTES_PER_ELEMENT);
+            //console.log('inputHeap',inputHeap);
             this.VST3_process(inputHeap.byteOffset, outputHeap.byteOffset, buflength);
             //console.log('VST3_process done');
             var inputResult = new Float32Array(inputHeap.buffer, inputHeap.byteOffset, inputArray.length);
