@@ -61,7 +61,6 @@ ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONME
 // 2) We could be the application main() thread proxied to worker. (with Emscripten -s PROXY_TO_WORKER=1) (ENVIRONMENT_IS_WORKER == true, ENVIRONMENT_IS_PTHREAD == false)
 // 3) We could be an application pthread running in a worker. (ENVIRONMENT_IS_WORKER == true and ENVIRONMENT_IS_PTHREAD == true)
 
-
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
 function locateFile(path) {
@@ -227,6 +226,8 @@ for (key in moduleOverrides) {
 // Free the object hierarchy contained in the overrides, this lets the GC
 // reclaim data used e.g. in memoryInitializerRequest, which is a large typed array.
 moduleOverrides = undefined;
+
+// perform assertions in shell.js after we set up out() and err(), as otherwise if an assertion fails it cannot print the message
 
 
 
@@ -1487,10 +1488,6 @@ function integrateWasmJS() {
     updateGlobalBufferViews();
   }
 
-  function fixImports(imports) {
-    return imports;
-  }
-
   function getBinary() {
     try {
       if (Module['wasmBinary']) {
@@ -1629,8 +1626,6 @@ function integrateWasmJS() {
   // doesn't need to care that it is wasm or olyfilled wasm or asm.js.
 
   Module['asm'] = function(global, env, providedBuffer) {
-    env = fixImports(env);
-
     // import table
     if (!env['table']) {
       var TABLE_SIZE = Module['wasmTableSize'];
@@ -1681,7 +1676,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 17440;
+STATICTOP = STATIC_BASE + 17536;
 /* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_VST3JSExport_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
 
 
@@ -1690,7 +1685,7 @@ STATICTOP = STATIC_BASE + 17440;
 
 
 
-var STATIC_BUMP = 17440;
+var STATIC_BUMP = 17536;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1853,7 +1848,16 @@ function copyTempDouble(ptr) {
     }
 
   
-  var SYSCALLS={varargs:0,get:function (varargs) {
+  var SYSCALLS={buffers:[null,[],[]],printChar:function (stream, curr) {
+        var buffer = SYSCALLS.buffers[stream];
+        assert(buffer);
+        if (curr === 0 || curr === 10) {
+          (stream === 1 ? out : err)(UTF8ArrayToString(buffer, 0));
+          buffer.length = 0;
+        } else {
+          buffer.push(curr);
+        }
+      },varargs:0,get:function (varargs) {
         SYSCALLS.varargs += 4;
         var ret = HEAP32[(((SYSCALLS.varargs)-(4))>>2)];
         return ret;
@@ -1888,35 +1892,20 @@ function copyTempDouble(ptr) {
       // flush anything remaining in the buffers during shutdown
       var fflush = Module["_fflush"];
       if (fflush) fflush(0);
-      var printChar = ___syscall146.printChar;
-      if (!printChar) return;
-      var buffers = ___syscall146.buffers;
-      if (buffers[1].length) printChar(1, 10);
-      if (buffers[2].length) printChar(2, 10);
+      var buffers = SYSCALLS.buffers;
+      if (buffers[1].length) SYSCALLS.printChar(1, 10);
+      if (buffers[2].length) SYSCALLS.printChar(2, 10);
     }function ___syscall146(which, varargs) {SYSCALLS.varargs = varargs;
   try {
    // writev
       // hack to support printf in FILESYSTEM=0
       var stream = SYSCALLS.get(), iov = SYSCALLS.get(), iovcnt = SYSCALLS.get();
       var ret = 0;
-      if (!___syscall146.buffers) {
-        ___syscall146.buffers = [null, [], []]; // 1 => stdout, 2 => stderr
-        ___syscall146.printChar = function(stream, curr) {
-          var buffer = ___syscall146.buffers[stream];
-          assert(buffer);
-          if (curr === 0 || curr === 10) {
-            (stream === 1 ? out : err)(UTF8ArrayToString(buffer, 0));
-            buffer.length = 0;
-          } else {
-            buffer.push(curr);
-          }
-        };
-      }
       for (var i = 0; i < iovcnt; i++) {
         var ptr = HEAP32[(((iov)+(i*8))>>2)];
         var len = HEAP32[(((iov)+(i*8 + 4))>>2)];
         for (var j = 0; j < len; j++) {
-          ___syscall146.printChar(stream, HEAPU8[ptr+j]);
+          SYSCALLS.printChar(stream, HEAPU8[ptr+j]);
         }
         ret += len;
       }
