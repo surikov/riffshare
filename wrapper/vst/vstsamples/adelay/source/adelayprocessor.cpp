@@ -42,11 +42,15 @@
 #include <algorithm>
 #include <cstdlib>
 #include "base/source/fstreamer.h"
-
-/*#include <emscripten.h>
+/*
+#include <emscripten.h>
 char s[999];
-void p(char const * txt, int nn){
-	snprintf(s, sizeof(s),"console.log(' - VST3JS %s %d');//",txt,nn);
+void logint(char const * txt, int nn){
+	snprintf(s, sizeof(s),"console.log(' - VST3JS %s - %d');//",txt,nn);
+	emscripten_run_script(s);
+}
+void logfloat(char const * txt, float nn){
+	snprintf(s, sizeof(s),"console.log(' - VST3JS %s - %.9f');//",txt,nn);
 	emscripten_run_script(s);
 }*/
 namespace Steinberg {
@@ -124,7 +128,7 @@ tresult PLUGIN_API ADelayProcessor::setActive (TBool state)
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 {
-	//emscripten_run_script("console.log(' - 1');//");
+	//logint("process",0);
 	if (data.inputParameterChanges)
 	{
 		int32 numParamsChanged = data.inputParameterChanges->getParameterCount ();
@@ -160,15 +164,19 @@ tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 		int32 numChannels = SpeakerArr::getChannelCount (arr);
 
 		// TODO do something in Bypass : copy inpuit to output if necessary...
-
+		//logint("numChannels",numChannels);
 		// apply delay
 		int32 delayInSamples = std::max<int32> (1, (int32)(mDelay * processSetup.sampleRate)); // we have a minimum of 1 sample delay here
+		//logint("delayInSamples",delayInSamples);
+		//logint("mDelay",mDelay);
+		//logint("processSetup.sampleRate",processSetup.sampleRate);
+		//delayInSamples=3;
 		for (int32 channel = 0; channel < numChannels; channel++)
 		{
-			//emscripten_run_script("console.log(' - 3');//");
+			//logint("channel",channel);
 			float* inputChannel = data.inputs[0].channelBuffers32[channel];
 			float* outputChannel = data.outputs[0].channelBuffers32[channel];
-			//emscripten_run_script("console.log(' - 4');//");
+			//logint("data.numSamples",data.numSamples);
 			int32 tempBufferPos = mBufferPos;
 			for (int32 sample = 0; sample < data.numSamples; sample++)
 			{
@@ -181,8 +189,11 @@ tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 				//p("tempBufferPos",tempBufferPos);
 				float f = chan[tempBufferPos];
 				//p("sample",sample);
-				//outputChannel[sample] = mBuffer[channel][tempBufferPos];
+				//logint("sample",sample);
+				//logfloat("old",tempSample);
+				//logfloat("now",f);
 				outputChannel[sample] = f;
+				//logfloat("read",outputChannel[sample]);
 				//emscripten_run_script("console.log(' - 7');//");
 				mBuffer[channel][tempBufferPos] = tempSample;
 				//emscripten_run_script("console.log(' - 8');//");
@@ -198,7 +209,7 @@ tresult PLUGIN_API ADelayProcessor::process (ProcessData& data)
 		while (delayInSamples && mBufferPos >= delayInSamples)
 			mBufferPos -= delayInSamples;
 	}	
-	//emscripten_run_script("console.log(' - 8');//");
+	//logint("process",99);
 	return kResultTrue;
 }
 

@@ -1676,7 +1676,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 20432;
+STATICTOP = STATIC_BASE + 18688;
 /* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_VST3JSExport_cpp() } }, { func: function() { __GLOBAL__sub_I_adelaycontroller_cpp() } }, { func: function() { __GLOBAL__sub_I_exampletest_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
 
 
@@ -1685,7 +1685,7 @@ STATICTOP = STATIC_BASE + 20432;
 
 
 
-var STATIC_BUMP = 20432;
+var STATIC_BUMP = 18688;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -2314,7 +2314,6 @@ var _VST3_parameterInfo = Module["_VST3_parameterInfo"] = asm["_VST3_parameterIn
 var _VST3_parametersCount = Module["_VST3_parametersCount"] = asm["_VST3_parametersCount"];
 var _VST3_process = Module["_VST3_process"] = asm["_VST3_process"];
 var _VST3_selectProcessor = Module["_VST3_selectProcessor"] = asm["_VST3_selectProcessor"];
-var _VST3_setInteger = Module["_VST3_setInteger"] = asm["_VST3_setInteger"];
 var __GLOBAL__sub_I_VST3JSExport_cpp = Module["__GLOBAL__sub_I_VST3JSExport_cpp"] = asm["__GLOBAL__sub_I_VST3JSExport_cpp"];
 var __GLOBAL__sub_I_adelaycontroller_cpp = Module["__GLOBAL__sub_I_adelaycontroller_cpp"] = asm["__GLOBAL__sub_I_adelaycontroller_cpp"];
 var __GLOBAL__sub_I_coreiids_cpp = Module["__GLOBAL__sub_I_coreiids_cpp"] = asm["__GLOBAL__sub_I_coreiids_cpp"];

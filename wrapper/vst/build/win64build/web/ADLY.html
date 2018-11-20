@@ -1,12 +1,13 @@
 <html>
-
-<head>
-    <title>Probe</title>
-    <script src="ADLY.lib.js"></script>
-</head>
-
-<body onload="probeInit()">
-    <p><a href='#' onclick='probeStart();'>probeStart</a></p>
-</body>
-
+	<head>
+		<title>Probe</title>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0000_JCLive_sf2_file.js'></script>
+		<script src="ADLY.lib.js"></script>
+	</head>
+	<body onload="probeInit()">
+		<p><a href='#' onclick='probeStart();'>probeStart</a></p>
+		<p><a href="#" onmousedown="noteFx();">fx a note</a></p>
+		<p><a href="#" onmousedown="notePass();">pass a note</a></p>
+	</body>
 </html>

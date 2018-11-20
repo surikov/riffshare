@@ -43,24 +43,25 @@ Steinberg::Vst::IComponent* selectedComponent;
 Steinberg::Vst::IEditController* selectedEditController;
 Steinberg::FUnknown* localPluginContext = nullptr;
 Steinberg::Vst::ProcessData process_data;
-Steinberg::Vst::AudioBusBuffers inputsAudioBusBuffers;
-Steinberg::Vst::AudioBusBuffers outAudioBusBuffers;
-int durationInSamples = 128;
+
+int durationInSamples = 8;//128;
+int sampleRate = 16000;
 Steinberg::Vst::ParameterChanges inputParameterChanges;
 Steinberg::Vst::ParameterChanges outParameterChanges;
+
 
 char sb[999];
 
 void browserLog(char const * txt) {
-	snprintf(sb, sizeof(sb), "console.log(' - VST3JS %s');//", txt);
+	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s');//", txt);
 	emscripten_run_script(sb);
 }
 void browserLogInteger(char const * txt, int nn) {
-	snprintf(sb, sizeof(sb), "console.log(' - VST3JS %s %d');//", txt, nn);
+	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s: %d');//", txt, nn);
 	emscripten_run_script(sb);
 }
 void browserLogFloat(char const * txt, float f) {
-	snprintf(sb, sizeof(sb), "console.log(' - VST3JS %s %.9f');//", txt, f);
+	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s: %.9f');//", txt, f);
 	emscripten_run_script(sb);
 }
 Steinberg::int32 createBuffers (Steinberg::Vst::IComponent& component, Steinberg::Vst::AudioBusBuffers*& buffers
@@ -108,8 +109,10 @@ Steinberg::int32 createBuffers (Steinberg::Vst::IComponent& component, Steinberg
 
 extern "C" {
 
-	int VST3_init() {
-		browserLog("VST3_init v1.0.2");
+	int VST3_init(int bufferSize,int sampleRatio) {
+		browserLog("version v1.0.2");
+		durationInSamples=bufferSize;
+		sampleRate=sampleRatio;
 		iPluginFactory = GetPluginFactory();
 		iPluginFactory->getFactoryInfo (&pFactoryInfo);
 		Steinberg::FUnknownPtr<Steinberg::IPluginFactory2> pf2 = iPluginFactory;
@@ -166,6 +169,7 @@ extern "C" {
 		return p;
 	}
 	int VST3_selectProcessor(int nn) {
+		browserLogInteger("select processor from class", nn);
 		Steinberg::PClassInfo pClassInfo;
 		iPluginFactory->getClassInfo (nn, &pClassInfo);
 		int result = iPluginFactory->createInstance (pClassInfo.cid, Steinberg::Vst::IComponent::iid, (void**)&selectedComponent);
@@ -188,25 +192,24 @@ extern "C" {
 						} else {
 							Steinberg::Vst::ProcessSetup setup = {};
 							setup.maxSamplesPerBlock = 2048;
-							setup.sampleRate = 44100;
+							setup.sampleRate = sampleRate;
 							setup.symbolicSampleSize = Steinberg::Vst::SymbolicSampleSizes::kSample32;
 							setup.processMode = Steinberg::Vst::ProcessModes::kRealtime;
 							result = selectedProcessor->setupProcessing(setup);
-
-							Steinberg::Vst::AudioBusBuffers* iBuses = &inputsAudioBusBuffers;
-							int coInputBusCount = createBuffers(*selectedComponent, iBuses, Steinberg::Vst::BusDirections::kInput, durationInSamples, Steinberg::Vst::kSample32);
-
-							Steinberg::Vst::AudioBusBuffers* oBuses = &outAudioBusBuffers;
-							int coOutBusCount = createBuffers(*selectedComponent, oBuses, Steinberg::Vst::BusDirections::kOutput, durationInSamples, Steinberg::Vst::kSample32);
-
+							Steinberg::Vst::AudioBusBuffers inputsAudioBusBuffers;
+							Steinberg::Vst::AudioBusBuffers outAudioBusBuffers;
+							Steinberg::Vst::AudioBusBuffers* inputBuses = &inputsAudioBusBuffers;
+							Steinberg::Vst::AudioBusBuffers* outputBuses = &outAudioBusBuffers;
+							int coInputBusCount = createBuffers(*selectedComponent, inputBuses, Steinberg::Vst::BusDirections::kInput, durationInSamples, Steinberg::Vst::kSample32);
+							int coOutBusCount = createBuffers(*selectedComponent, outputBuses, Steinberg::Vst::BusDirections::kOutput, durationInSamples, Steinberg::Vst::kSample32);
 							Steinberg::Vst::SpeakerArrangement* inSpeakerArrangement = nullptr;
+							Steinberg::Vst::SpeakerArrangement* outSpeakerArrangement = nullptr;
 							if (coInputBusCount > 0) {
 								inSpeakerArrangement = new Steinberg::Vst::SpeakerArrangement[coInputBusCount];
 								for (int i = 0; i < coInputBusCount; i++) {
 									inSpeakerArrangement[i] = Steinberg::Vst::SpeakerArr::kStereo;
 								}
-							}
-							Steinberg::Vst::SpeakerArrangement* outSpeakerArrangement = nullptr;
+							}							
 							if (coOutBusCount > 0) {
 								outSpeakerArrangement = new Steinberg::Vst::SpeakerArrangement[coOutBusCount];
 								for (int i = 0; i < coOutBusCount; i++) {
@@ -214,15 +217,10 @@ extern "C" {
 								}
 							}
 							result = selectedProcessor->setBusArrangements(inSpeakerArrangement, coInputBusCount, outSpeakerArrangement, coOutBusCount);
-							browserLogInteger("setBusArrangements", result);
-
 							result = selectedProcessor->canProcessSampleSize(Steinberg::Vst::SymbolicSampleSizes::kSample32);
-							browserLogInteger("canProcessSampleSize", result);
-
 							int framePosition = 0;
 							double const beatPerMinute = 120.0;
 							double beatPerSecond = beatPerMinute / 60.0;
-
 							Steinberg::Vst::ProcessContext vstProcessContext;
 							vstProcessContext.sampleRate = setup.sampleRate;
 							vstProcessContext.projectTimeSamples = framePosition;
@@ -234,57 +232,24 @@ extern "C" {
 							                          | Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid
 							                          | Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid
 							                          | Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid;
-
-
 							Steinberg::Vst::EventList input_event_list;
 							Steinberg::Vst::EventList out_event_list;
-
 							inputParameterChanges.clearQueue();
 							outParameterChanges.clearQueue();
-
 							process_data.processContext = &vstProcessContext;
 							process_data.processMode = Steinberg::Vst::ProcessModes::kRealtime;
 							process_data.symbolicSampleSize = Steinberg::Vst::SymbolicSampleSizes::kSample32;
 							process_data.numSamples = durationInSamples;
 							process_data.numInputs = coInputBusCount;
 							process_data.numOutputs = coOutBusCount;
-							process_data.inputs = &inputsAudioBusBuffers;
-							process_data.outputs = &outAudioBusBuffers;
+							process_data.inputs =inputBuses;
+							process_data.outputs = outputBuses;
 							process_data.inputEvents = &input_event_list;
 							process_data.outputEvents = &out_event_list;
 							process_data.inputParameterChanges = &inputParameterChanges;
 							process_data.outputParameterChanges = &outParameterChanges;
-
 							selectedComponent->setActive(true);
 							selectedProcessor->setProcessing (true);
-
-							browserLogInteger("input bus", process_data.numInputs);
-							for (int i = 0; i < process_data.numInputs; i++) {
-								Steinberg::Vst::BusInfo busInfo = {0};
-								result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kInput, i, busInfo);
-								int numChannels = busInfo.channelCount;
-								browserLogInteger("input channel", numChannels);
-								for (int c = 0; c < numChannels; c++) {
-									float* channel = process_data.inputs[i].channelBuffers32[c];
-									for (int n = 0; n < process_data.numSamples; n++) {
-										channel[n] = 0.0;
-									}
-								}
-							}
-							browserLogInteger("output bus", process_data.numOutputs);
-							for (int i = 0; i < process_data.numOutputs; i++) {
-								Steinberg::Vst::BusInfo busInfo = {0};
-								result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kOutput, i, busInfo);
-								int numChannels = busInfo.channelCount;
-								browserLogInteger("output channel", numChannels);
-								for (int c = 0; c < numChannels; c++) {
-									float* channel = process_data.outputs[i].channelBuffers32[c];
-									for (int n = 0; n < process_data.numSamples; n++) {
-										channel[n] = 0.0;
-									}
-								}
-							}
-							browserLog("VST3_processor ready");
 						}
 					}
 				}
@@ -300,83 +265,39 @@ extern "C" {
 		char const *p = buffer;
 		return p;
 	}
-	char const* VST3_setInteger(char* name, int value) {
-		char buffer[999];
-		snprintf(buffer, sizeof(buffer), "Set integer %s: %d", name, value);
-		char const *p = buffer;
-		return p;
-	}
-	int waveCounter = 0;
-	int waveLen = 111;
-	float waveSample = 0.155;
-	int VST3_process(const float* inputBuffer, const float* outputBuffer, int len)
+	int VST3_process(float* inputBufferLeft, float* inputBufferRight, float* outputBufferLeft, float* outputBufferRight)
 	{
-		browserLog("start VST3_process");
-		//browserLogInteger("inputBuffer",sizeof(*inputBuffer));
-		//browserLogFloat("0", inputBuffer[0]);
-		//browserLogFloat("1", inputBuffer[1]);
-		//browserLogFloat("2", inputBuffer[2]);
-		//browserLogFloat("127", inputBuffer[127]);
-		for (int i = 0; i < 3; i++) {
-			for (int n = 0; n < process_data.numSamples; n++) {
-				browserLogInteger("i", i);	
-				browserLogInteger("n", n);			
-				float fff=inputBuffer[n];
-				browserLogFloat("fff", fff);
-			}
-		}
-
 		int r = -1;
 		Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> selectedProcessor = selectedComponent;
-		browserLog("input copy");
-		for (int i = 0; i < process_data.numInputs; i++) {
-			browserLogInteger("input bus", i);
+		for (int i = 0; i < process_data.numInputs && i<1; i++) {
 			Steinberg::Vst::BusInfo busInfo = {0};
 			int result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kInput, i, busInfo);
 			int numChannels = busInfo.channelCount;
-			browserLogInteger("numChannels", numChannels);
-			for (int c = 0; c < numChannels; c++) {
-				browserLogInteger("input channel", c);
-				float* channel = process_data.inputs[i].channelBuffers32[c];
-				browserLogInteger("numSamples", process_data.numSamples);
+			for (int c = 0; c < numChannels && c<1; c++) {
 				for (int n = 0; n < process_data.numSamples; n++) {
-					browserLogInteger("n", n);
-					browserLogFloat("nth", inputBuffer[n]);
-					float fff=inputBuffer[n];
-					browserLogFloat("to", channel[n]);
-					channel[n] = fff;//inputBuffer[n];
-					browserLogFloat("check", channel[n]);
+					process_data.inputs[i].channelBuffers32[c][n] = inputBufferLeft[n];
+					if(numChannels>1){
+						process_data.inputs[i].channelBuffers32[c+1][n] = inputBufferRight[n];
+					}
 				}
 			}
 		}
-		browserLog("clear output");
-		for (int i = 0; i < process_data.numOutputs; i++) {
-			//browserLogInteger("output bus", i);
+		r = selectedProcessor->process (process_data);
+		for (int i = 0; i < process_data.numOutputs && i<1; i++) {
 			Steinberg::Vst::BusInfo busInfo = {0};
 			int result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kOutput, i, busInfo);
 			int numChannels = busInfo.channelCount;
-			//browserLogInteger("numChannels", numChannels);
-			for (int c = 0; c < numChannels; c++) {
-				//browserLogInteger("channel", c);
-				float* channel = process_data.outputs[i].channelBuffers32[c];
+			for (int c = 0; c < numChannels && c<1; c++) {
 				for (int n = 0; n < process_data.numSamples; n++) {
-					//browserLogInteger("n", n);
-					//browserLogFloat("nth", inputBuffer[n]);
-					channel[n] = 0.0;
+					outputBufferLeft[n]=process_data.outputs[i].channelBuffers32[c][n];
+					if(numChannels>1){
+						outputBufferRight[n]=process_data.outputs[i].channelBuffers32[c+1][n];
+					}else{
+						outputBufferRight[n]=process_data.outputs[i].channelBuffers32[c][n];
+					}
 				}
 			}
 		}
-		//browserLog("VST3_process 1");
-
-		//browserLog("VST3_process 2");
-		//selectedProcessor = selectedComponent;
-		browserLog("->process");
-		r = selectedProcessor->process (process_data);
-		//outputBuffer[0] = -1;
-		//outputBuffer[3] = process_data.processMode;
-		//outputBuffer[4] = 0.7;
-		//outputBuffer[5] = 70.7;
-		browserLog("done VST3_process");
 		return r;
 	}
 }
