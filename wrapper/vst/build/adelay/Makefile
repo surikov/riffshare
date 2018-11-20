@@ -29,7 +29,7 @@ CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
 CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
-CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_setInteger', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_setInteger', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_getParameter']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
 CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
@@ -42,7 +42,6 @@ PLUGINSOURCE = $(SOURCEFOLDER)/adelaycontroller.cpp \
 	$(SOURCEFOLDER)/adelayprocessor.cpp \
 	$(SOURCEFOLDER)/exampletest.cpp \
 	$(SOURCEFOLDER)/factory.cpp
-
 
 VSTRUNTIME = ../../tools/VST3JSExport.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fbuffer.cpp

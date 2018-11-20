@@ -44,7 +44,7 @@ Steinberg::Vst::IEditController* selectedEditController;
 Steinberg::FUnknown* localPluginContext = nullptr;
 Steinberg::Vst::ProcessData process_data;
 
-int durationInSamples = 8;//128;
+int durationInSamples = 8;
 int sampleRate = 16000;
 Steinberg::Vst::ParameterChanges inputParameterChanges;
 Steinberg::Vst::ParameterChanges outParameterChanges;
@@ -52,10 +52,6 @@ Steinberg::Vst::ParameterChanges outParameterChanges;
 
 char sb[999];
 
-void browserLog(char const * txt) {
-	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s');//", txt);
-	emscripten_run_script(sb);
-}
 void browserLogInteger(char const * txt, int nn) {
 	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s: %d');//", txt, nn);
 	emscripten_run_script(sb);
@@ -109,10 +105,10 @@ Steinberg::int32 createBuffers (Steinberg::Vst::IComponent& component, Steinberg
 
 extern "C" {
 
-	int VST3_init(int bufferSize,int sampleRatio) {
-		browserLog("version v1.0.2");
-		durationInSamples=bufferSize;
-		sampleRate=sampleRatio;
+	int VST3_init(int bufferSize, int sampleRatio) {
+		browserLogInteger("version v1.0.2", bufferSize);
+		durationInSamples = bufferSize;
+		sampleRate = sampleRatio;
 		iPluginFactory = GetPluginFactory();
 		iPluginFactory->getFactoryInfo (&pFactoryInfo);
 		Steinberg::FUnknownPtr<Steinberg::IPluginFactory2> pf2 = iPluginFactory;
@@ -140,6 +136,12 @@ extern "C" {
 	int VST3_parametersCount() {
 		return selectedEditController->getParameterCount();
 	}
+	void VST3_setParameter(int id, float value) {
+		//
+	}
+	float VST3_getParameter(int id) {
+		return 0;
+	}
 	char const* VST3_parameterInfo(int nn) {
 		char buffer[999];
 		Steinberg::Vst::ParameterInfo parameterInfo;
@@ -158,12 +160,15 @@ extern "C" {
 		units16.toAscii (units8, 128);
 
 		snprintf(buffer, sizeof(buffer)
-		         , "{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\"}"
+		         , "{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\", \"id\":\"%d\", \"stepCount\":\"%d\", \"defaultNormalizedValue\":\"%f\"}"
 		         , nn
 		         , title8
 		         , shortTitle8
 		         , units8
 		         , parameterInfo.flags
+		         , parameterInfo.id
+		         , parameterInfo.stepCount
+		         , parameterInfo.defaultNormalizedValue
 		        );
 		char const *p = buffer;
 		return p;
@@ -209,7 +214,7 @@ extern "C" {
 								for (int i = 0; i < coInputBusCount; i++) {
 									inSpeakerArrangement[i] = Steinberg::Vst::SpeakerArr::kStereo;
 								}
-							}							
+							}
 							if (coOutBusCount > 0) {
 								outSpeakerArrangement = new Steinberg::Vst::SpeakerArrangement[coOutBusCount];
 								for (int i = 0; i < coOutBusCount; i++) {
@@ -224,16 +229,20 @@ extern "C" {
 							Steinberg::Vst::ProcessContext vstProcessContext;
 							vstProcessContext.sampleRate = setup.sampleRate;
 							vstProcessContext.projectTimeSamples = framePosition;
-							vstProcessContext.projectTimeMusic = framePosition / setup.sampleRate * beatPerSecond;
-							vstProcessContext.tempo = beatPerMinute;
-							vstProcessContext.timeSigDenominator = 4;
-							vstProcessContext.timeSigNumerator = 4;
+							//vstProcessContext.projectTimeMusic = framePosition / setup.sampleRate * beatPerSecond;
+							//vstProcessContext.tempo = beatPerMinute;
+							//vstProcessContext.timeSigDenominator = 4;
+							//vstProcessContext.timeSigNumerator = 4;
 							vstProcessContext.state = Steinberg::Vst::ProcessContext::StatesAndFlags::kPlaying
-							                          | Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid
-							                          | Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid
-							                          | Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid;
+							                          //| Steinberg::Vst::ProcessContext::StatesAndFlags::kProjectTimeMusicValid
+							                          //| Steinberg::Vst::ProcessContext::StatesAndFlags::kTempoValid
+							                          //| Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid
+							                          ;
+							//vstProcessContext.systemTime = 0;
 							Steinberg::Vst::EventList input_event_list;
 							Steinberg::Vst::EventList out_event_list;
+							inputParameterChanges.setMaxParameters(selectedEditController->getParameterCount());
+							outParameterChanges.setMaxParameters(selectedEditController->getParameterCount());
 							inputParameterChanges.clearQueue();
 							outParameterChanges.clearQueue();
 							process_data.processContext = &vstProcessContext;
@@ -242,7 +251,7 @@ extern "C" {
 							process_data.numSamples = durationInSamples;
 							process_data.numInputs = coInputBusCount;
 							process_data.numOutputs = coOutBusCount;
-							process_data.inputs =inputBuses;
+							process_data.inputs = inputBuses;
 							process_data.outputs = outputBuses;
 							process_data.inputEvents = &input_event_list;
 							process_data.outputEvents = &out_event_list;
@@ -269,35 +278,42 @@ extern "C" {
 	{
 		int r = -1;
 		Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> selectedProcessor = selectedComponent;
-		for (int i = 0; i < process_data.numInputs && i<1; i++) {
+		for (int i = 0; i < process_data.numInputs && i < 1; i++) {
 			Steinberg::Vst::BusInfo busInfo = {0};
 			int result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kInput, i, busInfo);
 			int numChannels = busInfo.channelCount;
-			for (int c = 0; c < numChannels && c<1; c++) {
+			for (int c = 0; c < numChannels && c < 1; c++) {
 				for (int n = 0; n < process_data.numSamples; n++) {
 					process_data.inputs[i].channelBuffers32[c][n] = inputBufferLeft[n];
-					if(numChannels>1){
-						process_data.inputs[i].channelBuffers32[c+1][n] = inputBufferRight[n];
+					if (numChannels > 1) {
+						process_data.inputs[i].channelBuffers32[c + 1][n] = inputBufferRight[n];
 					}
 				}
 			}
 		}
+		/*
+		Steinberg::Vst::IParamValueQueue* queue = 0;
+		int index;
+		queue = inputParameterChanges.addParameterData(100, index);
+		queue->addPoint (0, 2.0001, index);
+		*/
 		r = selectedProcessor->process (process_data);
-		for (int i = 0; i < process_data.numOutputs && i<1; i++) {
+		for (int i = 0; i < process_data.numOutputs && i < 1; i++) {
 			Steinberg::Vst::BusInfo busInfo = {0};
 			int result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kOutput, i, busInfo);
 			int numChannels = busInfo.channelCount;
-			for (int c = 0; c < numChannels && c<1; c++) {
+			for (int c = 0; c < numChannels && c < 1; c++) {
 				for (int n = 0; n < process_data.numSamples; n++) {
-					outputBufferLeft[n]=process_data.outputs[i].channelBuffers32[c][n];
-					if(numChannels>1){
-						outputBufferRight[n]=process_data.outputs[i].channelBuffers32[c+1][n];
-					}else{
-						outputBufferRight[n]=process_data.outputs[i].channelBuffers32[c][n];
+					outputBufferLeft[n] = process_data.outputs[i].channelBuffers32[c][n];
+					if (numChannels > 1) {
+						outputBufferRight[n] = process_data.outputs[i].channelBuffers32[c + 1][n];
+					} else {
+						outputBufferRight[n] = process_data.outputs[i].channelBuffers32[c][n];
 					}
 				}
 			}
 		}
+		inputParameterChanges.clearQueue();
 		return r;
 	}
 }

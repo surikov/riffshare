@@ -50,6 +50,8 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 			this.outArrayLeft = this.allocateArray32(this.buflength);
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
+			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
+			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
 		} catch (exx) {
 			console.log('exception', exx);
 		}
