@@ -1,11 +1,12 @@
-if (process.argv.length != 6) {
-	console.log("usage: node copyconvert.js modulename wasmfilename webfolder hexkey");
+if (process.argv.length != 7) {
+	console.log("usage: node copyconvert.js modulename wasmfilename webfolder hexkey subname");
 	return;
 }
 var modulename = process.argv[2];
 var wasmfilename = process.argv[3];
 var webfolder = process.argv[4];
 var hexkey = process.argv[5];
+var subname = process.argv[6];
 fs = require('fs');
 
 var wasmStr = fs.readFileSync(wasmfilename);
@@ -15,19 +16,20 @@ txt = txt + "AudioWorkletGlobalScope.WAM." + modulename + " = { ENVIRONMENT: 'WE
 txt = txt + "AudioWorkletGlobalScope.WAM." + modulename + ".wasmBinary = new Uint8Array([" + wasmStr + "]);";
 fs.writeFileSync(wasmfilename + ".js", txt);
 
-txt = fs.readFileSync(webfolder + '/'+modulename+'.js').toString();
+txt = fs.readFileSync(webfolder + '/' + modulename + '.js').toString();
 txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename);
-fs.writeFileSync(webfolder + '/'+modulename + '.js', txt);
+fs.writeFileSync(webfolder + '/' + modulename + '.js', txt);
 
-txt = fs.readFileSync(webfolder + '/'+modulename+'.processor.js').toString();
+txt = fs.readFileSync(webfolder + '/' + modulename + '.' + subname + '.processor.js').toString();
 txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename);
 txt = txt.replace(new RegExp('HEXPLUGINKEY', 'gi'), hexkey);
-fs.writeFileSync(webfolder + '/'+modulename + '.processor.js', txt);
+fs.writeFileSync(webfolder + '/' + modulename + '.' + subname + '.processor.js', txt);
 
-txt = fs.readFileSync(webfolder + '/'+modulename+'.lib.js').toString();
+txt = fs.readFileSync(webfolder + '/' + modulename + '.' + subname + '.lib.js').toString();
+txt = txt.replace(new RegExp('VSTMODULENAME.processor.js', 'gi'), modulename + '.' + subname + '.processor.js');
 txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename);
-fs.writeFileSync(webfolder + '/'+modulename + '.lib.js', txt);
+fs.writeFileSync(webfolder + '/' + modulename + '.' + subname + '.lib.js', txt);
 
-txt = fs.readFileSync(webfolder + '/'+modulename+'.html').toString();
-txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename);
-fs.writeFileSync(webfolder + '/'+modulename + '.html', txt);
+txt = fs.readFileSync(webfolder + '/' + modulename + '.' + subname + '.html').toString();
+txt = txt.replace(new RegExp('VSTMODULENAME', 'gi'), modulename + '.' + subname);
+fs.writeFileSync(webfolder + '/' + modulename + '.' + subname + '.html', txt);

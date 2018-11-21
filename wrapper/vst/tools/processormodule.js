@@ -55,6 +55,7 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
 			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
+			this.VST3_sendNote = this.vst.cwrap("VST3_sendNote", '', ['number', 'number']);
 		} catch (exx) {
 			console.log('exception', exx);
 		}
@@ -81,6 +82,10 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 		}
 		if(e.data.kind=='set'){
 			this.sendParameter(e.data.value,e.data.subvalue);
+			return;
+		}
+		if(e.data.kind=='send'){
+			this.VST3_sendNote(e.data.value,e.data.subvalue);
 			return;
 		}
 		/*if(e.data.kind=='description'){

@@ -59,7 +59,7 @@ function showParameters(value) {
 		if (u.trim().length) {
 			u = ' (' + u + ')';
 		}
-		txt = txt + '<p><input type="range" min="0" max="1.0" step="0.01" id="parameter' + i + '" value="' + (1 * value.parameters[i].defaultNormalizedValue) + '" onchange="changeParameter(' + i + ',this.value)" > <label>' + value.parameters[i].title + u + '</label></p>';
+		txt = txt + '<input type="range" min="0" max="1.0" step="0.01" id="parameter' + i + '" value="' + (1 * value.parameters[i].defaultNormalizedValue) + '" onchange="changeParameter(' + i + ',this.value)" > <label>' + value.parameters[i].title + u + '</label><br/>';
 		audioWorkletNode.port.postMessage({
 			kind: 'set',
 			value: i,
@@ -99,6 +99,22 @@ function __probeHigh() {
 		kind: 'set',
 		value: 100,
 		subvalue: 3.21
+	});
+}
+function noteSend1() {
+	audioWorkletNode.port.postMessage({
+		kind: 'send',
+		value: 60,
+		subvalue: 0.5,
+		duration: 0.75
+	});
+}
+function noteSend2() {
+	audioWorkletNode.port.postMessage({
+		kind: 'send',
+		value: 80,
+		subvalue: 0.5,
+		duration: 0.75
 	});
 }
 function noteFx() {

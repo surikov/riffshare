@@ -49,6 +49,9 @@ int sampleRate = 16000;
 Steinberg::Vst::ParameterChanges inputParameterChanges;
 Steinberg::Vst::ParameterChanges outParameterChanges;
 
+Steinberg::Vst::EventList inputEventList;
+Steinberg::Vst::EventList outEventList;
+
 
 char sb[999];
 
@@ -146,6 +149,22 @@ extern "C" {
 		int sampleOffset=0;
 		queue->addPoint (sampleOffset, value, pointIndex);
 		//browserLogInteger("done",0);
+	}
+	void VST3_sendNote(int key, float duration) {
+		browserLogInteger("add event to",inputEventList.getEventCount());
+		Steinberg::Vst::Event e;
+		e.busIndex = 0;
+		e.sampleOffset = 0;
+		e.ppqPosition = 0;//process_context.projectTimeMusic;
+		e.flags = Steinberg::Vst::Event::kIsLive;
+e.type = Steinberg::Vst::Event::kNoteOnEvent;
+				e.noteOn.channel = 0;
+				e.noteOn.length = 0;
+				e.noteOn.pitch = key;
+				e.noteOn.tuning = 0;
+				e.noteOn.noteId = -1;
+				e.noteOn.velocity = 100 / 127.0;		
+		inputEventList.addEvent(e);
 	}
 	char const* VST3_parameterInfo(int nn) {
 		char buffer[999];
@@ -245,8 +264,7 @@ extern "C" {
 							                          //| Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid
 							                          ;
 							//vstProcessContext.systemTime = 0;
-							Steinberg::Vst::EventList input_event_list;
-							Steinberg::Vst::EventList out_event_list;
+							
 							inputParameterChanges.setMaxParameters(selectedEditController->getParameterCount());
 							outParameterChanges.setMaxParameters(selectedEditController->getParameterCount());
 							inputParameterChanges.clearQueue();
@@ -259,8 +277,8 @@ extern "C" {
 							process_data.numOutputs = coOutBusCount;
 							process_data.inputs = inputBuses;
 							process_data.outputs = outputBuses;
-							process_data.inputEvents = &input_event_list;
-							process_data.outputEvents = &out_event_list;
+							process_data.inputEvents = &inputEventList;
+							process_data.outputEvents = &outEventList;
 							process_data.inputParameterChanges = &inputParameterChanges;
 							process_data.outputParameterChanges = &outParameterChanges;
 							selectedComponent->setActive(true);
@@ -297,14 +315,26 @@ extern "C" {
 				}
 			}
 		}
-		/*
-		Steinberg::Vst::IParamValueQueue* queue = 0;
-		int index;
-		queue = inputParameterChanges.addParameterData(100, index);
-		queue->addPoint (0, 2.0001, index);
-		*/
 		r = selectedProcessor->process (process_data);
 		inputParameterChanges.clearQueue();
+		inputEventList.clear();
+		/*
+		if (data.outputParameterChanges)
+		{
+			int32 index;
+			IParamValueQueue* queue = data.outputParameterChanges->addParameterData (kParamActiveVoices, index);
+			if (queue)
+			{
+				queue->addPoint (0, (ParamValue)voiceProcessor->getActiveVoices () / (ParamValue)MAX_VOICES, index);
+			}
+		}
+		for(int i = 0; i < output_changes_.getParameterCount(); ++i) {
+			auto *queue = output_changes_.getParameterData(i);
+			if(queue && queue->getPointCount() > 0) {
+				hwm::dout << "Output parameter count [" << i << "] : " << queue->getPointCount() << std::endl;
+			}
+		}
+		*/
 		for (int i = 0; i < process_data.numOutputs && i < 1; i++) {
 			Steinberg::Vst::BusInfo busInfo = {0};
 			int result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kOutput, i, busInfo);

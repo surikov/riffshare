@@ -1,8 +1,10 @@
 #PROJECTNAME = ADLY
-PROJECTNAME = MDAOVER
+PROJECTNAME = MDA
+SUBNAME = DX10
 TARGET = ./web/$(PROJECTNAME).js
-PLUGINID = 0CDBB66985D548A9BFD8371909D24BB3
-PLUGINID = 203C7009042A4AC2A515CFF1DF647E92
+#PLUGINID = 0CDBB66985D548A9BFD8371909D24BB3
+#PLUGINID = 203C7009042A4AC2A515CFF1DF647E92
+PLUGINID = F8713648E24441748AAA3B62A77F9E2D
 
 SAMPLESFOLDER = ../../vstsamples
 #SOURCEFOLDER = $(SAMPLESFOLDER)/adelay/source
@@ -33,7 +35,7 @@ CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
 CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
-CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_sendNote']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
 CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
@@ -228,9 +230,9 @@ $(TARGET):
 #	cp ../../tools/index.html ./web/$(PROJECTNAME).html
 #	cp ../../tools/lib.js ./web/$(PROJECTNAME).lib.js
 #	cp ../../tools/processormodule.js ./web/$(PROJECTNAME).processor.js
-	copy /Y ..\..\tools\index.html .\web\$(PROJECTNAME).html
-	copy /Y ..\..\tools\lib.js .\web\$(PROJECTNAME).lib.js
-	copy /Y ..\..\tools\processormodule.js .\web\$(PROJECTNAME).processor.js
-	node ../../tools/copyconvert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
+	copy /Y ..\..\tools\index.html .\web\$(PROJECTNAME).$(SUBNAME).html
+	copy /Y ..\..\tools\lib.js .\web\$(PROJECTNAME).$(SUBNAME).lib.js
+	copy /Y ..\..\tools\processormodule.js .\web\$(PROJECTNAME).$(SUBNAME).processor.js
+	node ../../tools/copyconvert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID) $(SUBNAME)
 
 
