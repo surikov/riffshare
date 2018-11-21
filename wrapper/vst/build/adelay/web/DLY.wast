@@ -3,6 +3,7 @@
  (type $FUNCSIG$iiiiii (func (param i32 i32 i32 i32 i32) (result i32)))
  (type $FUNCSIG$iii (func (param i32 i32) (result i32)))
  (type $FUNCSIG$ii (func (param i32) (result i32)))
+ (type $FUNCSIG$iiidi (func (param i32 i32 f64 i32) (result i32)))
  (type $FUNCSIG$iiiii (func (param i32 i32 i32 i32) (result i32)))
  (type $FUNCSIG$iiid (func (param i32 i32 f64) (result i32)))
  (type $FUNCSIG$vii (func (param i32 i32)))
@@ -19,7 +20,6 @@
  (type $FUNCSIG$viiiii (func (param i32 i32 i32 i32 i32)))
  (type $FUNCSIG$dii (func (param i32 i32) (result f64)))
  (type $FUNCSIG$diid (func (param i32 i32 f64) (result f64)))
- (type $FUNCSIG$iiidi (func (param i32 i32 f64 i32) (result i32)))
  (type $FUNCSIG$ji (func (param i32) (result i64)))
  (type $FUNCSIG$jiji (func (param i32 i64 i32) (result i64)))
  (type $FUNCSIG$viii (func (param i32 i32 i32)))
@@ -42,17 +42,17 @@
  (data (i32.const 2863) "\n\00\00\00\00\n\00\00\00\00\t\0b\00\00\00\00\00\0b\00\00\0b")
  (data (i32.const 2909) "\0c")
  (data (i32.const 2921) "\0c\00\00\00\00\0c\00\00\00\00\t\0c\00\00\00\00\00\0c\00\00\0c\00\000123456789ABCDEFT!\"\19\0d\01\02\03\11K\1c\0c\10\04\0b\1d\12\1e\'hnopqb \05\06\0f\13\14\15\1a\08\16\07($\17\18\t\n\0e\1b\1f%#\83\82}&*+<=>?CGJMXYZ[\\]^_`acdefgijklrstyz{|")
- (data (i32.const 3056) "Illegal byte sequence\00Domain error\00Result not representable\00Not a tty\00Permission denied\00Operation not permitted\00No such file or directory\00No such process\00File exists\00Value too large for data type\00No space left on device\00Out of memory\00Resource busy\00Interrupted system call\00Resource temporarily unavailable\00Invalid seek\00Cross-device link\00Read-only file system\00Directory not empty\00Connection reset by peer\00Operation timed out\00Connection refused\00Host is down\00Host is unreachable\00Address in use\00Broken pipe\00I/O error\00No such device or address\00Block device required\00No such device\00Not a directory\00Is a directory\00Text file busy\00Exec format error\00Invalid argument\00Argument list too long\00Symbolic link loop\00Filename too long\00Too many open files in system\00No file descriptors available\00Bad file descriptor\00No child process\00Bad address\00File too large\00Too many links\00No locks available\00Resource deadlock would occur\00State not recoverable\00Previous owner died\00Operation canceled\00Function not implemented\00No message of desired type\00Identifier removed\00Device not a stream\00No data available\00Device timeout\00Out of streams resources\00Link has been severed\00Protocol error\00Bad message\00File descriptor in bad state\00Not a socket\00Destination address required\00Message too large\00Protocol wrong type for socket\00Protocol not available\00Protocol not supported\00Socket type not supported\00Not supported\00Protocol family not supported\00Address family not supported by protocol\00Address not available\00Network is down\00Network unreachable\00Connection reset by network\00Connection aborted\00No buffer space available\00Socket is connected\00Socket not connected\00Cannot send after socket shutdown\00Operation already in progress\00Operation in progress\00Stale file handle\00Remote I/O error\00Quota exceeded\00No medium found\00Wrong medium type\00No error information\00\00\00\00\00\00\n\00\00\00d\00\00\00\e8\03\00\00\10\'\00\00\a0\86\01\00@B\0f\00\80\96\98\00\00\e1\f5\05\bc%\00\00\d4\'\00\00\01\00\00\00\02\00\00\00\f0\15\00\00\02\00\00\00@\13\00\00\028\00\00D%\00\00\f7\'\00\00P\13\00\00\00\00\00\00\1c%\00\00\1e(\00\00\1c%\00\004(\00\00D%\00\00R(\00\00\d0\14\00\00\00\00\00\00\bc%\00\00\97(\00\00\01\00\00\00\02\00\00\00\90\13\00\00\02\00\00\00\d0\13\00\00\02\04\00\00D%\00\00\b4(\00\00P\13\00\00\00\00\00\00\bc%\00\00\f6(\00\00\01\00\00\00\02\00\00\00\c0\13\00\00\02\00\00\00\d0\13\00\00\02\04\00\00D%\00\00\1a)\00\00P\13\00\00\00\00\00\00D%\00\00\b5)\00\00\e0\13\00\00\00\00\00\00D%\00\00\ca)\00\00P\13\00\00\00\00\00\00D%\00\00\e3)\00\00\00\14\00\00\00\00\00\00\1c%\00\00\fc)\00\00D%\00\00-,\00\00(\14\00\00\00\00\00\00D%\00\00\c0*\00\00\a0\16\00\00\00\00\00\00\1c%\00\00\13,\00\00D%\00\00P,\00\00@\14\00\00\00\00\00\00D%\00\00m,\00\00P\14\00\00\00\00\00\00D%\00\00\8b,\00\00`\14\00\00\00\00\00\00D%\00\00\a9,\00\00P\13\00\00\00\00\00\00D%\00\00\c6,\00\00\80\14\00\00\00\00\00\00D%\00\00\e1,\00\00P\13\00\00\00\00\00\00D%\00\00\fe,\00\00\a0\14\00\00\00\00\00\00D%\00\00$-\00\00P\13\00\00\00\00\00\00D%\00\00G-\00\00\c0\14\00\00\00\00\00\00D%\00\00j-\00\00P\13\00\00\00\00\00\00\bc%\00\00\8e-\00\00\01\00\00\00\02\00\00\00x\15\00\00\02\00\00\00\f0\14\00\00\02\a0\00\00D%\00\00\ac-\00\00P\13\00\00\00\00\00\00D%\00\00\d7-\00\00\d0\13\00\00\00\00\00\00D%\00\00\fa-\00\00\00\15\00\00\00\00\00\00\bc%\00\00!.\00\00\00\00\00\00\02\00\00\00\d0\13\00\00\02\00\00\00@\15\00\00\02\08\00\00\bc%\00\00:.\00\00\00\00\00\00\01\00\00\00X\15\00\00\00\00\00\00\bc%\00\00\7f.\00\00\00\00\00\00\01\00\00\00p\15\00\00\00\00\00\00\1c%\00\00\cc.\00\00\bc%\00\00\fb.\00\00\01\00\00\00\02\00\00\00\b8\15\00\00\02\00\00\00\98\15\00\00\02\18\00\00D%\00\00\16/\00\00\a8\15\00\00\00\00\00\00D%\00\003/\00\00P\13\00\00\00\00\00\00\bc%\00\00^/\00\00\01\00\00\00\03\00\00\00\d0\13\00\00\02\00\00\00\a8\15\00\00\02\08\00\00\e0\15\00\00\02\0c\00\00D%\00\00~/\00\00P\13\00\00\00\00\00\00\bc%\00\00\be/\00\00\01\00\00\00\03\00\00\00\b8\15\00\00\02\00\00\00\18\16\00\00\02\18\00\00(\16\00\00\02\1c\00\00D%\00\00\020\00\00\a8\15\00\00\00\00\00\00D%\00\00\df/\00\00P\13\00\00\00\00\00\00D%\00\00.0\00\00\d0\13\00\00\00\00\00\00\bc%\00\00\a40\00\00\01\00\00\00\02\00\00\00\90\13\00\00\02\00\00\00\d0\13\00\00\02\04\00\00D%\00\00\0d1\00\00\b0\16\00\00\00\00\00\00\1c%\00\00#1\00\00\bc%\00\00:1\00\00\00\00\00\00\02\00\00\00h\16\00\00\02\00\00\00x\16\00\00\02\00\00\00D%\00\00]1\00\00\80\16\00\00\00\00\00\00\1c%\00\00\801\00\00\1c%\00\00*2\00\00D%\00\00\8a2\00\00\d0\16\00\00\00\00\00\00D%\00\0072\00\00\e0\16\00\00\00\00\00\00\1c%\00\00X2\00\00D%\00\00e2\00\00\c0\16\00\00\00\00\00\00D%\00\00l3\00\00\b8\16\00\00\00\00\00\00D%\00\00|3\00\00\b8\16\00\00\00\00\00\00D%\00\00\8e3\00\00\f8\16\00\00\00\00\00\00D%\00\00\9f3\00\00\08\17\00\00\00\00\00\00D%\00\00\d33\00\00\d0\16\00\00\00\00\00\00D%\00\00\af3\00\008\17\00\00\00\00\00\00D%\00\00\f53\00\00\c0\16\00\00\00\00\00\00\08\00\00\00\80>\00\00\00\00\00\00 \13\00\00\01\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\t\00\00\00\n\00\00\00\05\00\00\00\03\00\00\00\01\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\01\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\02\00\00\00\11\00\00\00\06\00\00\00\07\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\14\00\00\00\08\00\00\00\f8\ff\ff\ff \13\00\00\05\00\00\00\t\00\00\00\n\00\00\00\15\00\00\00\0b\00\00\00\f4\ff\ff\ff \13\00\00\06\00\00\00\0c\00\00\00\0d\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ff \13\00\00\07\00\00\00\0e\00\00\00\0f\00\00\00\19\00\00\00\10\00\00\00\1a\00\00\00\1b\00\00\00\1c\00\00\00\11\00\00\00\08\00\00\00\02\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\02\00\00\00\03\00\00\00\1d\00\00\00\1e\00\00\00\e4\ff\ff\ff \13\00\00\t\00\00\00\12\00\00\00\13\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\c8\ff\ff\ff \13\00\00\n\00\00\00\14\00\00\00\15\00\00\00\16\00\00\00\00\00\00\00X\13\00\00\03\00\00\00\04\00\00\00\00\00\00\00`\13\00\00\0b\00\00\00\17\00\00\00\18\00\00\00\01\00\00\00\05\00\00\00\06\00\00\00\19\00\00\00\"\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00#\00\00\00\1a\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00$\00\00\00%\00\00\00\0d\00\00\00\01\00\00\00\0e\00\00\00\02\00\00\00&\00\00\00\'\00\00\00(\00\00\00\03\00\00\00\03\00\00\00)\00\00\00\1b\00\00\00*\00\00\00+\00\00\00,\00\00\00\1c\00\00\00\f8\ff\ff\ff`\13\00\00\0f\00\00\00\1d\00\00\00\1e\00\00\00-\00\00\00\1f\00\00\00\f4\ff\ff\ff`\13\00\00\10\00\00\00 \00\00\00!\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ff`\13\00\00\11\00\00\00\"\00\00\00#\00\00\00.\00\00\00$\00\00\00/\00\00\000\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\05\00\00\001\00\00\002\00\00\003\00\00\00`\ff\ff\ff`\13\00\00\14\00\00\00%\00\00\00&\00\00\00\06\00\00\00\04\00\00\004\00\00\00\'\00\00\005\00\00\006\00\00\007\00\00\00(\00\00\00\0c\19\00\00\03\8e\7f\a9b\9aN\aa\85A\b8\89\18\e8\95,\00\00\00\00p\13\00\00\15\00\00\00)\00\00\00*\00\00\00+\00\00\008\00\00\00,\00\00\00-\00\00\00.\00\00\009\00\00\00\16\00\00\00\07\00\00\00\08\00\00\00\fc\ff\ff\ffp\13\00\00\17\00\00\00/\00\00\000\00\00\00\01\00\00\00\t\00\00\00\n\00\00\001\00\00\00:\00\00\00\18\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\00\00\00\00\a0\13\00\00\19\00\00\002\00\00\003\00\00\00\1a\00\00\004\00\00\00;\00\00\00\1b\00\00\00\0b\00\00\00\0c\00\00\00\fc\ff\ff\ff\a0\13\00\00\1c\00\00\005\00\00\006\00\00\00\01\00\00\00\0d\00\00\00\0e\00\00\007\00\00\00<\00\00\00\1d\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\0c\19\00\00\0c\db\b6i\85\d5H\a9\bf\d87\19\t\d2K\b3\0c\19\00\00\03\8e\7f\a9b\9aN\aa\85A\b8\89\18\e8\95,\0c\19")
+ (data (i32.const 3056) "Illegal byte sequence\00Domain error\00Result not representable\00Not a tty\00Permission denied\00Operation not permitted\00No such file or directory\00No such process\00File exists\00Value too large for data type\00No space left on device\00Out of memory\00Resource busy\00Interrupted system call\00Resource temporarily unavailable\00Invalid seek\00Cross-device link\00Read-only file system\00Directory not empty\00Connection reset by peer\00Operation timed out\00Connection refused\00Host is down\00Host is unreachable\00Address in use\00Broken pipe\00I/O error\00No such device or address\00Block device required\00No such device\00Not a directory\00Is a directory\00Text file busy\00Exec format error\00Invalid argument\00Argument list too long\00Symbolic link loop\00Filename too long\00Too many open files in system\00No file descriptors available\00Bad file descriptor\00No child process\00Bad address\00File too large\00Too many links\00No locks available\00Resource deadlock would occur\00State not recoverable\00Previous owner died\00Operation canceled\00Function not implemented\00No message of desired type\00Identifier removed\00Device not a stream\00No data available\00Device timeout\00Out of streams resources\00Link has been severed\00Protocol error\00Bad message\00File descriptor in bad state\00Not a socket\00Destination address required\00Message too large\00Protocol wrong type for socket\00Protocol not available\00Protocol not supported\00Socket type not supported\00Not supported\00Protocol family not supported\00Address family not supported by protocol\00Address not available\00Network is down\00Network unreachable\00Connection reset by network\00Connection aborted\00No buffer space available\00Socket is connected\00Socket not connected\00Cannot send after socket shutdown\00Operation already in progress\00Operation in progress\00Stale file handle\00Remote I/O error\00Quota exceeded\00No medium found\00Wrong medium type\00No error information\00\00\00\00\00\00\n\00\00\00d\00\00\00\e8\03\00\00\10\'\00\00\a0\86\01\00@B\0f\00\80\96\98\00\00\e1\f5\05\bc%\00\00\f5\'\00\00\01\00\00\00\02\00\00\00\f0\15\00\00\02\00\00\00@\13\00\00\028\00\00D%\00\00\18(\00\00P\13\00\00\00\00\00\00\1c%\00\00?(\00\00\1c%\00\00U(\00\00D%\00\00s(\00\00\d0\14\00\00\00\00\00\00\bc%\00\00\b8(\00\00\01\00\00\00\02\00\00\00\90\13\00\00\02\00\00\00\d0\13\00\00\02\04\00\00D%\00\00\d5(\00\00P\13\00\00\00\00\00\00\bc%\00\00\17)\00\00\01\00\00\00\02\00\00\00\c0\13\00\00\02\00\00\00\d0\13\00\00\02\04\00\00D%\00\00;)\00\00P\13\00\00\00\00\00\00D%\00\00\d6)\00\00\e0\13\00\00\00\00\00\00D%\00\00\eb)\00\00P\13\00\00\00\00\00\00D%\00\00\04*\00\00\00\14\00\00\00\00\00\00\1c%\00\00\1d*\00\00D%\00\00N,\00\00(\14\00\00\00\00\00\00D%\00\00\e1*\00\00\a0\16\00\00\00\00\00\00\1c%\00\004,\00\00D%\00\00q,\00\00@\14\00\00\00\00\00\00D%\00\00\8e,\00\00P\14\00\00\00\00\00\00D%\00\00\ac,\00\00`\14\00\00\00\00\00\00D%\00\00\ca,\00\00P\13\00\00\00\00\00\00D%\00\00\e7,\00\00\80\14\00\00\00\00\00\00D%\00\00\02-\00\00P\13\00\00\00\00\00\00D%\00\00\1f-\00\00\a0\14\00\00\00\00\00\00D%\00\00E-\00\00P\13\00\00\00\00\00\00D%\00\00h-\00\00\c0\14\00\00\00\00\00\00D%\00\00\8b-\00\00P\13\00\00\00\00\00\00\bc%\00\00\af-\00\00\01\00\00\00\02\00\00\00x\15\00\00\02\00\00\00\f0\14\00\00\02\a0\00\00D%\00\00\cd-\00\00P\13\00\00\00\00\00\00D%\00\00\f8-\00\00\d0\13\00\00\00\00\00\00D%\00\00\1b.\00\00\00\15\00\00\00\00\00\00\bc%\00\00B.\00\00\00\00\00\00\02\00\00\00\d0\13\00\00\02\00\00\00@\15\00\00\02\08\00\00\bc%\00\00[.\00\00\00\00\00\00\01\00\00\00X\15\00\00\00\00\00\00\bc%\00\00\a0.\00\00\00\00\00\00\01\00\00\00p\15\00\00\00\00\00\00\1c%\00\00\ed.\00\00\bc%\00\00\1c/\00\00\01\00\00\00\02\00\00\00\b8\15\00\00\02\00\00\00\98\15\00\00\02\18\00\00D%\00\007/\00\00\a8\15\00\00\00\00\00\00D%\00\00T/\00\00P\13\00\00\00\00\00\00\bc%\00\00\7f/\00\00\01\00\00\00\03\00\00\00\d0\13\00\00\02\00\00\00\a8\15\00\00\02\08\00\00\e0\15\00\00\02\0c\00\00D%\00\00\9f/\00\00P\13\00\00\00\00\00\00\bc%\00\00\df/\00\00\01\00\00\00\03\00\00\00\b8\15\00\00\02\00\00\00\18\16\00\00\02\18\00\00(\16\00\00\02\1c\00\00D%\00\00#0\00\00\a8\15\00\00\00\00\00\00D%\00\00\000\00\00P\13\00\00\00\00\00\00D%\00\00O0\00\00\d0\13\00\00\00\00\00\00\bc%\00\00\c50\00\00\01\00\00\00\02\00\00\00\90\13\00\00\02\00\00\00\d0\13\00\00\02\04\00\00D%\00\00.1\00\00\b0\16\00\00\00\00\00\00\1c%\00\00D1\00\00\bc%\00\00[1\00\00\00\00\00\00\02\00\00\00h\16\00\00\02\00\00\00x\16\00\00\02\00\00\00D%\00\00~1\00\00\80\16\00\00\00\00\00\00\1c%\00\00\a11\00\00\1c%\00\00K2\00\00D%\00\00\ab2\00\00\d0\16\00\00\00\00\00\00D%\00\00X2\00\00\e0\16\00\00\00\00\00\00\1c%\00\00y2\00\00D%\00\00\862\00\00\c0\16\00\00\00\00\00\00D%\00\00\8d3\00\00\b8\16\00\00\00\00\00\00D%\00\00\9d3\00\00\b8\16\00\00\00\00\00\00D%\00\00\af3\00\00\f8\16\00\00\00\00\00\00D%\00\00\c03\00\00\08\17\00\00\00\00\00\00D%\00\00\f43\00\00\d0\16\00\00\00\00\00\00D%\00\00\d03\00\008\17\00\00\00\00\00\00D%\00\00\164\00\00\c0\16\00\00\00\00\00\00\08\00\00\00\80>\00\00\00\00\00\00 \13\00\00\01\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\t\00\00\00\n\00\00\00\05\00\00\00\03\00\00\00\01\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\01\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\02\00\00\00\11\00\00\00\06\00\00\00\07\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\14\00\00\00\08\00\00\00\f8\ff\ff\ff \13\00\00\05\00\00\00\t\00\00\00\n\00\00\00\15\00\00\00\0b\00\00\00\f4\ff\ff\ff \13\00\00\06\00\00\00\0c\00\00\00\0d\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ff \13\00\00\07\00\00\00\0e\00\00\00\0f\00\00\00\19\00\00\00\10\00\00\00\1a\00\00\00\1b\00\00\00\1c\00\00\00\11\00\00\00\08\00\00\00\02\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\02\00\00\00\03\00\00\00\1d\00\00\00\1e\00\00\00\e4\ff\ff\ff \13\00\00\t\00\00\00\12\00\00\00\13\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\c8\ff\ff\ff \13\00\00\n\00\00\00\14\00\00\00\15\00\00\00\16\00\00\00\00\00\00\00X\13\00\00\03\00\00\00\04\00\00\00\00\00\00\00`\13\00\00\0b\00\00\00\17\00\00\00\18\00\00\00\01\00\00\00\05\00\00\00\06\00\00\00\19\00\00\00\"\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00#\00\00\00\1a\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00$\00\00\00%\00\00\00\0d\00\00\00\01\00\00\00\0e\00\00\00\02\00\00\00&\00\00\00\'\00\00\00(\00\00\00\03\00\00\00\03\00\00\00)\00\00\00\1b\00\00\00*\00\00\00+\00\00\00,\00\00\00\1c\00\00\00\f8\ff\ff\ff`\13\00\00\0f\00\00\00\1d\00\00\00\1e\00\00\00-\00\00\00\1f\00\00\00\f4\ff\ff\ff`\13\00\00\10\00\00\00 \00\00\00!\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ff`\13\00\00\11\00\00\00\"\00\00\00#\00\00\00.\00\00\00$\00\00\00/\00\00\000\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\05\00\00\001\00\00\002\00\00\003\00\00\00`\ff\ff\ff`\13\00\00\14\00\00\00%\00\00\00&\00\00\00\06\00\00\00\04\00\00\004\00\00\00\'\00\00\005\00\00\006\00\00\007\00\00\00(\00\00\00\0c\19\00\00\03\8e\7f\a9b\9aN\aa\85A\b8\89\18\e8\95,\00\00\00\00p\13\00\00\15\00\00\00)\00\00\00*\00\00\00+\00\00\008\00\00\00,\00\00\00-\00\00\00.\00\00\009\00\00\00\16\00\00\00\07\00\00\00\08\00\00\00\fc\ff\ff\ffp\13\00\00\17\00\00\00/\00\00\000\00\00\00\01\00\00\00\t\00\00\00\n\00\00\001\00\00\00:\00\00\00\18\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\00\00\00\00\a0\13\00\00\19\00\00\002\00\00\003\00\00\00\1a\00\00\004\00\00\00;\00\00\00\1b\00\00\00\0b\00\00\00\0c\00\00\00\fc\ff\ff\ff\a0\13\00\00\1c\00\00\005\00\00\006\00\00\00\01\00\00\00\0d\00\00\00\0e\00\00\007\00\00\00<\00\00\00\1d\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\0c\19\00\00\0c\db\b6i\85\d5H\a9\bf\d87\19\t\d2K\b3\0c\19\00\00\03\8e\7f\a9b\9aN\aa\85A\b8\89\18\e8\95,\0c\19")
  (data (i32.const 7076) "\f0\13\00\00\0f\00\00\00\10\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00\08\14\00\00\11\00\00\00\12\00\00\008\00\00\009\00\00\00:\00\00\00;\00\00\00<\00\00\00=\00\00\00>\00\00\00\00\00\00\00\18\14\00\00\13\00\00\00\14\00\00\00\15\00\00\00\01\00\00\00\02\00\00\00\07\00\00\00=\00\00\00>\00\00\00\08\00\00\00?\00\00\00\00\00\00\00(\14\00\00\16\00\00\00\17\00\00\008\00\00\00@\00\00\00A\00\00\00;\00\00\00<\00\00\00?\00\00\00@\00\00\00\00\00\00\000\14\00\00\1e\00\00\00B\00\00\00C\00\00\00A\00\00\00D\00\00\00\1f\00\00\00\05\00\00\00 \00\00\00!\00\00\00B\00\00\00\18\00\00\00\19\00\00\00\00\00\00\00p\14\00\00\"\00\00\00E\00\00\00F\00\00\00G\00\00\00#\00\00\00C\00\00\00\1a\00\00\00\1b\00\00\00\00\00\00\00\90\14\00\00$\00\00\00H\00\00\00I\00\00\00J\00\00\00K\00\00\00\06\00\00\00\03\00\00\00\1c\00\00\00\1d\00\00\00\00\00\00\00\b0\14\00\00%\00\00\00L\00\00\00M\00\00\00N\00\00\00D\00\00\00&\00\00\00\1e\00\00\00\1f\00\00\00\00\00\00\00\d0\14\00\00\0b\00\00\00\17\00\00\00\18\00\00\00\01\00\00\00\05\00\00\00 \00\00\00\19\00\00\00\"\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00E\00\00\00\1a\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00$\00\00\00%\00\00\00\0d\00\00\00\01\00\00\00\0e\00\00\00\02\00\00\00F\00\00\00G\00\00\00H\00\00\00\t\00\00\00\03\00\00\00)\00\00\00\1b\00\00\00*\00\00\00+\00\00\00I\00\00\00\1c\00\00\00\f8\ff\ff\ff\d0\14\00\00\0f\00\00\00\1d\00\00\00\1e\00\00\00J\00\00\00\1f\00\00\00\f4\ff\ff\ff\d0\14\00\00\10\00\00\00 \00\00\00!\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ff\d0\14\00\00\11\00\00\00\"\00\00\00#\00\00\00K\00\00\00$\00\00\00/\00\00\000\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\05\00\00\00L\00\00\00M\00\00\00N\00\00\00`\ff\ff\ff\d0\14\00\00\14\00\00\00%\00\00\00&\00\00\00\n\00\00\00\04\00\00\004\00\00\00\'\00\00\005\00\00\006\00\00\00O\00\00\00(")
  (data (i32.const 7761) "\15\00\00\'\00\00\00O\00\00\00P\00\00\00\01\00\00\00!\00\00\00\"\00\00\00Q\00\00\00P\00\00\00(\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00Q\00\00\00\00\00\00\00\10\15\00\00\'\00\00\00O\00\00\00P\00\00\00\01\00\00\00!\00\00\00#\00\00\00R\00\00\00R\00\00\00)\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00S\00\00\00\00\00\00\00 \15\00\00\'\00\00\00O\00\00\00P\00\00\00\01\00\00\00$\00\00\00%\00\00\00S\00\00\00T\00\00\00*\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\00\00\00\00x\15\00\00+\00\00\00T\00\00\00U\00\00\00\01\00\00\00\05\00\00\00&\00\00\00V\00\00\00U\00\00\00,\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00E\00\00\00\1a\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00$\00\00\00%\00\00\00\0d\00\00\00\01\00\00\00\0e\00\00\00\02\00\00\00F\00\00\00G\00\00\00H\00\00\00\f8\ff\ff\ffx\15\00\00-\00\00\00W\00\00\00X\00\00\00J\00\00\00\1f\00\00\00\f4\ff\ff\ffx\15\00\00.\00\00\00Y\00\00\00Z\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ffx\15\00\00/\00\00\00[\00\00\00\\\00\00\00K\00\00\00$\00\00\00/\00\00\000\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\05\00\00\00L\00\00\00M\00\00\00N\00\00\00\00\00\00\00\b8\15\00\000\00\00\00]\00\00\00^\00\00\00\01\00\00\00\'\00\00\00(\00\00\00_\00\00\00V\00\00\001\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00W\00\00\00`\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\f8\ff\ff\ff\b8\15\00\002\00\00\00a\00\00\00b\00\00\00X\00\00\00c\00\00\00\f4\ff\ff\ff\b8\15\00\003\00\00\00d\00\00\00e\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\00\00\00\00\f0\15\00\004\00\00\00f\00\00\00g\00\00\00\01\00\00\00\01\00\00\00)\00\00\00h\00\00\00Y\00\00\005\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\03\00\00\00Z\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00[\00\00\00\t\00\00\00\n\00\00\00\05\00\00\00\03\00\00\00\01\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00\01\00\00\00\01\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\02\00\00\00\11\00\00\00\06\00\00\00\07\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\12\00\00\00\04\00\00\00\13\00\00\00\14\00\00\00\f8\ff\ff\ff\f0\15\00\006\00\00\00i\00\00\00j\00\00\00\\\00\00\00\0b\00\00\00\f4\ff\ff\ff\f0\15\00\007\00\00\00k\00\00\00l\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\e8\ff\ff\ff\f0\15\00\008\00\00\00m\00\00\00n\00\00\00]\00\00\00\10\00\00\00^\00\00\00\1b\00\00\00\1c\00\00\00\11\00\00\00\08\00\00\00\02\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\02\00\00\00\03\00\00\00\1d\00\00\00\1e\00\00\00\e4\ff\ff\ff\f0\15\00\009\00\00\00o\00\00\00p\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\00\00\00\008\16\00\00\'\00\00\00O\00\00\00P\00\00\00\01\00\00\00*\00\00\00+\00\00\00q\00\00\00_\00\00\00:\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00r\00\00\00s\00\00\00\t\00\00\00t\00\00\00\01\00\00\00\01\00\00\00;\00\00\00\01\00\00\00\02\00\00\00u\00\00\00\n\00\00\00\00\00\00\00H\16\00\00<\00\00\00v\00\00\00w\00\00\00x\00\00\00`\00\00\00y\00\00\00z\00\00\00{\00\00\00a\00\00\00=\00\00\00,\00\00\00-\00\00\00\fc\ff\ff\ffH\16\00\00>\00\00\00|\00\00\00}\00\00\00\01\00\00\00.\00\00\00/\00\00\00~\00\00\00b\00\00\00?\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\02\00\00\00\1c#\00\00\05")
  (data (i32.const 9000) "\7f")
- (data (i32.const 9024) "@\00\00\00A\00\00\00\18I")
+ (data (i32.const 9024) "@\00\00\00A\00\00\00`I")
  (data (i32.const 9048) "\02")
  (data (i32.const 9063) "\ff\ff\ff\ff\ff")
  (data (i32.const 9148) "B")
  (data (i32.const 9187) "\ff\ff\ff\ff\ff")
- (data (i32.const 9424) "\e0H")
- (data (i32.const 9480) "_p\89\00\ff\t/\0f\01\00\00\00\00\00\00\00\c0\16\00\000\00\00\001\00\00\002\00\00\003\00\00\00C\00\00\00\01\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00\e8\16\00\000\00\00\004\00\00\002\00\00\003\00\00\00C\00\00\00\02\00\00\00\02\00\00\00\02\00\00\00\00\00\00\00\f8\16\00\005\00\00\006\00\00\00\80\00\00\00\00\00\00\00\08\17\00\007\00\00\008\00\00\00\81\00\00\00\00\00\00\00\18\17\00\005\00\00\009\00\00\00\80\00\00\00\00\00\00\00(\17\00\007\00\00\00:\00\00\00\81\00\00\00\00\00\00\00X\17\00\000\00\00\00;\00\00\002\00\00\003\00\00\00C\00\00\00\03\00\00\00\03\00\00\00\03\00\00\00B\00y\00p\00a\00s\00s\00\00\00D\00e\00l\00a\00y\00\00\00s\00e\00c\00\00\00A\00u\00d\00i\00o\00I\00n\00p\00u\00t\00\00\00A\00u\00d\00i\00o\00O\00u\00t\00p\00u\00t\00\00\00E\00x\00a\00m\00p\00l\00e\00 \00T\00e\00s\00t\00\00\00O\00n\00\00\00O\00f\00f\00\00\00R\00i\00n\00g\00B\00u\00f\00f\00e\00r\00 \00T\00e\00s\00t\00s\00\00\00console.log(\' - VST3JS - %s: %d\');//\00version v1.0.2\00{\"name\":\"%s\", \"category\":\"%s\", \"subcategory\":\"%s\", \"version\":\"%s\"  , \"cid\":\"%s\"}\00{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\", \"id\":\"%d\", \"stepCount\":\"%d\", \"defaultNormalizedValue\":\"%f\"}\00select processor from class\00{\"vendor\":\"%s\", \"count\":\"%d\", \"email\":\"%s\", \"url\":\"%s\"}\00N9Steinberg3Vst16ADelayControllerE\00N9Steinberg3Vst20IDelayTestControllerE\00N9Steinberg8FUnknownE\00N9Steinberg4FUIDE\00AudioEffect\00N9Steinberg3Vst15ADelayProcessorE\00ADelayTest\00Unknown IEditController\00N9Steinberg3Vst10ADelayTestE\00N9Steinberg5ITestE\00ADelayTestFactory\00ExampleTest\00Ringbuffer Tests\00N9Steinberg3Vst17ADelayTestFactoryE\00N9Steinberg12ITestFactoryE\00Audio Module Class\00ADelay\00Fx|Delay\001.1.0.1\00VST 3.6.11\00Component Controller Class\00ADelayController\00Test Class\00ADelayTest Factory\00N9Steinberg7FObjectE\00N9Steinberg10IDependentE\00N9Steinberg10IBStreamerE\00N9Steinberg9FStreamerE\00false && \"DEPRECATED No Linux implementation\"\00../../i/base/source/fstring.cpp\00multiByteToWideString\00%s(%d) : Assert failed: %s\n\00result > 0\00wstring_convert: from_bytes error\00NSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEE\00Indirect string conversion information loss !   %d/%d non ASCII chars:   \"%s\"   ->    \"%s\"\n\00Indirect string potential conversion information loss !   %d/%d non ASCII chars   result: \"%s\"\n\00buffer8[n] == 0\00wstring_convert: to_bytes error\00wideStringToMultiByte\00buffer16[n] == 0\00N9Steinberg11ConstStringE\00N9Steinberg6StringE\00%02X\00%lf\00%.*lf\00N9Steinberg14CPluginFactoryE\00N9Steinberg15IPluginFactory3E\00N9Steinberg15IPluginFactory2E\00N9Steinberg14IPluginFactoryE\00N9Steinberg3Vst9EventListE\00N9Steinberg3Vst10IEventListE\00N9Steinberg3Vst19ParameterValueQueueE\00N9Steinberg3Vst16IParamValueQueueE\00N9Steinberg3Vst16ParameterChangesE\00N9Steinberg3Vst17IParameterChangesE\00N9Steinberg3Vst11AudioEffectE\00N9Steinberg3Vst15IAudioProcessorE\00Vst::Bus\00N9Steinberg3Vst3BusE\00Vst::AudioBus\00N9Steinberg3Vst8AudioBusE\00Vst::BusList\00N9Steinberg3Vst7BusListE\00NSt3__26vectorIN9Steinberg4IPtrINS1_3Vst3BusEEENS_9allocatorIS5_EEEE\00NSt3__213__vector_baseIN9Steinberg4IPtrINS1_3Vst3BusEEENS_9allocatorIS5_EEEE\00NSt3__220__vector_base_commonILb1EEE\00Component\00N9Steinberg3Vst9ComponentE\00N9Steinberg3Vst10IComponentE\00N9Steinberg11IPluginBaseE\00TextMessage\00Text\00N9Steinberg3Vst13ComponentBaseE\00N9Steinberg3Vst16IConnectionPointE\00EditController\00ComponentBase\00N9Steinberg3Vst14EditControllerE\00N9Steinberg3Vst16IEditController2E\00N9Steinberg3Vst15IEditControllerE\00Parameter\00N9Steinberg3Vst9ParameterE\00RingBufferTest\00FObject\00allocator<T>::allocate(size_t n) \'n\' exceeds maximum supported size\00N9Steinberg3Vst14RingBufferTestE\00\00\01\02\04\07\03\06\05\00-+   0X0x\00(null)\00-0X+0X 0X-0x+0x 0x\00inf\00INF\00NAN\00.\00infinity\00nan\00NSt3__26locale5facetE\00NSt3__212codecvt_baseE\00NSt3__27codecvtIDsc11__mbstate_tEE\00NSt3__220__codecvt_utf8_utf16IDsEE\00NSt3__214__shared_countE\00terminating with %s exception of type %s: %s\00terminating with %s exception of type %s\00terminating with %s foreign exception\00terminating\00uncaught\00St9exception\00N10__cxxabiv116__shim_type_infoE\00St9type_info\00N10__cxxabiv120__si_class_type_infoE\00N10__cxxabiv117__class_type_infoE\00pthread_once failure in __cxa_get_globals_fast()\00cannot create pthread key for __cxa_get_globals()\00cannot zero out thread value for __cxa_get_globals()\00terminate_handler unexpectedly returned\00St11logic_error\00St13runtime_error\00St12length_error\00St11range_error\00N10__cxxabiv119__pointer_type_infoE\00N10__cxxabiv117__pbase_type_infoE\00N10__cxxabiv121__vmi_class_type_infoE")
+ (data (i32.const 9424) "(I")
+ (data (i32.const 9480) "_p\89\00\ff\t/\0f\01\00\00\00\00\00\00\00\c0\16\00\000\00\00\001\00\00\002\00\00\003\00\00\00C\00\00\00\01\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00\e8\16\00\000\00\00\004\00\00\002\00\00\003\00\00\00C\00\00\00\02\00\00\00\02\00\00\00\02\00\00\00\00\00\00\00\f8\16\00\005\00\00\006\00\00\00\80\00\00\00\00\00\00\00\08\17\00\007\00\00\008\00\00\00\81\00\00\00\00\00\00\00\18\17\00\005\00\00\009\00\00\00\80\00\00\00\00\00\00\00(\17\00\007\00\00\00:\00\00\00\81\00\00\00\00\00\00\00X\17\00\000\00\00\00;\00\00\002\00\00\003\00\00\00C\00\00\00\03\00\00\00\03\00\00\00\03\00\00\00B\00y\00p\00a\00s\00s\00\00\00D\00e\00l\00a\00y\00\00\00s\00e\00c\00\00\00A\00u\00d\00i\00o\00I\00n\00p\00u\00t\00\00\00A\00u\00d\00i\00o\00O\00u\00t\00p\00u\00t\00\00\00E\00x\00a\00m\00p\00l\00e\00 \00T\00e\00s\00t\00\00\00O\00n\00\00\00O\00f\00f\00\00\00R\00i\00n\00g\00B\00u\00f\00f\00e\00r\00 \00T\00e\00s\00t\00s\00\00\00console.log(\' - VST3JS - %s: %d\');//\00version v1.0.2\00{\"name\":\"%s\", \"category\":\"%s\", \"subcategory\":\"%s\", \"version\":\"%s\"  , \"cid\":\"%s\"}\00{\"nn\":\"%d\", \"title\":\"%s\", \"shortTitle\":\"%s\", \"units\":\"%s\", \"flags\":\"%d\", \"id\":\"%d\", \"stepCount\":\"%d\", \"defaultNormalizedValue\":\"%f\"}\00select processor from class\00setBusArrangements in/out stereo\00{\"vendor\":\"%s\", \"count\":\"%d\", \"email\":\"%s\", \"url\":\"%s\"}\00N9Steinberg3Vst16ADelayControllerE\00N9Steinberg3Vst20IDelayTestControllerE\00N9Steinberg8FUnknownE\00N9Steinberg4FUIDE\00AudioEffect\00N9Steinberg3Vst15ADelayProcessorE\00ADelayTest\00Unknown IEditController\00N9Steinberg3Vst10ADelayTestE\00N9Steinberg5ITestE\00ADelayTestFactory\00ExampleTest\00Ringbuffer Tests\00N9Steinberg3Vst17ADelayTestFactoryE\00N9Steinberg12ITestFactoryE\00Audio Module Class\00ADelay\00Fx|Delay\001.1.0.1\00VST 3.6.11\00Component Controller Class\00ADelayController\00Test Class\00ADelayTest Factory\00N9Steinberg7FObjectE\00N9Steinberg10IDependentE\00N9Steinberg10IBStreamerE\00N9Steinberg9FStreamerE\00false && \"DEPRECATED No Linux implementation\"\00../../i/base/source/fstring.cpp\00multiByteToWideString\00%s(%d) : Assert failed: %s\n\00result > 0\00wstring_convert: from_bytes error\00NSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEE\00Indirect string conversion information loss !   %d/%d non ASCII chars:   \"%s\"   ->    \"%s\"\n\00Indirect string potential conversion information loss !   %d/%d non ASCII chars   result: \"%s\"\n\00buffer8[n] == 0\00wstring_convert: to_bytes error\00wideStringToMultiByte\00buffer16[n] == 0\00N9Steinberg11ConstStringE\00N9Steinberg6StringE\00%02X\00%lf\00%.*lf\00N9Steinberg14CPluginFactoryE\00N9Steinberg15IPluginFactory3E\00N9Steinberg15IPluginFactory2E\00N9Steinberg14IPluginFactoryE\00N9Steinberg3Vst9EventListE\00N9Steinberg3Vst10IEventListE\00N9Steinberg3Vst19ParameterValueQueueE\00N9Steinberg3Vst16IParamValueQueueE\00N9Steinberg3Vst16ParameterChangesE\00N9Steinberg3Vst17IParameterChangesE\00N9Steinberg3Vst11AudioEffectE\00N9Steinberg3Vst15IAudioProcessorE\00Vst::Bus\00N9Steinberg3Vst3BusE\00Vst::AudioBus\00N9Steinberg3Vst8AudioBusE\00Vst::BusList\00N9Steinberg3Vst7BusListE\00NSt3__26vectorIN9Steinberg4IPtrINS1_3Vst3BusEEENS_9allocatorIS5_EEEE\00NSt3__213__vector_baseIN9Steinberg4IPtrINS1_3Vst3BusEEENS_9allocatorIS5_EEEE\00NSt3__220__vector_base_commonILb1EEE\00Component\00N9Steinberg3Vst9ComponentE\00N9Steinberg3Vst10IComponentE\00N9Steinberg11IPluginBaseE\00TextMessage\00Text\00N9Steinberg3Vst13ComponentBaseE\00N9Steinberg3Vst16IConnectionPointE\00EditController\00ComponentBase\00N9Steinberg3Vst14EditControllerE\00N9Steinberg3Vst16IEditController2E\00N9Steinberg3Vst15IEditControllerE\00Parameter\00N9Steinberg3Vst9ParameterE\00RingBufferTest\00FObject\00allocator<T>::allocate(size_t n) \'n\' exceeds maximum supported size\00N9Steinberg3Vst14RingBufferTestE\00\00\01\02\04\07\03\06\05\00-+   0X0x\00(null)\00-0X+0X 0X-0x+0x 0x\00inf\00INF\00NAN\00.\00infinity\00nan\00NSt3__26locale5facetE\00NSt3__212codecvt_baseE\00NSt3__27codecvtIDsc11__mbstate_tEE\00NSt3__220__codecvt_utf8_utf16IDsEE\00NSt3__214__shared_countE\00terminating with %s exception of type %s: %s\00terminating with %s exception of type %s\00terminating with %s foreign exception\00terminating\00uncaught\00St9exception\00N10__cxxabiv116__shim_type_infoE\00St9type_info\00N10__cxxabiv120__si_class_type_infoE\00N10__cxxabiv117__class_type_infoE\00pthread_once failure in __cxa_get_globals_fast()\00cannot create pthread key for __cxa_get_globals()\00cannot zero out thread value for __cxa_get_globals()\00terminate_handler unexpectedly returned\00St11logic_error\00St13runtime_error\00St12length_error\00St11range_error\00N10__cxxabiv119__pointer_type_infoE\00N10__cxxabiv117__pbase_type_infoE\00N10__cxxabiv121__vmi_class_type_infoE")
  (import "env" "table" (table 675 675 anyfunc))
  (elem (get_global $tableBase) $b0 $__ZNK9Steinberg3Vst9Parameter7toPlainEd $__ZNK9Steinberg3Vst9Parameter7toPlainEd $b0 $b1 $__ZN9Steinberg3Vst14EditController18getParamNormalizedEj $__ZThn24_N9Steinberg3Vst14EditController18getParamNormalizedEj $b1 $b2 $__ZN9Steinberg3Vst14EditController22normalizedParamToPlainEjd $__ZN9Steinberg3Vst14EditController22plainParamToNormalizedEjd $__ZThn24_N9Steinberg3Vst14EditController22normalizedParamToPlainEjd $__ZThn24_N9Steinberg3Vst14EditController22plainParamToNormalizedEjd $b2 $b2 $b2 $b3 $__ZN9Steinberg3Vst16ADelayController6addRefEv $__ZN9Steinberg3Vst16ADelayController7releaseEv $__ZNK9Steinberg3Vst16ADelayController3isAEv $__ZN9Steinberg3Vst14EditController9terminateEv $__ZN9Steinberg3Vst14EditController17getParameterCountEv $__ZN9Steinberg3Vst14EditController14startGroupEditEv $__ZN9Steinberg3Vst14EditController15finishGroupEditEv $__ZN9Steinberg3Vst16ADelayController6doTestEv $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn8_N9Steinberg3Vst14EditController9terminateEv $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn24_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn24_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn24_N9Steinberg3Vst14EditController9terminateEv $__ZThn24_N9Steinberg3Vst14EditController17getParameterCountEv $__ZThn28_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn28_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn56_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn56_N9Steinberg3Vst16ADelayController7releaseEv $__ZN9Steinberg3Vst16ADelayController6doTestEv $__ZN9Steinberg3Vst16ADelayController6addRefEv $__ZN9Steinberg3Vst16ADelayController7releaseEv $__ZNK9Steinberg3Vst11AudioEffect3isAEv $__ZN9Steinberg3Vst9Component9terminateEv $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn8_N9Steinberg3Vst9Component9terminateEv $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn24_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn24_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn24_N9Steinberg3Vst9Component9terminateEv $__ZThn160_N9Steinberg3Vst11AudioEffect6addRefEv $__ZThn160_N9Steinberg3Vst11AudioEffect7releaseEv $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv $__ZN9Steinberg3Vst10ADelayTest6addRefEv $__ZN9Steinberg3Vst10ADelayTest7releaseEv $__ZN9Steinberg3Vst16ADelayController6doTestEv $__ZN9Steinberg3Vst16ADelayController6doTestEv $__ZN9Steinberg3Vst10ADelayTest14getDescriptionEv $__ZNK9Steinberg3Vst10ADelayTest3isAEv $__ZThn4_N9Steinberg3Vst10ADelayTest6addRefEv $__ZThn4_N9Steinberg3Vst10ADelayTest7releaseEv $__ZNK9Steinberg3Vst10ADelayTest3isAEv $__ZN9Steinberg3Vst10ADelayTest6addRefEv $__ZN9Steinberg3Vst10ADelayTest7releaseEv $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEv $__ZThn4_N9Steinberg3Vst10ADelayTest6addRefEv $__ZThn4_N9Steinberg3Vst10ADelayTest7releaseEv $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEv $__ZNK9Steinberg11ConstString6lengthEv $__ZNK9Steinberg6String5text8Ev $__ZNK9Steinberg6String6text16Ev $__ZNK9Steinberg11ConstString4textEv $__ZNK9Steinberg11ConstString3ptrEv $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv $__ZNKSt3__220__codecvt_utf8_utf16IDsE13do_max_lengthEv $__ZNK9Steinberg11ConstString5text8Ev $__ZNK9Steinberg11ConstString6text16Ev $__ZN9Steinberg7FObject6addRefEv $__ZN9Steinberg14CPluginFactory7releaseEv $__ZN9Steinberg14CPluginFactory12countClassesEv $__ZN9Steinberg7FObject6addRefEv $__ZN9Steinberg3Vst9EventList7releaseEv $__ZN9Steinberg3Vst9EventList13getEventCountEv $__ZN9Steinberg7FObject6addRefEv $__ZN9Steinberg3Vst19ParameterValueQueue7releaseEv $__ZN9Steinberg3Vst19ParameterValueQueue14getParameterIdEv $__ZN9Steinberg3Vst19ParameterValueQueue13getPointCountEv $__ZN9Steinberg7FObject6addRefEv $__ZN9Steinberg3Vst9EventList7releaseEv $__ZN9Steinberg3Vst16ParameterChanges17getParameterCountEv $__ZN9Steinberg7FObject6addRefEv $__ZN9Steinberg7FObject7releaseEv $__ZNK9Steinberg3Vst3Bus3isAEv $__ZNK9Steinberg3Vst8AudioBus3isAEv $__ZNK9Steinberg3Vst7BusList3isAEv $__ZN9Steinberg3Vst16ADelayController6addRefEv $__ZN9Steinberg3Vst16ADelayController7releaseEv $__ZNK9Steinberg3Vst9Component3isAEv $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn24_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn24_N9Steinberg3Vst16ADelayController7releaseEv $__ZN9Steinberg3Vst16ADelayController6addRefEv $__ZN9Steinberg3Vst16ADelayController7releaseEv $__ZNK9Steinberg3Vst13ComponentBase3isAEv $__ZN9Steinberg3Vst13ComponentBase9terminateEv $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn8_N9Steinberg3Vst13ComponentBase9terminateEv $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv $__ZN9Steinberg3Vst16ADelayController6addRefEv $__ZN9Steinberg3Vst16ADelayController7releaseEv $__ZNK9Steinberg3Vst14EditController3isAEv $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn24_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn24_N9Steinberg3Vst16ADelayController7releaseEv $__ZThn28_N9Steinberg3Vst16ADelayController6addRefEv $__ZThn28_N9Steinberg3Vst16ADelayController7releaseEv $__ZNK9Steinberg3Vst9Parameter3isAEv $__ZNK9Steinberg3Vst9Parameter7getInfoEv $__ZNK9Steinberg3Vst9Parameter7getInfoEv $__ZN9Steinberg3Vst9Parameter9getUnitIDEv $__ZNK9Steinberg3Vst9Parameter12getPrecisionEv $__ZN9Steinberg3Vst10ADelayTest6addRefEv $__ZN9Steinberg3Vst10ADelayTest7releaseEv $__ZN9Steinberg3Vst16ADelayController6doTestEv $__ZN9Steinberg3Vst16ADelayController6doTestEv $__ZN9Steinberg3Vst14RingBufferTest14getDescriptionEv $__ZNK9Steinberg3Vst14RingBufferTest3isAEv $__ZThn4_N9Steinberg3Vst10ADelayTest6addRefEv $__ZThn4_N9Steinberg3Vst10ADelayTest7releaseEv $__ZNK9Steinberg3Vst14RingBufferTest3isAEv $___stdio_close $__ZNKSt11logic_error4whatEv $__ZNKSt11logic_error4whatEv $__ZN9Steinberg3Vst15ADelayProcessor14createInstanceEPv $__ZN9Steinberg3Vst16ADelayController14createInstanceEPv $__ZN9Steinberg3Vst17ADelayTestFactory14createInstanceEPv $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b3 $b4 $__ZN9Steinberg3Vst9Parameter13setNormalizedEd $b5 $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg7FObject15isEqualInstanceEPNS_8FUnknownE $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE $__ZN9Steinberg3Vst13ComponentBase7connectEPNS0_16IConnectionPointE $__ZN9Steinberg3Vst13ComponentBase10disconnectEPNS0_16IConnectionPointE $__ZN9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE $__ZN9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg3Vst14EditController19setComponentHandlerEPNS0_17IComponentHandlerE $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg3Vst14EditController8openHelpEh $__ZN9Steinberg3Vst14EditController8openHelpEh $__ZN9Steinberg3Vst14EditController9beginEditEj $__ZN9Steinberg3Vst14EditController7endEditEj $__ZN9Steinberg3Vst14EditController18getParameterObjectEj $__ZN9Steinberg3Vst14EditController8setDirtyEh $__ZN9Steinberg3Vst14EditController17requestOpenEditorEPKc $__ZThn8_N9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE $__ZThn12_N9Steinberg3Vst13ComponentBase7connectEPNS0_16IConnectionPointE $__ZThn12_N9Steinberg3Vst13ComponentBase10disconnectEPNS0_16IConnectionPointE $__ZThn12_N9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE $__ZThn24_N9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst14EditController19setComponentHandlerEPNS0_17IComponentHandlerE $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg3Vst14EditController8openHelpEh $__ZN9Steinberg3Vst14EditController8openHelpEh $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE $__ZN9Steinberg3Vst9Component20getControllerClassIdEPc $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg3Vst15ADelayProcessor9setActiveEh $__ZN9Steinberg3Vst15ADelayProcessor8setStateEPNS_8IBStreamE $__ZN9Steinberg3Vst15ADelayProcessor8getStateEPNS_8IBStreamE $__ZN9Steinberg3Vst11AudioEffect20canProcessSampleSizeEi $__ZN9Steinberg3Vst11AudioEffect15setupProcessingERNS0_12ProcessSetupE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE $__ZThn8_N9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst9Component20getControllerClassIdEPc $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst15ADelayProcessor9setActiveEh $__ZThn24_N9Steinberg3Vst15ADelayProcessor8setStateEPNS_8IBStreamE $__ZThn24_N9Steinberg3Vst15ADelayProcessor8getStateEPNS_8IBStreamE $__ZN9Steinberg3Vst11AudioEffect20canProcessSampleSizeEi $__ZThn160_N9Steinberg3Vst11AudioEffect15setupProcessingERNS0_12ProcessSetupE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZThn160_N9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE $__ZN9Steinberg3Vst10ADelayTest3runEPNS_11ITestResultE $__ZNK9Steinberg3Vst10ADelayTest3isAEPKc $__ZThn4_NK9Steinberg3Vst10ADelayTest3isAEPKc $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEPKc $__ZThn4_NK9Steinberg3Vst17ADelayTestFactory3isAEPKc $__ZNK9Steinberg6String8getChar8Ej $__ZNK9Steinberg6String9getChar16Ej $__ZNK9Steinberg11ConstString8getChar8Ej $__ZNK9Steinberg11ConstString9getChar16Ej $__ZN9Steinberg14CPluginFactory14getFactoryInfoEPNS_12PFactoryInfoE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg3Vst9EventList8addEventERNS0_5EventE $__ZN9Steinberg3Vst16ParameterChanges16getParameterDataEi $__ZN9Steinberg3Vst9Component10initializeEPNS_8FUnknownE $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZThn8_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE $__ZN9Steinberg3Vst14EditController10createViewEPKc $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg3Vst3Bus7getInfoERNS0_7BusInfoE $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg3Vst8AudioBus7getInfoERNS0_7BusInfoE $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg3Vst13ComponentBase10initializeEPNS_8FUnknownE $__ZThn8_N9Steinberg3Vst13ComponentBase10initializeEPNS_8FUnknownE $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg3Vst9Component10initializeEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZThn8_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE $__ZThn24_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE $__ZNK9Steinberg3Vst16ADelayController3isAEPKc $__ZN9Steinberg3Vst14RingBufferTest3runEPNS_11ITestResultE $__ZNK9Steinberg3Vst10ADelayTest3isAEPKc $__ZThn4_NK9Steinberg3Vst10ADelayTest3isAEPKc $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b5 $b6 $__ZN9Steinberg3Vst14EditController18setParamNormalizedEjd $__ZN9Steinberg3Vst14EditController11performEditEjd $__ZThn24_N9Steinberg3Vst14EditController18setParamNormalizedEjd $b7 $__ZN9Steinberg3Vst14EditController21getParamStringByValueEjdPDs $__ZThn24_N9Steinberg3Vst14EditController21getParamStringByValueEjdPDs $__ZN9Steinberg3Vst19ParameterValueQueue8addPointEidRi $b8 $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst16ADelayController8isTypeOfEPKcb $__ZN9Steinberg3Vst14EditController16getParameterInfoEiRNS0_13ParameterInfoE $__ZN9Steinberg3Vst14EditController21getParameterInfoByTagEjRNS0_13ParameterInfoE $__ZThn8_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv $__ZThn12_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv $__ZThn24_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv $__ZThn24_N9Steinberg3Vst14EditController16getParameterInfoEiRNS0_13ParameterInfoE $__ZThn28_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv $__ZThn56_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst11AudioEffect8isTypeOfEPKcb $__ZN9Steinberg3Vst9Component11getBusCountEii $__ZN9Steinberg3Vst9Component14getRoutingInfoERNS0_11RoutingInfoES3_ $__ZThn8_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv $__ZThn12_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv $__ZThn24_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv $__ZThn24_N9Steinberg3Vst9Component11getBusCountEii $__ZN9Steinberg3Vst9Component14getRoutingInfoERNS0_11RoutingInfoES3_ $__ZThn160_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst10ADelayTest8isTypeOfEPKcb $__ZThn4_N9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv $__ZThn4_NK9Steinberg3Vst10ADelayTest8isTypeOfEPKcb $__ZN9Steinberg3Vst17ADelayTestFactory14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst17ADelayTestFactory11createTestsEPNS_8FUnknownEPNS_10ITestSuiteE $__ZNK9Steinberg3Vst17ADelayTestFactory8isTypeOfEPKcb $__ZThn4_N9Steinberg3Vst17ADelayTestFactory14queryInterfaceEPKcPPv $__ZThn4_NK9Steinberg3Vst17ADelayTestFactory8isTypeOfEPKcb $__ZN9Steinberg14CPluginFactory14queryInterfaceEPKcPPv $__ZN9Steinberg14CPluginFactory12getClassInfoEiPNS_10PClassInfoE $__ZN9Steinberg14CPluginFactory13getClassInfo2EiPNS_11PClassInfo2E $__ZN9Steinberg14CPluginFactory19getClassInfoUnicodeEiPNS_11PClassInfoWE $__ZN9Steinberg3Vst9EventList14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst9EventList8getEventEiRNS0_5EventE $__ZN9Steinberg3Vst19ParameterValueQueue14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst16ParameterChanges14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst16ParameterChanges16addParameterDataERKjRi $__ZN9Steinberg7FObject14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst3Bus8isTypeOfEPKcb $__ZNK9Steinberg3Vst8AudioBus8isTypeOfEPKcb $__ZNK9Steinberg3Vst7BusList8isTypeOfEPKcb $__ZN9Steinberg3Vst9Component14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst9Component8isTypeOfEPKcb $__ZThn8_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv $__ZThn12_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv $__ZThn24_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst13ComponentBase8isTypeOfEPKcb $__ZThn8_N9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv $__ZThn12_N9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv $__ZN9Steinberg3Vst14EditController14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst14EditController8isTypeOfEPKcb $__ZThn8_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv $__ZThn12_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv $__ZThn24_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv $__ZThn28_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst9Parameter8isTypeOfEPKcb $__ZNK9Steinberg3Vst9Parameter10fromStringEPKDsRd $__ZN9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv $__ZNK9Steinberg3Vst14RingBufferTest8isTypeOfEPKcb $__ZThn4_N9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv $__ZThn4_NK9Steinberg3Vst14RingBufferTest8isTypeOfEPKcb $___stdio_write $___stdio_seek $_sn_write $__ZNK10__cxxabiv117__class_type_info9can_catchEPKNS_16__shim_type_infoERPv $_do_read $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b8 $b9 $__ZN9Steinberg3Vst14EditController21getParamValueByStringEjPDsRd $__ZThn24_N9Steinberg3Vst14EditController21getParamValueByStringEjPDsRd $__ZN9Steinberg3Vst11AudioEffect17getBusArrangementEiiRy $__ZThn160_N9Steinberg3Vst11AudioEffect17getBusArrangementEiiRy $__ZN9Steinberg14CPluginFactory14createInstanceEPKcS2_PPv $__ZN9Steinberg3Vst19ParameterValueQueue8getPointEiRiRd $b9 $b10 $__ZN9Steinberg3Vst9Component10getBusInfoEiiiRNS0_7BusInfoE $__ZN9Steinberg3Vst9Component11activateBusEiiih $__ZN9Steinberg3Vst15ADelayProcessor18setBusArrangementsEPyiS2_i $__ZThn24_N9Steinberg3Vst9Component10getBusInfoEiiiRNS0_7BusInfoE $__ZThn24_N9Steinberg3Vst9Component11activateBusEiiih $__ZThn160_N9Steinberg3Vst15ADelayProcessor18setBusArrangementsEPyiS2_i $__ZNKSt3__220__codecvt_utf8_utf16IDsE10do_unshiftER11__mbstate_tPcS4_RS4_ $__ZNKSt3__220__codecvt_utf8_utf16IDsE9do_lengthER11__mbstate_tPKcS5_m $__ZN9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i $__ZThn160_N9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i $b10 $b10 $b10 $b10 $b10 $b11 $__ZNKSt3__220__codecvt_utf8_utf16IDsE6do_outER11__mbstate_tPKDsS5_RS5_PcS7_RS7_ $__ZNKSt3__220__codecvt_utf8_utf16IDsE5do_inER11__mbstate_tPKcS5_RS5_PDsS7_RS7_ $b11 $b12 $b13 $__ZN9Steinberg10IBStreamer4tellEv $b14 $__ZN9Steinberg10IBStreamer7readRawEPvx $__ZN9Steinberg10IBStreamer8writeRawEPKvx $b14 $b15 $__ZN9Steinberg10IBStreamer4seekExNS_9FSeekModeE $b16 $__ZL25default_terminate_handlerv $__ZN10__cxxabiv112_GLOBAL__N_110construct_Ev $b16 $b17 $__ZN9Steinberg3Vst14EditControllerD2Ev $__ZN9Steinberg3Vst16ADelayControllerD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg3Vst9ComponentD2Ev $__ZN9Steinberg3Vst15ADelayProcessorD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZThn4_N9Steinberg3Vst10ADelayTestD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZThn4_N9Steinberg3Vst10ADelayTestD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg6StringD2Ev $__ZN9Steinberg6StringD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZNSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EED0Ev $__ZNSt3__26locale5facet16__on_zero_sharedEv $__ZN9Steinberg11ConstStringD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg14CPluginFactoryD2Ev $__ZN9Steinberg14CPluginFactoryD0Ev $__ZN9Steinberg3Vst9EventListD2Ev $__ZN9Steinberg3Vst9EventListD0Ev $__ZN9Steinberg3Vst19ParameterValueQueueD2Ev $__ZN9Steinberg3Vst19ParameterValueQueueD0Ev $__ZN9Steinberg3Vst16ParameterChangesD2Ev $__ZN9Steinberg3Vst16ParameterChangesD0Ev $__ZN9Steinberg3Vst15ADelayProcessorD0Ev $__ZN9Steinberg3Vst3BusD2Ev $__ZN9Steinberg3Vst3BusD0Ev $__ZN9Steinberg3Vst3BusD0Ev $__ZN9Steinberg3Vst7BusListD2Ev $__ZN9Steinberg3Vst7BusListD0Ev $__ZN9Steinberg3Vst15ADelayProcessorD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg3Vst16ADelayControllerD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZThn4_N9Steinberg3Vst10ADelayTestD0Ev $__ZN9Steinberg4FUIDD2Ev $__ZNSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EED0Ev $__ZN9Steinberg4FUIDD2Ev $__ZN9Steinberg4FUIDD2Ev $__ZNSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EED0Ev $__ZNSt11logic_errorD2Ev $__ZNSt11logic_errorD0Ev $__ZNSt13runtime_errorD2Ev $__ZNSt13runtime_errorD0Ev $__ZNSt11logic_errorD0Ev $__ZNSt13runtime_errorD0Ev $__ZNSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EED0Ev $__ZN10__cxxabiv112_GLOBAL__N_19destruct_EPv $b17 $b17 $b17 $b18 $__ZNK9Steinberg3Vst9Parameter8toStringEdPDs $b19 $__ZN9Steinberg7FObject10updateDoneEi $__ZN9Steinberg7FObject10updateDoneEi $__ZN9Steinberg7FObject7changedEi $__ZN9Steinberg7FObject7changedEi $__ZN9Steinberg7FObject10updateDoneEi $__ZN9Steinberg7FObject10updateDoneEi $__ZN9Steinberg7FObject10updateDoneEi $__ZN9Steinberg7FObject10updateDoneEi $__ZN9Steinberg3Vst9Parameter9setUnitIDEi $__ZN9Steinberg3Vst9Parameter12setPrecisionEi $b19 $b19 $b19 $b19 $b19 $b20 $__ZN9Steinberg7FObject6updateEPNS_8FUnknownEi $b21 $__ZNK10__cxxabiv117__class_type_info27has_unambiguous_public_baseEPNS_19__dynamic_cast_infoEPvi $__ZNK10__cxxabiv120__si_class_type_info27has_unambiguous_public_baseEPNS_19__dynamic_cast_infoEPvi $__ZNK10__cxxabiv121__vmi_class_type_info27has_unambiguous_public_baseEPNS_19__dynamic_cast_infoEPvi $b22 $__ZNK10__cxxabiv117__class_type_info16search_below_dstEPNS_19__dynamic_cast_infoEPKvib $__ZNK10__cxxabiv120__si_class_type_info16search_below_dstEPNS_19__dynamic_cast_infoEPKvib $__ZNK10__cxxabiv121__vmi_class_type_info16search_below_dstEPNS_19__dynamic_cast_infoEPKvib $b23 $__ZNK10__cxxabiv117__class_type_info16search_above_dstEPNS_19__dynamic_cast_infoEPKvS4_ib $__ZNK10__cxxabiv120__si_class_type_info16search_above_dstEPNS_19__dynamic_cast_infoEPKvS4_ib $__ZNK10__cxxabiv121__vmi_class_type_info16search_above_dstEPNS_19__dynamic_cast_infoEPKvS4_ib)
  (import "env" "tableBase" (global $tableBase i32))
@@ -90,7 +90,6 @@
  (export "__growWasmMemory" (func $__growWasmMemory))
  (export "_VST3_classInfo" (func $_VST3_classInfo))
  (export "_VST3_description" (func $_VST3_description))
- (export "_VST3_getParameter" (func $legalstub$_VST3_getParameter))
  (export "_VST3_init" (func $_VST3_init))
  (export "_VST3_parameterInfo" (func $_VST3_parameterInfo))
  (export "_VST3_parametersCount" (func $_VST3_parametersCount))
@@ -140,7 +139,7 @@
  (export "dynCall_viiiiii" (func $dynCall_viiiiii))
  (export "establishStackSpace" (func $establishStackSpace))
  (export "getTempRet0" (func $getTempRet0))
- (export "runPostSets" (func $_VST3_setParameter))
+ (export "runPostSets" (func $___unlockfile))
  (export "setTempRet0" (func $setTempRet0))
  (export "setThrew" (func $setThrew))
  (export "stackAlloc" (func $stackAlloc))
@@ -232,9 +231,9 @@
    )
   )
   (if
-   ;;@ ../../tools/VST3JSExport.cpp:67:0
+   ;;@ ../../tools/VST3JSExport.cpp:70:0
    (i32.le_s
-    ;;@ ../../tools/VST3JSExport.cpp:66:0
+    ;;@ ../../tools/VST3JSExport.cpp:69:0
     (tee_local $6
      (call_indirect (type $FUNCSIG$iiii)
       (get_local $0)
@@ -262,13 +261,13 @@
     (set_global $STACKTOP
      (get_local $9)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:103:0
+    ;;@ ../../tools/VST3JSExport.cpp:106:0
     (return
      (get_local $6)
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:68:0
+  ;;@ ../../tools/VST3JSExport.cpp:71:0
   (set_local $4
    (i32.mul
     (get_local $6)
@@ -323,7 +322,7 @@
     )
     (i32.const 0)
    )
-   ;;@ ../../tools/VST3JSExport.cpp:68:0
+   ;;@ ../../tools/VST3JSExport.cpp:71:0
    (br_if $while-in
     (i32.ne
      (tee_local $4
@@ -352,7 +351,7 @@
     (i32.const 0)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:84:0
+  ;;@ ../../tools/VST3JSExport.cpp:87:0
   (set_local $4
    (i32.shl
     (get_local $3)
@@ -369,7 +368,7 @@
     (get_local $4)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:92:0
+  ;;@ ../../tools/VST3JSExport.cpp:95:0
   (set_local $4
    (i32.shl
     (get_local $3)
@@ -390,7 +389,7 @@
    (i32.const 0)
   )
   (loop $while-in1
-   ;;@ ../../tools/VST3JSExport.cpp:70:0
+   ;;@ ../../tools/VST3JSExport.cpp:73:0
    (drop
     (call $_memset
      (get_local $10)
@@ -399,7 +398,7 @@
     )
    )
    (if
-    ;;@ ../../tools/VST3JSExport.cpp:72:0
+    ;;@ ../../tools/VST3JSExport.cpp:75:0
     (i32.eqz
      (call_indirect (type $FUNCSIG$iiiiii)
       (get_local $0)
@@ -424,7 +423,7 @@
      )
     )
     (block
-     ;;@ ../../tools/VST3JSExport.cpp:73:0
+     ;;@ ../../tools/VST3JSExport.cpp:76:0
      (i32.store
       (i32.add
        (tee_local $4
@@ -444,7 +443,7 @@
       )
      )
      (if
-      ;;@ ../../tools/VST3JSExport.cpp:74:0
+      ;;@ ../../tools/VST3JSExport.cpp:77:0
       (i32.gt_s
        (get_local $5)
        (i32.const 0)
@@ -468,7 +467,7 @@
          )
         )
        )
-       ;;@ ../../tools/VST3JSExport.cpp:79:0
+       ;;@ ../../tools/VST3JSExport.cpp:82:0
        (i32.store
         (i32.add
          (i32.add
@@ -489,7 +488,7 @@
           (i32.const 0)
          )
          (loop $while-in5
-          ;;@ ../../tools/VST3JSExport.cpp:92:0
+          ;;@ ../../tools/VST3JSExport.cpp:95:0
           (set_local $7
            (call $__Znam
             (get_local $8)
@@ -518,7 +517,7 @@
            )
            (get_local $7)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:81:0
+          ;;@ ../../tools/VST3JSExport.cpp:84:0
           (br_if $while-in5
            (i32.ne
             (tee_local $4
@@ -537,7 +536,7 @@
           (i32.const 0)
          )
          (loop $while-in7
-          ;;@ ../../tools/VST3JSExport.cpp:95:0
+          ;;@ ../../tools/VST3JSExport.cpp:98:0
           (i32.store
            (i32.add
             (i32.load
@@ -561,7 +560,7 @@
            )
            (i32.const 0)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:81:0
+          ;;@ ../../tools/VST3JSExport.cpp:84:0
           (br_if $while-in7
            (i32.ne
             (tee_local $4
@@ -580,7 +579,7 @@
      )
     )
    )
-   ;;@ ../../tools/VST3JSExport.cpp:69:0
+   ;;@ ../../tools/VST3JSExport.cpp:72:0
    (br_if $while-in1
     (i32.ne
      (tee_local $3
@@ -596,7 +595,7 @@
   (set_global $STACKTOP
    (get_local $9)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:103:0
+  ;;@ ../../tools/VST3JSExport.cpp:106:0
   (get_local $6)
  )
  (func $_VST3_init (; 27 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
@@ -615,7 +614,7 @@
   (set_local $2
    (get_local $3)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:56:0
+  ;;@ ../../tools/VST3JSExport.cpp:59:0
   (i32.store
    (get_local $2)
    (i32.const 9883)
@@ -632,35 +631,35 @@
   )
   (drop
    (call $_snprintf
-    (i32.const 13344)
+    (i32.const 13376)
     (i32.const 999)
     (i32.const 9846)
     (get_local $2)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:57:0
+  ;;@ ../../tools/VST3JSExport.cpp:60:0
   (call $_emscripten_run_script
-   (i32.const 13344)
+   (i32.const 13376)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:110:0
+  ;;@ ../../tools/VST3JSExport.cpp:113:0
   (i32.store
    (i32.const 5992)
    (get_local $0)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:111:0
+  ;;@ ../../tools/VST3JSExport.cpp:114:0
   (i32.store
    (i32.const 5996)
    (get_local $1)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:112:0
+  ;;@ ../../tools/VST3JSExport.cpp:115:0
   (set_local $1
    (call $_GetPluginFactory)
   )
   (i32.store
-   (i32.const 14408)
+   (i32.const 14440)
    (get_local $1)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:113:0
+  ;;@ ../../tools/VST3JSExport.cpp:116:0
   (set_local $0
    (i32.load
     (get_local $1)
@@ -680,7 +679,7 @@
   (drop
    (call_indirect (type $FUNCSIG$iii)
     (get_local $1)
-    (i32.const 14412)
+    (i32.const 14444)
     (i32.add
      (i32.and
       (get_local $0)
@@ -690,10 +689,10 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:114:0
+  ;;@ ../../tools/VST3JSExport.cpp:117:0
   (set_local $1
    (i32.load
-    (i32.const 14408)
+    (i32.const 14440)
    )
   )
   ;;@ ../../i/pluginterfaces/base/smartpointer.h:133:0
@@ -710,7 +709,7 @@
     (set_global $STACKTOP
      (get_local $3)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:116:0
+    ;;@ ../../tools/VST3JSExport.cpp:119:0
     (return
      (i32.const -1)
     )
@@ -730,7 +729,7 @@
   (set_local $0
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $1)
-    (i32.const 17224)
+    (i32.const 17296)
     (get_local $2)
     (i32.add
      (i32.and
@@ -752,7 +751,7 @@
     (set_global $STACKTOP
      (get_local $3)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:116:0
+    ;;@ ../../tools/VST3JSExport.cpp:119:0
     (return
      (i32.const -1)
     )
@@ -772,7 +771,7 @@
     (set_global $STACKTOP
      (get_local $3)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:116:0
+    ;;@ ../../tools/VST3JSExport.cpp:119:0
     (return
      (i32.const -1)
     )
@@ -815,7 +814,7 @@
   (set_global $STACKTOP
    (get_local $3)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:116:0
+  ;;@ ../../tools/VST3JSExport.cpp:119:0
   (i32.const -1)
  )
  (func $_VST3_classInfo (; 28 ;) (; has Stack IR ;) (param $0 i32) (result i32)
@@ -870,10 +869,10 @@
   (set_local $5
    (get_local $3)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:118:0
+  ;;@ ../../tools/VST3JSExport.cpp:121:0
   (set_local $2
    (i32.load
-    (i32.const 14408)
+    (i32.const 14440)
    )
   )
   ;;@ ../../i/pluginterfaces/base/smartpointer.h:133:0
@@ -899,7 +898,7 @@
      (set_local $1
       (call_indirect (type $FUNCSIG$iiii)
        (get_local $2)
-       (i32.const 17224)
+       (i32.const 17296)
        (get_local $7)
        (i32.add
         (i32.and
@@ -942,7 +941,7 @@
     (i32.const 440)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:120:0
+  ;;@ ../../tools/VST3JSExport.cpp:123:0
   (set_local $2
    (i32.load
     (get_local $2)
@@ -1011,45 +1010,45 @@
    (get_local $5)
    (i64.const 0)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:123:0
+  ;;@ ../../tools/VST3JSExport.cpp:126:0
   (i32.store8 offset=32
    (get_local $5)
    (i32.const 0)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:124:0
+  ;;@ ../../tools/VST3JSExport.cpp:127:0
   (call $__ZNK9Steinberg4FUID8toStringEPc
    (get_local $8)
    (get_local $5)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:127:0
+  ;;@ ../../tools/VST3JSExport.cpp:130:0
   (set_local $0
    (i32.add
     (get_local $4)
     (i32.const 52)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:128:0
+  ;;@ ../../tools/VST3JSExport.cpp:131:0
   (set_local $8
    (i32.add
     (get_local $4)
     (i32.const 20)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:129:0
+  ;;@ ../../tools/VST3JSExport.cpp:132:0
   (set_local $2
    (i32.add
     (get_local $4)
     (i32.const 120)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:130:0
+  ;;@ ../../tools/VST3JSExport.cpp:133:0
   (set_local $1
    (i32.add
     (get_local $4)
     (i32.const 312)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:125:0
+  ;;@ ../../tools/VST3JSExport.cpp:128:0
   (i32.store
    (get_local $6)
    (get_local $0)
@@ -1116,7 +1115,7 @@
     (set_global $STACKTOP
      (get_local $3)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:135:0
+    ;;@ ../../tools/VST3JSExport.cpp:138:0
     (return
      (get_local $9)
     )
@@ -1159,16 +1158,16 @@
   (set_global $STACKTOP
    (get_local $3)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:135:0
+  ;;@ ../../tools/VST3JSExport.cpp:138:0
   (get_local $9)
  )
  (func $_VST3_parametersCount (; 29 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (local $1 i32)
-  ;;@ ../../tools/VST3JSExport.cpp:137:0
+  ;;@ ../../tools/VST3JSExport.cpp:140:0
   (set_local $1
    (i32.load
-    (i32.const 14868)
+    (i32.const 14900)
    )
   )
   (set_local $0
@@ -1201,14 +1200,89 @@
   )
   (get_local $1)
  )
- (func $_VST3_setParameter (; 30 ;) (; has Stack IR ;)
-  (nop)
+ (func $_VST3_setParameter (; 30 ;) (; has Stack IR ;) (param $0 i32) (param $1 f32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 f64)
+  (set_local $2
+   (get_global $STACKTOP)
+  )
+  (set_global $STACKTOP
+   (i32.add
+    (get_global $STACKTOP)
+    (i32.const 16)
+   )
+  )
+  (set_local $3
+   (i32.add
+    (get_local $2)
+    (i32.const 4)
+   )
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:146:0
+  (i32.store
+   (get_local $3)
+   (i32.const 0)
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:147:0
+  (i32.store
+   (get_local $2)
+   (get_local $0)
+  )
+  (set_local $3
+   (call $__ZN9Steinberg3Vst16ParameterChanges16addParameterDataERKjRi
+    (i32.const 14952)
+    (get_local $2)
+    (get_local $3)
+   )
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:148:0
+  (i32.store
+   (get_local $2)
+   (i32.const 0)
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:150:0
+  (set_local $0
+   (i32.load
+    (get_local $3)
+   )
+  )
+  (set_local $0
+   (i32.add
+    (get_local $0)
+    (i32.const 24)
+   )
+  )
+  (set_local $0
+   (i32.load
+    (get_local $0)
+   )
+  )
+  (set_local $4
+   (f64.promote/f32
+    (get_local $1)
+   )
+  )
+  (drop
+   (call_indirect (type $FUNCSIG$iiidi)
+    (get_local $3)
+    (i32.const 0)
+    (get_local $4)
+    (get_local $2)
+    (i32.add
+     (i32.and
+      (get_local $0)
+      (i32.const 3)
+     )
+     (i32.const 406)
+    )
+   )
+  )
+  (set_global $STACKTOP
+   (get_local $2)
+  )
  )
- (func $_VST3_getParameter (; 31 ;) (; has Stack IR ;) (result f32)
-  ;;@ ../../tools/VST3JSExport.cpp:143:0
-  (f32.const 0)
- )
- (func $_VST3_parameterInfo (; 32 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_VST3_parameterInfo (; 31 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1279,10 +1353,10 @@
     (i32.const 2216)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:148:0
+  ;;@ ../../tools/VST3JSExport.cpp:172:0
   (set_local $7
    (i32.load
-    (i32.const 14868)
+    (i32.const 14900)
    )
   )
   (set_local $8
@@ -1315,7 +1389,7 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:150:0
+  ;;@ ../../tools/VST3JSExport.cpp:174:0
   (set_local $8
    (i32.add
     (get_local $3)
@@ -1356,14 +1430,14 @@
     (get_local $8)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:152:0
+  ;;@ ../../tools/VST3JSExport.cpp:176:0
   (drop
    (call $__ZNK9Steinberg7UString7toAsciiEPci
     (get_local $1)
     (get_local $10)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:154:0
+  ;;@ ../../tools/VST3JSExport.cpp:178:0
   (set_local $7
    (i32.add
     (get_local $3)
@@ -1404,14 +1478,14 @@
     (get_local $7)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:156:0
+  ;;@ ../../tools/VST3JSExport.cpp:180:0
   (drop
    (call $__ZNK9Steinberg7UString7toAsciiEPci
     (get_local $5)
     (get_local $11)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:158:0
+  ;;@ ../../tools/VST3JSExport.cpp:182:0
   (set_local $5
    (i32.add
     (get_local $3)
@@ -1452,14 +1526,14 @@
     (get_local $5)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:160:0
+  ;;@ ../../tools/VST3JSExport.cpp:184:0
   (drop
    (call $__ZNK9Steinberg7UString7toAsciiEPci
     (get_local $6)
     (get_local $2)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:168:0
+  ;;@ ../../tools/VST3JSExport.cpp:192:0
   (set_local $1
    (i32.add
     (get_local $3)
@@ -1471,13 +1545,13 @@
     (get_local $1)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:169:0
+  ;;@ ../../tools/VST3JSExport.cpp:193:0
   (set_local $5
    (i32.load
     (get_local $3)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:170:0
+  ;;@ ../../tools/VST3JSExport.cpp:194:0
   (set_local $6
    (i32.add
     (get_local $3)
@@ -1489,7 +1563,7 @@
     (get_local $6)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:171:0
+  ;;@ ../../tools/VST3JSExport.cpp:195:0
   (set_local $3
    (i32.add
     (get_local $3)
@@ -1501,7 +1575,7 @@
     (get_local $3)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:162:0
+  ;;@ ../../tools/VST3JSExport.cpp:186:0
   (i32.store
    (get_local $4)
    (get_local $0)
@@ -1587,10 +1661,10 @@
   (set_global $STACKTOP
    (get_local $2)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:174:0
+  ;;@ ../../tools/VST3JSExport.cpp:198:0
   (get_local $9)
  )
- (func $_VST3_selectProcessor (; 33 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_VST3_selectProcessor (; 32 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1599,85 +1673,71 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
-  (local $9 f64)
+  (local $9 i32)
   (local $10 i32)
   (local $11 i32)
   (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  (set_local $10
+  (local $13 f64)
+  (set_local $8
    (get_global $STACKTOP)
   )
   (set_global $STACKTOP
    (i32.add
     (get_global $STACKTOP)
-    (i32.const 368)
+    (i32.const 336)
+   )
+  )
+  (set_local $9
+   (i32.add
+    (get_local $8)
+    (i32.const 88)
    )
   )
   (set_local $2
-   (i32.add
-    (get_local $10)
-    (i32.const 176)
+   (i32.sub
+    (get_local $8)
+    (i32.const -64)
    )
   )
   (set_local $3
    (i32.add
-    (get_local $10)
-    (i32.const 252)
+    (get_local $8)
+    (i32.const 212)
    )
   )
   (set_local $5
    (i32.add
     (tee_local $1
-     (get_local $10)
+     (get_local $8)
     )
-    (i32.const 248)
+    (i32.const 208)
    )
   )
   (set_local $7
    (i32.add
     (get_local $1)
-    (i32.const 152)
+    (i32.const 40)
    )
   )
   (set_local $6
    (i32.add
     (get_local $1)
-    (i32.const 128)
+    (i32.const 16)
+   )
+  )
+  (set_local $11
+   (i32.add
+    (get_local $1)
+    (i32.const 204)
    )
   )
   (set_local $12
    (i32.add
     (get_local $1)
-    (i32.const 244)
-   )
-  )
-  (set_local $13
-   (i32.add
-    (get_local $1)
-    (i32.const 240)
-   )
-  )
-  (set_local $8
-   (i32.add
-    (get_local $1)
-    (i32.const 16)
-   )
-  )
-  (set_local $14
-   (i32.add
-    (get_local $1)
-    (i32.const 220)
-   )
-  )
-  (set_local $15
-   (i32.add
-    (get_local $1)
     (i32.const 200)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:56:0
+  ;;@ ../../tools/VST3JSExport.cpp:59:0
   (i32.store
    (get_local $2)
    (i32.const 10112)
@@ -1694,15 +1754,15 @@
   )
   (drop
    (call $_snprintf
-    (i32.const 13344)
+    (i32.const 13376)
     (i32.const 999)
     (i32.const 9846)
     (get_local $2)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:57:0
+  ;;@ ../../tools/VST3JSExport.cpp:60:0
   (call $_emscripten_run_script
-   (i32.const 13344)
+   (i32.const 13376)
   )
   (i64.store align=4
    (get_local $3)
@@ -1768,26 +1828,26 @@
    (get_local $3)
    (i32.const 0)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:179:0
+  ;;@ ../../tools/VST3JSExport.cpp:203:0
   (set_local $4
    (i32.load
-    (i32.const 14408)
+    (i32.const 14440)
    )
   )
-  (set_local $11
+  (set_local $10
    (i32.load
     (get_local $4)
    )
   )
-  (set_local $11
+  (set_local $10
    (i32.add
-    (get_local $11)
+    (get_local $10)
     (i32.const 20)
    )
   )
-  (set_local $11
+  (set_local $10
    (i32.load
-    (get_local $11)
+    (get_local $10)
    )
   )
   (drop
@@ -1797,17 +1857,17 @@
     (get_local $3)
     (i32.add
      (i32.and
-      (get_local $11)
+      (get_local $10)
       (i32.const 127)
      )
      (i32.const 410)
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:180:0
+  ;;@ ../../tools/VST3JSExport.cpp:204:0
   (set_local $0
    (i32.load
-    (i32.const 14408)
+    (i32.const 14440)
    )
   )
   (set_local $4
@@ -1830,8 +1890,8 @@
    (call_indirect (type $FUNCSIG$iiiii)
     (get_local $0)
     (get_local $3)
-    (i32.const 17324)
-    (i32.const 14864)
+    (i32.const 17396)
+    (i32.const 14896)
     (i32.add
      (i32.and
       (get_local $4)
@@ -1842,22 +1902,22 @@
    )
   )
   (if
-   ;;@ ../../tools/VST3JSExport.cpp:181:0
+   ;;@ ../../tools/VST3JSExport.cpp:205:0
    (get_local $0)
    (block
     (set_global $STACKTOP
-     (get_local $10)
+     (get_local $8)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:267:0
+    ;;@ ../../tools/VST3JSExport.cpp:293:0
     (return
      (get_local $0)
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:182:0
+  ;;@ ../../tools/VST3JSExport.cpp:206:0
   (set_local $0
    (i32.load
-    (i32.const 14864)
+    (i32.const 14896)
    )
   )
   (set_local $3
@@ -1889,10 +1949,10 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:183:0
+  ;;@ ../../tools/VST3JSExport.cpp:207:0
   (set_local $3
    (i32.load
-    (i32.const 14864)
+    (i32.const 14896)
    )
   )
   (set_local $4
@@ -1908,8 +1968,8 @@
   (set_local $3
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $3)
-    (i32.const 17404)
-    (i32.const 14868)
+    (i32.const 17476)
+    (i32.const 14900)
     (i32.add
      (i32.and
       (get_local $4)
@@ -1925,18 +1985,18 @@
    )
    (block
     (set_global $STACKTOP
-     (get_local $10)
+     (get_local $8)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:267:0
+    ;;@ ../../tools/VST3JSExport.cpp:293:0
     (return
      (get_local $0)
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:186:0
+  ;;@ ../../tools/VST3JSExport.cpp:210:0
   (set_local $0
    (i32.load
-    (i32.const 14864)
+    (i32.const 14896)
    )
   )
   (set_local $3
@@ -1969,15 +2029,15 @@
    )
   )
   (if
-   ;;@ ../../tools/VST3JSExport.cpp:187:0
+   ;;@ ../../tools/VST3JSExport.cpp:211:0
    (i32.eqz
     (get_local $0)
    )
    (block
-    ;;@ ../../tools/VST3JSExport.cpp:189:0
+    ;;@ ../../tools/VST3JSExport.cpp:213:0
     (set_local $0
      (i32.load
-      (i32.const 14408)
+      (i32.const 14440)
      )
     )
     (set_local $3
@@ -2000,8 +2060,8 @@
      (call_indirect (type $FUNCSIG$iiiii)
       (get_local $0)
       (get_local $1)
-      (i32.const 17404)
-      (i32.const 14868)
+      (i32.const 17476)
+      (i32.const 14900)
       (i32.add
        (i32.and
         (get_local $3)
@@ -2011,10 +2071,10 @@
       )
      )
     )
-    ;;@ ../../tools/VST3JSExport.cpp:190:0
+    ;;@ ../../tools/VST3JSExport.cpp:214:0
     (set_local $1
      (i32.load
-      (i32.const 14868)
+      (i32.const 14900)
      )
     )
     (set_local $3
@@ -2034,7 +2094,7 @@
       (get_local $3)
      )
      (block
-      ;;@ ../../tools/VST3JSExport.cpp:192:0
+      ;;@ ../../tools/VST3JSExport.cpp:216:0
       (set_local $0
        (i32.load
         (get_local $1)
@@ -2064,10 +2124,10 @@
         )
        )
       )
-      ;;@ ../../tools/VST3JSExport.cpp:193:0
+      ;;@ ../../tools/VST3JSExport.cpp:217:0
       (set_local $0
        (i32.load
-        (i32.const 14864)
+        (i32.const 14896)
        )
       )
       ;;@ ../../i/pluginterfaces/base/smartpointer.h:133:0
@@ -2094,7 +2154,7 @@
           (set_local $0
            (call_indirect (type $FUNCSIG$iiii)
             (get_local $0)
-            (i32.const 17344)
+            (i32.const 17416)
             (get_local $5)
             (i32.add
              (i32.and
@@ -2113,10 +2173,10 @@
             (i32.const 0)
            )
           )
-          ;;@ ../../tools/VST3JSExport.cpp:194:0
+          ;;@ ../../tools/VST3JSExport.cpp:218:0
           (set_local $0
            (i32.load
-            (i32.const 14864)
+            (i32.const 14896)
            )
           )
           ;;@ ../../i/pluginterfaces/base/funknown.h:423:0
@@ -2143,7 +2203,7 @@
           (set_local $0
            (call_indirect (type $FUNCSIG$iiii)
             (get_local $0)
-            (i32.const 17344)
+            (i32.const 17416)
             (get_local $2)
             (i32.add
              (i32.and
@@ -2358,7 +2418,7 @@
        )
       )
       (if
-       ;;@ ../../tools/VST3JSExport.cpp:195:0
+       ;;@ ../../tools/VST3JSExport.cpp:219:0
        (i32.eqz
         (get_local $0)
        )
@@ -2367,9 +2427,9 @@
          (i32.const 0)
         )
         (set_global $STACKTOP
-         (get_local $10)
+         (get_local $8)
         )
-        ;;@ ../../tools/VST3JSExport.cpp:267:0
+        ;;@ ../../tools/VST3JSExport.cpp:293:0
         (return
          (get_local $0)
         )
@@ -2379,12 +2439,12 @@
        (get_local $2)
        (i64.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:198:0
+      ;;@ ../../tools/VST3JSExport.cpp:222:0
       (i64.store offset=8
        (get_local $2)
        (i64.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:199:0
+      ;;@ ../../tools/VST3JSExport.cpp:223:0
       (set_local $1
        (i32.add
         (get_local $2)
@@ -2395,13 +2455,13 @@
        (get_local $1)
        (i32.const 2048)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:200:0
+      ;;@ ../../tools/VST3JSExport.cpp:224:0
       (set_local $1
        (i32.load
         (i32.const 5996)
        )
       )
-      (set_local $9
+      (set_local $13
        (f64.convert_s/i32
         (get_local $1)
        )
@@ -2414,9 +2474,9 @@
       )
       (f64.store
        (get_local $4)
-       (get_local $9)
+       (get_local $13)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:201:0
+      ;;@ ../../tools/VST3JSExport.cpp:225:0
       (set_local $1
        (i32.add
         (get_local $2)
@@ -2427,12 +2487,12 @@
        (get_local $1)
        (i32.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:202:0
+      ;;@ ../../tools/VST3JSExport.cpp:226:0
       (i32.store
        (get_local $2)
        (i32.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:203:0
+      ;;@ ../../tools/VST3JSExport.cpp:227:0
       (set_local $1
        (i32.load
         (get_local $0)
@@ -2511,20 +2571,20 @@
        (get_local $0)
        (i32.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:206:0
+      ;;@ ../../tools/VST3JSExport.cpp:230:0
       (i32.store
-       (get_local $12)
+       (get_local $11)
        (get_local $7)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:207:0
+      ;;@ ../../tools/VST3JSExport.cpp:231:0
       (i32.store
-       (get_local $13)
+       (get_local $12)
        (get_local $6)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:208:0
+      ;;@ ../../tools/VST3JSExport.cpp:232:0
       (set_local $0
        (i32.load
-        (i32.const 14864)
+        (i32.const 14896)
        )
       )
       (set_local $2
@@ -2535,15 +2595,15 @@
       (set_local $3
        (call $__Z13createBuffersRN9Steinberg3Vst10IComponentERPNS0_15AudioBusBuffersEiii
         (get_local $0)
-        (get_local $12)
+        (get_local $11)
         (i32.const 0)
         (get_local $2)
        )
       )
-      ;;@ ../../tools/VST3JSExport.cpp:209:0
+      ;;@ ../../tools/VST3JSExport.cpp:233:0
       (set_local $0
        (i32.load
-        (i32.const 14864)
+        (i32.const 14896)
        )
       )
       (set_local $2
@@ -2554,19 +2614,19 @@
       (set_local $7
        (call $__Z13createBuffersRN9Steinberg3Vst10IComponentERPNS0_15AudioBusBuffersEiii
         (get_local $0)
-        (get_local $13)
+        (get_local $12)
         (i32.const 1)
         (get_local $2)
        )
       )
       (if
-       ;;@ ../../tools/VST3JSExport.cpp:212:0
+       ;;@ ../../tools/VST3JSExport.cpp:236:0
        (i32.gt_s
         (get_local $3)
         (i32.const 0)
        )
        (block
-        ;;@ ../../tools/VST3JSExport.cpp:213:0
+        ;;@ ../../tools/VST3JSExport.cpp:237:0
         (set_local $0
          (i32.shl
           (get_local $3)
@@ -2594,7 +2654,7 @@
          (i32.const 0)
         )
         (loop $while-in
-         ;;@ ../../tools/VST3JSExport.cpp:215:0
+         ;;@ ../../tools/VST3JSExport.cpp:239:0
          (set_local $1
           (i32.add
            (get_local $2)
@@ -2608,7 +2668,7 @@
           (get_local $1)
           (i64.const 3)
          )
-         ;;@ ../../tools/VST3JSExport.cpp:214:0
+         ;;@ ../../tools/VST3JSExport.cpp:238:0
          (set_local $0
           (i32.add
            (get_local $0)
@@ -2628,13 +2688,13 @@
        )
       )
       (if
-       ;;@ ../../tools/VST3JSExport.cpp:218:0
+       ;;@ ../../tools/VST3JSExport.cpp:242:0
        (i32.gt_s
         (get_local $7)
         (i32.const 0)
        )
        (block
-        ;;@ ../../tools/VST3JSExport.cpp:219:0
+        ;;@ ../../tools/VST3JSExport.cpp:243:0
         (set_local $0
          (i32.shl
           (get_local $7)
@@ -2662,7 +2722,7 @@
          (i32.const 0)
         )
         (loop $while-in1
-         ;;@ ../../tools/VST3JSExport.cpp:221:0
+         ;;@ ../../tools/VST3JSExport.cpp:245:0
          (set_local $6
           (i32.add
            (get_local $1)
@@ -2676,7 +2736,7 @@
           (get_local $6)
           (i64.const 3)
          )
-         ;;@ ../../tools/VST3JSExport.cpp:220:0
+         ;;@ ../../tools/VST3JSExport.cpp:244:0
          (set_local $0
           (i32.add
            (get_local $0)
@@ -2701,7 +2761,7 @@
         (get_local $5)
        )
       )
-      ;;@ ../../tools/VST3JSExport.cpp:224:0
+      ;;@ ../../tools/VST3JSExport.cpp:248:0
       (set_local $6
        (i32.load
         (get_local $0)
@@ -2718,7 +2778,7 @@
         (get_local $6)
        )
       )
-      (drop
+      (set_local $0
        (call_indirect (type $FUNCSIG$iiiiii)
         (get_local $0)
         (get_local $2)
@@ -2734,13 +2794,40 @@
         )
        )
       )
+      ;;@ ../../tools/VST3JSExport.cpp:59:0
+      (i32.store
+       (get_local $9)
+       (i32.const 10140)
+      )
+      (set_local $2
+       (i32.add
+        (get_local $9)
+        (i32.const 4)
+       )
+      )
+      (i32.store
+       (get_local $2)
+       (get_local $0)
+      )
+      (drop
+       (call $_snprintf
+        (i32.const 13376)
+        (i32.const 999)
+        (i32.const 9846)
+        (get_local $9)
+       )
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:60:0
+      (call $_emscripten_run_script
+       (i32.const 13376)
+      )
       ;;@ ../../i/pluginterfaces/base/smartpointer.h:73:0
       (set_local $0
        (i32.load
         (get_local $5)
        )
       )
-      ;;@ ../../tools/VST3JSExport.cpp:225:0
+      ;;@ ../../tools/VST3JSExport.cpp:250:0
       (set_local $2
        (i32.load
         (get_local $0)
@@ -2770,26 +2857,26 @@
         )
        )
       )
-      ;;@ ../../tools/VST3JSExport.cpp:230:0
-      (set_local $9
+      ;;@ ../../tools/VST3JSExport.cpp:255:0
+      (set_local $13
        (f64.load
         (get_local $4)
        )
       )
       (set_local $2
        (i32.add
-        (get_local $8)
+        (get_local $9)
         (i32.const 8)
        )
       )
       (f64.store
        (get_local $2)
-       (get_local $9)
+       (get_local $13)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:231:0
+      ;;@ ../../tools/VST3JSExport.cpp:256:0
       (set_local $2
        (i32.add
-        (get_local $8)
+        (get_local $9)
         (i32.const 16)
        )
       )
@@ -2797,238 +2884,174 @@
        (get_local $2)
        (i64.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:232:0
-      (set_local $9
-       (f64.div
-        (f64.const 0)
-        (get_local $9)
+      ;;@ ../../tools/VST3JSExport.cpp:261:0
+      (i32.store
+       (get_local $9)
+       (i32.const 2)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:268:0
+      (set_local $2
+       (i32.load
+        (i32.const 14900)
        )
       )
-      (set_local $9
-       (f64.mul
-        (get_local $9)
-        (f64.const 2)
+      (set_local $1
+       (i32.load
+        (get_local $2)
+       )
+      )
+      (set_local $1
+       (i32.add
+        (get_local $1)
+        (i32.const 32)
+       )
+      )
+      (set_local $1
+       (i32.load
+        (get_local $1)
        )
       )
       (set_local $2
-       (i32.add
-        (get_local $8)
-        (i32.const 40)
+       (call_indirect (type $FUNCSIG$ii)
+        (get_local $2)
+        (i32.add
+         (i32.and
+          (get_local $1)
+          (i32.const 255)
+         )
+         (i32.const 16)
+        )
        )
       )
-      (f64.store
+      (call $__ZN9Steinberg3Vst16ParameterChanges16setMaxParametersEi
+       (i32.const 14952)
        (get_local $2)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:269:0
+      (set_local $2
+       (i32.load
+        (i32.const 14900)
+       )
+      )
+      (set_local $1
+       (i32.load
+        (get_local $2)
+       )
+      )
+      (set_local $1
+       (i32.add
+        (get_local $1)
+        (i32.const 32)
+       )
+      )
+      (set_local $1
+       (i32.load
+        (get_local $1)
+       )
+      )
+      (set_local $2
+       (call_indirect (type $FUNCSIG$ii)
+        (get_local $2)
+        (i32.add
+         (i32.and
+          (get_local $1)
+          (i32.const 255)
+         )
+         (i32.const 16)
+        )
+       )
+      )
+      (call $__ZN9Steinberg3Vst16ParameterChanges16setMaxParametersEi
+       (i32.const 14976)
+       (get_local $2)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:270:0
+      (call $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv
+       (i32.const 14952)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:271:0
+      (call $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv
+       (i32.const 14976)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:272:0
+      (i32.store
+       (i32.const 14948)
        (get_local $9)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:233:0
-      (set_local $2
-       (i32.add
-        (get_local $8)
-        (i32.const 72)
-       )
-      )
-      (f64.store
-       (get_local $2)
-       (f64.const 120)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:234:0
-      (set_local $2
-       (i32.add
-        (get_local $8)
-        (i32.const 84)
-       )
-      )
+      ;;@ ../../tools/VST3JSExport.cpp:273:0
       (i32.store
-       (get_local $2)
-       (i32.const 4)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:235:0
-      (set_local $2
-       (i32.add
-        (get_local $8)
-        (i32.const 80)
-       )
-      )
-      (i32.store
-       (get_local $2)
-       (i32.const 4)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:236:0
-      (i32.store
-       (get_local $8)
-       (i32.const 9730)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:240:0
-      (call $__ZN9Steinberg3Vst9EventListC2Ei
-       (get_local $14)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:241:0
-      (call $__ZN9Steinberg3Vst9EventListC2Ei
-       (get_local $15)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:242:0
-      (set_local $2
-       (i32.load
-        (i32.const 14868)
-       )
-      )
-      (set_local $1
-       (i32.load
-        (get_local $2)
-       )
-      )
-      (set_local $1
-       (i32.add
-        (get_local $1)
-        (i32.const 32)
-       )
-      )
-      (set_local $1
-       (i32.load
-        (get_local $1)
-       )
-      )
-      (set_local $2
-       (call_indirect (type $FUNCSIG$ii)
-        (get_local $2)
-        (i32.add
-         (i32.and
-          (get_local $1)
-          (i32.const 255)
-         )
-         (i32.const 16)
-        )
-       )
-      )
-      (call $__ZN9Steinberg3Vst16ParameterChanges16setMaxParametersEi
-       (i32.const 14920)
-       (get_local $2)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:243:0
-      (set_local $2
-       (i32.load
-        (i32.const 14868)
-       )
-      )
-      (set_local $1
-       (i32.load
-        (get_local $2)
-       )
-      )
-      (set_local $1
-       (i32.add
-        (get_local $1)
-        (i32.const 32)
-       )
-      )
-      (set_local $1
-       (i32.load
-        (get_local $1)
-       )
-      )
-      (set_local $2
-       (call_indirect (type $FUNCSIG$ii)
-        (get_local $2)
-        (i32.add
-         (i32.and
-          (get_local $1)
-          (i32.const 255)
-         )
-         (i32.const 16)
-        )
-       )
-      )
-      (call $__ZN9Steinberg3Vst16ParameterChanges16setMaxParametersEi
-       (i32.const 14944)
-       (get_local $2)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:244:0
-      (call $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv
-       (i32.const 14920)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:245:0
-      (call $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv
-       (i32.const 14944)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:246:0
-      (i32.store
-       (i32.const 14916)
-       (get_local $8)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:247:0
-      (i32.store
-       (i32.const 14872)
+       (i32.const 14904)
        (i32.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:248:0
+      ;;@ ../../tools/VST3JSExport.cpp:274:0
       (i32.store
-       (i32.const 14876)
+       (i32.const 14908)
        (i32.const 0)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:249:0
+      ;;@ ../../tools/VST3JSExport.cpp:275:0
       (set_local $2
        (i32.load
         (i32.const 5992)
        )
       )
       (i32.store
-       (i32.const 14880)
+       (i32.const 14912)
        (get_local $2)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:250:0
+      ;;@ ../../tools/VST3JSExport.cpp:276:0
       (i32.store
-       (i32.const 14884)
+       (i32.const 14916)
        (get_local $3)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:251:0
+      ;;@ ../../tools/VST3JSExport.cpp:277:0
       (i32.store
-       (i32.const 14888)
+       (i32.const 14920)
        (get_local $7)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:252:0
+      ;;@ ../../tools/VST3JSExport.cpp:278:0
+      (set_local $2
+       (i32.load
+        (get_local $11)
+       )
+      )
+      (i32.store
+       (i32.const 14924)
+       (get_local $2)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:279:0
       (set_local $2
        (i32.load
         (get_local $12)
        )
       )
       (i32.store
-       (i32.const 14892)
+       (i32.const 14928)
        (get_local $2)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:253:0
-      (set_local $2
-       (i32.load
-        (get_local $13)
-       )
-      )
+      ;;@ ../../tools/VST3JSExport.cpp:280:0
       (i32.store
-       (i32.const 14896)
-       (get_local $2)
+       (i32.const 14940)
+       (i32.const 15000)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:254:0
+      ;;@ ../../tools/VST3JSExport.cpp:281:0
       (i32.store
-       (i32.const 14908)
-       (get_local $14)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:255:0
-      (i32.store
-       (i32.const 14912)
-       (get_local $15)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:256:0
-      (i32.store
-       (i32.const 14900)
-       (i32.const 14920)
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:257:0
-      (i32.store
-       (i32.const 14904)
        (i32.const 14944)
+       (i32.const 15020)
       )
-      ;;@ ../../tools/VST3JSExport.cpp:258:0
+      ;;@ ../../tools/VST3JSExport.cpp:282:0
+      (i32.store
+       (i32.const 14932)
+       (i32.const 14952)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:283:0
+      (i32.store
+       (i32.const 14936)
+       (i32.const 14976)
+      )
+      ;;@ ../../tools/VST3JSExport.cpp:284:0
       (set_local $2
        (i32.load
-        (i32.const 14864)
+        (i32.const 14896)
        )
       )
       (set_local $1
@@ -3066,7 +3089,7 @@
         (get_local $5)
        )
       )
-      ;;@ ../../tools/VST3JSExport.cpp:259:0
+      ;;@ ../../tools/VST3JSExport.cpp:285:0
       (set_local $1
        (i32.load
         (get_local $2)
@@ -3095,13 +3118,6 @@
          (i32.const 274)
         )
        )
-      )
-      ;;@ ../../tools/VST3JSExport.cpp:260:0
-      (call $__ZN9Steinberg3Vst9EventListD2Ev
-       (get_local $15)
-      )
-      (call $__ZN9Steinberg3Vst9EventListD2Ev
-       (get_local $14)
       )
       ;;@ ../../i/pluginterfaces/base/smartpointer.h:141:0
       (set_local $2
@@ -3153,12 +3169,12 @@
    )
   )
   (set_global $STACKTOP
-   (get_local $10)
+   (get_local $8)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:267:0
+  ;;@ ../../tools/VST3JSExport.cpp:293:0
   (get_local $0)
  )
- (func $_VST3_description (; 34 ;) (; has Stack IR ;) (result i32)
+ (func $_VST3_description (; 33 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3178,10 +3194,10 @@
     (i32.const 1000)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:271:0
+  ;;@ ../../tools/VST3JSExport.cpp:297:0
   (set_local $0
    (i32.load
-    (i32.const 14408)
+    (i32.const 14440)
    )
   )
   (set_local $1
@@ -3212,10 +3228,10 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:270:0
+  ;;@ ../../tools/VST3JSExport.cpp:296:0
   (i32.store
    (get_local $2)
-   (i32.const 14412)
+   (i32.const 14444)
   )
   (set_local $1
    (i32.add
@@ -3235,7 +3251,7 @@
   )
   (i32.store
    (get_local $0)
-   (i32.const 14732)
+   (i32.const 14764)
   )
   (set_local $0
    (i32.add
@@ -3245,23 +3261,23 @@
   )
   (i32.store
    (get_local $0)
-   (i32.const 14476)
+   (i32.const 14508)
   )
   (drop
    (call $_snprintf
     (get_local $3)
     (i32.const 999)
-    (i32.const 10140)
+    (i32.const 10173)
     (get_local $2)
    )
   )
   (set_global $STACKTOP
    (get_local $3)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:273:0
+  ;;@ ../../tools/VST3JSExport.cpp:299:0
   (get_local $3)
  )
- (func $_VST3_process (; 35 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $_VST3_process (; 34 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -3288,10 +3304,10 @@
   (set_local $6
    (get_local $9)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:278:0
+  ;;@ ../../tools/VST3JSExport.cpp:304:0
   (set_local $5
    (i32.load
-    (i32.const 14864)
+    (i32.const 14896)
    )
   )
   ;;@ ../../i/pluginterfaces/base/smartpointer.h:133:0
@@ -3316,7 +3332,7 @@
     (set_local $4
      (call_indirect (type $FUNCSIG$iiii)
       (get_local $5)
-      (i32.const 17344)
+      (i32.const 17416)
       (get_local $8)
       (i32.add
        (i32.and
@@ -3337,10 +3353,10 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:279:0
+  ;;@ ../../tools/VST3JSExport.cpp:305:0
   (set_local $4
    (i32.load
-    (i32.const 14884)
+    (i32.const 14916)
    )
   )
   (if
@@ -3349,7 +3365,7 @@
     (i32.const 0)
    )
    (block
-    ;;@ ../../tools/VST3JSExport.cpp:280:0
+    ;;@ ../../tools/VST3JSExport.cpp:306:0
     (drop
      (call $_memset
       (get_local $6)
@@ -3357,10 +3373,10 @@
       (i32.const 276)
      )
     )
-    ;;@ ../../tools/VST3JSExport.cpp:281:0
+    ;;@ ../../tools/VST3JSExport.cpp:307:0
     (set_local $5
      (i32.load
-      (i32.const 14864)
+      (i32.const 14896)
      )
     )
     (set_local $4
@@ -3401,14 +3417,14 @@
       (i32.const 8)
      )
     )
-    ;;@ ../../tools/VST3JSExport.cpp:282:0
+    ;;@ ../../tools/VST3JSExport.cpp:308:0
     (set_local $4
      (i32.load
       (get_local $4)
      )
     )
     (if
-     ;;@ ../../tools/VST3JSExport.cpp:283:0
+     ;;@ ../../tools/VST3JSExport.cpp:309:0
      (i32.gt_s
       (get_local $4)
       (i32.const 0)
@@ -3417,7 +3433,7 @@
       (i32.gt_s
        (tee_local $11
         (i32.load
-         (i32.const 14880)
+         (i32.const 14912)
         )
        )
        (i32.const 0)
@@ -3429,11 +3445,11 @@
          (i32.const 1)
         )
        )
-       ;;@ ../../tools/VST3JSExport.cpp:285:0
+       ;;@ ../../tools/VST3JSExport.cpp:311:0
        (set_local $10
         (i32.add
          (i32.load
-          (i32.const 14892)
+          (i32.const 14924)
          )
          (i32.const 16)
         )
@@ -3482,7 +3498,7 @@
            (get_local $4)
            (get_local $5)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:284:0
+          ;;@ ../../tools/VST3JSExport.cpp:310:0
           (set_local $1
            (i32.add
             (get_local $1)
@@ -3502,7 +3518,7 @@
           (i32.const 0)
          )
          (loop $while-in1
-          ;;@ ../../tools/VST3JSExport.cpp:285:0
+          ;;@ ../../tools/VST3JSExport.cpp:311:0
           (set_local $5
            (i32.add
             (get_local $0)
@@ -3540,7 +3556,7 @@
            (get_local $5)
            (get_local $7)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:287:0
+          ;;@ ../../tools/VST3JSExport.cpp:313:0
           (set_local $5
            (i32.add
             (get_local $1)
@@ -3584,7 +3600,7 @@
            (get_local $5)
            (get_local $7)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:284:0
+          ;;@ ../../tools/VST3JSExport.cpp:310:0
           (set_local $4
            (i32.add
             (get_local $4)
@@ -3611,7 +3627,7 @@
     (get_local $8)
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:298:0
+  ;;@ ../../tools/VST3JSExport.cpp:318:0
   (set_local $0
    (i32.load
     (get_local $1)
@@ -3631,7 +3647,7 @@
   (set_local $5
    (call_indirect (type $FUNCSIG$iii)
     (get_local $1)
-    (i32.const 14872)
+    (i32.const 14904)
     (i32.add
      (i32.and
       (get_local $0)
@@ -3641,10 +3657,19 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:299:0
+  ;;@ ../../tools/VST3JSExport.cpp:319:0
+  (call $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv
+   (i32.const 14952)
+  )
+  ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.h:54:0
+  (i32.store
+   (i32.const 15016)
+   (i32.const 0)
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:338:0
   (set_local $0
    (i32.load
-    (i32.const 14888)
+    (i32.const 14920)
    )
   )
   (if
@@ -3653,7 +3678,7 @@
     (i32.const 0)
    )
    (block
-    ;;@ ../../tools/VST3JSExport.cpp:300:0
+    ;;@ ../../tools/VST3JSExport.cpp:339:0
     (drop
      (call $_memset
       (get_local $6)
@@ -3661,10 +3686,10 @@
       (i32.const 276)
      )
     )
-    ;;@ ../../tools/VST3JSExport.cpp:301:0
+    ;;@ ../../tools/VST3JSExport.cpp:340:0
     (set_local $1
      (i32.load
-      (i32.const 14864)
+      (i32.const 14896)
      )
     )
     (set_local $0
@@ -3705,14 +3730,14 @@
       (i32.const 8)
      )
     )
-    ;;@ ../../tools/VST3JSExport.cpp:302:0
+    ;;@ ../../tools/VST3JSExport.cpp:341:0
     (set_local $0
      (i32.load
       (get_local $0)
      )
     )
     (if
-     ;;@ ../../tools/VST3JSExport.cpp:303:0
+     ;;@ ../../tools/VST3JSExport.cpp:342:0
      (i32.gt_s
       (get_local $0)
       (i32.const 0)
@@ -3721,7 +3746,7 @@
       (i32.gt_s
        (tee_local $6
         (i32.load
-         (i32.const 14880)
+         (i32.const 14912)
         )
        )
        (i32.const 0)
@@ -3733,11 +3758,11 @@
          (i32.const 1)
         )
        )
-       ;;@ ../../tools/VST3JSExport.cpp:305:0
+       ;;@ ../../tools/VST3JSExport.cpp:344:0
        (set_local $7
         (i32.add
          (i32.load
-          (i32.const 14896)
+          (i32.const 14928)
          )
          (i32.const 16)
         )
@@ -3791,7 +3816,7 @@
             (get_local $7)
            )
           )
-          ;;@ ../../tools/VST3JSExport.cpp:309:0
+          ;;@ ../../tools/VST3JSExport.cpp:348:0
           (set_local $1
            (i32.load
             (get_local $1)
@@ -3824,7 +3849,7 @@
            (get_local $1)
            (get_local $4)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:304:0
+          ;;@ ../../tools/VST3JSExport.cpp:343:0
           (set_local $0
            (i32.add
             (get_local $0)
@@ -3844,7 +3869,7 @@
           (i32.const 0)
          )
          (loop $while-in5
-          ;;@ ../../tools/VST3JSExport.cpp:305:0
+          ;;@ ../../tools/VST3JSExport.cpp:344:0
           (set_local $1
            (i32.load
             (get_local $7)
@@ -3887,7 +3912,7 @@
             (get_local $7)
            )
           )
-          ;;@ ../../tools/VST3JSExport.cpp:307:0
+          ;;@ ../../tools/VST3JSExport.cpp:346:0
           (set_local $1
            (i32.add
             (get_local $1)
@@ -3926,7 +3951,7 @@
            (get_local $1)
            (get_local $4)
           )
-          ;;@ ../../tools/VST3JSExport.cpp:304:0
+          ;;@ ../../tools/VST3JSExport.cpp:343:0
           (set_local $0
            (i32.add
             (get_local $0)
@@ -3947,10 +3972,6 @@
     )
    )
   )
-  ;;@ ../../tools/VST3JSExport.cpp:314:0
-  (call $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv
-   (i32.const 14920)
-  )
   ;;@ ../../i/pluginterfaces/base/smartpointer.h:141:0
   (set_local $1
    (i32.load
@@ -3965,7 +3986,7 @@
     (set_global $STACKTOP
      (get_local $9)
     )
-    ;;@ ../../tools/VST3JSExport.cpp:316:0
+    ;;@ ../../tools/VST3JSExport.cpp:355:0
     (return
      (get_local $5)
     )
@@ -4008,45 +4029,53 @@
   (set_global $STACKTOP
    (get_local $9)
   )
-  ;;@ ../../tools/VST3JSExport.cpp:316:0
+  ;;@ ../../tools/VST3JSExport.cpp:355:0
   (get_local $5)
  )
- (func $__GLOBAL__sub_I_VST3JSExport_cpp (; 36 ;) (; has Stack IR ;)
-  (i64.store align=4
-   (i32.const 14872)
-   (i64.const 0)
-  )
-  (i64.store align=4
-   (i32.const 14880)
-   (i64.const 0)
-  )
-  (i64.store align=4
-   (i32.const 14888)
-   (i64.const 0)
-  )
-  (i64.store align=4
-   (i32.const 14896)
-   (i64.const 0)
-  )
+ (func $__GLOBAL__sub_I_VST3JSExport_cpp (; 35 ;) (; has Stack IR ;)
   (i64.store align=4
    (i32.const 14904)
    (i64.const 0)
   )
-  ;;@ ../../i/pluginterfaces/vst/ivstaudioprocessor.h:213:0
   (i64.store align=4
    (i32.const 14912)
    (i64.const 0)
   )
+  (i64.store align=4
+   (i32.const 14920)
+   (i64.const 0)
+  )
+  (i64.store align=4
+   (i32.const 14928)
+   (i64.const 0)
+  )
+  (i64.store align=4
+   (i32.const 14936)
+   (i64.const 0)
+  )
+  ;;@ ../../i/pluginterfaces/vst/ivstaudioprocessor.h:213:0
+  (i64.store align=4
+   (i32.const 14944)
+   (i64.const 0)
+  )
   ;;@ ../../tools/VST3JSExport.cpp:49:0
   (call $__ZN9Steinberg3Vst16ParameterChangesC2Ei
-   (i32.const 14920)
+   (i32.const 14952)
   )
   ;;@ ../../tools/VST3JSExport.cpp:50:0
   (call $__ZN9Steinberg3Vst16ParameterChangesC2Ei
-   (i32.const 14944)
+   (i32.const 14976)
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:52:0
+  (call $__ZN9Steinberg3Vst9EventListC2Ei
+   (i32.const 15000)
+  )
+  ;;@ ../../tools/VST3JSExport.cpp:53:0
+  (call $__ZN9Steinberg3Vst9EventListC2Ei
+   (i32.const 15020)
   )
  )
- (func $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 37 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 36 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -4059,7 +4088,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 14972)
+    (i32.const 15044)
    )
   )
   (if
@@ -4081,7 +4110,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 14980)
+      (i32.const 15052)
      )
     )
     (if
@@ -4143,7 +4172,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17404)
+    (i32.const 17476)
    )
   )
   (if
@@ -4165,7 +4194,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17412)
+      (i32.const 17484)
      )
     )
     (if
@@ -4227,7 +4256,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17684)
+    (i32.const 17756)
    )
   )
   (if
@@ -4249,7 +4278,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17692)
+      (i32.const 17764)
      )
     )
     (if
@@ -4311,7 +4340,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -4333,7 +4362,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -4395,7 +4424,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -4417,7 +4446,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -4487,7 +4516,7 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:84:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ADelayController6addRefEv (; 38 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController6addRefEv (; 37 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.h:97:0
   (set_local $1
@@ -4498,7 +4527,7 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:85:0
   (get_local $1)
  )
- (func $__ZN9Steinberg3Vst16ADelayController7releaseEv (; 39 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController7releaseEv (; 38 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.h:97:0
   (set_local $1
@@ -4509,10 +4538,10 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:85:0
   (get_local $1)
  )
- (func $__ZN9Steinberg7FObject6updateEPNS_8FUnknownEi (; 40 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $__ZN9Steinberg7FObject6updateEPNS_8FUnknownEi (; 39 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (nop)
  )
- (func $__ZN9Steinberg3Vst14EditControllerD2Ev (; 41 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst14EditControllerD2Ev (; 40 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:61:0
   (i32.store
@@ -4569,7 +4598,7 @@
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst16ADelayControllerD0Ev (; 42 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst16ADelayControllerD0Ev (; 41 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:61:0
   (i32.store
@@ -4630,11 +4659,11 @@
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg3Vst16ADelayController3isAEv (; 43 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst16ADelayController3isAEv (; 42 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:81:0
-  (i32.const 10630)
+  (i32.const 10663)
  )
- (func $__ZNK9Steinberg3Vst16ADelayController3isAEPKc (; 44 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst16ADelayController3isAEPKc (; 43 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:81:0
   (set_local $2
@@ -4669,7 +4698,7 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst16ADelayController8isTypeOfEPKcb (; 45 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst16ADelayController8isTypeOfEPKcb (; 44 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -4677,7 +4706,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 10630)
+      (i32.const 10663)
      )
     )
     (set_local $0
@@ -4704,7 +4733,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12193)
+        (i32.const 12226)
        )
       )
       (set_local $0
@@ -4714,7 +4743,7 @@
          (set_local $0
           (call $_strcmp
            (get_local $1)
-           (i32.const 12208)
+           (i32.const 12241)
           )
          )
          (if (result i32)
@@ -4723,7 +4752,7 @@
            (set_local $0
             (call $_strcmp
              (get_local $1)
-             (i32.const 12376)
+             (i32.const 12409)
             )
            )
            (i32.eqz
@@ -4746,10 +4775,10 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:81:0
   (get_local $0)
  )
- (func $__ZN9Steinberg7FObject10updateDoneEi (; 46 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg7FObject10updateDoneEi (; 45 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (nop)
  )
- (func $__ZN9Steinberg7FObject15isEqualInstanceEPNS_8FUnknownE (; 47 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg7FObject15isEqualInstanceEPNS_8FUnknownE (; 46 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/base/source/fobject.h:115:0
   (set_local $2
@@ -4760,7 +4789,7 @@
   )
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE (; 48 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE (; 47 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.cpp:55:0
   (set_local $1
    (call $__ZN9Steinberg3Vst9Component10initializeEPNS_8FUnknownE
@@ -4809,7 +4838,7 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.cpp:62:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE (; 49 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE (; 48 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -4987,15 +5016,15 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.cpp:99:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController10createViewEPKc (; 50 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController10createViewEPKc (; 49 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:82:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst14EditController8openHelpEh (; 51 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController8openHelpEh (; 50 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:86:0
   (i32.const 1)
  )
- (func $__ZN9Steinberg3Vst14EditController18getParameterObjectEj (; 52 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController18getParameterObjectEj (; 51 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:107:0
   (set_local $0
    (i32.add
@@ -5011,11 +5040,11 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ADelayController6doTestEv (; 53 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController6doTestEv (; 52 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.cpp:106:0
   (i32.const 1)
  )
- (func $__ZThn8_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 54 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 53 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (call $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv
    (i32.add
     (get_local $0)
@@ -5025,7 +5054,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv (; 55 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst16ADelayController6addRefEv (; 54 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5038,7 +5067,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv (; 56 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst16ADelayController7releaseEv (; 55 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5051,7 +5080,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE (; 57 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE (; 56 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (set_local $0
    (i32.add
     (get_local $0)
@@ -5104,7 +5133,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn12_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 58 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 57 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (call $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv
    (i32.add
     (get_local $0)
@@ -5114,7 +5143,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv (; 59 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst16ADelayController6addRefEv (; 58 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5127,7 +5156,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv (; 60 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst16ADelayController7releaseEv (; 59 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5140,7 +5169,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 61 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 60 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (call $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv
    (i32.add
     (get_local $0)
@@ -5150,7 +5179,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst16ADelayController6addRefEv (; 62 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst16ADelayController6addRefEv (; 61 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5163,7 +5192,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst16ADelayController7releaseEv (; 63 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst16ADelayController7releaseEv (; 62 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5176,7 +5205,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE (; 64 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst16ADelayController10initializeEPNS_8FUnknownE (; 63 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (set_local $0
    (i32.add
     (get_local $0)
@@ -5229,7 +5258,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn24_N9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE (; 65 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE (; 64 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (call $__ZN9Steinberg3Vst16ADelayController17setComponentStateEPNS_8IBStreamE
    (i32.add
     (get_local $0)
@@ -5238,7 +5267,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn28_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 66 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn28_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 65 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (call $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv
    (i32.add
     (get_local $0)
@@ -5248,7 +5277,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn28_N9Steinberg3Vst16ADelayController6addRefEv (; 67 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn28_N9Steinberg3Vst16ADelayController6addRefEv (; 66 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5261,7 +5290,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn28_N9Steinberg3Vst16ADelayController7releaseEv (; 68 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn28_N9Steinberg3Vst16ADelayController7releaseEv (; 67 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5274,7 +5303,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn56_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 69 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn56_N9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv (; 68 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (call $__ZN9Steinberg3Vst16ADelayController14queryInterfaceEPKcPPv
    (i32.add
     (get_local $0)
@@ -5284,7 +5313,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn56_N9Steinberg3Vst16ADelayController6addRefEv (; 70 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn56_N9Steinberg3Vst16ADelayController6addRefEv (; 69 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5297,7 +5326,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn56_N9Steinberg3Vst16ADelayController7releaseEv (; 71 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn56_N9Steinberg3Vst16ADelayController7releaseEv (; 70 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -5310,10 +5339,10 @@
    (get_local $1)
   )
  )
- (func $__GLOBAL__sub_I_adelaycontroller_cpp (; 72 ;) (; has Stack IR ;)
+ (func $__GLOBAL__sub_I_adelaycontroller_cpp (; 71 ;) (; has Stack IR ;)
   ;;@ ../../vstsamples/adelay/source/adelayids.h:49:0
   (call $__ZN9Steinberg4FUIDC2Ejjjj
-   (i32.const 14988)
+   (i32.const 15060)
    (i32.const 215725673)
    (i32.const -2049619799)
    (i32.const -1076349159)
@@ -5321,7 +5350,7 @@
   )
   ;;@ ../../vstsamples/adelay/source/adelayids.h:50:0
   (call $__ZN9Steinberg4FUIDC2Ejjjj
-   (i32.const 15008)
+   (i32.const 15080)
    (i32.const 59670441)
    (i32.const 1654279850)
    (i32.const -2059290487)
@@ -5329,33 +5358,33 @@
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 14968)
+   (i32.const 15040)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 14972)
+   (i32.const 15044)
    (i64.load align=4
     (i32.const 1024)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 14980)
+   (i32.const 15052)
    (i64.load align=4
     (i32.const 1032)
    )
   )
  )
- (func $__ZN9Steinberg4FUIDD2Ev (; 73 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg4FUIDD2Ev (; 72 ;) (; has Stack IR ;) (param $0 i32)
   (nop)
  )
- (func $__ZN9Steinberg4FUIDD0Ev (; 74 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg4FUIDD0Ev (; 73 ;) (; has Stack IR ;) (param $0 i32)
   ;;@ ../../i/pluginterfaces/base/funknown.h:232:0
   (call $__ZdlPv
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 75 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 74 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -5368,7 +5397,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17344)
+    (i32.const 17416)
    )
   )
   (if
@@ -5390,7 +5419,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17352)
+      (i32.const 17424)
      )
     )
     (if
@@ -5452,7 +5481,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -5474,7 +5503,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -5536,7 +5565,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -5558,7 +5587,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -5620,7 +5649,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -5642,7 +5671,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -5712,7 +5741,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.h:109:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9ComponentD2Ev (; 76 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst9ComponentD2Ev (; 75 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -6221,7 +6250,7 @@
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessorD0Ev (; 77 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessorD0Ev (; 76 ;) (; has Stack IR ;) (param $0 i32)
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.h:45:0
   (call $__ZN9Steinberg3Vst9ComponentD2Ev
    (get_local $0)
@@ -6230,11 +6259,11 @@
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg3Vst11AudioEffect3isAEv (; 78 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst11AudioEffect3isAEv (; 77 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.h:106:0
-  (i32.const 10310)
+  (i32.const 10343)
  )
- (func $__ZNK9Steinberg3Vst11AudioEffect8isTypeOfEPKcb (; 79 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst11AudioEffect8isTypeOfEPKcb (; 78 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -6242,7 +6271,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 10310)
+      (i32.const 10343)
      )
     )
     (set_local $0
@@ -6269,7 +6298,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12017)
+        (i32.const 12050)
        )
       )
       (set_local $0
@@ -6279,7 +6308,7 @@
          (set_local $0
           (call $_strcmp
            (get_local $1)
-           (i32.const 12208)
+           (i32.const 12241)
           )
          )
          (if (result i32)
@@ -6288,7 +6317,7 @@
            (set_local $0
             (call $_strcmp
              (get_local $1)
-             (i32.const 12376)
+             (i32.const 12409)
             )
            )
            (i32.eqz
@@ -6311,7 +6340,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.h:106:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE (; 80 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE (; 79 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:72:0
   (set_local $2
@@ -6343,7 +6372,7 @@
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:78:0
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor9setActiveEh (; 81 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor9setActiveEh (; 80 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6737,7 +6766,7 @@
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:126:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor8setStateEPNS_8IBStreamE (; 82 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor8setStateEPNS_8IBStreamE (; 81 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6870,7 +6899,7 @@
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:239:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor8getStateEPNS_8IBStreamE (; 83 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor8getStateEPNS_8IBStreamE (; 82 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 f64)
   (local $4 f32)
@@ -6941,7 +6970,7 @@
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:252:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor18setBusArrangementsEPyiS2_i (; 84 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor18setBusArrangementsEPyiS2_i (; 83 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i64)
   (local $6 i64)
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:85:0
@@ -6996,11 +7025,11 @@
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:88:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv (; 85 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect17getLatencySamplesEv (; 84 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.h:99:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE (; 86 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE (; 85 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -7824,7 +7853,7 @@
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:213:0
   (i32.const 0)
  )
- (func $__ZThn8_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 87 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 86 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -7843,7 +7872,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17344)
+    (i32.const 17416)
    )
   )
   (if
@@ -7865,7 +7894,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17352)
+      (i32.const 17424)
      )
     )
     (if
@@ -7923,7 +7952,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -7945,7 +7974,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -8003,7 +8032,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -8025,7 +8054,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -8083,7 +8112,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -8105,7 +8134,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -8167,7 +8196,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE (; 88 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE (; 87 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (set_local $0
    (i32.add
     (get_local $0)
@@ -8202,7 +8231,7 @@
   )
   (get_local $1)
  )
- (func $__ZThn12_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 89 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 88 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i32)
@@ -8222,7 +8251,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17344)
+    (i32.const 17416)
    )
   )
   (if
@@ -8244,7 +8273,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17352)
+      (i32.const 17424)
      )
     )
     (if
@@ -8302,7 +8331,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -8324,7 +8353,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -8382,7 +8411,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -8404,7 +8433,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -8462,7 +8491,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -8484,7 +8513,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -8540,7 +8569,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 90 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 89 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -8560,7 +8589,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17344)
+    (i32.const 17416)
    )
   )
   (if
@@ -8582,7 +8611,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17352)
+      (i32.const 17424)
      )
     )
     (if
@@ -8640,7 +8669,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -8662,7 +8691,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -8720,7 +8749,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -8742,7 +8771,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -8800,7 +8829,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -8822,7 +8851,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -8884,7 +8913,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE (; 91 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor10initializeEPNS_8FUnknownE (; 90 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (set_local $0
    (i32.add
     (get_local $0)
@@ -8919,7 +8948,7 @@
   )
   (get_local $1)
  )
- (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor9setActiveEh (; 92 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor9setActiveEh (; 91 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (call $__ZN9Steinberg3Vst15ADelayProcessor9setActiveEh
    (i32.add
     (get_local $0)
@@ -8928,7 +8957,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor8setStateEPNS_8IBStreamE (; 93 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor8setStateEPNS_8IBStreamE (; 92 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -9063,7 +9092,7 @@
   )
   (get_local $0)
  )
- (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor8getStateEPNS_8IBStreamE (; 94 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst15ADelayProcessor8getStateEPNS_8IBStreamE (; 93 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 f64)
@@ -9140,7 +9169,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn160_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 95 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst11AudioEffect14queryInterfaceEPKcPPv (; 94 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i32)
@@ -9160,7 +9189,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17344)
+    (i32.const 17416)
    )
   )
   (if
@@ -9182,7 +9211,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17352)
+      (i32.const 17424)
      )
     )
     (if
@@ -9234,7 +9263,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -9256,7 +9285,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -9314,7 +9343,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -9336,7 +9365,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -9394,7 +9423,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -9416,7 +9445,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -9478,7 +9507,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn160_N9Steinberg3Vst11AudioEffect6addRefEv (; 96 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst11AudioEffect6addRefEv (; 95 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -9491,7 +9520,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn160_N9Steinberg3Vst11AudioEffect7releaseEv (; 97 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst11AudioEffect7releaseEv (; 96 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -9504,7 +9533,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn160_N9Steinberg3Vst15ADelayProcessor18setBusArrangementsEPyiS2_i (; 98 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst15ADelayProcessor18setBusArrangementsEPyiS2_i (; 97 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i64)
   (local $6 i64)
   (set_local $0
@@ -9565,7 +9594,7 @@
    (i32.const 1)
   )
  )
- (func $__ZThn160_N9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE (; 99 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE (; 98 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (drop
    (call $__ZN9Steinberg3Vst15ADelayProcessor7processERNS0_11ProcessDataE
     (i32.add
@@ -9577,7 +9606,7 @@
   )
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessorC2Ev (; 100 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessorC2Ev (; 99 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.cpp:60:0
   (call $__ZN9Steinberg3Vst11AudioEffectC2Ev
@@ -9685,7 +9714,7 @@
    )
   )
  )
- (func $__ZN9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv (; 101 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv (; 100 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -9697,7 +9726,7 @@
   )
   (set_local $4
    (i64.load
-    (i32.const 15032)
+    (i32.const 15104)
    )
   )
   (if
@@ -9719,7 +9748,7 @@
     )
     (set_local $4
      (i64.load
-      (i32.const 15040)
+      (i32.const 15112)
      )
     )
     (if
@@ -9786,7 +9815,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst10ADelayTest6addRefEv (; 102 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst10ADelayTest6addRefEv (; 101 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:61:0
   (set_local $0
    (i32.add
@@ -9801,7 +9830,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst10ADelayTest7releaseEv (; 103 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst10ADelayTest7releaseEv (; 102 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:61:0
   (set_local $0
    (i32.add
@@ -9816,7 +9845,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst10ADelayTest3runEPNS_11ITestResultE (; 104 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst10ADelayTest3runEPNS_11ITestResultE (; 103 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -9902,7 +9931,7 @@
     (drop
      (call_indirect (type $FUNCSIG$iiii)
       (get_local $2)
-      (i32.const 14972)
+      (i32.const 15044)
       (get_local $4)
       (i32.add
        (i32.and
@@ -10115,15 +10144,15 @@
   ;;@ ../../vstsamples/adelay/source/exampletest.cpp:95:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst10ADelayTest14getDescriptionEv (; 105 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst10ADelayTest14getDescriptionEv (; 104 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.cpp:106:0
   (i32.const 9772)
  )
- (func $__ZNK9Steinberg3Vst10ADelayTest3isAEv (; 106 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst10ADelayTest3isAEv (; 105 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:59:0
-  (i32.const 10356)
+  (i32.const 10389)
  )
- (func $__ZNK9Steinberg3Vst10ADelayTest3isAEPKc (; 107 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst10ADelayTest3isAEPKc (; 106 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:59:0
   (set_local $2
@@ -10158,7 +10187,7 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst10ADelayTest8isTypeOfEPKcb (; 108 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst10ADelayTest8isTypeOfEPKcb (; 107 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -10166,7 +10195,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 10356)
+      (i32.const 10389)
      )
     )
     (set_local $0
@@ -10193,7 +10222,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -10211,7 +10240,7 @@
   ;;@ ../../vstsamples/adelay/source/exampletest.h:59:0
   (get_local $0)
  )
- (func $__ZThn4_N9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv (; 109 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn4_N9Steinberg3Vst10ADelayTest14queryInterfaceEPKcPPv (; 108 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -10229,7 +10258,7 @@
   )
   (set_local $4
    (i64.load
-    (i32.const 15032)
+    (i32.const 15104)
    )
   )
   (if
@@ -10251,7 +10280,7 @@
     )
     (set_local $4
      (i64.load
-      (i32.const 15040)
+      (i32.const 15112)
      )
     )
     (if
@@ -10312,7 +10341,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn4_N9Steinberg3Vst10ADelayTest6addRefEv (; 110 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn4_N9Steinberg3Vst10ADelayTest6addRefEv (; 109 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (set_local $0
    (i32.add
     (get_local $0)
@@ -10330,7 +10359,7 @@
    (get_local $0)
   )
  )
- (func $__ZThn4_N9Steinberg3Vst10ADelayTest7releaseEv (; 111 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn4_N9Steinberg3Vst10ADelayTest7releaseEv (; 110 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (set_local $0
    (i32.add
     (get_local $0)
@@ -10348,7 +10377,7 @@
    (get_local $0)
   )
  )
- (func $__ZThn4_N9Steinberg3Vst10ADelayTestD0Ev (; 112 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZThn4_N9Steinberg3Vst10ADelayTestD0Ev (; 111 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -10361,7 +10390,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn4_NK9Steinberg3Vst10ADelayTest3isAEPKc (; 113 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn4_NK9Steinberg3Vst10ADelayTest3isAEPKc (; 112 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $0
    (i32.add
@@ -10399,7 +10428,7 @@
    )
   )
  )
- (func $__ZThn4_NK9Steinberg3Vst10ADelayTest8isTypeOfEPKcb (; 114 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn4_NK9Steinberg3Vst10ADelayTest8isTypeOfEPKcb (; 113 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (i32.eqz
@@ -10412,7 +10441,7 @@
   (set_local $0
    (call $_strcmp
     (get_local $1)
-    (i32.const 10356)
+    (i32.const 10389)
    )
   )
   (set_local $0
@@ -10440,14 +10469,14 @@
   (set_local $0
    (call $_strcmp
     (get_local $1)
-    (i32.const 12376)
+    (i32.const 12409)
    )
   )
   (i32.eqz
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst17ADelayTestFactory14queryInterfaceEPKcPPv (; 115 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst17ADelayTestFactory14queryInterfaceEPKcPPv (; 114 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -10459,7 +10488,7 @@
   )
   (set_local $4
    (i64.load
-    (i32.const 15072)
+    (i32.const 15144)
    )
   )
   (if
@@ -10481,7 +10510,7 @@
     )
     (set_local $4
      (i64.load
-      (i32.const 15080)
+      (i32.const 15152)
      )
     )
     (if
@@ -10548,7 +10577,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst17ADelayTestFactory11createTestsEPNS_8FUnknownEPNS_10ITestSuiteE (; 116 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst17ADelayTestFactory11createTestsEPNS_8FUnknownEPNS_10ITestSuiteE (; 115 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -10600,7 +10629,7 @@
   (set_local $1
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $1)
-    (i32.const 15092)
+    (i32.const 15164)
     (get_local $4)
     (i32.add
      (i32.and
@@ -10712,7 +10741,7 @@
   (drop
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $2)
-    (i32.const 10457)
+    (i32.const 10490)
     (get_local $1)
     (i32.add
      (i32.and
@@ -10804,7 +10833,7 @@
   (drop
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $2)
-    (i32.const 10469)
+    (i32.const 10502)
     (get_local $1)
     (i32.add
      (i32.and
@@ -10904,11 +10933,11 @@
   ;;@ ../../vstsamples/adelay/source/exampletest.cpp:66:0
   (i32.const 0)
  )
- (func $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEv (; 117 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEv (; 116 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:77:0
-  (i32.const 10439)
+  (i32.const 10472)
  )
- (func $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEPKc (; 118 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst17ADelayTestFactory3isAEPKc (; 117 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:77:0
   (set_local $2
@@ -10943,7 +10972,7 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst17ADelayTestFactory8isTypeOfEPKcb (; 119 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst17ADelayTestFactory8isTypeOfEPKcb (; 118 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -10951,7 +10980,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 10439)
+      (i32.const 10472)
      )
     )
     (set_local $0
@@ -10978,7 +11007,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -10996,7 +11025,7 @@
   ;;@ ../../vstsamples/adelay/source/exampletest.h:77:0
   (get_local $0)
  )
- (func $__ZThn4_N9Steinberg3Vst17ADelayTestFactory14queryInterfaceEPKcPPv (; 120 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn4_N9Steinberg3Vst17ADelayTestFactory14queryInterfaceEPKcPPv (; 119 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -11014,7 +11043,7 @@
   )
   (set_local $4
    (i64.load
-    (i32.const 15072)
+    (i32.const 15144)
    )
   )
   (if
@@ -11036,7 +11065,7 @@
     )
     (set_local $4
      (i64.load
-      (i32.const 15080)
+      (i32.const 15152)
      )
     )
     (if
@@ -11097,7 +11126,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn4_NK9Steinberg3Vst17ADelayTestFactory3isAEPKc (; 121 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn4_NK9Steinberg3Vst17ADelayTestFactory3isAEPKc (; 120 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $0
    (i32.add
@@ -11135,7 +11164,7 @@
    )
   )
  )
- (func $__ZThn4_NK9Steinberg3Vst17ADelayTestFactory8isTypeOfEPKcb (; 122 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn4_NK9Steinberg3Vst17ADelayTestFactory8isTypeOfEPKcb (; 121 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (i32.eqz
@@ -11148,7 +11177,7 @@
   (set_local $0
    (call $_strcmp
     (get_local $1)
-    (i32.const 10439)
+    (i32.const 10472)
    )
   )
   (set_local $0
@@ -11176,96 +11205,96 @@
   (set_local $0
    (call $_strcmp
     (get_local $1)
-    (i32.const 12376)
+    (i32.const 12409)
    )
   )
   (i32.eqz
    (get_local $0)
   )
  )
- (func $__GLOBAL__sub_I_exampletest_cpp (; 123 ;) (; has Stack IR ;)
+ (func $__GLOBAL__sub_I_exampletest_cpp (; 122 ;) (; has Stack IR ;)
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 15028)
+   (i32.const 15100)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 15032)
+   (i32.const 15104)
    (i64.load align=4
     (i32.const 1040)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 15040)
+   (i32.const 15112)
    (i64.load align=4
     (i32.const 1048)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 15048)
+   (i32.const 15120)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 15052)
+   (i32.const 15124)
    (i64.load align=4
     (i32.const 1056)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 15060)
+   (i32.const 15132)
    (i64.load align=4
     (i32.const 1064)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 15068)
+   (i32.const 15140)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 15072)
+   (i32.const 15144)
    (i64.load align=4
     (i32.const 1072)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 15080)
+   (i32.const 15152)
    (i64.load align=4
     (i32.const 1080)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 15088)
+   (i32.const 15160)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 15092)
+   (i32.const 15164)
    (i64.load align=4
     (i32.const 1088)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 15100)
+   (i32.const 15172)
    (i64.load align=4
     (i32.const 1096)
    )
   )
   ;;@ ../../vstsamples/adelay/source/exampletest.cpp:54:0
   (call $__ZN9Steinberg4FUIDC2Ejjjj
-   (i32.const 15108)
+   (i32.const 15180)
    (i32.const 1613197879)
    (i32.const 1959543555)
    (i32.const -1233945434)
    (i32.const -305072111)
   )
  )
- (func $_GetPluginFactory (; 124 ;) (; has Stack IR ;) (result i32)
+ (func $_GetPluginFactory (; 123 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11285,7 +11314,7 @@
   ;;@ ../../vstsamples/adelay/source/factory.cpp:47:0
   (set_local $0
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (if
@@ -11322,7 +11351,7 @@
     )
     (set_local $2
      (i32.load
-      (i32.const 17136)
+      (i32.const 17208)
      )
     )
     (set_global $STACKTOP
@@ -11336,7 +11365,7 @@
   ;;@ ../../vstsamples/adelay/source/factory.cpp:47:0
   (set_local $0
    (i32.load8_s
-    (i32.const 14352)
+    (i32.const 14384)
    )
   )
   (if
@@ -11346,7 +11375,7 @@
    (block
     (set_local $0
      (call $___cxa_guard_acquire
-      (i32.const 14352)
+      (i32.const 14384)
      )
     )
     (if
@@ -11354,391 +11383,355 @@
      (block
       ;;@ ../../i/pluginterfaces/base/fstrdefs.h:215:0
       (i32.store8
-       (i32.const 15128)
+       (i32.const 15200)
        (i32.const 83)
       )
       (i32.store8
-       (i32.const 15129)
+       (i32.const 15201)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15130)
+       (i32.const 15202)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15131)
+       (i32.const 15203)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15132)
+       (i32.const 15204)
        (i32.const 110)
       )
       (i32.store8
-       (i32.const 15133)
+       (i32.const 15205)
        (i32.const 98)
       )
       (i32.store8
-       (i32.const 15134)
+       (i32.const 15206)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15135)
+       (i32.const 15207)
        (i32.const 114)
       )
       (i32.store8
-       (i32.const 15136)
+       (i32.const 15208)
        (i32.const 103)
       )
       (i32.store8
-       (i32.const 15137)
+       (i32.const 15209)
        (i32.const 32)
       )
       (i32.store8
-       (i32.const 15138)
+       (i32.const 15210)
        (i32.const 77)
       )
       (i32.store8
-       (i32.const 15139)
+       (i32.const 15211)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15140)
+       (i32.const 15212)
        (i32.const 100)
       )
       (i32.store8
-       (i32.const 15141)
+       (i32.const 15213)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15142)
+       (i32.const 15214)
        (i32.const 97)
       )
       (i32.store8
-       (i32.const 15143)
+       (i32.const 15215)
        (i32.const 32)
       )
       (i32.store8
-       (i32.const 15144)
+       (i32.const 15216)
        (i32.const 84)
       )
       (i32.store8
-       (i32.const 15145)
+       (i32.const 15217)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15146)
+       (i32.const 15218)
        (i32.const 99)
       )
       (i32.store8
-       (i32.const 15147)
+       (i32.const 15219)
        (i32.const 104)
       )
       (i32.store8
-       (i32.const 15148)
+       (i32.const 15220)
        (i32.const 110)
       )
       (i32.store8
-       (i32.const 15149)
+       (i32.const 15221)
        (i32.const 111)
       )
       (i32.store8
-       (i32.const 15150)
+       (i32.const 15222)
        (i32.const 108)
       )
       (i32.store8
-       (i32.const 15151)
+       (i32.const 15223)
        (i32.const 111)
       )
       (i32.store8
-       (i32.const 15152)
+       (i32.const 15224)
        (i32.const 103)
       )
       (i32.store8
-       (i32.const 15153)
+       (i32.const 15225)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15154)
+       (i32.const 15226)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15155)
+       (i32.const 15227)
        (i32.const 115)
       )
       (i32.store8
-       (i32.const 15156)
+       (i32.const 15228)
        (i32.const 0)
       )
       (i64.store align=1
-       (i32.const 15157)
+       (i32.const 15229)
        (i64.const 0)
       )
       (i64.store align=1
-       (i32.const 15165)
+       (i32.const 15237)
        (i64.const 0)
       )
       (i64.store align=1
-       (i32.const 15173)
+       (i32.const 15245)
        (i64.const 0)
       )
       (i64.store align=1
-       (i32.const 15181)
+       (i32.const 15253)
        (i64.const 0)
       )
       (i32.store16 align=1
-       (i32.const 15189)
+       (i32.const 15261)
        (i32.const 0)
       )
       ;;@ ../../i/pluginterfaces/base/fstrdefs.h:221:0
       (i32.store8
-       (i32.const 15191)
+       (i32.const 15263)
        (i32.const 0)
       )
       ;;@ ../../i/pluginterfaces/base/fstrdefs.h:215:0
       (i32.store8
-       (i32.const 15192)
+       (i32.const 15264)
        (i32.const 104)
       )
       (i32.store8
-       (i32.const 15193)
+       (i32.const 15265)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15194)
+       (i32.const 15266)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15195)
+       (i32.const 15267)
        (i32.const 112)
       )
       (i32.store8
-       (i32.const 15196)
+       (i32.const 15268)
        (i32.const 58)
       )
       (i32.store8
-       (i32.const 15197)
+       (i32.const 15269)
        (i32.const 47)
       )
       (i32.store8
-       (i32.const 15198)
+       (i32.const 15270)
        (i32.const 47)
       )
       (i32.store8
-       (i32.const 15199)
+       (i32.const 15271)
        (i32.const 119)
       )
       (i32.store8
-       (i32.const 15200)
+       (i32.const 15272)
        (i32.const 119)
       )
       (i32.store8
-       (i32.const 15201)
+       (i32.const 15273)
        (i32.const 119)
       )
       (i32.store8
-       (i32.const 15202)
+       (i32.const 15274)
        (i32.const 46)
       )
       (i32.store8
-       (i32.const 15203)
+       (i32.const 15275)
        (i32.const 115)
       )
       (i32.store8
-       (i32.const 15204)
+       (i32.const 15276)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15205)
+       (i32.const 15277)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15206)
+       (i32.const 15278)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15207)
+       (i32.const 15279)
        (i32.const 110)
       )
       (i32.store8
-       (i32.const 15208)
+       (i32.const 15280)
        (i32.const 98)
       )
       (i32.store8
-       (i32.const 15209)
+       (i32.const 15281)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15210)
+       (i32.const 15282)
        (i32.const 114)
       )
       (i32.store8
-       (i32.const 15211)
+       (i32.const 15283)
        (i32.const 103)
       )
       (i32.store8
-       (i32.const 15212)
+       (i32.const 15284)
        (i32.const 46)
       )
       (i32.store8
-       (i32.const 15213)
+       (i32.const 15285)
        (i32.const 110)
       )
       (i32.store8
-       (i32.const 15214)
+       (i32.const 15286)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15215)
+       (i32.const 15287)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15216)
+       (i32.const 15288)
        (i32.const 0)
       )
       ;;@ ../../i/pluginterfaces/base/fstrdefs.h:221:0
       (drop
        (call $_memset
-        (i32.const 15217)
+        (i32.const 15289)
         (i32.const 0)
         (i32.const 231)
        )
       )
       ;;@ ../../i/pluginterfaces/base/fstrdefs.h:215:0
       (i32.store8
-       (i32.const 15448)
+       (i32.const 15520)
        (i32.const 109)
       )
       (i32.store8
-       (i32.const 15449)
+       (i32.const 15521)
        (i32.const 97)
       )
       (i32.store8
-       (i32.const 15450)
+       (i32.const 15522)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15451)
+       (i32.const 15523)
        (i32.const 108)
       )
       (i32.store8
-       (i32.const 15452)
+       (i32.const 15524)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15453)
+       (i32.const 15525)
        (i32.const 111)
       )
       (i32.store8
-       (i32.const 15454)
+       (i32.const 15526)
        (i32.const 58)
       )
       (i32.store8
-       (i32.const 15455)
+       (i32.const 15527)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15456)
+       (i32.const 15528)
        (i32.const 110)
       )
       (i32.store8
-       (i32.const 15457)
+       (i32.const 15529)
        (i32.const 102)
       )
       (i32.store8
-       (i32.const 15458)
+       (i32.const 15530)
        (i32.const 111)
       )
       (i32.store8
-       (i32.const 15459)
+       (i32.const 15531)
        (i32.const 64)
       )
       (i32.store8
-       (i32.const 15460)
+       (i32.const 15532)
        (i32.const 115)
       )
       (i32.store8
-       (i32.const 15461)
+       (i32.const 15533)
        (i32.const 116)
       )
       (i32.store8
-       (i32.const 15462)
+       (i32.const 15534)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15463)
+       (i32.const 15535)
        (i32.const 105)
       )
       (i32.store8
-       (i32.const 15464)
+       (i32.const 15536)
        (i32.const 110)
       )
       (i32.store8
-       (i32.const 15465)
+       (i32.const 15537)
        (i32.const 98)
       )
       (i32.store8
-       (i32.const 15466)
+       (i32.const 15538)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15467)
+       (i32.const 15539)
        (i32.const 114)
       )
       (i32.store8
-       (i32.const 15468)
+       (i32.const 15540)
        (i32.const 103)
       )
       (i32.store8
-       (i32.const 15469)
+       (i32.const 15541)
        (i32.const 46)
       )
       (i32.store8
-       (i32.const 15470)
+       (i32.const 15542)
        (i32.const 100)
       )
       (i32.store8
-       (i32.const 15471)
+       (i32.const 15543)
        (i32.const 101)
       )
       (i32.store8
-       (i32.const 15472)
+       (i32.const 15544)
        (i32.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15473)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15481)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15489)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15497)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15505)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15513)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15521)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15529)
-       (i64.const 0)
-      )
-      (i64.store align=1
-       (i32.const 15537)
-       (i64.const 0)
       )
       (i64.store align=1
        (i32.const 15545)
@@ -11752,22 +11745,58 @@
        (i32.const 15561)
        (i64.const 0)
       )
-      (i32.store align=1
+      (i64.store align=1
        (i32.const 15569)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15577)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15585)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15593)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15601)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15609)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15617)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15625)
+       (i64.const 0)
+      )
+      (i64.store align=1
+       (i32.const 15633)
+       (i64.const 0)
+      )
+      (i32.store align=1
+       (i32.const 15641)
        (i32.const 0)
       )
       (i32.store16 align=1
-       (i32.const 15573)
+       (i32.const 15645)
        (i32.const 0)
       )
       ;;@ ../../i/pluginterfaces/base/fstrdefs.h:221:0
       (i32.store8
-       (i32.const 15575)
+       (i32.const 15647)
        (i32.const 0)
       )
       ;;@ ../../i/pluginterfaces/base/ipluginbase.h:93:0
       (i32.store
-       (i32.const 15576)
+       (i32.const 15648)
        (i32.const 16)
       )
      )
@@ -11784,7 +11813,7 @@
    (get_local $0)
   )
   (i32.store
-   (i32.const 17136)
+   (i32.const 17208)
    (get_local $0)
   )
   ;;@ ../../vstsamples/adelay/source/factory.cpp:51:0
@@ -12168,7 +12197,7 @@
   )
   (set_local $0
    (i32.load8_s
-    (i32.const 14360)
+    (i32.const 14392)
    )
   )
   (if
@@ -12178,33 +12207,33 @@
    (block
     (set_local $0
      (call $___cxa_guard_acquire
-      (i32.const 14360)
+      (i32.const 14392)
      )
     )
     (if
      (get_local $0)
      (call $__ZN9Steinberg11PClassInfo2C2EPKciS2_S2_iS2_S2_S2_S2_
-      (i32.const 15580)
+      (i32.const 15652)
       (get_local $2)
-      (i32.const 10549)
-      (i32.const 10568)
+      (i32.const 10582)
+      (i32.const 10601)
       (i32.const 1)
-      (i32.const 10575)
-      (i32.const 10584)
-      (i32.const 10592)
+      (i32.const 10608)
+      (i32.const 10617)
+      (i32.const 10625)
      )
     )
    )
   )
   (set_local $0
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (drop
    (call $__ZN9Steinberg14CPluginFactory13registerClassEPKNS_11PClassInfo2EPFPNS_8FUnknownEPvES6_
     (get_local $0)
-    (i32.const 15580)
+    (i32.const 15652)
     (i32.const 130)
    )
   )
@@ -12589,7 +12618,7 @@
   )
   (set_local $0
    (i32.load8_s
-    (i32.const 14368)
+    (i32.const 14400)
    )
   )
   (if
@@ -12599,40 +12628,40 @@
    (block
     (set_local $0
      (call $___cxa_guard_acquire
-      (i32.const 14368)
+      (i32.const 14400)
      )
     )
     (if
      (get_local $0)
      (call $__ZN9Steinberg11PClassInfo2C2EPKciS2_S2_iS2_S2_S2_S2_
-      (i32.const 16020)
+      (i32.const 16092)
       (get_local $2)
-      (i32.const 10603)
-      (i32.const 10630)
+      (i32.const 10636)
+      (i32.const 10663)
       (i32.const 0)
-      (i32.const 18702)
-      (i32.const 10584)
-      (i32.const 10592)
+      (i32.const 18774)
+      (i32.const 10617)
+      (i32.const 10625)
      )
     )
    )
   )
   (set_local $0
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (drop
    (call $__ZN9Steinberg14CPluginFactory13registerClassEPKNS_11PClassInfo2EPFPNS_8FUnknownEPvES6_
     (get_local $0)
-    (i32.const 16020)
+    (i32.const 16092)
     (i32.const 131)
    )
   )
   ;;@ ../../vstsamples/adelay/source/factory.cpp:72:0
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong1Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12653,7 +12682,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong1Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12680,7 +12709,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong1Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12707,7 +12736,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong1Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12728,7 +12757,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong2Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12749,7 +12778,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong2Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12776,7 +12805,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong2Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12803,7 +12832,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong2Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12824,7 +12853,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong3Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12845,7 +12874,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong3Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12872,7 +12901,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong3Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12899,7 +12928,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong3Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12920,7 +12949,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong4Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12941,7 +12970,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong4Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12968,7 +12997,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong4Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -12995,7 +13024,7 @@
   )
   (set_local $0
    (call $__ZNK9Steinberg4FUID8getLong4Ev
-    (i32.const 15108)
+    (i32.const 15180)
    )
   )
   (set_local $0
@@ -13010,7 +13039,7 @@
   )
   (set_local $0
    (i32.load8_s
-    (i32.const 14376)
+    (i32.const 14408)
    )
   )
   (if
@@ -13020,40 +13049,40 @@
    (block
     (set_local $0
      (call $___cxa_guard_acquire
-      (i32.const 14376)
+      (i32.const 14408)
      )
     )
     (if
      (get_local $0)
      (call $__ZN9Steinberg11PClassInfo2C2EPKciS2_S2_iS2_S2_S2_S2_
-      (i32.const 16460)
+      (i32.const 16532)
       (get_local $2)
-      (i32.const 10647)
-      (i32.const 10658)
+      (i32.const 10680)
+      (i32.const 10691)
       (i32.const 0)
-      (i32.const 18702)
-      (i32.const 18702)
-      (i32.const 18702)
+      (i32.const 18774)
+      (i32.const 18774)
+      (i32.const 18774)
      )
     )
    )
   )
   (set_local $2
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (drop
    (call $__ZN9Steinberg14CPluginFactory13registerClassEPKNS_11PClassInfo2EPFPNS_8FUnknownEPvES6_
     (get_local $2)
-    (i32.const 16460)
+    (i32.const 16532)
     (i32.const 132)
    )
   )
   ;;@ ../../vstsamples/adelay/source/factory.cpp:82:0
   (set_local $2
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (set_global $STACKTOP
@@ -13061,7 +13090,7 @@
   )
   (get_local $2)
  )
- (func $__ZN9Steinberg11PClassInfo2C2EPKciS2_S2_iS2_S2_S2_S2_ (; 125 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32)
+ (func $__ZN9Steinberg11PClassInfo2C2EPKciS2_S2_iS2_S2_S2_S2_ (; 124 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32)
   (local $8 i32)
   (local $9 i32)
   ;;@ ../../i/pluginterfaces/base/ipluginbase.h:218:0
@@ -14282,7 +14311,7 @@
    )
   )
  )
- (func $__ZN9Steinberg3Vst15ADelayProcessor14createInstanceEPv (; 126 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst15ADelayProcessor14createInstanceEPv (; 125 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../vstsamples/adelay/source/adelayprocessor.h:60:0
   (set_local $0
    (call $__Znwm
@@ -14300,7 +14329,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ADelayController14createInstanceEPv (; 127 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ADelayController14createInstanceEPv (; 126 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:67:0
@@ -14403,7 +14432,7 @@
   ;;@ ../../vstsamples/adelay/source/adelaycontroller.h:67:0
   (get_local $1)
  )
- (func $__ZN9Steinberg3Vst17ADelayTestFactory14createInstanceEPv (; 128 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst17ADelayTestFactory14createInstanceEPv (; 127 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../vstsamples/adelay/source/exampletest.h:73:0
@@ -14441,7 +14470,7 @@
   ;;@ ../../vstsamples/adelay/source/exampletest.h:73:0
   (get_local $0)
  )
- (func $__Z11FDebugBreakPKcz (; 129 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__Z11FDebugBreakPKcz (; 128 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (set_local $1
    (get_global $STACKTOP)
@@ -14465,7 +14494,7 @@
      (i32.const 16)
     )
     (i32.const 10000)
-    (i32.const 10871)
+    (i32.const 10904)
     (get_local $1)
    )
   )
@@ -14473,7 +14502,7 @@
    (get_local $1)
   )
  )
- (func $__Z11FDebugPrintPKcz (; 130 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__Z11FDebugPrintPKcz (; 129 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (set_local $2
@@ -14509,7 +14538,7 @@
    (get_local $2)
   )
  )
- (func $__ZN9Steinberg7FObject14queryInterfaceEPKcPPv (; 131 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg7FObject14queryInterfaceEPKcPPv (; 130 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -14522,7 +14551,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 16980)
+    (i32.const 17052)
    )
   )
   (if
@@ -14544,7 +14573,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 16988)
+      (i32.const 17060)
      )
     )
     (if
@@ -14600,7 +14629,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17020)
+    (i32.const 17092)
    )
   )
   (if
@@ -14622,7 +14651,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17028)
+      (i32.const 17100)
      )
     )
     (if
@@ -14764,7 +14793,7 @@
   ;;@ ../../i/base/source/fobject.cpp:89:0
   (get_local $0)
  )
- (func $__ZN9Steinberg7FObject6addRefEv (; 132 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg7FObject6addRefEv (; 131 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/base/source/fobject.cpp:66:0
   (set_local $0
    (i32.add
@@ -14780,7 +14809,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg7FObject7releaseEv (; 133 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg7FObject7releaseEv (; 132 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/base/source/fobject.cpp:72:0
@@ -14864,7 +14893,7 @@
   ;;@ ../../i/base/source/fobject.cpp:79:0
   (get_local $0)
  )
- (func $__ZN9Steinberg7FObject7changedEi (; 134 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg7FObject7changedEi (; 133 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   ;;@ ../../i/base/source/fobject.cpp:111:0
   (set_local $2
@@ -14895,7 +14924,7 @@
    )
   )
  )
- (func $__ZN9Steinberg10IBStreamer7readRawEPvx (; 135 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i64) (result i64)
+ (func $__ZN9Steinberg10IBStreamer7readRawEPvx (; 134 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i64) (result i64)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -14977,7 +15006,7 @@
   )
   (get_local $2)
  )
- (func $__ZN9Steinberg10IBStreamer8writeRawEPKvx (; 136 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i64) (result i64)
+ (func $__ZN9Steinberg10IBStreamer8writeRawEPKvx (; 135 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i64) (result i64)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -15059,7 +15088,7 @@
   )
   (get_local $2)
  )
- (func $__ZN9Steinberg10IBStreamer4seekExNS_9FSeekModeE (; 137 ;) (; has Stack IR ;) (param $0 i32) (param $1 i64) (param $2 i32) (result i64)
+ (func $__ZN9Steinberg10IBStreamer4seekExNS_9FSeekModeE (; 136 ;) (; has Stack IR ;) (param $0 i32) (param $1 i64) (param $2 i32) (result i64)
   (local $3 i32)
   (local $4 i32)
   (set_local $3
@@ -15124,7 +15153,7 @@
   )
   (get_local $1)
  )
- (func $__ZN9Steinberg10IBStreamer4tellEv (; 138 ;) (; has Stack IR ;) (param $0 i32) (result i64)
+ (func $__ZN9Steinberg10IBStreamer4tellEv (; 137 ;) (; has Stack IR ;) (param $0 i32) (result i64)
   (local $1 i32)
   (local $2 i32)
   (local $3 i64)
@@ -15194,7 +15223,7 @@
   )
   (get_local $3)
  )
- (func $__ZN9Steinberg10IBStreamerC2EPNS_8IBStreamEs (; 139 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg10IBStreamerC2EPNS_8IBStreamEs (; 138 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   ;;@ ../../i/base/source/fstreamer.cpp:141:0
   (i32.store16
    (i32.add
@@ -15217,7 +15246,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg9FStreamer10writeInt32Ei (; 140 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg9FStreamer10writeInt32Ei (; 139 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -15370,7 +15399,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg9FStreamer9readInt32ERi (; 141 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg9FStreamer9readInt32ERi (; 140 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i64)
@@ -15512,7 +15541,7 @@
   ;;@ ../../i/base/source/fstreamer.cpp:297:0
   (get_local $0)
  )
- (func $__ZN9Steinberg9FStreamer10writeFloatEf (; 142 ;) (; has Stack IR ;) (param $0 i32) (param $1 f32) (result i32)
+ (func $__ZN9Steinberg9FStreamer10writeFloatEf (; 141 ;) (; has Stack IR ;) (param $0 i32) (param $1 f32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -15678,7 +15707,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg9FStreamer9readFloatERf (; 143 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg9FStreamer9readFloatERf (; 142 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i64)
@@ -15820,7 +15849,7 @@
   ;;@ ../../i/base/source/fstreamer.cpp:471:0
   (get_local $0)
  )
- (func $__ZN9Steinberg6StringD2Ev (; 144 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg6StringD2Ev (; 143 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/base/source/fstring.cpp:2109:0
@@ -15892,7 +15921,7 @@
    (i32.const 7204)
   )
  )
- (func $__ZN9Steinberg6StringD0Ev (; 145 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg6StringD0Ev (; 144 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/base/source/fstring.cpp:2109:0
   (i32.store
@@ -15923,7 +15952,7 @@
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg11ConstString6lengthEv (; 146 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString6lengthEv (; 145 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/base/source/fstring.h:128:0
   (set_local $0
    (i32.add
@@ -15944,7 +15973,7 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg6String5text8Ev (; 147 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg6String5text8Ev (; 146 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -16032,7 +16061,7 @@
    (get_local $2)
    (block
     (set_local $0
-     (i32.const 18702)
+     (i32.const 18774)
     )
     ;;@ ../../i/base/source/fstring.h:625:0
     (return
@@ -16060,13 +16089,13 @@
   (if
    (get_local $2)
    (set_local $0
-    (i32.const 18702)
+    (i32.const 18774)
    )
   )
   ;;@ ../../i/base/source/fstring.h:625:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg6String6text16Ev (; 148 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg6String6text16Ev (; 147 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -16128,7 +16157,7 @@
      )
      (block
       (set_local $0
-       (i32.const 18700)
+       (i32.const 18772)
       )
       ;;@ ../../i/base/source/fstring.h:635:0
       (return
@@ -16161,7 +16190,7 @@
      )
      (block
       (set_local $0
-       (i32.const 18700)
+       (i32.const 18772)
       )
       ;;@ ../../i/base/source/fstring.h:635:0
       (return
@@ -16191,13 +16220,13 @@
   (if
    (get_local $1)
    (set_local $0
-    (i32.const 18700)
+    (i32.const 18772)
    )
   )
   ;;@ ../../i/base/source/fstring.h:635:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg11ConstString4textEv (; 149 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString4textEv (; 148 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/base/source/fstring.h:484:0
   (set_local $1
@@ -16230,7 +16259,7 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg11ConstString3ptrEv (; 150 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString3ptrEv (; 149 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/base/source/fstring.h:143:0
   (set_local $0
    (i32.add
@@ -16245,7 +16274,7 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg6String8getChar8Ej (; 151 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg6String8getChar8Ej (; 150 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16405,7 +16434,7 @@
   ;;@ ../../i/base/source/fstring.h:644:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg6String9getChar16Ej (; 152 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg6String9getChar16Ej (; 151 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16568,7 +16597,7 @@
   ;;@ ../../i/base/source/fstring.h:654:0
   (get_local $0)
  )
- (func $__ZN9Steinberg6String12toWideStringEj (; 153 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg6String12toWideStringEj (; 152 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16884,7 +16913,7 @@
   ;;@ ../../i/base/source/fstring.cpp:2175:0
   (get_local $0)
  )
- (func $__ZN9Steinberg11ConstString21multiByteToWideStringEPDsPKcij (; 154 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg11ConstString21multiByteToWideStringEPDsPKcij (; 153 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -16934,10 +16963,10 @@
          )
          ;;@ ../../i/base/source/fstring.cpp:1918:0
          (call $___assert_fail
-          (i32.const 10771)
-          (i32.const 10817)
+          (i32.const 10804)
+          (i32.const 10850)
           (i32.const 1918)
-          (i32.const 10849)
+          (i32.const 10882)
          )
         )
         (block
@@ -16950,10 +16979,10 @@
           )
          )
          (call $___assert_fail
-          (i32.const 10771)
-          (i32.const 10817)
+          (i32.const 10804)
+          (i32.const 10850)
           (i32.const 1918)
-          (i32.const 10849)
+          (i32.const 10882)
          )
         )
        )
@@ -16965,7 +16994,7 @@
         ;;@ ../../i/base/source/fstring.cpp:255:0
         (set_local $3
          (i32.load8_s
-          (i32.const 14392)
+          (i32.const 14424)
          )
         )
         (if
@@ -16975,7 +17004,7 @@
          (block
           (set_local $3
            (call $___cxa_guard_acquire
-            (i32.const 14392)
+            (i32.const 14424)
            )
           )
           (if
@@ -17025,29 +17054,29 @@
              (i32.const 7156)
             )
             (i64.store align=4
-             (i32.const 16916)
+             (i32.const 16988)
              (i64.const 0)
             )
             (i64.store align=4
-             (i32.const 16924)
+             (i32.const 16996)
              (i64.const 0)
             )
             ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
             (i64.store align=4
-             (i32.const 16932)
+             (i32.const 17004)
              (i64.const 0)
             )
             ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
             (i32.store
-             (i32.const 16940)
+             (i32.const 17012)
              (get_local $3)
             )
             (i64.store align=4
-             (i32.const 16944)
+             (i32.const 17016)
              (i64.const 0)
             )
             (i32.store
-             (i32.const 16952)
+             (i32.const 17024)
              (i32.const 0)
             )
            )
@@ -17237,7 +17266,7 @@
         ;;@ ../../i/base/source/fstring.cpp:248:0
         (set_local $0
          (i32.load8_s
-          (i32.const 14384)
+          (i32.const 14416)
          )
         )
         (if
@@ -17247,7 +17276,7 @@
          (block
           (set_local $0
            (call $___cxa_guard_acquire
-            (i32.const 14384)
+            (i32.const 14416)
            )
           )
           (if
@@ -17255,22 +17284,22 @@
            (block
             ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/memory:3476:0
             (i32.store
-             (i32.const 16904)
+             (i32.const 16976)
              (i32.const -1)
             )
             ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:513:0
             (i32.store
-             (i32.const 16908)
+             (i32.const 16980)
              (i32.const 1114111)
             )
             ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:514:0
             (i32.store
-             (i32.const 16912)
+             (i32.const 16984)
              (i32.const 0)
             )
             ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:542:0
             (i32.store
-             (i32.const 16900)
+             (i32.const 16972)
              (i32.const 7156)
             )
            )
@@ -17292,7 +17321,7 @@
         ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/__locale:1092:0
         (set_local $3
          (i32.load
-          (i32.const 16900)
+          (i32.const 16972)
          )
         )
         (set_local $3
@@ -17308,7 +17337,7 @@
         )
         (set_local $0
          (call_indirect (type $FUNCSIG$iiiiii)
-          (i32.const 16900)
+          (i32.const 16972)
           (get_local $5)
           (get_local $1)
           (get_local $0)
@@ -17343,7 +17372,7 @@
       ;;@ ../../i/base/source/fstring.cpp:1923:0
       (i32.store
        (get_local $7)
-       (i32.const 10817)
+       (i32.const 10850)
       )
       (set_local $1
        (i32.add
@@ -17363,7 +17392,7 @@
       )
       (i32.store
        (get_local $1)
-       (i32.const 10899)
+       (i32.const 10932)
       )
       (call $__Z11FDebugBreakPKcz
        (get_local $7)
@@ -17426,7 +17455,7 @@
   ;;@ ../../i/base/source/fstring.cpp:1925:0
   (get_local $0)
  )
- (func $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE10from_bytesEPKcS9_ (; 155 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE10from_bytesEPKcS9_ (; 154 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -17468,12 +17497,12 @@
   )
   ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3731:0
   (i32.store
-   (i32.const 16952)
+   (i32.const 17024)
    (i32.const 0)
   )
   (if
    (i32.load
-    (i32.const 16940)
+    (i32.const 17012)
    )
    (block
     (i64.store align=4
@@ -17919,7 +17948,7 @@
     (i64.store
      (get_local $11)
      (i64.load align=4
-      (i32.const 16944)
+      (i32.const 17016)
      )
     )
     ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1255:0
@@ -18009,7 +18038,7 @@
                ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3747:0
                (tee_local $5
                 (i32.load
-                 (i32.const 16940)
+                 (i32.const 17012)
                 )
                )
               )
@@ -18039,7 +18068,7 @@
            )
            ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3749:0
            (i32.store
-            (i32.const 16952)
+            (i32.const 17024)
             (i32.add
              (i32.sub
               (tee_local $6
@@ -18050,7 +18079,7 @@
               (get_local $1)
              )
              (i32.load
-              (i32.const 16952)
+              (i32.const 17024)
              )
             )
            )
@@ -18976,14 +19005,14 @@
      (i32.lt_s
       (tee_local $2
        (i32.load8_s
-        (i32.const 16939)
+        (i32.const 17011)
        )
       )
       (i32.const 0)
      )
      ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1317:0
      (i32.load
-      (i32.const 16932)
+      (i32.const 17004)
      )
      ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1289:0
      (i32.and
@@ -19001,7 +19030,7 @@
        (i32.const 8)
       )
      )
-     (i32.const 10910)
+     (i32.const 10943)
     )
     ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/stdexcept:156:0
     (i32.store
@@ -19019,13 +19048,13 @@
   ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3784:0
   (call $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEEC2ERKS5_
    (get_local $0)
-   (i32.const 16928)
+   (i32.const 17000)
   )
   (set_global $STACKTOP
    (get_local $14)
   )
  )
- (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE9__grow_byEmmmmmm (; 156 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32)
+ (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE9__grow_byEmmmmmm (; 155 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -19313,7 +19342,7 @@
    )
   )
  )
- (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE23__append_forward_unsafeIPKDsEERS5_T_SA_ (; 157 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE23__append_forward_unsafeIPKDsEERS5_T_SA_ (; 156 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -20043,7 +20072,7 @@
   ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:2326:0
   (get_local $0)
  )
- (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEEC2ERKS5_ (; 158 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEEC2ERKS5_ (; 157 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -20315,7 +20344,7 @@
    (i32.const 0)
   )
  )
- (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE6__initIPKDsEENS_9enable_ifIXsr21__is_forward_iteratorIT_EE5valueEvE4typeESA_SA_ (; 159 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE6__initIPKDsEENS_9enable_ifIXsr21__is_forward_iteratorIT_EE5valueEvE4typeESA_SA_ (; 158 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -20557,7 +20586,7 @@
    (i32.const 0)
   )
  )
- (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE21__grow_by_and_replaceEmmmmmmPKDs (; 160 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32)
+ (func $__ZNSt3__212basic_stringIDsNS_11char_traitsIDsEENS_9allocatorIDsEEE21__grow_by_and_replaceEmmmmmmPKDs (; 159 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32)
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
@@ -20952,7 +20981,7 @@
    (i32.const 0)
   )
  )
- (func $__ZNSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EED0Ev (; 161 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZNSt3__218codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EED0Ev (; 160 ;) (; has Stack IR ;) (param $0 i32)
   ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:545:0
   (call $__ZN9Steinberg4FUIDD2Ev
    (get_local $0)
@@ -20961,7 +20990,7 @@
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg6String16checkToMultiByteEj (; 162 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg6String16checkToMultiByteEj (; 161 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -21367,7 +21396,7 @@
          (get_local $6)
         )
         (call $__Z11FDebugPrintPKcz
-         (i32.const 11008)
+         (i32.const 11041)
          (get_local $7)
         )
        )
@@ -21397,7 +21426,7 @@
          (get_local $0)
         )
         (call $__Z11FDebugPrintPKcz
-         (i32.const 11100)
+         (i32.const 11133)
          (get_local $9)
         )
        )
@@ -21478,7 +21507,7 @@
   ;;@ ../../i/base/source/fstring.cpp:2227:0
   (get_local $0)
  )
- (func $__ZN9Steinberg6String6assignERKNS_11ConstStringEi (; 163 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg6String6assignERKNS_11ConstStringEi (; 162 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -21664,7 +21693,7 @@
         ;;@ ../../i/base/source/fstring.cpp:2532:0
         (i32.store
          (get_local $3)
-         (i32.const 10817)
+         (i32.const 10850)
         )
         (i32.store
          (i32.add
@@ -21678,7 +21707,7 @@
           (get_local $3)
           (i32.const 8)
          )
-         (i32.const 11196)
+         (i32.const 11229)
         )
         (call $__Z11FDebugBreakPKcz
          (get_local $3)
@@ -21907,7 +21936,7 @@
       ;;@ ../../i/base/source/fstring.cpp:2559:0
       (i32.store
        (get_local $4)
-       (i32.const 10817)
+       (i32.const 10850)
       )
       (i32.store
        (i32.add
@@ -21921,7 +21950,7 @@
         (get_local $4)
         (i32.const 8)
        )
-       (i32.const 11266)
+       (i32.const 11299)
       )
       (call $__Z11FDebugBreakPKcz
        (get_local $4)
@@ -21965,7 +21994,7 @@
   ;;@ ../../i/base/source/fstring.cpp:2511:0
   (get_local $0)
  )
- (func $__ZN9Steinberg6String11toMultiByteEj (; 164 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg6String11toMultiByteEj (; 163 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22287,7 +22316,7 @@
   ;;@ ../../i/base/source/fstring.cpp:2257:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg11ConstString7compareERKS0_iNS0_11CompareModeE (; 165 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString7compareERKS0_iNS0_11CompareModeE (; 164 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (set_local $3
@@ -22607,7 +22636,7 @@
    (i32.const 0)
   )
  )
- (func $__ZL9stricmp16PKDsS0_ (; 166 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZL9stricmp16PKDsS0_ (; 165 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22635,7 +22664,7 @@
   ;;@ ../../i/base/source/fstring.cpp:255:0
   (set_local $2
    (i32.load8_s
-    (i32.const 14392)
+    (i32.const 14424)
    )
   )
   (if
@@ -22645,7 +22674,7 @@
    (block
     (set_local $2
      (call $___cxa_guard_acquire
-      (i32.const 14392)
+      (i32.const 14424)
      )
     )
     (if
@@ -22695,29 +22724,29 @@
        (i32.const 7156)
       )
       (i64.store align=4
-       (i32.const 16916)
+       (i32.const 16988)
        (i64.const 0)
       )
       (i64.store align=4
-       (i32.const 16924)
+       (i32.const 16996)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
       (i64.store align=4
-       (i32.const 16932)
+       (i32.const 17004)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
       (i32.store
-       (i32.const 16940)
+       (i32.const 17012)
        (get_local $3)
       )
       (i64.store align=4
-       (i32.const 16944)
+       (i32.const 17016)
        (i64.const 0)
       )
       (i32.store
-       (i32.const 16952)
+       (i32.const 17024)
        (i32.const 0)
       )
      )
@@ -22782,14 +22811,14 @@
   )
   (call $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_
    (get_local $4)
-   (i32.const 16916)
+   (i32.const 16988)
    (get_local $0)
    (get_local $2)
   )
   ;;@ ../../i/base/source/fstring.cpp:255:0
   (set_local $0
    (i32.load8_s
-    (i32.const 14392)
+    (i32.const 14424)
    )
   )
   (if
@@ -22799,7 +22828,7 @@
    (block
     (set_local $0
      (call $___cxa_guard_acquire
-      (i32.const 14392)
+      (i32.const 14424)
      )
     )
     (if
@@ -22849,29 +22878,29 @@
        (i32.const 7156)
       )
       (i64.store align=4
-       (i32.const 16916)
+       (i32.const 16988)
        (i64.const 0)
       )
       (i64.store align=4
-       (i32.const 16924)
+       (i32.const 16996)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
       (i64.store align=4
-       (i32.const 16932)
+       (i32.const 17004)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
       (i32.store
-       (i32.const 16940)
+       (i32.const 17012)
        (get_local $2)
       )
       (i64.store align=4
-       (i32.const 16944)
+       (i32.const 17016)
        (i64.const 0)
       )
       (i32.store
-       (i32.const 16952)
+       (i32.const 17024)
        (i32.const 0)
       )
      )
@@ -22936,7 +22965,7 @@
   )
   (call $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_
    (get_local $6)
-   (i32.const 16916)
+   (i32.const 16988)
    (get_local $1)
    (get_local $0)
   )
@@ -23061,7 +23090,7 @@
   ;;@ ../../i/base/source/fstring.cpp:277:0
   (get_local $0)
  )
- (func $__ZL10strnicmp16PKDsS0_i (; 167 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZL10strnicmp16PKDsS0_i (; 166 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -23089,7 +23118,7 @@
   ;;@ ../../i/base/source/fstring.cpp:255:0
   (set_local $3
    (i32.load8_s
-    (i32.const 14392)
+    (i32.const 14424)
    )
   )
   (if
@@ -23099,7 +23128,7 @@
    (block
     (set_local $3
      (call $___cxa_guard_acquire
-      (i32.const 14392)
+      (i32.const 14424)
      )
     )
     (if
@@ -23149,29 +23178,29 @@
        (i32.const 7156)
       )
       (i64.store align=4
-       (i32.const 16916)
+       (i32.const 16988)
        (i64.const 0)
       )
       (i64.store align=4
-       (i32.const 16924)
+       (i32.const 16996)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
       (i64.store align=4
-       (i32.const 16932)
+       (i32.const 17004)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
       (i32.store
-       (i32.const 16940)
+       (i32.const 17012)
        (get_local $4)
       )
       (i64.store align=4
-       (i32.const 16944)
+       (i32.const 17016)
        (i64.const 0)
       )
       (i32.store
-       (i32.const 16952)
+       (i32.const 17024)
        (i32.const 0)
       )
      )
@@ -23236,14 +23265,14 @@
   )
   (call $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_
    (get_local $5)
-   (i32.const 16916)
+   (i32.const 16988)
    (get_local $0)
    (get_local $3)
   )
   ;;@ ../../i/base/source/fstring.cpp:255:0
   (set_local $0
    (i32.load8_s
-    (i32.const 14392)
+    (i32.const 14424)
    )
   )
   (if
@@ -23253,7 +23282,7 @@
    (block
     (set_local $0
      (call $___cxa_guard_acquire
-      (i32.const 14392)
+      (i32.const 14424)
      )
     )
     (if
@@ -23303,29 +23332,29 @@
        (i32.const 7156)
       )
       (i64.store align=4
-       (i32.const 16916)
+       (i32.const 16988)
        (i64.const 0)
       )
       (i64.store align=4
-       (i32.const 16924)
+       (i32.const 16996)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
       (i64.store align=4
-       (i32.const 16932)
+       (i32.const 17004)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
       (i32.store
-       (i32.const 16940)
+       (i32.const 17012)
        (get_local $3)
       )
       (i64.store align=4
-       (i32.const 16944)
+       (i32.const 17016)
        (i64.const 0)
       )
       (i32.store
-       (i32.const 16952)
+       (i32.const 17024)
        (i32.const 0)
       )
      )
@@ -23390,7 +23419,7 @@
   )
   (call $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_
    (get_local $7)
-   (i32.const 16916)
+   (i32.const 16988)
    (get_local $1)
    (get_local $0)
   )
@@ -23517,7 +23546,7 @@
   ;;@ ../../i/base/source/fstring.cpp:285:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg11ConstString9compareAtEjRKS0_iNS0_11CompareModeE (; 168 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString9compareAtEjRKS0_iNS0_11CompareModeE (; 167 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -23880,7 +23909,7 @@
                (block (result i32)
                 (i32.store
                  (get_local $8)
-                 (i32.const 10817)
+                 (i32.const 10850)
                 )
                 (set_local $6
                  (i32.add
@@ -23900,7 +23929,7 @@
                 )
                 (i32.store
                  (get_local $6)
-                 (i32.const 11196)
+                 (i32.const 11229)
                 )
                 (call $__Z11FDebugBreakPKcz
                  (get_local $8)
@@ -24353,7 +24382,7 @@
              (block (result i32)
               (i32.store
                (get_local $6)
-               (i32.const 10817)
+               (i32.const 10850)
               )
               (set_local $8
                (i32.add
@@ -24373,7 +24402,7 @@
               )
               (i32.store
                (get_local $8)
-               (i32.const 11196)
+               (i32.const 11229)
               )
               (call $__Z11FDebugBreakPKcz
                (get_local $6)
@@ -25006,7 +25035,7 @@
    (get_local $0)
   )
  )
- (func $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_ (; 169 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
+ (func $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_ (; 168 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -26211,7 +26240,7 @@
     ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/stdexcept:156:0
     (call $__ZNSt13runtime_errorC2EPKc
      (get_local $2)
-     (i32.const 11212)
+     (i32.const 11245)
     )
     (i32.store
      (get_local $2)
@@ -26234,7 +26263,7 @@
    (get_local $13)
   )
  )
- (func $__ZNSt3__212basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE23__append_forward_unsafeIPKcEERS5_T_SA_ (; 170 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNSt3__212basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE23__append_forward_unsafeIPKcEERS5_T_SA_ (; 169 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -26852,7 +26881,7 @@
    )
   )
  )
- (func $__ZN9Steinberg11ConstString21wideStringToMultiByteEPcPKDsij (; 171 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg11ConstString21wideStringToMultiByteEPcPKDsij (; 170 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -26876,10 +26905,10 @@
      (get_local $3)
      ;;@ ../../i/base/source/fstring.cpp:1999:0
      (call $___assert_fail
-      (i32.const 10771)
-      (i32.const 10817)
+      (i32.const 10804)
+      (i32.const 10850)
       (i32.const 1999)
-      (i32.const 11244)
+      (i32.const 11277)
      )
     )
     (if
@@ -27064,10 +27093,10 @@
    )
    ;;@ ../../i/base/source/fstring.cpp:1999:0
    (call $___assert_fail
-    (i32.const 10771)
-    (i32.const 10817)
+    (i32.const 10804)
+    (i32.const 10850)
     (i32.const 1999)
-    (i32.const 11244)
+    (i32.const 11277)
    )
   )
   (if
@@ -27132,7 +27161,7 @@
     ;;@ ../../i/base/source/fstring.cpp:248:0
     (set_local $0
      (i32.load8_s
-      (i32.const 14384)
+      (i32.const 14416)
      )
     )
     (if
@@ -27142,7 +27171,7 @@
      (block
       (set_local $0
        (call $___cxa_guard_acquire
-        (i32.const 14384)
+        (i32.const 14416)
        )
       )
       (if
@@ -27150,22 +27179,22 @@
        (block
         ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/memory:3476:0
         (i32.store
-         (i32.const 16904)
+         (i32.const 16976)
          (i32.const -1)
         )
         ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:513:0
         (i32.store
-         (i32.const 16908)
+         (i32.const 16980)
          (i32.const 1114111)
         )
         ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:514:0
         (i32.store
-         (i32.const 16912)
+         (i32.const 16984)
          (i32.const 0)
         )
         ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/codecvt:542:0
         (i32.store
-         (i32.const 16900)
+         (i32.const 16972)
          (i32.const 7156)
         )
        )
@@ -27175,7 +27204,7 @@
     ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/__locale:1098:0
     (set_local $0
      (i32.load
-      (i32.const 16900)
+      (i32.const 16972)
      )
     )
     (set_local $0
@@ -27191,7 +27220,7 @@
     )
     (set_local $0
      (call_indirect (type $FUNCSIG$ii)
-      (i32.const 16900)
+      (i32.const 16972)
       (i32.add
        (i32.and
         (get_local $0)
@@ -27220,7 +27249,7 @@
   ;;@ ../../i/base/source/fstring.cpp:255:0
   (set_local $3
    (i32.load8_s
-    (i32.const 14392)
+    (i32.const 14424)
    )
   )
   (if
@@ -27230,7 +27259,7 @@
    (block
     (set_local $3
      (call $___cxa_guard_acquire
-      (i32.const 14392)
+      (i32.const 14424)
      )
     )
     (if
@@ -27280,29 +27309,29 @@
        (i32.const 7156)
       )
       (i64.store align=4
-       (i32.const 16916)
+       (i32.const 16988)
        (i64.const 0)
       )
       (i64.store align=4
-       (i32.const 16924)
+       (i32.const 16996)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
       (i64.store align=4
-       (i32.const 16932)
+       (i32.const 17004)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
       (i32.store
-       (i32.const 16940)
+       (i32.const 17012)
        (get_local $3)
       )
       (i64.store align=4
-       (i32.const 16944)
+       (i32.const 17016)
        (i64.const 0)
       )
       (i32.store
-       (i32.const 16952)
+       (i32.const 17024)
        (i32.const 0)
       )
      )
@@ -27367,7 +27396,7 @@
   )
   (call $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_
    (get_local $5)
-   (i32.const 16916)
+   (i32.const 16988)
    (get_local $1)
    (get_local $3)
   )
@@ -27510,7 +27539,7 @@
   ;;@ ../../i/base/source/fstring.cpp:2001:0
   (get_local $1)
  )
- (func $__ZN9Steinberg6String6resizeEjbb (; 172 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg6String6resizeEjbb (; 171 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -27810,14 +27839,14 @@
    )
   )
  )
- (func $__ZN9Steinberg11ConstStringD2Ev (; 173 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg11ConstStringD2Ev (; 172 ;) (; has Stack IR ;) (param $0 i32)
   ;;@ ../../i/base/source/fstring.h:125:0
   (i32.store
    (get_local $0)
    (i32.const 7204)
   )
  )
- (func $__ZNK9Steinberg11ConstString5text8Ev (; 174 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString5text8Ev (; 173 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/base/source/fstring.h:493:0
   (set_local $1
@@ -27839,7 +27868,7 @@
   )
   (if (result i32)
    (get_local $1)
-   (i32.const 18702)
+   (i32.const 18774)
    (block (result i32)
     (set_local $0
      (i32.add
@@ -27860,14 +27889,14 @@
     (if
      (get_local $1)
      (set_local $0
-      (i32.const 18702)
+      (i32.const 18774)
      )
     )
     (get_local $0)
    )
   )
  )
- (func $__ZNK9Steinberg11ConstString6text16Ev (; 175 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString6text16Ev (; 174 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/base/source/fstring.h:499:0
   (set_local $1
@@ -27909,15 +27938,15 @@
     (if
      (get_local $1)
      (set_local $0
-      (i32.const 18700)
+      (i32.const 18772)
      )
     )
     (get_local $0)
    )
-   (i32.const 18700)
+   (i32.const 18772)
   )
  )
- (func $__ZNK9Steinberg11ConstString8getChar8Ej (; 176 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString8getChar8Ej (; 175 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   ;;@ ../../i/base/source/fstring.h:505:0
@@ -28014,7 +28043,7 @@
   ;;@ ../../i/base/source/fstring.h:508:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg11ConstString9getChar16Ej (; 177 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString9getChar16Ej (; 176 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   ;;@ ../../i/base/source/fstring.h:513:0
@@ -28111,7 +28140,7 @@
   ;;@ ../../i/base/source/fstring.h:516:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg11ConstString8copyTo16EPDsji (; 178 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZNK9Steinberg11ConstString8copyTo16EPDsji (; 177 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -28481,7 +28510,7 @@
            (block (result i32)
             (i32.store
              (get_local $7)
-             (i32.const 10817)
+             (i32.const 10850)
             )
             (set_local $5
              (i32.add
@@ -28501,7 +28530,7 @@
             )
             (i32.store
              (get_local $5)
-             (i32.const 11196)
+             (i32.const 11229)
             )
             (call $__Z11FDebugBreakPKcz
              (get_local $7)
@@ -28612,7 +28641,7 @@
   ;;@ ../../i/base/source/fstring.cpp:605:0
   (get_local $0)
  )
- (func $__ZN9Steinberg6StringC2EPKcib (; 179 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg6StringC2EPKcib (; 178 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -28671,7 +28700,7 @@
      ;;@ ../../i/base/source/fstring.cpp:2521:0
      (tee_local $1
       (call $_strlen
-       (i32.const 10367)
+       (i32.const 10400)
       )
      )
      (i32.const -1)
@@ -28723,7 +28752,7 @@
     (drop
      (call $_memcpy
       (get_local $0)
-      (i32.const 10367)
+      (i32.const 10400)
       (get_local $2)
      )
     )
@@ -28740,7 +28769,7 @@
       ;;@ ../../i/base/source/fstring.cpp:2532:0
       (i32.store
        (get_local $1)
-       (i32.const 10817)
+       (i32.const 10850)
       )
       (i32.store
        (i32.add
@@ -28754,7 +28783,7 @@
         (get_local $1)
         (i32.const 8)
        )
-       (i32.const 11196)
+       (i32.const 11229)
       )
       (call $__Z11FDebugBreakPKcz
        (get_local $1)
@@ -28783,7 +28812,7 @@
    (get_local $3)
   )
  )
- (func $__ZN9Steinberg6StringC2EPKDsib (; 180 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg6StringC2EPKDsib (; 179 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -28967,7 +28996,7 @@
       ;;@ ../../i/base/source/fstring.cpp:2559:0
       (i32.store
        (get_local $0)
-       (i32.const 10817)
+       (i32.const 10850)
       )
       (i32.store
        (i32.add
@@ -28981,7 +29010,7 @@
         (get_local $0)
         (i32.const 8)
        )
-       (i32.const 11266)
+       (i32.const 11299)
       )
       (call $__Z11FDebugBreakPKcz
        (get_local $0)
@@ -29013,27 +29042,27 @@
    (get_local $5)
   )
  )
- (func $__GLOBAL__sub_I_updatehandler_cpp (; 181 ;) (; has Stack IR ;)
+ (func $__GLOBAL__sub_I_updatehandler_cpp (; 180 ;) (; has Stack IR ;)
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 16956)
+   (i32.const 17028)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 16960)
+   (i32.const 17032)
    (i64.load align=4
     (i32.const 1104)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 16968)
+   (i32.const 17040)
    (i64.load align=4
     (i32.const 1112)
    )
   )
  )
- (func $__ZNSt3__227__tree_balance_after_insertIPNS_16__tree_node_baseIPvEEEEvT_S5_ (; 182 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__227__tree_balance_after_insertIPNS_16__tree_node_baseIPvEEEEvT_S5_ (; 181 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -29716,117 +29745,117 @@
    (return)
   )
  )
- (func $__GLOBAL__sub_I_coreiids_cpp (; 183 ;) (; has Stack IR ;)
+ (func $__GLOBAL__sub_I_coreiids_cpp (; 182 ;) (; has Stack IR ;)
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 16976)
+   (i32.const 17048)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 16980)
+   (i32.const 17052)
    (i64.load align=4
     (i32.const 1120)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 16988)
+   (i32.const 17060)
    (i64.load align=4
     (i32.const 1128)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 16996)
+   (i32.const 17068)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17000)
+   (i32.const 17072)
    (i64.load align=4
     (i32.const 1136)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17008)
+   (i32.const 17080)
    (i64.load align=4
     (i32.const 1144)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17016)
+   (i32.const 17088)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17020)
+   (i32.const 17092)
    (i64.load align=4
     (i32.const 1152)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17028)
+   (i32.const 17100)
    (i64.load align=4
     (i32.const 1160)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17036)
+   (i32.const 17108)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17040)
+   (i32.const 17112)
    (i64.load align=4
     (i32.const 1168)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17048)
+   (i32.const 17120)
    (i64.load align=4
     (i32.const 1176)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17056)
+   (i32.const 17128)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17060)
+   (i32.const 17132)
    (i64.load align=4
     (i32.const 1184)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17068)
+   (i32.const 17140)
    (i64.load align=4
     (i32.const 1192)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17076)
+   (i32.const 17148)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17080)
+   (i32.const 17152)
    (i64.load align=4
     (i32.const 1200)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17088)
+   (i32.const 17160)
    (i64.load align=4
     (i32.const 1208)
    )
   )
  )
- (func $__ZN9Steinberg15FUnknownPrivate9atomicAddERii (; 184 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg15FUnknownPrivate9atomicAddERii (; 183 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:77:0
   (set_local $2
@@ -29847,7 +29876,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:78:0
   (get_local $1)
  )
- (func $__ZN9Steinberg4FUIDC2Ev (; 185 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg4FUIDC2Ev (; 184 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:92:0
   (i32.store
@@ -29869,7 +29898,7 @@
    (i64.const 0)
   )
  )
- (func $__ZN9Steinberg4FUIDC2Ejjjj (; 186 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32)
+ (func $__ZN9Steinberg4FUIDC2Ejjjj (; 185 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32)
   (local $5 i32)
   (local $6 i32)
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:98:0
@@ -30198,7 +30227,7 @@
    (get_local $1)
   )
  )
- (func $__ZNK9Steinberg4FUID7isValidEv (; 187 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg4FUID7isValidEv (; 186 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (get_global $STACKTOP)
@@ -30242,7 +30271,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg4FUIDaSERKS0_ (; 188 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg4FUIDaSERKS0_ (; 187 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:169:0
   (i64.store align=4
@@ -30265,7 +30294,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:170:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg4FUID8getLong1Ev (; 189 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg4FUID8getLong1Ev (; 188 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -30378,7 +30407,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:228:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg4FUID8getLong2Ev (; 190 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg4FUID8getLong2Ev (; 189 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -30491,7 +30520,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:238:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg4FUID8getLong3Ev (; 191 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg4FUID8getLong3Ev (; 190 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -30604,7 +30633,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:248:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg4FUID8getLong4Ev (; 192 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg4FUID8getLong4Ev (; 191 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -30717,7 +30746,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.cpp:258:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg4FUID8toStringEPc (; 193 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNK9Steinberg4FUID8toStringEPc (; 192 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -31426,7 +31455,7 @@
    (get_local $4)
   )
  )
- (func $__ZN9Steinberg7UString6assignEPKDsi (; 194 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg7UString6assignEPKDsi (; 193 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -31536,7 +31565,7 @@
   ;;@ ../../i/pluginterfaces/base/ustring.cpp:110:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg7UString7toAsciiEPci (; 195 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg7UString7toAsciiEPci (; 194 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -31646,7 +31675,7 @@
   ;;@ ../../i/pluginterfaces/base/ustring.cpp:139:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg7UString9scanFloatERd (; 196 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZNK9Steinberg7UString9scanFloatERd (; 195 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -31674,7 +31703,7 @@
   ;;@ ../../i/pluginterfaces/base/ustring.cpp:52:0
   (set_local $2
    (i32.load8_s
-    (i32.const 14400)
+    (i32.const 14432)
    )
   )
   (if
@@ -31684,7 +31713,7 @@
    (block
     (set_local $2
      (call $___cxa_guard_acquire
-      (i32.const 14400)
+      (i32.const 14432)
      )
     )
     (if
@@ -31734,29 +31763,29 @@
        (i32.const 7156)
       )
       (i64.store align=4
-       (i32.const 17096)
+       (i32.const 17168)
        (i64.const 0)
       )
       (i64.store align=4
-       (i32.const 17104)
+       (i32.const 17176)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/string:1356:0
       (i64.store align=4
-       (i32.const 17112)
+       (i32.const 17184)
        (i64.const 0)
       )
       ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/locale:3683:0
       (i32.store
-       (i32.const 17120)
+       (i32.const 17192)
        (get_local $2)
       )
       (i64.store align=4
-       (i32.const 17124)
+       (i32.const 17196)
        (i64.const 0)
       )
       (i32.store
-       (i32.const 17132)
+       (i32.const 17204)
        (i32.const 0)
       )
      )
@@ -31827,7 +31856,7 @@
   )
   (call $__ZNSt3__215wstring_convertINS_18codecvt_utf8_utf16IDsLm1114111ELNS_12codecvt_modeE0EEEDsNS_9allocatorIDsEENS4_IcEEE8to_bytesEPKDsS9_
    (get_local $4)
-   (i32.const 17096)
+   (i32.const 17168)
    (get_local $3)
    (get_local $0)
   )
@@ -31918,7 +31947,7 @@
   ;;@ ../../i/pluginterfaces/base/ustring.cpp:167:0
   (get_local $0)
  )
- (func $__ZN9Steinberg7UString10printFloatEdi (; 197 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg7UString10printFloatEdi (; 196 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -31969,7 +31998,7 @@
    (call $_snprintf
     (get_local $6)
     (get_local $3)
-    (i32.const 11338)
+    (i32.const 11371)
     (get_local $4)
    )
   )
@@ -32071,7 +32100,7 @@
   ;;@ ../../i/pluginterfaces/base/ustring.cpp:205:0
   (get_local $0)
  )
- (func $__ZN9Steinberg14CPluginFactory14queryInterfaceEPKcPPv (; 198 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory14queryInterfaceEPKcPPv (; 197 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -32084,7 +32113,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17204)
+    (i32.const 17276)
    )
   )
   (if
@@ -32106,7 +32135,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17212)
+      (i32.const 17284)
      )
     )
     (if
@@ -32162,7 +32191,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17224)
+    (i32.const 17296)
    )
   )
   (if
@@ -32184,7 +32213,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17232)
+      (i32.const 17304)
      )
     )
     (if
@@ -32240,7 +32269,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17244)
+    (i32.const 17316)
    )
   )
   (if
@@ -32262,7 +32291,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17252)
+      (i32.const 17324)
      )
     )
     (if
@@ -32318,7 +32347,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 16980)
+    (i32.const 17052)
    )
   )
   (if
@@ -32340,7 +32369,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 16988)
+      (i32.const 17060)
      )
     )
     (if
@@ -32404,7 +32433,7 @@
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:96:0
   (get_local $0)
  )
- (func $__ZN9Steinberg14CPluginFactory7releaseEv (; 199 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory7releaseEv (; 198 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:85:0
@@ -32477,7 +32506,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg14CPluginFactory14getFactoryInfoEPNS_12PFactoryInfoE (; 200 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory14getFactoryInfoEPNS_12PFactoryInfoE (; 199 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (if
    ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:192:0
@@ -32502,7 +32531,7 @@
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:194:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg14CPluginFactory12countClassesEv (; 201 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory12countClassesEv (; 200 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:200:0
   (set_local $0
    (i32.add
@@ -32517,7 +32546,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg14CPluginFactory12getClassInfoEiPNS_10PClassInfoE (; 202 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory12getClassInfoEiPNS_10PClassInfoE (; 201 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:206:0
@@ -32793,7 +32822,7 @@
    )
   )
  )
- (func $__ZN9Steinberg14CPluginFactory14createInstanceEPKcS2_PPv (; 203 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory14createInstanceEPKcS2_PPv (; 202 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -32991,7 +33020,7 @@
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:272:0
   (get_local $0)
  )
- (func $__ZN9Steinberg14CPluginFactory13getClassInfo2EiPNS_11PClassInfo2E (; 204 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory13getClassInfo2EiPNS_11PClassInfo2E (; 203 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:223:0
@@ -33123,7 +33152,7 @@
    )
   )
  )
- (func $__ZN9Steinberg14CPluginFactory19getClassInfoUnicodeEiPNS_11PClassInfoWE (; 205 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory19getClassInfoUnicodeEiPNS_11PClassInfoWE (; 204 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:240:0
@@ -33220,11 +33249,11 @@
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:246:0
   (get_local $0)
  )
- (func $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE (; 206 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory14setHostContextEPNS_8FUnknownE (; 205 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:277:0
   (i32.const 3)
  )
- (func $__ZN9Steinberg14CPluginFactoryD2Ev (; 207 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg14CPluginFactoryD2Ev (; 206 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:74:0
   (i32.store
@@ -33234,7 +33263,7 @@
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:75:0
   (set_local $1
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (if
@@ -33244,7 +33273,7 @@
    )
    ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:76:0
    (i32.store
-    (i32.const 17136)
+    (i32.const 17208)
     (i32.const 0)
    )
   )
@@ -33272,7 +33301,7 @@
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg14CPluginFactoryD0Ev (; 208 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg14CPluginFactoryD0Ev (; 207 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:74:0
   (i32.store
@@ -33282,7 +33311,7 @@
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:75:0
   (set_local $1
    (i32.load
-    (i32.const 17136)
+    (i32.const 17208)
    )
   )
   (if
@@ -33292,7 +33321,7 @@
    )
    ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:76:0
    (i32.store
-    (i32.const 17136)
+    (i32.const 17208)
     (i32.const 0)
    )
   )
@@ -33330,171 +33359,171 @@
    (get_local $0)
   )
  )
- (func $__GLOBAL__sub_I_pluginfactoryvst3_cpp (; 209 ;) (; has Stack IR ;)
+ (func $__GLOBAL__sub_I_pluginfactoryvst3_cpp (; 208 ;) (; has Stack IR ;)
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17140)
+   (i32.const 17212)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17144)
+   (i32.const 17216)
    (i64.load align=4
     (i32.const 1216)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17152)
+   (i32.const 17224)
    (i64.load align=4
     (i32.const 1224)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17160)
+   (i32.const 17232)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17164)
+   (i32.const 17236)
    (i64.load align=4
     (i32.const 1232)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17172)
+   (i32.const 17244)
    (i64.load align=4
     (i32.const 1240)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17180)
+   (i32.const 17252)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17184)
+   (i32.const 17256)
    (i64.load align=4
     (i32.const 1248)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17192)
+   (i32.const 17264)
    (i64.load align=4
     (i32.const 1256)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17200)
+   (i32.const 17272)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17204)
+   (i32.const 17276)
    (i64.load align=4
     (i32.const 1264)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17212)
+   (i32.const 17284)
    (i64.load align=4
     (i32.const 1272)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17220)
+   (i32.const 17292)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17224)
+   (i32.const 17296)
    (i64.load align=4
     (i32.const 1280)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17232)
+   (i32.const 17304)
    (i64.load align=4
     (i32.const 1288)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17240)
+   (i32.const 17312)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17244)
+   (i32.const 17316)
    (i64.load align=4
     (i32.const 1296)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17252)
+   (i32.const 17324)
    (i64.load align=4
     (i32.const 1304)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17260)
+   (i32.const 17332)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17264)
+   (i32.const 17336)
    (i64.load align=4
     (i32.const 1312)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17272)
+   (i32.const 17344)
    (i64.load align=4
     (i32.const 1320)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17280)
+   (i32.const 17352)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17284)
+   (i32.const 17356)
    (i64.load align=4
     (i32.const 1328)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17292)
+   (i32.const 17364)
    (i64.load align=4
     (i32.const 1336)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17300)
+   (i32.const 17372)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17304)
+   (i32.const 17376)
    (i64.load align=4
     (i32.const 1344)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17312)
+   (i32.const 17384)
    (i64.load align=4
     (i32.const 1352)
    )
   )
  )
- (func $__ZN9Steinberg14CPluginFactoryC2ERKNS_12PFactoryInfoE (; 210 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg14CPluginFactoryC2ERKNS_12PFactoryInfoE (; 209 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/main/pluginfactoryvst3.cpp:66:0
   (i32.store
@@ -33532,12 +33561,12 @@
   (drop
    (call $_memcpy
     (get_local $1)
-    (i32.const 15128)
+    (i32.const 15200)
     (i32.const 452)
    )
   )
  )
- (func $__ZN9Steinberg11PClassInfoW9fromAsciiERKNS_11PClassInfo2E (; 211 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg11PClassInfoW9fromAsciiERKNS_11PClassInfo2E (; 210 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -35197,7 +35226,7 @@
    )
   )
  )
- (func $__ZN9Steinberg14CPluginFactory13registerClassEPKNS_11PClassInfo2EPFPNS_8FUnknownEPvES6_ (; 212 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg14CPluginFactory13registerClassEPKNS_11PClassInfo2EPFPNS_8FUnknownEPvES6_ (; 211 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -35402,7 +35431,7 @@
   )
   (i32.const 1)
  )
- (func $__ZN9Steinberg3Vst9EventList14queryInterfaceEPKcPPv (; 213 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9EventList14queryInterfaceEPKcPPv (; 212 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -35415,7 +35444,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 16980)
+    (i32.const 17052)
    )
   )
   (if
@@ -35437,7 +35466,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 16988)
+      (i32.const 17060)
      )
     )
     (if
@@ -35492,7 +35521,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17544)
+    (i32.const 17616)
    )
   )
   (if
@@ -35514,7 +35543,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17552)
+      (i32.const 17624)
      )
     )
     (if
@@ -35575,7 +35604,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9EventList7releaseEv (; 214 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9EventList7releaseEv (; 213 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:43:0
@@ -35648,7 +35677,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9EventList13getEventCountEv (; 215 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9EventList13getEventCountEv (; 214 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.h:56:0
   (set_local $0
    (i32.add
@@ -35663,7 +35692,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9EventList8getEventEiRNS0_5EventE (; 216 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9EventList8getEventEiRNS0_5EventE (; 215 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:75:0
   (set_local $3
@@ -35754,7 +35783,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:81:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9EventList8addEventERNS0_5EventE (; 217 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9EventList8addEventERNS0_5EventE (; 216 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -35874,7 +35903,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:93:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9EventListD2Ev (; 218 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst9EventListD2Ev (; 217 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:54:0
@@ -35920,7 +35949,7 @@
    (i32.const 0)
   )
  )
- (func $__ZN9Steinberg3Vst9EventListD0Ev (; 219 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst9EventListD0Ev (; 218 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:54:0
   (i32.store
@@ -35951,7 +35980,7 @@
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst9EventListC2Ei (; 220 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst9EventListC2Ei (; 219 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/eventlist.cpp:47:0
@@ -36009,7 +36038,7 @@
    (i32.const 50)
   )
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueue14queryInterfaceEPKcPPv (; 221 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueue14queryInterfaceEPKcPPv (; 220 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -36022,7 +36051,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 16980)
+    (i32.const 17052)
    )
   )
   (if
@@ -36044,7 +36073,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 16988)
+      (i32.const 17060)
      )
     )
     (if
@@ -36099,7 +36128,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17504)
+    (i32.const 17576)
    )
   )
   (if
@@ -36121,7 +36150,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17512)
+      (i32.const 17584)
      )
     )
     (if
@@ -36182,7 +36211,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueue7releaseEv (; 222 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueue7releaseEv (; 221 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:44:0
@@ -36255,7 +36284,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueue14getParameterIdEv (; 223 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueue14getParameterIdEv (; 222 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.h:56:0
   (set_local $0
    (i32.add
@@ -36270,7 +36299,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueue13getPointCountEv (; 224 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueue13getPointCountEv (; 223 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:72:0
   (set_local $1
@@ -36311,7 +36340,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:72:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueue8getPointEiRiRd (; 225 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueue8getPointEiRiRd (; 224 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 f64)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:78:0
@@ -36418,7 +36447,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:86:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueue8addPointEidRi (; 226 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueue8addPointEidRi (; 225 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -36711,7 +36740,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:117:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueueD2Ev (; 227 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueueD2Ev (; 226 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:59:0
   (i32.store
@@ -36754,7 +36783,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst19ParameterValueQueueD0Ev (; 228 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst19ParameterValueQueueD0Ev (; 227 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:59:0
@@ -36808,7 +36837,7 @@
    (get_local $0)
   )
  )
- (func $__ZNSt3__26vectorIN9Steinberg3Vst19ParameterValueQueue19ParameterQueueValueENS_9allocatorIS4_EEE21__push_back_slow_pathIRKS4_EEvOT_ (; 229 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__26vectorIN9Steinberg3Vst19ParameterValueQueue19ParameterQueueValueENS_9allocatorIS4_EEE21__push_back_slow_pathIRKS4_EEvOT_ (; 228 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -37060,7 +37089,7 @@
    (get_local $5)
   )
  )
- (func $__ZNSt3__26vectorIN9Steinberg3Vst19ParameterValueQueue19ParameterQueueValueENS_9allocatorIS4_EEE6insertENS_11__wrap_iterIPKS4_EERS9_ (; 230 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNSt3__26vectorIN9Steinberg3Vst19ParameterValueQueue19ParameterQueueValueENS_9allocatorIS4_EEE6insertENS_11__wrap_iterIPKS4_EERS9_ (; 229 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -37856,7 +37885,7 @@
   ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/vector:1764:0
   (get_local $4)
  )
- (func $__ZN9Steinberg3Vst16ParameterChanges14queryInterfaceEPKcPPv (; 231 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ParameterChanges14queryInterfaceEPKcPPv (; 230 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -37869,7 +37898,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 16980)
+    (i32.const 17052)
    )
   )
   (if
@@ -37891,7 +37920,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 16988)
+      (i32.const 17060)
      )
     )
     (if
@@ -37946,7 +37975,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17524)
+    (i32.const 17596)
    )
   )
   (if
@@ -37968,7 +37997,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17532)
+      (i32.const 17604)
      )
     )
     (if
@@ -38029,7 +38058,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ParameterChanges17getParameterCountEv (; 232 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ParameterChanges17getParameterCountEv (; 231 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:167:0
   (set_local $0
    (i32.add
@@ -38044,7 +38073,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ParameterChanges16getParameterDataEi (; 233 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ParameterChanges16getParameterDataEi (; 232 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:173:0
   (set_local $2
@@ -38103,7 +38132,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:176:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ParameterChanges16addParameterDataERKjRi (; 234 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst16ParameterChanges16addParameterDataERKjRi (; 233 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -38590,7 +38619,7 @@
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:206:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst16ParameterChangesD2Ev (; 235 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst16ParameterChangesD2Ev (; 234 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:131:0
   (i32.store
@@ -38638,7 +38667,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst16ParameterChangesD0Ev (; 236 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst16ParameterChangesD0Ev (; 235 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:131:0
@@ -38697,7 +38726,7 @@
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst16ParameterChanges16setMaxParametersEi (; 237 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg3Vst16ParameterChanges16setMaxParametersEi (; 236 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -39106,7 +39135,7 @@
    (get_local $8)
   )
  )
- (func $__ZNSt3__26vectorIPN9Steinberg3Vst19ParameterValueQueueENS_9allocatorIS4_EEE21__push_back_slow_pathIRKS4_EEvOT_ (; 238 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__26vectorIPN9Steinberg3Vst19ParameterValueQueueENS_9allocatorIS4_EEE21__push_back_slow_pathIRKS4_EEvOT_ (; 237 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -39355,7 +39384,7 @@
    (get_local $5)
   )
  )
- (func $__ZN9Steinberg3Vst16ParameterChangesC2Ei (; 239 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst16ParameterChangesC2Ei (; 238 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:124:0
   (i32.store
@@ -39391,7 +39420,7 @@
    (i32.const 0)
   )
  )
- (func $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv (; 240 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst16ParameterChanges10clearQueueEv (; 239 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/hosting/parameterchanges.cpp:161:0
   (set_local $1
@@ -39405,7 +39434,7 @@
    (i32.const 0)
   )
  )
- (func $__ZN9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i (; 241 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i (; 240 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -39604,7 +39633,7 @@
      (set_local $6
       (call_indirect (type $FUNCSIG$iiii)
        (get_local $0)
-       (i32.const 11756)
+       (i32.const 11789)
        (i32.const 1)
        (i32.add
         (i32.and
@@ -39793,7 +39822,7 @@
    (set_local $2
     (call_indirect (type $FUNCSIG$iiii)
      (get_local $0)
-     (i32.const 11756)
+     (i32.const 11789)
      (i32.const 1)
      (i32.add
       (i32.and
@@ -39896,7 +39925,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:151:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst11AudioEffect17getBusArrangementEiiRy (; 242 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect17getBusArrangementEiiRy (; 241 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i64)
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:157:0
@@ -40045,7 +40074,7 @@
    (i32.eqz
     (call_indirect (type $FUNCSIG$iiii)
      (get_local $0)
-     (i32.const 11756)
+     (i32.const 11789)
      (i32.const 1)
      (i32.add
       (i32.and
@@ -40089,7 +40118,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:167:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst11AudioEffect20canProcessSampleSizeEi (; 243 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect20canProcessSampleSizeEi (; 242 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:193:0
   (set_local $2
@@ -40100,7 +40129,7 @@
   )
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst11AudioEffect15setupProcessingERNS0_12ProcessSetupE (; 244 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect15setupProcessingERNS0_12ProcessSetupE (; 243 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 f64)
@@ -40239,7 +40268,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:182:0
   (get_local $0)
  )
- (func $__ZThn160_N9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i (; 245 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i (; 244 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (call $__ZN9Steinberg3Vst11AudioEffect18setBusArrangementsEPyiS2_i
    (i32.add
     (get_local $0)
@@ -40251,7 +40280,7 @@
    (get_local $4)
   )
  )
- (func $__ZThn160_N9Steinberg3Vst11AudioEffect17getBusArrangementEiiRy (; 246 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst11AudioEffect17getBusArrangementEiiRy (; 245 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i64)
   (set_local $0
@@ -40386,7 +40415,7 @@
    (i32.eqz
     (call_indirect (type $FUNCSIG$iiii)
      (get_local $0)
-     (i32.const 11756)
+     (i32.const 11789)
      (i32.const 1)
      (i32.add
       (i32.and
@@ -40420,7 +40449,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn160_N9Steinberg3Vst11AudioEffect15setupProcessingERNS0_12ProcessSetupE (; 247 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn160_N9Steinberg3Vst11AudioEffect15setupProcessingERNS0_12ProcessSetupE (; 246 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -40556,7 +40585,7 @@
   )
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst11AudioEffectC2Ev (; 248 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst11AudioEffectC2Ev (; 247 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:45:0
@@ -40654,7 +40683,7 @@
    (i32.const 0)
   )
  )
- (func $__ZN9Steinberg3Vst11AudioEffect13addAudioInputEPKDsyii (; 249 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect13addAudioInputEPKDsyii (; 248 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -40788,7 +40817,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:59:0
   (get_local $2)
  )
- (func $__ZNSt3__26vectorIN9Steinberg4IPtrINS1_3Vst3BusEEENS_9allocatorIS5_EEE21__push_back_slow_pathIS5_EEvOT_ (; 250 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__26vectorIN9Steinberg4IPtrINS1_3Vst3BusEEENS_9allocatorIS5_EEE21__push_back_slow_pathIS5_EEvOT_ (; 249 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -41217,7 +41246,7 @@
    (get_local $3)
   )
  )
- (func $__ZN9Steinberg3Vst11AudioEffect14addAudioOutputEPKDsyii (; 251 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst11AudioEffect14addAudioOutputEPKDsyii (; 250 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -41351,7 +41380,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstaudioeffect.cpp:68:0
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst3BusD2Ev (; 252 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst3BusD2Ev (; 251 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:54:0
   (i32.store
@@ -41368,7 +41397,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst3BusD0Ev (; 253 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst3BusD0Ev (; 252 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:54:0
   (i32.store
@@ -41388,11 +41417,11 @@
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg3Vst3Bus3isAEv (; 254 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst3Bus3isAEv (; 253 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:79:0
-  (i32.const 11726)
+  (i32.const 11759)
  )
- (func $__ZNK9Steinberg3Vst3Bus8isTypeOfEPKcb (; 255 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst3Bus8isTypeOfEPKcb (; 254 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -41400,7 +41429,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 11726)
+      (i32.const 11759)
      )
     )
     (set_local $0
@@ -41427,7 +41456,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -41445,7 +41474,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:79:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst3Bus7getInfoERNS0_7BusInfoE (; 256 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst3Bus7getInfoERNS0_7BusInfoE (; 255 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vstbus.cpp:53:0
@@ -41516,11 +41545,11 @@
   ;;@ ../../i/public.sdk/source/vst/vstbus.cpp:56:0
   (i32.const 1)
  )
- (func $__ZNK9Steinberg3Vst8AudioBus3isAEv (; 257 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst8AudioBus3isAEv (; 256 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:130:0
-  (i32.const 11756)
+  (i32.const 11789)
  )
- (func $__ZNK9Steinberg3Vst8AudioBus8isTypeOfEPKcb (; 258 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst8AudioBus8isTypeOfEPKcb (; 257 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -41528,7 +41557,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 11756)
+      (i32.const 11789)
      )
     )
     (set_local $0
@@ -41555,7 +41584,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 11726)
+        (i32.const 11759)
        )
       )
       (set_local $0
@@ -41565,7 +41594,7 @@
          (set_local $0
           (call $_strcmp
            (get_local $1)
-           (i32.const 12376)
+           (i32.const 12409)
           )
          )
          (i32.eqz
@@ -41585,7 +41614,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:130:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst8AudioBus7getInfoERNS0_7BusInfoE (; 259 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst8AudioBus7getInfoERNS0_7BusInfoE (; 258 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i64)
@@ -41729,7 +41758,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstbus.cpp:86:0
   (i32.const 1)
  )
- (func $__ZN9Steinberg3Vst8AudioBusC2EPKDsiiy (; 260 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i64)
+ (func $__ZN9Steinberg3Vst8AudioBusC2EPKDsiiy (; 259 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i64)
   (local $5 i32)
   ;;@ ../../i/base/source/fobject.h:87:0
   (set_local $5
@@ -41805,7 +41834,7 @@
    (get_local $4)
   )
  )
- (func $__ZN9Steinberg3Vst7BusListC2Eii (; 261 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $__ZN9Steinberg3Vst7BusListC2Eii (; 260 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   ;;@ ../../i/base/source/fobject.h:87:0
   (set_local $3
@@ -41878,7 +41907,7 @@
    (get_local $2)
   )
  )
- (func $__ZN9Steinberg3Vst7BusListD2Ev (; 262 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst7BusListD2Ev (; 261 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -42003,7 +42032,7 @@
    (get_local $0)
   )
  )
- (func $__ZN9Steinberg3Vst7BusListD0Ev (; 263 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst7BusListD0Ev (; 262 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -42138,11 +42167,11 @@
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg3Vst7BusList3isAEv (; 264 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst7BusList3isAEv (; 263 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:154:0
-  (i32.const 11796)
+  (i32.const 11829)
  )
- (func $__ZNK9Steinberg3Vst7BusList8isTypeOfEPKcb (; 265 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst7BusList8isTypeOfEPKcb (; 264 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -42150,7 +42179,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 11796)
+      (i32.const 11829)
      )
     )
     (set_local $0
@@ -42177,7 +42206,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -42195,7 +42224,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstbus.h:154:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 266 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 265 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -42208,7 +42237,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -42230,7 +42259,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -42292,7 +42321,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -42314,7 +42343,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -42376,7 +42405,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -42398,7 +42427,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -42468,11 +42497,11 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.h:92:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst9Component3isAEv (; 267 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Component3isAEv (; 266 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.h:89:0
-  (i32.const 12017)
+  (i32.const 12050)
  )
- (func $__ZNK9Steinberg3Vst9Component8isTypeOfEPKcb (; 268 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Component8isTypeOfEPKcb (; 267 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -42480,7 +42509,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 12017)
+      (i32.const 12050)
      )
     )
     (set_local $0
@@ -42507,7 +42536,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12208)
+        (i32.const 12241)
        )
       )
       (set_local $0
@@ -42517,7 +42546,7 @@
          (set_local $0
           (call $_strcmp
            (get_local $1)
-           (i32.const 12376)
+           (i32.const 12409)
           )
          )
          (i32.eqz
@@ -42537,7 +42566,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.h:89:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Component10initializeEPNS_8FUnknownE (; 269 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component10initializeEPNS_8FUnknownE (; 268 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:56:0
   (set_local $2
@@ -42548,7 +42577,7 @@
   )
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst9Component9terminateEv (; 270 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component9terminateEv (; 269 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:63:0
   (drop
@@ -42564,7 +42593,7 @@
   )
   (get_local $1)
  )
- (func $__ZN9Steinberg3Vst9Component20getControllerClassIdEPc (; 271 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component20getControllerClassIdEPc (; 270 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:108:0
   (set_local $2
@@ -42613,7 +42642,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:114:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Component11getBusCountEii (; 272 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component11getBusCountEii (; 271 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (block $switch
    (block $switch-default
     (block $switch-case0
@@ -42720,7 +42749,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:126:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Component10getBusInfoEiiiRNS0_7BusInfoE (; 273 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component10getBusInfoEiiiRNS0_7BusInfoE (; 272 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (if
@@ -42945,11 +42974,11 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:147:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Component14getRoutingInfoERNS0_11RoutingInfoES3_ (; 274 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component14getRoutingInfoERNS0_11RoutingInfoES3_ (; 273 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:152:0
   (i32.const 3)
  )
- (func $__ZN9Steinberg3Vst9Component11activateBusEiiih (; 275 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component11activateBusEiiih (; 274 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (if
    ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:159:0
    (i32.lt_s
@@ -43127,7 +43156,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:170:0
   (get_local $0)
  )
- (func $__ZThn8_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 276 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 275 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -43146,7 +43175,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -43168,7 +43197,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -43226,7 +43255,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -43248,7 +43277,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -43306,7 +43335,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -43328,7 +43357,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -43390,7 +43419,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE (; 277 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE (; 276 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $2
    (i32.add
@@ -43404,7 +43433,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst9Component9terminateEv (; 278 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst9Component9terminateEv (; 277 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -43423,7 +43452,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn12_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 279 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 278 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -43442,7 +43471,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -43464,7 +43493,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -43522,7 +43551,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -43544,7 +43573,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -43602,7 +43631,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -43624,7 +43653,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -43686,7 +43715,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 280 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component14queryInterfaceEPKcPPv (; 279 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -43705,7 +43734,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17324)
+    (i32.const 17396)
    )
   )
   (if
@@ -43727,7 +43756,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17332)
+      (i32.const 17404)
      )
     )
     (if
@@ -43785,7 +43814,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -43807,7 +43836,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -43865,7 +43894,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -43887,7 +43916,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -43949,7 +43978,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE (; 281 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component10initializeEPNS_8FUnknownE (; 280 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $2
    (i32.add
@@ -43963,7 +43992,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst9Component9terminateEv (; 282 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component9terminateEv (; 281 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (i32.add
@@ -43982,7 +44011,7 @@
    (get_local $1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst9Component20getControllerClassIdEPc (; 283 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component20getControllerClassIdEPc (; 282 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $0
    (i32.add
@@ -44027,7 +44056,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn24_N9Steinberg3Vst9Component11getBusCountEii (; 284 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component11getBusCountEii (; 283 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (set_local $3
    (i32.add
@@ -44122,7 +44151,7 @@
    (i32.const 2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst9Component10getBusInfoEiiiRNS0_7BusInfoE (; 285 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component10getBusInfoEiiiRNS0_7BusInfoE (; 284 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (set_local $6
@@ -44321,7 +44350,7 @@
    (i32.const 1)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst9Component11activateBusEiiih (; 286 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst9Component11activateBusEiiih (; 285 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (set_local $5
    (i32.add
@@ -44474,7 +44503,7 @@
   )
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst9Component15removeAllBussesEv (; 287 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component15removeAllBussesEv (; 286 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -44882,7 +44911,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:102:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst9ComponentC2Ev (; 288 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst9ComponentC2Ev (; 287 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:45:0
@@ -44984,7 +45013,7 @@
    (i32.const 1)
   )
  )
- (func $__ZN9Steinberg3Vst9Component10getBusListEii (; 289 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Component10getBusListEii (; 288 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:72:0
   (set_local $2
@@ -45010,7 +45039,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponent.cpp:76:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv (; 290 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv (; 289 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -45023,7 +45052,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -45045,7 +45074,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -45107,7 +45136,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -45129,7 +45158,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -45197,11 +45226,11 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst13ComponentBase3isAEv (; 291 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst13ComponentBase3isAEv (; 290 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.h:92:0
-  (i32.const 12208)
+  (i32.const 12241)
  )
- (func $__ZNK9Steinberg3Vst13ComponentBase8isTypeOfEPKcb (; 292 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst13ComponentBase8isTypeOfEPKcb (; 291 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -45209,7 +45238,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 12208)
+      (i32.const 12241)
      )
     )
     (set_local $0
@@ -45236,7 +45265,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -45254,7 +45283,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.h:92:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst13ComponentBase10initializeEPNS_8FUnknownE (; 293 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst13ComponentBase10initializeEPNS_8FUnknownE (; 292 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:59:0
   (set_local $0
@@ -45335,7 +45364,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:67:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst13ComponentBase9terminateEv (; 294 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst13ComponentBase9terminateEv (; 293 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -45489,7 +45518,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:88:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst13ComponentBase7connectEPNS0_16IConnectionPointE (; 295 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst13ComponentBase7connectEPNS0_16IConnectionPointE (; 294 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (if
    ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:94:0
@@ -45570,7 +45599,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:104:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst13ComponentBase10disconnectEPNS0_16IConnectionPointE (; 296 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst13ComponentBase10disconnectEPNS0_16IConnectionPointE (; 295 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:109:0
@@ -45654,7 +45683,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:116:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE (; 297 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE (; 296 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -45728,7 +45757,7 @@
   (set_local $2
    (call $_strcmp
     (get_local $2)
-    (i32.const 12109)
+    (i32.const 12142)
    )
   )
   (if
@@ -45802,7 +45831,7 @@
   (set_local $1
    (call_indirect (type $FUNCSIG$iiiii)
     (get_local $1)
-    (i32.const 12121)
+    (i32.const 12154)
     (get_local $3)
     (i32.const 256)
     (i32.add
@@ -45941,7 +45970,7 @@
   (if
    (get_local $1)
    (set_local $1
-    (i32.const 18703)
+    (i32.const 18775)
    )
    (block
     (set_local $1
@@ -45963,7 +45992,7 @@
     (if
      (get_local $3)
      (set_local $1
-      (i32.const 18703)
+      (i32.const 18775)
      )
     )
    )
@@ -45992,7 +46021,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:137:0
   (get_local $0)
  )
- (func $__ZThn8_N9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv (; 298 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv (; 297 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -46011,7 +46040,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -46033,7 +46062,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -46091,7 +46120,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -46113,7 +46142,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -46175,7 +46204,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst13ComponentBase10initializeEPNS_8FUnknownE (; 299 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst13ComponentBase10initializeEPNS_8FUnknownE (; 298 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $0
    (i32.add
@@ -46246,7 +46275,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn8_N9Steinberg3Vst13ComponentBase9terminateEv (; 300 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst13ComponentBase9terminateEv (; 299 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -46404,7 +46433,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn12_N9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv (; 301 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst13ComponentBase14queryInterfaceEPKcPPv (; 300 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i64)
   (local $5 i32)
@@ -46423,7 +46452,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -46445,7 +46474,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -46503,7 +46532,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -46525,7 +46554,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -46587,7 +46616,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn12_N9Steinberg3Vst13ComponentBase7connectEPNS0_16IConnectionPointE (; 302 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst13ComponentBase7connectEPNS0_16IConnectionPointE (; 301 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (if
    ;;@ ../../i/public.sdk/source/vst/vstcomponentbase.cpp:94:0
@@ -46658,7 +46687,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn12_N9Steinberg3Vst13ComponentBase10disconnectEPNS0_16IConnectionPointE (; 303 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst13ComponentBase10disconnectEPNS0_16IConnectionPointE (; 302 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (set_local $0
@@ -46738,7 +46767,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn12_N9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE (; 304 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE (; 303 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (call $__ZN9Steinberg3Vst13ComponentBase6notifyEPNS0_8IMessageE
    (i32.add
     (get_local $0)
@@ -46747,7 +46776,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst13ComponentBaseC2Ev (; 305 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst13ComponentBaseC2Ev (; 304 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   ;;@ ../../i/base/source/fobject.h:87:0
@@ -46810,7 +46839,7 @@
    (i32.const 0)
   )
  )
- (func $__ZN9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 306 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 305 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -46823,7 +46852,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17404)
+    (i32.const 17476)
    )
   )
   (if
@@ -46845,7 +46874,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17412)
+      (i32.const 17484)
      )
     )
     (if
@@ -46907,7 +46936,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17684)
+    (i32.const 17756)
    )
   )
   (if
@@ -46929,7 +46958,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17692)
+      (i32.const 17764)
      )
     )
     (if
@@ -46991,7 +47020,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -47013,7 +47042,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -47075,7 +47104,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -47097,7 +47126,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -47167,11 +47196,11 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:126:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst14EditController3isAEv (; 307 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst14EditController3isAEv (; 306 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:122:0
-  (i32.const 12193)
+  (i32.const 12226)
  )
- (func $__ZNK9Steinberg3Vst14EditController8isTypeOfEPKcb (; 308 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst14EditController8isTypeOfEPKcb (; 307 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -47179,7 +47208,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 12193)
+      (i32.const 12226)
      )
     )
     (set_local $0
@@ -47206,7 +47235,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12208)
+        (i32.const 12241)
        )
       )
       (set_local $0
@@ -47216,7 +47245,7 @@
          (set_local $0
           (call $_strcmp
            (get_local $1)
-           (i32.const 12376)
+           (i32.const 12409)
           )
          )
          (i32.eqz
@@ -47236,7 +47265,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.h:122:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController9terminateEv (; 309 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController9terminateEv (; 308 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -47518,7 +47547,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController17getParameterCountEv (; 310 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController17getParameterCountEv (; 309 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:212:0
   (set_local $0
@@ -47578,7 +47607,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:102:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController16getParameterInfoEiRNS0_13ParameterInfoE (; 311 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController16getParameterInfoEiRNS0_13ParameterInfoE (; 310 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:215:0
@@ -47775,7 +47804,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:115:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController21getParamStringByValueEjdPDs (; 312 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController21getParamStringByValueEjdPDs (; 311 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32) (result i32)
   (local $4 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:121:0
   (set_local $4
@@ -47857,7 +47886,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:128:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController21getParamValueByStringEjPDsRd (; 313 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController21getParamValueByStringEjPDsRd (; 312 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:134:0
   (set_local $4
@@ -47940,7 +47969,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController22normalizedParamToPlainEjd (; 314 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
+ (func $__ZN9Steinberg3Vst14EditController22normalizedParamToPlainEjd (; 313 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:149:0
   (set_local $3
@@ -48012,7 +48041,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:155:0
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst14EditController22plainParamToNormalizedEjd (; 315 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
+ (func $__ZN9Steinberg3Vst14EditController22plainParamToNormalizedEjd (; 314 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:160:0
   (set_local $3
@@ -48084,7 +48113,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:166:0
   (get_local $2)
  )
- (func $__ZN9Steinberg3Vst14EditController18getParamNormalizedEj (; 316 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result f64)
+ (func $__ZN9Steinberg3Vst14EditController18getParamNormalizedEj (; 315 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result f64)
   (local $2 i32)
   (local $3 f64)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:171:0
@@ -48142,7 +48171,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:177:0
   (get_local $3)
  )
- (func $__ZN9Steinberg3Vst14EditController18setParamNormalizedEjd (; 317 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController18setParamNormalizedEjd (; 316 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result i32)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:182:0
   (set_local $3
@@ -48225,7 +48254,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:189:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController19setComponentHandlerEPNS0_17IComponentHandlerE (; 318 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController19setComponentHandlerEPNS0_17IComponentHandlerE (; 317 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -48405,7 +48434,7 @@
   (drop
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $1)
-    (i32.const 17664)
+    (i32.const 17736)
     (get_local $0)
     (i32.add
      (i32.and
@@ -48419,7 +48448,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:222:0
   (i32.const 0)
  )
- (func $__ZN9Steinberg3Vst14EditController9beginEditEj (; 319 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController9beginEditEj (; 318 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:227:0
   (set_local $0
@@ -48480,7 +48509,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:232:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController11performEditEjd (; 320 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController11performEditEjd (; 319 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result i32)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:237:0
   (set_local $0
@@ -48542,7 +48571,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:242:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController7endEditEj (; 321 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController7endEditEj (; 320 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:247:0
   (set_local $0
@@ -48603,7 +48632,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:252:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController14startGroupEditEv (; 322 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController14startGroupEditEv (; 321 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:257:0
   (set_local $0
@@ -48663,7 +48692,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:262:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController15finishGroupEditEv (; 323 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController15finishGroupEditEv (; 322 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:267:0
   (set_local $0
@@ -48723,7 +48752,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:272:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController21getParameterInfoByTagEjRNS0_13ParameterInfoE (; 324 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController21getParameterInfoByTagEjRNS0_13ParameterInfoE (; 323 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:277:0
   (set_local $3
@@ -48812,7 +48841,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:284:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController8setDirtyEh (; 325 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController8setDirtyEh (; 324 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:289:0
   (set_local $0
@@ -48873,7 +48902,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:294:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14EditController17requestOpenEditorEPKc (; 326 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14EditController17requestOpenEditorEPKc (; 325 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:299:0
   (set_local $0
@@ -48934,7 +48963,7 @@
   ;;@ ../../i/public.sdk/source/vst/vsteditcontroller.cpp:304:0
   (get_local $0)
  )
- (func $__ZThn8_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 327 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 326 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -48953,7 +48982,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17404)
+    (i32.const 17476)
    )
   )
   (if
@@ -48975,7 +49004,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17412)
+      (i32.const 17484)
      )
     )
     (if
@@ -49033,7 +49062,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17684)
+    (i32.const 17756)
    )
   )
   (if
@@ -49055,7 +49084,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17692)
+      (i32.const 17764)
      )
     )
     (if
@@ -49113,7 +49142,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -49135,7 +49164,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -49193,7 +49222,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -49215,7 +49244,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -49277,7 +49306,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn8_N9Steinberg3Vst14EditController9terminateEv (; 328 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn8_N9Steinberg3Vst14EditController9terminateEv (; 327 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (call $__ZN9Steinberg3Vst14EditController9terminateEv
    (i32.add
     (get_local $0)
@@ -49285,7 +49314,7 @@
    )
   )
  )
- (func $__ZThn12_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 329 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn12_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 328 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -49305,7 +49334,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17404)
+    (i32.const 17476)
    )
   )
   (if
@@ -49327,7 +49356,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17412)
+      (i32.const 17484)
      )
     )
     (if
@@ -49385,7 +49414,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17684)
+    (i32.const 17756)
    )
   )
   (if
@@ -49407,7 +49436,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17692)
+      (i32.const 17764)
      )
     )
     (if
@@ -49465,7 +49494,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -49487,7 +49516,7 @@
     )
     (set_local $7
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -49545,7 +49574,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -49567,7 +49596,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -49629,7 +49658,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 330 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 329 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -49648,7 +49677,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17404)
+    (i32.const 17476)
    )
   )
   (if
@@ -49670,7 +49699,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17412)
+      (i32.const 17484)
      )
     )
     (if
@@ -49728,7 +49757,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17684)
+    (i32.const 17756)
    )
   )
   (if
@@ -49750,7 +49779,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17692)
+      (i32.const 17764)
      )
     )
     (if
@@ -49808,7 +49837,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -49830,7 +49859,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -49888,7 +49917,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -49910,7 +49939,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -49972,7 +50001,7 @@
    (get_local $2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController9terminateEv (; 331 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController9terminateEv (; 330 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (call $__ZN9Steinberg3Vst14EditController9terminateEv
    (i32.add
     (get_local $0)
@@ -49980,7 +50009,7 @@
    )
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController17getParameterCountEv (; 332 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController17getParameterCountEv (; 331 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $0
    (i32.add
@@ -50036,7 +50065,7 @@
    (i32.const 2)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController16getParameterInfoEiRNS0_13ParameterInfoE (; 333 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController16getParameterInfoEiRNS0_13ParameterInfoE (; 332 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (set_local $0
@@ -50223,7 +50252,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController21getParamStringByValueEjdPDs (; 334 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController21getParamStringByValueEjdPDs (; 333 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32) (result i32)
   (local $4 i32)
   (set_local $0
    (i32.add
@@ -50301,7 +50330,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController21getParamValueByStringEjPDsRd (; 335 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController21getParamValueByStringEjPDsRd (; 334 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (set_local $0
    (i32.add
@@ -50381,7 +50410,7 @@
   )
   (i32.const 1)
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController22normalizedParamToPlainEjd (; 336 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
+ (func $__ZThn24_N9Steinberg3Vst14EditController22normalizedParamToPlainEjd (; 335 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
   (local $3 i32)
   (set_local $0
    (i32.add
@@ -50454,7 +50483,7 @@
    )
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController22plainParamToNormalizedEjd (; 337 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
+ (func $__ZThn24_N9Steinberg3Vst14EditController22plainParamToNormalizedEjd (; 336 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result f64)
   (local $3 i32)
   (set_local $0
    (i32.add
@@ -50527,7 +50556,7 @@
    )
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController18getParamNormalizedEj (; 338 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result f64)
+ (func $__ZThn24_N9Steinberg3Vst14EditController18getParamNormalizedEj (; 337 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result f64)
   (local $2 i32)
   (set_local $0
    (i32.add
@@ -50585,7 +50614,7 @@
    (get_local $0)
   )
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController18setParamNormalizedEjd (; 339 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController18setParamNormalizedEjd (; 338 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 f64) (result i32)
   (local $3 i32)
   (set_local $0
    (i32.add
@@ -50664,7 +50693,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn24_N9Steinberg3Vst14EditController19setComponentHandlerEPNS0_17IComponentHandlerE (; 340 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZThn24_N9Steinberg3Vst14EditController19setComponentHandlerEPNS0_17IComponentHandlerE (; 339 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -50848,7 +50877,7 @@
   (drop
    (call_indirect (type $FUNCSIG$iiii)
     (get_local $1)
-    (i32.const 17664)
+    (i32.const 17736)
     (get_local $0)
     (i32.add
      (i32.and
@@ -50861,7 +50890,7 @@
   )
   (i32.const 0)
  )
- (func $__ZThn28_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 341 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn28_N9Steinberg3Vst14EditController14queryInterfaceEPKcPPv (; 340 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i64)
   (local $4 i32)
   (local $5 i64)
@@ -50880,7 +50909,7 @@
   )
   (set_local $3
    (i64.load
-    (i32.const 17404)
+    (i32.const 17476)
    )
   )
   (if
@@ -50902,7 +50931,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17412)
+      (i32.const 17484)
      )
     )
     (if
@@ -50960,7 +50989,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17684)
+    (i32.const 17756)
    )
   )
   (if
@@ -50982,7 +51011,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17692)
+      (i32.const 17764)
      )
     )
     (if
@@ -51040,7 +51069,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17144)
+    (i32.const 17216)
    )
   )
   (if
@@ -51062,7 +51091,7 @@
     )
     (set_local $6
      (i64.load
-      (i32.const 17152)
+      (i32.const 17224)
      )
     )
     (if
@@ -51120,7 +51149,7 @@
   ;;@ ../../i/pluginterfaces/base/funknown.h:211:0
   (set_local $3
    (i64.load
-    (i32.const 17444)
+    (i32.const 17516)
    )
   )
   (if
@@ -51142,7 +51171,7 @@
     )
     (set_local $3
      (i64.load
-      (i32.const 17452)
+      (i32.const 17524)
      )
     )
     (if
@@ -51204,7 +51233,7 @@
    (get_local $2)
   )
  )
- (func $__ZNSt3__26__treeINS_12__value_typeIjmEENS_19__map_value_compareIjS2_NS_4lessIjEELb1EEENS_9allocatorIS2_EEE7destroyEPNS_11__tree_nodeIS2_PvEE (; 342 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__26__treeINS_12__value_typeIjmEENS_19__map_value_compareIjS2_NS_4lessIjEELb1EEENS_9allocatorIS2_EEE7destroyEPNS_11__tree_nodeIS2_PvEE (; 341 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   ;;@ /Users/sss/Documents/gitHubPrj/emsdk/emscripten/1.38.13/system/include/libcxx/__tree:1836:0
   (if
@@ -51245,7 +51274,7 @@
    )
   )
  )
- (func $__ZN9Steinberg3Vst14EditControllerC2Ev (; 343 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst14EditControllerC2Ev (; 342 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -51331,733 +51360,733 @@
    (get_local $0)
   )
  )
- (func $__GLOBAL__sub_I_vstinitiids_cpp (; 344 ;) (; has Stack IR ;)
+ (func $__GLOBAL__sub_I_vstinitiids_cpp (; 343 ;) (; has Stack IR ;)
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17320)
+   (i32.const 17392)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17324)
+   (i32.const 17396)
    (i64.load align=4
     (i32.const 1360)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17332)
+   (i32.const 17404)
    (i64.load align=4
     (i32.const 1368)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17340)
+   (i32.const 17412)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17344)
+   (i32.const 17416)
    (i64.load align=4
     (i32.const 1376)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17352)
+   (i32.const 17424)
    (i64.load align=4
     (i32.const 1384)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17360)
+   (i32.const 17432)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17364)
+   (i32.const 17436)
    (i64.load align=4
     (i32.const 1392)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17372)
+   (i32.const 17444)
    (i64.load align=4
     (i32.const 1400)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17380)
+   (i32.const 17452)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17384)
+   (i32.const 17456)
    (i64.load align=4
     (i32.const 1408)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17392)
+   (i32.const 17464)
    (i64.load align=4
     (i32.const 1416)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17400)
+   (i32.const 17472)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17404)
+   (i32.const 17476)
    (i64.load align=4
     (i32.const 1424)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17412)
+   (i32.const 17484)
    (i64.load align=4
     (i32.const 1432)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17420)
+   (i32.const 17492)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17424)
+   (i32.const 17496)
    (i64.load align=4
     (i32.const 1440)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17432)
+   (i32.const 17504)
    (i64.load align=4
     (i32.const 1448)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17440)
+   (i32.const 17512)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17444)
+   (i32.const 17516)
    (i64.load align=4
     (i32.const 1456)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17452)
+   (i32.const 17524)
    (i64.load align=4
     (i32.const 1464)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17460)
+   (i32.const 17532)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17464)
+   (i32.const 17536)
    (i64.load align=4
     (i32.const 1472)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17472)
+   (i32.const 17544)
    (i64.load align=4
     (i32.const 1480)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17480)
+   (i32.const 17552)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17484)
+   (i32.const 17556)
    (i64.load align=4
     (i32.const 1488)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17492)
+   (i32.const 17564)
    (i64.load align=4
     (i32.const 1496)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17500)
+   (i32.const 17572)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17504)
+   (i32.const 17576)
    (i64.load align=4
     (i32.const 1504)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17512)
+   (i32.const 17584)
    (i64.load align=4
     (i32.const 1512)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17520)
+   (i32.const 17592)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17524)
+   (i32.const 17596)
    (i64.load align=4
     (i32.const 1520)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17532)
+   (i32.const 17604)
    (i64.load align=4
     (i32.const 1528)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17540)
+   (i32.const 17612)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17544)
+   (i32.const 17616)
    (i64.load align=4
     (i32.const 1536)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17552)
+   (i32.const 17624)
    (i64.load align=4
     (i32.const 1544)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17560)
+   (i32.const 17632)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17564)
+   (i32.const 17636)
    (i64.load align=4
     (i32.const 1552)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17572)
+   (i32.const 17644)
    (i64.load align=4
     (i32.const 1560)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17580)
+   (i32.const 17652)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17584)
+   (i32.const 17656)
    (i64.load align=4
     (i32.const 1568)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17592)
+   (i32.const 17664)
    (i64.load align=4
     (i32.const 1576)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17600)
+   (i32.const 17672)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17604)
+   (i32.const 17676)
    (i64.load align=4
     (i32.const 1584)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17612)
+   (i32.const 17684)
    (i64.load align=4
     (i32.const 1592)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17620)
+   (i32.const 17692)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17624)
+   (i32.const 17696)
    (i64.load align=4
     (i32.const 1600)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17632)
+   (i32.const 17704)
    (i64.load align=4
     (i32.const 1608)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17640)
+   (i32.const 17712)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17644)
+   (i32.const 17716)
    (i64.load align=4
     (i32.const 1616)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17652)
+   (i32.const 17724)
    (i64.load align=4
     (i32.const 1624)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17660)
+   (i32.const 17732)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17664)
+   (i32.const 17736)
    (i64.load align=4
     (i32.const 1632)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17672)
+   (i32.const 17744)
    (i64.load align=4
     (i32.const 1640)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17680)
+   (i32.const 17752)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17684)
+   (i32.const 17756)
    (i64.load align=4
     (i32.const 1648)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17692)
+   (i32.const 17764)
    (i64.load align=4
     (i32.const 1656)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17700)
+   (i32.const 17772)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17704)
+   (i32.const 17776)
    (i64.load align=4
     (i32.const 1664)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17712)
+   (i32.const 17784)
    (i64.load align=4
     (i32.const 1672)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17720)
+   (i32.const 17792)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17724)
+   (i32.const 17796)
    (i64.load align=4
     (i32.const 1680)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17732)
+   (i32.const 17804)
    (i64.load align=4
     (i32.const 1688)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17740)
+   (i32.const 17812)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17744)
+   (i32.const 17816)
    (i64.load align=4
     (i32.const 1696)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17752)
+   (i32.const 17824)
    (i64.load align=4
     (i32.const 1704)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17760)
+   (i32.const 17832)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17764)
+   (i32.const 17836)
    (i64.load align=4
     (i32.const 1712)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17772)
+   (i32.const 17844)
    (i64.load align=4
     (i32.const 1720)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17780)
+   (i32.const 17852)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17784)
+   (i32.const 17856)
    (i64.load align=4
     (i32.const 1728)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17792)
+   (i32.const 17864)
    (i64.load align=4
     (i32.const 1736)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17800)
+   (i32.const 17872)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17804)
+   (i32.const 17876)
    (i64.load align=4
     (i32.const 1744)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17812)
+   (i32.const 17884)
    (i64.load align=4
     (i32.const 1752)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17820)
+   (i32.const 17892)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17824)
+   (i32.const 17896)
    (i64.load align=4
     (i32.const 1760)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17832)
+   (i32.const 17904)
    (i64.load align=4
     (i32.const 1768)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17840)
+   (i32.const 17912)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17844)
+   (i32.const 17916)
    (i64.load align=4
     (i32.const 1776)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17852)
+   (i32.const 17924)
    (i64.load align=4
     (i32.const 1784)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17860)
+   (i32.const 17932)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17864)
+   (i32.const 17936)
    (i64.load align=4
     (i32.const 1792)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17872)
+   (i32.const 17944)
    (i64.load align=4
     (i32.const 1800)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17880)
+   (i32.const 17952)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17884)
+   (i32.const 17956)
    (i64.load align=4
     (i32.const 1808)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17892)
+   (i32.const 17964)
    (i64.load align=4
     (i32.const 1816)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17900)
+   (i32.const 17972)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17904)
+   (i32.const 17976)
    (i64.load align=4
     (i32.const 1824)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17912)
+   (i32.const 17984)
    (i64.load align=4
     (i32.const 1832)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17920)
+   (i32.const 17992)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17924)
+   (i32.const 17996)
    (i64.load align=4
     (i32.const 1840)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17932)
+   (i32.const 18004)
    (i64.load align=4
     (i32.const 1848)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17940)
+   (i32.const 18012)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17944)
+   (i32.const 18016)
    (i64.load align=4
     (i32.const 1856)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17952)
+   (i32.const 18024)
    (i64.load align=4
     (i32.const 1864)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17960)
+   (i32.const 18032)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17964)
+   (i32.const 18036)
    (i64.load align=4
     (i32.const 1872)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17972)
+   (i32.const 18044)
    (i64.load align=4
     (i32.const 1880)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 17980)
+   (i32.const 18052)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 17984)
+   (i32.const 18056)
    (i64.load align=4
     (i32.const 1888)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 17992)
+   (i32.const 18064)
    (i64.load align=4
     (i32.const 1896)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 18000)
+   (i32.const 18072)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 18004)
+   (i32.const 18076)
    (i64.load align=4
     (i32.const 1904)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 18012)
+   (i32.const 18084)
    (i64.load align=4
     (i32.const 1912)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 18020)
+   (i32.const 18092)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 18024)
+   (i32.const 18096)
    (i64.load align=4
     (i32.const 1920)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 18032)
+   (i32.const 18104)
    (i64.load align=4
     (i32.const 1928)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 18040)
+   (i32.const 18112)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 18044)
+   (i32.const 18116)
    (i64.load align=4
     (i32.const 1936)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 18052)
+   (i32.const 18124)
    (i64.load align=4
     (i32.const 1944)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 18060)
+   (i32.const 18132)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 18064)
+   (i32.const 18136)
    (i64.load align=4
     (i32.const 1952)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 18072)
+   (i32.const 18144)
    (i64.load align=4
     (i32.const 1960)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 18080)
+   (i32.const 18152)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 18084)
+   (i32.const 18156)
    (i64.load align=4
     (i32.const 1968)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 18092)
+   (i32.const 18164)
    (i64.load align=4
     (i32.const 1976)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:303:0
   (i32.store
-   (i32.const 18100)
+   (i32.const 18172)
    (i32.const 6412)
   )
   (i64.store align=4
-   (i32.const 18104)
+   (i32.const 18176)
    (i64.load align=4
     (i32.const 1984)
    )
   )
   ;;@ ../../i/pluginterfaces/base/funknown.h:307:0
   (i64.store align=4
-   (i32.const 18112)
+   (i32.const 18184)
    (i64.load align=4
     (i32.const 1992)
    )
   )
  )
- (func $__ZNK9Steinberg3Vst9Parameter3isAEv (; 345 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Parameter3isAEv (; 344 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:98:0
-  (i32.const 12324)
+  (i32.const 12357)
  )
- (func $__ZNK9Steinberg3Vst9Parameter8isTypeOfEPKcb (; 346 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Parameter8isTypeOfEPKcb (; 345 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -52065,7 +52094,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 12324)
+      (i32.const 12357)
      )
     )
     (set_local $0
@@ -52092,7 +52121,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -52110,7 +52139,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:98:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst9Parameter7getInfoEv (; 347 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Parameter7getInfoEv (; 346 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:67:0
   (set_local $1
@@ -52121,7 +52150,7 @@
   )
   (get_local $1)
  )
- (func $__ZN9Steinberg3Vst9Parameter9setUnitIDEi (; 348 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg3Vst9Parameter9setUnitIDEi (; 347 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:73:0
   (set_local $2
@@ -52135,7 +52164,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst9Parameter9getUnitIDEv (; 349 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst9Parameter9getUnitIDEv (; 348 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:75:0
   (set_local $0
    (i32.add
@@ -52150,7 +52179,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Parameter13setNormalizedEd (; 350 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (result i32)
+ (func $__ZN9Steinberg3Vst9Parameter13setNormalizedEd (; 349 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (result i32)
   (local $2 i32)
   (local $3 f64)
   (if
@@ -52239,7 +52268,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstparameters.cpp:104:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst9Parameter8toStringEdPDs (; 351 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (param $2 i32)
+ (func $__ZNK9Steinberg3Vst9Parameter8toStringEdPDs (; 350 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -52338,7 +52367,7 @@
    (get_local $5)
   )
  )
- (func $__ZNK9Steinberg3Vst9Parameter10fromStringEPKDsRd (; 352 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Parameter10fromStringEPKDsRd (; 351 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -52427,11 +52456,11 @@
   )
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst9Parameter7toPlainEd (; 353 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (result f64)
+ (func $__ZNK9Steinberg3Vst9Parameter7toPlainEd (; 352 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64) (result f64)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.cpp:138:0
   (get_local $1)
  )
- (func $__ZNK9Steinberg3Vst9Parameter12getPrecisionEv (; 354 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst9Parameter12getPrecisionEv (; 353 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:93:0
   (set_local $0
    (i32.add
@@ -52446,7 +52475,7 @@
   )
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst9Parameter12setPrecisionEi (; 355 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZN9Steinberg3Vst9Parameter12setPrecisionEi (; 354 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.h:96:0
   (set_local $2
@@ -52460,7 +52489,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst18ParameterContainerC2Ev (; 356 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst18ParameterContainerC2Ev (; 355 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   ;;@ ../../i/public.sdk/source/vst/vstparameters.cpp:350:0
   (i32.store
@@ -52509,7 +52538,7 @@
    (get_local $1)
   )
  )
- (func $__ZN9Steinberg3Vst18ParameterContainerD2Ev (; 357 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZN9Steinberg3Vst18ParameterContainerD2Ev (; 356 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -52666,7 +52695,7 @@
    (get_local $0)
   )
  )
- (func $__ZNSt3__26vectorIN9Steinberg4IPtrINS1_3Vst9ParameterEEENS_9allocatorIS5_EEE7reserveEm (; 358 ;) (; has Stack IR ;) (param $0 i32)
+ (func $__ZNSt3__26vectorIN9Steinberg4IPtrINS1_3Vst9ParameterEEENS_9allocatorIS5_EEE7reserveEm (; 357 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -52944,7 +52973,7 @@
    (get_local $3)
   )
  )
- (func $__ZN9Steinberg3Vst18ParameterContainer12addParameterEPNS0_9ParameterE (; 359 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst18ParameterContainer12addParameterEPNS0_9ParameterE (; 358 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -53514,7 +53543,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstparameters.cpp:379:0
   (get_local $1)
  )
- (func $__ZN9Steinberg3Vst18ParameterContainer12getParameterEj (; 360 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst18ParameterContainer12getParameterEj (; 359 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -53737,7 +53766,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstparameters.cpp:404:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst18ParameterContainer12addParameterEPKDsS3_idiiiS3_ (; 361 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 f64) (param $5 i32) (param $6 i32) (result i32)
+ (func $__ZN9Steinberg3Vst18ParameterContainer12addParameterEPKDsS3_idiiiS3_ (; 360 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 f64) (param $5 i32) (param $6 i32) (result i32)
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
@@ -54041,7 +54070,7 @@
   ;;@ ../../i/public.sdk/source/vst/vstparameters.cpp:431:0
   (get_local $1)
  )
- (func $__ZN9Steinberg3Vst14RingBufferTest3runEPNS_11ITestResultE (; 362 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14RingBufferTest3runEPNS_11ITestResultE (; 361 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.cpp:116:0
   (set_local $0
    (call $__ZNK9Steinberg3Vst14RingBufferTest17testPushUntilFullEPNS_11ITestResultE)
@@ -54069,15 +54098,15 @@
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.cpp:119:0
   (get_local $0)
  )
- (func $__ZN9Steinberg3Vst14RingBufferTest14getDescriptionEv (; 363 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZN9Steinberg3Vst14RingBufferTest14getDescriptionEv (; 362 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.cpp:131:0
   (i32.const 9812)
  )
- (func $__ZNK9Steinberg3Vst14RingBufferTest3isAEv (; 364 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst14RingBufferTest3isAEv (; 363 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.h:58:0
-  (i32.const 12361)
+  (i32.const 12394)
  )
- (func $__ZNK9Steinberg3Vst14RingBufferTest8isTypeOfEPKcb (; 365 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZNK9Steinberg3Vst14RingBufferTest8isTypeOfEPKcb (; 364 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (get_local $1)
@@ -54085,7 +54114,7 @@
     (set_local $0
      (call $_strcmp
       (get_local $1)
-      (i32.const 12361)
+      (i32.const 12394)
      )
     )
     (set_local $0
@@ -54112,7 +54141,7 @@
       (set_local $0
        (call $_strcmp
         (get_local $1)
-        (i32.const 12376)
+        (i32.const 12409)
        )
       )
       (set_local $0
@@ -54130,7 +54159,7 @@
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.h:58:0
   (get_local $0)
  )
- (func $__ZThn4_NK9Steinberg3Vst14RingBufferTest8isTypeOfEPKcb (; 366 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $__ZThn4_NK9Steinberg3Vst14RingBufferTest8isTypeOfEPKcb (; 365 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (if
    ;;@ ../../i/base/source/fobject.h:153:0
    (i32.eqz
@@ -54143,7 +54172,7 @@
   (set_local $0
    (call $_strcmp
     (get_local $1)
-    (i32.const 12361)
+    (i32.const 12394)
    )
   )
   (set_local $0
@@ -54171,14 +54200,14 @@
   (set_local $0
    (call $_strcmp
     (get_local $1)
-    (i32.const 12376)
+    (i32.const 12409)
    )
   )
   (i32.eqz
    (get_local $0)
   )
  )
- (func $__ZNK9Steinberg3Vst14RingBufferTest17testPushUntilFullEPNS_11ITestResultE (; 367 ;) (; has Stack IR ;) (result i32)
+ (func $__ZNK9Steinberg3Vst14RingBufferTest17testPushUntilFullEPNS_11ITestResultE (; 366 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -54670,7 +54699,7 @@
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.cpp:61:0
   (get_local $2)
  )
- (func $__ZNK9Steinberg3Vst14RingBufferTest17testPopUntilEmptyEPNS_11ITestResultE (; 368 ;) (; has Stack IR ;) (result i32)
+ (func $__ZNK9Steinberg3Vst14RingBufferTest17testPopUntilEmptyEPNS_11ITestResultE (; 367 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -55440,7 +55469,7 @@
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.cpp:89:0
   (get_local $0)
  )
- (func $__ZNK9Steinberg3Vst14RingBufferTest13testRoundtripEPNS_11ITestResultE (; 369 ;) (; has Stack IR ;) (result i32)
+ (func $__ZNK9Steinberg3Vst14RingBufferTest13testRoundtripEPNS_11ITestResultE (; 368 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -55757,7 +55786,7 @@
   ;;@ ../../i/public.sdk/source/vst/utility/test/ringbuffertest.cpp:105:0
   (get_local $2)
  )
- (func $__ZNSt3__26vectorIjNS_9allocatorIjEEE8__appendEm (; 370 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $__ZNSt3__26vectorIjNS_9allocatorIjEEE8__appendEm (; 369 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -56067,7 +56096,7 @@
    (get_local $4)
   )
  )
- (func $_malloc (; 371 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_malloc (; 370 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -56126,7 +56155,7 @@
          (i32.shr_u
           (tee_local $7
            (i32.load
-            (i32.const 18120)
+            (i32.const 18192)
            )
           )
           (tee_local $0
@@ -56176,7 +56205,7 @@
                      )
                      (i32.const 3)
                     )
-                    (i32.const 18160)
+                    (i32.const 18232)
                    )
                   )
                   (i32.const 8)
@@ -56192,7 +56221,7 @@
           (get_local $2)
          )
          (i32.store
-          (i32.const 18120)
+          (i32.const 18192)
           (i32.and
            (get_local $7)
            (i32.xor
@@ -56208,7 +56237,7 @@
           (if
            (i32.gt_u
             (i32.load
-             (i32.const 18136)
+             (i32.const 18208)
             )
             (get_local $3)
            )
@@ -56282,7 +56311,7 @@
         (get_local $1)
         (tee_local $12
          (i32.load
-          (i32.const 18128)
+          (i32.const 18200)
          )
         )
        )
@@ -56417,7 +56446,7 @@
                        )
                        (i32.const 3)
                       )
-                      (i32.const 18160)
+                      (i32.const 18232)
                      )
                     )
                     (i32.const 8)
@@ -56433,7 +56462,7 @@
             (get_local $5)
            )
            (i32.store
-            (i32.const 18120)
+            (i32.const 18192)
             (tee_local $2
              (i32.and
               (get_local $7)
@@ -56451,7 +56480,7 @@
             (if
              (i32.gt_u
               (i32.load
-               (i32.const 18136)
+               (i32.const 18208)
               )
               (get_local $3)
              )
@@ -56527,7 +56556,7 @@
            (block
             (set_local $4
              (i32.load
-              (i32.const 18140)
+              (i32.const 18212)
              )
             )
             (set_local $0
@@ -56541,7 +56570,7 @@
                )
                (i32.const 3)
               )
-              (i32.const 18160)
+              (i32.const 18232)
              )
             )
             (if
@@ -56557,7 +56586,7 @@
              (if
               (i32.gt_u
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
                (tee_local $1
                 (i32.load
@@ -56582,7 +56611,7 @@
              )
              (block
               (i32.store
-               (i32.const 18120)
+               (i32.const 18192)
                (i32.or
                 (get_local $2)
                 (get_local $3)
@@ -56618,11 +56647,11 @@
            )
           )
           (i32.store
-           (i32.const 18128)
+           (i32.const 18200)
            (get_local $5)
           )
           (i32.store
-           (i32.const 18140)
+           (i32.const 18212)
            (get_local $7)
           )
           (set_global $STACKTOP
@@ -56636,7 +56665,7 @@
         (if (result i32)
          (tee_local $13
           (i32.load
-           (i32.const 18124)
+           (i32.const 18196)
           )
          )
          (block
@@ -56738,7 +56767,7 @@
                )
                (i32.const 2)
               )
-              (i32.const 18424)
+              (i32.const 18496)
              )
             )
            )
@@ -56816,7 +56845,7 @@
            (i32.gt_u
             (tee_local $15
              (i32.load
-              (i32.const 18136)
+              (i32.const 18208)
              )
             )
             (get_local $2)
@@ -57015,7 +57044,7 @@
                    )
                    (i32.const 2)
                   )
-                  (i32.const 18424)
+                  (i32.const 18496)
                  )
                 )
                )
@@ -57031,7 +57060,7 @@
                 )
                 (block
                  (i32.store
-                  (i32.const 18124)
+                  (i32.const 18196)
                   (i32.and
                    (get_local $13)
                    (i32.xor
@@ -57050,7 +57079,7 @@
               (if
                (i32.gt_u
                 (i32.load
-                 (i32.const 18136)
+                 (i32.const 18208)
                 )
                 (get_local $11)
                )
@@ -57092,7 +57121,7 @@
               (i32.gt_u
                (tee_local $3
                 (i32.load
-                 (i32.const 18136)
+                 (i32.const 18208)
                 )
                )
                (get_local $4)
@@ -57136,7 +57165,7 @@
               (if
                (i32.gt_u
                 (i32.load
-                 (i32.const 18136)
+                 (i32.const 18208)
                 )
                 (get_local $0)
                )
@@ -57219,7 +57248,7 @@
              (block
               (set_local $4
                (i32.load
-                (i32.const 18140)
+                (i32.const 18212)
                )
               )
               (set_local $0
@@ -57233,7 +57262,7 @@
                  )
                  (i32.const 3)
                 )
-                (i32.const 18160)
+                (i32.const 18232)
                )
               )
               (if
@@ -57249,7 +57278,7 @@
                (if
                 (i32.gt_u
                  (i32.load
-                  (i32.const 18136)
+                  (i32.const 18208)
                  )
                  (tee_local $1
                   (i32.load
@@ -57274,7 +57303,7 @@
                )
                (block
                 (i32.store
-                 (i32.const 18120)
+                 (i32.const 18192)
                  (i32.or
                   (get_local $3)
                   (get_local $7)
@@ -57310,11 +57339,11 @@
              )
             )
             (i32.store
-             (i32.const 18128)
+             (i32.const 18200)
              (get_local $6)
             )
             (i32.store
-             (i32.const 18140)
+             (i32.const 18212)
              (get_local $8)
             )
            )
@@ -57356,7 +57385,7 @@
        (if (result i32)
         (tee_local $6
          (i32.load
-          (i32.const 18124)
+          (i32.const 18196)
          )
         )
         (block (result i32)
@@ -57473,7 +57502,7 @@
                 (get_local $18)
                 (i32.const 2)
                )
-               (i32.const 18424)
+               (i32.const 18496)
               )
              )
             )
@@ -57729,7 +57758,7 @@
                  )
                  (i32.const 2)
                 )
-                (i32.const 18424)
+                (i32.const 18496)
                )
               )
              )
@@ -57834,7 +57863,7 @@
             (get_local $2)
             (i32.sub
              (i32.load
-              (i32.const 18128)
+              (i32.const 18200)
              )
              (get_local $4)
             )
@@ -57844,7 +57873,7 @@
              (i32.gt_u
               (tee_local $17
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
               )
               (get_local $5)
@@ -58043,7 +58072,7 @@
                      )
                      (i32.const 2)
                     )
-                    (i32.const 18424)
+                    (i32.const 18496)
                    )
                   )
                  )
@@ -58059,7 +58088,7 @@
                   )
                   (block
                    (i32.store
-                    (i32.const 18124)
+                    (i32.const 18196)
                     (tee_local $3
                      (i32.and
                       (get_local $6)
@@ -58080,7 +58109,7 @@
                 (if
                  (i32.gt_u
                   (i32.load
-                   (i32.const 18136)
+                   (i32.const 18208)
                   )
                   (get_local $15)
                  )
@@ -58128,7 +58157,7 @@
                 (i32.gt_u
                  (tee_local $1
                   (i32.load
-                   (i32.const 18136)
+                   (i32.const 18208)
                   )
                  )
                  (get_local $7)
@@ -58172,7 +58201,7 @@
                 (if
                  (i32.gt_u
                   (i32.load
-                   (i32.const 18136)
+                   (i32.const 18208)
                   )
                   (get_local $0)
                  )
@@ -58278,14 +58307,14 @@
                     (get_local $1)
                     (i32.const 3)
                    )
-                   (i32.const 18160)
+                   (i32.const 18232)
                   )
                  )
                  (if
                   (i32.and
                    (tee_local $3
                     (i32.load
-                     (i32.const 18120)
+                     (i32.const 18192)
                     )
                    )
                    (tee_local $1
@@ -58298,7 +58327,7 @@
                   (if
                    (i32.gt_u
                     (i32.load
-                     (i32.const 18136)
+                     (i32.const 18208)
                     )
                     (tee_local $1
                      (i32.load
@@ -58323,7 +58352,7 @@
                   )
                   (block
                    (i32.store
-                    (i32.const 18120)
+                    (i32.const 18192)
                     (i32.or
                      (get_local $3)
                      (get_local $1)
@@ -58461,7 +58490,7 @@
                   )
                   (i32.const 2)
                  )
-                 (i32.const 18424)
+                 (i32.const 18496)
                 )
                )
                (i32.store offset=28
@@ -58495,7 +58524,7 @@
                 )
                 (block
                  (i32.store
-                  (i32.const 18124)
+                  (i32.const 18196)
                   (i32.or
                    (get_local $3)
                    (get_local $4)
@@ -58618,7 +58647,7 @@
                   (if
                    (i32.gt_u
                     (i32.load
-                     (i32.const 18136)
+                     (i32.const 18208)
                     )
                     (get_local $4)
                    )
@@ -58651,7 +58680,7 @@
                  (i32.le_u
                   (tee_local $3
                    (i32.load
-                    (i32.const 18136)
+                    (i32.const 18208)
                    )
                   )
                   (tee_local $0
@@ -58723,7 +58752,7 @@
    (i32.ge_u
     (tee_local $1
      (i32.load
-      (i32.const 18128)
+      (i32.const 18200)
      )
     )
     (get_local $3)
@@ -58731,7 +58760,7 @@
    (block
     (set_local $0
      (i32.load
-      (i32.const 18140)
+      (i32.const 18212)
      )
     )
     (if
@@ -58746,7 +58775,7 @@
      )
      (block
       (i32.store
-       (i32.const 18140)
+       (i32.const 18212)
        (tee_local $4
         (i32.add
          (get_local $0)
@@ -58755,7 +58784,7 @@
        )
       )
       (i32.store
-       (i32.const 18128)
+       (i32.const 18200)
        (get_local $2)
       )
       (i32.store offset=4
@@ -58782,11 +58811,11 @@
      )
      (block
       (i32.store
-       (i32.const 18128)
+       (i32.const 18200)
        (i32.const 0)
       )
       (i32.store
-       (i32.const 18140)
+       (i32.const 18212)
        (i32.const 0)
       )
       (i32.store offset=4
@@ -58830,14 +58859,14 @@
    (i32.gt_u
     (tee_local $1
      (i32.load
-      (i32.const 18132)
+      (i32.const 18204)
      )
     )
     (get_local $3)
    )
    (block
     (i32.store
-     (i32.const 18132)
+     (i32.const 18204)
      (tee_local $1
       (i32.sub
        (get_local $1)
@@ -58846,12 +58875,12 @@
      )
     )
     (i32.store
-     (i32.const 18144)
+     (i32.const 18216)
      (tee_local $2
       (i32.add
        (tee_local $0
         (i32.load
-         (i32.const 18144)
+         (i32.const 18216)
         )
        )
        (get_local $3)
@@ -58892,38 +58921,38 @@
         (tee_local $0
          (if (result i32)
           (i32.load
-           (i32.const 18592)
+           (i32.const 18664)
           )
           (i32.load
-           (i32.const 18600)
+           (i32.const 18672)
           )
           (block (result i32)
            (i32.store
-            (i32.const 18600)
+            (i32.const 18672)
             (i32.const 4096)
            )
            (i32.store
-            (i32.const 18596)
+            (i32.const 18668)
             (i32.const 4096)
            )
            (i32.store
-            (i32.const 18604)
+            (i32.const 18676)
             (i32.const -1)
            )
            (i32.store
-            (i32.const 18608)
+            (i32.const 18680)
             (i32.const -1)
            )
            (i32.store
-            (i32.const 18612)
+            (i32.const 18684)
             (i32.const 0)
            )
            (i32.store
-            (i32.const 18564)
+            (i32.const 18636)
             (i32.const 0)
            )
            (i32.store
-            (i32.const 18592)
+            (i32.const 18664)
             (i32.xor
              (i32.and
               (get_local $23)
@@ -58966,7 +58995,7 @@
   (if
    (tee_local $0
     (i32.load
-     (i32.const 18560)
+     (i32.const 18632)
     )
    )
    (if
@@ -58976,7 +59005,7 @@
        (i32.add
         (tee_local $2
          (i32.load
-          (i32.const 18552)
+          (i32.const 18624)
          )
         )
         (get_local $4)
@@ -59010,7 +59039,7 @@
     (if
      (i32.and
       (i32.load
-       (i32.const 18564)
+       (i32.const 18636)
       )
       (i32.const 4)
      )
@@ -59025,13 +59054,13 @@
           (i32.eqz
            (tee_local $0
             (i32.load
-             (i32.const 18144)
+             (i32.const 18216)
             )
            )
           )
          )
          (set_local $2
-          (i32.const 18568)
+          (i32.const 18640)
          )
          (loop $while-in34
           (block $while-out33
@@ -59136,7 +59165,7 @@
                 (i32.add
                  (tee_local $1
                   (i32.load
-                   (i32.const 18596)
+                   (i32.const 18668)
                   )
                  )
                  (i32.const -1)
@@ -59169,7 +59198,7 @@
              )
              (tee_local $5
               (i32.load
-               (i32.const 18552)
+               (i32.const 18624)
               )
              )
             )
@@ -59189,7 +59218,7 @@
              (if
               (tee_local $7
                (i32.load
-                (i32.const 18560)
+                (i32.const 18632)
                )
               )
               (if
@@ -59277,7 +59306,7 @@
             )
             (tee_local $2
              (i32.load
-              (i32.const 18600)
+              (i32.const 18672)
              )
             )
            )
@@ -59325,10 +59354,10 @@
        )
       )
       (i32.store
-       (i32.const 18564)
+       (i32.const 18636)
        (i32.or
         (i32.load
-         (i32.const 18564)
+         (i32.const 18636)
         )
         (i32.const 4)
        )
@@ -59413,11 +59442,11 @@
     (br $__rjto$7)
    )
    (i32.store
-    (i32.const 18552)
+    (i32.const 18624)
     (tee_local $2
      (i32.add
       (i32.load
-       (i32.const 18552)
+       (i32.const 18624)
       )
       (get_local $1)
      )
@@ -59427,11 +59456,11 @@
     (i32.gt_u
      (get_local $2)
      (i32.load
-      (i32.const 18556)
+      (i32.const 18628)
      )
     )
     (i32.store
-     (i32.const 18556)
+     (i32.const 18628)
      (get_local $2)
     )
    )
@@ -59439,12 +59468,12 @@
     (if
      (tee_local $6
       (i32.load
-       (i32.const 18144)
+       (i32.const 18216)
       )
      )
      (block
       (set_local $2
-       (i32.const 18568)
+       (i32.const 18640)
       )
       (block $__rjto$4
        (block $__rjti$4
@@ -59515,7 +59544,7 @@
           (set_local $1
            (i32.add
             (i32.load
-             (i32.const 18132)
+             (i32.const 18204)
             )
             (get_local $1)
            )
@@ -59535,7 +59564,7 @@
            )
           )
           (i32.store
-           (i32.const 18144)
+           (i32.const 18216)
            (tee_local $2
             (i32.add
              (get_local $6)
@@ -59553,7 +59582,7 @@
            )
           )
           (i32.store
-           (i32.const 18132)
+           (i32.const 18204)
            (tee_local $0
             (i32.sub
              (get_local $1)
@@ -59576,9 +59605,9 @@
            (i32.const 40)
           )
           (i32.store
-           (i32.const 18148)
+           (i32.const 18220)
            (i32.load
-            (i32.const 18608)
+            (i32.const 18680)
            )
           )
           (br $label$break$L294)
@@ -59591,13 +59620,13 @@
         (get_local $0)
         (tee_local $2
          (i32.load
-          (i32.const 18136)
+          (i32.const 18208)
          )
         )
        )
        (block
         (i32.store
-         (i32.const 18136)
+         (i32.const 18208)
          (get_local $0)
         )
         (set_local $2
@@ -59612,7 +59641,7 @@
        )
       )
       (set_local $4
-       (i32.const 18568)
+       (i32.const 18640)
       )
       (block $__rjto$5
        (block $__rjti$5
@@ -59747,18 +59776,18 @@
            )
            (block
             (i32.store
-             (i32.const 18132)
+             (i32.const 18204)
              (tee_local $0
               (i32.add
                (i32.load
-                (i32.const 18132)
+                (i32.const 18204)
                )
                (get_local $4)
               )
              )
             )
             (i32.store
-             (i32.const 18144)
+             (i32.const 18216)
              (get_local $7)
             )
             (i32.store offset=4
@@ -59773,24 +59802,24 @@
             (if
              (i32.eq
               (i32.load
-               (i32.const 18140)
+               (i32.const 18212)
               )
               (get_local $1)
              )
              (block
               (i32.store
-               (i32.const 18128)
+               (i32.const 18200)
                (tee_local $0
                 (i32.add
                  (i32.load
-                  (i32.const 18128)
+                  (i32.const 18200)
                  )
                  (get_local $4)
                 )
                )
               )
               (i32.store
-               (i32.const 18140)
+               (i32.const 18212)
                (get_local $7)
               )
               (i32.store offset=4
@@ -59862,7 +59891,7 @@
                         (get_local $5)
                         (i32.const 3)
                        )
-                       (i32.const 18160)
+                       (i32.const 18232)
                       )
                      )
                     )
@@ -59893,10 +59922,10 @@
                    )
                    (block
                     (i32.store
-                     (i32.const 18120)
+                     (i32.const 18192)
                      (i32.and
                       (i32.load
-                       (i32.const 18120)
+                       (i32.const 18192)
                       )
                       (i32.xor
                        (i32.shl
@@ -60145,7 +60174,7 @@
                          )
                          (i32.const 2)
                         )
-                        (i32.const 18424)
+                        (i32.const 18496)
                        )
                       )
                      )
@@ -60160,10 +60189,10 @@
                       (get_local $9)
                      )
                      (i32.store
-                      (i32.const 18124)
+                      (i32.const 18196)
                       (i32.and
                        (i32.load
-                        (i32.const 18124)
+                        (i32.const 18196)
                        )
                        (i32.xor
                         (i32.shl
@@ -60179,7 +60208,7 @@
                     (if
                      (i32.gt_u
                       (i32.load
-                       (i32.const 18136)
+                       (i32.const 18208)
                       )
                       (get_local $10)
                      )
@@ -60222,7 +60251,7 @@
                    (i32.gt_u
                     (tee_local $3
                      (i32.load
-                      (i32.const 18136)
+                      (i32.const 18208)
                      )
                     )
                     (get_local $9)
@@ -60274,7 +60303,7 @@
                   (if
                    (i32.gt_u
                     (i32.load
-                     (i32.const 18136)
+                     (i32.const 18208)
                     )
                     (get_local $0)
                    )
@@ -60353,7 +60382,7 @@
                  (get_local $3)
                  (i32.const 3)
                 )
-                (i32.const 18160)
+                (i32.const 18232)
                )
               )
               (block $do-once58
@@ -60361,7 +60390,7 @@
                 (i32.and
                  (tee_local $1
                   (i32.load
-                   (i32.const 18120)
+                   (i32.const 18192)
                   )
                  )
                  (tee_local $3
@@ -60375,7 +60404,7 @@
                  (if
                   (i32.le_u
                    (i32.load
-                    (i32.const 18136)
+                    (i32.const 18208)
                    )
                    (tee_local $1
                     (i32.load
@@ -60402,7 +60431,7 @@
                 )
                 (block
                  (i32.store
-                  (i32.const 18120)
+                  (i32.const 18192)
                   (i32.or
                    (get_local $1)
                    (get_local $3)
@@ -60547,7 +60576,7 @@
                )
                (i32.const 2)
               )
-              (i32.const 18424)
+              (i32.const 18496)
              )
             )
             (i32.store offset=28
@@ -60572,7 +60601,7 @@
               (i32.and
                (tee_local $1
                 (i32.load
-                 (i32.const 18124)
+                 (i32.const 18196)
                 )
                )
                (tee_local $4
@@ -60585,7 +60614,7 @@
              )
              (block
               (i32.store
-               (i32.const 18124)
+               (i32.const 18196)
                (i32.or
                 (get_local $1)
                 (get_local $4)
@@ -60708,7 +60737,7 @@
                (if
                 (i32.gt_u
                  (i32.load
-                  (i32.const 18136)
+                  (i32.const 18208)
                  )
                  (get_local $4)
                 )
@@ -60741,7 +60770,7 @@
               (i32.le_u
                (tee_local $3
                 (i32.load
-                 (i32.const 18136)
+                 (i32.const 18208)
                 )
                )
                (tee_local $0
@@ -60800,7 +60829,7 @@
        )
       )
       (set_local $2
-       (i32.const 18568)
+       (i32.const 18640)
       )
       (loop $while-in66
        (block $while-out65
@@ -60913,7 +60942,7 @@
        )
       )
       (i32.store
-       (i32.const 18144)
+       (i32.const 18216)
        (tee_local $12
         (i32.add
          (get_local $0)
@@ -60931,7 +60960,7 @@
        )
       )
       (i32.store
-       (i32.const 18132)
+       (i32.const 18204)
        (tee_local $5
         (i32.sub
          (get_local $10)
@@ -60954,9 +60983,9 @@
        (i32.const 40)
       )
       (i32.store
-       (i32.const 18148)
+       (i32.const 18220)
        (i32.load
-        (i32.const 18608)
+        (i32.const 18680)
        )
       )
       (i32.store
@@ -60971,29 +61000,29 @@
       (i64.store align=4
        (get_local $7)
        (i64.load align=4
-        (i32.const 18568)
+        (i32.const 18640)
        )
       )
       (i64.store offset=8 align=4
        (get_local $7)
        (i64.load align=4
-        (i32.const 18576)
+        (i32.const 18648)
        )
       )
       (i32.store
-       (i32.const 18568)
+       (i32.const 18640)
        (get_local $0)
       )
       (i32.store
-       (i32.const 18572)
+       (i32.const 18644)
        (get_local $1)
       )
       (i32.store
-       (i32.const 18580)
+       (i32.const 18652)
        (i32.const 0)
       )
       (i32.store
-       (i32.const 18576)
+       (i32.const 18648)
        (get_local $7)
       )
       (set_local $0
@@ -61074,14 +61103,14 @@
              (get_local $1)
              (i32.const 3)
             )
-            (i32.const 18160)
+            (i32.const 18232)
            )
           )
           (if
            (i32.and
             (tee_local $2
              (i32.load
-              (i32.const 18120)
+              (i32.const 18192)
              )
             )
             (tee_local $1
@@ -61094,7 +61123,7 @@
            (if
             (i32.gt_u
              (i32.load
-              (i32.const 18136)
+              (i32.const 18208)
              )
              (tee_local $2
               (i32.load
@@ -61119,7 +61148,7 @@
            )
            (block
             (i32.store
-             (i32.const 18120)
+             (i32.const 18192)
              (i32.or
               (get_local $2)
               (get_local $1)
@@ -61257,7 +61286,7 @@
            )
            (i32.const 2)
           )
-          (i32.const 18424)
+          (i32.const 18496)
          )
         )
         (i32.store offset=28
@@ -61277,7 +61306,7 @@
           (i32.and
            (tee_local $2
             (i32.load
-             (i32.const 18124)
+             (i32.const 18196)
             )
            )
            (tee_local $5
@@ -61290,7 +61319,7 @@
          )
          (block
           (i32.store
-           (i32.const 18124)
+           (i32.const 18196)
            (i32.or
             (get_local $2)
             (get_local $5)
@@ -61413,7 +61442,7 @@
            (if
             (i32.gt_u
              (i32.load
-              (i32.const 18136)
+              (i32.const 18208)
              )
              (get_local $5)
             )
@@ -61446,7 +61475,7 @@
           (i32.le_u
            (tee_local $1
             (i32.load
-             (i32.const 18136)
+             (i32.const 18208)
             )
            )
            (tee_local $0
@@ -61498,7 +61527,7 @@
         (i32.eqz
          (tee_local $2
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
          )
         )
@@ -61508,103 +61537,31 @@
         )
        )
        (i32.store
-        (i32.const 18136)
+        (i32.const 18208)
         (get_local $0)
        )
       )
       (i32.store
-       (i32.const 18568)
+       (i32.const 18640)
        (get_local $0)
       )
       (i32.store
-       (i32.const 18572)
+       (i32.const 18644)
        (get_local $1)
       )
       (i32.store
-       (i32.const 18580)
+       (i32.const 18652)
        (i32.const 0)
       )
       (i32.store
-       (i32.const 18156)
+       (i32.const 18228)
        (i32.load
-        (i32.const 18592)
+        (i32.const 18664)
        )
       )
       (i32.store
-       (i32.const 18152)
+       (i32.const 18224)
        (i32.const -1)
-      )
-      (i32.store
-       (i32.const 18172)
-       (i32.const 18160)
-      )
-      (i32.store
-       (i32.const 18168)
-       (i32.const 18160)
-      )
-      (i32.store
-       (i32.const 18180)
-       (i32.const 18168)
-      )
-      (i32.store
-       (i32.const 18176)
-       (i32.const 18168)
-      )
-      (i32.store
-       (i32.const 18188)
-       (i32.const 18176)
-      )
-      (i32.store
-       (i32.const 18184)
-       (i32.const 18176)
-      )
-      (i32.store
-       (i32.const 18196)
-       (i32.const 18184)
-      )
-      (i32.store
-       (i32.const 18192)
-       (i32.const 18184)
-      )
-      (i32.store
-       (i32.const 18204)
-       (i32.const 18192)
-      )
-      (i32.store
-       (i32.const 18200)
-       (i32.const 18192)
-      )
-      (i32.store
-       (i32.const 18212)
-       (i32.const 18200)
-      )
-      (i32.store
-       (i32.const 18208)
-       (i32.const 18200)
-      )
-      (i32.store
-       (i32.const 18220)
-       (i32.const 18208)
-      )
-      (i32.store
-       (i32.const 18216)
-       (i32.const 18208)
-      )
-      (i32.store
-       (i32.const 18228)
-       (i32.const 18216)
-      )
-      (i32.store
-       (i32.const 18224)
-       (i32.const 18216)
-      )
-      (i32.store
-       (i32.const 18236)
-       (i32.const 18224)
-      )
-      (i32.store
-       (i32.const 18232)
-       (i32.const 18224)
       )
       (i32.store
        (i32.const 18244)
@@ -61790,6 +61747,78 @@
        (i32.const 18416)
        (i32.const 18408)
       )
+      (i32.store
+       (i32.const 18428)
+       (i32.const 18416)
+      )
+      (i32.store
+       (i32.const 18424)
+       (i32.const 18416)
+      )
+      (i32.store
+       (i32.const 18436)
+       (i32.const 18424)
+      )
+      (i32.store
+       (i32.const 18432)
+       (i32.const 18424)
+      )
+      (i32.store
+       (i32.const 18444)
+       (i32.const 18432)
+      )
+      (i32.store
+       (i32.const 18440)
+       (i32.const 18432)
+      )
+      (i32.store
+       (i32.const 18452)
+       (i32.const 18440)
+      )
+      (i32.store
+       (i32.const 18448)
+       (i32.const 18440)
+      )
+      (i32.store
+       (i32.const 18460)
+       (i32.const 18448)
+      )
+      (i32.store
+       (i32.const 18456)
+       (i32.const 18448)
+      )
+      (i32.store
+       (i32.const 18468)
+       (i32.const 18456)
+      )
+      (i32.store
+       (i32.const 18464)
+       (i32.const 18456)
+      )
+      (i32.store
+       (i32.const 18476)
+       (i32.const 18464)
+      )
+      (i32.store
+       (i32.const 18472)
+       (i32.const 18464)
+      )
+      (i32.store
+       (i32.const 18484)
+       (i32.const 18472)
+      )
+      (i32.store
+       (i32.const 18480)
+       (i32.const 18472)
+      )
+      (i32.store
+       (i32.const 18492)
+       (i32.const 18480)
+      )
+      (i32.store
+       (i32.const 18488)
+       (i32.const 18480)
+      )
       (set_local $2
        (i32.add
         (get_local $1)
@@ -61811,7 +61840,7 @@
        )
       )
       (i32.store
-       (i32.const 18144)
+       (i32.const 18216)
        (tee_local $4
         (i32.add
          (get_local $0)
@@ -61829,7 +61858,7 @@
        )
       )
       (i32.store
-       (i32.const 18132)
+       (i32.const 18204)
        (tee_local $1
         (i32.sub
          (get_local $2)
@@ -61852,9 +61881,9 @@
        (i32.const 40)
       )
       (i32.store
-       (i32.const 18148)
+       (i32.const 18220)
        (i32.load
-        (i32.const 18608)
+        (i32.const 18680)
        )
       )
      )
@@ -61864,14 +61893,14 @@
     (i32.gt_u
      (tee_local $0
       (i32.load
-       (i32.const 18132)
+       (i32.const 18204)
       )
      )
      (get_local $3)
     )
     (block
      (i32.store
-      (i32.const 18132)
+      (i32.const 18204)
       (tee_local $1
        (i32.sub
         (get_local $0)
@@ -61880,12 +61909,12 @@
       )
      )
      (i32.store
-      (i32.const 18144)
+      (i32.const 18216)
       (tee_local $2
        (i32.add
         (tee_local $0
          (i32.load
-          (i32.const 18144)
+          (i32.const 18216)
          )
         )
         (get_local $3)
@@ -61927,7 +61956,7 @@
   )
   (i32.const 0)
  )
- (func $_free (; 372 ;) (; has Stack IR ;) (param $0 i32)
+ (func $_free (; 371 ;) (; has Stack IR ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -61961,7 +61990,7 @@
     )
     (tee_local $12
      (i32.load
-      (i32.const 18136)
+      (i32.const 18208)
      )
     )
    )
@@ -62046,7 +62075,7 @@
      (if
       (i32.eq
        (i32.load
-        (i32.const 18140)
+        (i32.const 18212)
        )
        (get_local $0)
       )
@@ -62082,7 +62111,7 @@
         )
        )
        (i32.store
-        (i32.const 18128)
+        (i32.const 18200)
         (get_local $4)
        )
        (i32.store
@@ -62139,7 +62168,7 @@
             (get_local $2)
             (i32.const 3)
            )
-           (i32.const 18160)
+           (i32.const 18232)
           )
          )
         )
@@ -62169,10 +62198,10 @@
         )
         (block
          (i32.store
-          (i32.const 18120)
+          (i32.const 18192)
           (i32.and
            (i32.load
-            (i32.const 18120)
+            (i32.const 18192)
            )
            (i32.xor
             (i32.shl
@@ -62432,7 +62461,7 @@
              )
              (i32.const 2)
             )
-            (i32.const 18424)
+            (i32.const 18496)
            )
           )
          )
@@ -62449,10 +62478,10 @@
           )
           (block
            (i32.store
-            (i32.const 18124)
+            (i32.const 18196)
             (i32.and
              (i32.load
-              (i32.const 18124)
+              (i32.const 18196)
              )
              (i32.xor
               (i32.shl
@@ -62479,7 +62508,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $13)
          )
@@ -62533,7 +62562,7 @@
         (i32.gt_u
          (tee_local $6
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
          )
          (get_local $8)
@@ -62582,7 +62611,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $2)
          )
@@ -62696,24 +62725,24 @@
        (if
         (i32.eq
          (i32.load
-          (i32.const 18144)
+          (i32.const 18216)
          )
          (get_local $7)
         )
         (block
          (i32.store
-          (i32.const 18132)
+          (i32.const 18204)
           (tee_local $0
            (i32.add
             (i32.load
-             (i32.const 18132)
+             (i32.const 18204)
             )
             (get_local $1)
            )
           )
          )
          (i32.store
-          (i32.const 18144)
+          (i32.const 18216)
           (get_local $3)
          )
          (i32.store offset=4
@@ -62727,17 +62756,17 @@
           (i32.ne
            (get_local $3)
            (i32.load
-            (i32.const 18140)
+            (i32.const 18212)
            )
           )
           (return)
          )
          (i32.store
-          (i32.const 18140)
+          (i32.const 18212)
           (i32.const 0)
          )
          (i32.store
-          (i32.const 18128)
+          (i32.const 18200)
           (i32.const 0)
          )
          (return)
@@ -62746,24 +62775,24 @@
        (if
         (i32.eq
          (i32.load
-          (i32.const 18140)
+          (i32.const 18212)
          )
          (get_local $7)
         )
         (block
          (i32.store
-          (i32.const 18128)
+          (i32.const 18200)
           (tee_local $0
            (i32.add
             (i32.load
-             (i32.const 18128)
+             (i32.const 18200)
             )
             (get_local $1)
            )
           )
          )
          (i32.store
-          (i32.const 18140)
+          (i32.const 18212)
           (get_local $5)
          )
          (i32.store offset=4
@@ -62823,7 +62852,7 @@
                (get_local $6)
                (i32.const 3)
               )
-              (i32.const 18160)
+              (i32.const 18232)
              )
             )
            )
@@ -62831,7 +62860,7 @@
             (if
              (i32.gt_u
               (i32.load
-               (i32.const 18136)
+               (i32.const 18208)
               )
               (get_local $2)
              )
@@ -62855,10 +62884,10 @@
            )
            (block
             (i32.store
-             (i32.const 18120)
+             (i32.const 18192)
              (i32.and
               (i32.load
-               (i32.const 18120)
+               (i32.const 18192)
               )
               (i32.xor
                (i32.shl
@@ -62887,7 +62916,7 @@
             (if
              (i32.gt_u
               (i32.load
-               (i32.const 18136)
+               (i32.const 18208)
               )
               (get_local $1)
              )
@@ -63015,7 +63044,7 @@
              (if
               (i32.gt_u
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
                (get_local $1)
               )
@@ -63035,7 +63064,7 @@
              (if
               (i32.gt_u
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
                (tee_local $1
                 (i32.load offset=8
@@ -63105,7 +63134,7 @@
                   )
                   (i32.const 2)
                  )
-                 (i32.const 18424)
+                 (i32.const 18496)
                 )
                )
               )
@@ -63122,10 +63151,10 @@
                )
                (block
                 (i32.store
-                 (i32.const 18124)
+                 (i32.const 18196)
                  (i32.and
                   (i32.load
-                   (i32.const 18124)
+                   (i32.const 18196)
                   )
                   (i32.xor
                    (i32.shl
@@ -63143,7 +63172,7 @@
              (if
               (i32.gt_u
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
                (get_local $8)
               )
@@ -63185,7 +63214,7 @@
              (i32.gt_u
               (tee_local $1
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
               )
               (get_local $10)
@@ -63234,7 +63263,7 @@
              (if
               (i32.gt_u
                (i32.load
-                (i32.const 18136)
+                (i32.const 18208)
                )
                (get_local $0)
               )
@@ -63274,12 +63303,12 @@
         (i32.eq
          (get_local $3)
          (i32.load
-          (i32.const 18140)
+          (i32.const 18212)
          )
         )
         (block
          (i32.store
-          (i32.const 18128)
+          (i32.const 18200)
           (get_local $4)
          )
          (return)
@@ -63304,14 +63333,14 @@
        (get_local $1)
        (i32.const 3)
       )
-      (i32.const 18160)
+      (i32.const 18232)
      )
     )
     (if
      (i32.and
       (tee_local $5
        (i32.load
-        (i32.const 18120)
+        (i32.const 18192)
        )
       )
       (tee_local $1
@@ -63324,7 +63353,7 @@
      (if
       (i32.gt_u
        (i32.load
-        (i32.const 18136)
+        (i32.const 18208)
        )
        (tee_local $5
         (i32.load
@@ -63349,7 +63378,7 @@
      )
      (block
       (i32.store
-       (i32.const 18120)
+       (i32.const 18192)
        (i32.or
         (get_local $5)
         (get_local $1)
@@ -63487,7 +63516,7 @@
      )
      (i32.const 2)
     )
-    (i32.const 18424)
+    (i32.const 18496)
    )
   )
   (i32.store offset=28
@@ -63507,7 +63536,7 @@
     (i32.and
      (tee_local $4
       (i32.load
-       (i32.const 18124)
+       (i32.const 18196)
       )
      )
      (tee_local $2
@@ -63616,7 +63645,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $2)
          )
@@ -63649,7 +63678,7 @@
        (i32.le_u
         (tee_local $1
          (i32.load
-          (i32.const 18136)
+          (i32.const 18208)
          )
         )
         (tee_local $0
@@ -63695,7 +63724,7 @@
     )
     (block
      (i32.store
-      (i32.const 18124)
+      (i32.const 18196)
       (i32.or
        (get_local $4)
        (get_local $2)
@@ -63721,11 +63750,11 @@
    )
   )
   (i32.store
-   (i32.const 18152)
+   (i32.const 18224)
    (tee_local $0
     (i32.add
      (i32.load
-      (i32.const 18152)
+      (i32.const 18224)
      )
      (i32.const -1)
     )
@@ -63736,7 +63765,7 @@
    (return)
   )
   (set_local $0
-   (i32.const 18576)
+   (i32.const 18648)
   )
   (loop $while-in19
    (set_local $0
@@ -63754,11 +63783,11 @@
    )
   )
   (i32.store
-   (i32.const 18152)
+   (i32.const 18224)
    (i32.const -1)
   )
  )
- (func $_realloc (; 373 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $_realloc (; 372 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (if
@@ -63872,7 +63901,7 @@
   )
   (get_local $2)
  )
- (func $_try_realloc_chunk (; 374 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $_try_realloc_chunk (; 373 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -63921,7 +63950,7 @@
       (i32.le_u
        (tee_local $11
         (i32.load
-         (i32.const 18136)
+         (i32.const 18208)
         )
        )
        (get_local $0)
@@ -63983,7 +64012,7 @@
        )
        (i32.shl
         (i32.load
-         (i32.const 18600)
+         (i32.const 18672)
         )
         (i32.const 1)
        )
@@ -64064,7 +64093,7 @@
   (if
    (i32.eq
     (i32.load
-     (i32.const 18144)
+     (i32.const 18216)
     )
     (get_local $5)
    )
@@ -64074,7 +64103,7 @@
       (tee_local $3
        (i32.add
         (i32.load
-         (i32.const 18132)
+         (i32.const 18204)
         )
         (get_local $2)
        )
@@ -64116,11 +64145,11 @@
      )
     )
     (i32.store
-     (i32.const 18144)
+     (i32.const 18216)
      (get_local $2)
     )
     (i32.store
-     (i32.const 18132)
+     (i32.const 18204)
      (get_local $1)
     )
     (return
@@ -64131,7 +64160,7 @@
   (if
    (i32.eq
     (i32.load
-     (i32.const 18140)
+     (i32.const 18212)
     )
     (get_local $5)
    )
@@ -64141,7 +64170,7 @@
       (tee_local $2
        (i32.add
         (i32.load
-         (i32.const 18128)
+         (i32.const 18200)
         )
         (get_local $2)
        )
@@ -64252,11 +64281,11 @@
      )
     )
     (i32.store
-     (i32.const 18128)
+     (i32.const 18200)
      (get_local $3)
     )
     (i32.store
-     (i32.const 18140)
+     (i32.const 18212)
      (get_local $1)
     )
     (return
@@ -64327,7 +64356,7 @@
           (get_local $2)
           (i32.const 3)
          )
-         (i32.const 18160)
+         (i32.const 18232)
         )
        )
       )
@@ -64357,10 +64386,10 @@
       )
       (block
        (i32.store
-        (i32.const 18120)
+        (i32.const 18192)
         (i32.and
          (i32.load
-          (i32.const 18120)
+          (i32.const 18192)
          )
          (i32.xor
           (i32.shl
@@ -64601,7 +64630,7 @@
              )
              (i32.const 2)
             )
-            (i32.const 18424)
+            (i32.const 18496)
            )
           )
          )
@@ -64618,10 +64647,10 @@
           )
           (block
            (i32.store
-            (i32.const 18124)
+            (i32.const 18196)
             (i32.and
              (i32.load
-              (i32.const 18124)
+              (i32.const 18196)
              )
              (i32.xor
               (i32.shl
@@ -64639,7 +64668,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $9)
          )
@@ -64681,7 +64710,7 @@
         (i32.gt_u
          (tee_local $2
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
          )
          (get_local $6)
@@ -64730,7 +64759,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $3)
          )
@@ -64841,7 +64870,7 @@
    )
   )
  )
- (func $_dispose_chunk (; 375 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $_dispose_chunk (; 374 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -64905,7 +64934,7 @@
        )
        (tee_local $12
         (i32.load
-         (i32.const 18136)
+         (i32.const 18208)
         )
        )
       )
@@ -64920,7 +64949,7 @@
      (if
       (i32.eq
        (i32.load
-        (i32.const 18140)
+        (i32.const 18212)
        )
        (get_local $0)
       )
@@ -64953,7 +64982,7 @@
         )
        )
        (i32.store
-        (i32.const 18128)
+        (i32.const 18200)
         (get_local $1)
        )
        (i32.store
@@ -65007,7 +65036,7 @@
             (get_local $7)
             (i32.const 3)
            )
-           (i32.const 18160)
+           (i32.const 18232)
           )
          )
         )
@@ -65037,10 +65066,10 @@
         )
         (block
          (i32.store
-          (i32.const 18120)
+          (i32.const 18192)
           (i32.and
            (i32.load
-            (i32.const 18120)
+            (i32.const 18192)
            )
            (i32.xor
             (i32.shl
@@ -65294,7 +65323,7 @@
              )
              (i32.const 2)
             )
-            (i32.const 18424)
+            (i32.const 18496)
            )
           )
          )
@@ -65311,10 +65340,10 @@
           )
           (block
            (i32.store
-            (i32.const 18124)
+            (i32.const 18196)
             (i32.and
              (i32.load
-              (i32.const 18124)
+              (i32.const 18196)
              )
              (i32.xor
               (i32.shl
@@ -65338,7 +65367,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $10)
          )
@@ -65389,7 +65418,7 @@
         (i32.gt_u
          (tee_local $4
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
          )
          (get_local $8)
@@ -65438,7 +65467,7 @@
         (if
          (i32.gt_u
           (i32.load
-           (i32.const 18136)
+           (i32.const 18208)
           )
           (get_local $3)
          )
@@ -65487,7 +65516,7 @@
     (get_local $6)
     (tee_local $7
      (i32.load
-      (i32.const 18136)
+      (i32.const 18208)
      )
     )
    )
@@ -65534,24 +65563,24 @@
     (if
      (i32.eq
       (i32.load
-       (i32.const 18144)
+       (i32.const 18216)
       )
       (get_local $6)
      )
      (block
       (i32.store
-       (i32.const 18132)
+       (i32.const 18204)
        (tee_local $0
         (i32.add
          (i32.load
-          (i32.const 18132)
+          (i32.const 18204)
          )
          (get_local $5)
         )
        )
       )
       (i32.store
-       (i32.const 18144)
+       (i32.const 18216)
        (get_local $2)
       )
       (i32.store offset=4
@@ -65565,17 +65594,17 @@
        (i32.ne
         (get_local $2)
         (i32.load
-         (i32.const 18140)
+         (i32.const 18212)
         )
        )
        (return)
       )
       (i32.store
-       (i32.const 18140)
+       (i32.const 18212)
        (i32.const 0)
       )
       (i32.store
-       (i32.const 18128)
+       (i32.const 18200)
        (i32.const 0)
       )
       (return)
@@ -65584,24 +65613,24 @@
     (if
      (i32.eq
       (i32.load
-       (i32.const 18140)
+       (i32.const 18212)
       )
       (get_local $6)
      )
      (block
       (i32.store
-       (i32.const 18128)
+       (i32.const 18200)
        (tee_local $0
         (i32.add
          (i32.load
-          (i32.const 18128)
+          (i32.const 18200)
          )
          (get_local $5)
         )
        )
       )
       (i32.store
-       (i32.const 18140)
+       (i32.const 18212)
        (get_local $2)
       )
       (i32.store offset=4
@@ -65661,7 +65690,7 @@
             (get_local $4)
             (i32.const 3)
            )
-           (i32.const 18160)
+           (i32.const 18232)
           )
          )
         )
@@ -65691,10 +65720,10 @@
         )
         (block
          (i32.store
-          (i32.const 18120)
+          (i32.const 18192)
           (i32.and
            (i32.load
-            (i32.const 18120)
+            (i32.const 18192)
            )
            (i32.xor
             (i32.shl
@@ -65935,7 +65964,7 @@
                )
                (i32.const 2)
               )
-              (i32.const 18424)
+              (i32.const 18496)
              )
             )
            )
@@ -65952,10 +65981,10 @@
             )
             (block
              (i32.store
-              (i32.const 18124)
+              (i32.const 18196)
               (i32.and
                (i32.load
-                (i32.const 18124)
+                (i32.const 18196)
                )
                (i32.xor
                 (i32.shl
@@ -65973,7 +66002,7 @@
           (if
            (i32.gt_u
             (i32.load
-             (i32.const 18136)
+             (i32.const 18208)
             )
             (get_local $8)
            )
@@ -66015,7 +66044,7 @@
           (i32.gt_u
            (tee_local $1
             (i32.load
-             (i32.const 18136)
+             (i32.const 18208)
             )
            )
            (get_local $9)
@@ -66064,7 +66093,7 @@
           (if
            (i32.gt_u
             (i32.load
-             (i32.const 18136)
+             (i32.const 18208)
             )
             (get_local $0)
            )
@@ -66104,12 +66133,12 @@
      (i32.eq
       (get_local $2)
       (i32.load
-       (i32.const 18140)
+       (i32.const 18212)
       )
      )
      (block
       (i32.store
-       (i32.const 18128)
+       (i32.const 18200)
        (get_local $5)
       )
       (return)
@@ -66135,14 +66164,14 @@
        (get_local $1)
        (i32.const 3)
       )
-      (i32.const 18160)
+      (i32.const 18232)
      )
     )
     (if
      (i32.and
       (tee_local $5
        (i32.load
-        (i32.const 18120)
+        (i32.const 18192)
        )
       )
       (tee_local $1
@@ -66155,7 +66184,7 @@
      (if
       (i32.gt_u
        (i32.load
-        (i32.const 18136)
+        (i32.const 18208)
        )
        (tee_local $5
         (i32.load
@@ -66180,7 +66209,7 @@
      )
      (block
       (i32.store
-       (i32.const 18120)
+       (i32.const 18192)
        (i32.or
         (get_local $5)
         (get_local $1)
@@ -66318,7 +66347,7 @@
      )
      (i32.const 2)
     )
-    (i32.const 18424)
+    (i32.const 18496)
    )
   )
   (i32.store offset=28
@@ -66338,7 +66367,7 @@
     (i32.and
      (tee_local $3
       (i32.load
-       (i32.const 18124)
+       (i32.const 18196)
       )
      )
      (tee_local $4
@@ -66351,7 +66380,7 @@
    )
    (block
     (i32.store
-     (i32.const 18124)
+     (i32.const 18196)
      (i32.or
       (get_local $3)
       (get_local $4)
@@ -66465,7 +66494,7 @@
       (if
        (i32.gt_u
         (i32.load
-         (i32.const 18136)
+         (i32.const 18208)
         )
         (get_local $4)
        )
@@ -66498,7 +66527,7 @@
      (i32.le_u
       (tee_local $5
        (i32.load
-        (i32.const 18136)
+        (i32.const 18208)
        )
       )
       (tee_local $0
@@ -66541,7 +66570,7 @@
    (i32.const 0)
   )
  )
- (func $___stdio_close (; 376 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $___stdio_close (; 375 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (set_local $1
    (get_global $STACKTOP)
@@ -66576,7 +66605,7 @@
   )
   (get_local $0)
  )
- (func $___stdio_write (; 377 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $___stdio_write (; 376 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -66872,7 +66901,7 @@
   )
   (get_local $2)
  )
- (func $___stdio_seek (; 378 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $___stdio_seek (; 377 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (set_local $4
@@ -66941,7 +66970,7 @@
   )
   (get_local $0)
  )
- (func $___syscall_ret (; 379 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $___syscall_ret (; 378 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (if
    (i32.gt_u
     (get_local $0)
@@ -66965,13 +66994,13 @@
   )
   (get_local $0)
  )
- (func $___errno_location (; 380 ;) (; has Stack IR ;) (result i32)
-  (i32.const 18680)
+ (func $___errno_location (; 379 ;) (; has Stack IR ;) (result i32)
+  (i32.const 18752)
  )
- (func $_dummy_560 (; 381 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_dummy_560 (; 380 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (get_local $0)
  )
- (func $_tolower (; 382 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_tolower (; 381 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (set_local $1
@@ -66993,7 +67022,7 @@
    (get_local $2)
   )
  )
- (func $_isupper (; 383 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_isupper (; 382 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (i32.lt_u
    (i32.add
     (get_local $0)
@@ -67002,7 +67031,7 @@
    (i32.const 26)
   )
  )
- (func $___shlim (; 384 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
+ (func $___shlim (; 383 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -67051,7 +67080,7 @@
    )
   )
  )
- (func $___intscan (; 385 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i64)
+ (func $___intscan (; 384 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i64)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -67601,7 +67630,7 @@
               )
               (i32.const 7)
              )
-             (i32.const 12485)
+             (i32.const 12518)
             )
            )
           )
@@ -68207,7 +68236,7 @@
   )
   (get_local $8)
  )
- (func $___shgetc (; 386 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $___shgetc (; 385 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -68379,7 +68408,7 @@
   )
   (get_local $2)
  )
- (func $_isspace (; 387 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_isspace (; 386 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (i32.or
    (i32.eq
     (get_local $0)
@@ -68394,7 +68423,7 @@
    )
   )
  )
- (func $___uflow (; 388 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $___uflow (; 387 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (set_local $1
@@ -68445,7 +68474,7 @@
   )
   (get_local $0)
  )
- (func $___toread (; 389 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $___toread (; 388 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (set_local $1
@@ -68565,7 +68594,7 @@
    )
   )
  )
- (func $_copysign (; 390 ;) (; has Stack IR ;) (param $0 f64) (param $1 f64) (result f64)
+ (func $_copysign (; 389 ;) (; has Stack IR ;) (param $0 f64) (param $1 f64) (result f64)
   (f64.reinterpret/i64
    (i64.or
     (i64.and
@@ -68583,7 +68612,7 @@
    )
   )
  )
- (func $_strcmp (; 391 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $_strcmp (; 390 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (set_local $0
@@ -68662,7 +68691,7 @@
    )
   )
  )
- (func $_memcmp (; 392 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $_memcmp (; 391 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -68726,7 +68755,7 @@
    )
   )
  )
- (func $_strncmp (; 393 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $_strncmp (; 392 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (tee_local $0
@@ -68825,7 +68854,7 @@
    )
   )
  )
- (func $_isdigit (; 394 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $_isdigit (; 393 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (i32.lt_u
    (i32.add
     (get_local $0)
@@ -68834,7 +68863,7 @@
    (i32.const 10)
   )
  )
- (func $_sprintf (; 395 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $_sprintf (; 394 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (set_local $2
    (get_global $STACKTOP)
@@ -68852,7 +68881,7 @@
   (set_local $0
    (call $_vsprintf
     (get_local $0)
-    (i32.const 11329)
+    (i32.const 11362)
     (get_local $2)
    )
   )
@@ -68861,7 +68890,7 @@
   )
   (get_local $0)
  )
- (func $_vsprintf (; 396 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $_vsprintf (; 395 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (call $_vsnprintf
    (get_local $0)
    (i32.const 2147483647)
@@ -68869,7 +68898,7 @@
    (get_local $2)
   )
  )
- (func $_vsnprintf (; 397 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $_vsnprintf (; 396 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -69117,7 +69146,7 @@
   )
   (get_local $0)
  )
- (func $_vfprintf (; 398 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $_vfprintf (; 397 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -69375,7 +69404,7 @@
     )
     (if
      (get_local $12)
-     (call $_VST3_setParameter)
+     (call $___unlockfile)
     )
     (if
      (i32.and
@@ -69393,7 +69422,7 @@
   )
   (get_local $1)
  )
- (func $_printf_core (; 399 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $_printf_core (; 398 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -70541,7 +70570,7 @@
                         (i32.const 0)
                        )
                        (set_local $7
-                        (i32.const 12494)
+                        (i32.const 12527)
                        )
                        (if
                         (i32.eqz
@@ -70587,7 +70616,7 @@
                          (i32.const 1)
                         )
                         (set_local $7
-                         (i32.const 12494)
+                         (i32.const 12527)
                         )
                         (br $__rjti$4)
                        )
@@ -70606,8 +70635,8 @@
                            (get_local $5)
                            (i32.const 1)
                           )
-                          (i32.const 12496)
-                          (i32.const 12494)
+                          (i32.const 12529)
+                          (i32.const 12527)
                          )
                         )
                         (set_local $8
@@ -70624,7 +70653,7 @@
                           (get_local $6)
                          )
                          (set_local $7
-                          (i32.const 12495)
+                          (i32.const 12528)
                          )
                         )
                         (br $__rjti$4)
@@ -70635,7 +70664,7 @@
                       (i32.const 0)
                      )
                      (set_local $7
-                      (i32.const 12494)
+                      (i32.const 12527)
                      )
                      (set_local $16
                       (i64.load
@@ -70657,7 +70686,7 @@
                      (i32.const 0)
                     )
                     (set_local $14
-                     (i32.const 12494)
+                     (i32.const 12527)
                     )
                     (set_local $7
                      (i32.const 1)
@@ -70688,7 +70717,7 @@
                     )
                    )
                    (set_local $6
-                    (i32.const 12504)
+                    (i32.const 12537)
                    )
                   )
                   (br $__rjti$5)
@@ -70756,7 +70785,7 @@
                (i32.const 0)
               )
               (set_local $14
-               (i32.const 12494)
+               (i32.const 12527)
               )
               (set_local $7
                (get_local $1)
@@ -70786,7 +70815,7 @@
                 (get_local $7)
                 (i32.const 4)
                )
-               (i32.const 12494)
+               (i32.const 12527)
               )
              )
              (if
@@ -70805,7 +70834,7 @@
                )
               )
               (set_local $7
-               (i32.const 12494)
+               (i32.const 12527)
               )
              )
              (set_local $8
@@ -70851,7 +70880,7 @@
             (i32.const 0)
            )
            (set_local $14
-            (i32.const 12494)
+            (i32.const 12527)
            )
            (set_local $7
             (if (result i32)
@@ -71295,8 +71324,11 @@
   )
   (get_local $9)
  )
- (func $___lockfile (; 400 ;) (; has Stack IR ;) (result i32)
+ (func $___lockfile (; 399 ;) (; has Stack IR ;) (result i32)
   (i32.const 0)
+ )
+ (func $___unlockfile (; 400 ;) (; has Stack IR ;)
+  (nop)
  )
  (func $_out (; 401 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (if
@@ -72274,7 +72306,7 @@
      (i32.const 1)
     )
     (set_local $14
-     (i32.const 12511)
+     (i32.const 12544)
     )
    )
    (block
@@ -72292,8 +72324,8 @@
        (get_local $4)
        (i32.const 1)
       )
-      (i32.const 12517)
-      (i32.const 12512)
+      (i32.const 12550)
+      (i32.const 12545)
      )
     )
     (set_local $21
@@ -72310,7 +72342,7 @@
       (get_local $6)
      )
      (set_local $14
-      (i32.const 12514)
+      (i32.const 12547)
      )
     )
    )
@@ -72337,8 +72369,8 @@
           (i32.const 0)
          )
         )
-        (i32.const 12530)
-        (i32.const 12534)
+        (i32.const 12563)
+        (i32.const 12567)
        )
       )
       (set_local $10
@@ -72350,8 +72382,8 @@
       (set_local $3
        (if (result i32)
         (get_local $3)
-        (i32.const 12553)
-        (i32.const 12538)
+        (i32.const 12586)
+        (i32.const 12571)
        )
       )
       (if
@@ -74299,7 +74331,7 @@
          )
          (call $_out
           (get_local $0)
-          (i32.const 12542)
+          (i32.const 12575)
           (i32.const 1)
          )
         )
@@ -74531,7 +74563,7 @@
               )
               (call $_out
                (get_local $0)
-               (i32.const 12542)
+               (i32.const 12575)
                (i32.const 1)
               )
               (set_local $3
@@ -75929,7 +75961,7 @@
       (i32.load8_s
        (i32.add
         (get_local $3)
-        (i32.const 12544)
+        (i32.const 12577)
        )
       )
      )
@@ -76024,7 +76056,7 @@
            (i32.load8_s
             (i32.add
              (get_local $3)
-             (i32.const 12553)
+             (i32.const 12586)
             )
            )
           )
@@ -80570,7 +80602,7 @@
      (if (result i32)
       (get_local $2)
       (get_local $2)
-      (i32.const 18684)
+      (i32.const 18756)
      )
     )
    )
@@ -81349,7 +81381,7 @@
   (set_local $0
    (call $_vsscanf
     (get_local $0)
-    (i32.const 11334)
+    (i32.const 11367)
     (get_local $2)
    )
   )
@@ -83439,7 +83471,7 @@
   )
   (if
    (get_local $27)
-   (call $_VST3_setParameter)
+   (call $___unlockfile)
   )
   (set_global $STACKTOP
    (get_local $21)
@@ -83734,7 +83766,7 @@
       )
      )
     )
-    (call $_VST3_setParameter)
+    (call $___unlockfile)
     (br $do-once)
    )
    (if
@@ -85946,7 +85978,7 @@
     (get_local $0)
     (i32.const 4)
    )
-   (i32.const 12384)
+   (i32.const 12417)
   )
  )
  (func $__ZNKSt3__218__libcpp_refstring15__uses_refcountEv (; 470 ;) (; has Stack IR ;) (result i32)
@@ -86930,10 +86962,10 @@
       (block
        (i32.store
         (get_local $5)
-        (i32.const 12833)
+        (i32.const 12866)
        )
        (call $_abort_message
-        (i32.const 12783)
+        (i32.const 12816)
         (get_local $5)
        )
       )
@@ -87008,7 +87040,7 @@
        )
        (i32.store
         (get_local $2)
-        (i32.const 12833)
+        (i32.const 12866)
        )
        (i32.store offset=4
         (get_local $2)
@@ -87019,21 +87051,21 @@
         (get_local $1)
        )
        (call $_abort_message
-        (i32.const 12697)
+        (i32.const 12730)
         (get_local $2)
        )
       )
       (block
        (i32.store
         (get_local $3)
-        (i32.const 12833)
+        (i32.const 12866)
        )
        (i32.store offset=4
         (get_local $3)
         (get_local $0)
        )
        (call $_abort_message
-        (i32.const 12742)
+        (i32.const 12775)
         (get_local $3)
        )
       )
@@ -87042,7 +87074,7 @@
    )
   )
   (call $_abort_message
-   (i32.const 12821)
+   (i32.const 12854)
    (get_local $6)
   )
  )
@@ -87063,18 +87095,18 @@
   )
   (if
    (call $_pthread_once
-    (i32.const 18688)
+    (i32.const 18760)
     (i32.const 2)
    )
    (call $_abort_message
-    (i32.const 12972)
+    (i32.const 13005)
     (get_local $0)
    )
    (block
     (set_local $0
      (call $_pthread_getspecific
       (i32.load
-       (i32.const 18692)
+       (i32.const 18764)
       )
      )
     )
@@ -88257,11 +88289,11 @@
   )
   (if
    (call $_pthread_key_create
-    (i32.const 18692)
+    (i32.const 18764)
     (i32.const 60)
    )
    (call $_abort_message
-    (i32.const 13021)
+    (i32.const 13054)
     (get_local $1)
    )
    (set_global $STACKTOP
@@ -88290,12 +88322,12 @@
   (if
    (call $_pthread_setspecific
     (i32.load
-     (i32.const 18692)
+     (i32.const 18764)
     )
     (i32.const 0)
    )
    (call $_abort_message
-    (i32.const 13071)
+    (i32.const 13104)
     (get_local $2)
    )
    (set_global $STACKTOP
@@ -88347,7 +88379,7 @@
       (tee_local $2
        (i32.add
         (tee_local $1
-         (call $__ZNSt3__215__refstring_imp12_GLOBAL__N_113rep_from_dataEPKc_891
+         (call $__ZNSt3__215__refstring_imp12_GLOBAL__N_113rep_from_dataEPKc_896
           (i32.load
            (get_local $0)
           )
@@ -88380,7 +88412,7 @@
    )
   )
  )
- (func $__ZNSt3__215__refstring_imp12_GLOBAL__N_113rep_from_dataEPKc_891 (; 504 ;) (; has Stack IR ;) (param $0 i32) (result i32)
+ (func $__ZNSt3__215__refstring_imp12_GLOBAL__N_113rep_from_dataEPKc_896 (; 504 ;) (; has Stack IR ;) (param $0 i32) (result i32)
   (i32.add
    (get_local $0)
    (i32.const -12)
@@ -89430,10 +89462,10 @@
  (func $__ZSt15get_new_handlerv (; 514 ;) (; has Stack IR ;) (result i32)
   (local $0 i32)
   (i32.store
-   (i32.const 18696)
+   (i32.const 18768)
    (tee_local $0
     (i32.load
-     (i32.const 18696)
+     (i32.const 18768)
     )
    )
   )
@@ -90696,15 +90728,15 @@
    (i32.const 23)
   )
  )
- (func $legalstub$_VST3_getParameter (; 570 ;) (; has Stack IR ;) (param $0 i32) (result f64)
-  (f64.promote/f32
-   (call $_VST3_getParameter)
+ (func $legalstub$_VST3_setParameter (; 570 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64)
+  (call $_VST3_setParameter
+   (get_local $0)
+   (f32.demote/f64
+    (get_local $1)
+   )
   )
  )
- (func $legalstub$_VST3_setParameter (; 571 ;) (; has Stack IR ;) (param $0 i32) (param $1 f64)
-  (call $_VST3_setParameter)
- )
- (func $legalstub$dynCall_iijii (; 572 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (result i32)
+ (func $legalstub$dynCall_iijii (; 571 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (result i32)
   (call $dynCall_iijii
    (get_local $1)
    (i64.or
@@ -90722,7 +90754,7 @@
    (get_local $5)
   )
  )
- (func $legalstub$dynCall_ji (; 573 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $legalstub$dynCall_ji (; 572 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (set_local $2
    (call $dynCall_ji
@@ -90742,7 +90774,7 @@
    (get_local $2)
   )
  )
- (func $legalstub$dynCall_jiij (; 574 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $legalstub$dynCall_jiij (; 573 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i64)
   (set_local $5
    (call $dynCall_jiij
@@ -90774,7 +90806,7 @@
    (get_local $5)
   )
  )
- (func $legalstub$dynCall_jiji (; 575 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $legalstub$dynCall_jiji (; 574 ;) (; has Stack IR ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i64)
   (set_local $5
    (call $dynCall_jiji

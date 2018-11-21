@@ -1,9 +1,11 @@
 #
-PROJECTNAME = VSTNES
+PROJECTNAME = NEX
+SUBNAME = NOUI
 TARGET = ./web/$(PROJECTNAME).js
-CODEFOLDER = ../../vstsamples/note_expression_synth
-SOURCEFOLDER = $(CODEFOLDER)/source
-INCLUDEFOLDER = $(CODEFOLDER)/source
+PLUGINID = 6EE65CD1B83A4AF480AA7929AEA6B8A0
+SAMPLESFOLDER = ../../vstsamples/note_expression_synth
+SOURCEFOLDER = $(SAMPLESFOLDER)/source
+INCLUDEFOLDER = $(SAMPLESFOLDER)/source
 
 VSTLIB = ../../i
 CPPLIB = ../../i/CppLib
@@ -25,11 +27,11 @@ CFLAGS += -D__x86_64__=1
 CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
-CFLAGS += -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
-CFLAGS += -s EXPORTED_FUNCTIONS='["_VST3_classInfo","_VST3_init", "_VST3_description", "_VST3_setInteger", "_VST3_selectProcessor", "_VST3_parametersCount", "_VST3_parameterInfo"]'
+CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_sendNote']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
-CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=1
+CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
 COMPILER = emcc
 LDFLAGS = -O2
 JSFLAGS = -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s BINARYEN_ASYNC_COMPILATION=0 
@@ -42,8 +44,7 @@ PLUGINSOURCE = $(SOURCEFOLDER)/factory.cpp \
 	$(SOURCEFOLDER)/note_expression_synth_voice.cpp \
 	$(SOURCEFOLDER)/note_touch_controller.cpp
 
-VSTRUNTIME = ../../tools/VST3JSExport.cpp
-VSTRUNTIME += $(VSTLIB)/base/source/fbuffer.cpp
+VSTRUNTIME = $(VSTLIB)/base/source/fbuffer.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fdebug.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fdynlib.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fobject.cpp
@@ -61,6 +62,9 @@ VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/ustring.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/linuxmain.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/eventlist.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/parameterchanges.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/hosting/processdata.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstaudioeffect.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbus.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstbypassprocessor.cpp
@@ -74,6 +78,7 @@ VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstparameters.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstpresetfile.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstrepresentation.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/vstsinglecomponenteffect.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/vst/utility/test/ringbuffertest.cpp
 
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/contrib/keyboardview.cpp
 VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/lib/animation/animations.cpp
@@ -146,10 +151,14 @@ VSTRUNTIME += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
 $(TARGET):
 	#export EMCC_DEBUG=1
 	#emcc --clear-cache
-	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ $(PLUGINSOURCE) $(VSTRUNTIME)
-	cp ../../tools/index.html ./web/
-	cp ../../tools/index.js ./web/
-	cp ../../tools/processormodule.js ./web/
-	node ../../tools/convert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web
+	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME) $(VST4UI)
+#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME)
+	cp ../../tools/index.html ./web/$(PROJECTNAME).$(SUBNAME).html
+	cp ../../tools/lib.js ./web/$(PROJECTNAME).$(SUBNAME).lib.js
+	cp ../../tools/processormodule.js ./web/$(PROJECTNAME).$(SUBNAME).processor.js
+#	copy /Y ..\..\tools\index.html .\web\$(PROJECTNAME).$(SUBNAME).html
+#	copy /Y ..\..\tools\lib.js .\web\$(PROJECTNAME).$(SUBNAME).lib.js
+#	copy /Y ..\..\tools\processormodule.js .\web\$(PROJECTNAME).$(SUBNAME).processor.js
+	node ../../tools/copyconvert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID) $(SUBNAME)
 
 

@@ -113,6 +113,7 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 		}*/
 	}
 	sendParameter(id,value){
+		console.log('sendParameter',id,value);
 		this.VST3_setParameter(id,value);
 	}
 	process(inputs, outputs, parameters) {

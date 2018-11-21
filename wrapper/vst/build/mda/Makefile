@@ -1,6 +1,7 @@
 PROJECTNAME = MDA
+SUBNAME = DX10
 TARGET = ./web/$(PROJECTNAME).js
-PLUGINID = 7EC0F00D92E142C79705643330FFF119
+PLUGINID = F8713648E24441748AAA3B62A77F9E2D
 
 SAMPLESFOLDER = ../../vstsamples
 SOURCEFOLDER = $(SAMPLESFOLDER)/mda-vst3/source
@@ -29,7 +30,7 @@ CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
 CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
-CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_setInteger', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_sendNote']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
 CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
@@ -217,12 +218,12 @@ VST4UI += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
 $(TARGET):
 #	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME) $(VST4UI)
 	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME)
-	cp ../../tools/index.html ./web/$(PROJECTNAME).html
-	cp ../../tools/lib.js ./web/$(PROJECTNAME).lib.js
-	cp ../../tools/processormodule.js ./web/$(PROJECTNAME).processor.js
-#	copy /Y ..\..\tools\index.html .\web\$(PROJECTNAME).html
-#	copy /Y ..\..\tools\lib.js .\web\$(PROJECTNAME).lib.js
-#	copy /Y ..\..\tools\processormodule.js .\web\$(PROJECTNAME).processor.js
-	node ../../tools/copyconvert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID)
+	cp ../../tools/index.html ./web/$(PROJECTNAME).$(SUBNAME).html
+	cp ../../tools/lib.js ./web/$(PROJECTNAME).$(SUBNAME).lib.js
+	cp ../../tools/processormodule.js ./web/$(PROJECTNAME).$(SUBNAME).processor.js
+#	copy /Y ..\..\tools\index.html .\web\$(PROJECTNAME).$(SUBNAME).html
+#	copy /Y ..\..\tools\lib.js .\web\$(PROJECTNAME).$(SUBNAME).lib.js
+#	copy /Y ..\..\tools\processormodule.js .\web\$(PROJECTNAME).$(SUBNAME).processor.js
+	node ../../tools/copyconvert.js $(PROJECTNAME) ./web/$(PROJECTNAME).wasm ./web $(PLUGINID) $(SUBNAME)
 
 
