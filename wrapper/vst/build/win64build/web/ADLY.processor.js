@@ -50,6 +50,8 @@ class ADLYProcessor extends AudioWorkletProcessor {
 			this.outArrayLeft = this.allocateArray32(this.buflength);
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
+			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
+			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
 		} catch (exx) {
 			console.log('exception', exx);
 		}
@@ -59,7 +61,7 @@ class ADLYProcessor extends AudioWorkletProcessor {
 	allocateArray32(size) {
 		var bytelen = 4;
 		var offset = this.vst._malloc(size * bytelen);
-		this.vst.HEAPF64.set(new Float64Array(size), offset / bytelen);
+		this.vst.HEAPF32.set(new Float32Array(size), offset / bytelen);
 		var array = {
 			"data": this.vst.HEAPF32.subarray(offset / bytelen, offset / bytelen + size) //
 		,
@@ -68,7 +70,7 @@ class ADLYProcessor extends AudioWorkletProcessor {
 		return array;
 	}
 	onmessage(e) {
-		console.log('message for processor', e);
+		console.log('processor: received:', e);
 		var status = e.data[0];
 		var data1 = e.data[1];
 		var data2 = e.data[2];
@@ -80,9 +82,16 @@ class ADLYProcessor extends AudioWorkletProcessor {
 			} else {
 				if (status == 1010) {
 					this.setup(data1);
+				}else{
+					if (status == 2020) {
+						this.sendParameter(data1,data2);
+					}
 				}
 			}
 		}
+	}
+	sendParameter(id,value){
+		this.VST3_setParameter(id,value);
 	}
 	process(inputs, outputs, parameters) {
 		if (inputs.length > 0) {

@@ -1,10 +1,14 @@
-PROJECTNAME = ADLY
+#PROJECTNAME = ADLY
+PROJECTNAME = MDAOVER
 TARGET = ./web/$(PROJECTNAME).js
 PLUGINID = 0CDBB66985D548A9BFD8371909D24BB3
+PLUGINID = 203C7009042A4AC2A515CFF1DF647E92
 
 SAMPLESFOLDER = ../../vstsamples
-SOURCEFOLDER = $(SAMPLESFOLDER)/adelay/source
-INCLUDEFOLDER = $(SAMPLESFOLDER)/adelay/include
+#SOURCEFOLDER = $(SAMPLESFOLDER)/adelay/source
+#INCLUDEFOLDER = $(SAMPLESFOLDER)/adelay/include
+SOURCEFOLDER = $(SAMPLESFOLDER)/mda-vst3/source
+INCLUDEFOLDER = $(SAMPLESFOLDER)/mda-vst3/source
 
 VSTLIB = ../../i
 CPPLIB = ../../i/CppLib
@@ -29,7 +33,7 @@ CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
 CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
-CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
 CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
@@ -38,14 +42,85 @@ LDFLAGS = -O2
 JSFLAGS = -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s BINARYEN_ASYNC_COMPILATION=0 
 JSFLAGS += -s EXPORT_NAME="'AudioWorkletGlobalScope.WAM.$(PROJECTNAME)'"
 
-PLUGINSOURCE = $(SOURCEFOLDER)/adelaycontroller.cpp \
-	$(SOURCEFOLDER)/adelayprocessor.cpp \
-	$(SOURCEFOLDER)/exampletest.cpp \
-	$(SOURCEFOLDER)/factory.cpp
+#PLUGINSOURCE = $(SOURCEFOLDER)/adelaycontroller.cpp \
+#	$(SOURCEFOLDER)/adelayprocessor.cpp \
+#	$(SOURCEFOLDER)/exampletest.cpp \
+#	$(SOURCEFOLDER)/factory.cpp
 
+PLUGINSOURCE = $(SOURCEFOLDER)/mdaAmbienceController.cpp \
+	$(SOURCEFOLDER)/mdaAmbienceProcessor.cpp \
+	$(SOURCEFOLDER)/mdaBandistoController.cpp \
+	$(SOURCEFOLDER)/mdaBandistoProcessor.cpp \
+	$(SOURCEFOLDER)/mdaBaseController.cpp \
+	$(SOURCEFOLDER)/mdaBaseProcessor.cpp \
+	$(SOURCEFOLDER)/mdaBeatBoxController.cpp \
+	$(SOURCEFOLDER)/mdaBeatBoxProcessor.cpp \
+	$(SOURCEFOLDER)/mdaComboController.cpp \
+	$(SOURCEFOLDER)/mdaComboProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDX10Controller.cpp \
+	$(SOURCEFOLDER)/mdaDX10Processor.cpp \
+	$(SOURCEFOLDER)/mdaDeEsserController.cpp \
+	$(SOURCEFOLDER)/mdaDeEsserProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDegradeController.cpp \
+	$(SOURCEFOLDER)/mdaDegradeProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDelayController.cpp \
+	$(SOURCEFOLDER)/mdaDelayProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDetuneController.cpp \
+	$(SOURCEFOLDER)/mdaDetuneProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDitherController.cpp \
+	$(SOURCEFOLDER)/mdaDitherProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDubDelayController.cpp \
+	$(SOURCEFOLDER)/mdaDubDelayProcessor.cpp \
+	$(SOURCEFOLDER)/mdaDynamicsController.cpp \
+	$(SOURCEFOLDER)/mdaDynamicsProcessor.cpp \
+	$(SOURCEFOLDER)/mdaEPianoController.cpp \
+	$(SOURCEFOLDER)/mdaEPianoProcessor.cpp \
+	$(SOURCEFOLDER)/mdaImageController.cpp \
+	$(SOURCEFOLDER)/mdaImageProcessor.cpp \
+	$(SOURCEFOLDER)/mdaJX10Controller.cpp \
+	$(SOURCEFOLDER)/mdaJX10Processor.cpp \
+	$(SOURCEFOLDER)/mdaLeslieController.cpp \
+	$(SOURCEFOLDER)/mdaLeslieProcessor.cpp \
+	$(SOURCEFOLDER)/mdaLimiterController.cpp \
+	$(SOURCEFOLDER)/mdaLimiterProcessor.cpp \
+	$(SOURCEFOLDER)/mdaLoudnessController.cpp \
+	$(SOURCEFOLDER)/mdaLoudnessProcessor.cpp \
+	$(SOURCEFOLDER)/mdaMultiBandController.cpp \
+	$(SOURCEFOLDER)/mdaMultiBandProcessor.cpp \
+	$(SOURCEFOLDER)/mdaOverdriveController.cpp \
+	$(SOURCEFOLDER)/mdaOverdriveProcessor.cpp \
+	$(SOURCEFOLDER)/mdaParameter.cpp \
+	$(SOURCEFOLDER)/mdaPianoController.cpp \
+	$(SOURCEFOLDER)/mdaPianoProcessor.cpp \
+	$(SOURCEFOLDER)/mdaRePsychoController.cpp \
+	$(SOURCEFOLDER)/mdaRePsychoProcessor.cpp \
+	$(SOURCEFOLDER)/mdaRezFilterController.cpp \
+	$(SOURCEFOLDER)/mdaRezFilterProcessor.cpp \
+	$(SOURCEFOLDER)/mdaRingModController.cpp \
+	$(SOURCEFOLDER)/mdaRingModProcessor.cpp \
+	$(SOURCEFOLDER)/mdaRoundPanController.cpp \
+	$(SOURCEFOLDER)/mdaRoundPanProcessor.cpp \
+	$(SOURCEFOLDER)/mdaShepardController.cpp \
+	$(SOURCEFOLDER)/mdaShepardProcessor.cpp \
+	$(SOURCEFOLDER)/mdaSpecMeterController.cpp \
+	$(SOURCEFOLDER)/mdaSpecMeterProcessor.cpp \
+	$(SOURCEFOLDER)/mdaSplitterController.cpp \
+	$(SOURCEFOLDER)/mdaSplitterProcessor.cpp \
+	$(SOURCEFOLDER)/mdaStereoController.cpp \
+	$(SOURCEFOLDER)/mdaStereoProcessor.cpp \
+	$(SOURCEFOLDER)/mdaSubSynthController.cpp \
+	$(SOURCEFOLDER)/mdaSubSynthProcessor.cpp \
+	$(SOURCEFOLDER)/mdaTalkBoxController.cpp \
+	$(SOURCEFOLDER)/mdaTalkBoxProcessor.cpp \
+	$(SOURCEFOLDER)/mdaTestToneController.cpp \
+	$(SOURCEFOLDER)/mdaTestToneProcessor.cpp \
+	$(SOURCEFOLDER)/mdaThruZeroController.cpp \
+	$(SOURCEFOLDER)/mdaThruZeroProcessor.cpp \
+	$(SOURCEFOLDER)/mdaTrackerController.cpp \
+	$(SOURCEFOLDER)/mdaTrackerProcessor.cpp \
+	$(SOURCEFOLDER)/mdafactory.cpp
 
-VSTRUNTIME = ../../tools/VST3JSExport.cpp
-VSTRUNTIME += $(VSTLIB)/base/source/fbuffer.cpp
+VSTRUNTIME = $(VSTLIB)/base/source/fbuffer.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fdebug.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fdynlib.cpp
 VSTRUNTIME += $(VSTLIB)/base/source/fobject.cpp
@@ -149,7 +224,7 @@ VST4UI += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
 .PHONY: $(TARGET)
 $(TARGET):
 #	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME) $(VST4UI)
-#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME)
+	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME)
 #	cp ../../tools/index.html ./web/$(PROJECTNAME).html
 #	cp ../../tools/lib.js ./web/$(PROJECTNAME).lib.js
 #	cp ../../tools/processormodule.js ./web/$(PROJECTNAME).processor.js

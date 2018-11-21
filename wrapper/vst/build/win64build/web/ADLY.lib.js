@@ -29,19 +29,26 @@ function probeInit() {
 				audioWorkletNode.connect(outputAudioNode);
 				inputAudioNode.connect(audioWorkletNode);
 				audioWorkletNode.port.onmessage = (event) => {
-					console.log('message for audioWorkletNode', event.data);
+					console.log('audioWorkletNode: received:', event);
 				};
 			});
 		});
 	});
 }
 
-function probeStart() {
-	console.log('probeStart');
+function probeLow() {
+	console.log('probeLow');
+	/*
 	audioWorkletNode.port.postMessage([144, 62, 80]);
 	setTimeout(function () {
 		audioWorkletNode.port.postMessage([128, 62, 80]);
 	}, 1000);
+	*/
+	audioWorkletNode.port.postMessage([2020, 100, 0.12]);
+}
+function probeHigh() {
+	console.log('probeHigh');
+	audioWorkletNode.port.postMessage([2020, 100, 3.21]);
 }
 function noteFx() {
 	console.log('noteStart');

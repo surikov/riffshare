@@ -137,10 +137,15 @@ extern "C" {
 		return selectedEditController->getParameterCount();
 	}
 	void VST3_setParameter(int id, float value) {
-		//
-	}
-	float VST3_getParameter(int id) {
-		return 0;
+		//browserLogInteger("set",id);
+		//browserLogFloat("to",value);
+		Steinberg::Vst::IParamValueQueue* queue = 0;
+		int parameterIndex=0;
+		queue = inputParameterChanges.addParameterData(id, parameterIndex);
+		int pointIndex=0;
+		int sampleOffset=0;
+		queue->addPoint (sampleOffset, value, pointIndex);
+		//browserLogInteger("done",0);
 	}
 	char const* VST3_parameterInfo(int nn) {
 		char buffer[999];
@@ -222,6 +227,7 @@ extern "C" {
 								}
 							}
 							result = selectedProcessor->setBusArrangements(inSpeakerArrangement, coInputBusCount, outSpeakerArrangement, coOutBusCount);
+							browserLogInteger("setBusArrangements in/out stereo",result);
 							result = selectedProcessor->canProcessSampleSize(Steinberg::Vst::SymbolicSampleSizes::kSample32);
 							int framePosition = 0;
 							double const beatPerMinute = 120.0;
@@ -298,6 +304,7 @@ extern "C" {
 		queue->addPoint (0, 2.0001, index);
 		*/
 		r = selectedProcessor->process (process_data);
+		inputParameterChanges.clearQueue();
 		for (int i = 0; i < process_data.numOutputs && i < 1; i++) {
 			Steinberg::Vst::BusInfo busInfo = {0};
 			int result = selectedComponent->getBusInfo (Steinberg::Vst::kAudio, Steinberg::Vst::BusDirections::kOutput, i, busInfo);
@@ -313,7 +320,7 @@ extern "C" {
 				}
 			}
 		}
-		inputParameterChanges.clearQueue();
+		
 		return r;
 	}
 }

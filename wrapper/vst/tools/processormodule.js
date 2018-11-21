@@ -16,8 +16,9 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 		//this.onAir = false;
 		this.buflength = sampleRate; //128;
 		this.vst = AudioWorkletGlobalScope.WAM.VSTMODULENAME;
-		var testID = 'HEXPLUGINKEY';
-		var testNum = 0;
+		this.testID = 'HEXPLUGINKEY';
+		this.testNum = 0;
+		this.testDescription = null;
 		try {
 			this.VST3Init = this.vst.cwrap("VST3_init", 'number', ['number', 'number']);
 			this.VST3Init(128, sampleRate);
@@ -31,19 +32,22 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 				var txt = this.VST3_classInfo(i);
 				var o = JSON.parse(txt);
 				console.log('class', i, o);
-				if (o.cid == testID) {
-					testNum = i;
+				if (o.cid == this.testID) {
+					this.testNum = i;
+					this.testDescription=o;
 				}
 			}
 			this.VST3_selectProcessor = this.vst.cwrap("VST3_selectProcessor", '', ['number']);
-			this.VST3_selectProcessor(testNum);
+			this.VST3_selectProcessor(this.testNum);
 			this.VST3_parametersCount = this.vst.cwrap("VST3_parametersCount", 'number', []);
 			var parcnt = this.VST3_parametersCount();
+			this.testDescription.parameters=[];
 			this.VST3_parameterInfo = this.vst.cwrap("VST3_parameterInfo", 'string', ['number']);
 			for (var i = 0; i < parcnt; i++) {
 				var txt = this.VST3_parameterInfo(i);
 				var o = JSON.parse(txt);
 				console.log('parameter', i, o);
+				this.testDescription.parameters.push(o);
 			}
 			this.inArrayLeft = this.allocateArray32(this.buflength);
 			this.inArrayRight = this.allocateArray32(this.buflength);
@@ -51,17 +55,17 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
 			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
-			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
 		} catch (exx) {
 			console.log('exception', exx);
 		}
-		this.port.postMessage('processor setup done');
+		//this.port.postMessage('processor setup done');
+		this.port.postMessage({kind:'ready',value:this.testDescription});
 		console.log('done processor');
 	}
 	allocateArray32(size) {
 		var bytelen = 4;
 		var offset = this.vst._malloc(size * bytelen);
-		this.vst.HEAPF64.set(new Float64Array(size), offset / bytelen);
+		this.vst.HEAPF32.set(new Float32Array(size), offset / bytelen);
 		var array = {
 			"data": this.vst.HEAPF32.subarray(offset / bytelen, offset / bytelen + size) //
 		,
@@ -70,8 +74,21 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 		return array;
 	}
 	onmessage(e) {
-		console.log('message for processor', e);
-		var status = e.data[0];
+		//console.log('processor: received:', e);
+		if(e.data.kind=='setup'){
+			this.setup(e.data.value);
+			return;
+		}
+		if(e.data.kind=='set'){
+			this.sendParameter(e.data.value,e.data.subvalue);
+			return;
+		}
+		/*if(e.data.kind=='description'){
+			this.port.postMessage({kind:'description',value:this.testDescription});
+			return;
+		}*/
+		console.log('unknown', e.data);
+		/*var status = e.data[0];
 		var data1 = e.data[1];
 		var data2 = e.data[2];
 		if (status == 144) {
@@ -82,9 +99,16 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 			} else {
 				if (status == 1010) {
 					this.setup(data1);
+				}else{
+					if (status == 2020) {
+						this.sendParameter(data1,data2);
+					}
 				}
 			}
-		}
+		}*/
+	}
+	sendParameter(id,value){
+		this.VST3_setParameter(id,value);
 	}
 	process(inputs, outputs, parameters) {
 		if (inputs.length > 0) {
