@@ -1,4 +1,4 @@
-console.log('index');
+console.log('load library script');
 
 var audioWorkletNode = null;
 var player = null;
@@ -27,13 +27,13 @@ function probeInit() {
 				//audioWorkletNode.port.postMessage([1010, audioContext.sampleRate]);
 				audioWorkletNode.port.postMessage({
 					kind: 'setup',
-					value: audioContext.sampleRate
+					sampleRate: audioContext.sampleRate
 				});
 				//audioWorkletNode.connect(audioContext.destination);
 				audioWorkletNode.connect(outputAudioNode);
 				inputAudioNode.connect(audioWorkletNode);
 				audioWorkletNode.port.onmessage = (event) => {
-					//console.log('audioWorkletNode: received:', event);
+					//console.log('audioWorkletNode: received:', event.data);
 					onmessage(event);
 				};
 			});
@@ -42,13 +42,15 @@ function probeInit() {
 }
 function onmessage(e) {
 	if (event.data.kind == 'ready') {
-		showParameters(e.data.value);
+		showParameters(e.data.description);
+		this.description = e.data.description;
 		return;
 	}
 	/*if (event.data.kind == 'description') {
 	document.getElementById('uititle').innerHTML = '' + e.data.value.subcategory + ': ' + e.data.value.name;
 	return;
 	}*/
+	console.log('audioWorkletNode: received: unknown', e.data);
 }
 function showParameters(value) {
 	document.getElementById('uidiv').innerHTML = '<p>ready</p>';
@@ -59,22 +61,28 @@ function showParameters(value) {
 		if (u.trim().length) {
 			u = ' (' + u + ')';
 		}
-		txt = txt + '<input type="range" min="0" max="1.0" step="0.01" id="parameter' + i + '" value="' + (1 * value.parameters[i].defaultNormalizedValue) + '" onchange="changeParameter(' + i + ',this.value)" > <label>' + value.parameters[i].title + u + '</label><br/>';
+		var minVal = 0.0;
+		var maxVal = 1.0;
+		var step = 0.01;
+		txt = txt + '<input type="range" min="' + minVal + '" max="' + maxVal + '" step="' + step + '" id="parameter'
+			 + i + '" value="'
+			 + (1 * value.parameters[i].defaultNormalizedValue) + '" onchange="changeParameter('
+			 +i + ',this.value)" > <label>' + value.parameters[i].title + u + '</label><br/>';
 		audioWorkletNode.port.postMessage({
 			kind: 'set',
-			value: i,
-			subvalue: 1 * value.parameters[i].defaultNormalizedValue
+			id: i,
+			value: 1 * value.parameters[i].defaultNormalizedValue
 		});
 	}
 	txt = txt + '</p>';
 	document.getElementById('uidiv').innerHTML = txt;
 }
 function changeParameter(i, value) {
-	//console.log('changeParameter',i,value);
+	console.log('changeParameter',i,'id',this.description.parameters[i].id,'to',value);
 	audioWorkletNode.port.postMessage({
 		kind: 'set',
-		value: i,
-		subvalue: value
+		id:  this.description.parameters[i].id,
+		value: value
 	});
 }
 function __probeLow() {
@@ -103,19 +111,33 @@ function __probeHigh() {
 }
 function noteSend1() {
 	audioWorkletNode.port.postMessage({
-		kind: 'send',
-		value: 60,
-		subvalue: 0.5,
-		duration: 0.75
+		kind: 'on',
+		key: 60,
+		duration: 0.5,
+		velocity: 0.75
 	});
+	setTimeout(function () {
+		audioWorkletNode.port.postMessage({
+			kind: 'off',
+			key: 60,
+			velocity: 0.75
+		});
+	}, 500);
 }
 function noteSend2() {
 	audioWorkletNode.port.postMessage({
-		kind: 'send',
-		value: 80,
-		subvalue: 0.5,
-		duration: 0.75
+		kind: 'on',
+		key: 80,
+		duration: 2,
+		velocity: 0.75
 	});
+	setTimeout(function () {
+		audioWorkletNode.port.postMessage({
+			kind: 'off',
+			key: 80,
+			velocity: 0.75
+		});
+	}, 2000);
 }
 function noteFx() {
 	console.log('noteStart');

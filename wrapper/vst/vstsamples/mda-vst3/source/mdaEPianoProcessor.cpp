@@ -19,7 +19,14 @@
 #include "mdaEPianoData.h"
 
 #include <math.h>
-
+/*
+#include <emscripten.h>
+char sb[999];
+void logI(char const * txt, int nn) {
+	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s: %d');//", txt, nn);
+	emscripten_run_script(sb);
+}
+*/
 namespace Steinberg {
 namespace Vst {
 namespace mda {
@@ -383,6 +390,11 @@ void EPianoProcessor::processEvents (IEventList* events)
 			{
 				case Event::kNoteOnEvent:
 				{
+					/*
+					logI("add note",e.noteOn.pitch);
+					logI("offset",e.sampleOffset);
+					logI("velocity",e.noteOn.velocity);
+					*/
 					notes[eventPos++] = e.sampleOffset;
 					notes[eventPos++] = e.noteOn.pitch;
 					notes[eventPos++] = e.noteOn.velocity * 127;

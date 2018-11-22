@@ -1,11 +1,11 @@
-console.log('processor');
+console.log('load processor script');
 class MDAProcessor extends AudioWorkletProcessor {
 	constructor(options) {
 		super(options);
 		//this.setup(44100);
 		this.port.onmessage = this.onmessage.bind(this);
 		this.port.start();
-		this.port.postMessage('processor constructor done');
+		//this.port.postMessage('processor constructor done');
 	}
 	setup(sampleRate) {
 		console.log('setup', sampleRate);
@@ -16,7 +16,7 @@ class MDAProcessor extends AudioWorkletProcessor {
 		//this.onAir = false;
 		this.buflength = sampleRate; //128;
 		this.vst = AudioWorkletGlobalScope.WAM.MDA;
-		this.testID = 'F8713648E24441748AAA3B62A77F9E2D';
+		this.testID = 'FED93DB85E81448FA3B14028879FA824';
 		this.testNum = 0;
 		this.testDescription = null;
 		try {
@@ -34,14 +34,14 @@ class MDAProcessor extends AudioWorkletProcessor {
 				console.log('class', i, o);
 				if (o.cid == this.testID) {
 					this.testNum = i;
-					this.testDescription=o;
+					this.testDescription = o;
 				}
 			}
 			this.VST3_selectProcessor = this.vst.cwrap("VST3_selectProcessor", '', ['number']);
 			this.VST3_selectProcessor(this.testNum);
 			this.VST3_parametersCount = this.vst.cwrap("VST3_parametersCount", 'number', []);
 			var parcnt = this.VST3_parametersCount();
-			this.testDescription.parameters=[];
+			this.testDescription.parameters = [];
 			this.VST3_parameterInfo = this.vst.cwrap("VST3_parameterInfo", 'string', ['number']);
 			for (var i = 0; i < parcnt; i++) {
 				var txt = this.VST3_parameterInfo(i);
@@ -55,12 +55,17 @@ class MDAProcessor extends AudioWorkletProcessor {
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
 			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
-			this.VST3_sendNote = this.vst.cwrap("VST3_sendNote", '', ['number', 'number']);
+			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
+			this.VST3_sendNoteOn = this.vst.cwrap("VST3_sendNoteOn", '', ['number', 'number', 'number', 'number']);
+			this.VST3_sendNoteOff = this.vst.cwrap("VST3_sendNoteOff", '', ['number', 'number', 'number']);
 		} catch (exx) {
 			console.log('exception', exx);
 		}
 		//this.port.postMessage('processor setup done');
-		this.port.postMessage({kind:'ready',value:this.testDescription});
+		this.port.postMessage({
+			kind: 'ready',
+			description: this.testDescription
+		});
 		console.log('done processor');
 	}
 	allocateArray32(size) {
@@ -75,46 +80,62 @@ class MDAProcessor extends AudioWorkletProcessor {
 		return array;
 	}
 	onmessage(e) {
-		//console.log('processor: received:', e);
-		if(e.data.kind=='setup'){
-			this.setup(e.data.value);
+		//console.log('processor: received:', e.data);
+		if (e.data.kind == 'setup') {
+			this.setup(e.data.sampleRate);
 			return;
 		}
-		if(e.data.kind=='set'){
-			this.sendParameter(e.data.value,e.data.subvalue);
+		if (e.data.kind == 'set') {
+			//this.sendParameter(e.data.value,e.data.subvalue);
+			//console.log(e.data.id,e.data.value);
+			this.VST3_setParameter(e.data.id, e.data.value);
+			for (var i = 0; i < this.testDescription.parameters.length; i++) {
+				var id=this.testDescription.parameters[i].id;
+				var value = this.VST3_getParameter(id);
+				this.port.postMessage({
+					kind: 'set',
+					id: id,
+					value: value
+				});
+			}
 			return;
 		}
-		if(e.data.kind=='send'){
-			this.VST3_sendNote(e.data.value,e.data.subvalue);
+		if (e.data.kind == 'on') {
+			this.VST3_sendNoteOn(e.data.key, e.data.duration, e.data.velocity, 333222);
+			return;
+		}
+		if (e.data.kind == 'off') {
+			this.VST3_sendNoteOff(e.data.key, e.data.velocity, 333222);
 			return;
 		}
 		/*if(e.data.kind=='description'){
-			this.port.postMessage({kind:'description',value:this.testDescription});
-			return;
+		this.port.postMessage({kind:'description',value:this.testDescription});
+		return;
 		}*/
 		console.log('unknown', e.data);
 		/*var status = e.data[0];
 		var data1 = e.data[1];
 		var data2 = e.data[2];
 		if (status == 144) {
-			this.onAir = true;
+		this.onAir = true;
 		} else {
-			if (status == 128) {
-				this.onAir = false;
-			} else {
-				if (status == 1010) {
-					this.setup(data1);
-				}else{
-					if (status == 2020) {
-						this.sendParameter(data1,data2);
-					}
-				}
-			}
+		if (status == 128) {
+		this.onAir = false;
+		} else {
+		if (status == 1010) {
+		this.setup(data1);
+		}else{
+		if (status == 2020) {
+		this.sendParameter(data1,data2);
+		}
+		}
+		}
 		}*/
 	}
-	sendParameter(id,value){
-		this.VST3_setParameter(id,value);
-	}
+	/*sendParameter(id,value){
+	console.log('sendParameter',id,value);
+	this.VST3_setParameter(id,value);
+	}*/
 	process(inputs, outputs, parameters) {
 		if (inputs.length > 0) {
 			var firstInput = inputs[0];

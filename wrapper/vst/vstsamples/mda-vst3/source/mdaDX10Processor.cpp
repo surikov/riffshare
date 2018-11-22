@@ -18,7 +18,14 @@
 #include "mdaDX10Controller.h"
 
 #include <math.h>
-
+/*
+#include <emscripten.h>
+char sb[999];
+void browserLogInteger(char const * txt, int nn) {
+	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s: %d');//", txt, nn);
+	emscripten_run_script(sb);
+}
+*/
 namespace Steinberg {
 namespace Vst {
 namespace mda {
@@ -281,6 +288,8 @@ void DX10Processor::processEvents (IEventList* events)
 			{
 				case Event::kNoteOnEvent:
 				{
+					
+					
 					notes[npos++] = e.sampleOffset;
 					notes[npos++] = e.noteOn.pitch;
 					notes[npos++] = e.noteOn.velocity * 127;

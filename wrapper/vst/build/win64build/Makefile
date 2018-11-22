@@ -4,7 +4,8 @@ SUBNAME = DX10
 TARGET = ./web/$(PROJECTNAME).js
 #PLUGINID = 0CDBB66985D548A9BFD8371909D24BB3
 #PLUGINID = 203C7009042A4AC2A515CFF1DF647E92
-PLUGINID = F8713648E24441748AAA3B62A77F9E2D
+#PLUGINID = F8713648E24441748AAA3B62A77F9E2D #dx10
+PLUGINID = FED93DB85E81448FA3B14028879FA824 #epiano
 
 SAMPLESFOLDER = ../../vstsamples
 #SOURCEFOLDER = $(SAMPLESFOLDER)/adelay/source
@@ -35,7 +36,7 @@ CFLAGS += -D__INTEL__=1
 CFLAGS += -D__INTEL_CXX11_MODE__
 CFLAGS += -DTARGET_CPU_X86_64=1 
 CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
-CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_sendNote']"
+CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_getParameter', '_VST3_sendNoteOn', '_VST3_sendNoteOff']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
 CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0

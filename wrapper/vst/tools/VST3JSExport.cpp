@@ -52,6 +52,8 @@ Steinberg::Vst::ParameterChanges outParameterChanges;
 Steinberg::Vst::EventList inputEventList;
 Steinberg::Vst::EventList outEventList;
 
+Steinberg::Vst::ParameterInfo parameterInfo;
+
 
 char sb[999];
 
@@ -140,36 +142,64 @@ extern "C" {
 		return selectedEditController->getParameterCount();
 	}
 	void VST3_setParameter(int id, float value) {
-		//browserLogInteger("set",id);
-		//browserLogFloat("to",value);
+		browserLogInteger("set",id);
+		browserLogFloat("to",value);
+		
+		/*
 		Steinberg::Vst::IParamValueQueue* queue = 0;
 		int parameterIndex=0;
 		queue = inputParameterChanges.addParameterData(id, parameterIndex);
 		int pointIndex=0;
 		int sampleOffset=0;
 		queue->addPoint (sampleOffset, value, pointIndex);
-		//browserLogInteger("done",0);
+		*/
+		selectedEditController->setParamNormalized(id,value);
+		
+		browserLogInteger("done",0);
+		//selectedComponent->setActive(false);
+		//selectedComponent->setActive(true);
 	}
-	void VST3_sendNote(int key, float duration) {
-		browserLogInteger("add event to",inputEventList.getEventCount());
+	float VST3_getParameter(int id) {
+		double value=selectedEditController->getParamNormalized(id);
+		return value;
+	}
+	void VST3_sendNoteOn(int key, float duration,double velocity, int id) {
+		//browserLogInteger("add on event to",inputEventList.getEventCount());
 		Steinberg::Vst::Event e;
 		e.busIndex = 0;
 		e.sampleOffset = 0;
 		e.ppqPosition = 0;//process_context.projectTimeMusic;
 		e.flags = Steinberg::Vst::Event::kIsLive;
-e.type = Steinberg::Vst::Event::kNoteOnEvent;
-				e.noteOn.channel = 0;
-				e.noteOn.length = sampleRate;
-				e.noteOn.pitch = key;
-				e.noteOn.tuning = 0;
-				e.noteOn.noteId = -1;
-				e.noteOn.velocity = 100 / 127.0;		
+		e.type = Steinberg::Vst::Event::kNoteOnEvent;
+		e.noteOn.channel = 0;
+		e.noteOn.length = duration*sampleRate;
+		e.noteOn.pitch = key;
+		e.noteOn.tuning = 0;
+		e.noteOn.noteId = id;//-1;
+		e.noteOn.velocity =velocity;//100 / 127.0;		
+		inputEventList.addEvent(e);
+	}
+	void VST3_sendNoteOff(int key, double velocity, int id) {
+		//browserLogInteger("add off event to",inputEventList.getEventCount());
+		Steinberg::Vst::Event e;
+		e.busIndex = 0;
+		e.sampleOffset = 0;
+		e.ppqPosition = 0;//process_context.projectTimeMusic;
+		e.flags = Steinberg::Vst::Event::kIsLive;
+		e.type = Steinberg::Vst::Event::kNoteOffEvent;
+		e.noteOff.channel = 0;
+		//e.noteOn.length = duration*sampleRate;
+		e.noteOff.pitch = key;
+		e.noteOff.tuning = 0;
+		e.noteOff.noteId = id;//-1;
+		e.noteOff.velocity =velocity;//100 / 127.0;		
 		inputEventList.addEvent(e);
 	}
 	char const* VST3_parameterInfo(int nn) {
 		char buffer[999];
-		Steinberg::Vst::ParameterInfo parameterInfo;
+		
 		selectedEditController->getParameterInfo (nn, parameterInfo);
+		selectedEditController->setComponentHandler(nullptr);
 
 		Steinberg::UString128 title16 (parameterInfo.title);
 		char title8[128];
@@ -315,6 +345,17 @@ e.type = Steinberg::Vst::Event::kNoteOnEvent;
 				}
 			}
 		}
+		int cnt=selectedEditController->getParameterCount();
+		for (int i = 0; i < cnt; i++) {
+			selectedEditController->getParameterInfo (i, parameterInfo);
+			double value=selectedEditController->getParamNormalized( parameterInfo.id);
+			//Steinberg::Vst::IParamValueQueue* queue = 0;
+			int parameterIndex=0;
+			Steinberg::Vst::IParamValueQueue* queue = inputParameterChanges.addParameterData(i, parameterIndex);
+			int pointIndex=0;
+			int sampleOffset=0;
+			queue->addPoint (sampleOffset, value, pointIndex);			
+		}
 		r = selectedProcessor->process (process_data);
 		inputParameterChanges.clearQueue();
 		inputEventList.clear();
@@ -350,7 +391,16 @@ e.type = Steinberg::Vst::Event::kNoteOnEvent;
 				}
 			}
 		}
-		
+		/*if(outParameterChanges.getParameterCount()>0){
+			browserLogInteger("outParameterChanges",outParameterChanges.getParameterCount());
+		}*/
+		outParameterChanges.clearQueue();
+		/*for(int i = 0; i < output_changes_.getParameterCount(); ++i) {
+			auto *queue = output_changes_.getParameterData(i);
+			if(queue && queue->getPointCount() > 0) {
+				hwm::dout << "Output parameter count [" << i << "] : " << queue->getPointCount() << std::endl;
+			}
+		}*/
 		return r;
 	}
 }
