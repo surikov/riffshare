@@ -65,6 +65,30 @@ void browserLogFloat(char const * txt, float f) {
 	snprintf(sb, sizeof(sb), "console.log(' - VST3JS - %s: %.9f');//", txt, f);
 	emscripten_run_script(sb);
 }
+class SilentComponentHandler: public Steinberg::FObject, public Steinberg::Vst::IComponentHandler {
+	public:
+		//int test=1;
+	Steinberg::tresult beginEdit (Steinberg::Vst::ParamID tag)	override {
+		return true;
+	}
+	Steinberg::tresult performEdit	(	Steinberg::Vst::ParamID 	id,		Steinberg::Vst::ParamValue 	valueNormalized 		)override	{
+		return true;
+	}
+	Steinberg::tresult endEdit	(	Steinberg::Vst::ParamID 	id	)	override{
+		return true;
+	}
+	Steinberg::tresult restartComponent	(	int 	flags	)override	{
+		return true;
+	}
+	OBJ_METHODS (SilentComponentHandler, Steinberg::FObject)
+	DEFINE_INTERFACES
+		DEF_INTERFACE (Steinberg::Vst::IComponentHandler)
+	END_DEFINE_INTERFACES (Steinberg::FObject)
+	REFCOUNT_METHODS(Steinberg::FObject)
+};
+
+SilentComponentHandler * silentComponentHandler;
+
 Steinberg::int32 createBuffers (Steinberg::Vst::IComponent& component, Steinberg::Vst::AudioBusBuffers*& buffers
                                 , Steinberg::Vst::BusDirection dir, Steinberg::int32 bufferSamples, Steinberg::int32 symbolicSampleSize
                                ) {
@@ -142,9 +166,9 @@ extern "C" {
 		return selectedEditController->getParameterCount();
 	}
 	void VST3_setParameter(int id, float value) {
-		browserLogInteger("set",id);
-		browserLogFloat("to",value);
-		
+		browserLogInteger("set", id);
+		browserLogFloat("to", value);
+
 		/*
 		Steinberg::Vst::IParamValueQueue* queue = 0;
 		int parameterIndex=0;
@@ -153,17 +177,18 @@ extern "C" {
 		int sampleOffset=0;
 		queue->addPoint (sampleOffset, value, pointIndex);
 		*/
-		selectedEditController->setParamNormalized(id,value);
-		
-		browserLogInteger("done",0);
+		selectedEditController->setParamNormalized(id, value);
+
+		browserLogFloat("plain", selectedEditController->normalizedParamToPlain(id, value));
+		browserLogFloat("normalized", selectedEditController->plainParamToNormalized(id, value));
 		//selectedComponent->setActive(false);
 		//selectedComponent->setActive(true);
 	}
 	float VST3_getParameter(int id) {
-		double value=selectedEditController->getParamNormalized(id);
+		double value = selectedEditController->getParamNormalized(id);
 		return value;
 	}
-	void VST3_sendNoteOn(int key, float duration,double velocity, int id) {
+	void VST3_sendNoteOn(int key, float duration, double velocity, int id) {
 		//browserLogInteger("add on event to",inputEventList.getEventCount());
 		Steinberg::Vst::Event e;
 		e.busIndex = 0;
@@ -172,11 +197,11 @@ extern "C" {
 		e.flags = Steinberg::Vst::Event::kIsLive;
 		e.type = Steinberg::Vst::Event::kNoteOnEvent;
 		e.noteOn.channel = 0;
-		e.noteOn.length = duration*sampleRate;
+		e.noteOn.length = duration * sampleRate;
 		e.noteOn.pitch = key;
 		e.noteOn.tuning = 0;
 		e.noteOn.noteId = id;//-1;
-		e.noteOn.velocity =velocity;//100 / 127.0;		
+		e.noteOn.velocity = velocity; //100 / 127.0;
 		inputEventList.addEvent(e);
 	}
 	void VST3_sendNoteOff(int key, double velocity, int id) {
@@ -192,12 +217,12 @@ extern "C" {
 		e.noteOff.pitch = key;
 		e.noteOff.tuning = 0;
 		e.noteOff.noteId = id;//-1;
-		e.noteOff.velocity =velocity;//100 / 127.0;		
+		e.noteOff.velocity = velocity; //100 / 127.0;
 		inputEventList.addEvent(e);
 	}
 	char const* VST3_parameterInfo(int nn) {
 		char buffer[999];
-		
+
 		selectedEditController->getParameterInfo (nn, parameterInfo);
 		selectedEditController->setComponentHandler(nullptr);
 
@@ -244,6 +269,10 @@ extern "C" {
 					if (selectedEditController && (result == Steinberg::kResultOk))
 					{
 						result = selectedEditController->initialize (localPluginContext);
+						silentComponentHandler = new SilentComponentHandler();
+						//silentComponentHandler->test=400;
+						result = selectedEditController->setComponentHandler(silentComponentHandler);
+						browserLogInteger("selectedEditController->setComponentHandler",result);
 						Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> selectedProcessor = selectedComponent;
 						selectedProcessor = selectedComponent;
 						if (!selectedProcessor) {
@@ -276,7 +305,7 @@ extern "C" {
 								}
 							}
 							result = selectedProcessor->setBusArrangements(inSpeakerArrangement, coInputBusCount, outSpeakerArrangement, coOutBusCount);
-							browserLogInteger("setBusArrangements in/out stereo",result);
+							browserLogInteger("setBusArrangements in/out stereo", result);
 							result = selectedProcessor->canProcessSampleSize(Steinberg::Vst::SymbolicSampleSizes::kSample32);
 							//int framePosition = 0;
 							//double const beatPerMinute = 120.0;
@@ -294,7 +323,7 @@ extern "C" {
 							                          //| Steinberg::Vst::ProcessContext::StatesAndFlags::kTimeSigValid
 							                          ;
 							//vstProcessContext.systemTime = 0;
-							
+
 							inputParameterChanges.setMaxParameters(selectedEditController->getParameterCount());
 							outParameterChanges.setMaxParameters(selectedEditController->getParameterCount());
 							inputParameterChanges.clearQueue();
@@ -345,16 +374,18 @@ extern "C" {
 				}
 			}
 		}
-		int cnt=selectedEditController->getParameterCount();
+		int cnt = selectedEditController->getParameterCount();
 		for (int i = 0; i < cnt; i++) {
 			selectedEditController->getParameterInfo (i, parameterInfo);
-			double value=selectedEditController->getParamNormalized( parameterInfo.id);
+			double value = selectedEditController->getParamNormalized( parameterInfo.id);
+			//double plain=selectedEditController->normalizedParamToPlain(parameterInfo.id, value);
 			//Steinberg::Vst::IParamValueQueue* queue = 0;
-			int parameterIndex=0;
+			int parameterIndex = 0;
 			Steinberg::Vst::IParamValueQueue* queue = inputParameterChanges.addParameterData(i, parameterIndex);
-			int pointIndex=0;
-			int sampleOffset=0;
-			queue->addPoint (sampleOffset, value, pointIndex);			
+			int pointIndex = 0;
+			int sampleOffset = 0;
+			queue->addPoint (sampleOffset, value, pointIndex);
+			//queue->addPoint (sampleOffset, plain, pointIndex);
 		}
 		r = selectedProcessor->process (process_data);
 		inputParameterChanges.clearQueue();

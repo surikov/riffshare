@@ -46,6 +46,9 @@ function onmessage(e) {
 		this.description = e.data.description;
 		return;
 	}
+	if (event.data.kind == 'set') {
+		return;
+	}
 	/*if (event.data.kind == 'description') {
 	document.getElementById('uititle').innerHTML = '' + e.data.value.subcategory + ': ' + e.data.value.name;
 	return;

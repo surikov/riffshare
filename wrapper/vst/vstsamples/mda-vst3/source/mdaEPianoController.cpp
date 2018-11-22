@@ -85,23 +85,23 @@ tresult PLUGIN_API EPianoController::terminate ()
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API EPianoController::setParamNormalized (ParamID tag, ParamValue value)
 {
-	emscripten_run_script("console.log('m1');//");
+	//emscripten_run_script("console.log('m1');//");
 	tresult res = BaseController::setParamNormalized (tag, value);
 	if (res == kResultOk && tag == kPresetParam) // preset change
 	{
-		emscripten_run_script("console.log('m2');//");
+		//emscripten_run_script("console.log('m2');//");
 		int32 program = (int32)parameters.getParameter (tag)->toPlain (value);
-		emscripten_run_script("console.log('m3');//");
+		//emscripten_run_script("console.log('m3');//");
 		for (int32 i = 0; i < 12; i++)
 		{
-			emscripten_run_script("console.log('m4');//");
+			//emscripten_run_script("console.log('m4');//");
 			BaseController::setParamNormalized (i, EPianoProcessor::programParams[program][i]);
 		}
-		emscripten_run_script("console.log('m5');//");
+		emscripten_run_script("console.log('start componentHandler->restartComponent');//");
 		componentHandler->restartComponent (kParamValuesChanged);
-		emscripten_run_script("console.log('m6');//");
+		emscripten_run_script("console.log('done componentHandler->restartComponent');//");
 	}
-	emscripten_run_script("console.log('m7');//");
+	//emscripten_run_script("console.log('m7');//");
 	return res;
 }
 

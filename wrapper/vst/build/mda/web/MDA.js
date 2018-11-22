@@ -1681,7 +1681,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 2116000;
+STATICTOP = STATIC_BASE + 2117264;
 /* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_VST3JSExport_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
 
 
@@ -1690,7 +1690,7 @@ STATICTOP = STATIC_BASE + 2116000;
 
 
 
-var STATIC_BUMP = 2116000;
+var STATIC_BUMP = 2117264;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -2406,12 +2406,14 @@ var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 
 var _VST3_classInfo = Module["_VST3_classInfo"] = asm["_VST3_classInfo"];
 var _VST3_description = Module["_VST3_description"] = asm["_VST3_description"];
+var _VST3_getParameter = Module["_VST3_getParameter"] = asm["_VST3_getParameter"];
 var _VST3_init = Module["_VST3_init"] = asm["_VST3_init"];
 var _VST3_parameterInfo = Module["_VST3_parameterInfo"] = asm["_VST3_parameterInfo"];
 var _VST3_parametersCount = Module["_VST3_parametersCount"] = asm["_VST3_parametersCount"];
 var _VST3_process = Module["_VST3_process"] = asm["_VST3_process"];
 var _VST3_selectProcessor = Module["_VST3_selectProcessor"] = asm["_VST3_selectProcessor"];
-var _VST3_sendNote = Module["_VST3_sendNote"] = asm["_VST3_sendNote"];
+var _VST3_sendNoteOff = Module["_VST3_sendNoteOff"] = asm["_VST3_sendNoteOff"];
+var _VST3_sendNoteOn = Module["_VST3_sendNoteOn"] = asm["_VST3_sendNoteOn"];
 var _VST3_setParameter = Module["_VST3_setParameter"] = asm["_VST3_setParameter"];
 var __GLOBAL__sub_I_VST3JSExport_cpp = Module["__GLOBAL__sub_I_VST3JSExport_cpp"] = asm["__GLOBAL__sub_I_VST3JSExport_cpp"];
 var __GLOBAL__sub_I_coreiids_cpp = Module["__GLOBAL__sub_I_coreiids_cpp"] = asm["__GLOBAL__sub_I_coreiids_cpp"];
