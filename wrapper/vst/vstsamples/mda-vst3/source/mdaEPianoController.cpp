@@ -97,9 +97,9 @@ tresult PLUGIN_API EPianoController::setParamNormalized (ParamID tag, ParamValue
 			//emscripten_run_script("console.log('m4');//");
 			BaseController::setParamNormalized (i, EPianoProcessor::programParams[program][i]);
 		}
-		emscripten_run_script("console.log('start componentHandler->restartComponent');//");
+		//emscripten_run_script("console.log('start EPianoProcessor componentHandler->restartComponent');//");
 		componentHandler->restartComponent (kParamValuesChanged);
-		emscripten_run_script("console.log('done componentHandler->restartComponent');//");
+		//emscripten_run_script("console.log('done EPianoProcessor componentHandler->restartComponent');//");
 	}
 	//emscripten_run_script("console.log('m7');//");
 	return res;

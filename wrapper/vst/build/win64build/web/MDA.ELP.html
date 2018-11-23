@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title>Probe</title>
+		<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+		<script src='https://surikov.github.io/webaudiofontdata/sound/0000_JCLive_sf2_file.js'></script>
+		<script src="MDA.ELP.lib.js"></script>
+	</head>
+	<body onload="probeInit()">
+		<h1 id="uititle">Test</h1>
+		<div id="uidiv">loading...</div>
+		<!--<p><a href='#' onclick='probeLow();'>low</a> | <a href='#' onclick='probeHigh();'>high</a></p>-->
+		<p><a href="#" onmousedown="noteFx();">fx a note</a></p>
+		<p><a href="#" onmousedown="noteSend1();">send a note 1</a></p>
+		<p><a href="#" onmousedown="noteSend2();">send a note 2</a></p>
+		<p><a href="#" onmousedown="notePass();">pass a note</a></p>
+	</body>
+</html>

@@ -42,11 +42,12 @@ function probeInit() {
 }
 function onmessage(e) {
 	if (event.data.kind == 'ready') {
-		showParameters(e.data.description);
+		resetParameters(e.data.description);
 		this.description = e.data.description;
 		return;
 	}
 	if (event.data.kind == 'set') {
+		setParameterLabel(event.data.id,event.data.value.representation,event.data.value.normalized);
 		return;
 	}
 	/*if (event.data.kind == 'description') {
@@ -55,30 +56,49 @@ function onmessage(e) {
 	}*/
 	console.log('audioWorkletNode: received: unknown', e.data);
 }
-function showParameters(value) {
+function setParameterLabel(id,representation,norm){
+	for (var i = 0; i < this.description.parameters.length; i++) {
+		if(this.description.parameters[i].id==id){
+			document.getElementById('label'+i).innerHTML = this.description.parameters[i].title 
+			+ ' '+representation+this.description.parameters[i].units;
+			document.getElementById('parameter'+i).value =1.0*norm;
+			break;
+		}
+	}
+	
+	//console.log(id,representation);
+}
+function resetParameters(value) {
 	document.getElementById('uidiv').innerHTML = '<p>ready</p>';
 	document.getElementById('uititle').innerHTML = '' + value.subcategory + ': ' + value.name;
 	var txt = '<p>';
 	for (var i = 0; i < value.parameters.length; i++) {
-		var u = value.parameters[i].units;
+		/*var u = value.parameters[i].units;
 		if (u.trim().length) {
 			u = ' (' + u + ')';
-		}
+		}*/
 		var minVal = 0.0;
 		var maxVal = 1.0;
 		var step = 0.01;
 		txt = txt + '<input type="range" min="' + minVal + '" max="' + maxVal + '" step="' + step + '" id="parameter'
 			 + i + '" value="'
 			 + (1 * value.parameters[i].defaultNormalizedValue) + '" onchange="changeParameter('
-			 +i + ',this.value)" > <label>' + value.parameters[i].title + u + '</label><br/>';
+			 +i + ',this.value)" > <label id="label'+i+'">' 
+			 //+ value.parameters[i].title + u 
+			 +i+ '</label><br/>';
+		
 		audioWorkletNode.port.postMessage({
 			kind: 'set',
-			id: i,
-			value: 1 * value.parameters[i].defaultNormalizedValue
+			id: value.parameters[i].id,
+			value: 1 * value.parameters[i].defaultNormalizedValue,
+			nocallback:i<value.parameters.length-1
 		});
 	}
 	txt = txt + '</p>';
 	document.getElementById('uidiv').innerHTML = txt;
+	/*for (var i = 0; i < value.parameters.length; i++) {
+		document.getElementById('parameter'+i).value = 0.5;
+	}*/
 }
 function changeParameter(i, value) {
 	console.log('changeParameter',i,'id',this.description.parameters[i].id,'to',value);
@@ -113,32 +133,36 @@ function __probeHigh() {
 	});
 }
 function noteSend1() {
+	var id=Math.floor(Math.random()*100000);
 	audioWorkletNode.port.postMessage({
 		kind: 'on',
 		key: 60,
 		duration: 0.5,
-		velocity: 0.75
+		velocity: 0.75,
+		id:id
 	});
 	setTimeout(function () {
 		audioWorkletNode.port.postMessage({
 			kind: 'off',
 			key: 60,
-			velocity: 0.75
+			velocity: 0.75,
+			id:id
 		});
 	}, 500);
 }
 function noteSend2() {
+	var id=Math.floor(Math.random()*100000);
 	audioWorkletNode.port.postMessage({
 		kind: 'on',
 		key: 80,
 		duration: 2,
-		velocity: 0.75
+		velocity: 0.75,id:id
 	});
 	setTimeout(function () {
 		audioWorkletNode.port.postMessage({
 			kind: 'off',
 			key: 80,
-			velocity: 0.75
+			velocity: 0.75,id:id
 		});
 	}, 2000);
 }

@@ -55,7 +55,8 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
 			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
-			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
+			//this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
+			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'string', ['number']);
 			this.VST3_sendNoteOn = this.vst.cwrap("VST3_sendNoteOn", '', ['number', 'number', 'number', 'number']);
 			this.VST3_sendNoteOff = this.vst.cwrap("VST3_sendNoteOff", '', ['number', 'number', 'number']);
 		} catch (exx) {
@@ -89,23 +90,29 @@ class VSTMODULENAMEProcessor extends AudioWorkletProcessor {
 			//this.sendParameter(e.data.value,e.data.subvalue);
 			//console.log(e.data.id,e.data.value);
 			this.VST3_setParameter(e.data.id, e.data.value);
-			for (var i = 0; i < this.testDescription.parameters.length; i++) {
-				var id=this.testDescription.parameters[i].id;
-				var value = this.VST3_getParameter(id);
-				this.port.postMessage({
-					kind: 'set',
-					id: id,
-					value: value
-				});
+			if(e.data.nocallback){
+				//
+			}else{
+				for (var i = 0; i < this.testDescription.parameters.length; i++) {
+					var id=this.testDescription.parameters[i].id;
+					var value = this.VST3_getParameter(id);
+					var o = JSON.parse(value);
+					//console.log(id,value);
+					this.port.postMessage({
+						kind: 'set',
+						id: id,
+						value: o
+					});
+				}
 			}
 			return;
 		}
 		if (e.data.kind == 'on') {
-			this.VST3_sendNoteOn(e.data.key, e.data.duration, e.data.velocity, 333222);
+			this.VST3_sendNoteOn(e.data.key, e.data.duration, e.data.velocity, e.data.id);
 			return;
 		}
 		if (e.data.kind == 'off') {
-			this.VST3_sendNoteOff(e.data.key, e.data.velocity, 333222);
+			this.VST3_sendNoteOff(e.data.key, e.data.velocity, e.data.id);
 			return;
 		}
 		/*if(e.data.kind=='description'){

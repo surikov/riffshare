@@ -1,6 +1,7 @@
 #PROJECTNAME = ADLY
 PROJECTNAME = MDA
-SUBNAME = DX10
+#SUBNAME = DX10
+SUBNAME = ELP
 TARGET = ./web/$(PROJECTNAME).js
 #PLUGINID = 0CDBB66985D548A9BFD8371909D24BB3
 #PLUGINID = 203C7009042A4AC2A515CFF1DF647E92
@@ -39,7 +40,7 @@ CFLAGS += -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap']"
 CFLAGS += -s "EXPORTED_FUNCTIONS=['_VST3_classInfo','_VST3_init', '_VST3_description', '_VST3_selectProcessor', '_VST3_parametersCount', '_VST3_parameterInfo', '_VST3_process', '_VST3_setParameter', '_VST3_getParameter', '_VST3_sendNoteOn', '_VST3_sendNoteOff']"
 CFLAGS += -D_DEBUG=1
 CFLAGS += -DDEVELOPMENT=1
-CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=0
+CFLAGS += -s ERROR_ON_UNDEFINED_SYMBOLS=1
 COMPILER = emcc
 LDFLAGS = -O2
 JSFLAGS = -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s BINARYEN_ASYNC_COMPILATION=0 
@@ -138,6 +139,7 @@ VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/conststringtable.cpp
 VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/coreiids.cpp
 VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/funknown.cpp
 VSTRUNTIME += $(VSTLIB)/pluginterfaces/base/ustring.cpp
+VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/memorystream.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/common/pluginview.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/linuxmain.cpp
 VSTRUNTIME += $(VSTLIB)/public.sdk/source/main/pluginfactoryvst3.cpp
@@ -227,7 +229,7 @@ VST4UI += $(VSTLIB)/vstgui4/vstgui/uidescription/xmlparser.cpp
 .PHONY: $(TARGET)
 $(TARGET):
 #	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME) $(VST4UI)
-	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME)
+#	$(COMPILER) $(CFLAGS) $(LDFLAGS) $(JSFLAGS) -o $@ ../../tools/VST3JSExport.cpp $(PLUGINSOURCE) $(VSTRUNTIME)
 #	cp ../../tools/index.html ./web/$(PROJECTNAME).html
 #	cp ../../tools/lib.js ./web/$(PROJECTNAME).lib.js
 #	cp ../../tools/processormodule.js ./web/$(PROJECTNAME).processor.js

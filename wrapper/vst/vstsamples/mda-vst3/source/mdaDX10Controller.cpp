@@ -15,6 +15,7 @@
  */
 
 #include "mdaDX10Controller.h"
+#include <emscripten.h>
 
 namespace Steinberg {
 namespace Vst {
@@ -129,7 +130,9 @@ tresult PLUGIN_API DX10Controller::setParamNormalized (ParamID tag, ParamValue v
 		{
 			BaseController::setParamNormalized (i, DX10Processor::programParams[program][i]);
 		}
+		emscripten_run_script("console.log('start componentHandler->restartComponent');//");
 		componentHandler->restartComponent (kParamValuesChanged);
+		emscripten_run_script("console.log('done componentHandler->restartComponent');//");
 	}
 	return res;
 }

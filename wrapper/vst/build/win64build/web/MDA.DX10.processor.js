@@ -16,7 +16,7 @@ class MDAProcessor extends AudioWorkletProcessor {
 		//this.onAir = false;
 		this.buflength = sampleRate; //128;
 		this.vst = AudioWorkletGlobalScope.WAM.MDA;
-		this.testID = 'FED93DB85E81448FA3B14028879FA824';
+		this.testID = 'F8713648E24441748AAA3B62A77F9E2D';
 		this.testNum = 0;
 		this.testDescription = null;
 		try {
@@ -55,7 +55,8 @@ class MDAProcessor extends AudioWorkletProcessor {
 			this.outArrayRight = this.allocateArray32(this.buflength);
 			this.VST3_process = this.vst.cwrap("VST3_process", 'number', ['number', 'number', 'number']);
 			this.VST3_setParameter = this.vst.cwrap("VST3_setParameter", '', ['number', 'number']);
-			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
+			//this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'number', ['number']);
+			this.VST3_getParameter = this.vst.cwrap("VST3_getParameter", 'string', ['number']);
 			this.VST3_sendNoteOn = this.vst.cwrap("VST3_sendNoteOn", '', ['number', 'number', 'number', 'number']);
 			this.VST3_sendNoteOff = this.vst.cwrap("VST3_sendNoteOff", '', ['number', 'number', 'number']);
 		} catch (exx) {
@@ -92,11 +93,12 @@ class MDAProcessor extends AudioWorkletProcessor {
 			for (var i = 0; i < this.testDescription.parameters.length; i++) {
 				var id=this.testDescription.parameters[i].id;
 				var value = this.VST3_getParameter(id);
-				this.port.postMessage({
+				console.log(id,value);
+				/*this.port.postMessage({
 					kind: 'set',
 					id: id,
 					value: value
-				});
+				});*/
 			}
 			return;
 		}

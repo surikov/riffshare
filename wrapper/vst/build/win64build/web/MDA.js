@@ -1676,7 +1676,7 @@ var ASM_CONSTS = [];
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 2116976;
+STATICTOP = STATIC_BASE + 2117328;
 /* global initializers */  __ATINIT__.push({ func: function() { __GLOBAL__sub_I_VST3JSExport_cpp() } }, { func: function() { __GLOBAL__sub_I_updatehandler_cpp() } }, { func: function() { __GLOBAL__sub_I_coreiids_cpp() } }, { func: function() { __GLOBAL__sub_I_pluginfactoryvst3_cpp() } }, { func: function() { __GLOBAL__sub_I_vstinitiids_cpp() } });
 
 
@@ -1685,7 +1685,7 @@ STATICTOP = STATIC_BASE + 2116976;
 
 
 
-var STATIC_BUMP = 2116976;
+var STATIC_BUMP = 2117328;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -2085,9 +2085,9 @@ function intArrayToString(array) {
 
 
 
-Module['wasmTableSize'] = 1793;
+Module['wasmTableSize'] = 1794;
 
-Module['wasmMaxTableSize'] = 1793;
+Module['wasmMaxTableSize'] = 1794;
 
 function invoke_did(index,a1,a2) {
   var sp = stackSave();

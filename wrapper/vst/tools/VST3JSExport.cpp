@@ -11,6 +11,8 @@
 
 #include "base/source/fstring.h"
 
+#include "public.sdk/source/common/memorystream.h"
+
 #include "public.sdk/source/vst/vstaudioeffect.h"
 #include "public.sdk/source/vst/hosting/processdata.h"
 #include "public.sdk/source/vst/hosting/eventlist.h"
@@ -67,7 +69,7 @@ void browserLogFloat(char const * txt, float f) {
 }
 class SilentComponentHandler: public Steinberg::FObject, public Steinberg::Vst::IComponentHandler {
 	public:
-		//int test=1;
+	Steinberg::Vst::IEditController* c;
 	Steinberg::tresult beginEdit (Steinberg::Vst::ParamID tag)	override {
 		return true;
 	}
@@ -78,6 +80,9 @@ class SilentComponentHandler: public Steinberg::FObject, public Steinberg::Vst::
 		return true;
 	}
 	Steinberg::tresult restartComponent	(	int 	flags	)override	{
+		Steinberg::MemoryStream stream;
+		c->getState(&stream);
+		c->setState(&stream);
 		return true;
 	}
 	OBJ_METHODS (SilentComponentHandler, Steinberg::FObject)
@@ -87,7 +92,7 @@ class SilentComponentHandler: public Steinberg::FObject, public Steinberg::Vst::
 	REFCOUNT_METHODS(Steinberg::FObject)
 };
 
-SilentComponentHandler * silentComponentHandler;
+SilentComponentHandler * silentComponentHandler = new SilentComponentHandler();
 
 Steinberg::int32 createBuffers (Steinberg::Vst::IComponent& component, Steinberg::Vst::AudioBusBuffers*& buffers
                                 , Steinberg::Vst::BusDirection dir, Steinberg::int32 bufferSamples, Steinberg::int32 symbolicSampleSize
@@ -166,9 +171,9 @@ extern "C" {
 		return selectedEditController->getParameterCount();
 	}
 	void VST3_setParameter(int id, float value) {
-		browserLogInteger("set", id);
-		browserLogFloat("to", value);
-
+		//browserLogInteger("set", id);
+		//browserLogFloat("to", value);
+//browserLogInteger("test parameter handler",silentComponentHandler->restartComponent (Steinberg::Vst::kParamValuesChanged));
 		/*
 		Steinberg::Vst::IParamValueQueue* queue = 0;
 		int parameterIndex=0;
@@ -179,14 +184,29 @@ extern "C" {
 		*/
 		selectedEditController->setParamNormalized(id, value);
 
-		browserLogFloat("plain", selectedEditController->normalizedParamToPlain(id, value));
-		browserLogFloat("normalized", selectedEditController->plainParamToNormalized(id, value));
+		//browserLogFloat("plain", selectedEditController->normalizedParamToPlain(id, value));
+		//browserLogFloat("normalized", selectedEditController->plainParamToNormalized(id, value));
 		//selectedComponent->setActive(false);
 		//selectedComponent->setActive(true);
 	}
-	float VST3_getParameter(int id) {
+	char const* VST3_getParameter(int id) {
 		double value = selectedEditController->getParamNormalized(id);
-		return value;
+		Steinberg::Vst::String128 utf16Str;
+		selectedEditController->getParamStringByValue(id,value,utf16Str);
+		Steinberg::UString128 title16 (utf16Str);
+		char title8[128];
+		title16.toAscii (title8, 128);
+		//Steinberg::String utf8Str (utf16Str);
+		//char title8[64];
+		//utf8Str.toAscii (title8, 64);
+		char buffer[999];
+		snprintf(buffer, sizeof(buffer)
+		         , "{\"normalized\":\"%f\", \"representation\":\"%s\"}"
+		         , value
+		         , title8
+		        );
+		char const *p = buffer;
+		return p;
 	}
 	void VST3_sendNoteOn(int key, float duration, double velocity, int id) {
 		//browserLogInteger("add on event to",inputEventList.getEventCount());
@@ -224,7 +244,7 @@ extern "C" {
 		char buffer[999];
 
 		selectedEditController->getParameterInfo (nn, parameterInfo);
-		selectedEditController->setComponentHandler(nullptr);
+		//selectedEditController->setComponentHandler(nullptr);
 
 		Steinberg::UString128 title16 (parameterInfo.title);
 		char title8[128];
@@ -269,10 +289,16 @@ extern "C" {
 					if (selectedEditController && (result == Steinberg::kResultOk))
 					{
 						result = selectedEditController->initialize (localPluginContext);
-						silentComponentHandler = new SilentComponentHandler();
+						//silentComponentHandler = new SilentComponentHandler();
 						//silentComponentHandler->test=400;
 						result = selectedEditController->setComponentHandler(silentComponentHandler);
-						browserLogInteger("selectedEditController->setComponentHandler",result);
+						silentComponentHandler->c=selectedEditController;
+						
+						//browserLogInteger("test handler",silentComponentHandler->restartComponent (Steinberg::Vst::kParamValuesChanged));
+						
+						
+						
+						
 						Steinberg::FUnknownPtr<Steinberg::Vst::IAudioProcessor> selectedProcessor = selectedComponent;
 						selectedProcessor = selectedComponent;
 						if (!selectedProcessor) {
