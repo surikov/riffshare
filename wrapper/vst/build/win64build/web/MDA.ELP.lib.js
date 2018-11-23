@@ -27,7 +27,9 @@ function probeInit() {
 				//audioWorkletNode.port.postMessage([1010, audioContext.sampleRate]);
 				audioWorkletNode.port.postMessage({
 					kind: 'setup',
-					sampleRate: audioContext.sampleRate
+					bufferLength: 128,
+					sampleRate: audioContext.sampleRate,
+					currentTime: audioContext.currentTime
 				});
 				//audioWorkletNode.connect(audioContext.destination);
 				audioWorkletNode.connect(outputAudioNode);
@@ -67,6 +69,12 @@ function setParameterLabel(id,representation,norm){
 	}
 	
 	//console.log(id,representation);
+}
+function sync() {
+	audioWorkletNode.port.postMessage({
+			kind: 'sync',
+			time: audioContext.currentTime
+		});
 }
 function resetParameters(value) {
 	document.getElementById('uidiv').innerHTML = '<p>ready</p>';
@@ -132,6 +140,16 @@ function __probeHigh() {
 		subvalue: 3.21
 	});
 }
+function enqueue(when,pitch,duration,velocity) {
+	audioWorkletNode.port.postMessage({
+		kind: 'enqueue',
+		when:when,
+		pitch: pitch,
+		duration: duration,
+		velocity:velocity
+	});
+	sync();
+}
 function noteSend1() {
 	var id=Math.floor(Math.random()*100000);
 	audioWorkletNode.port.postMessage({
@@ -149,6 +167,7 @@ function noteSend1() {
 			id:id
 		});
 	}, 500);
+	sync();
 }
 function noteSend2() {
 	var id=Math.floor(Math.random()*100000);
@@ -165,6 +184,32 @@ function noteSend2() {
 			velocity: 0.75,id:id
 		});
 	}, 2000);
+	sync();
+}
+function chordSend(){
+	var id=Math.floor(Math.random()*100000);
+	
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+0,velocity: 0.75,duration: 1,id:id+0});}, 1);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+3,velocity: 0.75,duration: 1,id:id+1});}, 500);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+7,velocity: 0.75,duration: 1,id:id+2});}, 1000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+12,velocity: 0.75,duration: 1,id:id+3});}, 1500);
+	
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+0,velocity: 0.75 ,id:id+0});}, 1000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+3,velocity: 0.75 ,id:id+1});}, 1500);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+7,velocity: 0.75 ,id:id+2});}, 2000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+12,velocity: 0.75 ,id:id+2});}, 2500);
+	
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+0,velocity: 0.75,duration: 1,id:id+4});}, 2000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+3,velocity: 0.75,duration: 1,id:id+5});}, 2000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+7,velocity: 0.75,duration: 1,id:id+6});}, 2000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'on',	key: 60+12,velocity: 0.75,duration: 1,id:id+7});}, 2000);
+	
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+0,velocity: 0.75 ,id:id+4});}, 3000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+3,velocity: 0.75 ,id:id+5});}, 3000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+7,velocity: 0.75 ,id:id+6});}, 3000);
+	setTimeout(function () {audioWorkletNode.port.postMessage({kind: 'off',	key: 60+12,velocity: 0.75 ,id:id+7});}, 300);
+	
+	sync();
 }
 function noteFx() {
 	console.log('noteStart');

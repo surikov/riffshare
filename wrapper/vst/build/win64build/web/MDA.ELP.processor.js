@@ -6,22 +6,27 @@ class MDAProcessor extends AudioWorkletProcessor {
 		this.port.onmessage = this.onmessage.bind(this);
 		this.port.start();
 		//this.port.postMessage('processor constructor done');
+		
 	}
-	setup(sampleRate) {
-		console.log('setup', sampleRate);
+	setup(buffLength,sampleRate,currentTime) {
+		console.log('setup', buffLength,sampleRate,currentTime);
 		this.first = 0;
 		//this.waveCounter = 0;
 		//this.waveLen = 555;
 		//this.waveSample = 0.155;
 		//this.onAir = false;
-		this.buflength = sampleRate; //128;
+		this.localCurrentTime=currentTime;
+		this.localSampleRate=sampleRate;
+		this.buflength = buffLength;//sampleRate; //128;
 		this.vst = AudioWorkletGlobalScope.WAM.MDA;
+		this.queuOn = [];
+		this.queuOff = [];
 		this.testID = 'FED93DB85E81448FA3B14028879FA824';
 		this.testNum = 0;
 		this.testDescription = null;
 		try {
 			this.VST3Init = this.vst.cwrap("VST3_init", 'number', ['number', 'number']);
-			this.VST3Init(128, sampleRate);
+			this.VST3Init(this.buflength, this.localSampleRate);
 			this.VST3Description = this.vst.cwrap("VST3_description", 'string', []);
 			var txt = this.VST3Description();
 			var o = JSON.parse(txt);
@@ -83,18 +88,18 @@ class MDAProcessor extends AudioWorkletProcessor {
 	onmessage(e) {
 		//console.log('processor: received:', e.data);
 		if (e.data.kind == 'setup') {
-			this.setup(e.data.sampleRate);
+			this.setup(e.data.bufferLength,e.data.sampleRate,e.data.currentTime);
 			return;
 		}
 		if (e.data.kind == 'set') {
 			//this.sendParameter(e.data.value,e.data.subvalue);
 			//console.log(e.data.id,e.data.value);
 			this.VST3_setParameter(e.data.id, e.data.value);
-			if(e.data.nocallback){
+			if (e.data.nocallback) {
 				//
-			}else{
+			} else {
 				for (var i = 0; i < this.testDescription.parameters.length; i++) {
-					var id=this.testDescription.parameters[i].id;
+					var id = this.testDescription.parameters[i].id;
 					var value = this.VST3_getParameter(id);
 					var o = JSON.parse(value);
 					//console.log(id,value);
@@ -113,6 +118,15 @@ class MDAProcessor extends AudioWorkletProcessor {
 		}
 		if (e.data.kind == 'off') {
 			this.VST3_sendNoteOff(e.data.key, e.data.velocity, e.data.id);
+			return;
+		}
+		if (e.data.kind == 'enqueue') {
+			enqueue(e.data.when, e.data.pitch, e.data.duration, e.data.velocity);
+			return;
+		}
+		if (e.data.kind == 'sync') {
+			console.log(this.localCurrentTime,'>',e.data.time);
+			this.localCurrentTime=e.data.time;
 			return;
 		}
 		/*if(e.data.kind=='description'){
@@ -143,7 +157,43 @@ class MDAProcessor extends AudioWorkletProcessor {
 	console.log('sendParameter',id,value);
 	this.VST3_setParameter(id,value);
 	}*/
+	
+	compareTime(a, b) {
+		if (a.when < b.when) {
+			return -1;
+		} else {
+			if (a.when > b.when) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+
+	}
+	enqueue(when, pitch, duration, velocity) {
+		var note = {
+			when: when,
+			pitch: pitch,
+			duration: duration,
+			velocity: velocity
+		};
+		this.queuOn.push(note);
+		this.queuOn.sort(this.compareTime);
+	}
+	checkQueue() {
+		/*for(var i=0;i<this.queuOn.length;i++){
+			if(
+		}*/
+	}
 	process(inputs, outputs, parameters) {
+		this.localCurrentTime=this.localCurrentTime+this.buflength/this.localSampleRate;
+		/*console.log('this',this);
+		console.log('AudioWorkletGlobalScope',AudioWorkletGlobalScope);
+		console.log('AudioWorkletGlobalScope.WAM',AudioWorkletGlobalScope.WAM);
+		console.log('AudioWorkletGlobalScope.currentTime',AudioWorkletGlobalScope.currentTime);
+		console.log('self',self);
+		checkQueue();
+		*/
 		if (inputs.length > 0) {
 			var firstInput = inputs[0];
 			if (firstInput.length > 0) {
